@@ -1,4 +1,44 @@
-[gd_scene load_steps=11 format=3 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=9 format=3 uid="uid://ch37b3vrtbtsd"]
+
+[ext_resource type="PackedScene" uid="uid://c2kcj7dglcsx2" path="res://assets/gunmodels/blaster-a.fbx" id="1_3vyb7"]
+
+[sub_resource type="Animation" id="Animation_3vyb7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.517026, -0.451205, -0.942633)]
+}
+
+[sub_resource type="Animation" id="Animation_u8vuu"]
+resource_name = "gunBob"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.517026, -0.451205, -0.942633), Vector3(0.517026, -0.367343, -0.942633)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o7tup"]
+_data = {
+&"RESET": SubResource("Animation_3vyb7"),
+&"gunBob": SubResource("Animation_u8vuu")
+}
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mh8"]
 
@@ -7,55 +47,16 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2mh8"]
 albedo_color = Color(0.882353, 0.694118, 0, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cvunv"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvunv"]
-albedo_color = Color(0.972974, 0.220898, 0.369753, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
 size = Vector3(0.752441, 0.138672, 0.796112)
 
-[sub_resource type="Animation" id="Animation_cvunv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Skeleton3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.09807, -3.37765)]
+[node name="Player" type="CharacterBody3D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7tup")
 }
-
-[sub_resource type="Animation" id="Animation_b2mh8"]
-resource_name = "weaponBob"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Skeleton3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1.09807, -3.37765), Vector3(0, 1.91807, -3.37765)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_o7tup"]
-_data = {
-&"RESET": SubResource("Animation_cvunv"),
-&"weaponBob": SubResource("Animation_b2mh8")
-}
-
-[sub_resource type="BoxMesh" id="BoxMesh_b2mh8"]
-
-[node name="CharacterBody3D" type="CharacterBody3D"]
+speed_scale = 1.1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -66,31 +67,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_b2mh8")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
+[node name="footCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0763467, 0.00931263)
+shape = SubResource("BoxShape3D_b2mh8")
+
 [node name="Pivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
 
-[node name="weapon" type="AnimatableBody3D" parent="Pivot"]
-transform = Transform3D(0.329357, 0, 0, 0, -1.43967e-08, -0.329357, 0, 0.329357, -1.43967e-08, 0.292683, -0.211727, -0.411211)
+[node name="gun" type="Skeleton3D" parent="Pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.517026, -0.451205, -0.942633)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot/weapon"]
-mesh = SubResource("CapsuleMesh_cvunv")
-surface_material_override/0 = SubResource("StandardMaterial3D_cvunv")
-
-[node name="footCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0763467, 0.00931263)
-shape = SubResource("BoxShape3D_b2mh8")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_o7tup")
-}
-speed_scale = 1.1
-
-[node name="Skeleton3D" type="Skeleton3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09807, -3.37765)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Skeleton3D"]
-mesh = SubResource("BoxMesh_b2mh8")
+[node name="pistol" parent="Pivot/gun" instance=ExtResource("1_3vyb7")]

@@ -24,8 +24,8 @@ func _input(event) -> void:
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
 
 func _physics_process(delta: float) -> void:
-	if velocity != Vector3.ZERO:
-		animation_player.play("weaponBob")
+	if velocity.x != 0 or velocity.z != 0:
+		animation_player.play("gunBob")
 	else:
 		animation_player.stop()
 	
