@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ddw2badfdmuup"]
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/character_body_3d.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/character_body_3d.gd" id="3_sugp2"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sgp6g"]
