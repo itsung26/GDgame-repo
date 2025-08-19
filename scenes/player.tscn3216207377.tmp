@@ -1,0 +1,149 @@
+[gd_scene load_steps=12 format=3 uid="uid://ch37b3vrtbtsd"]
+
+[ext_resource type="PackedScene" uid="uid://c2kcj7dglcsx2" path="res://assets/gunmodels/blaster-a.fbx" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://b40wwcreordgs" path="res://scenes/minigun.tscn" id="1_qhqgy"]
+[ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/guns.gd" id="2_g2els"]
+
+[sub_resource type="Animation" id="Animation_g2els"]
+length = 0.001
+capture_included = true
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/pistol:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0.687, -0.416, -0.943)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/pistol:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qhqgy"]
+resource_name = "inspect"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/pistol:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.60352, 2.03333, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.205949, 0.411898, 0), Vector3(0.205949, 0.411898, 0), Vector3(0.205949, 0.205949, 1.64759), Vector3(0.205949, 0.205949, 1.64759), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/pistol:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.60352, 2.03333, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.687, -0.416, -0.943), Vector3(0.582, -0.331, -0.943), Vector3(0.582, -0.331, -0.943), Vector3(0.582, -0.331, -1.098), Vector3(0.582, -0.331, -1.098), Vector3(0.687, -0.416, -0.943)]
+}
+
+[sub_resource type="Animation" id="Animation_3vyb7"]
+resource_name = "recoil"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/pistol:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.687, -0.416, -0.943), Vector3(0.687, -0.416, -0.828), Vector3(0.687, -0.416, -0.943)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/pistol")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o7tup"]
+_data = {
+&"RESET": SubResource("Animation_g2els"),
+&"inspect": SubResource("Animation_qhqgy"),
+&"recoil": SubResource("Animation_3vyb7")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mh8"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_b2mh8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2mh8"]
+albedo_color = Color(0.882353, 0.694118, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
+size = Vector3(0.752441, 0.138672, 0.796112)
+
+[node name="Player" type="CharacterBody3D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7tup")
+}
+speed_scale = 1.1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_b2mh8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_b2mh8")
+surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
+
+[node name="footCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0763467, 0.00931263)
+shape = SubResource("BoxShape3D_b2mh8")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Pivot"]
+unique_name_in_owner = true
+
+[node name="minigun" parent="Pivot/Camera3D" instance=ExtResource("1_qhqgy")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.185, -0.25, -0.46)
+script = ExtResource("2_g2els")
+
+[node name="pistol" parent="Pivot/Camera3D" instance=ExtResource("1_3vyb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
+visible = false
+script = ExtResource("2_g2els")
+
+[node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0.00434119, -0.0047704, -0.40687)
+target_position = Vector3(0, 0, 900)
+collision_mask = 2
