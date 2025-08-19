@@ -37,3 +37,6 @@ func _process(_delta) -> void:
 	
 	if Input.is_action_pressed("inspect weapon"):
 		animation_player.play("inspect")
+		
+	if Input.is_action_pressed("reload"):
+		animation_player.play("reload_pistol")

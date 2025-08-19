@@ -20,6 +20,18 @@ unique_name_in_owner = true
 process_mode = 3
 script = ExtResource("1_0wfyh")
 
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="HUD"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "12/12"
+
 [node name="WorldFloor" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldFloor"]
