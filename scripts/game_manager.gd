@@ -10,7 +10,6 @@ func _ready() -> void:
 var ispaused = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
-	ammo_counter.text = pistol.ammo
 	
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()

@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctxddstc2vto8"]
+
+[ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ahhtf")
+
+[node name="ammoCounter" type="Label" parent="."]
+unique_name_in_owner = true
+offset_top = 521.0
+offset_right = 243.0
+offset_bottom = 646.0
+theme_override_font_sizes/font_size = 91
+text = "50/50"
+
+[node name="debug" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "current animation: null"

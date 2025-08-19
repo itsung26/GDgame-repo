@@ -1,5 +1,6 @@
-[gd_scene load_steps=17 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=18 format=4 uid="uid://ch37b3vrtbtsd"]
 
+[ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/character_body_3d.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/blaster.gd" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://57ppfu3duqgj" path="res://assets/gunmodels/Textures/colormap.png" id="3_qhqgy"]
 
@@ -273,6 +274,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tagw2")
 
 [node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_qhqgy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -340,3 +342,6 @@ bone_idx = 1
 [node name="magazine" type="MeshInstance3D" parent="Pivot/Camera3D/pistol/Skeleton3D/magazine"]
 mesh = SubResource("ArrayMesh_xmoan")
 skeleton = NodePath("")
+
+[connection signal="current_anim" from="Pivot/Camera3D/pistol" to="." method="_on_pistol_current_anim"]
+[connection signal="current_blaster_ammo" from="Pivot/Camera3D/pistol" to="." method="_on_pistol_current_blaster_ammo"]

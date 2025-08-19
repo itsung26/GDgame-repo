@@ -10,6 +10,9 @@ extends CharacterBody3D
 @export var JUMP_VELOCITY = 4.5
 @export var look_sensitivity = 0.1
 
+signal relay_blaster_ammo(amount)
+signal relay_current_anim(anim)
+
 func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -53,3 +56,11 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+
+func _on_pistol_current_blaster_ammo(amount: Variant) -> void:
+	relay_blaster_ammo.emit(amount)
+
+
+func _on_pistol_current_anim(anim: Variant) -> void:
+	relay_current_anim.emit(anim)
