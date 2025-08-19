@@ -1,6 +1,5 @@
 extends Node3D
 @onready var animation_player: AnimationPlayer = $minigun/AnimationPlayer
-@onready var spin_up_timer: Timer = $SpinUpTimer
 
 
 

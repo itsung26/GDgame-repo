@@ -438,6 +438,33 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_sku8c")
 
+[sub_resource type="Animation" id="Animation_78n6h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model/9bb3264c85b6402a8d08934860528c6d_fbx/Object_2/RootNode/Main/Object_5/MINIGUN/barrels:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 6.28319)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -0.0620145)]
+}
+
 [sub_resource type="Animation" id="Animation_7hkvm"]
 resource_name = "allanims"
 length = 6.0
@@ -694,49 +721,6 @@ tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.0333333, 1, 0, 0.0666667, -2.8, 0.166667, 1, 0, 0.0666667, 0.607594, 0.2, 1, 0, 0, 0, 0.233333, 1, 0, 0, 0, 1.1, 1, 0, -0.4, 0, 2, 1, 0, 0, 0, 2.03333, 1, 0, 0, 0, 2.16667, 1, 0.666667, -2.2, 5, 2.43333, 1, 2, 2.2, 3.69022, 2.5, 1, -1, -2, 3.36278, 2.66667, 1, -0.4, -0.333, 2.54417, 3, 1, -1.8, 2.24864, 0.906944, 3.26667, 1, -1.58667, 1.21621, 1.12584, 3.4, 1, -1.48, 1.77838, 1.23529, 3.5, 1, -1.4, 2.2, -0.802441, 3.56667, 1, 2.4, -0.199998, -2.16093, 3.86667, 1, -0.799999, -0.2, 4, 4, 1, -0.533333, -2.2, 2.66667, 4.2, 1, -0.133334, 0.449997, 0.666669, 4.26667, 1, 0, 0, 0, 4.3, 1, 0, 0, 0, 4.36667, 1, 0, 2.14499, -1.11327, 4.46667, 1, 0, -2.53752, -2.78317, 4.66667, 1, 0, -3.30255, -6.12296, 4.76667, 1, 0, -1.94066, -0.982688, 5.06667, 1, 0, 2.14499, -1.90869, 5.2, 1, 0, 0.919284, 0.25101, 5.3, 1, 0, 0, 0, 5.33333, 1, 0, 0, 0, 5.4, 1, 0, 0.285714, -4.71698, 5.5, 1, 0, 0.714286, -4.33962, 5.6, 1, 0, 0.923077, -0.503148, 5.93333, 1, 0, 0.153846, -0.644654, 6, 1, 0, 0, 0)
 
-[sub_resource type="Animation" id="Animation_q8v0p"]
-resource_name = "spinUp"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sketchfab_model/9bb3264c85b6402a8d08934860528c6d_fbx/Object_2/RootNode/Main/Object_5/MINIGUN/barrels:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 6.28319)]
-}
-
-[sub_resource type="Animation" id="Animation_78n6h"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sketchfab_model/9bb3264c85b6402a8d08934860528c6d_fbx/Object_2/RootNode/Main/Object_5/MINIGUN/barrels:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 6.28319)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, -0.0620145)]
-}
-
 [sub_resource type="Animation" id="Animation_yk4b2"]
 resource_name = "fireMinigun"
 length = 0.1
@@ -763,6 +747,22 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, -0.0620145), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_q8v0p"]
+resource_name = "spinUp"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sketchfab_model/9bb3264c85b6402a8d08934860528c6d_fbx/Object_2/RootNode/Main/Object_5/MINIGUN/barrels:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 6.28319)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lfxkx"]
@@ -1160,7 +1160,7 @@ mesh = SubResource("ArrayMesh_8jgrx")
 skeleton = NodePath("")
 
 [node name="barrels" type="Node3D" parent="minigun/Sketchfab_model/9bb3264c85b6402a8d08934860528c6d_fbx/Object_2/RootNode/Main/Object_5/MINIGUN"]
-transform = Transform3D(1, -1.74846e-07, 0, 1.74846e-07, 1, 0, 0, 0, 1, 0, 0, 23.5589)
+transform = Transform3D(1, -4.46638e-06, 0, 4.46638e-06, 1, 0, 0, 0, 1, 0, 0, 23.5589)
 
 [node name="barrels_minigun_0" type="MeshInstance3D" parent="minigun/Sketchfab_model/9bb3264c85b6402a8d08934860528c6d_fbx/Object_2/RootNode/Main/Object_5/MINIGUN/barrels"]
 mesh = SubResource("ArrayMesh_08a2j")
