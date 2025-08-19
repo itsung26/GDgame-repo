@@ -12,6 +12,7 @@ extends CharacterBody3D
 
 signal relay_blaster_ammo(amount)
 signal relay_current_anim(anim)
+signal camera_look_dir(looking_at)
 
 func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
@@ -27,6 +28,13 @@ func _input(event) -> void:
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
 
 func _physics_process(delta: float) -> void:
+	# clamp the camera pivot view
+	var b = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
+	pivot.rotation_degrees.x = b
+	
+	# emit the current looking at direction of pitch for the player's look
+	camera_look_dir.emit(pivot.rotation_degrees)
+	
 	# gun bobbing on walk animation
 	'''
 	if velocity.x != 0 or velocity.z != 0:

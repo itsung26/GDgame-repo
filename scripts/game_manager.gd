@@ -1,6 +1,5 @@
 extends Node
 @onready var ammo_counter: Label = $"../HUD/ammoCounter"
-@onready var pistol: Skeleton3D = $Pivot/Camera3D/pistol
 
 
 # Called when the node enters the scene tree for the first time.

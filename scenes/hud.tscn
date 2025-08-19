@@ -19,9 +19,17 @@ offset_bottom = 646.0
 theme_override_font_sizes/font_size = 91
 text = "50/50"
 
-[node name="debug" type="Label" parent="."]
+[node name="AnimDebug" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "current animation: null"
+
+[node name="CameraLookDebug" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 23.0
+offset_right = 179.0
+offset_bottom = 46.0
+text = "(null, null, null)"

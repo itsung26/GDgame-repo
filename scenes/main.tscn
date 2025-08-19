@@ -45,5 +45,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9517, 1, -24.0082)
 [node name="Enemy2" parent="." instance=ExtResource("4_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.4775, 1, -24.1327)
 
+[connection signal="camera_look_dir" from="Player" to="HUD" method="_on_player_camera_look_dir"]
 [connection signal="relay_blaster_ammo" from="Player" to="HUD" method="_on_player_relay_blaster_ammo"]
 [connection signal="relay_current_anim" from="Player" to="HUD" method="_on_player_relay_current_anim"]
