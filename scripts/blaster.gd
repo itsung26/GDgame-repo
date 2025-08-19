@@ -2,7 +2,13 @@ extends Skeleton3D
 
 @onready var animation_player: AnimationPlayer = $"../../../AnimationPlayer"
 @onready var ray_cast_3d: RayCast3D = $"../RayCast3D"
+
 const BULLET_DECAL = preload("res://scenes/bullet_decal.tscn")
+
+# definitions for ammo
+const MAGSIZE = 50
+var ammo = 50
+const DAMAGE = 2
 
 
 # instantiate a body from the return of the get_collider() method
@@ -16,7 +22,7 @@ func fire():
 		body.add_child(b)
 		b.global_transform.origin = ray_cast_3d.get_collision_point()
 		b.look_at(ray_cast_3d.get_collision_point() + ray_cast_3d.get_collision_normal(), Vector3.UP)
-		body.health -= 10
+		body.health = body.health - DAMAGE
 		print("health of enemy:")
 		print(body.health)
 
@@ -27,16 +33,23 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
+	print(animation_player.current_animation)
 	# a random num to aid in randomizing animation variants
 	var random = randi_range(0,1)
 	
 	if Input.is_action_pressed("fire"):
 		if animation_player.current_animation == "inspect":
 			animation_player.stop()
-		animation_player.play("recoil")
+		elif animation_player.current_animation == "reload_pistol":
+			pass
+		else:
+			animation_player.play("recoil")
 	
 	if Input.is_action_pressed("inspect weapon"):
-		animation_player.play("inspect")
+		if animation_player.current_animation == "reload_pistol":
+			pass
+		else:
+			animation_player.play("inspect")
 		
 	if Input.is_action_pressed("reload"):
 		animation_player.play("reload_pistol")

@@ -1,6 +1,5 @@
-[gd_scene load_steps=18 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=17 format=4 uid="uid://ch37b3vrtbtsd"]
 
-[ext_resource type="PackedScene" uid="uid://bog4locpa0ilv" path="res://scenes/minigun.tscn" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/blaster.gd" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://57ppfu3duqgj" path="res://assets/gunmodels/Textures/colormap.png" id="3_qhqgy"]
 
@@ -286,9 +285,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
 
-[node name="minigun" parent="Pivot/Camera3D" instance=ExtResource("1_qhqgy")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.185, -0.25, -0.46)
-visible = false
+[node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0.00434119, -0.0047704, -0.40687)
+target_position = Vector3(0, 0, 900)
+collision_mask = 2
 
 [node name="pistol" type="Skeleton3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
@@ -326,8 +326,3 @@ bone_idx = 1
 [node name="magazine" type="MeshInstance3D" parent="Pivot/Camera3D/pistol/Skeleton3D/magazine"]
 mesh = SubResource("ArrayMesh_xmoan")
 skeleton = NodePath("")
-
-[node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0.00434119, -0.0047704, -0.40687)
-target_position = Vector3(0, 0, 900)
-collision_mask = 2
