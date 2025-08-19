@@ -24,10 +24,13 @@ func _input(event) -> void:
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
 
 func _physics_process(delta: float) -> void:
+	# gun bobbing on walk animation
+	'''
 	if velocity.x != 0 or velocity.z != 0:
 		animation_player.play("gunBob")
 	else:
 		animation_player.stop()
+	'''
 	
 	# Add the gravity.
 	if not is_on_floor():

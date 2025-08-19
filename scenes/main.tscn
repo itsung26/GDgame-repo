@@ -1,15 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddw2badfdmuup"]
+[gd_scene load_steps=10 format=3 uid="uid://ddw2badfdmuup"]
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/character_body_3d.gd" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://cikqg67necxxx" path="res://scripts/test_enemy.gd" id="4_jyhfs"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sgp6g"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_sgp6g"]
 size = Vector2(500, 500)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
+albedo_color = Color(1, 0.317647, 0.164706, 1)
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sugp2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sugp2"]
 
 [node name="main" type="Node3D"]
 
@@ -26,14 +32,25 @@ debug_fill = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldFloor"]
 mesh = SubResource("PlaneMesh_sgp6g")
+surface_material_override/0 = SubResource("StandardMaterial3D_sugp2")
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.301, 0, -19.0991)
+collision_mask = 3
 script = ExtResource("3_sugp2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -2.98023e-08, 1, 0, -1, -2.98023e-08, -16.0502, 510.402, -17.315)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.5698, 1.1295, -23.6683)
+[node name="TestEnemy" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.9353, 1, -23.7502)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("4_jyhfs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestEnemy"]
 mesh = SubResource("CapsuleMesh_sugp2")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestEnemy"]
+shape = SubResource("CapsuleShape3D_sugp2")
