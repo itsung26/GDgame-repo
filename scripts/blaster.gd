@@ -10,11 +10,13 @@ const MAGSIZE = 50
 var ammo = 50
 const DAMAGE = 2
 
-
 # instantiate a body from the return of the get_collider() method
 func fire():
 	var body = ray_cast_3d.get_collider()
 	var b = BULLET_DECAL.instantiate()
+	
+	# below occurs regardless of wether the bullets hit something or otherwise
+	ammo -= 1
 	
 	# pass if returns null to avoid null refrence errors
 	# in other words, IF IT HITS SOMETHING DO THIS VVVVVV
@@ -25,6 +27,9 @@ func fire():
 		body.health = body.health - DAMAGE
 		print("health of enemy:")
 		print(body.health)
+
+func reload():
+	ammo = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -43,7 +48,8 @@ func _process(_delta) -> void:
 		elif animation_player.current_animation == "reload_pistol":
 			pass
 		else:
-			animation_player.play("recoil")
+			if ammo > 0:
+				animation_player.play("recoil")
 	
 	if Input.is_action_pressed("inspect weapon"):
 		if animation_player.current_animation == "reload_pistol":

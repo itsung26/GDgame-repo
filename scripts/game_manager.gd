@@ -1,4 +1,6 @@
 extends Node
+@onready var ammo_counter: Label = $"../HUD/ammoCounter"
+@onready var pistol: Skeleton3D = $Pivot/Camera3D/pistol
 
 
 # Called when the node enters the scene tree for the first time.
@@ -8,6 +10,8 @@ func _ready() -> void:
 var ispaused = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
+	ammo_counter.text = pistol.ammo
+	
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()
 	
