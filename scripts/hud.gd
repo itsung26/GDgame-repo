@@ -26,4 +26,4 @@ func _on_player_relay_current_anim(anim: Variant) -> void:
 
 # show camera look direction
 func _on_player_camera_look_dir(looking_at: Variant) -> void:
-	camera_looking_at_text = "camera looking at: " + str(looking_at)
+	camera_looking_at_text = "camera.bais: " + str(looking_at)

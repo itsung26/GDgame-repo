@@ -47,7 +47,7 @@ func _process(_delta) -> void:
 	
 	current_anim.emit(animation_player.current_animation)
 	# a random num to aid in randomizing animation variants
-	var random = randi_range(0,1)
+	# var random = randi_range(0,1)
 	
 	if Input.is_action_pressed("fire"):
 		if animation_player.current_animation == "inspect" or animation_player.current_animation == "inspect 2":
@@ -57,19 +57,13 @@ func _process(_delta) -> void:
 		else:
 			if ammo > 0:
 				animation_player.play("recoil")
+			elif ammo == 0: animation_player.play("reload_pistol")
 	
 	if Input.is_action_pressed("inspect weapon"):
-		print(random)
-		if random == 1:
-			if animation_player.current_animation == "reload_pistol":
-				pass
-			else:
-				animation_player.play("inspect")
-		elif random == 2:
-			if animation_player.current_animation == "reload_pistol":
-				pass
-			else:
-				animation_player.play("inspect 2")
+		if animation_player.current_animation == "reload_pistol":
+			pass
+		else:
+			animation_player.play("inspect")
 			
 		
 	if Input.is_action_pressed("reload"):

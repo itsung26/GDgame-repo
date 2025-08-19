@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://bli4v373k8v3j"]
+
+[ext_resource type="PackedScene" uid="uid://c83c8bykmod0w" path="res://assets/charactermodels/character-d.fbx" id="1_0u8cw"]
+
+[node name="character-d" instance=ExtResource("1_0u8cw")]
+
+[node name="leg-left" parent="Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, 2.03489e-14)
+bone_idx = 2
+
+[node name="leg-right" parent="Skeleton3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1, 2.18378e-14)
+bone_idx = 3
+
+[node name="torso" parent="Skeleton3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+bone_idx = 4
+
+[node name="arm-left" parent="Skeleton3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 1.8, -0.1)
+bone_idx = 5
+
+[node name="arm-right" parent="Skeleton3D" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.8, -0.1)
+bone_idx = 6
+
+[node name="head" parent="Skeleton3D" index="5"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 1.9, 0)
+bone_idx = 7

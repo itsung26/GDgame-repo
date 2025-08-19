@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=21 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/character_body_3d.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/blaster.gd" id="2_g2els"]
@@ -69,34 +69,6 @@ tracks/5/path = NodePath("Pivot/Camera3D/pistol/Skeleton3D/magazine")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = PackedFloat32Array(0, 1, 0, -0.152951, -0.145)
-
-[sub_resource type="Animation" id="Animation_qhqgy"]
-resource_name = "inspect"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/Camera3D/pistol:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.60352, 2.03333, 2.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.205949, 0.411898, 0), Vector3(0.205949, 0.411898, 0), Vector3(0.205949, 0.205949, 1.64759), Vector3(0.205949, 0.205949, 1.64759), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/Camera3D/pistol:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.60352, 2.03333, 2.5, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.687, -0.416, -0.943), Vector3(0.582, -0.331, -0.943), Vector3(0.582, -0.331, -0.943), Vector3(0.582, -0.331, -1.098), Vector3(0.582, -0.331, -1.098), Vector3(0.687, -0.416, -0.943)]
-}
 
 [sub_resource type="Animation" id="Animation_3vyb7"]
 resource_name = "recoil"
@@ -196,7 +168,7 @@ tracks/4/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_qlg0r"]
-resource_name = "inspect 2"
+resource_name = "inspect"
 length = 3.0
 tracks/0/type = "position_3d"
 tracks/0/imported = false
@@ -230,8 +202,7 @@ tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 1, 1, 0, 0, -0.390731, 0.92
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o7tup"]
 _data = {
 &"RESET": SubResource("Animation_g2els"),
-&"inspect": SubResource("Animation_qhqgy"),
-&"inspect 2": SubResource("Animation_qlg0r"),
+&"inspect": SubResource("Animation_qlg0r"),
 &"recoil": SubResource("Animation_3vyb7"),
 &"reload_pistol": SubResource("Animation_dqkch")
 }

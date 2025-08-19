@@ -13,6 +13,7 @@ script = ExtResource("1_ahhtf")
 
 [node name="ammoCounter" type="Label" parent="."]
 unique_name_in_owner = true
+layout_mode = 0
 offset_top = 521.0
 offset_right = 243.0
 offset_bottom = 646.0
