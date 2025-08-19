@@ -21,7 +21,7 @@ func fire():
 	var b = BULLET_DECAL.instantiate()
 	
 	# below occurs regardless of wether the bullets hit something or otherwise
-	ammo -= 1 # I somehow have to send this variable to hud.gd every time it's updated
+	ammo -= 1
 	
 	# pass if returns null to avoid null refrence errors
 	# in other words, IF IT HITS SOMETHING DO THIS VVVVVV
@@ -56,7 +56,7 @@ func _process(_delta) -> void:
 			pass
 		else:
 			if ammo > 0:
-				animation_player.play("recoil")
+				animation_player.play("fire")
 			elif ammo == 0: animation_player.play("reload_pistol")
 	
 	if Input.is_action_pressed("inspect weapon"):

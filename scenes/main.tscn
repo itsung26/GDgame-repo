@@ -1,9 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddw2badfdmuup"]
+[gd_scene load_steps=11 format=3 uid="uid://ddw2badfdmuup"]
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://ctxddstc2vto8" path="res://scenes/hud.tscn" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b42afh5fqoslr" path="res://scenes/enemy.tscn" id="4_jyhfs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jyhfs"]
+sky_top_color = Color(0.033378, 0.445474, 0.825481, 1)
+sky_horizon_color = Color(0.4698, 0.566682, 0.654549, 1)
+ground_bottom_color = Color(0.146081, 0.121511, 0.0929725, 1)
+ground_horizon_color = Color(0.4698, 0.566682, 0.654549, 1)
+
+[sub_resource type="Sky" id="Sky_tbgi4"]
+sky_material = SubResource("ProceduralSkyMaterial_jyhfs")
+
+[sub_resource type="Environment" id="Environment_tefeu"]
+background_mode = 2
+sky = SubResource("Sky_tbgi4")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sgp6g"]
 
@@ -14,6 +29,13 @@ size = Vector2(500, 500)
 albedo_color = Color(1, 0.317647, 0.164706, 1)
 
 [node name="main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tefeu")
+
+[node name="THE SUN" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -2.98023e-08, 1, 0, -1, -2.98023e-08, -16.0502, 510.402, -17.315)
+shadow_enabled = true
 
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
@@ -36,14 +58,29 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sugp2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.301, 0, -19.0991)
 collision_mask = 3
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -2.98023e-08, 1, 0, -1, -2.98023e-08, -16.0502, 510.402, -17.315)
+[node name="enemies" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.301, 0, -19.0991)
 
-[node name="Enemy" parent="." instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.9517, 1, -24.0082)
+[node name="Enemy" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3493, 1, -4.9091)
 
-[node name="Enemy2" parent="." instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.4775, 1, -24.1327)
+[node name="Enemy2" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1765, 1, -5.0336)
+
+[node name="enemy" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0198803, 1, -6.26094)
+
+[node name="enemy2" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.57417, 1, -7.4715)
+
+[node name="enemy3" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.46842, 1, -7.30479)
+
+[node name="enemy4" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.531525, 1, -9.03416)
+
+[node name="enemy5" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24456, 1, -5.81754)
 
 [connection signal="camera_look_dir" from="Player" to="HUD" method="_on_player_camera_look_dir"]
 [connection signal="relay_blaster_ammo" from="Player" to="HUD" method="_on_player_relay_blaster_ammo"]

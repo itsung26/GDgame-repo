@@ -1,5 +1,4 @@
 extends Node
-@onready var ammo_counter: Label = $"../HUD/ammoCounter"
 
 
 # Called when the node enters the scene tree for the first time.
