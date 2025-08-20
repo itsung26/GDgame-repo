@@ -24,6 +24,7 @@ func fire():
 	var b_mesh = b.get_node("MeshInstance3D")
 	var b_surface_override = b_mesh.get_surface_override_material(0)
 	
+	# duplicates the surface material and applies the duplicate to the new instance
 	b_mesh.set_surface_override_material(0, b_surface_override.duplicate())
 	
 	# below occurs regardless of wether the bullets hit something or otherwise
@@ -47,6 +48,10 @@ func fire():
 
 func reload():
 	ammo = 50
+	
+func special(weapon):
+	if weapon == "pistol":
+		print("pistolspecial")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -84,4 +89,4 @@ func _process(_delta) -> void:
 			
 	# special action
 	if Input.is_action_just_pressed("right click action"):
-		print("action")
+		special("pistol")
