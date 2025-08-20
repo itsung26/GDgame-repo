@@ -23,10 +23,11 @@ glow_enabled = true
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sgp6g"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_sgp6g"]
+lightmap_size_hint = Vector2i(2502, 2502)
 size = Vector2(500, 500)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
-albedo_color = Color(1, 0.317647, 0.164706, 1)
+albedo_color = Color(0.113725, 0.278431, 0, 1)
 
 [node name="main" type="Node3D"]
 
@@ -45,6 +46,8 @@ script = ExtResource("1_0wfyh")
 [node name="HUD" parent="." instance=ExtResource("2_tefeu")]
 
 [node name="WorldFloor" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldFloor"]
 shape = SubResource("WorldBoundaryShape3D_sgp6g")
@@ -56,13 +59,37 @@ surface_material_override/0 = SubResource("StandardMaterial3D_sugp2")
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.301, 0, -19.0991)
-collision_mask = 3
+collision_mask = 6
 
 [node name="enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.301, 0, -19.0991)
 
 [node name="Enemy" parent="enemies" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3493, 1, -4.9091)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75378, 1, -4.9091)
+
+[node name="Enemy3" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.9583, 1, -4.9091)
+
+[node name="Enemy4" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.74394, 1, -4.9091)
+
+[node name="Enemy5" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3516, 1, -4.9091)
+
+[node name="Enemy6" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6627, 1, -4.9091)
+
+[node name="Enemy7" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9953, 1, -4.9091)
+
+[node name="Enemy8" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1887, 1, -4.9091)
+
+[node name="Enemy9" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1522, 1, -4.9091)
+
+[node name="Enemy10" parent="enemies" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.2713, 1, -4.9091)
 
 [node name="Enemy2" parent="enemies" instance=ExtResource("4_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1765, 1, -5.0336)
@@ -84,4 +111,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24456, 1, -5.81754)
 
 [connection signal="camera_look_dir" from="Player" to="HUD" method="_on_player_camera_look_dir"]
 [connection signal="relay_blaster_ammo" from="Player" to="HUD" method="_on_player_relay_blaster_ammo"]
+[connection signal="relay_body_hit" from="Player" to="HUD" method="_on_player_relay_body_hit"]
 [connection signal="relay_current_anim" from="Player" to="HUD" method="_on_player_relay_current_anim"]

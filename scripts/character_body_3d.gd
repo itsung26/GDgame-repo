@@ -13,6 +13,7 @@ extends CharacterBody3D
 signal relay_blaster_ammo(amount)
 signal relay_current_anim(anim)
 signal camera_look_dir(looking_at)
+signal relay_body_hit(body)
 
 func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
@@ -72,3 +73,7 @@ func _on_pistol_current_blaster_ammo(amount: Variant) -> void:
 
 func _on_pistol_current_anim(anim: Variant) -> void:
 	relay_current_anim.emit(anim)
+
+
+func _on_pistol_body_hit(body: Variant) -> void:
+	relay_body_hit.emit(body)

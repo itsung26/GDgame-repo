@@ -460,7 +460,7 @@ unique_name_in_owner = true
 [node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0.00434119, -0.0047704, -0.40687)
 target_position = Vector3(0, 0, 900)
-collision_mask = 2
+collision_mask = 6
 
 [node name="pistol" type="Skeleton3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
@@ -530,5 +530,6 @@ modulate = Color(1, 1, 1, 0)
 billboard = 1
 texture = ExtResource("4_dqkch")
 
+[connection signal="body_hit" from="Pivot/Camera3D/pistol" to="." method="_on_pistol_body_hit"]
 [connection signal="current_anim" from="Pivot/Camera3D/pistol" to="." method="_on_pistol_current_anim"]
 [connection signal="current_blaster_ammo" from="Pivot/Camera3D/pistol" to="." method="_on_pistol_current_blaster_ammo"]

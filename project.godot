@@ -85,3 +85,4 @@ reload={
 
 3d_physics/layer_1="player"
 3d_physics/layer_2="enemies"
+3d_physics/layer_3="world"

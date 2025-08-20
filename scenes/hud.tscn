@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=7 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/2d assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
 [ext_resource type="Texture2D" uid="uid://xwjr4mrc4u3l" path="res://assets/2d assets/gunmodel previews/blaster-a.png" id="3_5ysmq"]
+[ext_resource type="Texture2D" uid="uid://2kymcdlcd6q2" path="res://assets/2d assets/gunmodel previews/bullet-foam-tip.png" id="3_uo2fv"]
 [ext_resource type="Texture2D" uid="uid://cfq65yhsv7cyf" path="res://assets/2d assets/key icons/Keyboard & Mouse/Double/keyboard_2.png" id="4_6fi6k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6fi6k"]
@@ -31,20 +32,37 @@ texture = ExtResource("2_oo0fn")
 expand_mode = 1
 stretch_mode = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="ammoTypeShower" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_left = 252.0
+offset_top = -91.0
+offset_right = 264.0
+offset_bottom = -68.0
+grow_vertical = 0
+scale = Vector2(3.01594, 3.01594)
+texture = ExtResource("3_uo2fv")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -222.0
+offset_right = 251.0
 grow_vertical = 0
 
-[node name="blasterPreviewIcon" type="Sprite2D" parent="CenterContainer"]
-position = Vector2(67, -125)
+[node name="blasterPreviewIcon" type="Sprite2D" parent="VBoxContainer2"]
+position = Vector2(68, 105)
 texture = ExtResource("3_5ysmq")
 region_enabled = true
 region_rect = Rect2(11, 10, 42, 42)
 
-[node name="KeyIndicator" type="Sprite2D" parent="CenterContainer/blasterPreviewIcon"]
+[node name="KeyIndicator" type="Sprite2D" parent="VBoxContainer2/blasterPreviewIcon"]
 position = Vector2(-41, 0.999999)
 scale = Vector2(0.345736, 0.345736)
 texture = ExtResource("4_6fi6k")
@@ -81,7 +99,6 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Debug Properties:"
 
 [node name="==========" type="Label" parent="VBoxContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "============================="
@@ -96,8 +113,19 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Camera.basis: (null, null, null)"
 
-[node name="==========2" type="Label" parent="VBoxContainer"]
+[node name="BodyHitDebug" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
+layout_mode = 2
+text = "Last body hit: null"
+
+[node name="fpsCounter" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 41
+text = "FPS: null"
+
+[node name="==========2" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "============================="

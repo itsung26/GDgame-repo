@@ -7,6 +7,7 @@ const BULLET_DECAL = preload("res://scenes/bullet_decal.tscn")
 
 signal current_blaster_ammo(amount)
 signal current_anim(anim)
+signal body_hit(body)
 
 # definitions for ammo
 const MAGSIZE = 50
@@ -19,9 +20,16 @@ const DAMAGE = 5
 func fire():
 	var body = ray_cast_3d.get_collider()
 	var b = BULLET_DECAL.instantiate()
+	var b_mesh = b.get_node("MeshInstance3D")
+	var b_surface_override = b_mesh.get_surface_override_material(0)
+	
+	b_mesh.set_surface_override_material(0, b_surface_override.duplicate())
 	
 	# below occurs regardless of wether the bullets hit something or otherwise
 	ammo -= 1
+	
+	# signal the body that was just hit for debug
+	body_hit.emit(body)
 	
 	# pass if returns null to avoid null refrence errors
 	# in other words, IF IT HITS SOMETHING DO THIS VVVVVV
@@ -29,8 +37,11 @@ func fire():
 		body.add_child(b)
 		b.global_transform.origin = ray_cast_3d.get_collision_point()
 		b.look_at(ray_cast_3d.get_collision_point() + ray_cast_3d.get_collision_normal(), Vector3.UP)
-		body.health = body.health - DAMAGE
-		print("health of enemy: " + str(body.health))
+		if body.is_in_group("enemy"):
+			body.health = body.health - DAMAGE
+			print("health of enemy: " + str(body.health))
+		else:
+			print("bullet hit something that is not an enemy")
 
 
 func reload():
