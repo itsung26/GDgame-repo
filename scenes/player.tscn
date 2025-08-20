@@ -530,6 +530,8 @@ modulate = Color(1, 1, 1, 0)
 billboard = 1
 texture = ExtResource("4_dqkch")
 
+[connection signal="relay_pistol_barState" from="." to="Pivot/Camera3D/pistol" method="_on_player_relay_pistol_bar_state"]
+[connection signal="bar_lower" from="Pivot/Camera3D/pistol" to="." method="_on_pistol_bar_lower"]
 [connection signal="body_hit" from="Pivot/Camera3D/pistol" to="." method="_on_pistol_body_hit"]
 [connection signal="current_anim" from="Pivot/Camera3D/pistol" to="." method="_on_pistol_current_anim"]
 [connection signal="current_blaster_ammo" from="Pivot/Camera3D/pistol" to="." method="_on_pistol_current_blaster_ammo"]

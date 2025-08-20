@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=11 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/2d assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
@@ -7,22 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://cfq65yhsv7cyf" path="res://assets/2d assets/key icons/Keyboard & Mouse/Double/keyboard_2.png" id="4_6fi6k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6fi6k"]
-
-[sub_resource type="Animation" id="Animation_uo2fv"]
-resource_name = "bar_charge"
-length = 10.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ProgressBar:value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 10),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 100.0]
-}
 
 [sub_resource type="Animation" id="Animation_047uy"]
 length = 0.001
@@ -39,10 +23,71 @@ tracks/0/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_uo2fv"]
+resource_name = "bar_charge_fill"
+length = 30.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 100.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(30),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"barChargeReady"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_5pdws"]
+resource_name = "bar_charge_empty"
+length = 30.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [100.0, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(30),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"barChargeNotReady"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5pdws"]
 _data = {
 &"RESET": SubResource("Animation_047uy"),
-&"bar_charge": SubResource("Animation_uo2fv")
+&"bar_charge_empty": SubResource("Animation_5pdws"),
+&"bar_charge_fill": SubResource("Animation_uo2fv")
 }
 
 [node name="HUD" type="Control"]
@@ -183,4 +228,5 @@ fill_mode = 3
 libraries = {
 &"": SubResource("AnimationLibrary_5pdws")
 }
+autoplay = "bar_charge_fill"
 speed_scale = 10.0

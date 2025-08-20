@@ -14,6 +14,8 @@ signal relay_blaster_ammo(amount)
 signal relay_current_anim(anim)
 signal camera_look_dir(looking_at)
 signal relay_body_hit(body)
+signal relay_pistol_barState(state)
+signal relay_bar_lower
 
 func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
@@ -27,6 +29,7 @@ func _input(event) -> void:
 		var pitch = -mouse_delta.y
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
+		
 
 func _physics_process(delta: float) -> void:
 	# clamp the camera pivot view
@@ -66,14 +69,22 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-
+# relay the pistol ammo
 func _on_pistol_current_blaster_ammo(amount: Variant) -> void:
 	relay_blaster_ammo.emit(amount)
 
-
+# relay the current animation of the pistol
 func _on_pistol_current_anim(anim: Variant) -> void:
 	relay_current_anim.emit(anim)
 
-
+# relay the body hit by the raycast
 func _on_pistol_body_hit(body: Variant) -> void:
 	relay_body_hit.emit(body)
+
+
+func _on_hud_pistol_special_ready(readystate: Variant) -> void:
+	relay_pistol_barState.emit(readystate)
+
+
+func _on_pistol_bar_lower() -> void:
+	relay_bar_lower.emit()

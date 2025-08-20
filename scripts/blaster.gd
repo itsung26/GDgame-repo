@@ -9,11 +9,15 @@ const BULLET_DECAL_BLUE = preload("res://scenes/bullet_decal.tscn")
 signal current_blaster_ammo(amount)
 signal current_anim(anim)
 signal body_hit(body)
+signal bar_lower
 
 # definitions for ammo
 const MAGSIZE = 50
 var ammo = 50
 const DAMAGE = 5
+
+# bar charge
+var pistol_isCharged
 
 # instantiate a body from the return of the get_collider() method
 # this method is called every time the animation for firing runs and is essentially the bulk of the shoot code
@@ -49,9 +53,11 @@ func fire():
 func reload():
 	ammo = 50
 	
+# triggered on right click
 func special(weapon):
 	if weapon == "pistol":
-		print("pistolspecial")
+		if Global.pistol_isCharged == true:
+			bar_lower.emit()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -60,6 +66,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
+	print(Global.pistol_isCharged)
 	current_blaster_ammo.emit(ammo)
 	
 	current_anim.emit(animation_player.current_animation)
@@ -90,3 +97,7 @@ func _process(_delta) -> void:
 	# special action
 	if Input.is_action_just_pressed("right click action"):
 		special("pistol")
+
+
+func _on_player_relay_pistol_bar_state(state: Variant) -> void:
+	Global.pistol_isCharged = state
