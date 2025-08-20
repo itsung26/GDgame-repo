@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=24 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/character_body_3d.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/blaster.gd" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://x51q4hwcyu2q" path="res://scenes/bullet_ray_cast.tscn" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://57ppfu3duqgj" path="res://assets/gunmodels/Textures/colormap.png" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://bb3i67ilvm43d" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_06.png" id="4_dqkch"]
 [ext_resource type="Texture2D" uid="uid://baq6hfu3eiprx" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/muzzle_01.png" id="4_qlg0r"]
@@ -457,10 +458,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
 
-[node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0.00434119, -0.0047704, -0.40687)
+[node name="BulletRayCast" parent="Pivot/Camera3D" instance=ExtResource("2_tuyoq")]
+transform = Transform3D(1, 0, 0, 0, -1, -1.50996e-07, 0, 1.50996e-07, -1, 0.00434119, -0.0047704, -0.40687)
 target_position = Vector3(0, 0, 900)
-collision_mask = 6
 
 [node name="pistol" type="Skeleton3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
