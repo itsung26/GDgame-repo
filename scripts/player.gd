@@ -30,6 +30,7 @@ func zoomIn():
 	SPEED = 5
 	JUMP_VELOCITY = 4.5
 	animation_player.speed_scale = 1.5
+	Global.pistol_DAMAGE = 3
 
 # when overclock begins
 func zoomOut():
@@ -37,6 +38,7 @@ func zoomOut():
 	SPEED = 10
 	JUMP_VELOCITY = 6.5
 	animation_player.speed_scale = 3
+	Global.pistol_DAMAGE = 15
 
 func _physics_process(delta: float) -> void:
 	# clamp the camera pivot view

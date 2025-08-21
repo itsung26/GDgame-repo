@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=35 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/blaster.gd" id="2_g2els"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://57ppfu3duqgj" path="res://assets/gunmodels/Textures/colormap.png" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://bb3i67ilvm43d" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_06.png" id="4_dqkch"]
 [ext_resource type="Texture2D" uid="uid://baq6hfu3eiprx" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/muzzle_01.png" id="4_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://b1oo3twjq7qbb" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/spark_02.png" id="6_fjrip"]
+[ext_resource type="QuadMesh" uid="uid://p1opaqy3nf2n" path="res://assets/red_particle.tres" id="6_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://ohcajlr30b6p" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/spark_03.png" id="8_y4r1p"]
 
 [sub_resource type="Animation" id="Animation_fjrip"]
 resource_name = "camera_overclock_zoom_in"
@@ -21,6 +24,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [90.0, 75.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/pistol/Skeleton3D/blaster-a/ParticleEmissions/GPUParticles3D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_tuyoq"]
 resource_name = "camera_overclock_zoom_out"
@@ -35,6 +50,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [75.0, 90.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/pistol/Skeleton3D/blaster-a/ParticleEmissions/GPUParticles3D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_dqkch"]
@@ -339,6 +366,33 @@ tracks/9/keys = {
 "update": 0,
 "values": [75.0]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Pivot/Camera3D/pistol/Skeleton3D/blaster-a/ParticleEmissions/GPUParticles3D:emitting")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_smehm"]
+resource_name = "silence_particles"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/pistol/Skeleton3D/blaster-a/ParticleEmissions/GPUParticles3D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o7tup"]
 _data = {
@@ -347,7 +401,8 @@ _data = {
 &"camera_overclock_zoom_out": SubResource("Animation_tuyoq"),
 &"fire": SubResource("Animation_3vyb7"),
 &"inspect": SubResource("Animation_qlg0r"),
-&"reload_pistol": SubResource("Animation_dqkch")
+&"reload_pistol": SubResource("Animation_dqkch"),
+&"silence_particles": SubResource("Animation_smehm")
 }
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mh8"]
@@ -399,6 +454,40 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_c72w0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_smehm"]
+spread = 180.0
+initial_velocity_min = 2.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2wvv"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = ExtResource("6_fjrip")
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 0.2
+backlight = Color(1, 0, 0, 1)
+billboard_mode = 1
+grow_amount = 0.33
+
+[sub_resource type="QuadMesh" id="QuadMesh_3v2ag"]
+material = SubResource("StandardMaterial3D_d2wvv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jej6c"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = ExtResource("8_y4r1p")
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 0.2
+backlight = Color(1, 0, 0, 1)
+billboard_mode = 1
+grow_amount = 0.33
+
+[sub_resource type="QuadMesh" id="QuadMesh_f1ej7"]
+material = SubResource("StandardMaterial3D_jej6c")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_tagw2"]
 _surfaces = [{
@@ -489,6 +578,12 @@ libraries = {
 }
 speed_scale = 1.5
 
+[node name="ParticleAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7tup")
+}
+autoplay = "silence_particles"
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
@@ -544,7 +639,6 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0680166, -0.357272)
 visible = false
 light_color = Color(0.235294, 0.737255, 0.921569, 1)
-shadow_enabled = true
 
 [node name="MuzzleFlashes" type="Node3D" parent="Pivot/Camera3D/pistol/Skeleton3D/blaster-a"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0666939, -0.333879)
@@ -559,6 +653,18 @@ texture = ExtResource("4_qlg0r")
 transform = Transform3D(0.157124, -3.32723e-23, -1.45438e-30, 0, -6.8681e-09, 0.157124, -3.32723e-23, -0.157124, -6.8681e-09, 0, -0.0154858, -0.293279)
 modulate = Color(0.23562, 0.739047, 0.920202, 1)
 texture = ExtResource("4_qlg0r")
+
+[node name="ParticleEmissions" type="Node3D" parent="Pivot/Camera3D/pistol/Skeleton3D/blaster-a"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0034703, 0.0259145)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Pivot/Camera3D/pistol/Skeleton3D/blaster-a/ParticleEmissions"]
+amount = 4
+lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_smehm")
+draw_passes = 3
+draw_pass_1 = ExtResource("6_ur7pv")
+draw_pass_2 = SubResource("QuadMesh_3v2ag")
+draw_pass_3 = SubResource("QuadMesh_f1ej7")
 
 [node name="magazine" type="BoneAttachment3D" parent="Pivot/Camera3D/pistol/Skeleton3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.152951, -0.145)
