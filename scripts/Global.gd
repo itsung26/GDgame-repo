@@ -13,7 +13,6 @@ var pistol_DAMAGE = 5
 var pistol_MAGSIZE = 50 
 var pistol_activate_special = false
 var pistol_special_state = false
-var camfov
 
 '''
 debug variables for the custom debug window===============================================================

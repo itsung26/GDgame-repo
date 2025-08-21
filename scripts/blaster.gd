@@ -63,6 +63,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
+	print(Global.pistol_activate_special)
+	print(Global.pistol_special_state)
 	
 		
 	Global.blaster_ammo = ammo

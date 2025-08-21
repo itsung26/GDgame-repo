@@ -5,6 +5,8 @@ extends CharacterBody3D
 @onready var pivot: Node3D = $Pivot
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera_animator: AnimationPlayer = $CameraAnimator
+@onready var muzzle_flash: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash"
+@onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
 
 
 @export var SPEED = 5.0
@@ -31,6 +33,8 @@ func zoomIn():
 	JUMP_VELOCITY = 4.5
 	animation_player.speed_scale = 1.5
 	Global.pistol_DAMAGE = 3
+	muzzle_flash.modulate = Color.from_rgba8(60, 188, 235)
+	muzzle_flash_2.modulate = Color.from_rgba8(60, 188, 235)
 
 # when overclock begins
 func zoomOut():
@@ -39,6 +43,8 @@ func zoomOut():
 	JUMP_VELOCITY = 6.5
 	animation_player.speed_scale = 3
 	Global.pistol_DAMAGE = 15
+	muzzle_flash.modulate = Color.RED
+	muzzle_flash_2.modulate = Color.RED
 
 func _physics_process(delta: float) -> void:
 	# clamp the camera pivot view
