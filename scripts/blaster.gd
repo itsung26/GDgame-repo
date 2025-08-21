@@ -5,6 +5,8 @@ extends Skeleton3D
 @onready var camera_3d: Camera3D = %Camera3D
 
 const BULLET_DECAL_BLUE = preload("res://scenes/bullet_decal.tscn")
+const BLUE_EMISSIVE_MATERIAL = preload("res://assets/materials/blue_emissive_material.tres")
+const RED_EMISSIVE_MATERIAL = preload("res://assets/materials/red_emissive_material.tres")
 
 # definitions for ammo
 var ammo = 50
@@ -19,10 +21,13 @@ func fire():
 	var body = bullet_ray_cast.get_collider()
 	var b = BULLET_DECAL_BLUE.instantiate()
 	var b_mesh = b.get_node("MeshInstance3D")
-	var b_surface_override = b_mesh.get_surface_override_material(0)
 	
 	# duplicates the surface material and applies the duplicate to the new instance
-	b_mesh.set_surface_override_material(0, b_surface_override.duplicate())
+	# conditional for if special is active
+	if Global.pistol_special_state:
+		b_mesh.set_surface_override_material(0, RED_EMISSIVE_MATERIAL.duplicate())
+	else:
+		b_mesh.set_surface_override_material(0, BLUE_EMISSIVE_MATERIAL.duplicate())
 	
 	# below occurs regardless of wether the bullets hit something or otherwise
 	ammo -= 1
@@ -63,8 +68,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
-	print(Global.pistol_activate_special)
-	print(Global.pistol_special_state)
 	
 		
 	Global.blaster_ammo = ammo

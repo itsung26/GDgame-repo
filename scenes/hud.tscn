@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=15 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/sprite assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
@@ -6,7 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://cesgf4gdxak83" path="res://assets/sprite assets/ui/redBorder.png" id="4_5pdws"]
 [ext_resource type="Texture2D" uid="uid://cfq65yhsv7cyf" path="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/keyboard_2.png" id="4_6fi6k"]
 [ext_resource type="Texture2D" uid="uid://cck5a75oy6yxe" path="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/mouse_right.png" id="4_047uy"]
-[ext_resource type="Texture2D" uid="uid://or2ej7i2utos" path="res://assets/pistol_bullet.tres" id="6_5pdws"]
+[ext_resource type="Texture2D" uid="uid://or2ej7i2utos" path="res://assets/materials/pistol_bullet.tres" id="6_5pdws"]
+[ext_resource type="Texture2D" uid="uid://dcs7dajg0p34e" path="res://assets/sprite assets/key icons/Keyboard & Mouse/keyboard-&-mouse_sheet_double.png" id="6_hd3ao"]
+[ext_resource type="Texture2D" uid="uid://5viqdp3vwpsj" path="res://assets/sprite assets/gunmodel previews/clip-large.png" id="7_0i1j5"]
+[ext_resource type="Texture2D" uid="uid://dwqv080lryrx1" path="res://assets/sprite assets/gunmodel previews/54303.png" id="8_mphia"]
 
 [sub_resource type="Animation" id="Animation_047uy"]
 length = 0.001
@@ -188,6 +191,25 @@ region_rect = Rect2(11, 10, 42, 42)
 position = Vector2(-41, 0.999999)
 scale = Vector2(0.345736, 0.345736)
 texture = ExtResource("4_6fi6k")
+
+[node name="ReloadPrompt" type="Sprite2D" parent="pistolPreviewIcon"]
+position = Vector2(113, 106)
+scale = Vector2(0.345736, 0.345736)
+texture = ExtResource("6_hd3ao")
+region_enabled = true
+region_rect = Rect2(656, 528, 96, 96)
+
+[node name="MagIcon" type="Sprite2D" parent="pistolPreviewIcon/ReloadPrompt"]
+position = Vector2(112.803, -2.89238)
+scale = Vector2(2.63901, 2.63901)
+texture = ExtResource("7_0i1j5")
+region_enabled = true
+region_rect = Rect2(19, 12, 26, 40)
+
+[node name="ReloadIcon" type="Sprite2D" parent="pistolPreviewIcon/ReloadPrompt"]
+position = Vector2(112.803, 2.89238)
+scale = Vector2(0.109866, 0.109866)
+texture = ExtResource("8_mphia")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
