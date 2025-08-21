@@ -232,11 +232,6 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "current animation: null"
 
-[node name="CameraLookDebug" type="Label" parent="VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Camera.basis: (null, null, null)"
-
 [node name="BodyHitDebug" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -246,6 +241,16 @@ text = "Last body hit: null"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Current weapon ability: null"
+
+[node name="CurrentWeapon" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Current weapon: null"
+
+[node name="FireTypeDebug" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "FireType = null"
 
 [node name="fpsCounter" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true

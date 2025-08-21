@@ -19,4 +19,5 @@ debug variables for the custom debug window=====================================
 '''
 var body_hit = "null"
 var anim_playing = "null"
-var camera_look_dir = Vector3.ZERO
+var current_weapon = "pistol" # valid values are: "pistol"
+var current_fireType = "RAYCAST_PISTOL"

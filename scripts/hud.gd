@@ -1,12 +1,13 @@
 extends Control
 @onready var ammo_counter: Label = %ammoCounter
 @onready var anim_debug: Label = %AnimDebug
-@onready var camera_look_debug: Label = %CameraLookDebug
 @onready var fps_counter: Label = %fpsCounter
 @onready var body_hit_debug: Label = %BodyHitDebug
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var progress_bar: ProgressBar = $OverclockBar/ProgressBar
 @onready var current_weapon_special: Label = %currentWeaponSpecial
+@onready var current_weapon: Label = %CurrentWeapon
+@onready var fire_type_debug: Label = %FireTypeDebug
 
 var current_frames_per_second = "null"
 
@@ -59,8 +60,10 @@ func _process(_delta) -> void:
 		
 	# set debug text-------------------------------------------------------------------------------
 	anim_debug.text = "current animation: " + str(Global.anim_playing)
-	camera_look_debug.text = str(Global.camera_look_dir)
+	fire_type_debug.text = "Current fireType: " + str(Global.current_fireType)
 	body_hit_debug.text = "last object hit: " + str(Global.body_hit)
 	current_weapon_special.text = "Current weapon ability: " + Global.pistol_special_property
+	current_weapon.text = "Current weapon: " + str(Global.current_weapon)
+	
 	# ----------------------------------------------------------------------------------------------
 	

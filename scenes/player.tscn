@@ -631,6 +631,11 @@ bones/1/scale = Vector3(1, 1, 1)
 bone_name = "blaster-a"
 bone_idx = 0
 
+[node name="SpecialLight" type="OmniLight3D" parent="Pivot/Camera3D/pistol/Skeleton3D/blaster-a"]
+visible = false
+light_color = Color(1, 0, 0, 1)
+light_energy = 5.0
+
 [node name="blaster-a" type="MeshInstance3D" parent="Pivot/Camera3D/pistol/Skeleton3D/blaster-a"]
 mesh = SubResource("ArrayMesh_nemys")
 skeleton = NodePath("")

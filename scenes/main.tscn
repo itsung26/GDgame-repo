@@ -50,10 +50,6 @@ size = Vector3(1, 1, 5.76047)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tefeu")
 
-[node name="THE SUN" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, -39.4742, 589.821, 456.621)
-shadow_enabled = true
-
 [node name="GameManager" type="Node" parent="."]
 unique_name_in_owner = true
 process_mode = 3
@@ -175,6 +171,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00730896)
 shape = SubResource("BoxShape3D_o6xl0")
 
 [node name="WorldLights" type="Node3D" parent="."]
+
+[node name="THE SUN" type="DirectionalLight3D" parent="WorldLights"]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, -39.4742, 589.821, 456.621)
+shadow_enabled = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="WorldLights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0971, 5.63763, -28.0785)

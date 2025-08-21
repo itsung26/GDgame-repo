@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://e8fmdjuyjp4x"]
 
-[ext_resource type="Material" uid="uid://bdcaf4g4ue7ab" path="res://assets/materials/red_emissive_material.tres" id="1_n6lr6"]
+[ext_resource type="Material" uid="uid://bdcaf4g4ue7ab" path="res://assets/materials/emissives/red_emissive_material.tres" id="1_n6lr6"]
 [ext_resource type="PackedScene" uid="uid://d1676ah8ebtd" path="res://scenes/bullet_impact_particles.tscn" id="2_ryybo"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_4url0"]
@@ -94,3 +94,4 @@ libraries = {
 autoplay = "sizzle_out"
 
 [node name="bullet_impact_particles" parent="." instance=ExtResource("2_ryybo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0220936)

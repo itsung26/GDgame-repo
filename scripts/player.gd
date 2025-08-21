@@ -7,6 +7,7 @@ extends CharacterBody3D
 @onready var camera_animator: AnimationPlayer = $CameraAnimator
 @onready var muzzle_flash: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash"
 @onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
+@onready var special_light: OmniLight3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/SpecialLight"
 
 
 @export var SPEED = 5.0
@@ -35,6 +36,7 @@ func zoomIn():
 	Global.pistol_DAMAGE = 3
 	muzzle_flash.modulate = Color.from_rgba8(60, 188, 235)
 	muzzle_flash_2.modulate = Color.from_rgba8(60, 188, 235)
+	special_light.visible = false
 
 # when overclock begins
 func zoomOut():
@@ -45,6 +47,7 @@ func zoomOut():
 	Global.pistol_DAMAGE = 15
 	muzzle_flash.modulate = Color.RED
 	muzzle_flash_2.modulate = Color.RED
+	special_light.visible = true
 
 func _physics_process(delta: float) -> void:
 	# clamp the camera pivot view
@@ -52,7 +55,6 @@ func _physics_process(delta: float) -> void:
 	pivot.rotation_degrees.x = b
 	
 	# emit the current looking at direction of pitch for the player's look 
-	Global.camera_look_dir = pivot.rotation_degrees
 	
 	
 	# gun bobbing on walk animation

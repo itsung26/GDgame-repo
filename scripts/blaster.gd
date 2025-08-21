@@ -5,8 +5,8 @@ extends Skeleton3D
 @onready var camera_3d: Camera3D = %Camera3D
 
 const BULLET_DECAL_BLUE = preload("res://scenes/bullet_decal.tscn")
-const BLUE_EMISSIVE_MATERIAL = preload("res://assets/materials/blue_emissive_material.tres")
-const RED_EMISSIVE_MATERIAL = preload("res://assets/materials/red_emissive_material.tres")
+const BLUE_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/blue_emissive_material.tres")
+const RED_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/red_emissive_material.tres")
 
 # definitions for ammo
 var ammo = 50
@@ -102,4 +102,4 @@ func _process(_delta) -> void:
 			
 	# special action
 	if Input.is_action_just_pressed("right click action"):
-		special("pistol")
+		special(Global.current_weapon)
