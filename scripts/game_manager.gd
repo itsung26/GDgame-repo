@@ -10,8 +10,12 @@ var ispaused = false
 func _process(_delta) -> void:
 	
 	if Input.is_action_just_pressed("forcequit"):
+		'''
+		once about every 50 runs or so, this crashes the entire engine,
+		editor and all to a black screen, sometimes even crashing task manager, godot is so stable.
+		'''
 		get_tree().quit()
-	
+
 	if Input.is_action_just_pressed("pause"):
 		if not ispaused:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
