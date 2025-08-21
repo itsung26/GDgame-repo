@@ -14,7 +14,7 @@ warnings/check_invalid_track_paths=false
 
 [application]
 
-config/name="shoot game (3D)"
+config/name="I'm going insane"
 run/main_scene="uid://ddw2badfdmuup"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"

@@ -1,6 +1,6 @@
 [gd_resource type="QuadMesh" load_steps=3 format=3 uid="uid://p1opaqy3nf2n"]
 
-[ext_resource type="Texture2D" uid="uid://p21i6rhu4aaj" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/spark_01.png" id="1_bytvh"]
+[ext_resource type="Texture2D" uid="uid://p21i6rhu4aaj" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/spark_01.png" id="1_bytvh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smehm"]
 transparency = 1

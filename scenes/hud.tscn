@@ -1,14 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=12 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
-[ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/2d assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
-[ext_resource type="Texture2D" uid="uid://xwjr4mrc4u3l" path="res://assets/2d assets/gunmodel previews/blaster-a.png" id="3_5ysmq"]
-[ext_resource type="Texture2D" uid="uid://2kymcdlcd6q2" path="res://assets/2d assets/gunmodel previews/bullet-foam-tip.png" id="3_uo2fv"]
-[ext_resource type="Texture2D" uid="uid://cesgf4gdxak83" path="res://assets/2d assets/ui/redBorder.png" id="4_5pdws"]
-[ext_resource type="Texture2D" uid="uid://cfq65yhsv7cyf" path="res://assets/2d assets/key icons/Keyboard & Mouse/Double/keyboard_2.png" id="4_6fi6k"]
-[ext_resource type="Texture2D" uid="uid://cck5a75oy6yxe" path="res://assets/2d assets/key icons/Keyboard & Mouse/Double/mouse_right.png" id="4_047uy"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6fi6k"]
+[ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/sprite assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
+[ext_resource type="Texture2D" uid="uid://xwjr4mrc4u3l" path="res://assets/sprite assets/gunmodel previews/blaster-a.png" id="3_5ysmq"]
+[ext_resource type="Texture2D" uid="uid://cesgf4gdxak83" path="res://assets/sprite assets/ui/redBorder.png" id="4_5pdws"]
+[ext_resource type="Texture2D" uid="uid://cfq65yhsv7cyf" path="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/keyboard_2.png" id="4_6fi6k"]
+[ext_resource type="Texture2D" uid="uid://cck5a75oy6yxe" path="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/mouse_right.png" id="4_047uy"]
+[ext_resource type="Texture2D" uid="uid://or2ej7i2utos" path="res://assets/pistol_bullet.tres" id="6_5pdws"]
 
 [sub_resource type="Animation" id="Animation_047uy"]
 length = 0.001
@@ -39,7 +37,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_5pdws"]
 resource_name = "bar_charge_empty"
-length = 30.0
+length = 10.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -47,7 +45,7 @@ tracks/0/path = NodePath("OverclockBar/ProgressBar:value")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 30),
+"times": PackedFloat32Array(0, 9.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [100.0, 0.0]
@@ -73,7 +71,7 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 30),
+"times": PackedFloat32Array(0, 9.9),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
@@ -90,7 +88,7 @@ tracks/3/path = NodePath("RedBorder:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1, 29, 30),
+"times": PackedFloat32Array(0, 1, 8.9, 9.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -98,7 +96,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_uo2fv"]
 resource_name = "bar_charge_fill"
-length = 30.0
+length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -106,7 +104,7 @@ tracks/0/path = NodePath("OverclockBar/ProgressBar:value")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 30),
+"times": PackedFloat32Array(0, 5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 100.0]
@@ -118,7 +116,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(30),
+"times": PackedFloat32Array(5),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -159,21 +157,6 @@ texture = ExtResource("2_oo0fn")
 expand_mode = 1
 stretch_mode = 3
 
-[node name="ammoTypeShower" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 247.0
-offset_top = -91.0
-offset_right = 259.0
-offset_bottom = -68.0
-grow_vertical = 0
-scale = Vector2(3.01594, 3.01594)
-texture = ExtResource("3_uo2fv")
-expand_mode = 1
-stretch_mode = 3
-
 [node name="RedBorder" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
@@ -205,26 +188,6 @@ region_rect = Rect2(11, 10, 42, 42)
 position = Vector2(-41, 0.999999)
 scale = Vector2(0.345736, 0.345736)
 texture = ExtResource("4_6fi6k")
-
-[node name="AmmoCounterBox" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -573.0
-offset_top = -125.0
-offset_right = -330.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_6fi6k")
-
-[node name="ammoCounter" type="Label" parent="AmmoCounterBox"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 91
-text = "50/50"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -274,34 +237,63 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "============================="
 
+[node name="AmmoContainer" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -125.0
+offset_right = 298.0
+grow_vertical = 0
+
+[node name="ammoCounter" type="Label" parent="AmmoContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 91
+text = "50/50"
+
+[node name="Sprite2D" type="Sprite2D" parent="AmmoContainer"]
+position = Vector2(266, 68)
+scale = Vector2(3.3837, 3.3837)
+texture = ExtResource("6_5pdws")
+region_enabled = true
+region_rect = Rect2(27, 22, 10, 21)
+
 [node name="OverclockBar" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -103.0
+offset_top = -396.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="MouseIcon" type="TextureRect" parent="OverclockBar"]
 layout_mode = 0
-offset_left = 1088.0
-offset_top = 258.0
-offset_right = 1128.0
-offset_bottom = 298.0
+offset_left = 41.0
+offset_top = 12.0
+offset_right = 81.0
+offset_bottom = 52.0
 texture = ExtResource("4_047uy")
 expand_mode = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="OverclockBar"]
 layout_mode = 2
-offset_left = 1094.0
-offset_top = 304.0
-offset_right = 1124.0
-offset_bottom = 619.0
+offset_left = 47.0
+offset_top = 58.0
+offset_right = 77.0
+offset_bottom = 373.0
 fill_mode = 3
 
 [node name="Overclock" type="Label" parent="OverclockBar"]
 layout_mode = 0
-offset_left = 1049.0
-offset_top = 551.0
-offset_right = 1259.0
-offset_bottom = 601.0
+offset_left = 2.0
+offset_top = 305.0
+offset_right = 212.0
+offset_bottom = 355.0
 rotation = -1.57079
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
@@ -311,4 +303,3 @@ text = "OVERCLOCK"
 libraries = {
 &"": SubResource("AnimationLibrary_5pdws")
 }
-speed_scale = 10.0
