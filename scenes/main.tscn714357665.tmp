@@ -108,6 +108,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.531525, 1, -9.03416)
 
 [node name="enemy5" parent="enemies" instance=ExtResource("4_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24456, 1, -5.81754)
-
-[connection signal="zoom_in_trigger" from="HUD" to="Player" method="_on_hud_zoom_in_trigger"]
-[connection signal="zoom_out_trigger" from="HUD" to="Player" method="_on_hud_zoom_out_trigger"]

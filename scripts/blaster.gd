@@ -2,19 +2,12 @@ extends Skeleton3D
 
 @onready var animation_player: AnimationPlayer = $"../../../AnimationPlayer"
 @onready var bullet_ray_cast: RayCast3D = $"../BulletRayCast"
-
+@onready var camera_3d: Camera3D = %Camera3D
 
 const BULLET_DECAL_BLUE = preload("res://scenes/bullet_decal.tscn")
 
-signal current_blaster_ammo(amount)
-signal current_anim(anim)
-signal body_hit(body)
-signal bar_lower
-
 # definitions for ammo
-const MAGSIZE = 50
 var ammo = 50
-const DAMAGE = 5
 
 # bar charge
 var pistol_isCharged
@@ -35,7 +28,7 @@ func fire():
 	ammo -= 1
 	
 	# signal the body that was just hit for debug
-	body_hit.emit(body)
+	Global.body_hit = body
 	
 	# pass if returns null to avoid null refrence errors
 	# in other words, IF IT HITS SOMETHING DO THIS VVVVVV
@@ -44,20 +37,24 @@ func fire():
 		b.global_transform.origin = bullet_ray_cast.get_collision_point()
 		b.look_at(bullet_ray_cast.get_collision_point() + bullet_ray_cast.get_collision_normal(), Vector3.UP)
 		if body.is_in_group("enemy"):
-			body.health = body.health - DAMAGE
+			body.health = body.health - Global.pistol_DAMAGE
 			print("health of enemy: " + str(body.health))
 		else:
-			print("bullet hit something that is not an enemy")
+			print("bullet hit something that is not an enemy, and thus does not have health")
 
 
 func reload():
 	ammo = 50
 	
-# triggered on right click
+# called on right click
 func special(weapon):
 	if weapon == "pistol":
-		if Global.pistol_isCharged == true:
-			bar_lower.emit()
+		# if the pistol is charged and not busy, activate the special state
+		if Global.is_pistol_charged:
+			# special state is currently active
+			Global.pistol_activate_special = true
+			Global.pistol_special_state = true
+			
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -66,15 +63,20 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
-	print(Global.pistol_isCharged)
-	current_blaster_ammo.emit(ammo)
 	
-	current_anim.emit(animation_player.current_animation)
-	# a random num to aid in randomizing animation variants
-	# var random = randi_range(0,1)
+		
+	Global.blaster_ammo = ammo
 	
+	
+	
+	
+	
+	
+	
+	# save the current animation to a global transfer variable
+	Global.anim_playing = animation_player.current_animation
 	if Input.is_action_pressed("fire"):
-		if animation_player.current_animation == "inspect" or animation_player.current_animation == "inspect 2":
+		if animation_player.current_animation == "inspect":
 			animation_player.stop()
 		elif animation_player.current_animation == "reload_pistol":
 			pass
@@ -89,7 +91,6 @@ func _process(_delta) -> void:
 		else:
 			animation_player.play("inspect")
 			
-		
 	if Input.is_action_pressed("reload"):
 		if ammo != 50:
 			animation_player.play("reload_pistol")
@@ -97,7 +98,3 @@ func _process(_delta) -> void:
 	# special action
 	if Input.is_action_just_pressed("right click action"):
 		special("pistol")
-
-
-func _on_player_relay_pistol_bar_state(state: Variant) -> void:
-	Global.pistol_isCharged = state
