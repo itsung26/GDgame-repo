@@ -87,6 +87,9 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func _process(_delta) -> void:
+	pass
+
 # note: zoomOut and zoomIn are reversed. I screwed up.
 func _on_hud_zoom_in_trigger() -> void:
 	zoomOut()

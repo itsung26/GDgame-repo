@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://ddw2badfdmuup"]
+[gd_scene load_steps=22 format=3 uid="uid://ddw2badfdmuup"]
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://ctxddstc2vto8" path="res://scenes/hud.tscn" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b42afh5fqoslr" path="res://scenes/enemy.tscn" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://dnu2ogho4nr2g" path="res://assets/textures/prototypes/PNG/Orange/texture_01.png" id="5_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://ws0te87sar7" path="res://assets/textures/prototypes/PNG/Dark/texture_07.png" id="5_tefeu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jyhfs"]
 sky_top_color = Color(0.033378, 0.445474, 0.825481, 1)
@@ -21,14 +22,39 @@ sky = SubResource("Sky_tbgi4")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_sgp6g"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbgi4"]
+no_depth_test = true
+albedo_color = Color(1, 1, 1, 0)
+metallic_specular = 0.0
+roughness = 0.0
+refraction_enabled = true
+disable_receive_shadows = true
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_sgp6g"]
-lightmap_size_hint = Vector2i(2502, 2502)
-size = Vector2(500, 500)
+[sub_resource type="SphereMesh" id="SphereMesh_tbgi4"]
+lightmap_size_hint = Vector2i(17, 9)
+material = SubResource("StandardMaterial3D_tbgi4")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
-albedo_color = Color(0.113725, 0.278431, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tipki"]
+render_priority = 2
+transparency = 1
+depth_draw_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+metallic_specular = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_tefeu"]
+material = SubResource("StandardMaterial3D_tipki")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6xl0"]
+albedo_texture = ExtResource("5_tefeu")
+uv1_scale = Vector3(50, 50, 50)
+uv1_offset = Vector3(0.15, -0.125, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o6xl0"]
+material = SubResource("StandardMaterial3D_o6xl0")
+size = Vector3(500, 0.1, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tipki"]
+size = Vector3(500, 0.1, 500)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jyhfs"]
 size = Vector3(14.9434, 14.977, 1)
@@ -57,17 +83,29 @@ script = ExtResource("1_0wfyh")
 
 [node name="HUD" parent="." instance=ExtResource("2_tefeu")]
 
+[node name="black hole?????" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.541803, -0.167181, 1.42122)
+
+[node name="horizon" type="MeshInstance3D" parent="black hole?????"]
+transform = Transform3D(3.69301, 0, 0, 0, -1.61426e-07, -3.69301, 0, 3.69301, -1.61426e-07, -17.0658, 1.39009, -29.8751)
+mesh = SubResource("SphereMesh_tbgi4")
+skeleton = NodePath("../..")
+
+[node name="core" type="MeshInstance3D" parent="black hole?????"]
+transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, -17.0658, 1.39009, -29.8751)
+mesh = SubResource("SphereMesh_tefeu")
+skeleton = NodePath("../..")
+
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.187, 0, -25.4597)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.187, 0.0704314, -21.4597)
 collision_mask = 6
 
 [node name="enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.417, 0, -26.861)
 
-[node name="Enemy3" parent="enemies" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.9583, 1, -4.9091)
+[node name="enemy" parent="enemies" instance=ExtResource("4_jyhfs")]
 
-[node name="Enemy4" parent="enemies" instance=ExtResource("4_jyhfs")]
+[node name="enemy2" parent="enemies" instance=ExtResource("4_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.74394, 1, -4.9091)
 
 [node name="Enemy5" parent="enemies" instance=ExtResource("4_jyhfs")]
@@ -90,17 +128,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.2713, 1, -4.9091)
 
 [node name="WorldParts" type="Node3D" parent="."]
 
-[node name="WorldFloor" type="StaticBody3D" parent="WorldParts"]
+[node name="Floor" type="StaticBody3D" parent="WorldParts"]
 collision_layer = 4
 collision_mask = 7
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldParts/WorldFloor"]
-shape = SubResource("WorldBoundaryShape3D_sgp6g")
-debug_fill = false
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldParts/Floor"]
+mesh = SubResource("BoxMesh_o6xl0")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldParts/WorldFloor"]
-mesh = SubResource("PlaneMesh_sgp6g")
-surface_material_override/0 = SubResource("StandardMaterial3D_sugp2")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldParts/Floor"]
+shape = SubResource("BoxShape3D_tipki")
 
 [node name="Wall" type="StaticBody3D" parent="WorldParts"]
 transform = Transform3D(2.13788, 0, 0, 0, 2.13788, 0, 0, 0, 2.13788, -10.7012, 8, -33.8833)

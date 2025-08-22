@@ -21,3 +21,8 @@ var body_hit = "null"
 var anim_playing = "null"
 var current_weapon = "pistol" # valid values are: "pistol"
 var current_fireType = "RAYCAST_PISTOL"
+
+'''
+other global variables needed to cross scenes===============================================================
+'''
+# n/a for now
