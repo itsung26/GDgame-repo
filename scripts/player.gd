@@ -8,12 +8,14 @@ extends CharacterBody3D
 @onready var special_light: OmniLight3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/SpecialLight"
 @onready var muzzle_flash: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash"
 @onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
+@onready var pistol: Skeleton3D = $Pivot/Camera3D/pistol
 
 
 
 @export var SPEED = 5.0
 @export var JUMP_VELOCITY = 4.5
 @export var look_sensitivity = 0.1
+
 
 func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
@@ -88,8 +90,63 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func gunInputs(curr_weap): # run every frame in _process
+	print(curr_weap)
+	
+	# save the current animation to a global transfer variable every frame
+	Global.anim_playing = animation_player.current_animation
+	
+	# switch block======================================================================================
+	if Input.is_action_just_pressed("slot1"):
+		pass
+	if Input.is_action_just_pressed("slot2"):
+		Global.current_weapon = "pistol"
+	if Input.is_action_just_pressed("slot3"):
+		Global.current_weapon = "shotgun"
+	
+	# automatic fire block=====================================================================================
+	if Input.is_action_pressed("fire"):
+		if curr_weap == "pistol":
+			if animation_player.current_animation == "inspect":
+				animation_player.stop()
+			elif animation_player.current_animation == "reload_pistol":
+				pass
+			else:
+				if Global.blaster_ammo > 0:
+					animation_player.play("fire")
+				elif Global.blaster_ammo == 0: animation_player.play("reload_pistol")
+	# semi-automatic fire block========================================================================
+	if Input.is_action_just_pressed("fire"):
+		if curr_weap == "shotgun":
+			print("shotgun fire")
+	
+	# inspect block=======================================================================================
+	if Input.is_action_just_pressed("inspect weapon"):
+		if curr_weap == "pistol":
+			if animation_player.current_animation == "reload_pistol":
+				pass
+			else:
+				animation_player.play("inspect")
+		elif curr_weap == "shotgun":
+			print("shotgun inspect")
+		
+	# reload block=============================================================================================
+	if Input.is_action_just_pressed("reload"):
+		if curr_weap == "pistol":
+			if Global.blaster_ammo != 50:
+				animation_player.play("reload_pistol")
+		elif curr_weap == "shotgun":
+			print("shotgun reload")
+			
+	# special block=============================================================================================
+	if Input.is_action_just_pressed("right click action"):
+		if curr_weap == "pistol":
+			pistol.special(Global.current_weapon)
+		elif curr_weap == "shotgun":
+			print("shotgun special")
+
 func _process(_delta) -> void:
-	pass
+	gunInputs(Global.current_weapon)
 
 # note: zoomOut and zoomIn are reversed. I screwed up.
 func _on_hud_zoom_in_trigger() -> void:

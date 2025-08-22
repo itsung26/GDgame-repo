@@ -27,6 +27,7 @@ no_depth_test = true
 albedo_color = Color(1, 1, 1, 0)
 metallic_specular = 0.0
 roughness = 0.0
+emission_enabled = true
 refraction_enabled = true
 disable_receive_shadows = true
 
@@ -84,15 +85,15 @@ script = ExtResource("1_0wfyh")
 [node name="HUD" parent="." instance=ExtResource("2_tefeu")]
 
 [node name="black hole?????" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.541803, -0.167181, 1.42122)
+transform = Transform3D(3.52119, 0, 0, 0, 3.52119, 0, 0, 0, 3.52119, -6.30319, -0.167182, -18.3865)
 
 [node name="horizon" type="MeshInstance3D" parent="black hole?????"]
-transform = Transform3D(3.69301, 0, 0, 0, -1.61426e-07, -3.69301, 0, 3.69301, -1.61426e-07, -17.0658, 1.39009, -29.8751)
+transform = Transform3D(3.69301, 0, 0, 0, -1.61426e-07, -3.69301, 0, 3.69301, -1.61426e-07, 0.0247345, 1.39009, -0.00136375)
 mesh = SubResource("SphereMesh_tbgi4")
 skeleton = NodePath("../..")
 
 [node name="core" type="MeshInstance3D" parent="black hole?????"]
-transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, -17.0658, 1.39009, -29.8751)
+transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0.0247345, 1.39009, -0.00136375)
 mesh = SubResource("SphereMesh_tefeu")
 skeleton = NodePath("../..")
 

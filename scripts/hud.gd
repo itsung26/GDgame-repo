@@ -8,6 +8,7 @@ extends Control
 @onready var current_weapon_special: Label = %currentWeaponSpecial
 @onready var current_weapon: Label = %CurrentWeapon
 @onready var fire_type_debug: Label = %FireTypeDebug
+@onready var overclock_bar: Control = $OverclockBar
 
 var current_frames_per_second = "null"
 
@@ -33,6 +34,12 @@ func triggerZoomOut():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
+	
+	# shows or hides ui elements based on current weapon
+	if Global.current_weapon == "pistol":
+		overclock_bar.visible = true
+	else:
+		overclock_bar.visible = false
 	
 	# if the bar is totally empty, begin refilling, disable special state, and put screen back to like before
 	# if the bar is totally empty, disable the special state

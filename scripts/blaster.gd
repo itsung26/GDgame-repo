@@ -8,8 +8,7 @@ const BULLET_DECAL_BLUE = preload("res://scenes/bullet_decal.tscn")
 const BLUE_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/blue_emissive_material.tres")
 const RED_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/red_emissive_material.tres")
 
-# definitions for ammo
-var ammo = 50
+# ammo is globally defined
 
 # bar charge
 var pistol_isCharged
@@ -30,7 +29,7 @@ func fire():
 		b_mesh.set_surface_override_material(0, BLUE_EMISSIVE_MATERIAL.duplicate())
 	
 	# below occurs regardless of wether the bullets hit something or otherwise
-	ammo -= 1
+	Global.blaster_ammo -= 1
 	
 	# signal the body that was just hit for debug
 	Global.body_hit = body
@@ -49,7 +48,7 @@ func fire():
 
 
 func reload():
-	ammo = 50
+	Global.blaster_ammo = 50
 	
 # called on right click
 func special(weapon):
@@ -68,38 +67,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
-	
-		
-	Global.blaster_ammo = ammo
-	
-	
-	
-	
-	
-	
-	
-	# save the current animation to a global transfer variable
-	Global.anim_playing = animation_player.current_animation
-	if Input.is_action_pressed("fire"):
-		if animation_player.current_animation == "inspect":
-			animation_player.stop()
-		elif animation_player.current_animation == "reload_pistol":
-			pass
-		else:
-			if ammo > 0:
-				animation_player.play("fire")
-			elif ammo == 0: animation_player.play("reload_pistol")
-	
-	if Input.is_action_pressed("inspect weapon"):
-		if animation_player.current_animation == "reload_pistol":
-			pass
-		else:
-			animation_player.play("inspect")
-			
-	if Input.is_action_pressed("reload"):
-		if ammo != 50:
-			animation_player.play("reload_pistol")
-			
-	# special action
-	if Input.is_action_just_pressed("right click action"):
-		special(Global.current_weapon)
+	pass
