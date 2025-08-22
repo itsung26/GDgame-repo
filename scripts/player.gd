@@ -9,6 +9,7 @@ extends CharacterBody3D
 @onready var muzzle_flash: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash"
 @onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
 @onready var pistol: Skeleton3D = $Pivot/Camera3D/pistol
+@onready var shotgun: Node3D = $Pivot/Camera3D/Guns/shotgun
 
 
 
@@ -146,7 +147,14 @@ func gunInputs(curr_weap): # run every frame in _process
 			print("shotgun special")
 
 func _process(_delta) -> void:
+	
 	gunInputs(Global.current_weapon)
+	
+	# hide weapon on switch script
+	if Global.current_weapon == "pistol":
+		shotgun.visible = false
+	elif Global.current_weapon == "shotgun":
+		pistol.visible = false
 
 # note: zoomOut and zoomIn are reversed. I screwed up.
 func _on_hud_zoom_in_trigger() -> void:

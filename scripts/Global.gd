@@ -1,5 +1,7 @@
 extends Node
 
+var current_special_property
+
 '''
 pistol variables===================================================================================
 pistol special: Overclock- increases player speed, damage, jump, and reload speed for a short amount of time.

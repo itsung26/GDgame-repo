@@ -9,6 +9,9 @@ extends Control
 @onready var current_weapon: Label = %CurrentWeapon
 @onready var fire_type_debug: Label = %FireTypeDebug
 @onready var overclock_bar: Control = $OverclockBar
+@onready var key_indicator_2: AnimatedSprite2D = $pistolPreviewIcon/blasterPreviewIcon/KeyIndicator2
+@onready var key_animator_2: AnimationPlayer = $KeyAnimator_2
+@onready var key_animator_3: AnimationPlayer = $KeyAnimator_3
 
 var current_frames_per_second = "null"
 
@@ -64,12 +67,23 @@ func _process(_delta) -> void:
 	if Global.pistol_activate_special :
 		if not animation_player.is_playing():
 			animation_player.play("bar_charge_empty")
+			
+	# set the corresponding input keys animation frames to react to the current weapon
+	if Global.current_weapon == "pistol":
+		key_animator_2.play("key_2_set_dark")
+	else:
+		key_animator_2.play("key_2_set_light")
+	
+	if Global.current_weapon == "shotgun":
+		key_animator_3.play("key_3_set_dark")
+	else:
+		key_animator_3.play("key_3_set_light")
 		
 	# set debug text-------------------------------------------------------------------------------
 	anim_debug.text = "current animation: " + str(Global.anim_playing)
 	fire_type_debug.text = "Current fireType: " + str(Global.current_fireType)
 	body_hit_debug.text = "last object hit: " + str(Global.body_hit)
-	current_weapon_special.text = "Current weapon ability: " + Global.pistol_special_property
+	current_weapon_special.text = "Current weapon ability: " + Global.current_special_property
 	current_weapon.text = "Current weapon: " + str(Global.current_weapon)
 	
 	# ----------------------------------------------------------------------------------------------
