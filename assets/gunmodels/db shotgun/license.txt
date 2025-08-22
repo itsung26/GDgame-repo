@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cartoon Double Barrel Shotgun
+* source:	https://sketchfab.com/3d-models/cartoon-double-barrel-shotgun-9a5d70ba318641f7afcf35471b33d5ae
+* author:	TheRulerMeasure (https://sketchfab.com/TheRulerMeasure)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cartoon Double Barrel Shotgun" (https://sketchfab.com/3d-models/cartoon-double-barrel-shotgun-9a5d70ba318641f7afcf35471b33d5ae) by TheRulerMeasure (https://sketchfab.com/TheRulerMeasure) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

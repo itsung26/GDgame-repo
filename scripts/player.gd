@@ -5,9 +5,10 @@ extends CharacterBody3D
 @onready var pivot: Node3D = $Pivot
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera_animator: AnimationPlayer = $CameraAnimator
+@onready var special_light: OmniLight3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/SpecialLight"
 @onready var muzzle_flash: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash"
 @onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
-@onready var special_light: OmniLight3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/SpecialLight"
+
 
 
 @export var SPEED = 5.0

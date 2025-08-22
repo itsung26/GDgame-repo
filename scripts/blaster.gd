@@ -1,8 +1,8 @@
 extends Skeleton3D
 
-@onready var animation_player: AnimationPlayer = $"../../../AnimationPlayer"
 @onready var bullet_ray_cast: RayCast3D = $"../BulletRayCast"
 @onready var camera_3d: Camera3D = %Camera3D
+@onready var animation_player: AnimationPlayer = $"../../../AnimationPlayer"
 
 const BULLET_DECAL_BLUE = preload("res://scenes/bullet_decal.tscn")
 const BLUE_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/blue_emissive_material.tres")
