@@ -1,6 +1,9 @@
 extends Node
 
 var current_special_property
+var current_MAGSIZE
+var current_DAMAGE
+var current_AMMO
 
 '''
 pistol variables===================================================================================
@@ -47,6 +50,26 @@ var body_hit = "null"
 var anim_playing = "null"
 var current_weapon = "pistol" # valid values are: "pistol"
 var current_fireType = "RAYCAST_PISTOL"
+
+'''
+current variables===================================================================================
+i don't want to deal with dictionaries
+these variables update every frame to the current type of element that corresponds to the weapon you have
+EX: current_weapon is "shotgun", current_magsize updates to shotgun_MAGSIZE
+this is inefficient, but eliminates the need for a huge dictionary with properties
+'''
+func _process(float) -> void:
+	if current_weapon == "pistol":
+		current_DAMAGE = pistol_DAMAGE
+		current_MAGSIZE = pistol_MAGSIZE
+		current_special_property = pistol_special_property
+		current_AMMO = blaster_ammo
+	
+	elif current_weapon == "shotgun":
+		current_DAMAGE = shotgun_DAMAGE
+		current_MAGSIZE = shotgun_MAGSIZE
+		current_special_property = shotgun_special_property
+		current_AMMO = shotgun_ammo
 
 '''
 other global variables needed to cross scenes===============================================================

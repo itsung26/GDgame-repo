@@ -415,7 +415,7 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -125.0
-offset_right = 298.0
+offset_right = 243.0
 grow_vertical = 0
 
 [node name="ammoCounter" type="Label" parent="AmmoContainer"]
@@ -424,7 +424,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 91
 text = "50/50"
 
-[node name="Sprite2D" type="Sprite2D" parent="AmmoContainer"]
+[node name="pistol_bullet_icon" type="Sprite2D" parent="AmmoContainer"]
 position = Vector2(266, 68)
 scale = Vector2(3.3837, 3.3837)
 texture = ExtResource("6_5pdws")

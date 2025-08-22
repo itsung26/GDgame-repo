@@ -34,9 +34,15 @@ func triggerZoomIn():
 	
 func triggerZoomOut():
 	zoom_out_trigger.emit()
+	
+func updateAmmoCounter(globalCurrWeap):
+	ammo_counter.text = str(Global.current_AMMO) + "/" + str(Global.current_MAGSIZE)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
+	
+	updateAmmoCounter(Global.current_weapon)
 	
 	# shows or hides ui elements based on current weapon
 	if Global.current_weapon == "pistol":
@@ -53,9 +59,6 @@ func _process(_delta) -> void:
 	# get engine fps
 	current_frames_per_second = Engine.get_frames_per_second()
 	fps_counter.text = "FPS: " + str(current_frames_per_second)
-	
-	# update the ammo counter
-	ammo_counter.text = str(Global.blaster_ammo) + "/" + str(Global.pistol_MAGSIZE)
 	
 	# fps counter
 	if current_frames_per_second >= 30:

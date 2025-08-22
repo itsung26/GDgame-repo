@@ -92,14 +92,13 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func gunInputs(curr_weap): # run every frame in _process
-	print(curr_weap)
 	
 	# save the current animation to a global transfer variable every frame
 	Global.anim_playing = animation_player.current_animation
 	
 	# switch block======================================================================================
 	if Input.is_action_just_pressed("slot1"):
-		pass
+		print("WIP- melee coming soon")
 	if Input.is_action_just_pressed("slot2"):
 		Global.current_weapon = "pistol"
 	if Input.is_action_just_pressed("slot3"):
@@ -146,15 +145,19 @@ func gunInputs(curr_weap): # run every frame in _process
 		elif curr_weap == "shotgun":
 			print("shotgun special")
 
+func hideGuns(curr_weap):
+	# hide weapon on switch
+	if Global.current_weapon == "pistol":
+		pistol.visible = true
+		shotgun.visible = false
+	elif Global.current_weapon == "shotgun":
+		shotgun.visible = true
+		pistol.visible = false
+
 func _process(_delta) -> void:
 	
 	gunInputs(Global.current_weapon)
-	
-	# hide weapon on switch script
-	if Global.current_weapon == "pistol":
-		shotgun.visible = false
-	elif Global.current_weapon == "shotgun":
-		pistol.visible = false
+	hideGuns(Global.current_weapon)
 
 # note: zoomOut and zoomIn are reversed. I screwed up.
 func _on_hud_zoom_in_trigger() -> void:

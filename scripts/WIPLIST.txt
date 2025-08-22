@@ -1,0 +1,70 @@
+Plans
+🧊🦒🦒🦒🦒
+Weapons- 5 planned, maybe more
+=======================================================================================================
+Pistol (blaster)
+A fast firing laser autopistol desinged for close-medium range.
+
+SPECIAL: Overclock- A cooldown-based ability that temporarily increases your damage, speed, jump power,
+and reload speed. Runs on a cooldown that must recharge for the special to be used again.
+
+PLANNED-
+-an actual laser beam that you can see shoot instead of magical spawning bullets
+-RECOIL AND SPREAD.
+-balance overdrive. increases bullet spread in exchange for damage and power
+- replace model with something that doesn't look like a nerf gun
+=======================================================================================================
+Shotgun
+A double barrel shotgun designed for crowd control. Effective at close range only.
+
+SPECIAL: Dragon's Breath- Another cooldown based ability that when used, loads two special shells that set
+everything in front of you on fire. Fairly long cooldown in exchange for the ability to clear large groups.
+
+PLANNED-
+- Finish it
+- Bullet spread
+- Decide on either a cooldown special or a limited ammo that certain enemies drop.
+- probably replace model
+=======================================================================================================
+Black Hole Launcher (BFG)
+Makes a huge black hole that pulls in everything nearby and does lots of damage. Very limited ammo.
+
+SPECIAL: why would I even need this. It shoots black holes
+
+PLANNED-
+- Make it
+- Figure out how to make artifical gravity
+- decide on wether ammo should even be obtainable or if the gun should be a limited use heavy weapon
+=======================================================================================================
+Sniper Rifle
+Slow firing bolt-action rifle that is best at long range.
+
+SPECIAL: Time Dilation- slows time when a certain key is pressed, allows for easier sniping as well as
+making no-scopes a mechanic
+
+PLANNED-
+- make it
+- find model
+- seperate reloading into two animation tracks for cycling bolt and reloading
+=======================================================================================================
+
+
+
+
+MAPS
+=======================================================================================================
+space
+
+
+
+
+
+MECHANICS
+=======================================================================================================
+Grappling Hook
+-I have no idea where to even begin to make this, but if it worked, it would be incredible
+
+Time Dilation
+-Surprisingly easy to incorporate
+-Where to incorporate(Parrying, explosions, Sniper weapon special)
+=======================================================================================================

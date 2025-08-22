@@ -943,7 +943,7 @@ skin = SubResource("Skin_xc36h")
 [node name="Object_8" type="Node3D" parent="Pivot/Camera3D/Guns/shotgun/Sketchfab_model/531c7ea3dce84944a5cb615212397ba4_fbx/Object_2/RootNode/Rig_olympia/Object_6"]
 transform = Transform3D(100, 0, 0, 0, 6.12323e-15, 100, 0, -100, 6.12323e-15, 0, 0, 0)
 
-[node name="ShotgunAnimator" type="AnimationPlayer" parent="Pivot/Camera3D/Guns/shotgun"]
+[node name="BarrelAnimator" type="AnimationPlayer" parent="Pivot/Camera3D/Guns/shotgun"]
 libraries = {
 &"": SubResource("AnimationLibrary_q6rs7")
 }
