@@ -10,17 +10,22 @@ extends CharacterBody3D
 @onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
 @onready var pistol: Skeleton3D = $Pivot/Camera3D/pistol
 @onready var shotgun: Node3D = $Pivot/Camera3D/Guns/shotgun
+@onready var grapple_ray_cast: RayCast3D = $Pivot/Camera3D/GrappleRayCast
 
 
 
 @export var SPEED = 5.0
 @export var JUMP_VELOCITY = 4.5
 @export var look_sensitivity = 0.1
+@export var GRAPPLE_RAY_MAX= 5
 
 
 func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# grapple ray target init + range
+	grapple_ray_cast.target_position = Vector3(0, 0, -1 * GRAPPLE_RAY_MAX)
 	
 func _input(event) -> void:
 	# handle mouselook
@@ -76,6 +81,9 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	elif Input.is_action_just_pressed("jump") and not is_on_floor():
+		if Input.is_action_pressed("jump") and not is_on_floor():
+			print("doiwork")
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -96,16 +104,18 @@ func gunInputs(curr_weap): # run every frame in _process
 	# save the current animation to a global transfer variable every frame
 	Global.anim_playing = animation_player.current_animation
 	
-	# switch block======================================================================================
-	if Input.is_action_just_pressed("slot1"):
-		print("WIP- melee coming soon")
-	if Input.is_action_just_pressed("slot2"):
+	# switch weapon block======================================================================================
+	if Input.is_action_just_pressed("slot1") and not animation_player.is_playing():
+		Global.current_weapon = "melee"
+	if Input.is_action_just_pressed("slot2") and not animation_player.is_playing():
 		Global.current_weapon = "pistol"
-	if Input.is_action_just_pressed("slot3"):
+	if Input.is_action_just_pressed("slot3") and not animation_player.is_playing():
 		Global.current_weapon = "shotgun"
 	
 	# automatic fire block=====================================================================================
 	if Input.is_action_pressed("fire"):
+		# use AnimationPlayer for all animations
+		
 		if curr_weap == "pistol":
 			if animation_player.current_animation == "inspect":
 				animation_player.stop()
@@ -152,6 +162,9 @@ func hideGuns(curr_weap):
 		shotgun.visible = false
 	elif Global.current_weapon == "shotgun":
 		shotgun.visible = true
+		pistol.visible = false
+	elif Global.current_weapon == "melee":
+		shotgun.visible = false
 		pistol.visible = false
 
 func _process(_delta) -> void:

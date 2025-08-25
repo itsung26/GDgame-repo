@@ -5,6 +5,9 @@ var current_MAGSIZE
 var current_DAMAGE
 var current_AMMO
 
+# note: magsize should always be the same as ammo.
+# this is intended to allow for infinite ammo as (most) guns are intended to fire forever
+
 '''
 pistol variables===================================================================================
 pistol special: Overclock- increases player speed, damage, jump, and reload speed for a short amount of time.
@@ -44,6 +47,20 @@ var shotgun_activate_special = false
 var shotgun_special_state= false
 
 '''
+melee variables===================================================================================
+melee special: undecided.
+Runs on a cooldown. 
+'''
+
+const melee_special_property = "n/a"
+
+var melee_ammo = 999999999
+var melee_DAMAGE = 5
+var melee_MAGSIZE =  999999999
+var melee = false
+var melee_special_state = false
+
+'''
 debug variables for the custom debug window===============================================================
 '''
 var body_hit = "null"
@@ -70,8 +87,14 @@ func _process(float) -> void:
 		current_MAGSIZE = shotgun_MAGSIZE
 		current_special_property = shotgun_special_property
 		current_AMMO = shotgun_ammo
+		
+	elif current_weapon == "melee":
+		current_DAMAGE = melee_DAMAGE
+		current_MAGSIZE = melee_MAGSIZE
+		current_special_property = melee_special_property
+		current_AMMO = melee_ammo
 
 '''
-other global variables needed to cross scenes===============================================================
+other global vars===============================================================
 '''
-# n/a for now
+# n/a

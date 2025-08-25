@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=38 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/sprite assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dcs7dajg0p34e" path="res://assets/sprite assets/key icons/Keyboard & Mouse/keyboard-&-mouse_sheet_double.png" id="6_hd3ao"]
 [ext_resource type="Texture2D" uid="uid://5viqdp3vwpsj" path="res://assets/sprite assets/gunmodel previews/clip-large.png" id="7_0i1j5"]
 [ext_resource type="Texture2D" uid="uid://dwqv080lryrx1" path="res://assets/sprite assets/gunmodel previews/54303.png" id="8_mphia"]
+[ext_resource type="Texture2D" uid="uid://qh0lx4qk4f2e" path="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Double/check_round_color.png" id="9_0m4u7"]
 [ext_resource type="Texture2D" uid="uid://b5fiinl314wvi" path="res://assets/textures/prototypes/PNG/Red/texture_01.png" id="9_apjy4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0m4u7"]
@@ -33,6 +34,28 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_eld54"]
+atlas = ExtResource("6_hd3ao")
+region = Rect2(768, 512, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3swnk"]
+atlas = ExtResource("6_hd3ao")
+region = Rect2(640, 512, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qkknv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eld54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3swnk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_5n1hp"]
 atlas = ExtResource("6_hd3ao")
 region = Rect2(1024, 1920, 128, 128)
@@ -52,6 +75,43 @@ animations = [{
 }],
 "loop": true,
 "name": &"key_3",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkknv"]
+atlas = ExtResource("6_hd3ao")
+region = Rect2(512, 1920, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxdf7"]
+atlas = ExtResource("6_hd3ao")
+region = Rect2(384, 1920, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5357l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkknv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxdf7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iypfu"]
+atlas = ExtResource("9_0m4u7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qpprf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iypfu")
+}],
+"loop": true,
+"name": &"default",
 "speed": 5.0
 }]
 
@@ -266,13 +326,63 @@ _data = {
 &"key_3_set_light": SubResource("Animation_5n1hp")
 }
 
+[sub_resource type="Animation" id="Animation_qkknv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../pistolPreviewIcon/MeleePrompt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_eld54"]
+resource_name = "key_1_set_dark"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../pistolPreviewIcon/MeleePrompt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3swnk"]
+resource_name = "key_1_set_light"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../pistolPreviewIcon/MeleePrompt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qkknv"]
+_data = {
+&"RESET": SubResource("Animation_qkknv"),
+&"key_1_set_dark": SubResource("Animation_eld54"),
+&"key_1_set_light": SubResource("Animation_3swnk")
+}
+
 [node name="HUD" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -308,13 +418,13 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = -2.0
-offset_top = -267.0
+offset_top = -305.0
 offset_right = 249.0
-offset_bottom = -45.0
+offset_bottom = -83.0
 grow_vertical = 0
 
 [node name="blasterPreviewIcon" type="Sprite2D" parent="pistolPreviewIcon"]
-position = Vector2(68, 105)
+position = Vector2(69, 147)
 texture = ExtResource("3_5ysmq")
 region_enabled = true
 region_rect = Rect2(11, 10, 42, 42)
@@ -326,27 +436,25 @@ sprite_frames = SubResource("SpriteFrames_apjy4")
 animation = &"key_2"
 frame = 1
 
-[node name="ReloadPrompt" type="Sprite2D" parent="pistolPreviewIcon"]
+[node name="ReloadPrompt" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
 position = Vector2(113, 149)
 scale = Vector2(0.345736, 0.345736)
-texture = ExtResource("6_hd3ao")
-region_enabled = true
-region_rect = Rect2(656, 528, 96, 96)
+sprite_frames = SubResource("SpriteFrames_qkknv")
 
 [node name="MagIcon" type="Sprite2D" parent="pistolPreviewIcon/ReloadPrompt"]
-position = Vector2(112.803, -2.89238)
+position = Vector2(112.803, -2.89246)
 scale = Vector2(2.63901, 2.63901)
 texture = ExtResource("7_0i1j5")
 region_enabled = true
 region_rect = Rect2(19, 12, 26, 40)
 
 [node name="ReloadIcon" type="Sprite2D" parent="pistolPreviewIcon/ReloadPrompt"]
-position = Vector2(112.803, 2.89238)
+position = Vector2(112.803, 2.89233)
 scale = Vector2(0.109866, 0.109866)
 texture = ExtResource("8_mphia")
 
 [node name="ShotgunPreviewIcon" type="Sprite2D" parent="pistolPreviewIcon"]
-position = Vector2(69, 147)
+position = Vector2(70, 104)
 scale = Vector2(0.0340154, 0.0340154)
 texture = ExtResource("9_apjy4")
 
@@ -355,6 +463,16 @@ position = Vector2(-1234.74, 0)
 scale = Vector2(11.0564, 11.0564)
 sprite_frames = SubResource("SpriteFrames_3swnk")
 animation = &"key_3"
+
+[node name="MeleePrompt" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
+position = Vector2(28, 191)
+scale = Vector2(0.373837, 0.373837)
+sprite_frames = SubResource("SpriteFrames_5357l")
+
+[node name="MeleePreviewIcon" type="AnimatedSprite2D" parent="pistolPreviewIcon/MeleePrompt"]
+position = Vector2(115.023, 0)
+scale = Vector2(1.45998, 1.45998)
+sprite_frames = SubResource("SpriteFrames_qpprf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -484,4 +602,10 @@ libraries = {
 [node name="KeyAnimator_3" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_5pdws")
+}
+
+[node name="KeyAnimator_1" type="AnimationPlayer" parent="."]
+root_node = NodePath("../KeyAnimator_3")
+libraries = {
+&"": SubResource("AnimationLibrary_qkknv")
 }

@@ -12,6 +12,7 @@ extends Control
 @onready var key_indicator_2: AnimatedSprite2D = $pistolPreviewIcon/blasterPreviewIcon/KeyIndicator2
 @onready var key_animator_2: AnimationPlayer = $KeyAnimator_2
 @onready var key_animator_3: AnimationPlayer = $KeyAnimator_3
+@onready var key_animator_1: AnimationPlayer = $KeyAnimator_1
 
 var current_frames_per_second = "null"
 
@@ -81,6 +82,11 @@ func _process(_delta) -> void:
 		key_animator_3.play("key_3_set_dark")
 	else:
 		key_animator_3.play("key_3_set_light")
+		
+	if Global.current_weapon == "melee":
+		key_animator_1.play("key_1_set_light")
+	else:
+		key_animator_1.play("key_1_set_dark")
 		
 	# set debug text-------------------------------------------------------------------------------
 	anim_debug.text = "current animation: " + str(Global.anim_playing)

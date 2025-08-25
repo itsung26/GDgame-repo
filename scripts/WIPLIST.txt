@@ -62,7 +62,7 @@ space
 MECHANICS
 =======================================================================================================
 Grappling Hook
--I have no idea where to even begin to make this, but if it worked, it would be incredible
+-Use Hooke's law and cgmeshes to simulate the behavior of a spring
 
 Time Dilation
 -Surprisingly easy to incorporate
