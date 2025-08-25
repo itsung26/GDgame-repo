@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ddw2badfdmuup"]
+[gd_scene load_steps=27 format=3 uid="uid://ddw2badfdmuup"]
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -71,6 +71,15 @@ size = Vector3(1, 1, 5.77)
 size = Vector3(1, 1, 5.76047)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_85g3d"]
+albedo_texture = ExtResource("5_o6xl0")
+normal_enabled = true
+normal_texture = ExtResource("6_tipki")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_85g3d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_choun"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya4ey"]
 albedo_texture = ExtResource("5_o6xl0")
 normal_enabled = true
 normal_texture = ExtResource("6_tipki")
@@ -191,6 +200,94 @@ collision_mask = 7
 polygon = PackedVector2Array(0, 0, 2.24866, 1.19447, 5.55225, 2.91551, 7.72828, 6.04107, 7, 0, 6, 0)
 depth = 11.6
 material = SubResource("StandardMaterial3D_85g3d")
+
+[node name="GrappleBlocks" type="Node3D" parent="WorldParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8703, 13.1385, -14.5451)
+
+[node name="GrappleBlock" type="StaticBody3D" parent="WorldParts/GrappleBlocks"]
+transform = Transform3D(3.40224, 0, 0, 0, 3.40224, 0, 0, 0, 3.40224, 7.33373, -3.71103, 1.66965)
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldParts/GrappleBlocks/GrappleBlock"]
+shape = SubResource("BoxShape3D_85g3d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldParts/GrappleBlocks/GrappleBlock"]
+mesh = SubResource("BoxMesh_choun")
+surface_material_override/0 = SubResource("StandardMaterial3D_ya4ey")
+
+[node name="GrappleBlock2" type="StaticBody3D" parent="WorldParts/GrappleBlocks"]
+transform = Transform3D(3.40224, 0, 0, 0, 3.40224, 0, 0, 0, 3.40224, -8.46114, -4.7571, -10.2704)
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldParts/GrappleBlocks/GrappleBlock2"]
+shape = SubResource("BoxShape3D_85g3d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldParts/GrappleBlocks/GrappleBlock2"]
+mesh = SubResource("BoxMesh_choun")
+surface_material_override/0 = SubResource("StandardMaterial3D_ya4ey")
+
+[node name="GrappleBlock3" type="StaticBody3D" parent="WorldParts/GrappleBlocks"]
+transform = Transform3D(3.40224, 0, 0, 0, 3.40224, 0, 0, 0, 3.40224, -9.74159, 0, 1.45067)
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldParts/GrappleBlocks/GrappleBlock3"]
+shape = SubResource("BoxShape3D_85g3d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldParts/GrappleBlocks/GrappleBlock3"]
+mesh = SubResource("BoxMesh_choun")
+surface_material_override/0 = SubResource("StandardMaterial3D_ya4ey")
+
+[node name="GrappleBlock4" type="StaticBody3D" parent="WorldParts/GrappleBlocks"]
+transform = Transform3D(3.40224, 0, 0, 0, 3.40224, 0, 0, 0, 3.40224, 2.86599, 4.05954, -11.8464)
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldParts/GrappleBlocks/GrappleBlock4"]
+shape = SubResource("BoxShape3D_85g3d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldParts/GrappleBlocks/GrappleBlock4"]
+mesh = SubResource("BoxMesh_choun")
+surface_material_override/0 = SubResource("StandardMaterial3D_ya4ey")
+
+[node name="GrappleBlock5" type="StaticBody3D" parent="WorldParts/GrappleBlocks"]
+transform = Transform3D(3.40224, 0, 0, 0, 3.40224, 0, 0, 0, 3.40224, 14.9811, 9.19765, -7.61103)
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldParts/GrappleBlocks/GrappleBlock5"]
+shape = SubResource("BoxShape3D_85g3d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldParts/GrappleBlocks/GrappleBlock5"]
+mesh = SubResource("BoxMesh_choun")
+surface_material_override/0 = SubResource("StandardMaterial3D_ya4ey")
+
+[node name="GrappleBlock6" type="StaticBody3D" parent="WorldParts/GrappleBlocks"]
+transform = Transform3D(3.40224, 0, 0, 0, 3.40224, 0, 0, 0, 3.40224, 11.1397, 4.24408, 11.9898)
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldParts/GrappleBlocks/GrappleBlock6"]
+shape = SubResource("BoxShape3D_85g3d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldParts/GrappleBlocks/GrappleBlock6"]
+mesh = SubResource("BoxMesh_choun")
+surface_material_override/0 = SubResource("StandardMaterial3D_ya4ey")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="WorldParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.6266, 0, 11.3988)
+polygon = PackedVector2Array(-63, -1, -43.0365, 28.0719, -29.0251, 17.1864, 1, 0)
+depth = 53.95
+material = ExtResource("5_tefeu")
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="WorldParts"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, -96.7613, 15.2485, 11.3988)
+operation = 1
+polygon = PackedVector2Array(-15, -20, -30.2001, 35.1206, -24, 14.8684, 1, 0)
+depth = 53.95
+material = ExtResource("5_tefeu")
 
 [node name="WorldLights" type="Node3D" parent="."]
 

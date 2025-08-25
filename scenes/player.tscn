@@ -1,6 +1,7 @@
-[gd_scene load_steps=48 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=49 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
+[ext_resource type="Script" uid="uid://dp6mg0rm4wn62" path="res://scripts/grapple_rope.gd" id="2_d2wvv"]
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/blaster.gd" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://x51q4hwcyu2q" path="res://scenes/fireTypeRAYCAST.tscn" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://57ppfu3duqgj" path="res://assets/gunmodels/Textures/colormap.png" id="3_qhqgy"]
@@ -719,6 +720,9 @@ _data = {
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_qhqgy")
+GRAPPLE_MAX_RANGE = 50
+GRAPPLE_SPEED_MAX = 20
+GRAPPLE_HOP = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -763,11 +767,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot/Camera3D"]
+[node name="GrappleRope" type="MeshInstance3D" parent="Pivot/Camera3D"]
 mesh = SubResource("ImmediateMesh_y4r1p")
+script = ExtResource("2_d2wvv")
 
 [node name="GrappleRayCast" type="RayCast3D" parent="Pivot/Camera3D"]
 target_position = Vector3(0, 0, -1)
+collision_mask = 6
+
+[node name="GrapplePivot" type="Node3D" parent="Pivot/Camera3D"]
 
 [node name="BulletRayCast" parent="Pivot/Camera3D" instance=ExtResource("2_tuyoq")]
 transform = Transform3D(1, 0, 0, 0, -1, -1.50996e-07, 0, 1.50996e-07, -1, 0.00434119, -0.0047704, -0.40687)

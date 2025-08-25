@@ -405,10 +405,8 @@ stretch_mode = 3
 [node name="RedBorder" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -2.0
-offset_top = -6.0
-offset_right = 1150.0
-offset_bottom = 642.0
+offset_right = 1152.0
+offset_bottom = 648.0
 texture = ExtResource("4_5pdws")
 expand_mode = 1
 
