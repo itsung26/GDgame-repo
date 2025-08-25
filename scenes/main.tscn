@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ddw2badfdmuup"]
+[gd_scene load_steps=29 format=3 uid="uid://ddw2badfdmuup"]
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -8,6 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://dnu2ogho4nr2g" path="res://assets/textures/prototypes/PNG/Orange/texture_01.png" id="5_tbgi4"]
 [ext_resource type="Material" uid="uid://j1uxc5ncdsqa" path="res://assets/textures/prototype_dark.tres" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://cread3gedp1k3" path="res://assets/textures/normalmapped dark/blackprototype/texture_01_normal.png" id="6_tipki"]
+[ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="9_choun"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ya4ey"]
+shader = ExtResource("9_choun")
+shader_parameter/Pixelated = 300.0
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jyhfs"]
 sky_top_color = Color(0.033378, 0.445474, 0.825481, 1)
@@ -85,6 +90,12 @@ normal_enabled = true
 normal_texture = ExtResource("6_tipki")
 
 [node name="main" type="Node3D"]
+
+[node name="PixelShader" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ya4ey")
+scale = Vector2(1.125, 0.632813)
+texture = ExtResource("5_o6xl0")
+centered = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tefeu")
