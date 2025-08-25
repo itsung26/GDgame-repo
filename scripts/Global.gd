@@ -99,3 +99,4 @@ other global vars===============================================================
 '''
 var isPaused = false
 var menuState = "notpaused"
+var enableShader = false

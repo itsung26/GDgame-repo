@@ -56,8 +56,8 @@ func zoomIn():
 # when overclock begins
 func zoomOut():
 	camera_animator.play("camera_overclock_zoom_out")
-	SPEED = 10
-	JUMP_VELOCITY = 6.5
+	SPEED = SPEED * 2
+	JUMP_VELOCITY = JUMP_VELOCITY * 1.5
 	animation_player.speed_scale = 3
 	Global.pistol_DAMAGE = 15
 	muzzle_flash.modulate = Color.RED
@@ -137,11 +137,11 @@ func gunInputs(curr_weap): # run every frame in _process
 	Global.anim_playing = animation_player.current_animation
 	
 	# switch weapon block======================================================================================
-	if Input.is_action_just_pressed("slot1") and not animation_player.is_playing():
+	if Input.is_action_just_pressed("slot1"): #and not animation_player.is_playing():
 		Global.current_weapon = "melee"
-	if Input.is_action_just_pressed("slot2") and not animation_player.is_playing():
+	if Input.is_action_just_pressed("slot2"): #and not animation_player.is_playing():
 		Global.current_weapon = "pistol"
-	if Input.is_action_just_pressed("slot3") and not animation_player.is_playing():
+	if Input.is_action_just_pressed("slot3"): #and not animation_player.is_playing():
 		Global.current_weapon = "shotgun"
 	
 	# automatic fire block=====================================================================================

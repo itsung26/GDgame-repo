@@ -3,6 +3,7 @@ extends Node
 @onready var hud: Control = $"../HUD"
 @onready var main: Node3D = $".."
 @onready var pause: Control = $"../Pause"
+@onready var pixel_shader: Sprite2D = $"../PixelShader"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,6 +19,17 @@ func _process(_delta) -> void:
 	
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()
+	
+	# enables and disables every frame
+	if Global.isPaused:
+		hud.visible = false
+	elif not Global.isPaused:
+		hud.visible = true
+		
+	if Global.enableShader:
+		pixel_shader.visible = true
+	else:
+		pixel_shader.visible = false
 	
 	if Input.is_action_just_pressed("pause"):
 		

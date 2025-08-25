@@ -16,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_r8yp4")
 
 [node name="CenterButtons" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -72,6 +73,25 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
+[node name="Back" type="Button" parent="OptionsMenu"]
+layout_mode = 2
+offset_top = 579.0
+offset_right = 174.0
+offset_bottom = 644.0
+theme_override_fonts/font = ExtResource("1_f1d2v")
+theme_override_font_sizes/font_size = 50
+text = "back"
+
+[node name="ShaderToggle" type="CheckButton" parent="OptionsMenu"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 55.0
+offset_right = 217.0
+offset_bottom = 86.0
+text = "Pixelated Shader"
+
 [connection signal="pressed" from="CenterButtons/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CenterButtons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="OptionsMenu/Back" to="." method="_on_back_pressed"]
+[connection signal="toggled" from="OptionsMenu/ShaderToggle" to="." method="_on_shader_toggle_toggled"]

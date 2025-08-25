@@ -3,6 +3,7 @@ extends Control
 @onready var hud: Control = $"../HUD"
 @onready var options_menu: Control = $OptionsMenu
 @onready var center_buttons: Control = $CenterButtons
+@onready var shader_toggle: CheckButton = $OptionsMenu/ShaderToggle
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -44,3 +45,11 @@ func _on_options_pressed() -> void:
 func _on_quit_pressed() -> void:
 	Global.menuState = "main"
 	get_tree().quit()
+
+
+func _on_back_pressed() -> void:
+	Global.menuState = "main"
+
+
+func _on_shader_toggle_toggled(toggled_on: bool) -> void:
+	Global.enableShader = toggled_on

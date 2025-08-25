@@ -93,6 +93,7 @@ normal_texture = ExtResource("6_tipki")
 [node name="main" type="Node3D"]
 
 [node name="PixelShader" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_ya4ey")
 scale = Vector2(1.125, 0.632813)
 texture = ExtResource("5_o6xl0")
@@ -127,6 +128,7 @@ skeleton = NodePath("../..")
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.187, 0.0704314, -21.4597)
 collision_mask = 6
+SPEED = 7.5
 
 [node name="enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.417, 0, -26.861)
