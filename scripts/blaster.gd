@@ -45,6 +45,9 @@ func fire():
 			print("health of enemy: " + str(body.health))
 		else:
 			print("bullet hit something that is not an enemy, and thus does not have health")
+	
+	# bullet spread
+	bullet_ray_cast.rotation_degrees = Vector3(randf_range(-4, 4), randf_range(-184, -176), 0)
 
 
 func reload():

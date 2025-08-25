@@ -84,11 +84,20 @@ text = "back"
 
 [node name="ShaderToggle" type="CheckButton" parent="OptionsMenu"]
 layout_mode = 0
-offset_left = 38.0
-offset_top = 55.0
-offset_right = 217.0
-offset_bottom = 86.0
-text = "Pixelated Shader"
+offset_left = 54.0
+offset_top = 52.0
+offset_right = 193.0
+offset_bottom = 83.0
+scale = Vector2(1.56344, 1.56344)
+text = "Retro Mode"
+
+[node name="Graphics" type="Label" parent="OptionsMenu"]
+layout_mode = 0
+offset_right = 339.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("1_f1d2v")
+theme_override_font_sizes/font_size = 55
+text = "Graphics"
 
 [connection signal="pressed" from="CenterButtons/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/Options" to="." method="_on_options_pressed"]
