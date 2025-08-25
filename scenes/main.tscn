@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://ddw2badfdmuup"]
+[gd_scene load_steps=30 format=3 uid="uid://ddw2badfdmuup"]
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://ctxddstc2vto8" path="res://scenes/hud.tscn" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b42afh5fqoslr" path="res://scenes/enemy.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="5_choun"]
 [ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="5_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://dnu2ogho4nr2g" path="res://assets/textures/prototypes/PNG/Orange/texture_01.png" id="5_tbgi4"]
 [ext_resource type="Material" uid="uid://j1uxc5ncdsqa" path="res://assets/textures/prototype_dark.tres" id="5_tefeu"]
@@ -106,6 +107,9 @@ process_mode = 3
 script = ExtResource("1_0wfyh")
 
 [node name="HUD" parent="." instance=ExtResource("2_tefeu")]
+
+[node name="Pause" parent="." instance=ExtResource("5_choun")]
+visible = false
 
 [node name="black hole?????" type="Node3D" parent="."]
 transform = Transform3D(3.52119, 0, 0, 0, 3.52119, 0, 0, 0, 3.52119, -6.30319, -0.167182, -18.3865)

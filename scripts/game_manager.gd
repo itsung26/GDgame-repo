@@ -1,9 +1,12 @@
 extends Node
 
+@onready var hud: Control = $"../HUD"
+@onready var main: Node3D = $".."
+@onready var pause: Control = $"../Pause"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	return
 
 var ispaused = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -15,18 +18,22 @@ func _process(_delta) -> void:
 		Global.current_special_property = Global.shotgun_special_property
 	
 	if Input.is_action_just_pressed("forcequit"):
-		'''
-		once about every 50 runs or so, this crashes the entire engine,
-		editor and all to a black screen, sometimes even crashing task manager, godot is so stable.
-		'''
 		get_tree().quit()
-
+	
 	if Input.is_action_just_pressed("pause"):
+		
+		# pauses======================================================================================
 		if not ispaused:
+			pause.visible = true
+			hud.visible = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			get_tree().paused = true
 			ispaused = true
+			
+		# unpauses=======================================================================================
 		elif ispaused:
+			pause.visible = false
+			hud.visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			get_tree().paused = false
 			ispaused = false
