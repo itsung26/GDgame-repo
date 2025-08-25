@@ -417,7 +417,7 @@ albedo_color = Color(0.882353, 0.694118, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
 size = Vector3(0.752441, 0.138672, 0.796112)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_y4r1p"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_d2wvv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8r2fg"]
 resource_name = "colormap"
@@ -768,7 +768,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 unique_name_in_owner = true
 
 [node name="GrappleRope" type="MeshInstance3D" parent="Pivot/Camera3D"]
-mesh = SubResource("ImmediateMesh_y4r1p")
+mesh = SubResource("ImmediateMesh_d2wvv")
 script = ExtResource("2_d2wvv")
 
 [node name="GrappleRayCast" type="RayCast3D" parent="Pivot/Camera3D"]

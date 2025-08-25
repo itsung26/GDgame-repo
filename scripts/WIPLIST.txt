@@ -62,9 +62,11 @@ space
 MECHANICS
 =======================================================================================================
 Grappling Hook
--Use Hooke's law and cgmeshes to simulate the behavior of a spring
+-moves the player to a point by putting 2 points through some operations and then normalizing
+-Use Hooke's law and cgmeshes to simulate the behavior of a spring for
+a hook that actually obeys the laws of physics (expirimental features)
 
 Time Dilation
--Surprisingly easy to incorporate
+-easy to incorporate
 -Where to incorporate(Parrying, explosions, Sniper weapon special)
 =======================================================================================================

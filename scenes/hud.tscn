@@ -607,3 +607,12 @@ root_node = NodePath("../KeyAnimator_3")
 libraries = {
 &"": SubResource("AnimationLibrary_qkknv")
 }
+
+[node name="versionText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 962.0
+offset_top = 625.0
+offset_right = 1151.0
+offset_bottom = 655.0
+theme_override_font_sizes/font_size = 21
+text = "ALPHA BUILD 0.8.5"
