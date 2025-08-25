@@ -5,12 +5,14 @@ extends CharacterBody3D
 @onready var pivot: Node3D = $Pivot
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera_animator: AnimationPlayer = $CameraAnimator
-@onready var special_light: OmniLight3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/SpecialLight"
-@onready var muzzle_flash: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash"
-@onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
-@onready var pistol: Skeleton3D = $Pivot/Camera3D/pistol
+@onready var special_light: OmniLight3D = $"Pivot/Camera3D/PistolSwayPivot/pistol/Skeleton3D/blaster-a/SpecialLight"
+@onready var muzzle_flash: Sprite3D = $"Pivot/Camera3D/PistolSwayPivot/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash"
+@onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/PistolSwayPivot/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
+@onready var pistol: Skeleton3D = $Pivot/Camera3D/PistolSwayPivot/pistol
 @onready var shotgun: Node3D = $Pivot/Camera3D/Guns/shotgun
 @onready var grapple_ray_cast: RayCast3D = $Pivot/Camera3D/GrappleRayCast
+@onready var pistol_sway_pivot: Node3D = $Pivot/Camera3D/PistolSwayPivot
+@onready var slam_timer: Timer = $SlamTimer
 
 
 @export_category("movement")
@@ -26,6 +28,8 @@ extends CharacterBody3D
 var grappling = false
 var grapple_target_pos = Vector3.ZERO
 var grapple_dir = Vector3.ZERO
+var can_slam_jump = false
+var storagevar = JUMP_VELOCITY
 
 func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
@@ -41,7 +45,7 @@ func _input(event) -> void:
 		var pitch = -mouse_delta.y
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
-	
+		
 # when overclock ends
 func zoomIn():
 	camera_animator.play("camera_overclock_zoom_in")
@@ -71,7 +75,6 @@ func grapple():
 		var collision = get_slide_collision(i)
 		grappling = false
 		velocity = Vector3.ZERO
-		# print("stopped grapple")
 	
 	# if grapple and not grappling, grapple and set the positions
 	if Input.is_action_just_pressed("grapple") and grappling == false:
@@ -79,17 +82,15 @@ func grapple():
 			grapple_target_pos = grapple_ray_cast.get_collision_point()
 			grapple_dir = (grapple_target_pos - grapple_ray_cast.global_position).normalized()
 			grappling = true
-			print("started grapple")
 	
 	# if grapple and grappling, stop grappling and initiate hop mechanic
 	elif Input.is_action_just_pressed("grapple") and grappling == true:
 		grappling = false
 		velocity = Vector3.ZERO
 		player.velocity.y = GRAPPLE_HOP
-		print("stopped grapple")
 
 func _physics_process(delta: float) -> void:
-	# print(grapple_target_pos)
+	print(is_on_wall())
 	
 	# clamp the camera pivot view
 	var b = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
@@ -114,6 +115,17 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	# handle slam jumping
+	if Input.is_action_just_pressed("slam") and is_on_floor():
+		pass
+	elif Input.is_action_just_pressed("slam") and not is_on_floor():
+		player.velocity.y = -25
+		can_slam_jump = true
+	if is_on_floor() and can_slam_jump:
+		JUMP_VELOCITY = 12
+		slam_timer.start()
+	
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -212,3 +224,9 @@ func _on_hud_zoom_in_trigger() -> void:
 
 func _on_hud_zoom_out_trigger() -> void:
 	zoomIn()
+
+
+func _on_slam_timer_timeout() -> void:
+	can_slam_jump = false
+	JUMP_VELOCITY = storagevar
+	
