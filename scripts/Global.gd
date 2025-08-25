@@ -97,4 +97,5 @@ func _process(float) -> void:
 '''
 other global vars===============================================================
 '''
-# n/a
+var isPaused = false
+var menuState = "notpaused"

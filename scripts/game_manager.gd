@@ -8,7 +8,6 @@ extends Node
 func _ready() -> void:
 	return
 
-var ispaused = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
 	
@@ -23,17 +22,18 @@ func _process(_delta) -> void:
 	if Input.is_action_just_pressed("pause"):
 		
 		# pauses======================================================================================
-		if not ispaused:
-			pause.visible = true
-			hud.visible = false
+		if not Global.isPaused:
+			Global.menuState = "main"
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			get_tree().paused = true
-			ispaused = true
+			Global.isPaused = true
+			Global.menuState = "main"
 			
 		# unpauses=======================================================================================
-		elif ispaused:
+		elif Global.isPaused:
 			pause.visible = false
-			hud.visible = true
+			print("unpausing")
+			Global.menuState = "notpaused"
+			Global.isPaused = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			get_tree().paused = false
-			ispaused = false
