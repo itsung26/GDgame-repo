@@ -25,11 +25,16 @@ extends CharacterBody3D
 @export var GRAPPLE_SPEED_MAX = 0
 @export var GRAPPLE_HOP = 0
 
+@export_category("pistol")
+@export var pistol_sway_min = 0
+@export var pistol_sway_max = 5
+
 var grappling = false
 var grapple_target_pos = Vector3.ZERO
 var grapple_dir = Vector3.ZERO
 var can_slam_jump = false
 var storagevar = JUMP_VELOCITY
+var mouse_delta2
 
 func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
@@ -40,6 +45,7 @@ func _ready() -> void:
 func _input(event) -> void:
 	# handle mouselook
 	if event is InputEventMouseMotion:
+		mouse_delta2 = event.relative
 		var mouse_delta = event.relative
 		var yaw = -mouse_delta.x
 		var pitch = -mouse_delta.y
@@ -75,6 +81,14 @@ func grapple():
 		var collision = get_slide_collision(i)
 		grappling = false
 		velocity = Vector3.ZERO
+		
+func swayPistol(delta):
+	print(mouse_delta2)
+	#mouse_delta2 = clamp(mouse_delta2, -5, 5)
+	# lerp weapon based on mouse movement
+#	position.x = lerp(pistol.position.x, pistol.position.x - (mouse_delta2.x * pistol.sway_amount_position)*
+#	 delta, pistol.sway_speed_position)
+	# position.y = lerp(pistol.position.y)
 	
 	# if grapple and not grappling, grapple and set the positions
 	if Input.is_action_just_pressed("grapple") and grappling == false:
@@ -90,6 +104,8 @@ func grapple():
 		player.velocity.y = GRAPPLE_HOP
 
 func _physics_process(delta: float) -> void:
+	swayPistol(delta)
+	
 	print(is_on_wall())
 	
 	# clamp the camera pivot view
@@ -229,4 +245,3 @@ func _on_hud_zoom_out_trigger() -> void:
 func _on_slam_timer_timeout() -> void:
 	can_slam_jump = false
 	JUMP_VELOCITY = storagevar
-	

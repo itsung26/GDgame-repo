@@ -113,7 +113,7 @@ script = ExtResource("1_0wfyh")
 visible = false
 
 [node name="black hole?????" type="Node3D" parent="."]
-transform = Transform3D(3.52119, 0, 0, 0, 3.52119, 0, 0, 0, 3.52119, -6.30319, -0.167182, -18.3865)
+transform = Transform3D(3.52119, 0, 0, 0, 3.52119, 0, 0, 0, 3.52119, -8.72852, 33.8717, -17.7794)
 
 [node name="horizon" type="MeshInstance3D" parent="black hole?????"]
 transform = Transform3D(3.69301, 0, 0, 0, -1.61426e-07, -3.69301, 0, 3.69301, -1.61426e-07, 0.0247345, 1.39009, -0.00136375)

@@ -393,6 +393,10 @@ tracks/6/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_y4r1p"]
+resource_name = "shotgun_inspect"
+length = 3.0
+
 [sub_resource type="Animation" id="Animation_smehm"]
 resource_name = "silence_particles"
 tracks/0/type = "value"
@@ -407,10 +411,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
-
-[sub_resource type="Animation" id="Animation_y4r1p"]
-resource_name = "shotgun_inspect"
-length = 3.0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o7tup"]
 _data = {
