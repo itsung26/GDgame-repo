@@ -26,6 +26,7 @@ Global="*res://scripts/Global.gd"
 [global_group]
 
 enemy="contains all enemies"
+weapons="Contains all weapons"
 
 [input]
 

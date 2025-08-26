@@ -4,6 +4,7 @@ var current_special_property
 var current_MAGSIZE
 var current_DAMAGE
 var current_AMMO
+@onready var pistol: Skeleton3D = $Pivot/Camera3D/PistolSwayPivot/pistol
 
 # note: magsize should always be the same as ammo.
 # this is intended to allow for infinite ammo as (most) guns are intended to fire forever
@@ -61,11 +62,26 @@ var melee = false
 var melee_special_state = false
 
 '''
+Black Hole Launcher variables===================================================================================
+special: N/A
+Runs on a cooldown. 
+'''
+
+const BLL_special_property = "n/a"
+
+var BLL_times_fired : int = 0
+var BLL_ammo = 3
+var BLL_DAMAGE = 500
+var BLL_MAGSIZE =  3
+var BLL_special_state = false
+
+'''
 debug variables for the custom debug window===============================================================
 '''
 var body_hit = "null"
 var anim_playing = "null"
-var current_weapon = "pistol" # valid values are: "pistol"
+var current_weapon = "pistol"
+var current_weapon_object : Object = pistol
 var current_fireType = "RAYCAST_PISTOL"
 
 '''
@@ -93,6 +109,12 @@ func _process(float) -> void:
 		current_MAGSIZE = melee_MAGSIZE
 		current_special_property = melee_special_property
 		current_AMMO = melee_ammo
+	
+	elif current_weapon == "BLL":
+		current_DAMAGE = BLL_DAMAGE
+		current_MAGSIZE = BLL_MAGSIZE
+		current_special_property = BLL_special_property
+		current_AMMO = BLL_ammo
 
 '''
 other global vars===============================================================

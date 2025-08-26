@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=39 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://dp6mg0rm4wn62" path="res://scripts/grapple_rope.gd" id="2_d2wvv"]
@@ -10,8 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b1oo3twjq7qbb" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/spark_02.png" id="6_fjrip"]
 [ext_resource type="QuadMesh" uid="uid://p1opaqy3nf2n" path="res://assets/materials/red_particle.tres" id="6_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://ohcajlr30b6p" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/spark_03.png" id="8_y4r1p"]
-[ext_resource type="Script" uid="uid://cu4oqatpchesp" path="res://scripts/black_hole_launcher.gd" id="11_3v2ag"]
-[ext_resource type="Shader" uid="uid://x7aeciq3y1ex" path="res://shaders/BlackHoleLauncher.tres" id="11_d2wvv"]
+[ext_resource type="PackedScene" uid="uid://c7xsmo6qov8td" path="res://scenes/BlackHoleLauncher.tscn" id="11_d2wvv"]
 
 [sub_resource type="Animation" id="Animation_g2els"]
 length = 0.001
@@ -137,138 +136,6 @@ tracks/10/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:position")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.34, 0.285, 0.627)]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:rotation")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -1.5708, 0)]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart:position")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.938772, 0, 0)]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels:rotation")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot:rotation")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot4:rotation")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot2:rotation")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.5708, 0, 0)]
-}
-tracks/18/type = "value"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot3:rotation")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.5708, 0, 0)]
-}
-tracks/19/type = "value"
-tracks/19/imported = false
-tracks/19/enabled = true
-tracks/19/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightGREEN:visible")
-tracks/19/interp = 1
-tracks/19/loop_wrap = true
-tracks/19/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/20/type = "value"
-tracks/20/imported = false
-tracks/20/enabled = true
-tracks/20/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightRED:visible")
-tracks/20/interp = 1
-tracks/20/loop_wrap = true
-tracks/20/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/21/type = "value"
-tracks/21/imported = false
-tracks/21/enabled = true
-tracks/21/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightYELLOW:visible")
-tracks/21/interp = 1
-tracks/21/loop_wrap = true
-tracks/21/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_fjrip"]
@@ -558,176 +425,6 @@ _data = {
 &"silence_particles": SubResource("Animation_smehm")
 }
 
-[sub_resource type="Animation" id="Animation_3v2ag"]
-resource_name = "BLL_cooldown"
-length = 30.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.717669, 26.1, 27.0333, 28.1667, 29.0667, 30),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.34, 0.285, 0.627), Vector3(-0.34, 0.285, 0.307625), Vector3(-0.341119, 0.00490808, 0.0887953), Vector3(-0.341119, 0.00490808, 0.0887953), Vector3(-0.341119, 0.169695, 0.165537), Vector3(-0.341119, 0.336639, 0.413985), Vector3(-0.34, 0.285, 0.627), Vector3(-0.34, 0.285, 0.627)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.717669, 1, 26.1, 27.0333, 28.1667, 29.0667, 29.5, 29.7667, 30),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(8.20948e-09, -1.5708, 0.248291), Vector3(0.28802, -1.57911, 0.682318), Vector3(-0.0862015, -1.5788, 0.685368), Vector3(-0.0862015, -1.5788, 0.685368), Vector3(-0.083056, -1.54635, 0.306108), Vector3(-0.0708764, -1.52104, -0.0200921), Vector3(0, -1.5708, 0), Vector3(-0.287979, -1.21649, 0), Vector3(0.0698132, -1.21649, 0), Vector3(0, -1.5708, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.633333, 1, 25.0333, 26.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.938772, 0, 0), Vector3(0.938772, 0, 0), Vector3(1.94545, -0.0270848, 0.0468556), Vector3(1.94545, -0.0270848, 0.0468556), Vector3(0.938772, 0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1, 24),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(6.28319, 0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1, 1.5, 24, 25),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, -1.14319), Vector3(0, 0, -1.14319), Vector3(0, 0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot4:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 1, 1.5, 24, 25),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0.680678), Vector3(0, 0, 0.680678), Vector3(0, 0, 0)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot2:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 1, 1.5, 24, 25),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(1.5708, 0, 0), Vector3(1.5708, 0, 0), Vector3(1.5708, 0, -1.15192), Vector3(1.5708, 0, -1.15192), Vector3(1.5708, 0, 0)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot3:rotation")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 1, 1.5, 24, 25),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(1.5708, 0, 0), Vector3(1.5708, 0, 0), Vector3(1.5708, 0, 1.09956), Vector3(1.5708, 0, 1.09956), Vector3(1.5708, 0, 0)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightGREEN:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 30),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightRED:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29, 30),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightYELLOW:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
-}
-
-[sub_resource type="Animation" id="Animation_jej6c"]
-resource_name = "BLL_put_down"
-length = 2.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.34, 0.285, 0.627), Vector3(-0.34, 0.095, 0.627)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5708, 0), Vector3(-0.731207, -1.19135, 0.701366)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_d2wvv"]
-_data = {
-&"BLL_cooldown": SubResource("Animation_3v2ag"),
-&"BLL_put_down": SubResource("Animation_jej6c")
-}
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mh8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_b2mh8"]
@@ -888,91 +585,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_f3fc0")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_5ptbe"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_voyse"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gnj2g"]
-albedo_color = Color(0.811765, 0.619608, 0.219608, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_aekyc"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0mfeq"]
-albedo_color = Color(0, 1, 0, 1)
-emission_enabled = true
-emission = Color(0, 1, 0, 1)
-emission_energy_multiplier = 4.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_3v2ag"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1ej7"]
-albedo_color = Color(1, 0, 0, 1)
-emission_enabled = true
-emission = Color(1, 0, 0, 1)
-emission_energy_multiplier = 4.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3v2ag"]
-albedo_color = Color(1, 1, 0, 1)
-emission_enabled = true
-emission = Color(1, 1, 0, 1)
-emission_energy_multiplier = 4.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_1ya1i"]
-height = 4.08
-
-[sub_resource type="BoxMesh" id="BoxMesh_4lqt6"]
-size = Vector3(1, 0.095, 0.43)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w47vr"]
-albedo_color = Color(0.336608, 0.336608, 0.336608, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_4lqt6"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aekyc"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.0941176)
-roughness = 0.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jr6jp"]
-render_priority = -1
-no_depth_test = true
-albedo_color = Color(1, 1, 1, 0)
-metallic_specular = 0.0
-roughness = 0.0
-emission_enabled = true
-refraction_enabled = true
-disable_receive_shadows = true
-
-[sub_resource type="SphereMesh" id="SphereMesh_0mfeq"]
-lightmap_size_hint = Vector2i(17, 9)
-material = SubResource("StandardMaterial3D_jr6jp")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_etxxq"]
-render_priority = 1
-transparency = 1
-depth_draw_mode = 2
-albedo_color = Color(0, 0, 0, 1)
-metallic_specular = 0.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_68qk5"]
-material = SubResource("StandardMaterial3D_etxxq")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4lqt6"]
-gravity = Vector3(0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jr6jp"]
-render_priority = 0
-shader = ExtResource("11_d2wvv")
-
-[sub_resource type="SphereMesh" id="SphereMesh_aekyc"]
-material = SubResource("ShaderMaterial_jr6jp")
-radius = 0.75
-height = 1.5
-
 [node name="Player" type="CharacterBody3D"]
 collision_mask = 7
 script = ExtResource("1_qhqgy")
+SPEED = null
+JUMP_VELOCITY = null
+look_sensitivity = null
 GRAPPLE_MAX_RANGE = 50
 GRAPPLE_SPEED_MAX = 20
 GRAPPLE_HOP = 8
@@ -1005,21 +623,12 @@ libraries = {
 }
 autoplay = "silence_particles"
 
-[node name="BLLAnimator" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_o7tup"),
-&"Black Hole Launcher": SubResource("AnimationLibrary_d2wvv")
-}
-autoplay = "silence_particles"
-speed_scale = 5.0
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
 mesh = SubResource("CapsuleMesh_b2mh8")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
@@ -1144,121 +753,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
 [node name="shotgun" type="Node3D" parent="Pivot/Camera3D/Guns" groups=["weapons"]]
 transform = Transform3D(-1.55571, 0.268075, -1.22797, 0, 1.95398, 0.426569, 1.25689, 0.331809, -1.51991, -0.281417, 0.126047, 0)
 
-[node name="BlackHoleLauncher" type="Node3D" parent="Pivot/Camera3D/Guns" groups=["weapons"]]
+[node name="BlackHoleLauncher" parent="Pivot/Camera3D/Guns" groups=["weapons"] instance=ExtResource("11_d2wvv")]
 transform = Transform3D(-1.21442e-08, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.21442e-08, -0.34, 0.285, 0.627)
-script = ExtResource("11_3v2ag")
-
-[node name="SightPart" type="CSGPolygon3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher"]
-transform = Transform3D(-4.37114e-08, 0, -1, -0.122857, 0.992424, 5.37024e-09, 0.992424, 0.122857, -4.33802e-08, -0.227097, 0.118902, 0.367272)
-polygon = PackedVector2Array(-0.397543, 0.132765, 0, 0.202, 0.535416, 0.151929, 0.559183, -0.0372077, 0.456073, -0.169857, -0.317267, -0.270896)
-depth = 0.5
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart"]
-transform = Transform3D(0.229283, -0.00661151, -0.0280668, 0.028384, -0.000818481, 0.226721, -0.00441995, -0.348226, -9.7461e-09, 0.292051, 0.0184658, -0.180819)
-mesh = SubResource("CylinderMesh_5ptbe")
-surface_material_override/0 = SubResource("StandardMaterial3D_voyse")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart"]
-transform = Transform3D(0.102493, -0.00196081, -0.0126904, 0.0126881, -0.000242742, 0.102512, -0.00197578, -0.103275, -4.40669e-09, 0.466574, 0.0927156, -0.40553)
-mesh = SubResource("CylinderMesh_5ptbe")
-surface_material_override/0 = SubResource("StandardMaterial3D_gnj2g")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart"]
-transform = Transform3D(0.102493, -0.00196081, -0.0126904, 0.0126881, -0.000242742, 0.102512, -0.00197578, -0.103275, -4.40669e-09, 0.480686, -0.0212802, -0.40553)
-mesh = SubResource("CylinderMesh_5ptbe")
-surface_material_override/0 = SubResource("StandardMaterial3D_gnj2g")
-
-[node name="FireReadyLightGREEN" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart"]
-transform = Transform3D(-0.00633394, -0.1181, 3.8625e-09, 0.0506214, -0.0147771, -3.40932e-09, 2.50685e-09, 5.16231e-09, 0.0786044, 0.313281, -0.146433, -0.485375)
-visible = false
-mesh = SubResource("CylinderMesh_aekyc")
-surface_material_override/0 = SubResource("StandardMaterial3D_0mfeq")
-
-[node name="FireReadyLightRED" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart"]
-transform = Transform3D(-0.00633394, -0.1181, 3.8625e-09, 0.0506214, -0.0147771, -3.40932e-09, 2.50685e-09, 5.16231e-09, 0.0786044, 0.313281, -0.146433, -0.485375)
-visible = false
-mesh = SubResource("CylinderMesh_3v2ag")
-surface_material_override/0 = SubResource("StandardMaterial3D_f1ej7")
-
-[node name="FireReadyLightYELLOW" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart"]
-transform = Transform3D(-0.00633394, -0.1181, 3.8625e-09, 0.0506214, -0.0147771, -3.40932e-09, 2.50685e-09, 5.16231e-09, 0.0786044, 0.313281, -0.146433, -0.485375)
-visible = false
-mesh = SubResource("CylinderMesh_3v2ag")
-surface_material_override/0 = SubResource("StandardMaterial3D_3v2ag")
-
-[node name="mainBody" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("CylinderMesh_1ya1i")
-
-[node name="LoadPart" type="Node3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher"]
-transform = Transform3D(1, -2.98023e-08, 4.65661e-09, 2.98023e-08, 1, 1.30385e-08, -2.32831e-09, -9.31323e-10, 1, 0.938772, 0, 0)
-
-[node name="Panels" type="Node3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28335, 0, 0)
-
-[node name="PanelPivot" type="Node3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.182872, 0.363, 0)
-
-[node name="LoadPanel" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.492984, 0, 0)
-mesh = SubResource("BoxMesh_4lqt6")
-skeleton = NodePath("../../..")
-
-[node name="PanelPivot4" type="Node3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.182872, -0.335579, 0)
-
-[node name="LoadPanel" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.492984, 0, 0)
-mesh = SubResource("BoxMesh_4lqt6")
-skeleton = NodePath("../../..")
-
-[node name="PanelPivot2" type="Node3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.206563, 0, 0.398)
-
-[node name="LoadPanel" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.474329, -0.0429429, -1.39901e-08)
-mesh = SubResource("BoxMesh_4lqt6")
-skeleton = NodePath("../../..")
-
-[node name="PanelPivot3" type="Node3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.209735, 0, -0.328399)
-
-[node name="LoadPanel" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.474329, -0.0429429, -1.39901e-08)
-mesh = SubResource("BoxMesh_4lqt6")
-skeleton = NodePath("../../..")
-
-[node name="LoadCap" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart"]
-transform = Transform3D(-4.36902e-08, -0.068858, 0, 0.999516, -3.00988e-09, 0, 0, 0, 0.999516, 1.23786, 0, 0)
-mesh = SubResource("CylinderMesh_1ya1i")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_w47vr")
-
-[node name="LoadInteriorPart" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart"]
-transform = Transform3D(-2.55854e-08, 0.683401, 0, -0.585326, -2.98724e-08, 0, 0, 0, 0.585326, 0.468222, 0, 0)
-mesh = SubResource("CylinderMesh_4lqt6")
-surface_material_override/0 = SubResource("StandardMaterial3D_aekyc")
-
-[node name="black hole?????" type="Node3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart"]
-transform = Transform3D(0.205975, 0, 0, 0, 0.205975, 0, 0, 0, 0.205975, 0.43631, -0.301036, 0.0172314)
-
-[node name="horizon" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????"]
-transform = Transform3D(2.64685, 0, 0, 0, -1.15697e-07, -2.64685, 0, 2.64685, -1.15697e-07, 0.0247355, 1.39009, -0.00136375)
-mesh = SubResource("SphereMesh_0mfeq")
-skeleton = NodePath("../../..")
-
-[node name="core" type="MeshInstance3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????"]
-transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0.0247345, 1.39009, -0.00136375)
-mesh = SubResource("SphereMesh_68qk5")
-skeleton = NodePath("../../..")
-
-[node name="FirePart" type="Node3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.04078, 0, 0)
-visible = false
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/FirePart"]
-process_material = SubResource("ParticleProcessMaterial_4lqt6")
-draw_pass_1 = SubResource("SphereMesh_aekyc")
 
 [node name="SlamTimer" type="Timer" parent="."]
 process_callback = 0

@@ -13,6 +13,8 @@ extends CharacterBody3D
 @onready var grapple_ray_cast: RayCast3D = $Pivot/Camera3D/GrappleRayCast
 @onready var pistol_sway_pivot: Node3D = $Pivot/Camera3D/PistolSwayPivot
 @onready var slam_timer: Timer = $SlamTimer
+@onready var black_hole_launcher: Node3D = $Pivot/Camera3D/Guns/BlackHoleLauncher
+@onready var bll_animator: AnimationPlayer = $BLLAnimator
 
 
 @export_category("movement")
@@ -163,17 +165,19 @@ func gunInputs(curr_weap): # run every frame in _process
 	# save the current animation to a global transfer variable every frame
 	Global.anim_playing = animation_player.current_animation
 	
-	# switch weapon block======================================================================================
+	# switch weapon block==================================================================================
 	if Input.is_action_just_pressed("slot1"): #and not animation_player.is_playing():
 		Global.current_weapon = "melee"
 	if Input.is_action_just_pressed("slot2"): #and not animation_player.is_playing():
 		Global.current_weapon = "pistol"
 	if Input.is_action_just_pressed("slot3"): #and not animation_player.is_playing():
 		Global.current_weapon = "shotgun"
+	if Input.is_action_just_pressed("slot4"):
+		Global.current_weapon = "BLL"
 	
-	# automatic fire block=====================================================================================
+	# automatic fire block===================================================================================
 	if Input.is_action_pressed("fire"):
-		# use AnimationPlayer for all animations
+		# use seperate animation players for each weapon
 		
 		if curr_weap == "pistol":
 			if animation_player.current_animation == "inspect":
@@ -186,8 +190,16 @@ func gunInputs(curr_weap): # run every frame in _process
 				elif Global.blaster_ammo == 0: animation_player.play("reload_pistol")
 	# semi-automatic fire block========================================================================
 	if Input.is_action_just_pressed("fire"):
+		
 		if curr_weap == "shotgun":
 			print("shotgun fire")
+		
+		elif curr_weap == "BLL":
+			if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
+				pass
+			else:
+				if Global.BLL_ammo > 0:
+					black_hole_launcher.BLLFire()
 	
 	# inspect block=======================================================================================
 	if Input.is_action_just_pressed("inspect weapon"):
@@ -196,35 +208,55 @@ func gunInputs(curr_weap): # run every frame in _process
 				pass
 			else:
 				animation_player.play("inspect")
+
 		elif curr_weap == "shotgun":
 			print("shotgun inspect")
 		
-	# reload block=============================================================================================
+		elif curr_weap == "BLL":
+			print("black hole inspect")
+		
+	# reload block=========================================================================================
 	if Input.is_action_just_pressed("reload"):
 		if curr_weap == "pistol":
 			if Global.blaster_ammo != 50:
 				animation_player.play("reload_pistol")
+		
 		elif curr_weap == "shotgun":
 			print("shotgun reload")
+	
+		elif curr_weap == "BLL":
+			pass
 			
-	# special block=============================================================================================
+			
+	# special block=========================================================================================
 	if Input.is_action_just_pressed("right click action"):
 		if curr_weap == "pistol":
 			pistol.special(Global.current_weapon)
+		
 		elif curr_weap == "shotgun":
 			print("shotgun special")
-
+			
+		elif curr_weap == "BLL":
+			pass
+	# ======================================================================================================
 func hideGuns(curr_weap):
-	# hide weapon on switch
+	 # hide weapon on switch
 	if Global.current_weapon == "pistol":
 		pistol.visible = true
+		black_hole_launcher.visible = false
 		shotgun.visible = false
 	elif Global.current_weapon == "shotgun":
 		shotgun.visible = true
+		black_hole_launcher.visible = false
 		pistol.visible = false
 	elif Global.current_weapon == "melee":
+		black_hole_launcher.visible = false
 		shotgun.visible = false
 		pistol.visible = false
+	elif Global.current_weapon == "BLL":
+		black_hole_launcher.visible = true
+		pistol.visible = false
+		shotgun.visible = false
 
 var a = true
 func _process(_delta) -> void:

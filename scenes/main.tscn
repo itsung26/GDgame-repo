@@ -30,7 +30,7 @@ sky = SubResource("Sky_tbgi4")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbgi4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_choun"]
 no_depth_test = true
 albedo_color = Color(1, 1, 1, 0)
 metallic_specular = 0.0
@@ -41,9 +41,9 @@ disable_receive_shadows = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_tbgi4"]
 lightmap_size_hint = Vector2i(17, 9)
-material = SubResource("StandardMaterial3D_tbgi4")
+material = SubResource("StandardMaterial3D_choun")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tipki"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eb6dy"]
 render_priority = 2
 transparency = 1
 depth_draw_mode = 2
@@ -51,7 +51,7 @@ albedo_color = Color(0, 0, 0, 1)
 metallic_specular = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_tefeu"]
-material = SubResource("StandardMaterial3D_tipki")
+material = SubResource("StandardMaterial3D_eb6dy")
 
 [sub_resource type="BoxMesh" id="BoxMesh_o6xl0"]
 material = ExtResource("5_tefeu")

@@ -34,7 +34,3 @@ func _process(float) -> void:
 	
 	look_at(player.grapple_target_pos)
 	rotate_x(deg_to_rad(90))
-	global_rotation_degrees.y = 0
-	global_rotation_degrees.z = 0
-	print(global_rotation_degrees.y)
-	print(player.rotation_degrees.y)
