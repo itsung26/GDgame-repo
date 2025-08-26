@@ -434,6 +434,8 @@ albedo_color = Color(0.882353, 0.694118, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
 size = Vector3(0.752441, 0.138672, 0.796112)
 
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_y4r1p"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8r2fg"]
 resource_name = "colormap"
 vertex_color_use_as_albedo = true
@@ -582,14 +584,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_f3fc0")
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_d2wvv"]
-
 [node name="Player" type="CharacterBody3D"]
 collision_mask = 7
 script = ExtResource("1_qhqgy")
 GRAPPLE_MAX_RANGE = 50
 GRAPPLE_SPEED_MAX = 20
 GRAPPLE_HOP = 8
+pistol_sway_enabled = false
+pistol_sway_min = -5.0
+pistol_sway_max = 5.0
+pistol_sway_factor = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -633,6 +637,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
+
+[node name="GrappleRope" type="MeshInstance3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.187, -0.0704314, 21.4597)
+mesh = SubResource("ImmediateMesh_y4r1p")
+skeleton = NodePath("../../..")
+script = ExtResource("2_d2wvv")
 
 [node name="PistolSwayPivot" type="Node3D" parent="Pivot/Camera3D"]
 
@@ -720,10 +730,6 @@ transform = Transform3D(0.0247761, -3.0268e-09, -9.31323e-10, 0, -2.79397e-09, -
 modulate = Color(1, 1, 1, 0)
 billboard = 1
 texture = ExtResource("4_dqkch")
-
-[node name="GrappleRope" type="MeshInstance3D" parent="Pivot/Camera3D"]
-mesh = SubResource("ImmediateMesh_d2wvv")
-script = ExtResource("2_d2wvv")
 
 [node name="GrappleRayCast" type="RayCast3D" parent="Pivot/Camera3D"]
 visible = false

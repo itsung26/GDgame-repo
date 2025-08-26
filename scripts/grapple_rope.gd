@@ -2,6 +2,9 @@ extends MeshInstance3D
 @onready var player: CharacterBody3D = $"../../.."
 
 
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
@@ -29,5 +32,9 @@ func _process(float) -> void:
 	
 	global_position = midpoint
 	
-	look_at(player.grapple_target_pos, Vector3.UP)
+	look_at(player.grapple_target_pos)
 	rotate_x(deg_to_rad(90))
+	global_rotation_degrees.y = 0
+	global_rotation_degrees.z = 0
+	print(global_rotation_degrees.y)
+	print(player.rotation_degrees.y)
