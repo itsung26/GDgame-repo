@@ -4,6 +4,7 @@ extends Node3D
 @onready var fire_ready_light_green: MeshInstance3D = $SightPart/FireReadyLightGREEN
 @onready var fire_ready_light_red: MeshInstance3D = $SightPart/FireReadyLightRED
 
+var can_play_anims : bool = true
 
 func BLLFire():
 	print("kaboom")
@@ -14,6 +15,8 @@ func BLLFire():
 func _ready() -> void:
 	pass
 
+func denyAnims():
+	can_play_anims =false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -25,3 +28,5 @@ func _process(_delta: float) -> void:
 	elif Global.BLL_ammo == 0:
 		fire_ready_light_red.visible = true
 		fire_ready_light_green.visible = false
+		if not bll_animator.is_playing() and can_play_anims:
+			bll_animator.play("Black Hole Launcher/BLL_put_down")
