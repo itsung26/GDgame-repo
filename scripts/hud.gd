@@ -37,14 +37,14 @@ func triggerZoomIn():
 func triggerZoomOut():
 	zoom_out_trigger.emit()
 	
-func updateAmmoCounter(globalCurrWeap):
+func updateAmmoCounter():
 	ammo_counter.text = str(Global.current_AMMO) + "/" + str(Global.current_MAGSIZE)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
 	
-	updateAmmoCounter(Global.current_weapon)
+	updateAmmoCounter()
 	
 	# shows or hides ui elements based on current weapon
 	if Global.current_weapon == "pistol":

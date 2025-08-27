@@ -4,7 +4,7 @@ var current_special_property
 var current_MAGSIZE
 var current_DAMAGE
 var current_AMMO
-@onready var pistol: Skeleton3D = $Pivot/Camera3D/PistolSwayPivot/pistol
+
 
 # note: magsize should always be the same as ammo.
 # this is intended to allow for infinite ammo as (most) guns are intended to fire forever
@@ -81,7 +81,6 @@ debug variables for the custom debug window=====================================
 var body_hit = "null"
 var anim_playing = "null"
 var current_weapon = "pistol"
-var current_weapon_object : Object = pistol
 var current_fireType = "RAYCAST_PISTOL"
 
 '''
@@ -91,7 +90,7 @@ these variables update every frame to the current type of element that correspon
 EX: current_weapon is "shotgun", current_magsize updates to shotgun_MAGSIZE
 this is inefficient, but eliminates the need for a huge dictionary with properties
 '''
-func _process(float) -> void:
+func _process(_float) -> void:
 	if current_weapon == "pistol":
 		current_DAMAGE = pistol_DAMAGE
 		current_MAGSIZE = pistol_MAGSIZE

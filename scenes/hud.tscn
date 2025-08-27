@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=45 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/sprite assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://5viqdp3vwpsj" path="res://assets/sprite assets/gunmodel previews/clip-large.png" id="7_0i1j5"]
 [ext_resource type="Texture2D" uid="uid://dwqv080lryrx1" path="res://assets/sprite assets/gunmodel previews/54303.png" id="8_mphia"]
 [ext_resource type="Texture2D" uid="uid://qh0lx4qk4f2e" path="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Double/check_round_color.png" id="9_0m4u7"]
+[ext_resource type="Texture2D" uid="uid://dp3hpw1lc7jmi" path="res://assets/sprite assets/gunmodel previews/black hole gun/black hole gun image.png" id="9_5n1hp"]
 [ext_resource type="Texture2D" uid="uid://b5fiinl314wvi" path="res://assets/textures/prototypes/PNG/Red/texture_01.png" id="9_apjy4"]
+[ext_resource type="Texture2D" uid="uid://cmgvv04tqig53" path="res://assets/sprite assets/gunmodel previews/black hole gun/black_hole_2.png" id="11_5n1hp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0m4u7"]
 atlas = ExtResource("6_hd3ao")
@@ -190,7 +192,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("pistolPreviewIcon/BLLPreviewIcon/KeyIndicator4:frame")
+tracks/4/path = NodePath("pistolPreviewIcon/KeyIndicator4:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -354,7 +356,7 @@ resource_name = "key_4_set_dark"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("pistolPreviewIcon/BLLPreviewIcon/KeyIndicator4:frame")
+tracks/0/path = NodePath("pistolPreviewIcon/KeyIndicator4:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -369,7 +371,7 @@ resource_name = "key_4_set_light"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("pistolPreviewIcon/BLLPreviewIcon/KeyIndicator4:frame")
+tracks/0/path = NodePath("pistolPreviewIcon/KeyIndicator4:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -501,8 +503,8 @@ animation = &"key_2"
 frame = 1
 
 [node name="ReloadPrompt" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
-position = Vector2(113, 149)
-scale = Vector2(0.345736, 0.345736)
+position = Vector2(225, 192)
+scale = Vector2(0.373837, 0.373837)
 sprite_frames = SubResource("SpriteFrames_qkknv")
 
 [node name="MagIcon" type="Sprite2D" parent="pistolPreviewIcon/ReloadPrompt"]
@@ -528,16 +530,16 @@ scale = Vector2(11.0564, 11.0564)
 sprite_frames = SubResource("SpriteFrames_3swnk")
 animation = &"key_3"
 
-[node name="BLLPreviewIcon" type="Sprite2D" parent="pistolPreviewIcon"]
-position = Vector2(70, 62)
-scale = Vector2(0.0340154, 0.0340154)
-texture = ExtResource("9_apjy4")
-
-[node name="KeyIndicator4" type="AnimatedSprite2D" parent="pistolPreviewIcon/BLLPreviewIcon"]
-position = Vector2(-1234.74, 0)
-scale = Vector2(11.0564, 11.0564)
+[node name="KeyIndicator4" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
+position = Vector2(27.9998, 62)
+scale = Vector2(0.376088, 0.376088)
 sprite_frames = SubResource("SpriteFrames_3xg78")
 frame = 1
+
+[node name="BLLPreviewIcon" type="Sprite2D" parent="pistolPreviewIcon/KeyIndicator4"]
+position = Vector2(146.243, 3.00407e-05)
+scale = Vector2(0.334239, 0.334239)
+texture = ExtResource("9_5n1hp")
 
 [node name="MeleePrompt" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
 position = Vector2(28, 191)
@@ -548,6 +550,11 @@ sprite_frames = SubResource("SpriteFrames_5357l")
 position = Vector2(115.023, 0)
 scale = Vector2(1.45998, 1.45998)
 sprite_frames = SubResource("SpriteFrames_qpprf")
+
+[node name="BlackHole2" type="Sprite2D" parent="pistolPreviewIcon"]
+position = Vector2(322, 246)
+scale = Vector2(0.379856, 0.379856)
+texture = ExtResource("11_5n1hp")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

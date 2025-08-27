@@ -16,10 +16,11 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Global.BLL_ammo > 0:
-		fire_ready_light_green.visible = true
-		fire_ready_light_red.visible = false
+		if not bll_animator.is_playing():
+			fire_ready_light_green.visible = true
+			fire_ready_light_red.visible = false
 	
 	elif Global.BLL_ammo == 0:
 		fire_ready_light_red.visible = true

@@ -82,7 +82,6 @@ func grapple():
 	# if collision occurs between player and anything, stop the grapple and cancel out net velocity
 	var collision_count = get_slide_collision_count()
 	for i in range(collision_count):
-		var collision = get_slide_collision(i)
 		grappling = false
 		velocity = Vector3.ZERO
 		
@@ -239,7 +238,7 @@ func gunInputs(curr_weap): # run every frame in _process
 		elif curr_weap == "BLL":
 			pass
 	# ======================================================================================================
-func hideGuns(curr_weap):
+func hideGuns():
 	 # hide weapon on switch
 	if Global.current_weapon == "pistol":
 		pistol.visible = true
@@ -262,7 +261,7 @@ var a = true
 func _process(_delta) -> void:
 	
 	gunInputs(Global.current_weapon)
-	hideGuns(Global.current_weapon)
+	hideGuns()
 
 # note: zoomOut and zoomIn are reversed. I screwed up.
 func _on_hud_zoom_in_trigger() -> void:
