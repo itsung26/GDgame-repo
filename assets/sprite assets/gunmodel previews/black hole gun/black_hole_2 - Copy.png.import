@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmgvv04tqig53"
-path.s3tc="res://.godot/imported/black_hole_2.png-2bbaad285d42ffe35b9d5cc3b1c62098.s3tc.ctex"
+uid="uid://uexlsm3ug638"
+path.s3tc="res://.godot/imported/black_hole_2 - Copy.png-5492ebcf0161cf686f79772f7fb24a30.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprite assets/gunmodel previews/black hole gun/black_hole_2.png"
-dest_files=["res://.godot/imported/black_hole_2.png-2bbaad285d42ffe35b9d5cc3b1c62098.s3tc.ctex"]
+source_file="res://assets/sprite assets/gunmodel previews/black hole gun/black_hole_2 - Copy.png"
+dest_files=["res://.godot/imported/black_hole_2 - Copy.png-5492ebcf0161cf686f79772f7fb24a30.s3tc.ctex"]
 
 [params]
 
