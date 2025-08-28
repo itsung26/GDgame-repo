@@ -167,10 +167,18 @@ func gunInputs(curr_weap): # run every frame in _process
 	# switch weapon block==================================================================================
 	if Input.is_action_just_pressed("slot1"): #and not animation_player.is_playing():
 		Global.current_weapon = "melee"
+		
 	if Input.is_action_just_pressed("slot2"): #and not animation_player.is_playing():
+		if Global.current_weapon != "pistol":
+			if animation_player.current_animation == "reload_pistol":
+				pass
+			else:
+				animation_player.play("equip_pistol")
 		Global.current_weapon = "pistol"
+		
 	if Input.is_action_just_pressed("slot3"): #and not animation_player.is_playing():
 		Global.current_weapon = "shotgun"
+		
 	if Input.is_action_just_pressed("slot4"):
 		Global.current_weapon = "BLL"
 	
@@ -179,7 +187,7 @@ func gunInputs(curr_weap): # run every frame in _process
 		# use seperate animation players for each weapon
 		
 		if curr_weap == "pistol":
-			if animation_player.current_animation == "inspect":
+			if animation_player.current_animation == "inspect" or animation_player.current_animation == "equip_pistol":
 				animation_player.stop()
 			elif animation_player.current_animation == "reload_pistol":
 				pass
@@ -187,6 +195,7 @@ func gunInputs(curr_weap): # run every frame in _process
 				if Global.blaster_ammo > 0:
 					animation_player.play("fire")
 				elif Global.blaster_ammo == 0: animation_player.play("reload_pistol")
+
 	# semi-automatic fire block========================================================================
 	if Input.is_action_just_pressed("fire"):
 		
@@ -205,6 +214,9 @@ func gunInputs(curr_weap): # run every frame in _process
 		if curr_weap == "pistol":
 			if animation_player.current_animation == "reload_pistol":
 				pass
+			elif animation_player.current_animation == "equip_pistol":
+					animation_player.stop()
+					animation_player.play("inspect")
 			else:
 				animation_player.play("inspect")
 

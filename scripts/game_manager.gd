@@ -12,11 +12,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
 	
-	if Global.current_weapon == "pistol":
-		Global.current_special_property = Global.pistol_special_property
-	elif Global.current_weapon == "shotgun":
-		Global.current_special_property = Global.shotgun_special_property
-	
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()
 	
