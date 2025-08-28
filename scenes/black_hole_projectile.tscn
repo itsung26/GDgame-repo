@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8qwp5eoecr5x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrdnh"]
+render_priority = -1
+no_depth_test = true
+albedo_color = Color(1, 1, 1, 0)
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+refraction_enabled = true
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_bdj2v"]
+lightmap_size_hint = Vector2i(17, 9)
+material = SubResource("StandardMaterial3D_vrdnh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wk2q4"]
+render_priority = 1
+transparency = 1
+depth_draw_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+metallic_specular = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_rfnx6"]
+material = SubResource("StandardMaterial3D_wk2q4")
+
+[node name="BlackHoleProjectile" type="Node3D"]
+
+[node name="black hole" type="Node3D" parent="."]
+transform = Transform3D(0.911846, 0, 0, 0, 0.911846, 0, 0, 0, 0.911846, 0, 0, 0)
+
+[node name="horizon" type="MeshInstance3D" parent="black hole"]
+transform = Transform3D(2.64685, 0, 0, 0, -1.15697e-07, -2.64685, 0, 2.64685, -1.15697e-07, 0, 0, 0)
+mesh = SubResource("SphereMesh_bdj2v")
+skeleton = NodePath("../../..")
+
+[node name="core" type="MeshInstance3D" parent="black hole"]
+transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0, 0, 0)
+mesh = SubResource("SphereMesh_rfnx6")
+skeleton = NodePath("../../..")

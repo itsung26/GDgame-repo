@@ -104,7 +104,7 @@ script = ExtResource("1_0wfyh")
 visible = false
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -29.2861, 0.0704371, -17.6574)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.1687, 0.0704371, -20.0528)
 SPEED = 7.5
 
 [node name="enemies" type="Node3D" parent="."]
