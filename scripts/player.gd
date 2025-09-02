@@ -90,12 +90,16 @@ func swayPistol(delta):
 		mouse_delta2 = clamp(mouse_delta2, Vector2(pistol_sway_min,-5), Vector2(pistol_sway_max,5))
 		print(mouse_delta2)
 		pistol_sway_pivot.rotation.y = lerpf(0.0,5.0,mouse_delta2.x/5) * pistol_sway_factor * delta
+
+func _physics_process(delta: float) -> void:
+	swayPistol(delta)
 	
-	# if grapple and not grappling, grapple and set the positions
+		# if grapple and not grappling, grapple and set the positions
 	if Input.is_action_just_pressed("grapple") and grappling == false:
 		if grapple_ray_cast.get_collider() != null:
 			grapple_target_pos = grapple_ray_cast.get_collision_point()
 			grapple_dir = (grapple_target_pos - grapple_ray_cast.global_position).normalized()
+			# grapple_dir returns as a Vector3
 			grappling = true
 	
 	# if grapple and grappling, stop grappling and initiate hop mechanic
@@ -103,9 +107,6 @@ func swayPistol(delta):
 		grappling = false
 		velocity = Vector3.ZERO
 		player.velocity.y = GRAPPLE_HOP
-
-func _physics_process(delta: float) -> void:
-	swayPistol(delta)
 	
 	
 	# clamp the camera pivot view

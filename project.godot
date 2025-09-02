@@ -28,6 +28,7 @@ Global="*res://scripts/Global.gd"
 
 enemy="contains all enemies"
 weapons="Contains all weapons"
+players=""
 
 [input]
 

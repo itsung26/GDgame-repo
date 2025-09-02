@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8qwp5eoecr5x"]
+[gd_scene load_steps=8 format=3 uid="uid://b8qwp5eoecr5x"]
+
+[ext_resource type="Script" uid="uid://bl7r6a7ijf3n8" path="res://scripts/black_hole_projectile.gd" id="1_rfnx6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrdnh"]
 render_priority = -1
@@ -24,17 +26,39 @@ metallic_specular = 0.0
 [sub_resource type="SphereMesh" id="SphereMesh_rfnx6"]
 material = SubResource("StandardMaterial3D_wk2q4")
 
-[node name="BlackHoleProjectile" type="Node3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_rfnx6"]
+radius = 2.5936
 
-[node name="black hole" type="Node3D" parent="."]
-transform = Transform3D(0.911846, 0, 0, 0, 0.911846, 0, 0, 0, 0.911846, 0, 0, 0)
+[sub_resource type="SphereShape3D" id="SphereShape3D_bdj2v"]
+radius = 1.23102
 
-[node name="horizon" type="MeshInstance3D" parent="black hole"]
-transform = Transform3D(2.64685, 0, 0, 0, -1.15697e-07, -2.64685, 0, 2.64685, -1.15697e-07, 0, 0, 0)
+[node name="BlackHoleProjectile" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 7
+gravity_scale = 0.0
+script = ExtResource("1_rfnx6")
+
+[node name="horizon" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.41352, 0, 0, 0, -1.05498e-07, -2.41352, 0, 2.41352, -1.05498e-07, 0, 0, 0)
 mesh = SubResource("SphereMesh_bdj2v")
-skeleton = NodePath("../../..")
 
-[node name="core" type="MeshInstance3D" parent="black hole"]
-transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0, 0, 0)
+[node name="core" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.73405, 0, 0, 0, -7.57977e-08, -1.73405, 0, 1.73405, -7.57977e-08, 0, 0, 0)
 mesh = SubResource("SphereMesh_rfnx6")
-skeleton = NodePath("../../..")
+
+[node name="PullBox" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 7
+
+[node name="pullbox" type="CollisionShape3D" parent="PullBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 3.55271e-15, 0, -3.55271e-15, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_rfnx6")
+debug_color = Color(0.627451, 0.12549, 0.941176, 1)
+
+[node name="HurtBox" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 7
+
+[node name="corehurtbox" type="CollisionShape3D" parent="HurtBox"]
+shape = SubResource("SphereShape3D_bdj2v")
+debug_color = Color(1, 0, 0, 1)
