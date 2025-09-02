@@ -21,6 +21,7 @@ extends CharacterBody3D
 @export var SPEED = 5.0
 @export var JUMP_VELOCITY = 4.5
 @export var look_sensitivity = 0.1
+@export var gravity_enabled = true
 
 @export_category("grappling hook")
 @export var GRAPPLE_MAX_RANGE = 0
@@ -83,19 +84,22 @@ func grapple():
 	var collision_count = get_slide_collision_count()
 	for i in range(collision_count):
 		grappling = false
-		velocity = Vector3.ZERO
 		
 func swayPistol(delta):
 	if pistol_sway_enabled:
 		mouse_delta2 = clamp(mouse_delta2, Vector2(pistol_sway_min,-5), Vector2(pistol_sway_max,5))
 		print(mouse_delta2)
 		pistol_sway_pivot.rotation.y = lerpf(0.0,5.0,mouse_delta2.x/5) * pistol_sway_factor * delta
+
+func _physics_process(delta: float) -> void:
+	swayPistol(delta)
 	
-	# if grapple and not grappling, grapple and set the positions
+		# if grapple and not grappling, grapple and set the positions
 	if Input.is_action_just_pressed("grapple") and grappling == false:
 		if grapple_ray_cast.get_collider() != null:
 			grapple_target_pos = grapple_ray_cast.get_collision_point()
 			grapple_dir = (grapple_target_pos - grapple_ray_cast.global_position).normalized()
+			# grapple_dir returns as a Vector3
 			grappling = true
 	
 	# if grapple and grappling, stop grappling and initiate hop mechanic
@@ -103,9 +107,6 @@ func swayPistol(delta):
 		grappling = false
 		velocity = Vector3.ZERO
 		player.velocity.y = GRAPPLE_HOP
-
-func _physics_process(delta: float) -> void:
-	swayPistol(delta)
 	
 	
 	# clamp the camera pivot view
@@ -126,11 +127,16 @@ func _physics_process(delta: float) -> void:
 	
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		if gravity_enabled:
+			velocity += get_gravity() * delta
+			
+	
 	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	
 		
 	# handle slam jumping
 	if Input.is_action_just_pressed("slam") and is_on_floor():
@@ -142,21 +148,23 @@ func _physics_process(delta: float) -> void:
 		JUMP_VELOCITY = 12
 		slam_timer.start()
 	
-
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "forward", "back")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	if direction:
+	if direction and Global.player_move_input_enabled:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
+	
+	# Player will stop moving in the air when the movement is stopped
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	if grappling:
 		velocity = grapple_dir * GRAPPLE_SPEED_MAX
+		
 	move_and_slide()
 
 func gunInputs(curr_weap): # run every frame in _process
@@ -167,10 +175,18 @@ func gunInputs(curr_weap): # run every frame in _process
 	# switch weapon block==================================================================================
 	if Input.is_action_just_pressed("slot1"): #and not animation_player.is_playing():
 		Global.current_weapon = "melee"
+		
 	if Input.is_action_just_pressed("slot2"): #and not animation_player.is_playing():
+		if Global.current_weapon != "pistol":
+			if animation_player.current_animation == "reload_pistol":
+				pass
+			else:
+				animation_player.play("equip_pistol")
 		Global.current_weapon = "pistol"
+		
 	if Input.is_action_just_pressed("slot3"): #and not animation_player.is_playing():
 		Global.current_weapon = "shotgun"
+		
 	if Input.is_action_just_pressed("slot4"):
 		Global.current_weapon = "BLL"
 	
@@ -179,7 +195,7 @@ func gunInputs(curr_weap): # run every frame in _process
 		# use seperate animation players for each weapon
 		
 		if curr_weap == "pistol":
-			if animation_player.current_animation == "inspect":
+			if animation_player.current_animation == "inspect" or animation_player.current_animation == "equip_pistol":
 				animation_player.stop()
 			elif animation_player.current_animation == "reload_pistol":
 				pass
@@ -187,6 +203,7 @@ func gunInputs(curr_weap): # run every frame in _process
 				if Global.blaster_ammo > 0:
 					animation_player.play("fire")
 				elif Global.blaster_ammo == 0: animation_player.play("reload_pistol")
+
 	# semi-automatic fire block========================================================================
 	if Input.is_action_just_pressed("fire"):
 		
@@ -205,6 +222,9 @@ func gunInputs(curr_weap): # run every frame in _process
 		if curr_weap == "pistol":
 			if animation_player.current_animation == "reload_pistol":
 				pass
+			elif animation_player.current_animation == "equip_pistol":
+					animation_player.stop()
+					animation_player.play("inspect")
 			else:
 				animation_player.play("inspect")
 

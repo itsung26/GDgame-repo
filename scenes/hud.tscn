@@ -597,6 +597,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "FireType = null"
 
+[node name="CurrentLookDir" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Currently looking in: "
+
 [node name="fpsCounter" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2

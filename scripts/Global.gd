@@ -4,6 +4,7 @@ var current_special_property
 var current_MAGSIZE
 var current_DAMAGE
 var current_AMMO
+var pivot_look_basis
 
 
 # note: magsize should always be the same as ammo.
@@ -91,6 +92,7 @@ EX: current_weapon is "shotgun", current_magsize updates to shotgun_MAGSIZE
 this is inefficient, but eliminates the need for a huge dictionary with properties
 '''
 func _process(_float) -> void:
+	
 	if current_weapon == "pistol":
 		current_DAMAGE = pistol_DAMAGE
 		current_MAGSIZE = pistol_MAGSIZE
@@ -121,3 +123,4 @@ other global vars===============================================================
 var isPaused = false
 var menuState = "notpaused"
 var enableShader = false
+var player_move_input_enabled = true

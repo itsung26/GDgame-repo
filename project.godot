@@ -14,7 +14,8 @@ warnings/check_invalid_track_paths=false
 
 [application]
 
-config/name="I'm going insane"
+config/name="icantthinkofaname"
+config/version="0.8.9"
 run/main_scene="uid://ddw2badfdmuup"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
@@ -27,6 +28,7 @@ Global="*res://scripts/Global.gd"
 
 enemy="contains all enemies"
 weapons="Contains all weapons"
+players=""
 
 [input]
 
@@ -122,3 +124,4 @@ slam={
 3d_physics/layer_2="enemies"
 3d_physics/layer_3="world"
 3d_physics/layer_4="projectile"
+3d_physics/layer_5="pickup"
