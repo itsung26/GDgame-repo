@@ -1,22 +1,19 @@
 extends Node3D
 @onready var bll_animator: AnimationPlayer = $"../../../../BLLAnimator"
-@onready var player: CharacterBody3D = $"../../../.."
 @onready var fire_ready_light_green: MeshInstance3D = $SightPart/FireReadyLightGREEN
 @onready var fire_ready_light_red: MeshInstance3D = $SightPart/FireReadyLightRED
+@onready var fire_marker: Node3D = $FireMarker
 
+
+const BLACK_HOLE_PROJECTILE = preload("res://scenes/black_hole_projectile.tscn")
 var can_play_anims : bool = true
 
-func BLLFire():
-	print("kaboom")
-	Global.BLL_ammo -= 1
-	bll_animator.play("Black Hole Launcher/BLL_cooldown")
+@export var speed : float = 30.0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
-
-func denyAnims():
-	can_play_anims =false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -30,3 +27,17 @@ func _process(_delta: float) -> void:
 		fire_ready_light_green.visible = false
 		if not bll_animator.is_playing() and can_play_anims:
 			bll_animator.play("Black Hole Launcher/BLL_put_down")
+
+func denyAnims():
+	can_play_anims =false
+
+func BLLFire():
+	Global.BLL_ammo -= 1
+	var black_h_projectile = BLACK_HOLE_PROJECTILE.instantiate()
+	get_tree().current_scene.add_child(black_h_projectile)
+	black_h_projectile.global_position = fire_marker.global_position
+	black_h_projectile.global_rotation = fire_marker.global_rotation
+	# move in the direction of the FireDirection node
+	var direction = -fire_marker.global_transform.basis.z.normalized()
+	black_h_projectile.linear_velocity = direction * speed
+	bll_animator.play("Black Hole Launcher/BLL_cooldown")

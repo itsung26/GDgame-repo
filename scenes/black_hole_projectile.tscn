@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8qwp5eoecr5x"]
+[gd_scene load_steps=13 format=3 uid="uid://b8qwp5eoecr5x"]
 
 [ext_resource type="Script" uid="uid://bl7r6a7ijf3n8" path="res://scripts/black_hole_projectile.gd" id="1_rfnx6"]
 
@@ -27,16 +27,104 @@ metallic_specular = 0.0
 material = SubResource("StandardMaterial3D_wk2q4")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rfnx6"]
-radius = 2.5936
+radius = 6.26494
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bdj2v"]
 radius = 1.23102
 
+[sub_resource type="Animation" id="Animation_v6maq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("core:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.73405, 1.73405, 1.73405)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PullBox/pullbox:shape:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.26494]
+}
+
+[sub_resource type="Animation" id="Animation_rfnx6"]
+resource_name = "black hole lifetime"
+length = 5.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"blackHoleExit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_behx8"]
+resource_name = "black hole pulse"
+length = 0.0333
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("core:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.73405, 1.73405, 1.73405), Vector3(2.25317, 2.25317, 2.25317)]
+}
+
+[sub_resource type="Animation" id="Animation_gvxtt"]
+resource_name = "pull radius expand"
+length = 1.2955
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PullBox/pullbox:shape:radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2955),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.170415, 6.26494]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gvxtt"]
+_data = {
+&"RESET": SubResource("Animation_v6maq"),
+&"black hole lifetime": SubResource("Animation_rfnx6"),
+&"black hole pulse": SubResource("Animation_behx8"),
+&"pull radius expand": SubResource("Animation_gvxtt")
+}
+
 [node name="BlackHoleProjectile" type="RigidBody3D"]
-collision_layer = 8
-collision_mask = 7
+collision_layer = 0
+collision_mask = 0
+mass = 0.001
 gravity_scale = 0.0
 script = ExtResource("1_rfnx6")
+BH_pull_speed = 25
 
 [node name="horizon" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.41352, 0, 0, 0, -1.05498e-07, -2.41352, 0, 2.41352, -1.05498e-07, 0, 0, 0)
@@ -62,3 +150,35 @@ collision_mask = 7
 [node name="corehurtbox" type="CollisionShape3D" parent="HurtBox"]
 shape = SubResource("SphereShape3D_bdj2v")
 debug_color = Color(1, 0, 0, 1)
+
+[node name="BlackHoleLifeTime" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gvxtt")
+}
+autoplay = "black hole lifetime"
+
+[node name="BlackHolePulse" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gvxtt")
+}
+autoplay = "black hole pulse"
+
+[node name="BlackHoleExpand" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gvxtt")
+}
+autoplay = "pull radius expand"
+
+[node name="BlackHoleGlow" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gvxtt")
+}
+autoplay = "pull radius expand"
+
+[node name="FireDirection" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -30)
+
+[node name="Facing" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -500, 0)
+collision_mask = 0

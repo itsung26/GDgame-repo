@@ -21,6 +21,7 @@ extends CharacterBody3D
 @export var SPEED = 5.0
 @export var JUMP_VELOCITY = 4.5
 @export var look_sensitivity = 0.1
+@export var gravity_enabled = true
 
 @export_category("grappling hook")
 @export var GRAPPLE_MAX_RANGE = 0
@@ -83,7 +84,6 @@ func grapple():
 	var collision_count = get_slide_collision_count()
 	for i in range(collision_count):
 		grappling = false
-		velocity = Vector3.ZERO
 		
 func swayPistol(delta):
 	if pistol_sway_enabled:
@@ -127,11 +127,16 @@ func _physics_process(delta: float) -> void:
 	
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		if gravity_enabled:
+			velocity += get_gravity() * delta
+			
+	
 	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	
 		
 	# handle slam jumping
 	if Input.is_action_just_pressed("slam") and is_on_floor():
@@ -143,21 +148,23 @@ func _physics_process(delta: float) -> void:
 		JUMP_VELOCITY = 12
 		slam_timer.start()
 	
-
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "forward", "back")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	if direction:
+	if direction and Global.player_move_input_enabled:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
+	
+	# Player will stop moving in the air when the movement is stopped
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	if grappling:
 		velocity = grapple_dir * GRAPPLE_SPEED_MAX
+		
 	move_and_slide()
 
 func gunInputs(curr_weap): # run every frame in _process

@@ -14,8 +14,10 @@ extends Control
 @onready var key_animator_3: AnimationPlayer = $KeyAnimator_3
 @onready var key_animator_1: AnimationPlayer = $KeyAnimator_1
 @onready var key_animator_4: AnimationPlayer = $KeyAnimator_4
-
+@onready var current_look_dir: Label = %CurrentLookDir
+@onready var pivot: Node3D = $"../Player/Pivot"
 var current_frames_per_second = "null"
+@onready var player: CharacterBody3D = $"../Player"
 
 signal zoom_in_trigger
 signal zoom_out_trigger
@@ -100,6 +102,7 @@ func _process(_delta) -> void:
 	body_hit_debug.text = "last object hit: " + str(Global.body_hit)
 	current_weapon_special.text = "Current weapon ability: " + Global.current_special_property
 	current_weapon.text = "Current weapon: " + str(Global.current_weapon)
+	current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
 	
 	# ----------------------------------------------------------------------------------------------
 	

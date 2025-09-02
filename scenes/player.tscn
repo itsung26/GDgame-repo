@@ -1059,6 +1059,7 @@ shadow_mesh = SubResource("ArrayMesh_f3fc0")
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 7
 script = ExtResource("1_qhqgy")
+JUMP_VELOCITY = 8.0
 GRAPPLE_MAX_RANGE = 50
 GRAPPLE_SPEED_MAX = 20
 GRAPPLE_HOP = 8
@@ -1117,7 +1118,7 @@ mesh = SubResource("CapsuleMesh_b2mh8")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
 [node name="footCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0763467, 0.00931263)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0694726, 0.00931263)
 shape = SubResource("BoxShape3D_b2mh8")
 
 [node name="Pivot" type="Node3D" parent="."]
