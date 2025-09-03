@@ -18,6 +18,9 @@ extends Control
 @onready var pivot: Node3D = $"../Player/Pivot"
 var current_frames_per_second = "null"
 @onready var player: CharacterBody3D = $"../Player"
+@onready var black_hole_2: Sprite2D = $pistolPreviewIcon/BlackHole2
+@onready var pistol_bullet_icon: Sprite2D = $AmmoContainer/pistol_bullet_icon
+@onready var reload_prompt: AnimatedSprite2D = $pistolPreviewIcon/ReloadPrompt
 
 signal zoom_in_trigger
 signal zoom_out_trigger
@@ -51,8 +54,16 @@ func _process(_delta) -> void:
 	# shows or hides ui elements based on current weapon
 	if Global.current_weapon == "pistol":
 		overclock_bar.visible = true
+		pistol_bullet_icon.visible = true
+		black_hole_2.visible = false
+		reload_prompt.visible = true
 	else:
 		overclock_bar.visible = false
+	
+	if Global.current_weapon == "BLL":
+		reload_prompt.visible = false
+		pistol_bullet_icon.visible = false
+		black_hole_2.visible = true
 	
 	# if the bar is totally empty, begin refilling, disable special state, and put screen back to like before
 	# if the bar is totally empty, disable the special state

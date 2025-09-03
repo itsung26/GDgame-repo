@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8qwp5eoecr5x"]
+[gd_scene load_steps=18 format=3 uid="uid://b8qwp5eoecr5x"]
 
 [ext_resource type="Script" uid="uid://bl7r6a7ijf3n8" path="res://scripts/black_hole_projectile.gd" id="1_rfnx6"]
+[ext_resource type="Texture2D" uid="uid://bnrahmvqo7e3" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/star_04.png" id="2_v6maq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrdnh"]
 render_priority = -1
@@ -25,6 +26,24 @@ metallic_specular = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_rfnx6"]
 material = SubResource("StandardMaterial3D_wk2q4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_behx8"]
+emission_shape_scale = Vector3(6.27, 6.254, 6.232)
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gvxtt"]
+transparency = 1
+albedo_color = Color(0.627451, 0.12549, 0.941176, 1)
+albedo_texture = ExtResource("2_v6maq")
+emission_enabled = true
+emission = Color(0.627451, 0.12549, 0.941176, 1)
+emission_energy_multiplier = 16.0
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_3mswi"]
+material = SubResource("StandardMaterial3D_gvxtt")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rfnx6"]
 radius = 6.26494
@@ -110,9 +129,13 @@ tracks/0/keys = {
 "values": [0.170415, 6.26494]
 }
 
+[sub_resource type="Animation" id="Animation_trej1"]
+resource_name = "black hole glow"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gvxtt"]
 _data = {
 &"RESET": SubResource("Animation_v6maq"),
+&"black hole glow": SubResource("Animation_trej1"),
 &"black hole lifetime": SubResource("Animation_rfnx6"),
 &"black hole pulse": SubResource("Animation_behx8"),
 &"pull radius expand": SubResource("Animation_gvxtt")
@@ -133,6 +156,12 @@ mesh = SubResource("SphereMesh_bdj2v")
 [node name="core" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.73405, 0, 0, 0, -7.57977e-08, -1.73405, 0, 1.73405, -7.57977e-08, 0, 0, 0)
 mesh = SubResource("SphereMesh_rfnx6")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 25
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_behx8")
+draw_pass_1 = SubResource("QuadMesh_3mswi")
 
 [node name="PullBox" type="Area3D" parent="."]
 collision_layer = 8

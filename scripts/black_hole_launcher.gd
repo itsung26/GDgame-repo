@@ -7,6 +7,7 @@ extends Node3D
 
 const BLACK_HOLE_PROJECTILE = preload("res://scenes/black_hole_projectile.tscn")
 var can_play_anims : bool = true
+var is_launcher_raised = false
 
 @export var speed : float = 30.0
 
@@ -18,6 +19,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if Global.BLL_ammo > 0:
+		if not is_launcher_raised:
+			bll_animator.play("Black Hole Launcher/BLL_equip")
+			is_launcher_raised = true
+		can_play_anims = true
 		if not bll_animator.is_playing():
 			fire_ready_light_green.visible = true
 			fire_ready_light_red.visible = false
@@ -27,6 +32,7 @@ func _process(_delta: float) -> void:
 		fire_ready_light_green.visible = false
 		if not bll_animator.is_playing() and can_play_anims:
 			bll_animator.play("Black Hole Launcher/BLL_put_down")
+			is_launcher_raised = false
 
 func denyAnims():
 	can_play_anims =false

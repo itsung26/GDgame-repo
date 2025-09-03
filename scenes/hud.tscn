@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=42 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/sprite assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
@@ -9,9 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dcs7dajg0p34e" path="res://assets/sprite assets/key icons/Keyboard & Mouse/keyboard-&-mouse_sheet_double.png" id="6_hd3ao"]
 [ext_resource type="Texture2D" uid="uid://5viqdp3vwpsj" path="res://assets/sprite assets/gunmodel previews/clip-large.png" id="7_0i1j5"]
 [ext_resource type="Texture2D" uid="uid://dwqv080lryrx1" path="res://assets/sprite assets/gunmodel previews/54303.png" id="8_mphia"]
-[ext_resource type="Texture2D" uid="uid://qh0lx4qk4f2e" path="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Double/check_round_color.png" id="9_0m4u7"]
 [ext_resource type="Texture2D" uid="uid://dp3hpw1lc7jmi" path="res://assets/sprite assets/gunmodel previews/black hole gun/black hole gun image.png" id="9_5n1hp"]
-[ext_resource type="Texture2D" uid="uid://b5fiinl314wvi" path="res://assets/textures/prototypes/PNG/Red/texture_01.png" id="9_apjy4"]
 [ext_resource type="Texture2D" uid="uid://cmgvv04tqig53" path="res://assets/sprite assets/gunmodel previews/black hole gun/black_hole_2.png" id="11_5n1hp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0m4u7"]
@@ -57,6 +55,8 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0m4u7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5n1hp"]
 atlas = ExtResource("6_hd3ao")
@@ -118,21 +118,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uxdf7")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iypfu"]
-atlas = ExtResource("9_0m4u7")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_qpprf"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iypfu")
 }],
 "loop": true,
 "name": &"default",
@@ -519,10 +504,10 @@ position = Vector2(112.803, 2.89233)
 scale = Vector2(0.109866, 0.109866)
 texture = ExtResource("8_mphia")
 
-[node name="ShotgunPreviewIcon" type="Sprite2D" parent="pistolPreviewIcon"]
+[node name="ShotgunPreviewIcon" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
 position = Vector2(70, 104)
 scale = Vector2(0.0340154, 0.0340154)
-texture = ExtResource("9_apjy4")
+sprite_frames = SubResource("SpriteFrames_0m4u7")
 
 [node name="KeyIndicator3" type="AnimatedSprite2D" parent="pistolPreviewIcon/ShotgunPreviewIcon"]
 position = Vector2(-1234.74, 0)
@@ -549,10 +534,9 @@ sprite_frames = SubResource("SpriteFrames_5357l")
 [node name="MeleePreviewIcon" type="AnimatedSprite2D" parent="pistolPreviewIcon/MeleePrompt"]
 position = Vector2(115.023, 0)
 scale = Vector2(1.45998, 1.45998)
-sprite_frames = SubResource("SpriteFrames_qpprf")
 
 [node name="BlackHole2" type="Sprite2D" parent="pistolPreviewIcon"]
-position = Vector2(322, 246)
+position = Vector2(180, 247)
 scale = Vector2(0.379856, 0.379856)
 texture = ExtResource("11_5n1hp")
 

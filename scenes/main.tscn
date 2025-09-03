@@ -110,6 +110,18 @@ SPEED = 7.5
 [node name="BLLAnimator" parent="Player" index="4"]
 speed_scale = 30.0
 
+[node name="BlackHoleLauncher" parent="Player/Pivot/Camera3D/Guns" index="1"]
+transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)
+
+[node name="PanelPivot2" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="2"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.206563, 0, 0.398)
+
+[node name="PanelPivot3" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="3"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.209735, 0, -0.328399)
+
+[node name="core" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????" index="1"]
+transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0.0247345, 1.39009, -0.00136375)
+
 [node name="enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.417, 0, -26.861)
 

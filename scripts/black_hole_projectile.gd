@@ -43,12 +43,10 @@ func pullBodies(blackHolePos):
 		
 		# handle pull for players
 		if body.is_in_group("players"):
-			Global.player_move_input_enabled = false
 			player_pull_dir = (blackHolePos - body.position).normalized()
 			body.velocity = (player_pull_dir * BH_pull_speed)
 			
 # mimicks queue_free() but with extra steps before leaving scene
 func blackHoleExit():
 	print("black hole leaving scene and re-allowing inputs")
-	Global.player_move_input_enabled = true
 	queue_free()
