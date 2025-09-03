@@ -586,6 +586,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Currently looking in: "
 
+[node name="CurrentPlayerPos" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Current player pos: "
+
 [node name="fpsCounter" type="Label" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2

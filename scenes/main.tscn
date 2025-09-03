@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://ddw2badfdmuup"]
+[gd_scene load_steps=31 format=4 uid="uid://ddw2badfdmuup"]
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="5_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://dnu2ogho4nr2g" path="res://assets/textures/prototypes/PNG/Orange/texture_01.png" id="5_tbgi4"]
 [ext_resource type="Material" uid="uid://j1uxc5ncdsqa" path="res://assets/textures/prototype_dark.tres" id="5_tefeu"]
+[ext_resource type="PackedScene" uid="uid://b7flsfviplefd" path="res://scenes/weapon_wheel.tscn" id="6_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://cread3gedp1k3" path="res://assets/textures/normalmapped dark/blackprototype/texture_01_normal.png" id="6_tipki"]
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="9_choun"]
 [ext_resource type="PackedScene" uid="uid://du50kuq805ea1" path="res://scenes/black_hole_ammo.tscn" id="11_ya4ey"]
@@ -32,6 +33,8 @@ glow_enabled = true
 [sub_resource type="BoxMesh" id="BoxMesh_o6xl0"]
 material = ExtResource("5_tefeu")
 size = Vector3(500, 0.1, 500)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_ya4ey"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tipki"]
 size = Vector3(500, 0.1, 500)
@@ -103,36 +106,30 @@ script = ExtResource("1_0wfyh")
 [node name="Pause" parent="." instance=ExtResource("5_choun")]
 visible = false
 
+[node name="WeaponWheel" parent="." instance=ExtResource("6_eb6dy")]
+visible = false
+
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6528, 0.070439, -24.4895)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.622, 0.070439, 11.8577)
 SPEED = 7.5
+
+[node name="BlackHoleLauncher" parent="Player/Pivot/Camera3D/Guns" index="1"]
+transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)
+
+[node name="PanelPivot2" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="2"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.206563, 0, 0.398)
+
+[node name="PanelPivot3" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="3"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.209735, 0, -0.328399)
+
+[node name="core" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????" index="1"]
+transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0.0247345, 1.39009, -0.00136375)
 
 [node name="enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.417, 0, -26.861)
 
 [node name="enemy" parent="enemies" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.94228, 1, -5.14445)
-
-[node name="enemy2" parent="enemies" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.74394, 1, -5.31334)
-
-[node name="Enemy5" parent="enemies" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3516, 1, -4.9091)
-
-[node name="Enemy6" parent="enemies" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6627, 1, -4.9091)
-
-[node name="Enemy7" parent="enemies" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9953, 1, -4.9091)
-
-[node name="Enemy8" parent="enemies" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1887, 1, -4.9091)
-
-[node name="Enemy9" parent="enemies" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1522, 1, -4.9091)
-
-[node name="Enemy10" parent="enemies" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.2713, 1, -4.9091)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.0742, 1.45534, 31.0343)
 
 [node name="WorldParts" type="Node3D" parent="."]
 
@@ -142,6 +139,9 @@ collision_mask = 15
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldParts/Floor"]
 mesh = SubResource("BoxMesh_o6xl0")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="WorldParts/Floor/MeshInstance3D"]
+navigation_mesh = SubResource("NavigationMesh_ya4ey")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldParts/Floor"]
 shape = SubResource("BoxShape3D_tipki")
@@ -505,13 +505,13 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.868, 0, -32.0583)
 
 [node name="BlackHoleAmmoCrate" parent="TestObjects" instance=ExtResource("11_ya4ey")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40.2935, 0, 38.3402)
 
 [node name="BlackHoleAmmoCrate2" parent="TestObjects" instance=ExtResource("11_ya4ey")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 1.01262)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40.2935, 0, 39.3528)
 
 [node name="BlackHoleAmmoCrate3" parent="TestObjects" instance=ExtResource("11_ya4ey")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 1.92328)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40.2935, 0, 40.2634)
 
 [connection signal="zoom_in_trigger" from="HUD" to="Player" method="_on_hud_zoom_in_trigger"]
 [connection signal="zoom_out_trigger" from="HUD" to="Player" method="_on_hud_zoom_out_trigger"]

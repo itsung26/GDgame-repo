@@ -19,14 +19,27 @@ var fire_dir : Vector3
 func _ready() -> void:
 	pass
 
+var is_colliding_with_player: bool = false
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta) -> void:
+func _process(_delta) -> void:
+	print(is_colliding_with_player)
 
 	# save current position as a vector3
 	black_hole_position = position
 	# pull bodies to said position
 	pullBodies(black_hole_position)
-	
+	is_colliding_with_player = false
+	for body in pull_box.get_overlapping_bodies():
+		if body.is_in_group("players"):
+			is_colliding_with_player = true
+			break
+
+	# Enable/disable player movement input based on collision
+	if is_colliding_with_player:
+		Global.player_move_input_enabled = false
+	else:
+		Global.player_move_input_enabled = true
 	
 # pulls bodies
 func pullBodies(blackHolePos):
@@ -49,4 +62,5 @@ func pullBodies(blackHolePos):
 # mimicks queue_free() but with extra steps before leaving scene
 func blackHoleExit():
 	print("black hole leaving scene and re-allowing inputs")
+	Global.player_move_input_enabled = true
 	queue_free()

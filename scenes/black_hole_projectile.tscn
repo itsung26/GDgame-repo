@@ -78,6 +78,9 @@ tracks/1/keys = {
 "values": [6.26494]
 }
 
+[sub_resource type="Animation" id="Animation_trej1"]
+resource_name = "black hole glow"
+
 [sub_resource type="Animation" id="Animation_rfnx6"]
 resource_name = "black hole lifetime"
 length = 5.0
@@ -128,9 +131,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.170415, 6.26494]
 }
-
-[sub_resource type="Animation" id="Animation_trej1"]
-resource_name = "black hole glow"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gvxtt"]
 _data = {

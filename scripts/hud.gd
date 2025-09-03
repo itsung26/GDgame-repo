@@ -21,6 +21,7 @@ var current_frames_per_second = "null"
 @onready var black_hole_2: Sprite2D = $pistolPreviewIcon/BlackHole2
 @onready var pistol_bullet_icon: Sprite2D = $AmmoContainer/pistol_bullet_icon
 @onready var reload_prompt: AnimatedSprite2D = $pistolPreviewIcon/ReloadPrompt
+@onready var current_player_pos: Label = %CurrentPlayerPos
 
 signal zoom_in_trigger
 signal zoom_out_trigger
@@ -114,6 +115,7 @@ func _process(_delta) -> void:
 	current_weapon_special.text = "Current weapon ability: " + Global.current_special_property
 	current_weapon.text = "Current weapon: " + str(Global.current_weapon)
 	current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
+	current_player_pos.text = "Player Pos: " + str(player.global_position)
 	
 	# ----------------------------------------------------------------------------------------------
 	

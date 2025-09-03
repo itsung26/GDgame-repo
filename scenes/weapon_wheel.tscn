@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7flsfviplefd"]
+
+[ext_resource type="Script" uid="uid://dpdnfyww4l5wh" path="res://scripts/weapon_wheel.gd" id="1_dgnc7"]
+[ext_resource type="Script" uid="uid://dpajwsw0wh6pk" path="res://scripts/weapon_block.gd" id="2_0oy35"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgnc7"]
+bg_color = Color(0.114897, 0.114897, 0.114897, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.647059, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0oy35"]
+bg_color = Color(0.113725, 0.113725, 0.113725, 1)
+
+[sub_resource type="Theme" id="Theme_dgnc7"]
+Button/styles/hover = SubResource("StyleBoxFlat_dgnc7")
+Button/styles/normal = SubResource("StyleBoxFlat_0oy35")
+
+[node name="WeaponWheel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dgnc7")
+
+[node name="WheelCore" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -276.5
+offset_top = -276.5
+offset_right = 276.5
+offset_bottom = 276.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PistolButton" type="Button" parent="WheelCore"]
+layout_mode = 0
+offset_left = -5.5
+offset_top = 189.5
+offset_right = 216.5
+offset_bottom = 296.5
+theme = SubResource("Theme_dgnc7")
+script = ExtResource("2_0oy35")
+
+[connection signal="mouse_entered" from="WheelCore/PistolButton" to="WheelCore/PistolButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="WheelCore/PistolButton" to="WheelCore/PistolButton" method="_on_mouse_exited"]

@@ -49,3 +49,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_4ra3w")
 }
 speed_scale = 5.0
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

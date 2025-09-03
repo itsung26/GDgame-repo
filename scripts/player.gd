@@ -49,7 +49,7 @@ func _ready() -> void:
 	
 func _input(event) -> void:
 	# handle mouselook
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Global.player_look_input_enabled:
 		mouse_delta2 = event.relative
 		var mouse_delta = event.relative
 		var yaw = -mouse_delta.x
@@ -191,7 +191,7 @@ func gunInputs(curr_weap): # run every frame in _process
 		Global.current_weapon = "BLL"
 	
 	# automatic fire block===================================================================================
-	if Input.is_action_pressed("fire"):
+	if Input.is_action_pressed("fire") and Global.player_fire_input_enabled:
 		# use seperate animation players for each weapon
 		
 		if curr_weap == "pistol":
@@ -205,7 +205,7 @@ func gunInputs(curr_weap): # run every frame in _process
 				elif Global.blaster_ammo == 0: animation_player.play("reload_pistol")
 
 	# semi-automatic fire block========================================================================
-	if Input.is_action_just_pressed("fire"):
+	if Input.is_action_just_pressed("fire") and Global.player_fire_input_enabled:
 		
 		if curr_weap == "shotgun":
 			print("shotgun fire")
@@ -248,7 +248,7 @@ func gunInputs(curr_weap): # run every frame in _process
 			
 			
 	# special block=========================================================================================
-	if Input.is_action_just_pressed("right click action"):
+	if Input.is_action_just_pressed("right click action") and Global.player_fire_input_enabled:
 		if curr_weap == "pistol":
 			pistol.special(Global.current_weapon)
 		
