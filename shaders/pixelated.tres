@@ -31,6 +31,7 @@ op_type = 0
 operator = 3
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_v0m7j"]
+output_port_for_preview = 0
 source = 1
 
 [resource]
@@ -74,6 +75,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(202.507, -129.202)
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2(1340, 140)

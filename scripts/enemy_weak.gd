@@ -5,8 +5,16 @@ extends CharacterBody3D
 @export var SPEED = 3
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
+@onready var enemy_melee_cooldown: Timer = $EnemyMeleeCooldown
+@onready var hurt_box_melee: Area3D = $HurtBoxMelee
+
+@export var AttackCooldown:float = 0.0
+@export var AttackDamage:float = 0.0
 
 var player: Node3D
+var is_attacking:bool = false
+var body_in_hurtbox
+var player_in_hurtbox: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,6 +25,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
+	
+	enemy_melee_cooldown.wait_time = AttackCooldown
+	var look_at_player_pos: Vector3 = Vector3(player.global_position.x, global_position.y, player.global_position.z)
+	look_at(look_at_player_pos, Vector3.UP)
 	if health <= 0:
 		animation_player.play("enemy_death")
 	if player:
@@ -27,6 +39,7 @@ func _process(_delta) -> void:
 	else:
 		# print("Next path position: ", nav_agent.get_next_path_position())
 		pass
+		
 
 func _physics_process(delta) -> void:
 	# Navigation movement
@@ -47,3 +60,34 @@ func _physics_process(delta) -> void:
 
 	
 	move_and_slide()
+
+
+func _on_hurt_box_melee_body_entered(body) -> void:
+	if body.name == "Player":
+		player_in_hurtbox = true
+		body_in_hurtbox = body
+		# Only attack if not already attacking
+	if not is_attacking:
+		attackRepeatedly()
+
+func _on_hurt_box_melee_body_exited(body) -> void:
+	if body.name == "Player":
+		player_in_hurtbox = false
+		# Optionally stop attacking if player leaves
+		is_attacking = false
+
+func attackRepeatedly():
+	if player_in_hurtbox and body_in_hurtbox and not is_attacking:
+		is_attacking = true
+		animation_player.play("enemy_attack_melee")
+		enemy_melee_cooldown.start()
+
+func _on_enemy_melee_cooldown_timeout() -> void:
+	is_attacking = false
+	# If player is still in hurtbox, attack again
+	if player_in_hurtbox:
+		attackRepeatedly()
+
+func hurtTouching():
+		body_in_hurtbox.HEALTH -= AttackDamage
+		print(body_in_hurtbox.HEALTH)

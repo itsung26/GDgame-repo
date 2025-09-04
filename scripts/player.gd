@@ -16,12 +16,15 @@ extends CharacterBody3D
 @onready var black_hole_launcher: Node3D = $Pivot/Camera3D/Guns/BlackHoleLauncher
 @onready var bll_animator: AnimationPlayer = $BLLAnimator
 
+@export_category("traits")
+@export var HEALTH:float = 100.0
 
 @export_category("movement")
 @export var SPEED = 5.0
 @export var JUMP_VELOCITY = 4.5
 @export var look_sensitivity = 0.1
 @export var gravity_enabled = true
+@export var Stopwalk_slowdown:float = 0.0
 
 @export_category("grappling hook")
 @export var GRAPPLE_MAX_RANGE = 0
@@ -159,8 +162,8 @@ func _physics_process(delta: float) -> void:
 	
 	# Player will stop moving in the air when the movement is stopped
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, Stopwalk_slowdown)
+		velocity.z = move_toward(velocity.z, 0, Stopwalk_slowdown)
 
 	if grappling:
 		velocity = grapple_dir * GRAPPLE_SPEED_MAX
@@ -279,6 +282,8 @@ func hideGuns():
 
 var a = true
 func _process(_delta) -> void:
+	if HEALTH <= 0:
+		print("you died!")
 	
 	gunInputs(Global.current_weapon)
 	hideGuns()

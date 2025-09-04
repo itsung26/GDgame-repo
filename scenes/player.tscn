@@ -1057,7 +1057,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_f3fc0")
 
 [node name="Player" type="CharacterBody3D" groups=["players"]]
-collision_mask = 7
+collision_mask = 15
 script = ExtResource("1_qhqgy")
 JUMP_VELOCITY = 8.0
 GRAPPLE_MAX_RANGE = 50

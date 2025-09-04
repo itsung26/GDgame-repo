@@ -15,6 +15,7 @@ border_color = Color(1, 0.647059, 0, 1)
 bg_color = Color(0.113725, 0.113725, 0.113725, 1)
 
 [sub_resource type="Theme" id="Theme_dgnc7"]
+Button/styles/focus = SubResource("StyleBoxFlat_dgnc7")
 Button/styles/hover = SubResource("StyleBoxFlat_dgnc7")
 Button/styles/normal = SubResource("StyleBoxFlat_0oy35")
 
@@ -34,21 +35,43 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -276.5
-offset_top = -276.5
-offset_right = 276.5
-offset_bottom = 276.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PistolButton" type="Button" parent="WheelCore"]
 layout_mode = 0
-offset_left = -5.5
-offset_top = 189.5
-offset_right = 216.5
-offset_bottom = 296.5
+offset_left = -332.0
+offset_top = -25.0
+offset_right = -110.0
+offset_bottom = 82.0
+theme = SubResource("Theme_dgnc7")
+script = ExtResource("2_0oy35")
+
+[node name="PistolButton2" type="Button" parent="WheelCore"]
+layout_mode = 0
+offset_left = -73.0
+offset_top = -25.0
+offset_right = 149.0
+offset_bottom = 82.0
+theme = SubResource("Theme_dgnc7")
+script = ExtResource("2_0oy35")
+
+[node name="PistolButton3" type="Button" parent="WheelCore"]
+layout_mode = 0
+offset_left = 185.0
+offset_top = -25.0
+offset_right = 407.0
+offset_bottom = 82.0
 theme = SubResource("Theme_dgnc7")
 script = ExtResource("2_0oy35")
 
 [connection signal="mouse_entered" from="WheelCore/PistolButton" to="WheelCore/PistolButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="WheelCore/PistolButton" to="WheelCore/PistolButton" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="WheelCore/PistolButton2" to="WheelCore/PistolButton2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="WheelCore/PistolButton2" to="WheelCore/PistolButton2" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="WheelCore/PistolButton3" to="WheelCore/PistolButton3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="WheelCore/PistolButton3" to="WheelCore/PistolButton3" method="_on_mouse_exited"]

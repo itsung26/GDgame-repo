@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b42afh5fqoslr"]
+[gd_scene load_steps=10 format=3 uid="uid://b42afh5fqoslr"]
 
 [ext_resource type="Script" uid="uid://cikqg67necxxx" path="res://scripts/enemy_weak.gd" id="1_7p1mj"]
 
@@ -27,20 +27,97 @@ tracks/0/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_md0e3"]
+resource_name = "enemy_attack_melee"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.466667, 0.666667, 1.03333, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.134947, 0.145328), Vector3(0, 0.171279, 0.0882349), Vector3(0, 0.114186, -0.264704), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.466667, 0.666667, 1.03333, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.472269, 0, 0), Vector3(0.268973, 0, 0), Vector3(-0.300842, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.03333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"hurtTouching"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4ra3w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4ra3w"]
 _data = {
+&"RESET": SubResource("Animation_4ra3w"),
+&"enemy_attack_melee": SubResource("Animation_md0e3"),
 &"enemy_death": SubResource("Animation_7p1mj")
 }
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7p1mj"]
+size = Vector3(1, 1.99808, 1.02301)
 
 [node name="enemy" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_7p1mj")
+AttackCooldown = 0.8
+AttackDamage = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_7p1mj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_md0e3")
 surface_material_override/0 = SubResource("StandardMaterial3D_7p1mj")
 
@@ -51,3 +128,24 @@ libraries = {
 speed_scale = 5.0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="FacingDir" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.511753, 0)
+target_position = Vector3(0, 0, -2.04)
+
+[node name="EnemyMeleeCooldown" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="HurtBoxMelee" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.171399, -0.815516)
+collision_layer = 2
+collision_mask = 13
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBoxMelee"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.169907, 0.0628357)
+shape = SubResource("BoxShape3D_7p1mj")
+
+[connection signal="timeout" from="EnemyMeleeCooldown" to="." method="_on_enemy_melee_cooldown_timeout"]
+[connection signal="body_entered" from="HurtBoxMelee" to="." method="_on_hurt_box_melee_body_entered"]
+[connection signal="body_exited" from="HurtBoxMelee" to="." method="_on_hurt_box_melee_body_exited"]
