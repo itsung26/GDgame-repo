@@ -28,9 +28,8 @@ metallic_specular = 0.0
 material = SubResource("StandardMaterial3D_wk2q4")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_behx8"]
-emission_shape_scale = Vector3(6.27, 6.254, 6.232)
-emission_shape = 1
-emission_sphere_radius = 1.0
+emission_shape = 2
+emission_sphere_radius = 6.26494
 gravity = Vector3(0, 0, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gvxtt"]
@@ -148,6 +147,7 @@ mass = 0.001
 gravity_scale = 0.0
 script = ExtResource("1_rfnx6")
 BH_pull_speed = 25
+DAMAGE = 1.0
 
 [node name="horizon" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.41352, 0, 0, 0, -1.05498e-07, -2.41352, 0, 2.41352, -1.05498e-07, 0, 0, 0)
@@ -162,6 +162,11 @@ amount = 25
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_behx8")
 draw_pass_1 = SubResource("QuadMesh_3mswi")
+
+[node name="GPUParticlesAttractorSphere3D" type="GPUParticlesAttractorSphere3D" parent="GPUParticles3D"]
+strength = 75.0
+attenuation = 0.0
+radius = 6.59848
 
 [node name="PullBox" type="Area3D" parent="."]
 collision_layer = 8

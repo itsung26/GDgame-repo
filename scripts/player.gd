@@ -15,6 +15,7 @@ extends CharacterBody3D
 @onready var slam_timer: Timer = $SlamTimer
 @onready var black_hole_launcher: Node3D = $Pivot/Camera3D/Guns/BlackHoleLauncher
 @onready var bll_animator: AnimationPlayer = $BLLAnimator
+@onready var death_animator: AnimationPlayer = $DeathAnimator
 
 @export_category("traits")
 @export var HEALTH:float = 100.0
@@ -284,7 +285,7 @@ func hideGuns():
 var a = true
 func _process(_delta) -> void:
 	if HEALTH <= 0:
-		print("you died!")
+		playerDie()
 	
 	gunInputs(Global.current_weapon)
 	hideGuns()
@@ -301,3 +302,8 @@ func _on_hud_zoom_out_trigger() -> void:
 func _on_slam_timer_timeout() -> void:
 	can_slam_jump = false
 	JUMP_VELOCITY = storagevar
+
+func playerDie():
+	Engine.time_scale = 0.3
+	death_animator.play("death")
+	

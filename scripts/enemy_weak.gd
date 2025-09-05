@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var health:float = 100.0
+@export var HEALTH:float = 100.0
 @export var gravity_enabled = true
 @export var SPEED = 3
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -31,7 +31,7 @@ func _process(_delta) -> void:
 	enemy_melee_cooldown.wait_time = AttackCooldown
 	var look_at_player_pos: Vector3 = Vector3(player.global_position.x, global_position.y, player.global_position.z)
 	look_at(look_at_player_pos, Vector3.UP)
-	if health <= 0:
+	if HEALTH <= 0:
 		animation_player.play("enemy_death")
 	if player:
 		nav_agent.target_position = player.global_position

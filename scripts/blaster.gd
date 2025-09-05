@@ -46,23 +46,30 @@ func fire():
 		b.look_at(bullet_ray_cast.get_collision_point() + bullet_ray_cast.get_collision_normal(), Vector3.UP)
 		
 		if body.is_in_group("enemy"):
-			body.health = body.health - Global.pistol_DAMAGE
-			print("health of enemy: " + str(body.health))
+			body.HEALTH = body.HEALTH - Global.pistol_DAMAGE
+			print("HEALTH of enemy: " + str(body.HEALTH))
 
 			# --- Show hitmarker on HUD at hit position ---
 			var hitmarker = DAMAGE_HITMARKER_SCENE.instantiate()
 			# get the label node
-			var hitmarker_label_node = hitmarker.get_node("%DamageNumberLabel")
-			hitmarker_label_node.text = str(Global.pistol_DAMAGE)
+			var hitmarker_label_node = hitmarker.get_node("DamageNumberLabel") # Use the correct node name
+			# set the text
+			if hitmarker_label_node:
+				hitmarker_label_node.text = str(Global.pistol_DAMAGE)
+			
 			# Get the HUD node (adjust path as needed)
-			var hud = get_tree().get_root().find_child("HUD", true, false)
+			var hud = get_tree().root.get_node("main/HUD")
 			if hud:
 				hud.add_child(hitmarker)
-				# Convert 3D collision point to 2D screen position
-				var screen_pos = camera_3d.unproject_position(bullet_ray_cast.get_collision_point())
-				hitmarker.position = screen_pos
+				# Set tracking references for the hitmarker
+				hitmarker.tracked_enemy = body
+				hitmarker.tracked_camera = camera_3d
+				# Set initial position
+				hitmarker.position = camera_3d.unproject_position(body.global_position) + hitmarker.randoffset
+				# Add a process callback to update the hitmarker position every frame
+				hitmarker.process_mode = Node.PROCESS_MODE_ALWAYS
 		else:
-			print("bullet hit something that is not an enemy, and thus does not have health")
+			print("bullet hit something that is not an enemy, and thus does not have HEALTH")
 	
 	# bullet spread
 	bullet_ray_cast.rotation_degrees = Vector3(randf_range(-4, 4), randf_range(-184, -176), 0)

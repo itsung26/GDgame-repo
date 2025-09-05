@@ -14,6 +14,7 @@ var enemy_pull_dir : Vector3
 var fire_dir : Vector3
 
 @export var BH_pull_speed = 10
+@export var DAMAGE:float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -45,14 +46,17 @@ func _process(_delta) -> void:
 func pullBodies(blackHolePos):
 	bodies_in_pull_box = pull_box.get_overlapping_bodies()
 	for body in bodies_in_pull_box:
+		
 		# handle pull for enemies
 		if body.is_in_group("enemy"):
+			body.HEALTH -= DAMAGE
 			enemy_pull_dir = (global_position - body.global_position).normalized()
 			body.velocity = (enemy_pull_dir * BH_pull_speed)
 			body.being_pulled = true
 
 		# handle pull for players
 		if body.is_in_group("players"):
+			body.HEALTH -= DAMAGE
 			player_pull_dir = (global_position - body.global_position).normalized()
 			body.velocity = (player_pull_dir * BH_pull_speed)
 			
