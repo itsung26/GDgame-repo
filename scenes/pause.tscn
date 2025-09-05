@@ -16,7 +16,6 @@ grow_vertical = 2
 script = ExtResource("1_r8yp4")
 
 [node name="CenterButtons" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -51,23 +50,24 @@ icon = ExtResource("3_aicil")
 [node name="Options" type="Button" parent="CenterButtons"]
 layout_mode = 2
 offset_left = -10.0
-offset_top = 82.0
+offset_top = 83.0
 offset_right = 145.0
-offset_bottom = 108.0
+offset_bottom = 109.0
 theme_override_fonts/font = ExtResource("1_f1d2v")
 text = "options"
 
 [node name="Quit" type="Button" parent="CenterButtons"]
 layout_mode = 2
 offset_left = -10.0
-offset_top = 112.0
+offset_top = 113.0
 offset_right = 145.0
-offset_bottom = 138.0
+offset_bottom = 139.0
 theme_override_fonts/font = ExtResource("1_f1d2v")
 text = "quit"
 icon = ExtResource("4_jn4bt")
 
 [node name="OptionsMenu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 0
 offset_right = 1152.0

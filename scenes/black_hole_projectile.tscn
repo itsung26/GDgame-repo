@@ -142,8 +142,8 @@ _data = {
 }
 
 [node name="BlackHoleProjectile" type="RigidBody3D"]
-collision_layer = 0
-collision_mask = 0
+collision_layer = 8
+collision_mask = 15
 mass = 0.001
 gravity_scale = 0.0
 script = ExtResource("1_rfnx6")
@@ -165,7 +165,7 @@ draw_pass_1 = SubResource("QuadMesh_3mswi")
 
 [node name="PullBox" type="Area3D" parent="."]
 collision_layer = 8
-collision_mask = 7
+collision_mask = 15
 
 [node name="pullbox" type="CollisionShape3D" parent="PullBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 3.55271e-15, 0, -3.55271e-15, 1, 0, 0, 0)

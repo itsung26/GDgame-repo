@@ -43,6 +43,7 @@ var grapple_dir = Vector3.ZERO
 var can_slam_jump = false
 var storagevar = JUMP_VELOCITY
 var mouse_delta2 : Vector2
+var pistol_damage_increase:bool = false
 
 func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
@@ -66,7 +67,7 @@ func zoomIn():
 	SPEED = 5
 	JUMP_VELOCITY = 4.5
 	animation_player.speed_scale = 1.5
-	Global.pistol_DAMAGE = 3
+	pistol_damage_increase = false
 	muzzle_flash.modulate = Color.from_rgba8(60, 188, 235)
 	muzzle_flash_2.modulate = Color.from_rgba8(60, 188, 235)
 	special_light.visible = false
@@ -77,7 +78,7 @@ func zoomOut():
 	SPEED = SPEED * 2
 	JUMP_VELOCITY = JUMP_VELOCITY * 1.5
 	animation_player.speed_scale = 3
-	Global.pistol_DAMAGE = 15
+	pistol_damage_increase = true
 	muzzle_flash.modulate = Color.RED
 	muzzle_flash_2.modulate = Color.RED
 	special_light.visible = true

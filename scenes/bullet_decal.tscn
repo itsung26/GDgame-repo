@@ -83,7 +83,7 @@ _data = {
 [node name="BulletDecal" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.0887103, 0, -7.7553e-09, 0, 0.0887103, 0, 7.7553e-09, 0, -0.0887103, 0, 0, -0.02)
+transform = Transform3D(-0.0887103, 0, -7.7553e-09, 0, 0.0887103, 0, 7.7553e-09, 0, -0.0887103, 0, 0, -0.0515295)
 mesh = SubResource("QuadMesh_4url0")
 surface_material_override/0 = ExtResource("1_n6lr6")
 
@@ -94,4 +94,4 @@ libraries = {
 autoplay = "sizzle_out"
 
 [node name="bullet_impact_particles" parent="." instance=ExtResource("2_ryybo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0220936)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0536231)

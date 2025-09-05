@@ -4,8 +4,10 @@ extends Skeleton3D
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var animation_player: AnimationPlayer = $"../../../../AnimationPlayer"
 @onready var pistol_sway_pivot: Node3D = $".."
+@onready var player: CharacterBody3D = $"../../../.."
 
 
+const DAMAGE_HITMARKER_SCENE = preload("res://scenes/damage_hitmarker.tscn")
 const BULLET_DECAL_BLUE = preload("res://scenes/bullet_decal.tscn")
 const BLUE_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/blue_emissive_material.tres")
 const RED_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/red_emissive_material.tres")
@@ -42,9 +44,23 @@ func fire():
 		body.add_child(b)
 		b.global_transform.origin = bullet_ray_cast.get_collision_point()
 		b.look_at(bullet_ray_cast.get_collision_point() + bullet_ray_cast.get_collision_normal(), Vector3.UP)
+		
 		if body.is_in_group("enemy"):
 			body.health = body.health - Global.pistol_DAMAGE
 			print("health of enemy: " + str(body.health))
+
+			# --- Show hitmarker on HUD at hit position ---
+			var hitmarker = DAMAGE_HITMARKER_SCENE.instantiate()
+			# get the label node
+			var hitmarker_label_node = hitmarker.get_node("%DamageNumberLabel")
+			hitmarker_label_node.text = str(Global.pistol_DAMAGE)
+			# Get the HUD node (adjust path as needed)
+			var hud = get_tree().get_root().find_child("HUD", true, false)
+			if hud:
+				hud.add_child(hitmarker)
+				# Convert 3D collision point to 2D screen position
+				var screen_pos = camera_3d.unproject_position(bullet_ray_cast.get_collision_point())
+				hitmarker.position = screen_pos
 		else:
 			print("bullet hit something that is not an enemy, and thus does not have health")
 	
@@ -72,4 +88,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
-	pass
+	if not player.pistol_damage_increase:
+		Global.pistol_DAMAGE = randi_range(3,6)
+	elif player.pistol_damage_increase:
+		Global.pistol_DAMAGE = randi_range(8,15)

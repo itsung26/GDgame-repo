@@ -28,19 +28,26 @@ func _process(_delta) -> void:
 	
 	if Input.is_action_just_pressed("pause"):
 		
-		# pauses======================================================================================
 		if not Global.isPaused:
-			Global.menuState = "main"
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			get_tree().paused = true
-			Global.isPaused = true
-			Global.menuState = "main"
-			
-		# unpauses=======================================================================================
+			pauseGame()
+		
 		elif Global.isPaused:
-			pause.visible = false
-			print("unpausing")
-			Global.menuState = "notpaused"
-			Global.isPaused = false
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			get_tree().paused = false
+			unpauseGame()
+
+
+func pauseGame():
+	print("pausing")
+	Global.menuState = "main"
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	get_tree().paused = true
+	Global.isPaused = true
+	Global.menuState = "main"
+
+	
+func unpauseGame():
+	print("unpausing")
+	pause.visible = false
+	Global.menuState = "notpaused"
+	Global.isPaused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	get_tree().paused = false

@@ -4,6 +4,7 @@ extends Control
 @onready var options_menu: Control = $OptionsMenu
 @onready var center_buttons: Control = $CenterButtons
 @onready var shader_toggle: CheckButton = $OptionsMenu/ShaderToggle
+@onready var game_manager: Node = %GameManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -53,3 +54,9 @@ func _on_back_pressed() -> void:
 
 func _on_shader_toggle_toggled(toggled_on: bool) -> void:
 	Global.enableShader = toggled_on
+
+
+func _on_reset_scene_debug_pressed() -> void:
+	game_manager.unpauseGame()
+	get_tree().reload_current_scene()
+	

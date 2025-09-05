@@ -22,7 +22,7 @@ const pistol_special_property = "Overclock"
 
 var blaster_ammo = 50
 var is_pistol_charged = false
-var pistol_DAMAGE = 5
+var pistol_DAMAGE:int = 5
 var pistol_MAGSIZE = 50 
 var pistol_activate_special = false
 var pistol_special_state = false

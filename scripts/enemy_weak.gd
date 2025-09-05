@@ -1,12 +1,13 @@
 extends CharacterBody3D
 
-@export var health = 100
+@export var health:float = 100.0
 @export var gravity_enabled = true
 @export var SPEED = 3
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var enemy_melee_cooldown: Timer = $EnemyMeleeCooldown
 @onready var hurt_box_melee: Area3D = $HurtBoxMelee
+const DAMAGE_HITMARKER_SCENE = preload("res://scenes/damage_hitmarker.tscn")
 
 @export var AttackCooldown:float = 0.0
 @export var AttackDamage:float = 0.0
@@ -15,6 +16,7 @@ var player: Node3D
 var is_attacking:bool = false
 var body_in_hurtbox
 var player_in_hurtbox: bool = false
+var being_pulled:bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,6 +44,13 @@ func _process(_delta) -> void:
 		
 
 func _physics_process(delta) -> void:
+	if being_pulled:
+		# Only apply gravity if needed, then move
+		if not is_on_floor() and gravity_enabled:
+			velocity += get_gravity() * delta
+		move_and_slide()
+		return
+
 	# Navigation movement
 	if nav_agent.is_navigation_finished() == false:
 		var next_pos = nav_agent.get_next_path_position()
