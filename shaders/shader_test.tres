@@ -1,0 +1,10 @@
+[gd_resource type="VisualShader" format=3 uid="uid://80erornecaqj"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+
+
+
+"
+modes/cull = 2

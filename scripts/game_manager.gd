@@ -51,3 +51,8 @@ func unpauseGame():
 	Global.isPaused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().paused = false
+
+func endGame():
+	print("game ending due to death- switching to death screen")
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	get_tree().change_scene_to_file("res://scenes/death_options.tscn")

@@ -15,7 +15,6 @@ extends CharacterBody3D
 @onready var slam_timer: Timer = $SlamTimer
 @onready var black_hole_launcher: Node3D = $Pivot/Camera3D/Guns/BlackHoleLauncher
 @onready var bll_animator: AnimationPlayer = $BLLAnimator
-@onready var death_animator: AnimationPlayer = $DeathAnimator
 
 @export_category("traits")
 @export var HEALTH:float = 100.0
@@ -45,8 +44,14 @@ var can_slam_jump = false
 var storagevar = JUMP_VELOCITY
 var mouse_delta2 : Vector2
 var pistol_damage_increase:bool = false
+var death_animator
+var cause_of_death
+var cause_of_death_message
 
 func _ready() -> void:
+	death_animator = get_node("../DeathScreen/DeathAnimator")
+	cause_of_death_message = get_node("../DeathScreen/VBoxContainer/CauseOfDeathMessage")
+	
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	# grapple ray target init + range
@@ -304,6 +309,7 @@ func _on_slam_timer_timeout() -> void:
 	JUMP_VELOCITY = storagevar
 
 func playerDie():
+	cause_of_death_message.text = cause_of_death
 	Engine.time_scale = 0.3
 	death_animator.play("death")
 	

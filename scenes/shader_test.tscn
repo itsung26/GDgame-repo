@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0dmfplshi71"]
+
+[ext_resource type="Shader" uid="uid://80erornecaqj" path="res://shaders/shader_test.tres" id="1_im7wb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_c7sh0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3x27y"]
+render_priority = 0
+shader = ExtResource("1_im7wb")
+
+[node name="ShaderTest" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_c7sh0")
+surface_material_override/0 = SubResource("ShaderMaterial_3x27y")
