@@ -14,14 +14,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(mouse_in_PistolBox)
-	print(mouse_in_BlackHoleBox)
-	print(Global.current_weapon)
 	
 	# change weapon based on the mouse being in the box and releasing tab
 	if mouse_in_PistolBox and Input.is_action_just_released("weaponwheel"):
 		Global.current_weapon = "pistol"
-	if mouse_in_BlackHoleBox and Input.is_action_just_pressed("weaponwheel"):
+	if mouse_in_BlackHoleBox and Input.is_action_just_released("weaponwheel"):
 		Global.current_weapon = "BLL"
 	
 	# makes weapon wheel visible

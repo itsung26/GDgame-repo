@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=43 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/sprite assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dwqv080lryrx1" path="res://assets/sprite assets/gunmodel previews/54303.png" id="8_mphia"]
 [ext_resource type="Texture2D" uid="uid://dp3hpw1lc7jmi" path="res://assets/sprite assets/gunmodel previews/black hole gun/black hole gun image.png" id="9_5n1hp"]
 [ext_resource type="Texture2D" uid="uid://cmgvv04tqig53" path="res://assets/sprite assets/gunmodel previews/black hole gun/black_hole_2.png" id="11_5n1hp"]
+[ext_resource type="FontFile" uid="uid://dkbqwfkfiwoii" path="res://assets/fonts/numberFont/Ethnocentric Rg It.otf" id="12_apjy4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0m4u7"]
 atlas = ExtResource("6_hd3ao")
@@ -442,6 +443,7 @@ mouse_filter = 1
 script = ExtResource("1_ahhtf")
 
 [node name="crosshair" type="TextureRect" parent="."]
+z_index = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -608,6 +610,15 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "============================="
 
+[node name="versionText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 962.0
+offset_top = 625.0
+offset_right = 1151.0
+offset_bottom = 655.0
+theme_override_font_sizes/font_size = 21
+text = "ALPHA BUILD 0.9.0"
+
 [node name="AmmoContainer" type="BoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
@@ -670,6 +681,56 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
 text = "OVERCLOCK"
 
+[node name="BlackHoleCooldownIcon" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -37.5
+offset_top = -293.0
+offset_right = 37.5
+offset_bottom = -218.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="BlackHoleCooldownIcon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="BlackHoleCooldownIcon/CenterContainer"]
+scale = Vector2(0.312857, 0.312857)
+texture = ExtResource("11_5n1hp")
+region_enabled = true
+region_rect = Rect2(20, 24, 181, 175)
+
+[node name="BlackHoleCooldownTimer" type="Label" parent="BlackHoleCooldownIcon"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.646292, 0.141552, 0.966634, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("12_apjy4")
+theme_override_font_sizes/font_size = 20
+text = "0.00s"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_5pdws")
@@ -695,12 +756,3 @@ root_node = NodePath("../KeyAnimator_3")
 libraries = {
 &"": SubResource("AnimationLibrary_qkknv")
 }
-
-[node name="versionText" type="Label" parent="."]
-layout_mode = 0
-offset_left = 962.0
-offset_top = 625.0
-offset_right = 1151.0
-offset_bottom = 655.0
-theme_override_font_sizes/font_size = 21
-text = "ALPHA BUILD 0.8.9"

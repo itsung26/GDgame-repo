@@ -47,8 +47,11 @@ var pistol_damage_increase:bool = false
 var death_animator
 var cause_of_death
 var cause_of_death_message
+var black_hole_time_remaining
+var black_hole_cooldown_timer
 
 func _ready() -> void:
+	black_hole_cooldown_timer = get_node("../HUD/BlackHoleCooldownIcon/BlackHoleCooldownTimer")
 	death_animator = get_node("../DeathScreen/DeathAnimator")
 	cause_of_death_message = get_node("../DeathScreen/VBoxContainer/CauseOfDeathMessage")
 	
@@ -125,15 +128,6 @@ func _physics_process(delta: float) -> void:
 	
 	# grapple
 	grapple()
-	
-	
-	# gun bobbing on walk animation
-	'''
-	if velocity.x != 0 or velocity.z != 0:
-		animation_player.play("gunBob")
-	else:
-		animation_player.stop()
-	'''
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -289,8 +283,20 @@ func hideGuns():
 
 var a = true
 func _process(_delta) -> void:
+	
+	# retrn the time remaining on the current black hole cooldown animation and save as a time
+	if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
+		black_hole_time_remaining = bll_animator.current_animation_length - bll_animator.current_animation_position
+		black_hole_time_remaining = black_hole_time_remaining
+		if black_hole_time_remaining < 0.50:
+			black_hole_time_remaining = 0.00
+		var time_left = str(snappedf(black_hole_time_remaining, 0.01)) + "s"
+		black_hole_cooldown_timer.text = time_left
+	
+	# kill the player
 	if HEALTH <= 0:
 		playerDie()
+	
 	
 	gunInputs(Global.current_weapon)
 	hideGuns()

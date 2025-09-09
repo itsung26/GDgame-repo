@@ -60,7 +60,7 @@ text = "Test Reset Button"
 
 [node name="QuitGame" type="Button" parent="DeathScreen/CenterBlock/VBoxContainer"]
 layout_mode = 2
-text = "Test quit button"
+text = "Quit game"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)

@@ -23,6 +23,8 @@ var current_frames_per_second = "null"
 @onready var reload_prompt: AnimatedSprite2D = $pistolPreviewIcon/ReloadPrompt
 @onready var current_player_pos: Label = %CurrentPlayerPos
 @onready var current_player_health: Label = %CurrentPlayerHealth
+@onready var black_hole_cooldown_icon: Control = $BlackHoleCooldownIcon
+@onready var black_hole_cooldown_timer: Label = $BlackHoleCooldownIcon/BlackHoleCooldownTimer
 
 signal zoom_in_trigger
 signal zoom_out_trigger
@@ -47,12 +49,7 @@ func triggerZoomOut():
 func updateAmmoCounter():
 	ammo_counter.text = str(Global.current_AMMO) + "/" + str(Global.current_MAGSIZE)
 	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta) -> void:
-	
-	updateAmmoCounter()
-	
+func hideIcons():
 	# shows or hides ui elements based on current weapon
 	if Global.current_weapon == "pistol":
 		overclock_bar.visible = true
@@ -72,6 +69,21 @@ func _process(_delta) -> void:
 	if progress_bar.value == 0:
 		animation_player.play("bar_charge_fill")
 		Global.pistol_special_state = false
+		
+	# if the blackhole cooldown timer is 0: hide the cooldown icon
+	if black_hole_cooldown_timer.text == str(0.00) + "s":
+		black_hole_cooldown_icon.visible = false
+	else:
+		black_hole_cooldown_icon.visible = true
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta) -> void:
+	
+	updateAmmoCounter()
+	
+	hideIcons()
+	
 		
 	# get engine fps
 	current_frames_per_second = Engine.get_frames_per_second()

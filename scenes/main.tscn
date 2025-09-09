@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://ddw2badfdmuup"]
+[gd_scene load_steps=34 format=4 uid="uid://ddw2badfdmuup"]
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_o5qli"]
@@ -6,8 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://b42afh5fqoslr" path="res://scenes/enemy.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="5_choun"]
 [ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="5_o6xl0"]
-[ext_resource type="Texture2D" uid="uid://dnu2ogho4nr2g" path="res://assets/textures/prototypes/PNG/Orange/texture_01.png" id="5_tbgi4"]
-[ext_resource type="Material" uid="uid://j1uxc5ncdsqa" path="res://assets/textures/prototype_dark.tres" id="5_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b7flsfviplefd" path="res://scenes/weapon_wheel.tscn" id="6_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://cread3gedp1k3" path="res://assets/textures/normalmapped dark/blackprototype/texture_01_normal.png" id="6_tipki"]
 [ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="8_a8y0u"]
@@ -191,8 +189,13 @@ _data = {
 }
 
 [sub_resource type="BoxMesh" id="BoxMesh_o6xl0"]
-material = ExtResource("5_tefeu")
 size = Vector3(500, 0.1, 500)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eb6dy"]
+albedo_texture = ExtResource("5_o6xl0")
+normal_enabled = true
+normal_texture = ExtResource("6_tipki")
+uv1_scale = Vector3(-100, -100, -100)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ya4ey"]
 vertices = PackedVector3Array(-249.5, 0.45, -249.5, -249.5, 0.45, 249.5, 249.5, 0.45, 249.5, 249.5, 0.45, -249.5)
@@ -208,8 +211,8 @@ size = Vector3(14.943, 8.787, 1)
 size = Vector3(15, 8.787, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tefeu"]
-albedo_texture = ExtResource("5_tbgi4")
-uv1_scale = Vector3(1.97, 1, 1)
+albedo_texture = ExtResource("5_o6xl0")
+uv1_scale = Vector3(-25, -12.691, -12.691)
 
 [sub_resource type="BoxMesh" id="BoxMesh_tefeu"]
 size = Vector3(1, 1, 5.77)
@@ -352,6 +355,7 @@ collision_mask = 15
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldParts/Floor"]
 mesh = SubResource("BoxMesh_o6xl0")
+surface_material_override/0 = SubResource("StandardMaterial3D_eb6dy")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="WorldParts/Floor/MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.530321, 0)
@@ -731,5 +735,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40.29
 [connection signal="zoom_in_trigger" from="HUD" to="Player" method="_on_hud_zoom_in_trigger"]
 [connection signal="zoom_out_trigger" from="HUD" to="Player" method="_on_hud_zoom_out_trigger"]
 
+[editable path="HUD"]
 [editable path="Player"]
 [editable path="Player/Pivot/Camera3D/Guns/BlackHoleLauncher"]
