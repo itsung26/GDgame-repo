@@ -56,6 +56,7 @@ func pullBodies(blackHolePos):
 
 		# handle pull for players
 		if body.is_in_group("players"):
+			body.cause_of_death = "Sucked into a black hole"
 			body.HEALTH -= DAMAGE
 			player_pull_dir = (global_position - body.global_position).normalized()
 			body.velocity = (player_pull_dir * BH_pull_speed)

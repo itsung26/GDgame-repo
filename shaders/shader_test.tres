@@ -1,10 +1,106 @@
-[gd_resource type="VisualShader" format=3 uid="uid://80erornecaqj"]
+[gd_resource type="VisualShader" load_steps=14 format=3 uid="uid://80erornecaqj"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_wsh6y"]
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_j8qoy"]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_aqh3g"]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_wsh6y"]
+constant = Color(1, 0.647059, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7ygvh"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rs2sa"]
+noise = SubResource("FastNoiseLite_7ygvh")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_c4qtj"]
+output_port_for_preview = 0
+expanded_output_ports = [0]
+texture = SubResource("NoiseTexture2D_rs2sa")
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_vmsv3"]
+output_port_for_preview = 0
+parameter_name = "cull_threshold"
+default_value_enabled = true
+default_value = 0.5
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_n4u1y"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_hkjmg"]
+output_port_for_preview = 0
+function = 0
+
+[sub_resource type="VisualShaderNodeRemap" id="VisualShaderNodeRemap_6qvfo"]
+output_port_for_preview = 0
+default_input_values = [1, -1.0, 2, 1.0, 3, 0.0, 4, 1.0]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_kf2ow"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVaryingSetter" id="VisualShaderNodeVaryingSetter_n4u1y"]
+varying_name = "worldpos"
 
 [resource]
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
 
 
+// Varyings
+varying float var_worldpos;
 
+uniform float cull_threshold = 0.5;
+
+
+
+void vertex() {
+	var_worldpos = 0.0;
+}
+
+void fragment() {
+// ColorConstant:2
+	vec4 n_out2p0 = vec4(1.000000, 0.647059, 0.000000, 1.000000);
+
+
+// FloatParameter:4
+	float n_out4p0 = cull_threshold;
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	ALPHA_SCISSOR_THRESHOLD = n_out4p0;
+
+
+}
 "
+graph_offset = Vector2(209.29, -14.3887)
 modes/cull = 2
+varyings/worldpos = "0,0"
+preview_params/cull_threshold = "0.0"
+nodes/vertex/2/node = SubResource("VisualShaderNodeVaryingSetter_n4u1y")
+nodes/vertex/2/position = Vector2(287.658, 763.091)
+nodes/fragment/0/position = Vector2(1420, 340)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorConstant_wsh6y")
+nodes/fragment/2/position = Vector2(1140, 480)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_c4qtj")
+nodes/fragment/3/position = Vector2(640, -100)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatParameter_vmsv3")
+nodes/fragment/4/position = Vector2(960, 920)
+nodes/fragment/5/node = SubResource("VisualShaderNodeInput_n4u1y")
+nodes/fragment/5/position = Vector2(200, -520)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatFunc_hkjmg")
+nodes/fragment/6/position = Vector2(500, -540)
+nodes/fragment/7/node = SubResource("VisualShaderNodeRemap_6qvfo")
+nodes/fragment/7/position = Vector2(720, -700)
+nodes/fragment/9/node = SubResource("VisualShaderNodeVectorCompose_kf2ow")
+nodes/fragment/9/position = Vector2(1000, 600)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVectorOp_wsh6y")
+nodes/fragment/10/position = Vector2(1140, -500)
+nodes/fragment/11/node = SubResource("VisualShaderNodeVectorDecompose_j8qoy")
+nodes/fragment/11/position = Vector2(920, 0)
+nodes/fragment/12/node = SubResource("VisualShaderNodeFloatOp_aqh3g")
+nodes/fragment/12/position = Vector2(1280, -80)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 19, 5, 0, 6, 0, 6, 0, 7, 0, 2, 0, 0, 0, 3, 0, 11, 0, 11, 0, 12, 0, 7, 0, 12, 1)

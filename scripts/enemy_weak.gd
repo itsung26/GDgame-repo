@@ -101,4 +101,4 @@ func hurtTouching():
 	print(body_in_hurtbox)
 	body_in_hurtbox.HEALTH -= AttackDamage
 	if body_in_hurtbox.is_in_group("players"):
-		body_in_hurtbox.cause_of_death = "Mauled to death by capsules"
+		body_in_hurtbox.cause_of_death = "Mauled to death by [prototype enemy]"

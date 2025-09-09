@@ -56,9 +56,9 @@ Runs on a cooldown.
 
 const melee_special_property = "n/a"
 
-var melee_ammo = 999999999
-var melee_DAMAGE = 5
-var melee_MAGSIZE =  999999999
+var melee_ammo = 1
+var melee_DAMAGE = 25
+var melee_MAGSIZE =  1
 var melee = false
 var melee_special_state = false
 

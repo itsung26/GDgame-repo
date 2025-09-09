@@ -1,15 +1,80 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=19 format=3 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Shader" uid="uid://80erornecaqj" path="res://shaders/shader_test.tres" id="1_im7wb"]
+[ext_resource type="Texture2D" uid="uid://crid8i8ralggv" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="1_l7yxw"]
+[ext_resource type="Texture2D" uid="uid://b1iiyfhdsfc4c" path="res://icon.svg" id="2_3x27y"]
+[ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="2_dflox"]
+[ext_resource type="Texture2D" uid="uid://dbgxiygc2iyd4" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_Roughness.jpg" id="3_1u33o"]
+[ext_resource type="Texture2D" uid="uid://c1kb1fcd5cn25" path="res://assets/textures/Rock058_1K-JPG/Rock058_1K-JPG_Color.jpg" id="4_x1bir"]
+[ext_resource type="Texture2D" uid="uid://bciu85jymsrhx" path="res://assets/textures/Rock058_1K-JPG/Rock058_1K-JPG_AmbientOcclusion.jpg" id="5_tmwol"]
+[ext_resource type="Texture2D" uid="uid://cexw6ybc3ytwq" path="res://assets/textures/Rock058_1K-JPG/Rock058_1K-JPG_NormalGL.jpg" id="6_84mbv"]
+[ext_resource type="Texture2D" uid="uid://7jdkfa1b8ul2" path="res://assets/textures/Rock058_1K-JPG/Rock058_1K-JPG_Roughness.jpg" id="7_tmwol"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_c7sh0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0f2g"]
+albedo_texture = ExtResource("1_l7yxw")
+roughness_texture = ExtResource("3_1u33o")
+normal_enabled = true
+normal_texture = ExtResource("2_dflox")
+uv1_scale = Vector3(6.105, 6.105, 6.105)
+uv1_offset = Vector3(-0.07, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_aibkm"]
+material = SubResource("StandardMaterial3D_a0f2g")
+size = Vector3(4.16, 0.58, 5.37)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3x27y"]
 render_priority = 0
 shader = ExtResource("1_im7wb")
+shader_parameter/cull_threshold = 0.5
+
+[sub_resource type="QuadMesh" id="QuadMesh_im7wb"]
+material = SubResource("ShaderMaterial_3x27y")
+
+[sub_resource type="SphereMesh" id="SphereMesh_sju7m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fthar"]
+albedo_texture = ExtResource("4_x1bir")
+roughness_texture = ExtResource("7_tmwol")
+normal_enabled = true
+normal_texture = ExtResource("6_84mbv")
+ao_enabled = true
+ao_texture = ExtResource("5_tmwol")
+uv1_triplanar_sharpness = 68.5936
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bmi5q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bmi5q"]
+render_priority = 0
+shader = ExtResource("1_im7wb")
+shader_parameter/cull_threshold = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sju7m"]
+render_priority = 0
+shader = ExtResource("1_im7wb")
+shader_parameter/cull_threshold = 0.5
 
 [node name="ShaderTest" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_c7sh0")
-surface_material_override/0 = SubResource("ShaderMaterial_3x27y")
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.413244, 0, -3.63887)
+mesh = SubResource("BoxMesh_aibkm")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.63139, 0, 0)
+layers = 16385
+mesh = SubResource("QuadMesh_im7wb")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.12314, 0, 0, 0, 1.12314, 0, 0, 0, 1.12314, 1.67125, 0, 0)
+mesh = SubResource("SphereMesh_sju7m")
+surface_material_override/0 = SubResource("StandardMaterial3D_fthar")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 3.01299)
+mesh = SubResource("PlaneMesh_bmi5q")
+surface_material_override/0 = SubResource("ShaderMaterial_bmi5q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sju7m")
+position = Vector2(577, 349)
+texture = ExtResource("2_3x27y")

@@ -1,23 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://b7flsfviplefd"]
 
 [ext_resource type="Script" uid="uid://dpdnfyww4l5wh" path="res://scripts/weapon_wheel.gd" id="1_dgnc7"]
-[ext_resource type="Script" uid="uid://dpajwsw0wh6pk" path="res://scripts/weapon_block.gd" id="2_0oy35"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgnc7"]
-bg_color = Color(0.114897, 0.114897, 0.114897, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 0.647059, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0oy35"]
-bg_color = Color(0.113725, 0.113725, 0.113725, 1)
-
-[sub_resource type="Theme" id="Theme_dgnc7"]
-Button/styles/focus = SubResource("StyleBoxFlat_dgnc7")
-Button/styles/hover = SubResource("StyleBoxFlat_dgnc7")
-Button/styles/normal = SubResource("StyleBoxFlat_0oy35")
+[ext_resource type="Texture2D" uid="uid://dp3hpw1lc7jmi" path="res://assets/sprite assets/gunmodel previews/black hole gun/black hole gun image.png" id="2_0oy35"]
+[ext_resource type="Texture2D" uid="uid://xwjr4mrc4u3l" path="res://assets/sprite assets/gunmodel previews/blaster-a.png" id="2_7uen1"]
+[ext_resource type="StyleBox" uid="uid://cywqm3l8pokel" path="res://corners.tres" id="2_elf6b"]
+[ext_resource type="StyleBox" uid="uid://bsyv8s1cwqogq" path="res://normal.tres" id="3_lfmw0"]
 
 [node name="WeaponWheel" type="Control"]
 layout_mode = 3
@@ -28,50 +15,37 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dgnc7")
 
-[node name="WheelCore" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PistolButton" type="Button" parent="WheelCore"]
+[node name="PistolButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = -332.0
-offset_top = -25.0
-offset_right = -110.0
-offset_bottom = 82.0
-theme = SubResource("Theme_dgnc7")
-script = ExtResource("2_0oy35")
+offset_left = 219.0
+offset_top = 274.0
+offset_right = 441.0
+offset_bottom = 381.0
+theme_override_styles/hover = ExtResource("2_elf6b")
+theme_override_styles/normal = ExtResource("3_lfmw0")
 
-[node name="PistolButton2" type="Button" parent="WheelCore"]
+[node name="Sprite2D" type="Sprite2D" parent="PistolButton"]
+position = Vector2(110, 52)
+scale = Vector2(2.375, 2.375)
+texture = ExtResource("2_7uen1")
+region_enabled = true
+region_rect = Rect2(12, 11, 40, 40)
+
+[node name="BlackHoleButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = -73.0
-offset_top = -25.0
-offset_right = 149.0
-offset_bottom = 82.0
-theme = SubResource("Theme_dgnc7")
-script = ExtResource("2_0oy35")
+offset_left = 478.0
+offset_top = 274.0
+offset_right = 700.0
+offset_bottom = 381.0
+theme_override_styles/hover = ExtResource("2_elf6b")
+theme_override_styles/normal = ExtResource("3_lfmw0")
 
-[node name="PistolButton3" type="Button" parent="WheelCore"]
-layout_mode = 0
-offset_left = 185.0
-offset_top = -25.0
-offset_right = 407.0
-offset_bottom = 82.0
-theme = SubResource("Theme_dgnc7")
-script = ExtResource("2_0oy35")
+[node name="Sprite2D" type="Sprite2D" parent="BlackHoleButton"]
+position = Vector2(110, 53)
+scale = Vector2(0.426087, 0.426087)
+texture = ExtResource("2_0oy35")
 
-[connection signal="mouse_entered" from="WheelCore/PistolButton" to="WheelCore/PistolButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="WheelCore/PistolButton" to="WheelCore/PistolButton" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="WheelCore/PistolButton2" to="WheelCore/PistolButton2" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="WheelCore/PistolButton2" to="WheelCore/PistolButton2" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="WheelCore/PistolButton3" to="WheelCore/PistolButton3" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="WheelCore/PistolButton3" to="WheelCore/PistolButton3" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="PistolButton" to="." method="_on_pistol_button_mouse_entered"]
+[connection signal="mouse_exited" from="PistolButton" to="." method="_on_pistol_button_mouse_exited"]
+[connection signal="mouse_entered" from="BlackHoleButton" to="." method="_on_black_hole_button_mouse_entered"]
+[connection signal="mouse_exited" from="BlackHoleButton" to="." method="_on_black_hole_button_mouse_exited"]

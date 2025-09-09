@@ -4,10 +4,11 @@ extends Node
 @onready var main: Node3D = $".."
 @onready var pause: Control = $"../Pause"
 @onready var pixel_shader: Sprite2D = $"../PixelShader"
+@onready var death_screen: Control = $"../DeathScreen"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	return
+	death_screen.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:

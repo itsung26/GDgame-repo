@@ -1,4 +1,6 @@
 extends Button
+@onready var pistol_button: Button = $WheelCore/PistolButton
+@onready var black_hole_button: Button = $WheelCore/BlackHoleButton
 
 var self_style
 var mouse_in_box:bool = false
@@ -9,15 +11,5 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# print(mouse_in_box)
-	pass
-
-
-func _on_mouse_entered() -> void:
-	print("mouse entered")
-	mouse_in_box = true
-
-func _on_mouse_exited() -> void:
-	print("mouse exited")
-	mouse_in_box = false
-	
+	if mouse_in_box and Input.is_action_just_released("weaponwheel"):
+		print("switching to weapon")

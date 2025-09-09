@@ -5,7 +5,8 @@ func _ready() -> void:
 
 
 func _on_reset_game_pressed() -> void:
-	pass # Replace with function body.
+	print("restarting game")
+	get_tree().quit(0)
 
 
 func _on_quit_game_pressed() -> void:
