@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=50 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/sprite assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
@@ -57,8 +57,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_0m4u7"]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_5n1hp"]
 atlas = ExtResource("6_hd3ao")
 region = Rect2(1024, 1920, 128, 128)
@@ -80,6 +78,8 @@ animations = [{
 "name": &"key_3",
 "speed": 5.0
 }]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0m4u7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5357l"]
 atlas = ExtResource("6_hd3ao")
@@ -125,6 +125,28 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xg78"]
+atlas = ExtResource("6_hd3ao")
+region = Rect2(1408, 384, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iypfu"]
+atlas = ExtResource("6_hd3ao")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_48y67"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xg78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iypfu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="Animation" id="Animation_047uy"]
 length = 0.001
 tracks/0/type = "value"
@@ -154,7 +176,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("pistolPreviewIcon/blasterPreviewIcon/KeyIndicator2:frame")
+tracks/2/path = NodePath("pistolPreviewIcon/KeyIndicator2:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -166,7 +188,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("pistolPreviewIcon/ShotgunPreviewIcon/KeyIndicator3:frame")
+tracks/3/path = NodePath("pistolPreviewIcon/KeyIndicator3:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -282,7 +304,7 @@ resource_name = "key_2_set_dark"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("pistolPreviewIcon/blasterPreviewIcon/KeyIndicator2:frame")
+tracks/0/path = NodePath("pistolPreviewIcon/KeyIndicator2:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -297,7 +319,7 @@ resource_name = "key_2_set_light"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("pistolPreviewIcon/blasterPreviewIcon/KeyIndicator2:frame")
+tracks/0/path = NodePath("pistolPreviewIcon/KeyIndicator2:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -312,7 +334,7 @@ resource_name = "key_3_set_dark"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("pistolPreviewIcon/ShotgunPreviewIcon/KeyIndicator3:frame")
+tracks/0/path = NodePath("pistolPreviewIcon/KeyIndicator3:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -327,7 +349,7 @@ resource_name = "key_3_set_light"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("pistolPreviewIcon/ShotgunPreviewIcon/KeyIndicator3:frame")
+tracks/0/path = NodePath("pistolPreviewIcon/KeyIndicator3:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -432,6 +454,58 @@ _data = {
 &"key_1_set_light": SubResource("Animation_3swnk")
 }
 
+[sub_resource type="Animation" id="Animation_iypfu"]
+resource_name = "key_tab_set_dark"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pistolPreviewIcon/WeaponWheelPrompt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qpprf"]
+resource_name = "key_tab_set_light"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pistolPreviewIcon/WeaponWheelPrompt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_3xg78"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pistolPreviewIcon/WeaponWheelPrompt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_48y67"]
+_data = {
+&"RESET": SubResource("Animation_3xg78"),
+&"key_tab_set_dark": SubResource("Animation_iypfu"),
+&"key_tab_set_light": SubResource("Animation_qpprf")
+}
+
 [node name="HUD" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -476,18 +550,19 @@ offset_right = 249.0
 offset_bottom = -83.0
 grow_vertical = 0
 
-[node name="blasterPreviewIcon" type="Sprite2D" parent="pistolPreviewIcon"]
-position = Vector2(69, 147)
-texture = ExtResource("3_5ysmq")
-region_enabled = true
-region_rect = Rect2(11, 10, 42, 42)
-
-[node name="KeyIndicator2" type="AnimatedSprite2D" parent="pistolPreviewIcon/blasterPreviewIcon"]
-position = Vector2(-41, 1)
+[node name="KeyIndicator2" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
+position = Vector2(28, 148)
 scale = Vector2(0.373837, 0.373837)
 sprite_frames = SubResource("SpriteFrames_apjy4")
 animation = &"key_2"
 frame = 1
+
+[node name="blasterPreviewIcon" type="Sprite2D" parent="pistolPreviewIcon/KeyIndicator2"]
+position = Vector2(109.673, -2.67493)
+scale = Vector2(2.67496, 2.67496)
+texture = ExtResource("3_5ysmq")
+region_enabled = true
+region_rect = Rect2(11, 10, 42, 42)
 
 [node name="ReloadPrompt" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
 position = Vector2(225, 192)
@@ -506,16 +581,16 @@ position = Vector2(112.803, 2.89233)
 scale = Vector2(0.109866, 0.109866)
 texture = ExtResource("8_mphia")
 
-[node name="ShotgunPreviewIcon" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
-position = Vector2(70, 104)
-scale = Vector2(0.0340154, 0.0340154)
-sprite_frames = SubResource("SpriteFrames_0m4u7")
-
-[node name="KeyIndicator3" type="AnimatedSprite2D" parent="pistolPreviewIcon/ShotgunPreviewIcon"]
-position = Vector2(-1234.74, 0)
-scale = Vector2(11.0564, 11.0564)
+[node name="KeyIndicator3" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
+position = Vector2(27.9998, 104)
+scale = Vector2(0.376088, 0.376088)
 sprite_frames = SubResource("SpriteFrames_3swnk")
 animation = &"key_3"
+
+[node name="ShotgunPreviewIcon" type="AnimatedSprite2D" parent="pistolPreviewIcon/KeyIndicator3"]
+position = Vector2(111.676, 0)
+scale = Vector2(0.0904453, 0.0904453)
+sprite_frames = SubResource("SpriteFrames_0m4u7")
 
 [node name="KeyIndicator4" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
 position = Vector2(27.9998, 62)
@@ -541,6 +616,11 @@ scale = Vector2(1.45998, 1.45998)
 position = Vector2(180, 247)
 scale = Vector2(0.379856, 0.379856)
 texture = ExtResource("11_5n1hp")
+
+[node name="WeaponWheelPrompt" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
+position = Vector2(225, 151)
+scale = Vector2(0.500584, 0.500584)
+sprite_frames = SubResource("SpriteFrames_48y67")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -682,6 +762,7 @@ theme_override_font_sizes/font_size = 36
 text = "OVERCLOCK"
 
 [node name="BlackHoleCooldownIcon" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -729,7 +810,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("12_apjy4")
 theme_override_font_sizes/font_size = 20
-text = "0.00s"
+text = "hide"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -755,4 +836,9 @@ libraries = {
 root_node = NodePath("../KeyAnimator_3")
 libraries = {
 &"": SubResource("AnimationLibrary_qkknv")
+}
+
+[node name="KeyAnimator_TAB" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_48y67")
 }

@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3 uid="uid://mhij3rnbxw0r"]
+
+[ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="1_te4ph"]
+[ext_resource type="Texture2D" uid="uid://ceixj4vx5xyed" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_AmbientOcclusion.jpg" id="2_02t8w"]
+[ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_0hwid"]
+[ext_resource type="Texture2D" uid="uid://dbgxiygc2iyd4" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_Roughness.jpg" id="4_spe7b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wix4b"]
+albedo_texture = ExtResource("1_te4ph")
+roughness_texture = ExtResource("4_spe7b")
+normal_enabled = true
+normal_texture = ExtResource("3_0hwid")
+ao_enabled = true
+ao_texture = ExtResource("2_02t8w")
+
+[sub_resource type="BoxMesh" id="BoxMesh_x647l"]
+material = SubResource("StandardMaterial3D_wix4b")
+
+[node name="MapEnviroment" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_x647l")

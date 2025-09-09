@@ -9,7 +9,7 @@ extends Control
 @onready var current_weapon: Label = %CurrentWeapon
 @onready var fire_type_debug: Label = %FireTypeDebug
 @onready var overclock_bar: Control = $OverclockBar
-@onready var key_indicator_2: AnimatedSprite2D = $pistolPreviewIcon/blasterPreviewIcon/KeyIndicator2
+@onready var key_indicator_2: AnimatedSprite2D = $pistolPreviewIcon/KeyIndicator2
 @onready var key_animator_2: AnimationPlayer = $KeyAnimator_2
 @onready var key_animator_3: AnimationPlayer = $KeyAnimator_3
 @onready var key_animator_1: AnimationPlayer = $KeyAnimator_1
@@ -25,6 +25,7 @@ var current_frames_per_second = "null"
 @onready var current_player_health: Label = %CurrentPlayerHealth
 @onready var black_hole_cooldown_icon: Control = $BlackHoleCooldownIcon
 @onready var black_hole_cooldown_timer: Label = $BlackHoleCooldownIcon/BlackHoleCooldownTimer
+@onready var key_animator_tab: AnimationPlayer = $KeyAnimator_TAB
 
 signal zoom_in_trigger
 signal zoom_out_trigger
@@ -70,8 +71,11 @@ func hideIcons():
 		animation_player.play("bar_charge_fill")
 		Global.pistol_special_state = false
 		
-	# if the blackhole cooldown timer is 0: hide the cooldown icon
+	# if the blackhole cooldown timer is 0 or "hide": hide the cooldown icon
+	print(black_hole_cooldown_timer.text)
 	if black_hole_cooldown_timer.text == str(0.00) + "s":
+		black_hole_cooldown_icon.visible = false
+	elif black_hole_cooldown_timer.text == "hide":
 		black_hole_cooldown_icon.visible = false
 	else:
 		black_hole_cooldown_icon.visible = true
@@ -120,6 +124,11 @@ func _process(_delta) -> void:
 		key_animator_4.play("key_4_set_light")
 	else:
 		key_animator_4.play("key_4_set_dark")
+		
+	if Input.is_action_pressed("weaponwheel"):
+		key_animator_tab.play("key_tab_set_dark")
+	if not Input.is_action_pressed("weaponwheel"):
+		key_animator_tab.play("key_tab_set_light")
 		
 	# set debug text-------------------------------------------------------------------------------
 	anim_debug.text = "current animation: " + str(Global.anim_playing)

@@ -76,6 +76,7 @@ void fragment() {
 
 }
 "
+graph_offset = Vector2(324.85, 89.3269)
 modes/cull = 2
 varyings/worldpos = "0,0"
 preview_params/cull_threshold = "0.0"
@@ -102,4 +103,4 @@ nodes/fragment/11/node = SubResource("VisualShaderNodeVectorDecompose_j8qoy")
 nodes/fragment/11/position = Vector2(920, 0)
 nodes/fragment/12/node = SubResource("VisualShaderNodeFloatOp_aqh3g")
 nodes/fragment/12/position = Vector2(1280, -80)
-nodes/fragment/connections = PackedInt32Array(4, 0, 0, 19, 5, 0, 6, 0, 6, 0, 7, 0, 2, 0, 0, 0, 3, 0, 11, 0, 11, 0, 12, 0, 7, 0, 12, 1)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 19, 5, 0, 6, 0, 6, 0, 7, 0, 3, 0, 11, 0, 11, 0, 12, 0, 7, 0, 12, 1, 2, 0, 0, 0)

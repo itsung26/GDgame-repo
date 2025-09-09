@@ -55,6 +55,7 @@ theme_override_font_sizes/font_size = 91
 text = "You are dead."
 
 [node name="ResetGame" type="Button" parent="DeathScreen/CenterBlock/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Test Reset Button"
 
