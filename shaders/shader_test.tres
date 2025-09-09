@@ -76,7 +76,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(324.85, 89.3269)
+graph_offset = Vector2(871.722, -112.228)
 modes/cull = 2
 varyings/worldpos = "0,0"
 preview_params/cull_threshold = "0.0"
