@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://c7kojx37vkg4i"]
+
+[ext_resource type="Texture2D" uid="uid://bt2102msmfwxv" path="res://assets/textures/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_Color.jpg" id="1_18tor"]
+[ext_resource type="Texture2D" uid="uid://cvggnac7tmtlu" path="res://assets/textures/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_AmbientOcclusion.jpg" id="2_coru0"]
+[ext_resource type="Texture2D" uid="uid://5oqjfkiwo2j2" path="res://assets/textures/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_Metalness.jpg" id="3_0pew0"]
+[ext_resource type="Texture2D" uid="uid://bbafl6m5mqtw" path="res://assets/textures/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_NormalGL.jpg" id="4_8wktm"]
+[ext_resource type="Texture2D" uid="uid://bwvlu3uxgbyrj" path="res://assets/textures/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_Roughness.jpg" id="5_lgbem"]
+
+[resource]
+albedo_texture = ExtResource("1_18tor")
+metallic = 1.0
+metallic_texture = ExtResource("3_0pew0")
+roughness_texture = ExtResource("5_lgbem")
+normal_enabled = true
+normal_texture = ExtResource("4_8wktm")
+ao_enabled = true
+ao_texture = ExtResource("2_coru0")
+uv1_scale = Vector3(100, 100, 100)

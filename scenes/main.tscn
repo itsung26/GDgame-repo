@@ -20,12 +20,12 @@ shader_parameter/Pixelated = 300.0
 ground_bottom_color = Color(0.146081, 0.121511, 0.0929725, 1)
 ground_horizon_color = Color(0.4698, 0.566682, 0.654549, 1)
 
-[sub_resource type="Sky" id="Sky_tbgi4"]
+[sub_resource type="Sky" id="Sky_ya4ey"]
 sky_material = SubResource("ProceduralSkyMaterial_jyhfs")
 
 [sub_resource type="Environment" id="Environment_tefeu"]
 background_mode = 2
-sky = SubResource("Sky_tbgi4")
+sky = SubResource("Sky_ya4ey")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -323,8 +323,6 @@ speed_scale = 3.0
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.622, 0.070439, 11.8577)
-SPEED = 7.5
-Stopwalk_slowdown = 7.5
 
 [node name="enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.417, 0, -26.861)

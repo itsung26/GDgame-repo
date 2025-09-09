@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=48 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/blaster.gd" id="2_g2els"]
@@ -860,9 +860,18 @@ _data = {
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mh8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_b2mh8"]
+radius = 0.09
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2mh8"]
 albedo_color = Color(0.882353, 0.694118, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_y4r1p"]
+radius = 0.09
+height = 0.45
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_d2wvv"]
+radius = 0.09
+height = 0.67
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
 size = Vector3(0.752441, 0.138672, 0.796112)
@@ -872,6 +881,7 @@ size = Vector3(0.752441, 0.138672, 0.796112)
 [sub_resource type="GDScript" id="GDScript_y4r1p"]
 script/source = "extends MeshInstance3D
 @onready var player: CharacterBody3D = $\"../../..\"
+
 
 
 
@@ -904,7 +914,8 @@ func _process(_float) -> void:
 	
 	global_position = midpoint
 	
-	look_at(player.grapple_target_pos)
+	if player.grappling:
+		look_at(player.grapple_target_pos)
 	rotate_x(deg_to_rad(90))
 "
 
@@ -1059,14 +1070,6 @@ shadow_mesh = SubResource("ArrayMesh_f3fc0")
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 15
 script = ExtResource("1_qhqgy")
-JUMP_VELOCITY = 8.0
-GRAPPLE_MAX_RANGE = 50
-GRAPPLE_SPEED_MAX = 20
-GRAPPLE_HOP = 8
-pistol_sway_enabled = false
-pistol_sway_min = -5.0
-pistol_sway_max = 5.0
-pistol_sway_factor = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1113,8 +1116,17 @@ shape = SubResource("CapsuleShape3D_b2mh8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
 mesh = SubResource("CapsuleMesh_b2mh8")
+surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.325358, -0.512603, 0.794595, 0.84429, 0.535886, 0, -0.425812, 0.670869, 0.60714, 0.171948, 1.4083, -0.0822286)
+mesh = SubResource("CapsuleMesh_y4r1p")
+surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.705748, -0.708463, 0, 0.708463, -0.705748, 0, 0, 0, 1, -0.218833, 1.24202, 0.0100964)
+mesh = SubResource("CapsuleMesh_d2wvv")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
 [node name="footCollider" type="CollisionShape3D" parent="."]
@@ -1224,8 +1236,6 @@ visible = false
 target_position = Vector3(0, 0, -1)
 collision_mask = 6
 
-[node name="GrapplePivot" type="Node3D" parent="Pivot/Camera3D"]
-
 [node name="BulletRayCast" parent="Pivot/Camera3D" instance=ExtResource("2_tuyoq")]
 transform = Transform3D(1, 8.74228e-08, 8.74228e-08, 8.74228e-08, -1, 0, 8.74228e-08, 7.64274e-15, -1, 0.00434119, -0.0047704, -0.40687)
 visible = false
@@ -1236,9 +1246,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
 
 [node name="shotgun" type="Node3D" parent="Pivot/Camera3D/Guns" groups=["weapons"]]
 transform = Transform3D(-1.55571, 0.268075, -1.22797, 0, 1.95398, 0.426569, 1.25689, 0.331809, -1.51991, -0.281417, 0.126047, 0)
+visible = false
 
 [node name="BlackHoleLauncher" parent="Pivot/Camera3D/Guns" instance=ExtResource("11_d2wvv")]
 transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)
+visible = false
 
 [node name="PanelPivot" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.182872, 0.363, 1.19209e-07)

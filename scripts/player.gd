@@ -20,22 +20,22 @@ extends CharacterBody3D
 @export var HEALTH:float = 100.0
 
 @export_category("movement")
-@export var SPEED = 5.0
-@export var JUMP_VELOCITY = 4.5
+@export var SPEED = 7.5
+@export var JUMP_VELOCITY = 8.0
 @export var look_sensitivity = 0.1
 @export var gravity_enabled = true
-@export var Stopwalk_slowdown:float = 0.0
+@export var Stopwalk_slowdown:float = 7.5
 
 @export_category("grappling hook")
-@export var GRAPPLE_MAX_RANGE = 0
-@export var GRAPPLE_SPEED_MAX = 0
-@export var GRAPPLE_HOP = 0
+@export var GRAPPLE_MAX_RANGE = 50
+@export var GRAPPLE_SPEED_MAX = 20
+@export var GRAPPLE_HOP = 8
 
 @export_category("pistol")
-@export var pistol_sway_enabled : bool = true
-@export var pistol_sway_min : float = 0.0
-@export var pistol_sway_max : float = 0.0
-@export var pistol_sway_factor : float = 0.0
+@export var pistol_sway_enabled : bool = false
+@export var pistol_sway_min : float = -5.0
+@export var pistol_sway_max : float = 5.0
+@export var pistol_sway_factor : float = 1.0
 
 var grappling = false
 var grapple_target_pos = Vector3.ZERO
@@ -169,6 +169,7 @@ func _physics_process(delta: float) -> void:
 	if grappling:
 		velocity = grapple_dir * GRAPPLE_SPEED_MAX
 		
+	print(velocity)
 	move_and_slide()
 
 func gunInputs(curr_weap): # run every frame in _process

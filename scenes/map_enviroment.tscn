@@ -1,24 +1,391 @@
-[gd_scene load_steps=7 format=3 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=29 format=3 uid="uid://mhij3rnbxw0r"]
 
-[ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="1_te4ph"]
-[ext_resource type="Texture2D" uid="uid://ceixj4vx5xyed" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_AmbientOcclusion.jpg" id="2_02t8w"]
-[ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_0hwid"]
-[ext_resource type="Texture2D" uid="uid://dbgxiygc2iyd4" path="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_Roughness.jpg" id="4_spe7b"]
+[ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
+[ext_resource type="Material" uid="uid://d25ece0xga0hd" path="res://assets/materials/map_enviroment.tres" id="1_te4ph"]
+[ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_wix4b"]
+[ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="2_bcvk1"]
+[ext_resource type="PackedScene" uid="uid://ctxddstc2vto8" path="res://scenes/hud.tscn" id="2_pd1ih"]
+[ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="2_prwh2"]
+[ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="3_p1xl4"]
+[ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="4_prwh2"]
+[ext_resource type="PackedScene" uid="uid://b7flsfviplefd" path="res://scenes/weapon_wheel.tscn" id="5_bq1pm"]
+[ext_resource type="Material" uid="uid://c7kojx37vkg4i" path="res://assets/materials/metal_material.tres" id="10_prwh2"]
+[ext_resource type="Texture2D" uid="uid://dog0uevkajdqv" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Color.jpg" id="11_he5cq"]
+[ext_resource type="Texture2D" uid="uid://saoujndj0ul2" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Metalness.jpg" id="12_idmwj"]
+[ext_resource type="Texture2D" uid="uid://2dd245bud88p" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_NormalGL.jpg" id="13_4i6sm"]
+[ext_resource type="Texture2D" uid="uid://brv83cxi4cb8m" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Roughness.jpg" id="14_oma2s"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wix4b"]
-albedo_texture = ExtResource("1_te4ph")
-roughness_texture = ExtResource("4_spe7b")
-normal_enabled = true
-normal_texture = ExtResource("3_0hwid")
-ao_enabled = true
-ao_texture = ExtResource("2_02t8w")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bq1pm"]
+shader = ExtResource("1_p1xl4")
+shader_parameter/Pixelated = 300.0
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_23q87"]
+ground_bottom_color = Color(0.146081, 0.121511, 0.0929725, 1)
+ground_horizon_color = Color(0.4698, 0.566682, 0.654549, 1)
+
+[sub_resource type="Sky" id="Sky_tbgi4"]
+sky_material = SubResource("ProceduralSkyMaterial_23q87")
+
+[sub_resource type="Environment" id="Environment_dbf7g"]
+background_mode = 2
+sky = SubResource("Sky_tbgi4")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Animation" id="Animation_fulsm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../DeathScreen/VBoxContainer/CauseOfDeathMessage:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../DeathScreen/VBoxContainer/DeathMessage:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../DeathScreen/ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Player/Pivot/Camera3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_qfm1y"]
+resource_name = "death"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -1.5708)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../DeathScreen/VBoxContainer/CauseOfDeathMessage:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../DeathScreen/VBoxContainer/DeathMessage:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../DeathScreen/ColorRect:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Player/Pivot/Camera3D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -1.5708)]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("%GameManager")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"endGame"
+}]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4r5pv"]
+_data = {
+&"RESET": SubResource("Animation_fulsm"),
+&"death": SubResource("Animation_qfm1y")
+}
 
 [sub_resource type="BoxMesh" id="BoxMesh_x647l"]
-material = SubResource("StandardMaterial3D_wix4b")
+material = ExtResource("1_te4ph")
+size = Vector3(500, 0.5, 500)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bcvk1"]
+data = PackedVector3Array(-250, 0.25, 250, 250, 0.25, 250, -250, -0.25, 250, 250, 0.25, 250, 250, -0.25, 250, -250, -0.25, 250, 250, 0.25, -250, -250, 0.25, -250, 250, -0.25, -250, -250, 0.25, -250, -250, -0.25, -250, 250, -0.25, -250, 250, 0.25, 250, 250, 0.25, -250, 250, -0.25, 250, 250, 0.25, -250, 250, -0.25, -250, 250, -0.25, 250, -250, 0.25, -250, -250, 0.25, 250, -250, -0.25, -250, -250, 0.25, 250, -250, -0.25, 250, -250, -0.25, -250, 250, 0.25, 250, -250, 0.25, 250, 250, 0.25, -250, -250, 0.25, 250, -250, 0.25, -250, 250, 0.25, -250, -250, -0.25, 250, 250, -0.25, 250, -250, -0.25, -250, 250, -0.25, 250, 250, -0.25, -250, -250, -0.25, -250)
+
+[sub_resource type="BoxMesh" id="BoxMesh_p1xl4"]
+material = ExtResource("10_prwh2")
+size = Vector3(1, 78.64, 193.245)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_prwh2"]
+data = PackedVector3Array(-0.5, 39.32, 96.6225, 0.5, 39.32, 96.6225, -0.5, -39.32, 96.6225, 0.5, 39.32, 96.6225, 0.5, -39.32, 96.6225, -0.5, -39.32, 96.6225, 0.5, 39.32, -96.6225, -0.5, 39.32, -96.6225, 0.5, -39.32, -96.6225, -0.5, 39.32, -96.6225, -0.5, -39.32, -96.6225, 0.5, -39.32, -96.6225, 0.5, 39.32, 96.6225, 0.5, 39.32, -96.6225, 0.5, -39.32, 96.6225, 0.5, 39.32, -96.6225, 0.5, -39.32, -96.6225, 0.5, -39.32, 96.6225, -0.5, 39.32, -96.6225, -0.5, 39.32, 96.6225, -0.5, -39.32, -96.6225, -0.5, 39.32, 96.6225, -0.5, -39.32, 96.6225, -0.5, -39.32, -96.6225, 0.5, 39.32, 96.6225, -0.5, 39.32, 96.6225, 0.5, 39.32, -96.6225, -0.5, 39.32, 96.6225, -0.5, 39.32, -96.6225, 0.5, 39.32, -96.6225, -0.5, -39.32, 96.6225, 0.5, -39.32, 96.6225, -0.5, -39.32, -96.6225, 0.5, -39.32, 96.6225, 0.5, -39.32, -96.6225, -0.5, -39.32, -96.6225)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0dw4"]
+albedo_texture = ExtResource("11_he5cq")
+metallic = 1.0
+metallic_texture = ExtResource("12_idmwj")
+roughness_texture = ExtResource("14_oma2s")
+normal_enabled = true
+normal_texture = ExtResource("13_4i6sm")
+uv1_scale = Vector3(100, 100, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_prwh2"]
+material = SubResource("StandardMaterial3D_s0dw4")
+size = Vector3(1, 201.455, 201.265)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_he5cq"]
+data = PackedVector3Array(-0.5, 100.728, 100.632, 0.5, 100.728, 100.632, -0.5, -100.728, 100.632, 0.5, 100.728, 100.632, 0.5, -100.728, 100.632, -0.5, -100.728, 100.632, 0.5, 100.728, -100.632, -0.5, 100.728, -100.632, 0.5, -100.728, -100.632, -0.5, 100.728, -100.632, -0.5, -100.728, -100.632, 0.5, -100.728, -100.632, 0.5, 100.728, 100.632, 0.5, 100.728, -100.632, 0.5, -100.728, 100.632, 0.5, 100.728, -100.632, 0.5, -100.728, -100.632, 0.5, -100.728, 100.632, -0.5, 100.728, -100.632, -0.5, 100.728, 100.632, -0.5, -100.728, -100.632, -0.5, 100.728, 100.632, -0.5, -100.728, 100.632, -0.5, -100.728, -100.632, 0.5, 100.728, 100.632, -0.5, 100.728, 100.632, 0.5, 100.728, -100.632, -0.5, 100.728, 100.632, -0.5, 100.728, -100.632, 0.5, 100.728, -100.632, -0.5, -100.728, 100.632, 0.5, -100.728, 100.632, -0.5, -100.728, -100.632, 0.5, -100.728, 100.632, 0.5, -100.728, -100.632, -0.5, -100.728, -100.632)
 
 [node name="MapEnviroment" type="Node3D"]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="PixelShader" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_bq1pm")
+scale = Vector2(1.125, 0.632813)
+texture = ExtResource("2_prwh2")
+centered = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dbf7g")
+
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+script = ExtResource("1_wix4b")
+
+[node name="HUD" parent="." instance=ExtResource("2_pd1ih")]
+
+[node name="Pause" parent="." instance=ExtResource("3_p1xl4")]
+visible = false
+
+[node name="DeathScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="DeathScreen"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -203.5
+offset_top = -62.5
+offset_right = 203.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeathMessage" type="Label" parent="DeathScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 0)
+theme_override_fonts/font = ExtResource("4_prwh2")
+theme_override_font_sizes/font_size = 91
+text = "You are dead."
+
+[node name="CauseOfDeathMessage" type="Label" parent="DeathScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+theme_override_font_sizes/font_size = 25
+text = "Cause of Death: Null"
+horizontal_alignment = 1
+
+[node name="DeathAnimator" type="AnimationPlayer" parent="DeathScreen"]
+libraries = {
+&"": SubResource("AnimationLibrary_4r5pv")
+}
+speed_scale = 3.0
+
+[node name="WeaponWheel" parent="." instance=ExtResource("5_bq1pm")]
+
+[node name="Player" parent="." instance=ExtResource("2_bcvk1")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="WorldStructures" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="WorldStructures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+collision_layer = 4
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Floor"]
 mesh = SubResource("BoxMesh_x647l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldStructures/Floor"]
+shape = SubResource("ConcavePolygonShape3D_bcvk1")
+
+[node name="Wall" type="StaticBody3D" parent="WorldStructures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62648, 0, 2.72307)
+collision_layer = 4
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
+mesh = SubResource("BoxMesh_p1xl4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldStructures/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
+shape = SubResource("ConcavePolygonShape3D_prwh2")
+
+[node name="Wall2" type="StaticBody3D" parent="WorldStructures"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.37352, 0, -1.27693)
+collision_layer = 4
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
+mesh = SubResource("BoxMesh_p1xl4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldStructures/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
+shape = SubResource("ConcavePolygonShape3D_prwh2")
+
+[node name="Wall3" type="StaticBody3D" parent="WorldStructures"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.37352, 0, -8.27693)
+collision_layer = 4
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
+mesh = SubResource("BoxMesh_p1xl4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldStructures/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
+shape = SubResource("ConcavePolygonShape3D_prwh2")
+
+[node name="Wall4" type="StaticBody3D" parent="WorldStructures"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.62648, 0, -4.27693)
+collision_layer = 4
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
+mesh = SubResource("BoxMesh_p1xl4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldStructures/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
+shape = SubResource("ConcavePolygonShape3D_prwh2")
+
+[node name="Roof" type="StaticBody3D" parent="WorldStructures"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.0762668, 78.1217, -5.85608)
+collision_layer = 4
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Roof"]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1.26112, 0, 0.701401)
+mesh = SubResource("BoxMesh_prwh2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldStructures/Roof"]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1.26112, 0, 0.701401)
+shape = SubResource("ConcavePolygonShape3D_he5cq")
+
+[node name="WorldObjects" type="Node3D" parent="."]
+
+[node name="WorldLights" type="Node3D" parent="."]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="WorldLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5802, 73.64, -6.86713)
+light_energy = 16.0
+omni_range = 151.554
+
+[connection signal="zoom_in_trigger" from="HUD" to="Player" method="_on_hud_zoom_in_trigger"]
+[connection signal="zoom_out_trigger" from="HUD" to="Player" method="_on_hud_zoom_out_trigger"]
+
+[editable path="HUD"]
+[editable path="Player"]
+[editable path="Player/Pivot/Camera3D/Guns/BlackHoleLauncher"]
