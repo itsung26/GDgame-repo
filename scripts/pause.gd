@@ -5,6 +5,7 @@ extends Control
 @onready var center_buttons: Control = $CenterButtons
 @onready var shader_toggle: CheckButton = $OptionsMenu/ShaderToggle
 @onready var game_manager: Node = %GameManager
+@onready var multiplayer_menu: Control = $MultiplayerMenu
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,12 +22,20 @@ func _process(_delta: float) -> void:
 	if Global.menuState == "main":
 		center_buttons.visible = true
 		options_menu.visible = false
+		multiplayer_menu.visible = false
 	elif Global.menuState == "options":
 		options_menu.visible = true
 		center_buttons.visible = false
+		multiplayer_menu.visible = false
 	elif Global.menuState == "notpaused":
 		options_menu.visible = false
 		center_buttons.visible = false
+		multiplayer_menu.visible = false
+	elif Global.menuState == "multiplayer":
+		multiplayer_menu.visible = true
+		center_buttons.visible = false
+		options_menu.visible = false
+		
 
 # resumes the game
 func _on_resume_pressed() -> void:
@@ -39,8 +48,6 @@ func _on_resume_pressed() -> void:
 # opens options menu
 func _on_options_pressed() -> void:
 	Global.menuState = "options"
-	center_buttons.visible = false
-	options_menu.visible = true
 
 # quits
 func _on_quit_pressed() -> void:
@@ -60,3 +67,11 @@ func _on_reset_scene_debug_pressed() -> void:
 	game_manager.unpauseGame()
 	get_tree().reload_current_scene()
 	
+
+
+func _on_multiplater_pressed() -> void:
+	Global.menuState = "multiplayer"
+
+
+func _on_back_button_multiplayer_pressed() -> void:
+	Global.menuState = "main"

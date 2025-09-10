@@ -58,7 +58,7 @@ func fire():
 				hitmarker_label_node.text = str(Global.pistol_DAMAGE)
 			
 			# Get the HUD node (adjust path as needed)
-			var hud = get_tree().root.get_node("main/HUD")
+			var hud = get_tree().root.get_node("MapEnviroment/HUD")
 			if hud:
 				hud.add_child(hitmarker)
 				# Set tracking references for the hitmarker

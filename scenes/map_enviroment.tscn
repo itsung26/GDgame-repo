@@ -1,5 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=34 format=3 uid="uid://mhij3rnbxw0r"]
 
+[ext_resource type="Script" uid="uid://df4vecthosic2" path="res://scripts/map_enviroment.gd" id="1_oma2s"]
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
 [ext_resource type="Material" uid="uid://d25ece0xga0hd" path="res://assets/materials/map_enviroment.tres" id="1_te4ph"]
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_wix4b"]
@@ -15,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://saoujndj0ul2" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Metalness.jpg" id="12_idmwj"]
 [ext_resource type="Texture2D" uid="uid://2dd245bud88p" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_NormalGL.jpg" id="13_4i6sm"]
 [ext_resource type="Texture2D" uid="uid://brv83cxi4cb8m" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Roughness.jpg" id="14_oma2s"]
+[ext_resource type="PackedScene" uid="uid://du50kuq805ea1" path="res://scenes/black_hole_ammo.tscn" id="16_4i6sm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bq1pm"]
 shader = ExtResource("1_p1xl4")
@@ -192,9 +194,18 @@ _data = {
 &"death": SubResource("Animation_qfm1y")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_oma2s"]
+properties/0/path = NodePath("../Player:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("../Player:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_idmwj"]
-vertices = PackedVector3Array(-250, 0.25, 250, 250, 0.25, -250, 250, 0.25, 250, -250, 0.25, -250, -250, -0.25, 250, 250, -0.25, -250, 250, -0.25, 250, -250, -0.25, -250, 250, 0.25, 250, -250, 0.25, -250, 250, 0.25, -250, -250, 0.25, 250, 250, -0.25, 250, -250, -0.25, -250, 250, -0.25, -250, -250, -0.25, 250, 250, 0.25, 250, -250, -0.25, 250, -250, 0.25, 250, 250, -0.25, 250, 250, 0.25, -250, -250, -0.25, -250, -250, 0.25, -250, 250, -0.25, -250)
-polygons = [PackedInt32Array(0, 2, 4), PackedInt32Array(2, 6, 4), PackedInt32Array(1, 3, 5), PackedInt32Array(3, 7, 5), PackedInt32Array(8, 10, 12), PackedInt32Array(10, 14, 12), PackedInt32Array(9, 11, 13), PackedInt32Array(11, 15, 13), PackedInt32Array(16, 18, 20), PackedInt32Array(18, 22, 20), PackedInt32Array(17, 19, 21), PackedInt32Array(19, 23, 21)]
+vertices = PackedVector3Array(-98, -1.8794, -99.75, -96.75, -1.8794, -100.5, -96.75, -1.8794, -249.5, -249.5, -1.8794, -249.5, -249.5, -1.8794, -99, -98, -1.8794, -99, -95.25, -1.8794, -100.5, -95, -1.8794, -100, 94.25, -1.8794, -100, 94.25, -1.8794, -249.5, 96.75, -1.8794, -99.75, 97, -1.8794, -97.5, 249.5, -1.8794, -97.5, 249.5, -1.8794, -249.5, -101, 76.6206, -105, -101, 76.6206, 95.75, 99.5, 76.6206, 95.75, 99.5, 76.6206, -105, -98, -1.8794, -98, -249.5, -1.8794, 94.75, -97.25, -1.8794, 94.5, -97.75, -1.8794, 94.25, -97.75, -1.8794, 92.5, -97.25, -1.8794, -97.75, -97.25, -1.8794, 92.25, 6.75, -1.8794, -6.75, 9, -1.8794, -6.75, 9, -1.8794, -97.75, 6.5, -1.8794, -4.5, -95, -1.8794, -97.75, -95, -1.8794, -4.5, 11.5, -1.8794, -6.75, 11.75, -1.8794, -4.5, 94.75, -1.8794, -4.5, 94.75, -1.8794, -97.75, 97, -1.8794, 92.5, 249.5, -1.8794, 92.5, -95, -1.8794, 3.25, 6.5, -1.8794, 3.25, 11.75, -1.8794, 3.25, 94.75, -1.8794, 3.25, 8, -1.8794, 92.25, 8.25, -1.8794, 5.5, 6.5, -1.8794, 5.25, -95, -1.8794, 92.25, 11.75, -1.8794, 5.25, 10, -1.8794, 5.5, 10.25, -1.8794, 92.25, 94.75, -1.8794, 92.25, 97, -1.8794, 94.5, 95.25, -1.8794, 94.75, 95.5, -1.8794, 249.5, 249.5, -1.8794, 249.5, -95.5, -1.8794, 94.5, -249.5, -1.8794, 249.5, -95.5, -1.8794, 249.5)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(0, 5, 4), PackedInt32Array(6, 1, 2), PackedInt32Array(6, 2, 7), PackedInt32Array(7, 2, 8), PackedInt32Array(8, 2, 9), PackedInt32Array(10, 8, 9), PackedInt32Array(10, 9, 11), PackedInt32Array(11, 9, 12), PackedInt32Array(12, 9, 13), PackedInt32Array(17, 16, 14), PackedInt32Array(14, 16, 15), PackedInt32Array(4, 5, 18), PackedInt32Array(21, 20, 19), PackedInt32Array(22, 21, 19), PackedInt32Array(18, 23, 4), PackedInt32Array(4, 23, 24), PackedInt32Array(4, 24, 22), PackedInt32Array(4, 22, 19), PackedInt32Array(27, 26, 25), PackedInt32Array(25, 28, 27), PackedInt32Array(27, 28, 30), PackedInt32Array(27, 30, 29), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 34), PackedInt32Array(34, 31, 27), PackedInt32Array(31, 26, 27), PackedInt32Array(11, 12, 35), PackedInt32Array(35, 12, 36), PackedInt32Array(30, 28, 37), PackedInt32Array(37, 28, 38), PackedInt32Array(32, 33, 39), PackedInt32Array(39, 33, 40), PackedInt32Array(42, 41, 43), PackedInt32Array(43, 41, 44), PackedInt32Array(43, 44, 37), PackedInt32Array(37, 38, 43), PackedInt32Array(45, 39, 40), PackedInt32Array(45, 40, 46), PackedInt32Array(46, 40, 47), PackedInt32Array(47, 40, 48), PackedInt32Array(42, 46, 41), PackedInt32Array(41, 46, 47), PackedInt32Array(49, 35, 36), PackedInt32Array(49, 36, 50), PackedInt32Array(50, 36, 51), PackedInt32Array(51, 36, 52), PackedInt32Array(20, 53, 19), PackedInt32Array(19, 53, 54), PackedInt32Array(54, 53, 55), PackedInt32Array(53, 50, 55), PackedInt32Array(55, 50, 51)]
+region_min_size = 12.55
 
 [sub_resource type="BoxMesh" id="BoxMesh_x647l"]
 material = ExtResource("1_te4ph")
@@ -227,6 +238,8 @@ size = Vector3(1, 201.455, 201.265)
 data = PackedVector3Array(-0.5, 100.728, 100.632, 0.5, 100.728, 100.632, -0.5, -100.728, 100.632, 0.5, 100.728, 100.632, 0.5, -100.728, 100.632, -0.5, -100.728, 100.632, 0.5, 100.728, -100.632, -0.5, 100.728, -100.632, 0.5, -100.728, -100.632, -0.5, 100.728, -100.632, -0.5, -100.728, -100.632, 0.5, -100.728, -100.632, 0.5, 100.728, 100.632, 0.5, 100.728, -100.632, 0.5, -100.728, 100.632, 0.5, 100.728, -100.632, 0.5, -100.728, -100.632, 0.5, -100.728, 100.632, -0.5, 100.728, -100.632, -0.5, 100.728, 100.632, -0.5, -100.728, -100.632, -0.5, 100.728, 100.632, -0.5, -100.728, 100.632, -0.5, -100.728, -100.632, 0.5, 100.728, 100.632, -0.5, 100.728, 100.632, 0.5, 100.728, -100.632, -0.5, 100.728, 100.632, -0.5, 100.728, -100.632, 0.5, 100.728, -100.632, -0.5, -100.728, 100.632, 0.5, -100.728, 100.632, -0.5, -100.728, -100.632, 0.5, -100.728, 100.632, 0.5, -100.728, -100.632, -0.5, -100.728, -100.632)
 
 [node name="MapEnviroment" type="Node3D"]
+script = ExtResource("1_oma2s")
+player_scene = ExtResource("2_bcvk1")
 
 [node name="PixelShader" type="Sprite2D" parent="."]
 visible = false
@@ -298,8 +311,23 @@ speed_scale = 3.0
 
 [node name="WeaponWheel" parent="." instance=ExtResource("5_bq1pm")]
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://ch37b3vrtbtsd")
+spawn_path = NodePath("..")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath("../MultiplayerSpawner")
+replication_config = SubResource("SceneReplicationConfig_oma2s")
+
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.87227, 0)
+visible = false
+navigation_mesh = SubResource("NavigationMesh_idmwj")
 
 [node name="WorldStructures" type="Node3D" parent="."]
 
@@ -307,10 +335,6 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 collision_layer = 4
 collision_mask = 7
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="WorldStructures/Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3238, 0)
-navigation_mesh = SubResource("NavigationMesh_idmwj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Floor"]
 mesh = SubResource("BoxMesh_x647l")
@@ -387,6 +411,16 @@ shape = SubResource("ConcavePolygonShape3D_he5cq")
 
 [node name="enemy_spawner" parent="WorldObjects" instance=ExtResource("10_idmwj")]
 transform = Transform3D(-2.03662, 0, 3.07522e-07, 0, 2.03662, 0, -3.07522e-07, 0, -2.03662, 9.04049, 9.84669e-05, -0.643265)
+enabled = false
+
+[node name="BlackHoleAmmoCrate" parent="WorldObjects" instance=ExtResource("16_4i6sm")]
+transform = Transform3D(-0.20424, 0, 0.978921, 0, 1, 0, -0.978921, 0, -0.20424, -1.03915, -4.76837e-07, -5.24995)
+
+[node name="BlackHoleAmmoCrate2" parent="WorldObjects" instance=ExtResource("16_4i6sm")]
+transform = Transform3D(-0.602637, 0, 0.798015, 0, 1, 0, -0.798015, 0, -0.602637, -3.10309, 0, -4.51618)
+
+[node name="BlackHoleAmmoCrate3" parent="WorldObjects" instance=ExtResource("16_4i6sm")]
+transform = Transform3D(-0.334843, 0, 0.942274, 0, 1, 0, -0.942274, 0, -0.334843, -2.27833, 2.38419e-07, -5.44026)
 
 [node name="WorldLights" type="Node3D" parent="."]
 
@@ -397,7 +431,10 @@ omni_range = 151.554
 
 [connection signal="zoom_in_trigger" from="HUD" to="Player" method="_on_hud_zoom_in_trigger"]
 [connection signal="zoom_out_trigger" from="HUD" to="Player" method="_on_hud_zoom_out_trigger"]
+[connection signal="pressed" from="Pause/MultiplayerMenu/HBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="Pause/MultiplayerMenu/HBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
 
 [editable path="HUD"]
+[editable path="Pause"]
 [editable path="Player"]
 [editable path="Player/Pivot/Camera3D/Guns/BlackHoleLauncher"]

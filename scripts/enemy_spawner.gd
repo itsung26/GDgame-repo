@@ -3,29 +3,26 @@ extends AnimatableBody3D
 @onready var spawner_anims: AnimationPlayer = $SpawnerAnims
 const ENEMY = preload("res://scenes/enemy.tscn")
 @onready var spawn_point: Node3D = $SpawnPoint
+@onready var enemies: Node3D = $"../../Enemies"
 
 var e
 var map_enviroment
-var enabled = true
+@export var enabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	map_enviroment = get_tree().root
-	spawner_anims.play("spawner_open")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta) -> void:
-	pass
+	if enabled:
+		spawner_anims.play("spawner_open")
 
 func spawnEnemyWeak():
-	if enabled:
-		e = ENEMY.instantiate()
-		e.global_position = spawn_point.global_position
-		map_enviroment.add_child(e)
+	e = ENEMY.instantiate()
+	enemies.add_child(e)
+	e.global_position = spawn_point.global_position
 
 func _on_timer_timeout() -> void:
-	spawner_anims.play("spawner_open")
+	if enabled:
+		spawner_anims.play("spawner_open")
 	
 func playSpawnerClose():
 	spawner_anims.play("spawner_close")

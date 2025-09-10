@@ -13,9 +13,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
 	
-	if Input.is_action_just_pressed("forcequit"):
-		get_tree().quit()
-	
 	# enables and disables every frame
 	if Global.isPaused:
 		hud.visible = false
