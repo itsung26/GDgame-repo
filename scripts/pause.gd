@@ -5,7 +5,6 @@ extends Control
 @onready var center_buttons: Control = $CenterButtons
 @onready var shader_toggle: CheckButton = $OptionsMenu/ShaderToggle
 @onready var game_manager: Node = %GameManager
-@onready var multiplayer_menu: Control = $MultiplayerMenu
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,19 +21,12 @@ func _process(_delta: float) -> void:
 	if Global.menuState == "main":
 		center_buttons.visible = true
 		options_menu.visible = false
-		multiplayer_menu.visible = false
 	elif Global.menuState == "options":
 		options_menu.visible = true
 		center_buttons.visible = false
-		multiplayer_menu.visible = false
 	elif Global.menuState == "notpaused":
 		options_menu.visible = false
 		center_buttons.visible = false
-		multiplayer_menu.visible = false
-	elif Global.menuState == "multiplayer":
-		multiplayer_menu.visible = true
-		center_buttons.visible = false
-		options_menu.visible = false
 		
 
 # resumes the game

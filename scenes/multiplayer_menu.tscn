@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqtir4mvvwdpi"]
+
+[ext_resource type="Theme" uid="uid://c5tvvuaiv53l5" path="res://assets/styles/multiplayer_menu_theme.tres" id="1_m4p4h"]
+
+[node name="MultiplayerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme = ExtResource("1_m4p4h")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 66.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="BackButtonMultiplayer" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -122.0
+offset_right = 225.0
+grow_vertical = 0
+text = "Back"

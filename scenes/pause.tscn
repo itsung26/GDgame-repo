@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccwx4hsr3uqux"]
+[gd_scene load_steps=5 format=3 uid="uid://ccwx4hsr3uqux"]
 
 [ext_resource type="FontFile" uid="uid://3svjt1ifyndm" path="res://assets/sprite assets/ui/kenney_ui-pack/Font/Kenney Future.ttf" id="1_f1d2v"]
 [ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/pause.gd" id="1_r8yp4"]
 [ext_resource type="Texture2D" uid="uid://bya6b43uw7q5w" path="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Extra/icon_play_outline.svg" id="3_aicil"]
 [ext_resource type="Texture2D" uid="uid://cpwpswqumj6y3" path="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Default/icon_cross.png" id="4_jn4bt"]
-[ext_resource type="Theme" uid="uid://c5tvvuaiv53l5" path="res://assets/styles/multiplayer_menu_theme.tres" id="5_jn4bt"]
 
 [node name="Pause" type="Control"]
 process_mode = 2
@@ -17,7 +16,6 @@ grow_vertical = 2
 script = ExtResource("1_r8yp4")
 
 [node name="CenterButtons" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -78,7 +76,6 @@ text = "quit"
 icon = ExtResource("4_jn4bt")
 
 [node name="OptionsMenu" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 0
 offset_right = 1152.0
@@ -110,49 +107,9 @@ theme_override_fonts/font = ExtResource("1_f1d2v")
 theme_override_font_sizes/font_size = 55
 text = "Graphics"
 
-[node name="MultiplayerMenu" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-theme = ExtResource("5_jn4bt")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MultiplayerMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 66.0
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HostButton" type="Button" parent="MultiplayerMenu/HBoxContainer"]
-layout_mode = 2
-text = "Host"
-
-[node name="JoinButton" type="Button" parent="MultiplayerMenu/HBoxContainer"]
-layout_mode = 2
-text = "Join"
-
-[node name="BackButtonMultiplayer" type="Button" parent="MultiplayerMenu"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -122.0
-offset_right = 225.0
-grow_vertical = 0
-text = "Back"
-
 [connection signal="pressed" from="CenterButtons/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CenterButtons/Multiplater" to="." method="_on_multiplater_pressed"]
 [connection signal="pressed" from="CenterButtons/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="OptionsMenu/Back" to="." method="_on_back_pressed"]
 [connection signal="toggled" from="OptionsMenu/ShaderToggle" to="." method="_on_shader_toggle_toggled"]
-[connection signal="pressed" from="MultiplayerMenu/BackButtonMultiplayer" to="." method="_on_back_button_multiplayer_pressed"]

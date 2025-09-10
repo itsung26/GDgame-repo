@@ -107,74 +107,60 @@ func swayPistol(delta):
 		mouse_delta2 = clamp(mouse_delta2, Vector2(pistol_sway_min,-5), Vector2(pistol_sway_max,5))
 		pistol_sway_pivot.rotation.y = lerpf(0.0,5.0,mouse_delta2.x/5) * pistol_sway_factor * delta
 
-func _physics_process(delta: float) -> void:
-	if is_multiplayer_authority():
-		
-		swayPistol(delta)
-		
-			# if grapple and not grappling, grapple and set the positions
-		if Input.is_action_just_pressed("grapple") and grappling == false:
-			if grapple_ray_cast.get_collider() != null:
-				grapple_target_pos = grapple_ray_cast.get_collision_point()
-				grapple_dir = (grapple_target_pos - grapple_ray_cast.global_position).normalized()
-				# grapple_dir returns as a Vector3
-				grappling = true
-		
-		# if grapple and grappling, stop grappling and initiate hop mechanic
-		elif Input.is_action_just_pressed("grapple") and grappling == true:
-			grappling = false
-			velocity = Vector3.ZERO
-			player.velocity.y = GRAPPLE_HOP
-		
-		
-		# clamp the camera pivot view
-		var b = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
-		pivot.rotation_degrees.x = b
-		
-		# grapple
-		grapple()
-		
-		# Add the gravity.
-		if not is_on_floor():
-			if gravity_enabled:
-				velocity += get_gravity() * delta
-				
-		
-		
-		# Handle jump.
-		if Input.is_action_just_pressed("jump") and is_on_floor():
-			velocity.y = JUMP_VELOCITY
+func _physics_process(delta: float) -> void:		
+	swayPistol(delta)
+	
+		# if grapple and not grappling, grapple and set the positions
+	if Input.is_action_just_pressed("grapple") and grappling == false:
+		if grapple_ray_cast.get_collider() != null:
+			grapple_target_pos = grapple_ray_cast.get_collision_point()
+			grapple_dir = (grapple_target_pos - grapple_ray_cast.global_position).normalized()
+			# grapple_dir returns as a Vector3
+			grappling = true
+	
+	# if grapple and grappling, stop grappling and initiate hop mechanic
+	elif Input.is_action_just_pressed("grapple") and grappling == true:
+		grappling = false
+		velocity = Vector3.ZERO
+		player.velocity.y = GRAPPLE_HOP
+	
+	
+	# clamp the camera pivot view
+	var b = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
+	pivot.rotation_degrees.x = b
+	
+	# grapple
+	grapple()
+	
+	# Add the gravity.
+	if not is_on_floor():
+		if gravity_enabled:
+			velocity += get_gravity() * delta
 			
-		
-			
-		# handle slam jumping
-		#if Input.is_action_just_pressed("slam") and is_on_floor():
-			#pass
-		#elif Input.is_action_just_pressed("slam") and not is_on_floor():
-			#player.velocity.y = -25
-			#can_slam_jump = true
-		#if is_on_floor() and can_slam_jump:
-			#JUMP_VELOCITY = 12
-			#slam_timer.start()
-		
-		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
-		var input_dir := Input.get_vector("left", "right", "forward", "back")
-		var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		
-		if direction and Global.player_move_input_enabled:
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
-		
-		# Player will stop moving in the air when the movement is stopped
-		else:
-			velocity.x = move_toward(velocity.x, 0, Stopwalk_slowdown)
-			velocity.z = move_toward(velocity.z, 0, Stopwalk_slowdown)
+	
+	
+	# Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+	
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var input_dir := Input.get_vector("left", "right", "forward", "back")
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	if direction and Global.player_move_input_enabled:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+	
+	# Player will stop moving in the air when the movement is stopped
+	else:
+		velocity.x = move_toward(velocity.x, 0, Stopwalk_slowdown)
+		velocity.z = move_toward(velocity.z, 0, Stopwalk_slowdown)
 
-		if grappling:
-			velocity = grapple_dir * GRAPPLE_SPEED_MAX
-			
-		move_and_slide()
+	if grappling:
+		velocity = grapple_dir * GRAPPLE_SPEED_MAX
+		
+	move_and_slide()
 
 func gunInputs(curr_weap): # run every frame in _process
 	
@@ -288,9 +274,7 @@ func hideGuns():
 
 var a = true
 func _process(_delta) -> void:
-	# exits the server and quits the game
 	if Input.is_action_just_pressed("forcequit"):
-		$"../".exit_game(name.to_int())
 		get_tree().quit()
 	
 	# retrn the time remaining on the current black hole cooldown animation and save as a time
