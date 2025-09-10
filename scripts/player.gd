@@ -101,7 +101,6 @@ func grapple():
 func swayPistol(delta):
 	if pistol_sway_enabled:
 		mouse_delta2 = clamp(mouse_delta2, Vector2(pistol_sway_min,-5), Vector2(pistol_sway_max,5))
-		print(mouse_delta2)
 		pistol_sway_pivot.rotation.y = lerpf(0.0,5.0,mouse_delta2.x/5) * pistol_sway_factor * delta
 
 func _physics_process(delta: float) -> void:
@@ -169,7 +168,6 @@ func _physics_process(delta: float) -> void:
 	if grappling:
 		velocity = grapple_dir * GRAPPLE_SPEED_MAX
 		
-	print(velocity)
 	move_and_slide()
 
 func gunInputs(curr_weap): # run every frame in _process

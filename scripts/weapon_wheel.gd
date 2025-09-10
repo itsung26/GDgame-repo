@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	# change weapon based on the mouse being in the box and releasing tab
 	if mouse_in_PistolBox and Input.is_action_just_released("weaponwheel"):

@@ -9,14 +9,14 @@ var has_full_mag:bool = true
 func _ready() -> void:
 	black_hole_emitter.emitting = false
 
-func _process(delta:float) -> void:
+func _process(_delta:float) -> void:
 	if Global.BLL_ammo == 3:
 		has_full_mag = true
 	elif Global.BLL_ammo < 3:
 		has_full_mag = false
 		
 
-func _on_black_hole_ammo_body_entered(body: CharacterBody3D) -> void:
+func _on_black_hole_ammo_body_entered(_body: CharacterBody3D) -> void:
 	if can_add_ammo and not has_full_mag:
 		Global.BLL_ammo += 1
 		can_add_ammo = false

@@ -72,7 +72,6 @@ func hideIcons():
 		Global.pistol_special_state = false
 		
 	# if the blackhole cooldown timer is 0 or "hide": hide the cooldown icon
-	print(black_hole_cooldown_timer.text)
 	if black_hole_cooldown_timer.text == str(0.00) + "s":
 		black_hole_cooldown_icon.visible = false
 	elif black_hole_cooldown_timer.text == "hide":

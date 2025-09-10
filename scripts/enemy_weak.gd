@@ -29,8 +29,9 @@ func _ready() -> void:
 func _process(_delta) -> void:
 	
 	enemy_melee_cooldown.wait_time = AttackCooldown
-	var look_at_player_pos: Vector3 = Vector3(player.global_position.x, global_position.y, player.global_position.z)
-	look_at(look_at_player_pos, Vector3.UP)
+	if is_instance_valid(player):
+		var look_at_player_pos: Vector3 = Vector3(player.global_position.x, global_position.y, player.global_position.z)
+		look_at(look_at_player_pos, Vector3.UP)
 	if HEALTH <= 0:
 		animation_player.play("enemy_death")
 	if player:

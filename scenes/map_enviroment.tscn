@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=31 format=3 uid="uid://mhij3rnbxw0r"]
 
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
 [ext_resource type="Material" uid="uid://d25ece0xga0hd" path="res://assets/materials/map_enviroment.tres" id="1_te4ph"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="3_p1xl4"]
 [ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="4_prwh2"]
 [ext_resource type="PackedScene" uid="uid://b7flsfviplefd" path="res://scenes/weapon_wheel.tscn" id="5_bq1pm"]
+[ext_resource type="PackedScene" uid="uid://cj0vx655hbmtp" path="res://scenes/enemy_spawner.tscn" id="10_idmwj"]
 [ext_resource type="Material" uid="uid://c7kojx37vkg4i" path="res://assets/materials/metal_material.tres" id="10_prwh2"]
 [ext_resource type="Texture2D" uid="uid://dog0uevkajdqv" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Color.jpg" id="11_he5cq"]
 [ext_resource type="Texture2D" uid="uid://saoujndj0ul2" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Metalness.jpg" id="12_idmwj"]
@@ -191,6 +192,10 @@ _data = {
 &"death": SubResource("Animation_qfm1y")
 }
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_idmwj"]
+vertices = PackedVector3Array(-250, 0.25, 250, 250, 0.25, -250, 250, 0.25, 250, -250, 0.25, -250, -250, -0.25, 250, 250, -0.25, -250, 250, -0.25, 250, -250, -0.25, -250, 250, 0.25, 250, -250, 0.25, -250, 250, 0.25, -250, -250, 0.25, 250, 250, -0.25, 250, -250, -0.25, -250, 250, -0.25, -250, -250, -0.25, 250, 250, 0.25, 250, -250, -0.25, 250, -250, 0.25, 250, 250, -0.25, 250, 250, 0.25, -250, -250, -0.25, -250, -250, 0.25, -250, 250, -0.25, -250)
+polygons = [PackedInt32Array(0, 2, 4), PackedInt32Array(2, 6, 4), PackedInt32Array(1, 3, 5), PackedInt32Array(3, 7, 5), PackedInt32Array(8, 10, 12), PackedInt32Array(10, 14, 12), PackedInt32Array(9, 11, 13), PackedInt32Array(11, 15, 13), PackedInt32Array(16, 18, 20), PackedInt32Array(18, 22, 20), PackedInt32Array(17, 19, 21), PackedInt32Array(19, 23, 21)]
+
 [sub_resource type="BoxMesh" id="BoxMesh_x647l"]
 material = ExtResource("1_te4ph")
 size = Vector3(500, 0.5, 500)
@@ -303,6 +308,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 collision_layer = 4
 collision_mask = 7
 
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="WorldStructures/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3238, 0)
+navigation_mesh = SubResource("NavigationMesh_idmwj")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Floor"]
 mesh = SubResource("BoxMesh_x647l")
 
@@ -375,6 +384,9 @@ transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, 4.37114e
 shape = SubResource("ConcavePolygonShape3D_he5cq")
 
 [node name="WorldObjects" type="Node3D" parent="."]
+
+[node name="enemy_spawner" parent="WorldObjects" instance=ExtResource("10_idmwj")]
+transform = Transform3D(-2.03662, 0, 3.07522e-07, 0, 2.03662, 0, -3.07522e-07, 0, -2.03662, 9.04049, 9.84669e-05, -0.643265)
 
 [node name="WorldLights" type="Node3D" parent="."]
 

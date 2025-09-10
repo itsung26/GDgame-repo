@@ -357,7 +357,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_eb6dy")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="WorldParts/Floor/MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.530321, 0)
-visible = false
 navigation_mesh = SubResource("NavigationMesh_ya4ey")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldParts/Floor"]

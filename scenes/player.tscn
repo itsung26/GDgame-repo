@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=46 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/blaster.gd" id="2_g2els"]
@@ -876,49 +876,6 @@ height = 0.67
 [sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
 size = Vector3(0.752441, 0.138672, 0.796112)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_y4r1p"]
-
-[sub_resource type="GDScript" id="GDScript_y4r1p"]
-script/source = "extends MeshInstance3D
-@onready var player: CharacterBody3D = $\"../../..\"
-
-
-
-
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	visible = true
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_float) -> void:
-	if player.grappling:
-		visible = true
-	else:
-		visible = false
-	
-	var player_dist_to_grapplePoint = player.global_position.distance_to(player.grapple_target_pos)
-	var direction = (player.grapple_target_pos - player.global_position).normalized()
-	
-	# Create a cylinder mesh between the points
-	var cylinder = CylinderMesh.new()
-	cylinder.top_radius = 0.05
-	cylinder.bottom_radius = 0.05
-	cylinder.height = player_dist_to_grapplePoint
-	mesh = cylinder
-	
-	# Compute midpoint
-	var midpoint = player.global_position + direction * player_dist_to_grapplePoint / 2
-	
-	global_position = midpoint
-	
-	if player.grappling:
-		look_at(player.grapple_target_pos)
-	rotate_x(deg_to_rad(90))
-"
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8r2fg"]
 resource_name = "colormap"
 vertex_color_use_as_albedo = true
@@ -1138,11 +1095,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
-
-[node name="GrappleRope" type="MeshInstance3D" parent="Pivot/Camera3D"]
-mesh = SubResource("ImmediateMesh_y4r1p")
-skeleton = NodePath("../../..")
-script = SubResource("GDScript_y4r1p")
 
 [node name="PistolSwayPivot" type="Node3D" parent="Pivot/Camera3D"]
 

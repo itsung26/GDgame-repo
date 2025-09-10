@@ -24,7 +24,6 @@ var is_colliding_with_player: bool = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
-	# print(is_colliding_with_player)
 
 	# save current position as a vector3
 	black_hole_position = position
@@ -43,7 +42,7 @@ func _process(_delta) -> void:
 		Global.player_move_input_enabled = true
 	
 # pulls bodies
-func pullBodies(blackHolePos):
+func pullBodies(_blackHolePos):
 	bodies_in_pull_box = pull_box.get_overlapping_bodies()
 	for body in bodies_in_pull_box:
 		
@@ -64,7 +63,6 @@ func pullBodies(blackHolePos):
 		
 # mimicks queue_free() but with extra steps before leaving scene
 func blackHoleExit():
-	print("black hole leaving scene and re-allowing inputs")
 	Global.player_move_input_enabled = true
 	for body in pull_box.get_overlapping_bodies():
 		if body.is_in_group("enemy"):
