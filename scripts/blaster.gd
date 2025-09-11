@@ -1,16 +1,17 @@
-extends Skeleton3D
+extends Node3D
 
 @onready var bullet_ray_cast: RayCast3D = $"../../BulletRayCast"
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var animation_player: AnimationPlayer = $"../../../../AnimationPlayer"
-@onready var pistol_sway_pivot: Node3D = $".."
-@onready var player: CharacterBody3D = $"../../../.."
-
+var player:CharacterBody3D
 
 const DAMAGE_HITMARKER_SCENE = preload("res://scenes/damage_hitmarker.tscn")
 const BULLET_DECAL_BLUE = preload("res://scenes/bullet_decal.tscn")
 const BLUE_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/blue_emissive_material.tres")
 const RED_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/red_emissive_material.tres")
+
+func _ready() -> void:
+	player = $"../../../.."
 
 # ammo is globally defined
 
@@ -87,11 +88,6 @@ func special(weapon):
 			Global.pistol_activate_special = true
 			Global.pistol_special_state = true
 			
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:

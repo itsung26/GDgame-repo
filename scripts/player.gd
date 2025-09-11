@@ -5,13 +5,11 @@ extends CharacterBody3D
 @onready var pivot: Node3D = $Pivot
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera_animator: AnimationPlayer = $CameraAnimator
-@onready var special_light: OmniLight3D = $"Pivot/Camera3D/PistolSwayPivot/pistol/Skeleton3D/blaster-a/SpecialLight"
-@onready var muzzle_flash: Sprite3D = $"Pivot/Camera3D/PistolSwayPivot/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash"
-@onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/PistolSwayPivot/pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
-@onready var pistol: Skeleton3D = $Pivot/Camera3D/PistolSwayPivot/pistol
+@onready var special_light: OmniLight3D = $"Pivot/Camera3D/Guns/Pistol/Skeleton3D/blaster-a/SpecialLight"
+@onready var muzzle_flash: Sprite3D = $"Pivot/Camera3D/Guns/Pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash"
+@onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/Guns/Pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
 @onready var shotgun: Node3D = $Pivot/Camera3D/Guns/shotgun
 @onready var grapple_ray_cast: RayCast3D = $Pivot/Camera3D/GrappleRayCast
-@onready var pistol_sway_pivot: Node3D = $Pivot/Camera3D/PistolSwayPivot
 @onready var slam_timer: Timer = $SlamTimer
 @onready var black_hole_launcher: Node3D = $Pivot/Camera3D/Guns/BlackHoleLauncher
 @onready var bll_animator: AnimationPlayer = $BLLAnimator
@@ -50,8 +48,12 @@ var cause_of_death_message
 var black_hole_time_remaining
 var black_hole_cooldown_timer
 var prev_jump_velocity = JUMP_VELOCITY
+var pistol
 
 func _ready() -> void:
+	# object reference definitions
+	pistol = get_node("Pivot/Camera3D/Guns/Pistol")
+	
 	# disables the camera if you are not the current client in control of it
 	camera_3d.current = is_multiplayer_authority()
 	
@@ -102,15 +104,10 @@ func grapple():
 	for i in range(collision_count):
 		grappling = false
 		
-func swayPistol(delta):
-	if pistol_sway_enabled:
-		mouse_delta2 = clamp(mouse_delta2, Vector2(pistol_sway_min,-5), Vector2(pistol_sway_max,5))
-		pistol_sway_pivot.rotation.y = lerpf(0.0,5.0,mouse_delta2.x/5) * pistol_sway_factor * delta
 
 func _physics_process(delta: float) -> void:		
-	swayPistol(delta)
 	
-		# if grapple and not grappling, grapple and set the positions
+	# if grapple and not grappling, grapple and set the positions
 	if Input.is_action_just_pressed("grapple") and grappling == false:
 		if grapple_ray_cast.get_collider() != null:
 			grapple_target_pos = grapple_ray_cast.get_collision_point()
