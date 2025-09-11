@@ -123,6 +123,3 @@ other global vars===============================================================
 var isPaused = false
 var menuState = "notpaused"
 var enableShader = false
-var player_move_input_enabled = true
-var player_look_input_enabled = true
-var player_fire_input_enabled = true

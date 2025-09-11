@@ -130,7 +130,7 @@ func _process(_delta) -> void:
 		key_animator_tab.play("key_tab_set_light")
 		
 	# set debug text-------------------------------------------------------------------------------
-	anim_debug.text = "current animation: " + str(Global.anim_playing)
+	anim_debug.text = "current animation: " + str(player.weapon_anim_playing)
 	fire_type_debug.text = "Current fireType: " + str(Global.current_fireType)
 	body_hit_debug.text = "last object hit: " + str(Global.body_hit)
 	current_weapon_special.text = "Current weapon ability: " + Global.current_special_property

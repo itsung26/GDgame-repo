@@ -1,6 +1,7 @@
 extends Control
 @onready var pistol_button = get_node("PistolButton")
 @onready var death_screen: Control = $"../DeathScreen"
+@onready var player: CharacterBody3D = $"../Player"
 
 
 var mouse_in_PistolBox:bool = false
@@ -30,8 +31,8 @@ func _process(_delta: float) -> void:
 	
 	# makes weapon wheel invisibile
 	else:
-		Global.player_look_input_enabled = true
-		Global.player_fire_input_enabled = true
+		player.player_look_input_enabled = true
+		player.player_fire_input_enabled = true
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		visible = false
 

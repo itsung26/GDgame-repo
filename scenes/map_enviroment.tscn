@@ -303,6 +303,9 @@ speed_scale = 3.0
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
+[node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotPistol" index="0"]
+transform = Transform3D(0.325358, -0.512602, 0.794594, 0.927407, 0.00898631, -0.373943, 0.184544, 0.858578, 0.478315, 0.171948, 1.28058, -0.0726245)
+
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -416,3 +419,4 @@ omni_range = 151.554
 [editable path="Pause"]
 [editable path="Player"]
 [editable path="Player/Pivot/Camera3D/Guns/BlackHoleLauncher"]
+[editable path="Player/Pivot/Camera3D/Guns/Pistol"]

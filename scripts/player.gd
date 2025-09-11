@@ -1,18 +1,17 @@
 extends CharacterBody3D
 
 @onready var player: CharacterBody3D = $"."
+
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var pivot: Node3D = $Pivot
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var gun_animator: AnimationPlayer = $GunAnimator
 @onready var camera_animator: AnimationPlayer = $CameraAnimator
-@onready var special_light: OmniLight3D = $"Pivot/Camera3D/Guns/Pistol/Skeleton3D/blaster-a/SpecialLight"
-@onready var muzzle_flash: Sprite3D = $"Pivot/Camera3D/Guns/Pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash"
-@onready var muzzle_flash_2: Sprite3D = $"Pivot/Camera3D/Guns/Pistol/Skeleton3D/blaster-a/MuzzleFlashes/MuzzleFlash2"
 @onready var shotgun: Node3D = $Pivot/Camera3D/Guns/shotgun
 @onready var grapple_ray_cast: RayCast3D = $Pivot/Camera3D/GrappleRayCast
 @onready var slam_timer: Timer = $SlamTimer
 @onready var black_hole_launcher: Node3D = $Pivot/Camera3D/Guns/BlackHoleLauncher
 @onready var bll_animator: AnimationPlayer = $BLLAnimator
+@onready var arm_pivot_pistol: Node3D = $Pivot/Camera3D/ArmPivotPistol
 
 @export_category("traits")
 @export var HEALTH:float = 100.0
@@ -49,6 +48,10 @@ var black_hole_time_remaining
 var black_hole_cooldown_timer
 var prev_jump_velocity = JUMP_VELOCITY
 var pistol
+var weapon_anim_playing
+var player_move_input_enabled = true
+var player_look_input_enabled = true
+var player_fire_input_enabled = true
 
 func _ready() -> void:
 	# object reference definitions
@@ -68,7 +71,7 @@ func _ready() -> void:
 	
 func _input(event) -> void:
 	# handle mouselook
-	if event is InputEventMouseMotion and Global.player_look_input_enabled:
+	if event is InputEventMouseMotion and player.player_look_input_enabled:
 		mouse_delta2 = event.relative
 		var mouse_delta = event.relative
 		var yaw = -mouse_delta.x
@@ -81,22 +84,22 @@ func zoomIn():
 	camera_animator.play("camera_overclock_zoom_in")
 	SPEED = 5
 	JUMP_VELOCITY = prev_jump_velocity
-	animation_player.speed_scale = 1.5
+	gun_animator.speed_scale = 1.5
 	pistol_damage_increase = false
-	muzzle_flash.modulate = Color.from_rgba8(60, 188, 235)
-	muzzle_flash_2.modulate = Color.from_rgba8(60, 188, 235)
-	special_light.visible = false
+	# muzzle_flash.modulate = Color.from_rgba8(60, 188, 235)
+	# muzzle_flash_2.modulate = Color.from_rgba8(60, 188, 235)
+	# special_light.visible = false
 
 # when overclock begins
 func zoomOut():
 	camera_animator.play("camera_overclock_zoom_out")
 	SPEED = SPEED * 2
 	JUMP_VELOCITY = JUMP_VELOCITY * 1.5
-	animation_player.speed_scale = 3
+	gun_animator.speed_scale = 3
 	pistol_damage_increase = true
-	muzzle_flash.modulate = Color.RED
-	muzzle_flash_2.modulate = Color.RED
-	special_light.visible = true
+	# muzzle_flash.modulate = Color.RED
+	# muzzle_flash_2.modulate = Color.RED
+	# special_light.visible = true
 	
 func grapple():
 	# if collision occurs between player and anything, stop the grapple and cancel out net velocity
@@ -145,7 +148,7 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "forward", "back")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	if direction and Global.player_move_input_enabled:
+	if direction and player_move_input_enabled:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	
@@ -161,43 +164,40 @@ func _physics_process(delta: float) -> void:
 
 func gunInputs(curr_weap): # run every frame in _process
 	
-	# save the current animation to a global transfer variable every frame
-	Global.anim_playing = animation_player.current_animation
-	
 	# switch weapon block==================================================================================
-	if Input.is_action_just_pressed("slot1"): #and not animation_player.is_playing():
+	if Input.is_action_just_pressed("slot1"): #and not gun_animator.is_playing():
 		Global.current_weapon = "melee"
 		
-	if Input.is_action_just_pressed("slot2"): #and not animation_player.is_playing():
+	if Input.is_action_just_pressed("slot2"): #and not gun_animator.is_playing():
 		if Global.current_weapon != "pistol":
-			if animation_player.current_animation == "reload_pistol":
+			if gun_animator.current_animation == "reload_pistol":
 				pass
 			else:
-				animation_player.play("equip_pistol")
+				gun_animator.play("equip_pistol")
 		Global.current_weapon = "pistol"
 		
-	if Input.is_action_just_pressed("slot3"): #and not animation_player.is_playing():
+	if Input.is_action_just_pressed("slot3"): #and not gun_animator.is_playing():
 		Global.current_weapon = "shotgun"
 		
 	if Input.is_action_just_pressed("slot4"):
 		Global.current_weapon = "BLL"
 	
 	# automatic fire block===================================================================================
-	if Input.is_action_pressed("fire") and Global.player_fire_input_enabled:
+	if Input.is_action_pressed("fire") and player_fire_input_enabled:
 		# use seperate animation players for each weapon
 		
 		if curr_weap == "pistol":
-			if animation_player.current_animation == "inspect" or animation_player.current_animation == "equip_pistol":
-				animation_player.stop()
-			elif animation_player.current_animation == "reload_pistol":
+			if gun_animator.current_animation == "inspect" or gun_animator.current_animation == "equip_pistol":
+				gun_animator.stop()
+			elif gun_animator.current_animation == "reload_pistol":
 				pass
 			else:
 				if Global.blaster_ammo > 0:
-					animation_player.play("fire")
-				elif Global.blaster_ammo == 0: animation_player.play("reload_pistol")
+					gun_animator.play("fire")
+				elif Global.blaster_ammo == 0: gun_animator.play("reload_pistol")
 
 	# semi-automatic fire block========================================================================
-	if Input.is_action_just_pressed("fire") and Global.player_fire_input_enabled:
+	if Input.is_action_just_pressed("fire") and player_fire_input_enabled:
 		
 		if curr_weap == "shotgun":
 			print("shotgun fire")
@@ -212,13 +212,13 @@ func gunInputs(curr_weap): # run every frame in _process
 	# inspect block=======================================================================================
 	if Input.is_action_just_pressed("inspect weapon"):
 		if curr_weap == "pistol":
-			if animation_player.current_animation == "reload_pistol":
+			if gun_animator.current_animation == "reload_pistol":
 				pass
-			elif animation_player.current_animation == "equip_pistol":
-					animation_player.stop()
-					animation_player.play("inspect")
+			elif gun_animator.current_animation == "equip_pistol":
+					gun_animator.stop()
+					gun_animator.play("inspect")
 			else:
-				animation_player.play("inspect")
+				gun_animator.play("inspect")
 
 		elif curr_weap == "shotgun":
 			print("shotgun inspect")
@@ -230,7 +230,7 @@ func gunInputs(curr_weap): # run every frame in _process
 	if Input.is_action_just_pressed("reload"):
 		if curr_weap == "pistol":
 			if Global.blaster_ammo != 50:
-				animation_player.play("reload_pistol")
+				gun_animator.play("reload_pistol")
 		
 		elif curr_weap == "shotgun":
 			print("shotgun reload")
@@ -253,24 +253,30 @@ func gunInputs(curr_weap): # run every frame in _process
 func hideGuns():
 	 # hide weapon on switch
 	if Global.current_weapon == "pistol":
+		arm_pivot_pistol.visible = true
 		pistol.visible = true
 		black_hole_launcher.visible = false
 		shotgun.visible = false
 	elif Global.current_weapon == "shotgun":
+		arm_pivot_pistol.visible = false
 		shotgun.visible = true
 		black_hole_launcher.visible = false
 		pistol.visible = false
 	elif Global.current_weapon == "melee":
+		arm_pivot_pistol.visible = false
 		black_hole_launcher.visible = false
 		shotgun.visible = false
 		pistol.visible = false
 	elif Global.current_weapon == "BLL":
+		arm_pivot_pistol.visible = false
 		black_hole_launcher.visible = true
 		pistol.visible = false
 		shotgun.visible = false
 
 var a = true
 func _process(_delta) -> void:
+	print(Global.blaster_ammo)
+	
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()
 	
@@ -308,6 +314,3 @@ func playerDie():
 	cause_of_death_message.text = cause_of_death
 	Engine.time_scale = 0.3
 	death_animator.play("death")
-	
-func _enter_tree() -> void:
-	set_multiplayer_authority(name.to_int())

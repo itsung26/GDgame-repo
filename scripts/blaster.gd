@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var bullet_ray_cast: RayCast3D = $"../../BulletRayCast"
 @onready var camera_3d: Camera3D = %Camera3D
-@onready var animation_player: AnimationPlayer = $"../../../../AnimationPlayer"
+@onready var gun_animator: AnimationPlayer = $"../../../../GunAnimator"
 var player:CharacterBody3D
 
 const DAMAGE_HITMARKER_SCENE = preload("res://scenes/damage_hitmarker.tscn")
