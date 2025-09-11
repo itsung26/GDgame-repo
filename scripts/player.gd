@@ -34,7 +34,8 @@ extends CharacterBody3D
 @export var pistol_sway_max : float = 5.0
 @export var pistol_sway_factor : float = 1.0
 
-var grappling = false
+var player_state
+
 var grapple_target_pos = Vector3.ZERO
 var grapple_dir = Vector3.ZERO
 var can_slam_jump = false
@@ -102,35 +103,39 @@ func zoomOut():
 	# special_light.visible = true
 	
 func grapple():
-	# if collision occurs between player and anything, stop the grapple and cancel out net velocity
-	var collision_count = get_slide_collision_count()
-	for i in range(collision_count):
-		grappling = false
-		
-
-func _physics_process(delta: float) -> void:		
 	
 	# if grapple and not grappling, grapple and set the positions
-	if Input.is_action_just_pressed("grapple") and grappling == false:
+	if Input.is_action_just_pressed("grapple") and player_state != "grappling":
 		if grapple_ray_cast.get_collider() != null:
 			grapple_target_pos = grapple_ray_cast.get_collision_point()
 			grapple_dir = (grapple_target_pos - grapple_ray_cast.global_position).normalized()
 			# grapple_dir returns as a Vector3
-			grappling = true
+			player_state = "grappling"
 	
 	# if grapple and grappling, stop grappling and initiate hop mechanic
-	elif Input.is_action_just_pressed("grapple") and grappling == true:
-		grappling = false
+	elif Input.is_action_just_pressed("grapple") and player_state == "grappling":
+		player_state = "idle"
 		velocity = Vector3.ZERO
 		player.velocity.y = GRAPPLE_HOP
 	
 	
-	# clamp the camera pivot view
-	var b = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
-	pivot.rotation_degrees.x = b
+	# if collision occurs between player and anything, stop the grapple and cancel out net velocity
+	var collision_count = get_slide_collision_count()
+	for i in range(collision_count):
+		player_state = "idle"
+		
+
+func _physics_process(delta: float) -> void:		
+	
+	
+
 	
 	# grapple
 	grapple()
+	
+	# clamp the camera pivot view
+	var b = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
+	pivot.rotation_degrees.x = b
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -156,10 +161,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, Stopwalk_slowdown)
 		velocity.z = move_toward(velocity.z, 0, Stopwalk_slowdown)
-
-	if grappling:
-		velocity = grapple_dir * GRAPPLE_SPEED_MAX
 		
+	playerPhysicsStates()
+	
 	move_and_slide()
 
 func gunInputs(curr_weap): # run every frame in _process
@@ -240,7 +244,7 @@ func gunInputs(curr_weap): # run every frame in _process
 			
 			
 	# special block=========================================================================================
-	if Input.is_action_just_pressed("right click action") and Global.player_fire_input_enabled:
+	if Input.is_action_just_pressed("right click action") and player_fire_input_enabled:
 		if curr_weap == "pistol":
 			pistol.special(Global.current_weapon)
 		
@@ -275,7 +279,8 @@ func hideGuns():
 
 var a = true
 func _process(_delta) -> void:
-	print(Global.blaster_ammo)
+	
+	playerStates()
 	
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()
@@ -311,6 +316,18 @@ func _on_slam_timer_timeout() -> void:
 	JUMP_VELOCITY = storagevar
 
 func playerDie():
+	player_state = "dead"
 	cause_of_death_message.text = cause_of_death
 	Engine.time_scale = 0.3
 	death_animator.play("death")
+
+# valid states: grappling, dead, idle, 
+func playerStates():
+		if player_state == "dead":
+			player_fire_input_enabled = false
+			player_look_input_enabled = false
+			player_move_input_enabled = false
+
+func playerPhysicsStates():
+	if player_state == "grappling":
+		velocity = grapple_dir * GRAPPLE_SPEED_MAX
