@@ -80,7 +80,7 @@ func fire():
 
 
 func reload():
-	Global.blaster_ammo = 50
+	Global.blaster_ammo = Global.pistol_MAGSIZE
 	
 # called on right click
 func special(weapon):

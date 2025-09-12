@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cpwpswqumj6y3" path="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Default/icon_cross.png" id="4_jn4bt"]
 
 [node name="Pause" type="Control"]
-process_mode = 2
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +63,7 @@ offset_top = 85.0
 offset_right = 145.0
 offset_bottom = 111.0
 theme_override_fonts/font = ExtResource("1_f1d2v")
-text = "multiplayer"
+text = "Main Menu"
 
 [node name="Quit" type="Button" parent="CenterButtons"]
 layout_mode = 2
@@ -107,6 +107,8 @@ theme_override_fonts/font = ExtResource("1_f1d2v")
 theme_override_font_sizes/font_size = 55
 text = "Graphics"
 
+[connection signal="initiatePause" from="." to="." method="_on_initiate_pause"]
+[connection signal="initiateUnpause" from="." to="." method="_on_initiate_unpause"]
 [connection signal="pressed" from="CenterButtons/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CenterButtons/Multiplater" to="." method="_on_multiplater_pressed"]

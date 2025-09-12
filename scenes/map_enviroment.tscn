@@ -248,7 +248,6 @@ script = ExtResource("1_wix4b")
 [node name="HUD" parent="." instance=ExtResource("2_pd1ih")]
 
 [node name="Pause" parent="." instance=ExtResource("3_p1xl4")]
-visible = false
 
 [node name="DeathScreen" type="Control" parent="."]
 layout_mode = 3
@@ -307,7 +306,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.070
 transform = Transform3D(0.325357, -0.512599, 0.794596, 0.927407, 0.00898343, -0.373943, 0.184545, 0.85858, 0.478312, 0.171948, 1.28058, -0.0726245)
 
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
-transform = Transform3D(0.921618, 0.376123, 0.0956491, 0.148142, -0.113149, -0.982472, -0.358708, 0.919634, -0.16, 0.546436, 1.34883, -0.0393332)
+transform = Transform3D(0.921617, 0.376123, 0.0956491, 0.148142, -0.113149, -0.982472, -0.358707, 0.919634, -0.16, 0.546436, 1.34883, -0.0393332)
 
 [node name="Enemies" type="Node3D" parent="."]
 
@@ -398,14 +397,17 @@ shape = SubResource("ConcavePolygonShape3D_he5cq")
 
 [node name="enemy_spawner" parent="WorldObjects" instance=ExtResource("10_idmwj")]
 transform = Transform3D(-2.03662, 0, 3.07522e-07, 0, 2.03662, 0, -3.07522e-07, 0, -2.03662, 9.04049, 9.84669e-05, -0.643265)
+enabled = false
 spawn_interval = 5.0
 
 [node name="enemy_spawner2" parent="WorldObjects" instance=ExtResource("10_idmwj")]
 transform = Transform3D(-1.16629, 0, 1.66961, 0, 2.03662, 0, -1.66961, 0, -1.16629, 2.4797, 9.84669e-05, 13.1073)
+enabled = false
 spawn_interval = 5.0
 
 [node name="enemy_spawner3" parent="WorldObjects" instance=ExtResource("10_idmwj")]
 transform = Transform3D(-1.20966, 0, -1.63846, 0, 2.03662, 0, 1.63846, 0, -1.20966, 1.42082, 9.84669e-05, -14.6058)
+enabled = false
 spawn_interval = 5.0
 
 [node name="BlackHoleAmmoCrate" parent="WorldObjects" instance=ExtResource("16_4i6sm")]

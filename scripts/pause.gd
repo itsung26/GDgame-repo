@@ -1,69 +1,139 @@
 extends Control
 @onready var resume: Button = $CenterButtons/Resume
-@onready var hud: Control = $"../HUD"
 @onready var options_menu: Control = $OptionsMenu
 @onready var center_buttons: Control = $CenterButtons
 @onready var shader_toggle: CheckButton = $OptionsMenu/ShaderToggle
-@onready var game_manager: Node = %GameManager
+@onready var play: MeshInstance3D = $"../world_parts/Play"
+@onready var quit: MeshInstance3D = $"../world_parts/Quit"
+@onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
+
+# objects
+var hud
+var pixel_shader
+
+
+# variables
+var menuState := "notpaused"
+var isPaused := false
+var pixel_shader_enabled := false
+var mouse_in_quit_button
+var mouse_in_play_button
+
+# one time toggle signals
+signal initiatePause
+signal initiateUnpause
+
+@export_category("Mouse Behavior")
+@export var lock_mouse_on_exit := true
+@export var show_mouse_on_enter := true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	visible = false
+	hud = get_node("../HUD")
+	pixel_shader = get_node("../PixelShader")
+	
+	# if no pixel shader is in the scene, remove the button
+	if not pixel_shader:
+		$OptionsMenu/ShaderToggle.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if Global.isPaused:
-		visible = true
-	elif not Global.isPaused:
-		visible = false
+func _process(float) -> void:
+	
+	
+	shaderOverlayLogic()
+	checkMenuStates()
 		
-	if Global.menuState == "main":
+		
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouse and Input.is_action_just_pressed("fire") and mouse_in_quit_button:
+		animation_player.play("quit_confirm")
+		
+			
+	elif event is InputEventKey:
+		# checks for pause input
+		if Input.is_action_just_pressed("pause"):
+			if not isPaused:
+				initiatePause.emit()
+			
+			elif isPaused:
+				initiateUnpause.emit()
+
+		
+func checkMenuStates():
+	if menuState == "main":
+		visible = true
 		center_buttons.visible = true
 		options_menu.visible = false
-	elif Global.menuState == "options":
+		if hud:
+			hud.visible = false
+
+	elif menuState == "options":
 		options_menu.visible = true
 		center_buttons.visible = false
-	elif Global.menuState == "notpaused":
+
+	elif menuState == "notpaused":
+		visible = false
 		options_menu.visible = false
 		center_buttons.visible = false
-		
+		if hud:
+			hud.visible = true
+
+func shaderOverlayLogic():
+	# checks for the shader's prescence in the scene
+	if pixel_shader:
+		if pixel_shader_enabled:
+			pixel_shader.visible = true
+		else:
+			pixel_shader.visible = false
 
 # resumes the game
 func _on_resume_pressed() -> void:
-	Global.menuState = "notpaused"
-	Global.isPaused = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	visible = false
-	get_tree().paused = false
+	initiateUnpause.emit()
 
 # opens options menu
 func _on_options_pressed() -> void:
-	Global.menuState = "options"
+	menuState = "options"
 
 # quits
 func _on_quit_pressed() -> void:
-	Global.menuState = "main"
+	menuState = "main"
 	get_tree().quit()
 
 
 func _on_back_pressed() -> void:
-	Global.menuState = "main"
+	menuState = "main"
 
 
 func _on_shader_toggle_toggled(toggled_on: bool) -> void:
-	Global.enableShader = toggled_on
-
-
-func _on_reset_scene_debug_pressed() -> void:
-	game_manager.unpauseGame()
-	get_tree().reload_current_scene()
-	
-
+	pixel_shader_enabled = toggled_on
 
 func _on_multiplater_pressed() -> void:
-	Global.menuState = "multiplayer"
+	menuState = "multiplayer"
+
+func _on_initiate_pause() -> void:
+	print("pausing")
+	menuState = "main"
+	get_tree().paused = true
+	isPaused = true
+	if show_mouse_on_enter:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
-func _on_back_button_multiplayer_pressed() -> void:
-	Global.menuState = "main"
+func _on_initiate_unpause() -> void:
+	print("unpausing")
+	menuState = "notpaused"
+	get_tree().paused = false
+	isPaused = false
+	if lock_mouse_on_exit:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+# when mouse enters quit button
+func _on_area_3d_mouse_entered() -> void:
+	mouse_in_quit_button = true
+	quit.get_active_material(0).albedo_color = Color.RED
+
+# when mouse leaves quit button
+func _on_area_3d_mouse_exited() -> void:
+	mouse_in_quit_button = false
+	quit.get_active_material(0).albedo_color = Color.WHITE

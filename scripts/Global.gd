@@ -20,10 +20,10 @@ Runs on a cooldown.
 
 const pistol_special_property = "Overclock"
 
-var blaster_ammo = 50
+var blaster_ammo = 35
 var is_pistol_charged = false
 var pistol_DAMAGE
-var pistol_MAGSIZE = 50 
+var pistol_MAGSIZE = 35
 var pistol_activate_special = false
 var pistol_special_state = false
 
@@ -121,6 +121,3 @@ func _process(_float) -> void:
 '''
 other global vars===============================================================
 '''
-var isPaused = false
-var menuState = "notpaused"
-var enableShader = false
