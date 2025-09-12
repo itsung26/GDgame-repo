@@ -1,5 +1,4 @@
 extends AnimatableBody3D
-@onready var timer: Timer = $Timer
 @onready var spawner_anims: AnimationPlayer = $SpawnerAnims
 const ENEMY = preload("res://scenes/enemy.tscn")
 @onready var spawn_point: Node3D = $SpawnPoint
@@ -7,10 +6,14 @@ const ENEMY = preload("res://scenes/enemy.tscn")
 
 var e
 var map_enviroment
-@export var enabled = true
+
+@export_category("Settings")
+@export var enabled := true
+@export var spawn_interval := 15.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$Timer.wait_time = spawn_interval
 	map_enviroment = get_tree().root
 	if enabled:
 		spawner_anims.play("spawner_open")

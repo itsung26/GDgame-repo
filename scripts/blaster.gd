@@ -44,9 +44,12 @@ func fire():
 	if body != null:
 		body.add_child(b)
 		b.global_transform.origin = bullet_ray_cast.get_collision_point()
-		b.look_at(bullet_ray_cast.get_collision_point() + bullet_ray_cast.get_collision_normal(), Vector3.UP)
-		
+		# Add a small offset to the target position to avoid collinearity
+		var look_target = bullet_ray_cast.get_collision_point() + bullet_ray_cast.get_collision_normal() + Vector3(0.001, 0, 0)
+		b.look_at(look_target, Vector3.UP)
+
 		if body.is_in_group("enemy"):
+			print(Global.pistol_DAMAGE)
 			body.HEALTH = body.HEALTH - Global.pistol_DAMAGE
 			print("HEALTH of enemy: " + str(body.HEALTH))
 
@@ -70,7 +73,7 @@ func fire():
 				# Add a process callback to update the hitmarker position every frame
 				hitmarker.process_mode = Node.PROCESS_MODE_ALWAYS
 		else:
-			print("bullet hit something that is not an enemy, and thus does not have HEALTH")
+			pass
 	
 	# bullet spread
 	bullet_ray_cast.rotation_degrees = Vector3(randf_range(-4, 4), randf_range(-184, -176), 0)
@@ -92,6 +95,6 @@ func special(weapon):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
 	if not player.pistol_damage_increase:
-		Global.pistol_DAMAGE = randi_range(3,6)
+		Global.pistol_DAMAGE = randi_range(player.Pistol_Damage_Range_Min,player.Pistol_Damage_Range_Max)
 	elif player.pistol_damage_increase:
-		Global.pistol_DAMAGE = randi_range(8,15)
+		Global.pistol_DAMAGE = randi_range(player.Pistol_Overclock_Damage_Range_Min,player.Pistol_OverClock_Damage_Range_Max)

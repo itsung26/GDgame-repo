@@ -22,7 +22,7 @@ const pistol_special_property = "Overclock"
 
 var blaster_ammo = 50
 var is_pistol_charged = false
-var pistol_DAMAGE:int = 5
+var pistol_DAMAGE
 var pistol_MAGSIZE = 50 
 var pistol_activate_special = false
 var pistol_special_state = false
@@ -116,6 +116,7 @@ func _process(_float) -> void:
 		current_MAGSIZE = BLL_MAGSIZE
 		current_special_property = BLL_special_property
 		current_AMMO = BLL_ammo
+
 
 '''
 other global vars===============================================================

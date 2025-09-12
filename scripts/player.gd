@@ -12,27 +12,31 @@ extends CharacterBody3D
 @onready var black_hole_launcher: Node3D = $Pivot/Camera3D/Guns/BlackHoleLauncher
 @onready var bll_animator: AnimationPlayer = $BLLAnimator
 @onready var arm_pivot_pistol: Node3D = $Pivot/Camera3D/ArmPivotPistol
+@onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
 
-@export_category("traits")
-@export var HEALTH:float = 100.0
+@export_category("Settings")
+@export var HEALTH: int = 100
+@export var max_camera_roll: float = 7.5 # degrees, adjust as desired
+@export var camera_roll_speed: float = 6.5 # how quickly the camera rolls
 
-@export_category("movement")
-@export var SPEED = 7.5
+@export_category("Movement")
+@export var SPEED = 12.0
 @export var JUMP_VELOCITY = 8.0
 @export var look_sensitivity = 0.1
 @export var gravity_enabled = true
-@export var Stopwalk_slowdown:float = 7.5
+@export var Aerial_Slowdown := 0.0
 
-@export_category("grappling hook")
+@export_category("Grappling Hook")
+@export var Grapple_Enabled:= true
 @export var GRAPPLE_MAX_RANGE = 50
 @export var GRAPPLE_SPEED_MAX = 20
 @export var GRAPPLE_HOP = 8
 
-@export_category("pistol")
-@export var pistol_sway_enabled : bool = false
-@export var pistol_sway_min : float = -5.0
-@export var pistol_sway_max : float = 5.0
-@export var pistol_sway_factor : float = 1.0
+@export_category("Pistol")
+@export var Pistol_Damage_Range_Min := 12
+@export var Pistol_Damage_Range_Max := 17
+@export var Pistol_Overclock_Damage_Range_Min := 17
+@export var Pistol_OverClock_Damage_Range_Max := 22
 
 var player_state
 
@@ -53,6 +57,9 @@ var weapon_anim_playing
 var player_move_input_enabled = true
 var player_look_input_enabled = true
 var player_fire_input_enabled = true
+var direction
+var input_dir := Vector2.ZERO
+var camera_target_roll: float = 0.0
 
 func _ready() -> void:
 	# object reference definitions
@@ -79,11 +86,23 @@ func _input(event) -> void:
 		var pitch = -mouse_delta.y
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
-		
+
+func cameraRoll(delta):
+	# Set target roll based on left/right input
+	if input_dir.x > 0:
+		camera_target_roll = -max_camera_roll # rolling right (negative z)
+	elif input_dir.x < 0:
+		camera_target_roll = max_camera_roll  # rolling left (positive z)
+	else:
+		camera_target_roll = 0.0
+
+	# Smoothly interpolate the camera roll
+	camera_3d.rotation.z = lerp_angle(camera_3d.rotation.z, deg_to_rad(camera_target_roll), camera_roll_speed * delta)
+
 # when overclock ends
 func zoomIn():
 	camera_animator.play("camera_overclock_zoom_in")
-	SPEED = 5
+	SPEED = SPEED / 2
 	JUMP_VELOCITY = prev_jump_velocity
 	gun_animator.speed_scale = 1.5
 	pistol_damage_increase = false
@@ -101,7 +120,7 @@ func zoomOut():
 	# muzzle_flash.modulate = Color.RED
 	# muzzle_flash_2.modulate = Color.RED
 	# special_light.visible = true
-	
+
 func grapple():
 	
 	# if grapple and not grappling, grapple and set the positions
@@ -125,10 +144,9 @@ func grapple():
 		player_state = "idle"
 		
 
-func _physics_process(delta: float) -> void:		
+func _physics_process(delta: float) -> void:
 	
-	
-
+	cameraRoll(delta)
 	
 	# grapple
 	grapple()
@@ -150,20 +168,21 @@ func _physics_process(delta: float) -> void:
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("left", "right", "forward", "back")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	input_dir = Input.get_vector("left", "right", "forward", "back")
+	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction and player_move_input_enabled:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
-	
 	# Player will stop moving in the air when the movement is stopped
-	else:
-		velocity.x = move_toward(velocity.x, 0, Stopwalk_slowdown)
-		velocity.z = move_toward(velocity.z, 0, Stopwalk_slowdown)
+	elif direction == Vector3.ZERO and not is_on_floor():
+		velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
+		velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
+	elif direction == Vector3.ZERO and is_on_floor():
+		velocity.x = move_toward(velocity.x, 0.0, 10.0)
+		velocity.z = move_toward(velocity.z, 0.0, 10.0)
 		
 	playerPhysicsStates()
-	
 	move_and_slide()
 
 func gunInputs(curr_weap): # run every frame in _process
@@ -211,7 +230,8 @@ func gunInputs(curr_weap): # run every frame in _process
 				pass
 			else:
 				if Global.BLL_ammo > 0:
-					black_hole_launcher.BLLFire()
+					black_hole_launcher.bll_animator.play("Black Hole Launcher/BLL_cooldown")
+
 	
 	# inspect block=======================================================================================
 	if Input.is_action_just_pressed("inspect weapon"):
@@ -254,24 +274,29 @@ func gunInputs(curr_weap): # run every frame in _process
 		elif curr_weap == "BLL":
 			pass
 	# ======================================================================================================
+	
 func hideGuns():
 	 # hide weapon on switch
 	if Global.current_weapon == "pistol":
+		arm_pivot_bll.visible = false
 		arm_pivot_pistol.visible = true
 		pistol.visible = true
 		black_hole_launcher.visible = false
 		shotgun.visible = false
 	elif Global.current_weapon == "shotgun":
+		arm_pivot_bll.visible = false
 		arm_pivot_pistol.visible = false
 		shotgun.visible = true
 		black_hole_launcher.visible = false
 		pistol.visible = false
 	elif Global.current_weapon == "melee":
+		arm_pivot_bll.visible = false
 		arm_pivot_pistol.visible = false
 		black_hole_launcher.visible = false
 		shotgun.visible = false
 		pistol.visible = false
 	elif Global.current_weapon == "BLL":
+		arm_pivot_bll.visible = true
 		arm_pivot_pistol.visible = false
 		black_hole_launcher.visible = true
 		pistol.visible = false

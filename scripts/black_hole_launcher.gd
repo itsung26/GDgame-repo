@@ -46,4 +46,3 @@ func BLLFire():
 	# move in the direction of the FireDirection node
 	var direction = -fire_marker.global_transform.basis.z.normalized()
 	black_h_projectile.linear_velocity = direction * speed
-	bll_animator.play("Black Hole Launcher/BLL_cooldown")

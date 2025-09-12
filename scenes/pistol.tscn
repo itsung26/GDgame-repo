@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=4 uid="uid://csatdjhfoaqcw"]
+[gd_scene load_steps=11 format=4 uid="uid://csatdjhfoaqcw"]
 
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/blaster.gd" id="1_buff3"]
 [ext_resource type="Texture2D" uid="uid://dylc8vx4w23lk" path="res://assets/gunmodels/pistol/blaster-c_colormap.png" id="2_1e3ry"]
+[ext_resource type="Texture2D" uid="uid://baq6hfu3eiprx" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/muzzle_01.png" id="3_1e3ry"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f3qty"]
 resource_name = "colormap.001"
@@ -132,3 +133,24 @@ skeleton = NodePath("")
 transform = Transform3D(0.116955, 0, 0, 0, 6.97105e-09, -0.116955, 0, 0.116955, 6.97105e-09, 0, 0, 0)
 mesh = SubResource("ArrayMesh_y4d8n")
 skeleton = NodePath("")
+
+[node name="VFX" type="Node3D" parent="."]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="VFX"]
+
+[node name="muzzle" type="Node3D" parent="VFX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.191912, -1.96671)
+
+[node name="MuzzleFlashV" type="Sprite3D" parent="VFX/muzzle"]
+transform = Transform3D(1.91068e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 0, 0, -2.40091)
+visible = false
+modulate = Color(0, 1, 1, 1)
+texture = ExtResource("3_1e3ry")
+
+[node name="MuzzleFlashH" type="Sprite3D" parent="VFX/muzzle"]
+transform = Transform3D(1, 4.37114e-08, -2.01746e-14, 2.01746e-14, 1.91069e-15, 1, 4.37114e-08, -1, 1.91068e-15, 0, 0, -2.40091)
+visible = false
+modulate = Color(0, 1, 1, 1)
+texture = ExtResource("3_1e3ry")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="VFX/muzzle"]

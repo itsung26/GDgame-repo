@@ -138,6 +138,5 @@ func _process(_delta) -> void:
 	current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
 	current_player_pos.text = "Player Pos: " + str(player.global_position)
 	current_player_health.text = "Player health: " + str(player.HEALTH)
-	
 	# ----------------------------------------------------------------------------------------------
 	

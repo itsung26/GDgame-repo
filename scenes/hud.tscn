@@ -622,70 +622,70 @@ position = Vector2(225, 151)
 scale = Vector2(0.500584, 0.500584)
 sprite_frames = SubResource("SpriteFrames_48y67")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="DebugContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="DebugTitle" type="Label" parent="VBoxContainer"]
+[node name="DebugTitle" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Debug Properties:"
 
-[node name="==========" type="Label" parent="VBoxContainer"]
+[node name="==========" type="Label" parent="DebugContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "============================="
 
-[node name="AnimDebug" type="Label" parent="VBoxContainer"]
+[node name="AnimDebug" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "current animation: null"
 
-[node name="BodyHitDebug" type="Label" parent="VBoxContainer"]
+[node name="BodyHitDebug" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Last body hit: null"
 
-[node name="currentWeaponSpecial" type="Label" parent="VBoxContainer"]
+[node name="currentWeaponSpecial" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Current weapon ability: null"
 
-[node name="CurrentWeapon" type="Label" parent="VBoxContainer"]
+[node name="CurrentWeapon" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Current weapon: null"
 
-[node name="FireTypeDebug" type="Label" parent="VBoxContainer"]
+[node name="FireTypeDebug" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "FireType = null"
 
-[node name="CurrentLookDir" type="Label" parent="VBoxContainer"]
+[node name="CurrentLookDir" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Currently looking in: "
 
-[node name="CurrentPlayerPos" type="Label" parent="VBoxContainer"]
+[node name="CurrentPlayerPos" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Current player pos: "
 
-[node name="CurrentPlayerHealth" type="Label" parent="VBoxContainer"]
+[node name="CurrentPlayerHealth" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Current player health: "
 
-[node name="fpsCounter" type="Label" parent="VBoxContainer"]
+[node name="fpsCounter" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 41
 text = "FPS: null"
 
-[node name="==========2" type="Label" parent="VBoxContainer"]
+[node name="==========2" type="Label" parent="DebugContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "============================="
@@ -697,7 +697,19 @@ offset_top = 625.0
 offset_right = 1151.0
 offset_bottom = 655.0
 theme_override_font_sizes/font_size = 21
-text = "ALPHA BUILD 0.9.0"
+text = "ALPHA BUILD 0.9.4"
+
+[node name="DebugShapesText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.5
+offset_right = 94.5
+offset_bottom = 30.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 21
+text = "DEBUG SHAPES: ENABLED"
 
 [node name="AmmoContainer" type="BoxContainer" parent="."]
 layout_mode = 1

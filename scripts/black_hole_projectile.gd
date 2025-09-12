@@ -63,7 +63,7 @@ func pullBodies(_blackHolePos):
 		
 # mimicks queue_free() but with extra steps before leaving scene
 func blackHoleExit():
-	Global.player_move_input_enabled = true
+	get_node("../Player").player_move_input_enabled = true
 	for body in pull_box.get_overlapping_bodies():
 		if body.is_in_group("enemy"):
 			body.being_pulled = false

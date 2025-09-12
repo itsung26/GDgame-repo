@@ -301,15 +301,19 @@ speed_scale = 3.0
 [node name="WeaponWheel" parent="." instance=ExtResource("5_bq1pm")]
 
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.07014, 0, -1.25347)
 
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotPistol" index="0"]
-transform = Transform3D(0.325358, -0.512602, 0.794594, 0.927407, 0.00898631, -0.373943, 0.184544, 0.858578, 0.478315, 0.171948, 1.28058, -0.0726245)
+transform = Transform3D(0.325357, -0.512599, 0.794596, 0.927407, 0.00898343, -0.373943, 0.184545, 0.85858, 0.478312, 0.171948, 1.28058, -0.0726245)
+
+[node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
+transform = Transform3D(0.921618, 0.376123, 0.0956491, 0.148142, -0.113149, -0.982472, -0.358708, 0.919634, -0.16, 0.546436, 1.34883, -0.0393332)
 
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.87227, 0)
+visible = false
 navigation_mesh = SubResource("NavigationMesh_idmwj")
 
 [node name="WorldStructures" type="Node3D" parent="."]
@@ -394,7 +398,15 @@ shape = SubResource("ConcavePolygonShape3D_he5cq")
 
 [node name="enemy_spawner" parent="WorldObjects" instance=ExtResource("10_idmwj")]
 transform = Transform3D(-2.03662, 0, 3.07522e-07, 0, 2.03662, 0, -3.07522e-07, 0, -2.03662, 9.04049, 9.84669e-05, -0.643265)
-enabled = false
+spawn_interval = 5.0
+
+[node name="enemy_spawner2" parent="WorldObjects" instance=ExtResource("10_idmwj")]
+transform = Transform3D(-1.16629, 0, 1.66961, 0, 2.03662, 0, -1.66961, 0, -1.16629, 2.4797, 9.84669e-05, 13.1073)
+spawn_interval = 5.0
+
+[node name="enemy_spawner3" parent="WorldObjects" instance=ExtResource("10_idmwj")]
+transform = Transform3D(-1.20966, 0, -1.63846, 0, 2.03662, 0, 1.63846, 0, -1.20966, 1.42082, 9.84669e-05, -14.6058)
+spawn_interval = 5.0
 
 [node name="BlackHoleAmmoCrate" parent="WorldObjects" instance=ExtResource("16_4i6sm")]
 transform = Transform3D(-0.20424, 0, 0.978921, 0, 1, 0, -0.978921, 0, -0.20424, -1.03915, -4.76837e-07, -5.24995)
