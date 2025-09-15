@@ -146,8 +146,6 @@ collision_mask = 15
 mass = 0.001
 gravity_scale = 0.0
 script = ExtResource("1_rfnx6")
-BH_pull_speed = 25
-DAMAGE = 1.0
 
 [node name="horizon" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.41352, 0, 0, 0, -1.05498e-07, -2.41352, 0, 2.41352, -1.05498e-07, 0, 0, 0)

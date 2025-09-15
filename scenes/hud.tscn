@@ -648,10 +648,10 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Last body hit: null"
 
-[node name="currentWeaponSpecial" type="Label" parent="DebugContainer"]
+[node name="CurrentPlayerState" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Current weapon ability: null"
+text = "Current player state: null state"
 
 [node name="CurrentWeapon" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true

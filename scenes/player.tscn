@@ -1340,7 +1340,6 @@ target_position = Vector3(0, 0, 900)
 
 [node name="ArmPivotPistol" type="Node3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
-visible = false
 
 [node name="ArmR" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotPistol"]
 transform = Transform3D(0.325357, -0.512599, 0.794597, 0.927407, 0.00898343, -0.373943, 0.184545, 0.85858, 0.478312, 0.171948, 1.28058, -0.0726245)
@@ -1356,15 +1355,16 @@ surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
 [node name="ArmPivotBLL" type="Node3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+visible = false
 
 [node name="ArmR" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotBLL"]
-transform = Transform3D(0.921618, 0.376123, 0.0956491, 0.148142, -0.113149, -0.982472, -0.358708, 0.919634, -0.16, 0.546436, 1.34883, -0.0393332)
+transform = Transform3D(0.921616, 0.376129, 0.0956483, 0.148142, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
 mesh = SubResource("CapsuleMesh_y4r1p")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
 [node name="ArmL" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotBLL"]
-transform = Transform3D(0.764393, -0.63847, 0.0897759, -0.331689, -0.50881, -0.794415, 0.552889, 0.577467, -0.600705, 0.0818599, 1.21195, -0.397836)
+transform = Transform3D(0.764391, -0.638471, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577465, -0.600704, 0.0818599, 1.21195, -0.397836)
 mesh = SubResource("CapsuleMesh_d2wvv")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
@@ -1378,6 +1378,7 @@ visible = false
 
 [node name="BlackHoleLauncher" parent="Pivot/Camera3D/Guns" instance=ExtResource("11_d2wvv")]
 transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)
+visible = false
 
 [node name="PanelPivot" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.182872, 0.363, 1.19209e-07)
@@ -1393,25 +1394,12 @@ transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8
 
 [node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
 transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, -0.44, 0.28, 0.535)
-visible = false
 
 [node name="magazine" parent="Pivot/Camera3D/Guns/Pistol/pistolPart" index="1"]
 transform = Transform3D(0.116955, 0, 0, 0, -4.23376e-07, -0.116955, 0, 0.116955, -4.23376e-07, 0, -1.08348, -0.896698)
 
 [node name="bolt" parent="Pivot/Camera3D/Guns/Pistol/pistolPart" index="2"]
 transform = Transform3D(0.116955, 0, 0, 0, -5.11227e-09, -0.116955, 0, 0.116955, -5.11227e-09, 0, 0, 0.725)
-
-[node name="GPUParticles3D" parent="Pivot/Camera3D/Guns/Pistol/VFX" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="muzzle" parent="Pivot/Camera3D/Guns/Pistol/VFX" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.191912, -1.96671)
-
-[node name="MuzzleFlashV" parent="Pivot/Camera3D/Guns/Pistol/VFX/muzzle" index="0"]
-transform = Transform3D(1.91068e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 0, 0, -2.40091)
-
-[node name="MuzzleFlashH" parent="Pivot/Camera3D/Guns/Pistol/VFX/muzzle" index="1"]
-transform = Transform3D(1, 4.37114e-08, -2.01746e-14, 2.01746e-14, 1.91069e-15, 1, 4.37114e-08, -1, 1.91068e-15, 0, 0, -2.40091)
 
 [node name="OmniLight3D" parent="Pivot/Camera3D/Guns/Pistol/VFX/muzzle" index="2"]
 visible = false

@@ -26,6 +26,7 @@ var current_frames_per_second = "null"
 @onready var black_hole_cooldown_icon: Control = $BlackHoleCooldownIcon
 @onready var black_hole_cooldown_timer: Label = $BlackHoleCooldownIcon/BlackHoleCooldownTimer
 @onready var key_animator_tab: AnimationPlayer = $KeyAnimator_TAB
+@onready var current_player_state: Label = %CurrentPlayerState
 
 signal zoom_in_trigger
 signal zoom_out_trigger
@@ -52,7 +53,7 @@ func updateAmmoCounter():
 	
 func hideIcons():
 	# shows or hides ui elements based on current weapon
-	if Global.current_weapon == "pistol":
+	if player.weapon_state == player.weapon_states.PISTOL:
 		overclock_bar.visible = true
 		pistol_bullet_icon.visible = true
 		black_hole_2.visible = false
@@ -60,7 +61,7 @@ func hideIcons():
 	else:
 		overclock_bar.visible = false
 	
-	if Global.current_weapon == "BLL":
+	if player.weapon_state == player.weapon_states.BLL:
 		reload_prompt.visible = false
 		pistol_bullet_icon.visible = false
 		black_hole_2.visible = true
@@ -102,24 +103,24 @@ func _process(_delta) -> void:
 	if Global.pistol_activate_special :
 		if not animation_player.is_playing():
 			animation_player.play("bar_charge_empty")
-			
+	
 	# set the corresponding input keys animation frames to react to the current weapon
-	if Global.current_weapon == "pistol":
+	if player.weapon_state == player.weapon_states.PISTOL:
 		key_animator_2.play("key_2_set_dark")
 	else:
 		key_animator_2.play("key_2_set_light")
 	
-	if Global.current_weapon == "shotgun":
+	if player.weapon_state == player.weapon_states.PISTOL:
 		key_animator_3.play("key_3_set_dark")
 	else:
 		key_animator_3.play("key_3_set_light")
 		
-	if Global.current_weapon == "melee":
+	if player.weapon_state == player.weapon_states.MELEE:
 		key_animator_1.play("key_1_set_light")
 	else:
 		key_animator_1.play("key_1_set_dark")
 		
-	if Global.current_weapon == "BLL":
+	if player.weapon_state == player.weapon_states.BLL:
 		key_animator_4.play("key_4_set_light")
 	else:
 		key_animator_4.play("key_4_set_dark")
@@ -133,10 +134,10 @@ func _process(_delta) -> void:
 	anim_debug.text = "current animation: " + str(player.weapon_anim_playing)
 	fire_type_debug.text = "Current fireType: " + str(Global.current_fireType)
 	body_hit_debug.text = "last object hit: " + str(Global.body_hit)
-	current_weapon_special.text = "Current weapon ability: " + Global.current_special_property
-	current_weapon.text = "Current weapon: " + str(Global.current_weapon)
+	current_weapon.text = "Current weapon state: " + player.current_weapon_string_name
 	current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
 	current_player_pos.text = "Player Pos: " + str(player.global_position)
 	current_player_health.text = "Player health: " + str(player.HEALTH)
+	current_player_state.text = "Current player state: " + player.current_player_string_name
 	# ----------------------------------------------------------------------------------------------
 	

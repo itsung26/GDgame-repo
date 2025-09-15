@@ -34,7 +34,7 @@ func fire():
 		b_mesh.set_surface_override_material(0, BLUE_EMISSIVE_MATERIAL.duplicate())
 	
 	# below occurs regardless of wether the bullets hit something or otherwise
-	Global.blaster_ammo -= 1
+	player.PISTOL_AMMO -= 1
 	
 	# signal the body that was just hit for debug
 	Global.body_hit = body
@@ -49,7 +49,6 @@ func fire():
 		b.look_at(look_target, Vector3.UP)
 
 		if body.is_in_group("enemy"):
-			print(Global.pistol_DAMAGE)
 			body.HEALTH = body.HEALTH - Global.pistol_DAMAGE
 			print("HEALTH of enemy: " + str(body.HEALTH))
 
@@ -80,21 +79,20 @@ func fire():
 
 
 func reload():
-	Global.blaster_ammo = Global.pistol_MAGSIZE
+	player.PISTOL_AMMO = player.PISTOL_MAGSIZE
 	
 # called on right click
-func special(weapon):
-	if weapon == "pistol":
-		# if the pistol is charged and not busy, activate the special state
-		if Global.is_pistol_charged:
-			# special state is currently active
-			Global.pistol_activate_special = true
-			Global.pistol_special_state = true
+func special():
+	# if the pistol is charged and not busy, activate the special state
+	if Global.is_pistol_charged:
+		# special state is currently active
+		Global.pistol_activate_special = true
+		Global.pistol_special_state = true
 			
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
 	if not player.pistol_damage_increase:
-		Global.pistol_DAMAGE = randi_range(player.Pistol_Damage_Range_Min,player.Pistol_Damage_Range_Max)
+		pistol_current_DAMAGE = randi_range(player.Pistol_Damage_Range_Min,player.Pistol_Damage_Range_Max)
 	elif player.pistol_damage_increase:
-		Global.pistol_DAMAGE = randi_range(player.Pistol_Overclock_Damage_Range_Min,player.Pistol_OverClock_Damage_Range_Max)
+		pistol_current_DAMAGE = randi_range(player.Pistol_Overclock_Damage_Range_Min,player.Pistol_OverClock_Damage_Range_Max)

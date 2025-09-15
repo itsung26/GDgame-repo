@@ -1,0 +1,355 @@
+[gd_scene load_steps=7 format=3 uid="uid://sgfq8qp5ngil"]
+
+[ext_resource type="Material" uid="uid://ckecn04vpaqof" path="res://assets/materials/explosion_material.tres" id="1_0yjw8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_bqc8k"]
+material = ExtResource("1_0yjw8")
+radius = 2.5
+height = 5.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rsxgi"]
+
+[sub_resource type="Animation" id="Animation_8p3ff"]
+resource_name = "explode_and_die"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosioncore:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(2.26628, 2.26628, 2.26628)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("explosioncore:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.647059, 0, 1), Color(1, 0.647059, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("explosionTrails/MeshInstance3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.06164, -2.37775)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("explosionTrails/MeshInstance3D3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.82508, -0.0840063, 2.34553)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("explosionTrails/MeshInstance3D4:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.34285, 0.928464, 1.85021)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("explosionTrails/MeshInstance3D5:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.64154, -1.3731, 0.0217189)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("explosionTrails/MeshInstance3D2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.2217, -0.00891846, -1.84676)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("explosionTrails/MeshInstance3D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.527, 0.887, 0.527), Vector3(0.527, 7.897, 0.527)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("explosionTrails/MeshInstance3D3:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.527, 0.887, 0.527)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("explosionTrails/MeshInstance3D4:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.527, 0.887, 0.527)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("explosionTrails/MeshInstance3D5:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.527, 0.887, 0.527)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("explosionTrails/MeshInstance3D2:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.527, 0.887, 0.527)]
+}
+
+[sub_resource type="Animation" id="Animation_qxe05"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosioncore:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("explosioncore:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.647059, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("explosionTrails/MeshInstance3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.06164, -2.37775)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("explosionTrails/MeshInstance3D3:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.82508, -0.0840063, 2.34553)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("explosionTrails/MeshInstance3D4:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.34285, 0.928464, 1.85021)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("explosionTrails/MeshInstance3D5:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-2.64154, -1.3731, 0.0217189)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("explosionTrails/MeshInstance3D2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.2217, -0.00891846, -1.84676)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("explosionTrails/MeshInstance3D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.527, 0.887, 0.527)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("explosionTrails/MeshInstance3D3:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.527, 0.887, 0.527)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("explosionTrails/MeshInstance3D4:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.527, 0.887, 0.527)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("explosionTrails/MeshInstance3D5:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.527, 0.887, 0.527)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("explosionTrails/MeshInstance3D2:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.527, 0.887, 0.527)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7i6j4"]
+_data = {
+&"RESET": SubResource("Animation_qxe05"),
+&"explode_and_die": SubResource("Animation_8p3ff")
+}
+
+[node name="ExplosionVFX" type="Node3D"]
+
+[node name="explosioncore" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_bqc8k")
+
+[node name="explosionTrails" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="explosionTrails"]
+transform = Transform3D(0.527, 0, 0, 0, 0.541493, 0.417402, 0, -0.702534, 0.321721, 0, 2.06164, -2.37775)
+mesh = SubResource("CylinderMesh_rsxgi")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_0yjw8")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="explosionTrails"]
+transform = Transform3D(-0.0539259, 0.592173, -0.388632, -0.520917, -0.134383, -1.66566e-09, -0.0588787, 0.646561, 0.355941, 1.82508, -0.0840063, 2.34553)
+mesh = SubResource("CylinderMesh_rsxgi")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_0yjw8")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="explosionTrails"]
+transform = Transform3D(-0.111351, -0.685076, -0.315685, -0.508322, 0.234055, -3.93201e-09, 0.0833009, 0.512502, -0.421985, -2.34285, 0.928464, 1.85021)
+mesh = SubResource("CylinderMesh_rsxgi")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_0yjw8")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="explosionTrails"]
+transform = Transform3D(-0.289773, -0.740876, 0, 0.440182, -0.48772, 0, 0, 0, 0.527, -2.64154, -1.3731, 0.0217189)
+mesh = SubResource("CylinderMesh_rsxgi")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_0yjw8")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="explosionTrails"]
+transform = Transform3D(0.386163, -0.603595, 1.56757e-08, 0, -3.8772e-08, -0.527, 0.358619, 0.649955, -1.68797e-08, 2.2217, -0.00891846, -1.84676)
+mesh = SubResource("CylinderMesh_rsxgi")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_0yjw8")
+
+[node name="ExplodeAndDie" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7i6j4")
+}
+autoplay = "explode_and_die"

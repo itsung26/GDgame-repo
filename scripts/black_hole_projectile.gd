@@ -13,9 +13,6 @@ var enemy_pull_dir : Vector3
 var fire_dir : Vector3
 var player
 
-@export var BH_pull_speed = 10
-@export var DAMAGE:float = 0.0
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = get_tree().current_scene.get_node("Player")
@@ -48,17 +45,17 @@ func pullBodies(_blackHolePos):
 		
 		# handle pull for enemies
 		if body.is_in_group("enemy"):
-			body.HEALTH -= DAMAGE
+			body.HEALTH -= player.black_hole_damage_per_frame
 			enemy_pull_dir = (global_position - body.global_position).normalized()
-			body.velocity = (enemy_pull_dir * BH_pull_speed)
+			body.velocity = (enemy_pull_dir * player.BLL_pull_speed)
 			body.being_pulled = true
 
 		# handle pull for players
 		if body.is_in_group("players"):
 			body.cause_of_death = "Sucked into a black hole"
-			body.HEALTH -= DAMAGE
+			body.HEALTH -= player.black_hole_damage_per_frame
 			player_pull_dir = (global_position - body.global_position).normalized()
-			body.velocity = (player_pull_dir * BH_pull_speed)
+			body.velocity = (player_pull_dir * player.BLL_pull_speed)
 			
 		
 # mimicks queue_free() but with extra steps before leaving scene

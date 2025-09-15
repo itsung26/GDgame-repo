@@ -18,9 +18,9 @@ func _process(_delta: float) -> void:
 
 	# change weapon based on the mouse being in the box and releasing tab
 	if mouse_in_PistolBox and Input.is_action_just_released("weaponwheel"):
-		Global.current_weapon = "pistol"
+		player.weapon_state = player.weapon_states.PISTOL
 	if mouse_in_BlackHoleBox and Input.is_action_just_released("weaponwheel"):
-		Global.current_weapon = "BLL"
+		player.weapon_state = player.weapon_states.BLL
 	
 	# makes weapon wheel visible
 	if Input.is_action_pressed("weaponwheel"):

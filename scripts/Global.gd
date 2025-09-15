@@ -20,10 +20,7 @@ Runs on a cooldown.
 
 const pistol_special_property = "Overclock"
 
-var blaster_ammo = 35
 var is_pistol_charged = false
-var pistol_DAMAGE
-var pistol_MAGSIZE = 35
 var pistol_activate_special = false
 var pistol_special_state = false
 
@@ -81,7 +78,7 @@ debug variables for the custom debug window=====================================
 '''
 var body_hit = "null"
 var anim_playing = "null"
-var current_weapon = "pistol"
+# var current_weapon = "pistol"
 var current_fireType = "RAYCAST_PISTOL"
 
 '''
@@ -91,31 +88,31 @@ these variables update every frame to the current type of element that correspon
 EX: current_weapon is "shotgun", current_magsize updates to shotgun_MAGSIZE
 this is inefficient, but eliminates the need for a huge dictionary with properties
 '''
-func _process(_float) -> void:
+# func _process(_float) -> void:
 	
-	if current_weapon == "pistol":
-		current_DAMAGE = pistol_DAMAGE
-		current_MAGSIZE = pistol_MAGSIZE
-		current_special_property = pistol_special_property
-		current_AMMO = blaster_ammo
-	
-	elif current_weapon == "shotgun":
-		current_DAMAGE = shotgun_DAMAGE
-		current_MAGSIZE = shotgun_MAGSIZE
-		current_special_property = shotgun_special_property
-		current_AMMO = shotgun_ammo
-		
-	elif current_weapon == "melee":
-		current_DAMAGE = melee_DAMAGE
-		current_MAGSIZE = melee_MAGSIZE
-		current_special_property = melee_special_property
-		current_AMMO = melee_ammo
-	
-	elif current_weapon == "BLL":
-		current_DAMAGE = BLL_DAMAGE
-		current_MAGSIZE = BLL_MAGSIZE
-		current_special_property = BLL_special_property
-		current_AMMO = BLL_ammo
+	#if current_weapon == "pistol":
+		#current_DAMAGE = pistol_DAMAGE
+		#current_MAGSIZE = pistol_MAGSIZE
+		#current_special_property = pistol_special_property
+		#current_AMMO = blaster_ammo
+	#
+	#elif current_weapon == "shotgun":
+		#current_DAMAGE = shotgun_DAMAGE
+		#current_MAGSIZE = shotgun_MAGSIZE
+		#current_special_property = shotgun_special_property
+		#current_AMMO = shotgun_ammo
+		#
+	#elif current_weapon == "melee":
+		#current_DAMAGE = melee_DAMAGE
+		#current_MAGSIZE = melee_MAGSIZE
+		#current_special_property = melee_special_property
+		#current_AMMO = melee_ammo
+	#
+	#elif current_weapon == "BLL":
+		#current_DAMAGE = BLL_DAMAGE
+		#current_MAGSIZE = BLL_MAGSIZE
+		#current_special_property = BLL_special_property
+		#current_AMMO = BLL_ammo
 
 
 '''

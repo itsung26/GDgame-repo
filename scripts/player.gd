@@ -13,6 +13,7 @@ extends CharacterBody3D
 @onready var bll_animator: AnimationPlayer = $BLLAnimator
 @onready var arm_pivot_pistol: Node3D = $Pivot/Camera3D/ArmPivotPistol
 @onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
+@onready var hud: Control = $"../HUD"
 
 @export_category("Settings")
 @export var HEALTH: int = 100
@@ -33,12 +34,28 @@ extends CharacterBody3D
 @export var GRAPPLE_HOP = 8
 
 @export_category("Pistol")
+@export var PISTOL_MAGSIZE:= 35
+var PISTOL_AMMO := PISTOL_MAGSIZE
 @export var Pistol_Damage_Range_Min := 12
 @export var Pistol_Damage_Range_Max := 17
 @export var Pistol_Overclock_Damage_Range_Min := 17
 @export var Pistol_OverClock_Damage_Range_Max := 22
 
-var player_state
+@export_category("Black Hole Launcher")
+@export var BLL_MAGSIZE := 3
+var BLL_AMMO := BLL_MAGSIZE
+@export var black_hole_damage_per_frame := 1.0
+@export var BLL_projectile_travel_speed := 300.0
+@export var BLL_pull_speed := 10
+
+# incorporation of 2 seperate FSMs (finite state machines) to replace conditional trees
+enum player_states{IDLE, DEAD, GRAPPLING, FALLING}
+enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
+
+var player_state:player_states = player_states.IDLE:
+	set = set_player_state
+var weapon_state:weapon_states = weapon_states.PISTOL:
+	set = set_weapon_state
 
 var grapple_target_pos = Vector3.ZERO
 var grapple_dir = Vector3.ZERO
@@ -60,6 +77,8 @@ var player_fire_input_enabled = true
 var direction
 var input_dir := Vector2.ZERO
 var camera_target_roll: float = 0.0
+var current_weapon_string_name:String = "null state"
+var current_player_string_name:String = "null state"
 
 func _ready() -> void:
 	# object reference definitions
@@ -77,6 +96,55 @@ func _ready() -> void:
 	# grapple ray target init + range
 	grapple_ray_cast.target_position = Vector3(0, 0, -GRAPPLE_MAX_RANGE)
 	
+func set_player_state(new_player_state:int):
+	var previous_player_state := player_state
+	player_state = new_player_state
+	if new_player_state == player_states.DEAD:
+		player_fire_input_enabled = false
+		player_look_input_enabled = false
+		player_move_input_enabled = false
+	
+func set_weapon_state(new_weapon_state:int):
+	var previous_weapon_state := weapon_state
+	weapon_state = new_weapon_state
+	
+	# run when the state was switched from
+	if  previous_weapon_state == weapon_states.PISTOL:
+		arm_pivot_pistol.visible = false
+		pistol.visible = false
+	
+	elif previous_weapon_state == weapon_states.BLL:
+		arm_pivot_bll.visible = false
+		black_hole_launcher.visible = false
+	
+	# run when the state was switched to
+	if new_weapon_state == weapon_states.PISTOL:
+	
+		# make visible
+		arm_pivot_pistol.visible = true
+		pistol.visible = true
+
+		# if gun is not reloading, play equip anim
+		if gun_animator.current_animation == "reload_pistol":
+			pass
+		else:
+			gun_animator.stop()
+			gun_animator.play("equip_pistol")
+	
+	elif new_weapon_state == weapon_states.BLL:
+	
+		# make visible
+		arm_pivot_bll.visible = true
+		black_hole_launcher.visible = true
+		
+		# if gun is not on cooldown anim, play equip anim
+		if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
+			pass
+		else:
+			bll_animator.stop()
+			bll_animator.play("Black Hole Launcher/BLL_equip")
+
+# camera control by mouse input relative to last frame
 func _input(event) -> void:
 	# handle mouselook
 	if event is InputEventMouseMotion and player.player_look_input_enabled:
@@ -87,7 +155,7 @@ func _input(event) -> void:
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
 
-func cameraRoll(delta):
+func cameraFX(delta):
 	# Set target roll based on left/right input
 	if input_dir.x > 0:
 		camera_target_roll = -max_camera_roll # rolling right (negative z)
@@ -98,73 +166,70 @@ func cameraRoll(delta):
 
 	# Smoothly interpolate the camera roll
 	camera_3d.rotation.z = lerp_angle(camera_3d.rotation.z, deg_to_rad(camera_target_roll), camera_roll_speed * delta)
+	
+	# clamp the camera view to prevent back breaking
+	var b = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
+	pivot.rotation_degrees.x = b
 
-# when overclock ends
+# called when overclock ends
 func zoomIn():
 	camera_animator.play("camera_overclock_zoom_in")
 	SPEED = SPEED / 2
 	JUMP_VELOCITY = prev_jump_velocity
 	gun_animator.speed_scale = 1.5
 	pistol_damage_increase = false
-	# muzzle_flash.modulate = Color.from_rgba8(60, 188, 235)
-	# muzzle_flash_2.modulate = Color.from_rgba8(60, 188, 235)
-	# special_light.visible = false
 
-# when overclock begins
+# called when overclock begins
 func zoomOut():
 	camera_animator.play("camera_overclock_zoom_out")
 	SPEED = SPEED * 2
 	JUMP_VELOCITY = JUMP_VELOCITY * 1.5
 	gun_animator.speed_scale = 3
 	pistol_damage_increase = true
-	# muzzle_flash.modulate = Color.RED
-	# muzzle_flash_2.modulate = Color.RED
-	# special_light.visible = true
 
-func grapple():
-	
-	# if grapple and not grappling, grapple and set the positions
-	if Input.is_action_just_pressed("grapple") and player_state != "grappling":
-		if grapple_ray_cast.get_collider() != null:
-			grapple_target_pos = grapple_ray_cast.get_collision_point()
-			grapple_dir = (grapple_target_pos - grapple_ray_cast.global_position).normalized()
-			# grapple_dir returns as a Vector3
-			player_state = "grappling"
-	
-	# if grapple and grappling, stop grappling and initiate hop mechanic
-	elif Input.is_action_just_pressed("grapple") and player_state == "grappling":
-		player_state = "idle"
-		velocity = Vector3.ZERO
-		player.velocity.y = GRAPPLE_HOP
-	
-	
-	# if collision occurs between player and anything, stop the grapple and cancel out net velocity
-	var collision_count = get_slide_collision_count()
-	for i in range(collision_count):
-		player_state = "idle"
+
+func grapple(delta):
+	if Grapple_Enabled:
+		# if grapple and not grappling, grapple and set the positions
+		if Input.is_action_just_pressed("grapple") and player_state != player_states.GRAPPLING:
+			if grapple_ray_cast.get_collider() != null:
+				grapple_target_pos = grapple_ray_cast.get_collision_point()
+				grapple_dir = (grapple_target_pos - grapple_ray_cast.global_position).normalized()
+				# grapple_dir returns as a Vector3
+				player_state = player_states.GRAPPLING
 		
+		# if grapple and grappling, stop grappling and initiate hop mechanic
+		elif Input.is_action_just_pressed("grapple") and player_state == player_states.GRAPPLING:
+			player_state = player_states.IDLE
+			velocity = Vector3.ZERO
+			player.velocity.y = GRAPPLE_HOP
+		
+		
+		# if collision occurs between player and anything, stop the grapple and cancel out net velocity
+		var collision_count = get_slide_collision_count()
+		for i in range(collision_count):
+			player_state = player_states.IDLE
+	else:
+		return
+
 
 func _physics_process(delta: float) -> void:
 	
-	cameraRoll(delta)
+	cameraFX(delta) # roll, tilt, clamp
 	
-	# grapple
-	grapple()
+	# state control
+	if is_on_floor():
+		player_state = player_states.IDLE
+	elif not is_on_floor():
+		player_state = player_states.FALLING
 	
-	# clamp the camera pivot view
-	var b = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
-	pivot.rotation_degrees.x = b
-	
-	# Add the gravity.
-	if not is_on_floor():
-		if gravity_enabled:
-			velocity += get_gravity() * delta
-			
-	
+	# Add the gravity 
+	if not is_on_floor() and gravity_enabled:
+		velocity += get_gravity() * delta
 	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y += JUMP_VELOCITY
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -182,50 +247,44 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0.0, 10.0)
 		velocity.z = move_toward(velocity.z, 0.0, 10.0)
 		
-	playerPhysicsStates()
 	move_and_slide()
 
-func gunInputs(curr_weap): # run every frame in _process
+func gunInputs(): # run every frame in _process
 	
 	# switch weapon block==================================================================================
 	if Input.is_action_just_pressed("slot1"): #and not gun_animator.is_playing():
-		Global.current_weapon = "melee"
+		weapon_state = weapon_states.MELEE
 		
 	if Input.is_action_just_pressed("slot2"): #and not gun_animator.is_playing():
-		if Global.current_weapon != "pistol":
-			if gun_animator.current_animation == "reload_pistol":
-				pass
-			else:
-				gun_animator.play("equip_pistol")
-		Global.current_weapon = "pistol"
+		weapon_state = weapon_states.PISTOL
 		
 	if Input.is_action_just_pressed("slot3"): #and not gun_animator.is_playing():
-		Global.current_weapon = "shotgun"
+		weapon_state = weapon_states.SHOTGUN
 		
 	if Input.is_action_just_pressed("slot4"):
-		Global.current_weapon = "BLL"
+		weapon_state = weapon_states.BLL
 	
 	# automatic fire block===================================================================================
 	if Input.is_action_pressed("fire") and player_fire_input_enabled:
 		# use seperate animation players for each weapon
 		
-		if curr_weap == "pistol":
+		if weapon_state == weapon_states.PISTOL:
 			if gun_animator.current_animation == "inspect" or gun_animator.current_animation == "equip_pistol":
 				gun_animator.stop()
 			elif gun_animator.current_animation == "reload_pistol":
 				pass
 			else:
-				if Global.blaster_ammo > 0:
+				if player.PISTOL_AMMO > 0:
 					gun_animator.play("fire")
-				elif Global.blaster_ammo == 0: gun_animator.play("reload_pistol")
+				elif player.PISTOL_AMMO == 0: gun_animator.play("reload_pistol")
 
 	# semi-automatic fire block========================================================================
 	if Input.is_action_just_pressed("fire") and player_fire_input_enabled:
 		
-		if curr_weap == "shotgun":
+		if weapon_state == weapon_states.SHOTGUN:
 			print("shotgun fire")
 		
-		elif curr_weap == "BLL":
+		elif weapon_state == weapon_states.BLL:
 			if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
 				pass
 			else:
@@ -235,7 +294,7 @@ func gunInputs(curr_weap): # run every frame in _process
 	
 	# inspect block=======================================================================================
 	if Input.is_action_just_pressed("inspect weapon"):
-		if curr_weap == "pistol":
+		if weapon_state == weapon_states.PISTOL:
 			if gun_animator.current_animation == "reload_pistol":
 				pass
 			elif gun_animator.current_animation == "equip_pistol":
@@ -244,68 +303,41 @@ func gunInputs(curr_weap): # run every frame in _process
 			else:
 				gun_animator.play("inspect")
 
-		elif curr_weap == "shotgun":
+		elif weapon_state == weapon_states.SHOTGUN:
 			print("shotgun inspect")
 		
-		elif curr_weap == "BLL":
+		elif weapon_state == weapon_states.BLL:
 			print("black hole inspect")
 		
 	# reload block=========================================================================================
 	if Input.is_action_just_pressed("reload"):
-		if curr_weap == "pistol":
-			if Global.blaster_ammo != 50:
+		if weapon_state == weapon_states.PISTOL:
+			if PISTOL_AMMO != PISTOL_MAGSIZE:
 				gun_animator.play("reload_pistol")
 		
-		elif curr_weap == "shotgun":
+		elif weapon_state == weapon_states.SHOTGUN:
 			print("shotgun reload")
 	
-		elif curr_weap == "BLL":
+		elif weapon_state == weapon_states.BLL:
 			pass
 			
 			
 	# special block=========================================================================================
 	if Input.is_action_just_pressed("right click action") and player_fire_input_enabled:
-		if curr_weap == "pistol":
-			pistol.special(Global.current_weapon)
+		if weapon_state == weapon_states.PISTOL:
+			pistol.special()
 		
-		elif curr_weap == "shotgun":
+		elif weapon_state == weapon_states.SHOTGUN:
 			print("shotgun special")
 			
-		elif curr_weap == "BLL":
+		elif weapon_state == weapon_states.BLL:
 			pass
 	# ======================================================================================================
-	
-func hideGuns():
-	 # hide weapon on switch
-	if Global.current_weapon == "pistol":
-		arm_pivot_bll.visible = false
-		arm_pivot_pistol.visible = true
-		pistol.visible = true
-		black_hole_launcher.visible = false
-		shotgun.visible = false
-	elif Global.current_weapon == "shotgun":
-		arm_pivot_bll.visible = false
-		arm_pivot_pistol.visible = false
-		shotgun.visible = true
-		black_hole_launcher.visible = false
-		pistol.visible = false
-	elif Global.current_weapon == "melee":
-		arm_pivot_bll.visible = false
-		arm_pivot_pistol.visible = false
-		black_hole_launcher.visible = false
-		shotgun.visible = false
-		pistol.visible = false
-	elif Global.current_weapon == "BLL":
-		arm_pivot_bll.visible = true
-		arm_pivot_pistol.visible = false
-		black_hole_launcher.visible = true
-		pistol.visible = false
-		shotgun.visible = false
 
 var a = true
 func _process(_delta) -> void:
 	
-	playerStates()
+	updateStateStrings()
 	
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()
@@ -324,8 +356,29 @@ func _process(_delta) -> void:
 		playerDie()
 	
 	
-	gunInputs(Global.current_weapon)
-	hideGuns()
+	gunInputs()
+	
+# updates the string variables that contain the names of the state based on the active state
+func updateStateStrings():
+	# update the string name of the weapon state every frame
+	if weapon_state == weapon_states.PISTOL:
+		current_weapon_string_name = "pistol"
+	elif weapon_state == weapon_states.BLL:
+		current_weapon_string_name = "black hole launcher"
+	elif weapon_state == weapon_states.SHOTGUN:
+		current_weapon_string_name = "shotgun"
+	elif weapon_state == weapon_states.MELEE:
+		current_weapon_string_name = "MELEE"
+		
+	# update the string name of the player state every frame
+	if player_state == player_states.IDLE:
+		current_player_string_name = "IDLE"
+	elif player_state == player_states.DEAD:
+		current_player_string_name = "DEAD"
+	elif player_state == player_states.FALLING:
+		current_player_string_name = "FALLING"
+	elif player_state == player_states.GRAPPLING:
+		current_player_string_name = "GRAPPLING"
 
 # note: zoomOut and zoomIn are reversed. I screwed up.
 func _on_hud_zoom_in_trigger() -> void:
@@ -341,18 +394,7 @@ func _on_slam_timer_timeout() -> void:
 	JUMP_VELOCITY = storagevar
 
 func playerDie():
-	player_state = "dead"
+	player_state = player_states.DEAD
 	cause_of_death_message.text = cause_of_death
 	Engine.time_scale = 0.3
 	death_animator.play("death")
-
-# valid states: grappling, dead, idle, 
-func playerStates():
-		if player_state == "dead":
-			player_fire_input_enabled = false
-			player_look_input_enabled = false
-			player_move_input_enabled = false
-
-func playerPhysicsStates():
-	if player_state == "grappling":
-		velocity = grapple_dir * GRAPPLE_SPEED_MAX
