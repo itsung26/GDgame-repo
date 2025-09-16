@@ -274,9 +274,9 @@ func gunInputs(): # run every frame in _process
 			elif gun_animator.current_animation == "reload_pistol":
 				pass
 			else:
-				if player.PISTOL_AMMO > 0:
+				if PISTOL_AMMO > 0:
 					gun_animator.play("fire")
-				elif player.PISTOL_AMMO == 0: gun_animator.play("reload_pistol")
+				elif PISTOL_AMMO == 0: gun_animator.play("reload_pistol")
 
 	# semi-automatic fire block========================================================================
 	if Input.is_action_just_pressed("fire") and player_fire_input_enabled:

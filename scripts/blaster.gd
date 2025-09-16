@@ -49,7 +49,10 @@ func fire():
 		b.look_at(look_target, Vector3.UP)
 
 		if body.is_in_group("enemy"):
-			body.HEALTH = body.HEALTH - Global.pistol_DAMAGE
+			if not player.pistol_damage_increase:
+				body.HEALTH -= randi_range(player.Pistol_Damage_Range_Min,player.Pistol_Damage_Range_Max)
+			elif player.pistol_damage_increase:
+				body.HEALTH -= randi_range(player.Pistol_Overclock_Damage_Range_Min,player.Pistol_OverClock_Damage_Range_Max)
 			print("HEALTH of enemy: " + str(body.HEALTH))
 
 			# --- Show hitmarker on HUD at hit position ---
@@ -89,10 +92,3 @@ func special():
 		Global.pistol_activate_special = true
 		Global.pistol_special_state = true
 			
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta) -> void:
-	if not player.pistol_damage_increase:
-		pistol_current_DAMAGE = randi_range(player.Pistol_Damage_Range_Min,player.Pistol_Damage_Range_Max)
-	elif player.pistol_damage_increase:
-		pistol_current_DAMAGE = randi_range(player.Pistol_Overclock_Damage_Range_Min,player.Pistol_OverClock_Damage_Range_Max)

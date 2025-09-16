@@ -49,7 +49,10 @@ func triggerZoomOut():
 	zoom_out_trigger.emit()
 	
 func updateAmmoCounter():
-	ammo_counter.text = str(Global.current_AMMO) + "/" + str(Global.current_MAGSIZE)
+	if player.weapon_state == player.weapon_states.PISTOL:
+		ammo_counter.text = str(player.PISTOL_AMMO) + "/" + str(player.PISTOL_MAGSIZE)
+	elif player.weapon_state == player.weapon_states.BLL:
+		ammo_counter.text = str(player.BLL_AMMO) + "/" + str(player.BLL_MAGSIZE)
 	
 func hideIcons():
 	# shows or hides ui elements based on current weapon

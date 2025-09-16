@@ -1,0 +1,1416 @@
+[gd_scene load_steps=26 format=3 uid="uid://ch37b3vrtbtsd"]
+
+[ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://x51q4hwcyu2q" path="res://scenes/fireTypeRAYCAST.tscn" id="2_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://csatdjhfoaqcw" path="res://scenes/pistol.tscn" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://d6b4gnbdcx45" path="res://scenes/black_hole_launcher.tscn" id="11_d2wvv"]
+
+[sub_resource type="Animation" id="Animation_g2els"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [75.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.34, 0.285, 0.627)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.938772, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot4:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot2:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot3:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightGREEN:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightRED:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightYELLOW:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot/LoadPanel:surface_material_override/0:emission_energy_multiplier")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [16.0]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????/core:scale")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.90169, 1.90169, 1.90169)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Pivot/Camera3D/Guns/Pistol:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.44, 0.28, 0.535)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Pivot/Camera3D/Guns/Pistol:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Pivot/Camera3D/Guns/Pistol/pistolPart/magazine:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.08348, -0.896698)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Pivot/Camera3D/Guns/Pistol/pistolPart/magazine:rotation")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmL:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.218833, 1.24202, 0.0100964)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmL:rotation")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 2.35427)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmR:position")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.171948, 1.28058, -0.0726245)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmR:rotation")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.383257, 1.02894, 1.56111)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Pivot/Camera3D/Guns/Pistol/pistolPart/bolt:position")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0.725)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashV:visible")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashH:visible")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashV:modulate")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 1, 1)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashH:modulate")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 1, 1)]
+}
+tracks/27/type = "value"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:position")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0818599, 1.21195, -0.397836)]
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:position")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.546436, 1.34883, -0.0393332)]
+}
+tracks/29/type = "value"
+tracks/29/imported = false
+tracks/29/enabled = true
+tracks/29/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:rotation")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.918043, -3.28995, -2.56389)]
+}
+tracks/30/type = "value"
+tracks/30/imported = false
+tracks/30/enabled = true
+tracks/30/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:rotation")
+tracks/30/interp = 1
+tracks/30/loop_wrap = true
+tracks/30/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.38329, 2.60279, 2.22306)]
+}
+tracks/31/type = "value"
+tracks/31/imported = false
+tracks/31/enabled = true
+tracks/31/path = NodePath("Pivot/Camera3D/ArmPivotBLL:position")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5, 0)]
+}
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("Pivot/Camera3D/ArmPivotBLL:rotation")
+tracks/32/interp = 1
+tracks/32/loop_wrap = true
+tracks/32/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/33/type = "value"
+tracks/33/imported = false
+tracks/33/enabled = true
+tracks/33/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/OmniLight3D:visible")
+tracks/33/interp = 1
+tracks/33/loop_wrap = true
+tracks/33/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_fjrip"]
+resource_name = "camera_overclock_zoom_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [90.0, 75.0]
+}
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+resource_name = "camera_overclock_zoom_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [75.0, 90.0]
+}
+
+[sub_resource type="Animation" id="Animation_f1ej7"]
+resource_name = "equip_pistol"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/Guns/Pistol:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.294915, -0.307667, 0.340651), Vector3(-0.364778, 0.0799906, 0.504648), Vector3(-0.44, 0.28, 0.535)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/Guns/Pistol:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.65777, -0.696257, 0.93933), Vector3(-0.340339, -0.0122173, 0.486947), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.242824, 0.948578, -0.347636), Vector3(0.330683, 1.21487, -0.110758), Vector3(0.171948, 1.28058, -0.0726245)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmR:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.0859672, 0.923206, 0.892211), Vector3(0.172643, 1.53978, 1.23549), Vector3(0.383257, 1.02894, 1.56111)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmL:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.218833, 1.24202, 0.0100964)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmL:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 2.35427)]
+}
+
+[sub_resource type="Animation" id="Animation_3vyb7"]
+resource_name = "fire"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmR:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10306, 0.212083),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.171948, 1.28058, -0.0726245), Vector3(0.171948, 1.24769, -0.0447799), Vector3(0.171948, 1.28058, -0.0726245)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/Guns/Pistol:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10306, 0.212083),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.44, 0.28, 0.535), Vector3(-0.44, 0.3343, 0.597672), Vector3(-0.44, 0.28, 0.535)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmR:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10306, 0.212083),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.383257, 1.02894, 1.56111), Vector3(0.510804, 1.14537, 1.82861), Vector3(0.383257, 1.02894, 1.56111)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/Camera3D/Guns/Pistol:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1029, 0.212083),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.272498, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Camera3D/Guns/Pistol")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.102903),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot/Camera3D/Guns/Pistol/pistolPart/bolt:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1029, 0.212283),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.725), Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashV:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.145295),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashH:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.145295),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashV:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.103532),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashH:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.103532),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qlg0r"]
+resource_name = "inspect"
+length = 3.0
+
+[sub_resource type="Animation" id="Animation_dqkch"]
+resource_name = "reload_pistol"
+length = 3.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/Guns/Pistol:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333, 0.633333, 0.8, 2.16667, 2.63333, 2.93333, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.44, 0.28, 0.535), Vector3(-0.394856, 0.358592, 0.470721), Vector3(-0.363607, 0.4284, 0.470721), Vector3(-0.394856, 0.358592, 0.470721), Vector3(-0.363607, 0.4284, 0.470721), Vector3(-0.284618, 0.343294, 0.446657), Vector3(-0.284618, 0.343294, 0.446657), Vector3(-0.44, 0.28, 0.535)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/Guns/Pistol:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.433333, 0.633333, 0.8, 2.16667, 2.63333, 2.93333, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.558505, 0.21293, 0), Vector3(0.558505, 0.21293, 0), Vector3(0.558505, 0.21293, 0), Vector3(0.558505, 0.21293, 5.9072e-08), Vector3(0.37769, 0.0356297, 0.554996), Vector3(0.37769, 0.0356297, 0.554996), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Camera3D/Guns/Pistol/pistolPart/magazine:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.933333, 1.1, 1.43333, 1.46667, 1.8, 2.03333, 2.2, 2.22581, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.08348, -0.896698), Vector3(0, -1.08348, -0.896698), Vector3(0.340303, -3.00374, -1.55277), Vector3(0.34779, -10.2141, 2.91194), Vector3(0.34779, -10.2141, 2.91194), Vector3(-5.70597, -5.32539, 1.39939), Vector3(-3.48857, -1.46131, 0.93805), Vector3(-0.919946, -1.51349, -0.258557), Vector3(-0.0615234, -0.831168, -0.476345), Vector3(0, -1.08348, -0.896698), Vector3(0, -1.08348, -0.896698)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/Camera3D/Guns/Pistol/pistolPart/magazine:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.933333, 1.1, 1.43333, 1.46667, 1.8, 2.03333, 2.2, 2.22581, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0), Vector3(1.5708, 0, 0), Vector3(1.18736, -0.203216, -0.159464), Vector3(0.540612, -0.132565, 0.186975), Vector3(0.540612, -0.132565, 0.186975), Vector3(0.540612, -0.132565, 0.186975), Vector3(1.20669, 0.071579, 0.341465), Vector3(1.27576, -1.20935, -0.851749), Vector3(1.37516, 0.229676, 0.372423), Vector3(1.5708, 0, 0), Vector3(1.5708, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmL:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.466667, 0.633333, 0.8, 0.966667, 1.23333, 1.46667, 1.80002, 2.03333, 2.2, 2.56667, 2.83333, 3.13333, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.218833, 1.24202, 0.0100964), Vector3(0.0636195, 1.14078, -0.241806), Vector3(0.0977412, 1.14023, -0.297196), Vector3(0.121385, 1.18581, -0.307673), Vector3(0.0933018, 1.07439, -0.307673), Vector3(0.1378, 1.19513, -0.307673), Vector3(-0.282995, 1.03551, -0.25846), Vector3(-0.282995, 1.03551, -0.25846), Vector3(-0.0566874, 1.22404, -0.158847), Vector3(0.107837, 1.2692, -0.315398), Vector3(0.252599, 1.29408, -0.314648), Vector3(0.135048, 1.23569, -0.314648), Vector3(0.135048, 1.23189, -0.261366), Vector3(0.0363549, 1.08671, -0.255322), Vector3(-0.218833, 1.24202, 0.0100964)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmL:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.466667, 0.633333, 0.8, 0.966667, 1.23333, 1.46667, 1.80002, 2.03333, 2.2, 2.56667, 2.83333, 3.13333, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 2.35427), Vector3(-0.0908415, -2.40109, 1.22188), Vector3(-0.457028, -2.29546, 0.842226), Vector3(-0.457028, -2.42448, 0.842226), Vector3(-0.457028, -2.42448, 0.842226), Vector3(-0.457028, -2.42448, 0.842226), Vector3(-0.457028, -1.55288, 0.842226), Vector3(-0.256174, -1.95395, 1.8924), Vector3(-0.417236, -1.76388, 1.33234), Vector3(-0.790705, -1.64353, 1.17912), Vector3(-0.417141, -1.56787, 1.13961), Vector3(-0.237928, -2.04041, 0.92574), Vector3(-0.237928, -2.04041, 0.92574), Vector3(-0.237928, -2.04041, 0.92574), Vector3(0, 0, 2.35427)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmR:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.466667, 0.633333, 0.8, 1.6, 2.16667, 2.63333, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.171948, 1.28058, -0.0726245), Vector3(0.395392, 1.22741, -0.191846), Vector3(0.395392, 1.26959, -0.191846), Vector3(0.395392, 1.20608, -0.191846), Vector3(0.395392, 1.2711, -0.191846), Vector3(0.403235, 1.28718, -0.187995), Vector3(0.444407, 1.25269, -0.167782), Vector3(0.171948, 1.28058, -0.0726245)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Pivot/Camera3D/ArmPivotPistol/ArmR:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.466667, 0.633333, 0.8, 1.6, 2.16667, 2.63333, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.383257, 1.02894, 1.56111), Vector3(0.138393, 1.86152, 1.80119), Vector3(0.138393, 1.86152, 1.80119), Vector3(0.138393, 1.86152, 1.80119), Vector3(0.138393, 1.86152, 1.80119), Vector3(0.0579924, 1.79496, 1.7765), Vector3(-0.364111, 1.44553, 1.64686), Vector3(0.383257, 1.02894, 1.56111)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Pivot/Camera3D/Guns/Pistol/pistolPart/bolt:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 2.56667, 2.83333, 3.03333, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0.725), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Pivot/Camera3D/Guns/Pistol")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(2.23333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reload"
+}]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashV:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashH:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_y4r1p"]
+resource_name = "shotgun_inspect"
+length = 3.0
+
+[sub_resource type="Animation" id="Animation_smehm"]
+resource_name = "silence_particles"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o7tup"]
+_data = {
+&"RESET": SubResource("Animation_g2els"),
+&"camera_overclock_zoom_in": SubResource("Animation_fjrip"),
+&"camera_overclock_zoom_out": SubResource("Animation_tuyoq"),
+&"equip_pistol": SubResource("Animation_f1ej7"),
+&"fire": SubResource("Animation_3vyb7"),
+&"inspect": SubResource("Animation_qlg0r"),
+&"reload_pistol": SubResource("Animation_dqkch"),
+&"shotgun_inspect": SubResource("Animation_y4r1p"),
+&"silence_particles": SubResource("Animation_smehm")
+}
+
+[sub_resource type="Animation" id="Animation_3v2ag"]
+resource_name = "BLL_cooldown"
+length = 30.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.7177, 26.1, 27.0333, 28.1667, 29.0667, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.34, 0.285, 0.627), Vector3(-0.34, 0.285, 0.307625), Vector3(-0.341119, 0.00490808, 0.0887953), Vector3(-0.341119, 0.00490808, 0.0887953), Vector3(-0.341119, 0.169695, 0.165537), Vector3(-0.341119, 0.336639, 0.413985), Vector3(-0.34, 0.285, 0.627), Vector3(-0.34, 0.285, 0.627)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.717669, 1, 26.1, 27.0333, 28.1667, 29.0667, 29.5, 29.7667, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0), Vector3(8.20948e-09, -1.5708, 0.248291), Vector3(0.28802, -1.57911, 0.682318), Vector3(-0.0862015, -1.5788, 0.685368), Vector3(-0.0862015, -1.5788, 0.685368), Vector3(-0.083056, -1.54635, 0.306108), Vector3(-0.0708764, -1.52104, -0.0200921), Vector3(0, -1.5708, 0), Vector3(-0.287979, -1.21649, 0), Vector3(0.0698132, -1.21649, 0), Vector3(0, -1.5708, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.633333, 1, 25.0333, 26.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.938772, 0, 0), Vector3(0.938772, 0, 0), Vector3(1.94545, -0.0270848, 0.0468556), Vector3(1.94545, -0.0270848, 0.0468556), Vector3(0.938772, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 24),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(6.28319, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 24, 25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, -1.14319), Vector3(0, 0, -1.14319), Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot4:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 24, 25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(-0.0310302, 0.0250904, 1.17855), Vector3(-0.0310302, 0.0250904, 1.17855), Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot2:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 24, 25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0), Vector3(1.5708, 0, 0), Vector3(1.5708, 0, -1.15192), Vector3(1.5708, 0, -1.15192), Vector3(1.5708, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot3:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 24, 25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0), Vector3(1.5708, 0, 0), Vector3(1.5708, 0, 1.09956), Vector3(1.5708, 0, 1.09956), Vector3(1.5708, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightGREEN:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightRED:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/SightPart/FireReadyLightYELLOW:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20, 20.5, 21, 21.5, 22, 22.5, 23, 23.5, 24, 24.5, 25, 25.5, 26, 26.5, 27, 27.5, 28, 28.5, 29),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels/PanelPivot/LoadPanel:surface_material_override/0:emission_energy_multiplier")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.633333, 25.0333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [16.0, 0.4]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.702613, 1.02381, 26.0199, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.546436, 1.34883, -0.0393331), Vector3(0.546436, 1.34883, -0.0393331), Vector3(0.533199, 1.30773, -0.0655976), Vector3(0.533199, 1.30773, -0.0655976), Vector3(0.546436, 1.34883, -0.0393331)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 0.702613, 1.02381, 26.0199, 27.8458, 29.0397, 29.5685, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.0818599, 1.21195, -0.397836), Vector3(0.0818599, 1.21195, -0.397836), Vector3(0.0374973, 1.21552, -0.395552), Vector3(0.0374973, 1.21552, -0.395552), Vector3(0.0514924, 1.32214, -0.273628), Vector3(0.0514924, 1.23644, -0.239858), Vector3(-0.0159852, 1.24444, -0.325504), Vector3(0.0818599, 1.21195, -0.397836)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 0.702613, 1.02381, 26.0199, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.38329, 2.60279, 2.22306), Vector3(1.38329, 2.60279, 2.22306), Vector3(1.40674, 3.10669, 2.74366), Vector3(1.40674, 3.10669, 2.74366), Vector3(1.38329, 2.60279, 2.22306)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.702613, 1.02381, 26.0199, 27.8458, 29.0397, 29.5685, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.918043, -3.28995, -2.56389), Vector3(0.918043, -3.28995, -2.56389), Vector3(0.923401, -3.10831, -2.4105), Vector3(0.923401, -3.10831, -2.4105), Vector3(0.923401, -3.10831, -2.4105), Vector3(0.923401, -3.10831, -2.4105), Vector3(0.92186, -3.11774, -2.38643), Vector3(0.918043, -3.28995, -2.56389)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Pivot/Camera3D/ArmPivotBLL:position")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.722688, 26.1, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5, 0), Vector3(0, -1.34712, 0.0815377), Vector3(0, -1.40827, 0.152883), Vector3(0, -1.40827, 0.152883), Vector3(0, -1.5, 0)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("Pivot/Camera3D/ArmPivotBLL:rotation")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.722688, 26.1, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.246475, 0, 0), Vector3(-0.568646, 0, 0), Vector3(-0.568646, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/18/type = "method"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"BLLFire"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_a8ls1"]
+resource_name = "BLL_equip"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.566667, 1.1, 1.56667, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.34, -0.345038, 0.449759), Vector3(-0.34, -0.00393009, 0.237102), Vector3(-0.34, 0.251822, 0.570467), Vector3(-0.413636, 0.275867, 0.656786), Vector3(-0.34, 0.285, 0.627)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.566667, 1.1, 1.56667, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(2.54412e-06, -1.57079, 2.37442), Vector3(0.0309653, -1.5708, 1.03997), Vector3(-0.0998246, -1.51093, 0.301241), Vector3(-0.390169, -1.51399, 0.248388), Vector3(0, -1.5708, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.566667, 0.9, 1.1, 1.56667, 1.96667, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.136417, 1.06789, -0.667101), Vector3(0.0857435, 1.15846, -0.388223), Vector3(0.0857435, 1.15695, -0.281424), Vector3(0.0857435, 1.23543, -0.273468), Vector3(-0.213614, 1.44869, -0.147684), Vector3(-0.213614, 1.20678, -0.156794), Vector3(0.0818599, 1.21195, -0.397836)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.566667, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.510617, 1.13659, -0.522904), Vector3(0.432772, 1.29203, -0.288081), Vector3(0.546436, 1.34883, -0.0393331)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.566667, 0.9, 1.1, 1.56667, 1.96667, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.25641, -0.399995, 0), Vector3(1.20746, -0.760433, -0.13463), Vector3(1.25444, -1.59924, -1.00608), Vector3(1.28263, -2.10253, -1.52894), Vector3(1.28263, -2.72613, -1.52894), Vector3(0.918553, -2.87715, -2.56304), Vector3(0.918043, -3.28995, -2.56389)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.566667, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.779831, 0, 0), Vector3(1.32177, 0, 0), Vector3(1.38329, 2.60279, 2.22306)]
+}
+
+[sub_resource type="Animation" id="Animation_d2wvv"]
+resource_name = "BLL_pulse"
+length = 5.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????/core:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(2.377, 2.377, 2.377), Vector3(0.832, 0.832, 0.832)]
+}
+
+[sub_resource type="Animation" id="Animation_jej6c"]
+resource_name = "BLL_put_down"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.34, 0.285, 0.627), Vector3(-0.34, 0.095, 0.627)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5708, 0), Vector3(-0.731207, -1.19135, 0.701366)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Camera3D/Guns/BlackHoleLauncher")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.36667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"denyAnims"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.23595, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1.38329, 2.60279, 2.22306), Vector3(1.38329, 2.90588, 2.22306), Vector3(1.44094, -0.482145, -1.7198)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.23595, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.918043, -3.28995, -2.56389), Vector3(0.918043, -2.98685, -2.56389), Vector3(1.10311, -2.05136, -2.12873)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.23595, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.546436, 1.34883, -0.0393332), Vector3(0.58935, 1.2006, -0.0850292), Vector3(0.623126, 1.0859, -0.304135)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1.23595, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.0818599, 1.21195, -0.397836), Vector3(0.0389461, 1.06371, -0.288527), Vector3(0.0491406, 0.990087, -0.147757)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d2wvv"]
+_data = {
+&"BLL_cooldown": SubResource("Animation_3v2ag"),
+&"BLL_equip": SubResource("Animation_a8ls1"),
+&"BLL_pulse": SubResource("Animation_d2wvv"),
+&"BLL_put_down": SubResource("Animation_jej6c")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mh8"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_b2mh8"]
+radius = 0.09
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2mh8"]
+albedo_color = Color(0.882353, 0.694118, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
+size = Vector3(0.752441, 0.138672, 0.796112)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_y4r1p"]
+radius = 0.09
+height = 0.45
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_d2wvv"]
+radius = 0.09
+height = 0.67
+
+[node name="Player" type="CharacterBody3D" groups=["players"]]
+collision_mask = 15
+script = ExtResource("1_qhqgy")
+
+[node name="GunAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7tup")
+}
+speed_scale = 1.5
+
+[node name="CameraAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7tup")
+}
+speed_scale = 1.5
+
+[node name="ParticleAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7tup")
+}
+autoplay = "silence_particles"
+
+[node name="ShotgunAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7tup")
+}
+autoplay = "silence_particles"
+
+[node name="BLLAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7tup"),
+&"Black Hole Launcher": SubResource("AnimationLibrary_d2wvv")
+}
+autoplay = "silence_particles"
+
+[node name="BLLPulseAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7tup"),
+&"Black Hole Launcher": SubResource("AnimationLibrary_d2wvv")
+}
+autoplay = "Black Hole Launcher/BLL_pulse"
+speed_scale = 5.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_b2mh8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_b2mh8")
+surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
+
+[node name="footCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0694726, 0.00931263)
+shape = SubResource("BoxShape3D_b2mh8")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Pivot"]
+unique_name_in_owner = true
+
+[node name="GrappleRayCast" type="RayCast3D" parent="Pivot/Camera3D"]
+visible = false
+target_position = Vector3(0, 0, -1)
+collision_mask = 6
+
+[node name="BulletRayCast" parent="Pivot/Camera3D" instance=ExtResource("2_tuyoq")]
+transform = Transform3D(1, 8.74228e-08, 8.74228e-08, 8.74228e-08, -1, 0, 8.74228e-08, 7.64274e-15, -1, 0.00434119, -0.0047704, -0.40687)
+visible = false
+target_position = Vector3(0, 0, 900)
+
+[node name="ArmPivotPistol" type="Node3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+
+[node name="ArmR" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotPistol"]
+transform = Transform3D(0.325357, -0.512599, 0.794597, 0.927407, 0.00898343, -0.373943, 0.184545, 0.85858, 0.478312, 0.171948, 1.28058, -0.0726245)
+mesh = SubResource("CapsuleMesh_y4r1p")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
+
+[node name="ArmL" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotPistol"]
+transform = Transform3D(-0.705745, -0.708466, 0, 0.708466, -0.705745, 0, 0, 0, 1, -0.218833, 1.24202, 0.0100964)
+mesh = SubResource("CapsuleMesh_d2wvv")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
+
+[node name="ArmPivotBLL" type="Node3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+visible = false
+
+[node name="ArmR" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotBLL"]
+transform = Transform3D(0.921616, 0.376129, 0.0956483, 0.148142, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
+mesh = SubResource("CapsuleMesh_y4r1p")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
+
+[node name="ArmL" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotBLL"]
+transform = Transform3D(0.764391, -0.638471, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577465, -0.600704, 0.0818599, 1.21195, -0.397836)
+mesh = SubResource("CapsuleMesh_d2wvv")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
+
+[node name="Guns" type="Node3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
+
+[node name="shotgun" type="Node3D" parent="Pivot/Camera3D/Guns" groups=["weapons"]]
+transform = Transform3D(-1.55571, 0.268075, -1.22797, 0, 1.95398, 0.426569, 1.25689, 0.331809, -1.51991, -0.281417, 0.126047, 0)
+visible = false
+
+[node name="BlackHoleLauncher" parent="Pivot/Camera3D/Guns" instance=ExtResource("11_d2wvv")]
+transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)
+visible = false
+
+[node name="PanelPivot" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.182872, 0.363, 1.19209e-07)
+
+[node name="PanelPivot2" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="2"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.206563, 0, 0.398)
+
+[node name="PanelPivot3" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="3"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.209735, 0, -0.328399)
+
+[node name="core" parent="Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????" index="1"]
+transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0.0247345, 1.39009, -0.00136375)
+
+[node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
+transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, -0.44, 0.28, 0.535)
+
+[node name="magazine" parent="Pivot/Camera3D/Guns/Pistol/pistolPart" index="1"]
+transform = Transform3D(0.116955, 0, 0, 0, -4.23376e-07, -0.116955, 0, 0.116955, -4.23376e-07, 0, -1.08348, -0.896698)
+
+[node name="bolt" parent="Pivot/Camera3D/Guns/Pistol/pistolPart" index="2"]
+transform = Transform3D(0.116955, 0, 0, 0, -5.11227e-09, -0.116955, 0, 0.116955, -5.11227e-09, 0, 0, 0.725)
+
+[node name="OmniLight3D" parent="Pivot/Camera3D/Guns/Pistol/VFX/muzzle" index="2"]
+visible = false
+
+[node name="SlamTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.5
+one_shot = true
+ignore_time_scale = true
+
+[connection signal="timeout" from="SlamTimer" to="." method="_on_slam_timer_timeout"]
+
+[editable path="Pivot/Camera3D/Guns/BlackHoleLauncher"]
+[editable path="Pivot/Camera3D/Guns/Pistol"]
