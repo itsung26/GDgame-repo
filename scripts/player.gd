@@ -14,6 +14,7 @@ extends CharacterBody3D
 @onready var arm_pivot_pistol: Node3D = $Pivot/Camera3D/ArmPivotPistol
 @onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
 @onready var hud: Control = $"../HUD"
+@onready var grapple_target: Node3D = $"../GrappleTarget"
 
 @export_category("Settings")
 @export var HEALTH: int = 100
@@ -57,7 +58,6 @@ var player_state:player_states = player_states.IDLE:
 var weapon_state:weapon_states = weapon_states.PISTOL:
 	set = set_weapon_state
 
-var grapple_target_pos = Vector3.ZERO
 var grapple_dir = Vector3.ZERO
 var can_slam_jump = false
 var storagevar = JUMP_VELOCITY
@@ -97,14 +97,31 @@ func _ready() -> void:
 	grapple_ray_cast.target_position = Vector3(0, 0, -GRAPPLE_MAX_RANGE)
 	
 func set_player_state(new_player_state:int):
+	# init vars
 	var previous_player_state := player_state
 	player_state = new_player_state
+	
+	# run when the state was switched to
 	if new_player_state == player_states.DEAD:
 		player_fire_input_enabled = false
 		player_look_input_enabled = false
 		player_move_input_enabled = false
 	
+	elif new_player_state == player_states.GRAPPLING:
+		if Grapple_Enabled:
+			# get raycast collider
+			var grapple_ray_collidepoint = grapple_ray_cast.get_collision_point()
+			# set grapple target node pos to said point
+			if grapple_ray_collidepoint != null:
+				grapple_target.global_position = grapple_ray_collidepoint
+			# procedural mesh generator will automatically handle the point-to-point generation
+	
+	# run when the state was switched from
+	if previous_player_state == player_states.GRAPPLING:
+		pass
+	
 func set_weapon_state(new_weapon_state:int):
+	# init vars
 	var previous_weapon_state := weapon_state
 	weapon_state = new_weapon_state
 	
@@ -188,29 +205,7 @@ func zoomOut():
 	pistol_damage_increase = true
 
 
-func grapple(delta):
-	if Grapple_Enabled:
-		# if grapple and not grappling, grapple and set the positions
-		if Input.is_action_just_pressed("grapple") and player_state != player_states.GRAPPLING:
-			if grapple_ray_cast.get_collider() != null:
-				grapple_target_pos = grapple_ray_cast.get_collision_point()
-				grapple_dir = (grapple_target_pos - grapple_ray_cast.global_position).normalized()
-				# grapple_dir returns as a Vector3
-				player_state = player_states.GRAPPLING
-		
-		# if grapple and grappling, stop grappling and initiate hop mechanic
-		elif Input.is_action_just_pressed("grapple") and player_state == player_states.GRAPPLING:
-			player_state = player_states.IDLE
-			velocity = Vector3.ZERO
-			player.velocity.y = GRAPPLE_HOP
-		
-		
-		# if collision occurs between player and anything, stop the grapple and cancel out net velocity
-		var collision_count = get_slide_collision_count()
-		for i in range(collision_count):
-			player_state = player_states.IDLE
-	else:
-		return
+
 
 
 func _physics_process(delta: float) -> void:
@@ -338,6 +333,9 @@ var a = true
 func _process(_delta) -> void:
 	
 	updateStateStrings()
+	
+	if Input.is_action_just_pressed("grapple"):
+		player_state = player_states.GRAPPLING
 	
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()

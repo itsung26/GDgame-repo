@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=4 uid="uid://bbeqjnwfdkhdi"]
+
+[ext_resource type="Script" uid="uid://b8ynae1ll2gt6" path="res://scripts/grapple_rope_meshGen.gd" id="1_exg5u"]
+[ext_resource type="Material" uid="uid://eek22gpn6m28" path="res://assets/materials/grapple_rope.tres" id="2_kw7jf"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_exg5u"]
+_surfaces = [{
+"aabb": AABB(-0.25, -0.25, -5, 0.5, 0.5, 10),
+"format": 34359742465,
+"index_count": 12,
+"index_data": PackedByteArray("AQACAAYABgACAAcAAwAEAAkACQAIAAQA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 10,
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAKBAAACAPgAAAAAAAKBAAACAvgAAAAAAAKBAAAAAAAAAgD4AAKBAAAAAAAAAgL4AAKBAAAAAAAAAAAAAAKDAAACAPgAAAAAAAKDAAACAvgAAAAAAAKDAAAAAAAAAgL4AAKDAAAAAAAAAgD4AAKDA")
+}]
+
+[node name="grapple_rope_meshGen" type="Node3D"]
+script = ExtResource("1_exg5u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_exg5u")
+surface_material_override/0 = ExtResource("2_kw7jf")
+
+[node name="A" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="B" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)

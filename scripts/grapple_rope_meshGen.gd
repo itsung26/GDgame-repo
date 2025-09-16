@@ -1,20 +1,32 @@
+# @tool
 extends Node3D
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
-@onready var a: Node3D = $A
-@onready var a_2: Node3D = $A2
-@onready var b: Node3D = $B
-@onready var b_2: Node3D = $B2
+@onready var player: CharacterBody3D = $"../Player"
+@onready var grapple_target: Node3D = $"../GrappleTarget"
+@onready var a: Marker3D = $A
+@onready var b: Marker3D = $B
 
+@export_category("Visual Configuration")
 @export var width := 0.25
 @export var height := 0.25
+@export var color := Color.BLACK
+
+var current_mesh
 
 func _ready():
 	pass
 
 func _process(float) -> void:
-	generate_mesh_plane(b_2.global_position, a_2.global_position)
+	# if is in the editor, attatch to test points
+	if Engine.is_editor_hint():
+		generate_mesh_planes(a.global_position, b.global_position)
+	# else, attatch to player-defined points
+	else:
+		generate_mesh_planes(player.global_position, grapple_target.global_position)
+	
 
-func generate_mesh_plane(origin:Vector3,target:Vector3):
+# generates two parallel quads using 2 points with ops to get 10 points total
+func generate_mesh_planes(origin:Vector3,target:Vector3):
 	var shape_width := Vector3(width, 0, 0)
 	var shape_height := Vector3(0, height, 0)
 	
@@ -65,3 +77,5 @@ func generate_mesh_plane(origin:Vector3,target:Vector3):
 	# Add surface
 	array_mesh_new.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	mesh_instance_3d.mesh = array_mesh_new
+	
+	mesh_instance_3d.get_surface_override_material(0).albedo_color = color
