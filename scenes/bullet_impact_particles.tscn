@@ -3,6 +3,8 @@
 [ext_resource type="Material" uid="uid://ddgholnejhv1x" path="res://assets/materials/smoke material/bullet_impact_particles.tres" id="1_4f3va"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ipf4c"]
+emission_shape = 1
+emission_sphere_radius = 0.25
 gravity = Vector3(0, 1, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_ipf4c"]
