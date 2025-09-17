@@ -16,17 +16,16 @@ var pixel_shader
 
 
 # variables
-var menuState := "notpaused"
-var isPaused := false
 var pixel_shader_enabled := false
 var mouse_in_quit_button
 var mouse_in_play_button
 var mouse_in_confirm_quit_button
 var mouse_in_cancel_quit_button
 
-# one time toggle signals
-signal initiatePause
-signal initiateUnpause
+# state machine
+enum pause_states {UNPAUSED,MAIN,OPTIONS}
+var pause_state := pause_states.UNPAUSED:
+	set = set_state
 
 @export_category("Mouse Behavior")
 @export var lock_mouse_on_exit := true
@@ -35,19 +34,49 @@ signal initiateUnpause
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
+	options_menu.visible = false
+	center_buttons.visible = false
 	hud = get_node("../HUD")
 	pixel_shader = get_node("../PixelShader")
-	
 	# if no pixel shader is in the scene, remove the button
 	if not pixel_shader:
 		$OptionsMenu/ShaderToggle.visible = false
 
+func set_state(new_state:int):
+	var previous_state = pause_state
+	pause_state = new_state
+
+	# when state is switched to------------------------------------------------------------
+	if new_state == pause_states.MAIN:
+		visible = true
+		center_buttons.visible = true
+		hud.visible = false
+		get_tree().paused = true
+		if show_mouse_on_enter:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	elif new_state == pause_states.OPTIONS:
+		options_menu.visible = true
+	
+	elif new_state == pause_states.UNPAUSED:
+		hud.visible = true
+		get_tree().paused = false
+		if lock_mouse_on_exit:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		
+		
+	# when state is switched from ------------------------------------------------------------
+	if previous_state == pause_states.MAIN:
+		center_buttons.visible = false
+	
+	elif previous_state == pause_states.OPTIONS:
+		options_menu.visible = false
+		
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(float) -> void:
-	
-	
+	print(pause_state)
 	shaderOverlayLogic()
-	checkMenuStates()
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouse and Input.is_action_just_pressed("fire") and mouse_in_quit_button:
@@ -61,31 +90,16 @@ func _input(event: InputEvent) -> void:
 	elif event is InputEventKey:
 		# checks for pause input
 		if Input.is_action_just_pressed("pause"):
-			if not isPaused:
-				initiatePause.emit()
+			if pause_state == pause_states.UNPAUSED:
+				pause_state = pause_states.MAIN
 			
-			elif isPaused:
-				initiateUnpause.emit()
+			elif pause_state == pause_states.MAIN:
+				pause_state = pause_states.UNPAUSED
+			
+			elif pause_state == pause_states.OPTIONS:
+				pause_state = pause_states.UNPAUSED
 
-		
-func checkMenuStates():
-	if menuState == "main":
-		visible = true
-		center_buttons.visible = true
-		options_menu.visible = false
-		if hud:
-			hud.visible = false
 
-	elif menuState == "options":
-		options_menu.visible = true
-		center_buttons.visible = false
-
-	elif menuState == "notpaused":
-		visible = false
-		options_menu.visible = false
-		center_buttons.visible = false
-		if hud:
-			hud.visible = true
 func shaderOverlayLogic():
 	# checks for the shader's prescence in the scene
 	if pixel_shader:
@@ -96,44 +110,24 @@ func shaderOverlayLogic():
 
 # resumes the game
 func _on_resume_pressed() -> void:
-	initiateUnpause.emit()
+	pause_state = pause_states.MAIN
+	pause_state = pause_states.UNPAUSED
 
 # opens options menu
 func _on_options_pressed() -> void:
-	menuState = "options"
+	pause_state = pause_states.OPTIONS
 
-# quits
+ # quits
 func _on_quit_pressed() -> void:
-	menuState = "main"
 	get_tree().quit()
 
 
 func _on_back_pressed() -> void:
-	menuState = "main"
+	pause_state = pause_states.MAIN
 
 
 func _on_shader_toggle_toggled(toggled_on: bool) -> void:
 	pixel_shader_enabled = toggled_on
-
-func _on_multiplater_pressed() -> void:
-	menuState = "multiplayer"
-
-func _on_initiate_pause() -> void:
-	print("pausing")
-	menuState = "main"
-	get_tree().paused = true
-	isPaused = true
-	if show_mouse_on_enter:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
-
-func _on_initiate_unpause() -> void:
-	print("unpausing")
-	menuState = "notpaused"
-	get_tree().paused = false
-	isPaused = false
-	if lock_mouse_on_exit:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 # when mouse enters quit button
 func _on_area_3d_mouse_entered() -> void:

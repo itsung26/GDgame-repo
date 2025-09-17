@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=33 format=3 uid="uid://mhij3rnbxw0r"]
 
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
 [ext_resource type="Material" uid="uid://d25ece0xga0hd" path="res://assets/materials/map_enviroment.tres" id="1_te4ph"]
@@ -34,15 +34,6 @@ background_mode = 2
 sky = SubResource("Sky_tbgi4")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_s0dw4"]
-viewport_path = NodePath("CanvasLayer/Panel/SubViewport")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wjjk7"]
-resource_local_to_scene = true
-texture = SubResource("ViewportTexture_s0dw4")
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
 
 [sub_resource type="Animation" id="Animation_fulsm"]
 length = 0.001
@@ -258,12 +249,6 @@ script = ExtResource("1_wix4b")
 [node name="HUD" parent="." instance=ExtResource("2_pd1ih")]
 
 [node name="Pause" parent="." instance=ExtResource("3_p1xl4")]
-
-[node name="Panel" parent="Pause/CanvasLayer" index="0"]
-theme_override_styles/panel = SubResource("StyleBoxTexture_wjjk7")
-
-[node name="MeshInstance3D" parent="Pause/CanvasLayer/Panel/SubViewport/pause_viewport" index="1"]
-transform = Transform3D(-0.329622, -0.717845, -0.613227, -0.569991, 0.669105, -0.476874, 0.752635, 0.192346, -0.629717, 0, 0, 0)
 
 [node name="DeathScreen" type="Control" parent="."]
 layout_mode = 3

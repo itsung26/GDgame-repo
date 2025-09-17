@@ -1,57 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccwx4hsr3uqux"]
+[gd_scene load_steps=5 format=3 uid="uid://ccwx4hsr3uqux"]
 
 [ext_resource type="FontFile" uid="uid://3svjt1ifyndm" path="res://assets/sprite assets/ui/kenney_ui-pack/Font/Kenney Future.ttf" id="1_f1d2v"]
 [ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/pause.gd" id="1_r8yp4"]
 [ext_resource type="Texture2D" uid="uid://bya6b43uw7q5w" path="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Extra/icon_play_outline.svg" id="3_aicil"]
 [ext_resource type="Texture2D" uid="uid://cpwpswqumj6y3" path="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Default/icon_cross.png" id="4_jn4bt"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_jn4bt"]
-viewport_path = NodePath("CanvasLayer/Panel/SubViewport")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r1fnm"]
-resource_local_to_scene = true
-texture = SubResource("ViewportTexture_jn4bt")
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-
-[sub_resource type="BoxMesh" id="BoxMesh_48jbs"]
-
-[sub_resource type="Animation" id="Animation_48jbs"]
-resource_name = "rotate_cube"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.497095, -2.36946, -0.70558), Vector3(6.28319, 6.28319, 6.28319)]
-}
-
-[sub_resource type="Animation" id="Animation_higvv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.497095, -2.36946, -0.70558)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_skr8d"]
-_data = {
-&"RESET": SubResource("Animation_higvv"),
-&"rotate_cube": SubResource("Animation_48jbs")
-}
 
 [node name="Pause" type="Control"]
 process_mode = 3
@@ -155,47 +107,6 @@ theme_override_fonts/font = ExtResource("1_f1d2v")
 theme_override_font_sizes/font_size = 55
 text = "Graphics"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="Panel" type="Panel" parent="CanvasLayer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -327.0
-offset_right = 168.0
-offset_bottom = 472.0
-grow_horizontal = 0
-scale = Vector2(0.65857, 0.65857)
-theme_override_styles/panel = SubResource("StyleBoxTexture_r1fnm")
-
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Panel"]
-own_world_3d = true
-transparent_bg = true
-handle_input_locally = false
-
-[node name="pause_viewport" type="Node3D" parent="CanvasLayer/Panel/SubViewport"]
-
-[node name="Camera3D" type="Camera3D" parent="CanvasLayer/Panel/SubViewport/pause_viewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.40372)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CanvasLayer/Panel/SubViewport/pause_viewport"]
-transform = Transform3D(-0.329622, -0.717845, -0.613227, -0.569991, 0.669105, -0.476874, 0.752635, 0.192346, -0.629717, 0, 0, 0)
-mesh = SubResource("BoxMesh_48jbs")
-
-[node name="rotate" type="AnimationPlayer" parent="CanvasLayer/Panel/SubViewport/pause_viewport"]
-libraries = {
-&"": SubResource("AnimationLibrary_skr8d")
-}
-autoplay = "rotate_cube"
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/Panel/SubViewport/pause_viewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.81248)
-light_color = Color(0, 0, 1, 1)
-light_energy = 3.695
-
-[connection signal="initiatePause" from="." to="." method="_on_initiate_pause"]
-[connection signal="initiateUnpause" from="." to="." method="_on_initiate_unpause"]
 [connection signal="pressed" from="CenterButtons/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CenterButtons/Multiplater" to="." method="_on_multiplater_pressed"]
