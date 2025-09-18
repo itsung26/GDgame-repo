@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cd38df3ppv377"]
+
+[node name="GrappleArm" type="Node3D"]

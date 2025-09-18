@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=32 format=3 uid="uid://mhij3rnbxw0r"]
 
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
 [ext_resource type="Material" uid="uid://d25ece0xga0hd" path="res://assets/materials/map_enviroment.tres" id="1_te4ph"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="3_p1xl4"]
 [ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="4_prwh2"]
 [ext_resource type="PackedScene" uid="uid://b7flsfviplefd" path="res://scenes/weapon_wheel.tscn" id="5_bq1pm"]
-[ext_resource type="PackedScene" uid="uid://bbeqjnwfdkhdi" path="res://scenes/grapple_rope_meshGen.tscn" id="9_oma2s"]
 [ext_resource type="PackedScene" uid="uid://cj0vx655hbmtp" path="res://scenes/enemy_spawner.tscn" id="10_idmwj"]
 [ext_resource type="Material" uid="uid://c7kojx37vkg4i" path="res://assets/materials/metal_material.tres" id="10_prwh2"]
 [ext_resource type="Texture2D" uid="uid://dog0uevkajdqv" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Color.jpg" id="11_he5cq"]
@@ -299,11 +298,6 @@ libraries = {
 speed_scale = 3.0
 
 [node name="WeaponWheel" parent="." instance=ExtResource("5_bq1pm")]
-
-[node name="grapple_rope_meshGen" parent="." instance=ExtResource("9_oma2s")]
-
-[node name="GrappleTarget" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.07197, 2.69227, -18.0316)
 
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.07014, 0, -1.25347)

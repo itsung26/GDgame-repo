@@ -15,6 +15,8 @@ extends CharacterBody3D
 @onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
 @onready var hud: Control = $"../HUD"
 @onready var grapple_target: Node3D = $"../GrappleTarget"
+@onready var grapple_rope_mesh_gen: Node3D = $grapple_rope_meshGen
+@onready var rope_mesh: MeshInstance3D = $grapple_rope_meshGen/GrappleStart/rope_mesh
 
 @export_category("Settings")
 @export var HEALTH: int = 100
@@ -79,6 +81,7 @@ var input_dir := Vector2.ZERO
 var camera_target_roll: float = 0.0
 var current_weapon_string_name:String = "null state"
 var current_player_string_name:String = "null state"
+var grapple_ray_collidepoint = Vector3.ZERO
 
 func _ready() -> void:
 	# object reference definitions
@@ -93,6 +96,7 @@ func _ready() -> void:
 	
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 	# grapple ray target init + range
 	grapple_ray_cast.target_position = Vector3(0, 0, -GRAPPLE_MAX_RANGE)
 	
@@ -109,12 +113,10 @@ func set_player_state(new_player_state:int):
 	
 	elif new_player_state == player_states.GRAPPLING:
 		if Grapple_Enabled:
-			# get raycast collider
-			var grapple_ray_collidepoint = grapple_ray_cast.get_collision_point()
-			# set grapple target node pos to said point
+			grapple_ray_collidepoint = grapple_ray_cast.get_collision_point()
 			if grapple_ray_collidepoint != null:
-				grapple_target.global_position = grapple_ray_collidepoint
-			# procedural mesh generator will automatically handle the point-to-point generation
+				pass
+
 	
 	# run when the state was switched from
 	if previous_player_state == player_states.GRAPPLING:
@@ -215,7 +217,7 @@ func _physics_process(delta: float) -> void:
 	# state control
 	if is_on_floor():
 		player_state = player_states.IDLE
-	elif not is_on_floor():
+	elif not is_on_floor() and player_state != player_states.GRAPPLING:
 		player_state = player_states.FALLING
 	
 	# Add the gravity 
@@ -334,12 +336,20 @@ func _process(_delta) -> void:
 	
 	updateStateStrings()
 	
-	if Input.is_action_just_pressed("grapple"):
+	if Input.is_action_just_pressed("grapple") and not is_on_floor():
 		player_state = player_states.GRAPPLING
 	
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()
 	
+	if player_state == player_states.GRAPPLING:
+		grapple_rope_mesh_gen.look_at(grapple_ray_collidepoint)
+		var distance_to_grappled = grapple_rope_mesh_gen.global_position.distance_to(grapple_ray_collidepoint)
+		rope_mesh.position.z = -distance_to_grappled / 2
+		print(distance_to_grappled)
+		print(rope_mesh.position)
+		
+
 	# retrn the time remaining on the current black hole cooldown animation and save as a time
 	if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
 		black_hole_time_remaining = bll_animator.current_animation_length - bll_animator.current_animation_position
