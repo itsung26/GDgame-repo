@@ -19,7 +19,6 @@ _surfaces = [{
 script = ExtResource("1_exg5u")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_exg5u")
 surface_material_override/0 = ExtResource("2_kw7jf")
 
