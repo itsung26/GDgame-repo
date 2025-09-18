@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c7jtgif4sx32w"
-path="res://.godot/imported/grapple_arm.glb-70ab1919c8710b84db5a10c3643729e6.scn"
+uid="uid://bk1t2ndyrmoa1"
+path="res://.godot/imported/grappleArm.glb-da2d48dbc2abeb0190eed941d4cc2b4d.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/grapple arm/grapple_arm.glb"
-dest_files=["res://.godot/imported/grapple_arm.glb-70ab1919c8710b84db5a10c3643729e6.scn"]
+source_file="res://assets/gunmodels/grapple arm/grappleArm.glb"
+dest_files=["res://.godot/imported/grappleArm.glb-da2d48dbc2abeb0190eed941d4cc2b4d.scn"]
 
 [params]
 
@@ -32,6 +32,12 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:AnimationPlayer": {
+"import/skip_import": true
+}
+}
+}
 gltf/naming_version=1
 gltf/embedded_image_handling=1

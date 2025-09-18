@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbj7tkmyv6xw8"
-path.s3tc="res://.godot/imported/grapple_arm_flat.png-56bb42daa9241294a441907ca469a629.s3tc.ctex"
+uid="uid://b4esipttedluo"
+path.s3tc="res://.godot/imported/grappleArm_whiplashDiff.png-29e176d7127c012be9fff2127053c7d5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "c35ec98ed94a90a04c89eaad937256d0"
+"md5": "bf7f7c07ba5b54a9b431ca1926e1d918"
 }
 
 [deps]
 
-source_file="res://assets/gunmodels/grapple arm/grapple_arm_flat.png"
-dest_files=["res://.godot/imported/grapple_arm_flat.png-56bb42daa9241294a441907ca469a629.s3tc.ctex"]
+source_file="res://assets/gunmodels/grapple arm/grappleArm_whiplashDiff.png"
+dest_files=["res://.godot/imported/grappleArm_whiplashDiff.png-29e176d7127c012be9fff2127053c7d5.s3tc.ctex"]
 
 [params]
 
@@ -23,12 +23,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://assets/gunmodels/grapple arm/grapple_arm_flat.png"
+roughness/mode=0
+roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

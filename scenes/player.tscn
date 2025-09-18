@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=27 format=3 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://x51q4hwcyu2q" path="res://scenes/fireTypeRAYCAST.tscn" id="2_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://dd4noi18xloe6" path="res://scenes/grapple_arm.tscn" id="3_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://csatdjhfoaqcw" path="res://scenes/pistol.tscn" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://d6b4gnbdcx45" path="res://scenes/black_hole_launcher.tscn" id="11_d2wvv"]
 
@@ -1364,10 +1365,16 @@ skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
 [node name="ArmL" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotBLL"]
-transform = Transform3D(0.764391, -0.638471, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577465, -0.600704, 0.0818599, 1.21195, -0.397836)
+transform = Transform3D(0.764391, -0.638471, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
 mesh = SubResource("CapsuleMesh_d2wvv")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
+
+[node name="GrappleArm" parent="Pivot/Camera3D" instance=ExtResource("3_qlg0r")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.847326, 0, 0)
+
+[node name="grappleArm" parent="Pivot/Camera3D/GrappleArm" index="0"]
+transform = Transform3D(0.190741, 0, 0, 0, 0.190741, 0, 0, 0, 0.190741, -0.605346, -0.592005, 0.071971)
 
 [node name="Guns" type="Node3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
@@ -1412,5 +1419,6 @@ ignore_time_scale = true
 
 [connection signal="timeout" from="SlamTimer" to="." method="_on_slam_timer_timeout"]
 
+[editable path="Pivot/Camera3D/GrappleArm"]
 [editable path="Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]

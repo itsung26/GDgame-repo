@@ -1,4 +1,7 @@
-[gd_scene load_steps=34 format=4 uid="uid://ccl7hn0ddburv"]
+[gd_scene load_steps=41 format=4 uid="uid://ccl7hn0ddburv"]
+
+[ext_resource type="Shader" uid="uid://8xbgim55117h" path="res://shaders/grapple_cube.tres" id="1_wxfaj"]
+[ext_resource type="Texture2D" uid="uid://jnydbkvb58ti" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/circle_03.png" id="2_lpllt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lda68"]
 
@@ -309,40 +312,40 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_kod6n")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxfaj"]
-albedo_color = Color(0.627451, 0.12549, 0.941176, 1)
-emission_enabled = true
-emission = Color(0.627451, 0.12549, 0.941176, 1)
-emission_energy_multiplier = 3.53
+[sub_resource type="Gradient" id="Gradient_wxfaj"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0751445, 0.16763, 0.248555, 0.32948, 0.398844, 0.468208, 0.537572, 0.612717, 0.67052, 0.728324, 0.791907, 0.855491, 0.907514, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+metadata/_snap_count = 50
 
-[sub_resource type="Animation" id="Animation_001cl"]
-resource_name = "cube_idle"
-length = 4.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("grapple_cube/outers:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("grapple_cube:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.5, 0), Vector3(0, 0, 0), Vector3(0, 0.5, 0), Vector3(0, 0, 0)]
-}
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lpllt"]
+gradient = SubResource("Gradient_wxfaj")
+width = 184
+height = 169
+fill_from = Vector2(0.995781, 0)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lpllt"]
+render_priority = 0
+shader = ExtResource("1_wxfaj")
+shader_parameter/Albedo = Color(0.700647, 0.001657, 0.862071, 1)
+shader_parameter/Pan_Speed_Scale_X = 0.0
+shader_parameter/Pan_Speed_Scale_Y = 0.3
+shader_parameter/Cull_Texture = SubResource("GradientTexture2D_lpllt")
+shader_parameter/Emission_Color = Color(0.700647, 0.001657, 0.862071, 1)
+shader_parameter/Emission_intensity = 4.13
+shader_parameter/cull_threshhold = 0.55
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kgreb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55mbd"]
+transparency = 1
+albedo_texture = ExtResource("2_lpllt")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_euxnb"]
+material = SubResource("StandardMaterial3D_55mbd")
+size = Vector2(0.305, 0.305)
 
 [sub_resource type="Animation" id="Animation_wxfaj"]
 length = 0.001
@@ -567,6 +570,35 @@ tracks/7/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-0.213534, -0.274308, 0.183029), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_001cl"]
+resource_name = "cube_idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("grapple_cube/outers:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("grapple_cube:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.5, 0), Vector3(0, 0, 0), Vector3(0, 0.5, 0), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kgreb"]
 _data = {
 &"RESET": SubResource("Animation_wxfaj"),
@@ -633,7 +665,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_001cl")
 [node name="Sphere" type="MeshInstance3D" parent="grapple_cube/inner"]
 mesh = SubResource("ArrayMesh_rm6k6")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_wxfaj")
+surface_material_override/0 = SubResource("ShaderMaterial_lpllt")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="grapple_cube/inner"]
+process_material = SubResource("ParticleProcessMaterial_kgreb")
+draw_pass_1 = SubResource("QuadMesh_euxnb")
 
 [node name="cube_animator" type="AnimationPlayer" parent="."]
 libraries = {

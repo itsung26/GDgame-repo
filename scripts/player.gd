@@ -16,6 +16,7 @@ extends CharacterBody3D
 @onready var hud: Control = $"../HUD"
 @onready var grapple_target: Node3D = $"../GrappleTarget"
 @onready var grapple_rope_mesh_gen: Node3D = $"../grapple_rope_meshGen"
+@onready var grapple_arm: Node3D = $Pivot/Camera3D/GrappleArm
 
 @export_category("Settings")
 @export var HEALTH: int = 100
@@ -80,10 +81,14 @@ var input_dir := Vector2.ZERO
 var camera_target_roll: float = 0.0
 var current_weapon_string_name:String = "null state"
 var current_player_string_name:String = "null state"
+var rope_origin
+var skeleton
 
 func _ready() -> void:
 	# object reference definitions
 	pistol = get_node("Pivot/Camera3D/Guns/Pistol")
+	skeleton = grapple_arm.get_node("grappleArm/whiplash_ARM/Skeleton3D")
+	rope_origin = skeleton.get_node("rope_origin")
 	
 	# disables the camera if you are not the current client in control of it
 	camera_3d.current = is_multiplayer_authority()
@@ -109,6 +114,7 @@ func set_player_state(new_player_state:int):
 		player_move_input_enabled = false
 	
 	elif new_player_state == player_states.GRAPPLING:
+		grapple_arm.visible = true
 		if Grapple_Enabled:
 			# get raycast collider
 			var grapple_ray_collidepoint = grapple_ray_cast.get_collision_point()
@@ -119,7 +125,7 @@ func set_player_state(new_player_state:int):
 	
 	# run when the state was switched from
 	if previous_player_state == player_states.GRAPPLING:
-		pass
+		grapple_arm.visible = false
 	
 func set_weapon_state(new_weapon_state:int):
 	# init vars
@@ -164,6 +170,15 @@ func set_weapon_state(new_weapon_state:int):
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
+	# handle force-quitting
+	if Input.is_action_just_pressed("forcequit"):
+		get_tree().quit()
+	
+	# handle grapple activation
+	if Input.is_action_just_pressed("grapple"):
+		if not is_on_floor():
+			player_state = player_states.GRAPPLING
+	
 	# handle mouselook
 	if event is InputEventMouseMotion and player.player_look_input_enabled:
 		mouse_delta2 = event.relative
@@ -332,17 +347,12 @@ func gunInputs(): # run every frame in _process
 
 var a = true
 func _process(_delta) -> void:
-	
+	# updates string variables with the current state for debug purposes
 	updateStateStrings()
 	
-	if Input.is_action_just_pressed("grapple"):
-		player_state = player_states.GRAPPLING
-	
-	if Input.is_action_just_pressed("forcequit"):
-		get_tree().quit()
-	
+	# runs main grapple logic every frame.
 	if player_state == player_states.GRAPPLING:
-		grapple_rope_mesh_gen.generate_mesh_planes(player.global_position, grapple_target.global_position)
+		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_target.global_position)
 	
 	# retrn the time remaining on the current black hole cooldown animation and save as a time
 	if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://co052kx8ng1od"]
+[gd_scene load_steps=41 format=4 uid="uid://co052kx8ng1od"]
 
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="1_l6cm7"]
 [ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="2_ekxnf"]
@@ -19,15 +19,6 @@ volumetric_fog_emission_energy = 0.0
 volumetric_fog_anisotropy = -0.4
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_bqqt6"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_ekxnf"]
-viewport_path = NodePath("CanvasLayer/Panel/SubViewport")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bqqt6"]
-resource_local_to_scene = true
-texture = SubResource("ViewportTexture_ekxnf")
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_vue75"]
 _surfaces = [{
@@ -372,12 +363,6 @@ camera_attributes = SubResource("CameraAttributesPhysical_bqqt6")
 [node name="Pause" parent="." instance=ExtResource("1_l6cm7")]
 lock_mouse_on_exit = false
 show_mouse_on_enter = false
-
-[node name="Panel" parent="Pause/CanvasLayer" index="0"]
-theme_override_styles/panel = SubResource("StyleBoxTexture_bqqt6")
-
-[node name="MeshInstance3D" parent="Pause/CanvasLayer/Panel/SubViewport/pause_viewport" index="1"]
-transform = Transform3D(-0.329622, -0.717845, -0.613227, -0.569991, 0.669105, -0.476874, 0.752635, 0.192346, -0.629717, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.855, -13.652)
