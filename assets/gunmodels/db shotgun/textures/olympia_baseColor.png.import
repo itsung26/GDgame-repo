@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://57ppfu3duqgj"
-path.s3tc="res://.godot/imported/colormap.png-2cdd6dab8131f92e91c210a1ad0c48de.s3tc.ctex"
+uid="uid://bsn8aujwyvnu5"
+path.s3tc="res://.godot/imported/olympia_baseColor.png-47f1c4ce825c5cee957bc577f7a29801.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/gunmodels/Textures/colormap.png"
-dest_files=["res://.godot/imported/colormap.png-2cdd6dab8131f92e91c210a1ad0c48de.s3tc.ctex"]
+source_file="res://assets/gunmodels/db shotgun/textures/olympia_baseColor.png"
+dest_files=["res://.godot/imported/olympia_baseColor.png-47f1c4ce825c5cee957bc577f7a29801.s3tc.ctex"]
 
 [params]
 
