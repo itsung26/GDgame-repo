@@ -5,24 +5,27 @@
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_exg5u"]
 _surfaces = [{
-"aabb": AABB(12.8048, -0.25, -4.68604, 7.914, 0.5, 4.68604),
+"aabb": AABB(-0.25, -0.739996, -0.584182, 2.3342, 0.989996, 0.584182),
 "format": 34359742465,
 "index_count": 12,
 "index_data": PackedByteArray("AQACAAYABgACAAcAAwAEAAkACQAIAAQA"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 10,
-"vertex_data": PackedByteArray("GsCjQQAAAAAK9JXAGsClQQAAAAAK9JXAGsChQQAAAAAK9JXAGsCjQQAAgD4K9JXAGsCjQQAAgL4K9JXAduBQQQAAAAAAAAAAduBUQQAAAAAAAAAAduBMQQAAAAAAAAAAduBQQQAAgL4AAAAAduBQQQAAgD4AAAAA")
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAACAPgAAAAAAAAAAAACAvgAAAAAAAAAAAAAAAAAAgD4AAAAAAAAAAAAAgL4AAAAA/MbqP9Dg+r74jBW/fmMFQNDg+r74jBW//MbKP9Dg+r74jBW//MbqP2hwPb/4jBW//MbqP6DBdb74jBW/")
 }]
 
 [node name="grapple_rope_meshGen" type="Node3D"]
 script = ExtResource("1_exg5u")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.303474, 0.235046, -0.923394, 0, 0.969097, 0.24668, 0.95284, -0.074861, 0.294096, 0, 0, 0)
 mesh = SubResource("ArrayMesh_exg5u")
 surface_material_override/0 = ExtResource("2_kw7jf")
 
 [node name="A" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.910187, 0, 8.55043)
+visible = false
 
 [node name="B" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8342, -0.489996, -0.584182)
