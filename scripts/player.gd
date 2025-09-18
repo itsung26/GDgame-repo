@@ -15,6 +15,7 @@ extends CharacterBody3D
 @onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
 @onready var hud: Control = $"../HUD"
 @onready var grapple_target: Node3D = $"../GrappleTarget"
+@onready var grapple_rope_mesh_gen: Node3D = $"../grapple_rope_meshGen"
 
 @export_category("Settings")
 @export var HEALTH: int = 100
@@ -215,7 +216,7 @@ func _physics_process(delta: float) -> void:
 	# state control
 	if is_on_floor():
 		player_state = player_states.IDLE
-	elif not is_on_floor():
+	elif not is_on_floor() and player_state != player_states.GRAPPLING:
 		player_state = player_states.FALLING
 	
 	# Add the gravity 
@@ -339,6 +340,9 @@ func _process(_delta) -> void:
 	
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()
+	
+	if player_state == player_states.GRAPPLING:
+		grapple_rope_mesh_gen.generate_mesh_planes(player.global_position, grapple_target.global_position)
 	
 	# retrn the time remaining on the current black hole cooldown animation and save as a time
 	if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":

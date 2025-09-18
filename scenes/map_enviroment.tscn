@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="3_p1xl4"]
 [ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="4_prwh2"]
 [ext_resource type="PackedScene" uid="uid://b7flsfviplefd" path="res://scenes/weapon_wheel.tscn" id="5_bq1pm"]
-[ext_resource type="PackedScene" uid="uid://bbeqjnwfdkhdi" path="res://scenes/grapple_rope_meshGen.tscn" id="9_oma2s"]
+[ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="9_oma2s"]
 [ext_resource type="PackedScene" uid="uid://cj0vx655hbmtp" path="res://scenes/enemy_spawner.tscn" id="10_idmwj"]
 [ext_resource type="Material" uid="uid://c7kojx37vkg4i" path="res://assets/materials/metal_material.tres" id="10_prwh2"]
 [ext_resource type="Texture2D" uid="uid://dog0uevkajdqv" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Color.jpg" id="11_he5cq"]

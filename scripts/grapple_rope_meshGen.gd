@@ -19,17 +19,11 @@ func _ready():
 	pass
 
 func _process(float) -> void:
-	# if is in the editor, attatch to test points
-	if Engine.is_editor_hint():
-		generate_mesh_planes(b.global_position)
-	# else, attatch to player-defined points
-	elif not Engine.is_editor_hint():
-		generate_mesh_planes(grapple_target.global_position)
-	
+	# generate_mesh_planes(a.global_position,b.global_position)
+	pass
 
 # generates two parallel quads using 2 points with ops to get 10 points total
-func generate_mesh_planes(target:Vector3):
-	print("running")
+func generate_mesh_planes(origin:Vector3,target:Vector3):
 	var shape_width := Vector3(width, 0, 0)
 	var shape_height := Vector3(0, height, 0)
 	
@@ -37,11 +31,11 @@ func generate_mesh_planes(target:Vector3):
 	
 	var vertices = PackedVector3Array()
 	# beginning end
-	var p1 := global_position
-	var p1_right := global_position + shape_width
-	var p1_left := global_position - shape_width
-	var p1_up := global_position + shape_height
-	var p1_down := global_position - shape_height
+	var p1 := origin
+	var p1_right := origin + shape_width
+	var p1_left := origin - shape_width
+	var p1_up := origin + shape_height
+	var p1_down := origin - shape_height
 	
 	# ending end
 	var p2 := target
@@ -84,5 +78,3 @@ func generate_mesh_planes(target:Vector3):
 	# modify color
 	mesh_instance_3d.get_surface_override_material(0).albedo_color = color
 	
-	# look at target
-	mesh_instance_3d.look_at(target)

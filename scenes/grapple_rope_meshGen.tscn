@@ -1,31 +1,30 @@
-[gd_scene load_steps=4 format=4 uid="uid://bbeqjnwfdkhdi"]
+[gd_scene load_steps=4 format=4 uid="uid://ceorn7ljbkgss"]
 
 [ext_resource type="Script" uid="uid://b8ynae1ll2gt6" path="res://scripts/grapple_rope_meshGen.gd" id="1_exg5u"]
 [ext_resource type="Material" uid="uid://eek22gpn6m28" path="res://assets/materials/grapple_rope.tres" id="2_kw7jf"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_exg5u"]
 _surfaces = [{
-"aabb": AABB(-0.25, -0.739996, -0.584182, 2.3342, 0.989996, 0.584182),
+"aabb": AABB(-0.25, -0.25, 0, 2.8756, 0.5, 1e-05),
 "format": 34359742465,
 "index_count": 12,
 "index_data": PackedByteArray("AQACAAYABgACAAcAAwAEAAkACQAIAAQA"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 10,
-"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAACAPgAAAAAAAAAAAACAvgAAAAAAAAAAAAAAAAAAgD4AAAAAAAAAAAAAgL4AAAAA/MbqP9Dg+r74jBW/fmMFQNDg+r74jBW//MbKP9Dg+r74jBW//MbqP2hwPb/4jBW//MbqP6DBdb74jBW/")
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAACAPgAAAAAAAAAAAACAvgAAAAAAAAAAAAAAAAAAgD4AAAAAAAAAAAAAgL4AAAAAzgkYQAAAAAAAAAAAzgkoQAAAAAAAAAAAzgkIQAAAAAAAAAAAzgkYQAAAgL4AAAAAzgkYQAAAgD4AAAAA")
 }]
 
 [node name="grapple_rope_meshGen" type="Node3D"]
 script = ExtResource("1_exg5u")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.303474, 0.235046, -0.923394, 0, 0.969097, 0.24668, 0.95284, -0.074861, 0.294096, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_exg5u")
 surface_material_override/0 = ExtResource("2_kw7jf")
 
 [node name="A" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.910187, 0, 8.55043)
 visible = false
 
 [node name="B" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8342, -0.489996, -0.584182)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3756, 0, 0)
