@@ -1,7 +1,6 @@
-[gd_scene load_steps=27 format=3 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=26 format=3 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
-[ext_resource type="PackedScene" uid="uid://x51q4hwcyu2q" path="res://scenes/fireTypeRAYCAST.tscn" id="2_tuyoq"]
 [ext_resource type="PackedScene" uid="uid://dd4noi18xloe6" path="res://scenes/grapple_arm.tscn" id="3_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://csatdjhfoaqcw" path="res://scenes/pistol.tscn" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://d6b4gnbdcx45" path="res://scenes/black_hole_launcher.tscn" id="11_d2wvv"]
@@ -1329,15 +1328,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
 
-[node name="GrappleRayCast" type="RayCast3D" parent="Pivot/Camera3D"]
-visible = false
-target_position = Vector3(0, 0, -1)
-collision_mask = 6
-
-[node name="BulletRayCast" parent="Pivot/Camera3D" instance=ExtResource("2_tuyoq")]
+[node name="BulletRayCast" type="RayCast3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 8.74228e-08, 8.74228e-08, 8.74228e-08, -1, 0, 8.74228e-08, 7.64274e-15, -1, 0.00434119, -0.0047704, -0.40687)
 visible = false
 target_position = Vector3(0, 0, 900)
+collision_mask = 6
 
 [node name="ArmPivotPistol" type="Node3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
@@ -1371,17 +1366,13 @@ skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
 [node name="GrappleArm" parent="Pivot/Camera3D" instance=ExtResource("3_qlg0r")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.847326, 0, 0)
+transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, -0.154, -0.47, 0)
 
-[node name="grappleArm" parent="Pivot/Camera3D/GrappleArm" index="0"]
-transform = Transform3D(0.190741, 0, 0, 0, 0.190741, 0, 0, 0, 0.190741, -0.605346, -0.592005, 0.071971)
+[node name="rope_origin" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
+transform = Transform3D(0.985275, 0.0912851, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912847, 0.434092, -0.896231, -0.00338191, 0.181375, -0.147857)
 
 [node name="Guns" type="Node3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
-
-[node name="shotgun" type="Node3D" parent="Pivot/Camera3D/Guns" groups=["weapons"]]
-transform = Transform3D(-1.55571, 0.268075, -1.22797, 0, 1.95398, 0.426569, 1.25689, 0.331809, -1.51991, -0.281417, 0.126047, 0)
-visible = false
 
 [node name="BlackHoleLauncher" parent="Pivot/Camera3D/Guns" instance=ExtResource("11_d2wvv")]
 transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)

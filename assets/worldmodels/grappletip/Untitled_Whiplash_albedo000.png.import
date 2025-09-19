@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://l8bynw0tv386"
-path.s3tc="res://.godot/imported/grapple_head_circular_base Base Color.png-587417e3adc4399c9792e056fb24f37c.s3tc.ctex"
+uid="uid://ccw4stpjwf0wy"
+path.s3tc="res://.godot/imported/Untitled_Whiplash_albedo000.png-0508871e909ee73bafd4082fc7dc6a94.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "c011c6165e3e854e4ed7042fbb9b4258"
+"md5": "98165939a240ae816872eccb3e6da11c"
 }
 
 [deps]
 
-source_file="res://assets/worldmodels/grappletip/grapple_head_circular_base Base Color.png"
-dest_files=["res://.godot/imported/grapple_head_circular_base Base Color.png-587417e3adc4399c9792e056fb24f37c.s3tc.ctex"]
+source_file="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png"
+dest_files=["res://.godot/imported/Untitled_Whiplash_albedo000.png-0508871e909ee73bafd4082fc7dc6a94.s3tc.ctex"]
 
 [params]
 

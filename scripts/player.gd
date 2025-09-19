@@ -83,12 +83,14 @@ var current_weapon_string_name:String = "null state"
 var current_player_string_name:String = "null state"
 var rope_origin
 var skeleton
+var grapple_hook
 
 func _ready() -> void:
 	# object reference definitions
 	pistol = get_node("Pivot/Camera3D/Guns/Pistol")
 	skeleton = grapple_arm.get_node("grappleArm/whiplash_ARM/Skeleton3D")
 	rope_origin = skeleton.get_node("rope_origin")
+	grapple_hook = get_node("Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder/grapple_hook")
 	
 	# disables the camera if you are not the current client in control of it
 	camera_3d.current = is_multiplayer_authority()
@@ -99,8 +101,6 @@ func _ready() -> void:
 	
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	# grapple ray target init + range
-	grapple_ray_cast.target_position = Vector3(0, 0, -GRAPPLE_MAX_RANGE)
 	
 func set_player_state(new_player_state:int):
 	# init vars
@@ -116,12 +116,7 @@ func set_player_state(new_player_state:int):
 	elif new_player_state == player_states.GRAPPLING:
 		grapple_arm.visible = true
 		if Grapple_Enabled:
-			# get raycast collider
-			var grapple_ray_collidepoint = grapple_ray_cast.get_collision_point()
-			# set grapple target node pos to said point
-			if grapple_ray_collidepoint != null:
-				grapple_target.global_position = grapple_ray_collidepoint
-			# procedural mesh generator will automatically handle the point-to-point generation
+			print("grapple initiating")
 	
 	# run when the state was switched from
 	if previous_player_state == player_states.GRAPPLING:
@@ -350,9 +345,12 @@ func _process(_delta) -> void:
 	# updates string variables with the current state for debug purposes
 	updateStateStrings()
 	
+	# keeps the rope attatched to the grapple bit
+	grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
+	
 	# runs main grapple logic every frame.
 	if player_state == player_states.GRAPPLING:
-		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_target.global_position)
+		pass
 	
 	# retrn the time remaining on the current black hole cooldown animation and save as a time
 	if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":

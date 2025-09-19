@@ -153,7 +153,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-541.307, -94.0375)
 modes/cull = 2
 preview_params/Emission_intensity = "4.13"
 preview_params/cull_threshhold = "0.55"
@@ -171,9 +170,9 @@ nodes/fragment/5/position = Vector2(-200, 100)
 nodes/fragment/6/node = SubResource("VisualShaderNodeTexture2DParameter_pw61p")
 nodes/fragment/6/position = Vector2(-1200, 760)
 nodes/fragment/7/node = SubResource("VisualShaderNodeTexture_n8ucl")
-nodes/fragment/7/position = Vector2(-680, 860)
+nodes/fragment/7/position = Vector2(-840, 880)
 nodes/fragment/8/node = SubResource("VisualShaderNodeVectorOp_e3f32")
-nodes/fragment/8/position = Vector2(-300, 820)
+nodes/fragment/8/position = Vector2(-320, 960)
 nodes/fragment/9/node = SubResource("VisualShaderNodeFloatParameter_uvtfo")
 nodes/fragment/9/position = Vector2(0, 840)
 nodes/fragment/10/node = SubResource("VisualShaderNodeUVFunc_pw61p")

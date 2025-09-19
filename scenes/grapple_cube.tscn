@@ -1,7 +1,6 @@
-[gd_scene load_steps=41 format=4 uid="uid://ccl7hn0ddburv"]
+[gd_scene load_steps=47 format=4 uid="uid://ccl7hn0ddburv"]
 
 [ext_resource type="Shader" uid="uid://8xbgim55117h" path="res://shaders/grapple_cube.tres" id="1_wxfaj"]
-[ext_resource type="Texture2D" uid="uid://jnydbkvb58ti" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/circle_03.png" id="2_lpllt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lda68"]
 
@@ -336,16 +335,37 @@ shader_parameter/Emission_Color = Color(0.700647, 0.001657, 0.862071, 1)
 shader_parameter/Emission_intensity = 4.13
 shader_parameter/cull_threshhold = 0.55
 
+[sub_resource type="Curve" id="Curve_wxfaj"]
+_limits = [0.0, 1.0, 0.0, 0.5]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lpllt"]
+curve = SubResource("Curve_wxfaj")
+
+[sub_resource type="Curve" id="Curve_kgreb"]
+_limits = [0.0, 10.0, 0.0, 0.52]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.40877, 9.10112), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_55mbd"]
+curve = SubResource("Curve_kgreb")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kgreb"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_55mbd")
+color = Color(0.627451, 0.12549, 0.941176, 1)
+alpha_curve = SubResource("CurveTexture_lpllt")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55mbd"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euxnb"]
 transparency = 1
-albedo_texture = ExtResource("2_lpllt")
-billboard_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
 
-[sub_resource type="QuadMesh" id="QuadMesh_euxnb"]
-material = SubResource("StandardMaterial3D_55mbd")
-size = Vector2(0.305, 0.305)
+[sub_resource type="SphereMesh" id="SphereMesh_y22kw"]
+material = SubResource("StandardMaterial3D_euxnb")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wxfaj"]
 
 [sub_resource type="Animation" id="Animation_wxfaj"]
 length = 0.001
@@ -468,6 +488,106 @@ tracks/9/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lnha8"]
+resource_name = "cube_close"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("grapple_cube/outers/outer_001:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.218337, 0.217071, -0.226734), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("grapple_cube/outers/outer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.201542, 0.217071, -0.293915), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("grapple_cube/outers/outer_002:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.193145, 0.217071, 0.167952), Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("grapple_cube/outers/outer_003:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.209939, 0.217071, 0.209939), Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("grapple_cube/outers/outer_004:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.193197, -0.274308, -0.29488), Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("grapple_cube/outers/outer_005:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.213533, -0.274308, -0.23387), Vector3(0, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("grapple_cube/outers/outer_006:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.183029, -0.274308, 0.162692), Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("grapple_cube/outers/outer_007:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.213534, -0.274308, 0.183029), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_lpllt"]
@@ -599,11 +719,127 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0.5, 0), Vector3(0, 0, 0), Vector3(0, 0.5, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_pjrce"]
+resource_name = "cube_open_2"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("grapple_cube/outers/outer_001:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.218337, 0.217071, -0.226734)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("grapple_cube/outers/outer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.201542, 0.217071, -0.293915)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("grapple_cube/outers/outer_002:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.193145, 0.217071, 0.167952)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("grapple_cube/outers/outer_003:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.209939, 0.217071, 0.209939)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("grapple_cube/outers/outer_004:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.193197, -0.274308, -0.29488)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("grapple_cube/outers/outer_005:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.213533, -0.274308, -0.23387)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("grapple_cube/outers/outer_006:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.183029, -0.274308, 0.162692)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("grapple_cube/outers/outer_007:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.213534, -0.274308, 0.183029)]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("grapple_cube/inner/GPUParticles3D")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"restart"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kgreb"]
 _data = {
 &"RESET": SubResource("Animation_wxfaj"),
+&"cube_close": SubResource("Animation_lnha8"),
 &"cube_hit_by_bullet": SubResource("Animation_lpllt"),
-&"cube_idle": SubResource("Animation_001cl")
+&"cube_idle": SubResource("Animation_001cl"),
+&"cube_open": SubResource("Animation_pjrce")
 }
 
 [node name="GrappleCube" type="Node3D"]
@@ -668,8 +904,26 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_lpllt")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="grapple_cube/inner"]
+emitting = false
+amount = 1
+one_shot = true
 process_material = SubResource("ParticleProcessMaterial_kgreb")
-draw_pass_1 = SubResource("QuadMesh_euxnb")
+draw_pass_1 = SubResource("SphereMesh_y22kw")
+
+[node name="SpeedBoostBlock" type="Area3D" parent="."]
+collision_layer = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpeedBoostBlock"]
+transform = Transform3D(1.71751, 0, 0, 0, 1.71751, 0, 0, 0, 1.71751, 0, 0, 0)
+shape = SubResource("BoxShape3D_wxfaj")
+
+[node name="GrappleDetectBlock" type="StaticBody3D" parent="."]
+collision_layer = 256
+collision_mask = 512
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleDetectBlock"]
+transform = Transform3D(1.71751, 0, 0, 0, 1.71751, 0, 0, 0, 1.71751, 0, 0, 0)
+shape = SubResource("BoxShape3D_wxfaj")
 
 [node name="cube_animator" type="AnimationPlayer" parent="."]
 libraries = {

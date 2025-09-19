@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f7eo8wykcx12"
-path.s3tc="res://.godot/imported/grapple_head_Cone Base Color.png-29c5974ee8fcf4ae6d05c5858dcc5c75.s3tc.ctex"
+uid="uid://b634drxy8nceb"
+path.s3tc="res://.godot/imported/Untitled_Whiplash_normal000.png-01ccb590589477adfce863a1ae3753ce.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "805924cd3fd22457cf0e3bd004b7c383"
+"md5": "4e22699990be97c8941b82ffdd0d7a6f"
 }
 
 [deps]
 
-source_file="res://assets/worldmodels/grappletip/grapple_head_Cone Base Color.png"
-dest_files=["res://.godot/imported/grapple_head_Cone Base Color.png-29c5974ee8fcf4ae6d05c5858dcc5c75.s3tc.ctex"]
+source_file="res://assets/worldmodels/grappletip/Untitled_Whiplash_normal000.png"
+dest_files=["res://.godot/imported/Untitled_Whiplash_normal000.png-01ccb590589477adfce863a1ae3753ce.s3tc.ctex"]
 
 [params]
 
@@ -23,12 +23,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://assets/worldmodels/grappletip/Untitled_Whiplash_normal000.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

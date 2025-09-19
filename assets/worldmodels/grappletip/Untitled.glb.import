@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b8omdflgt7aui"
-path="res://.godot/imported/grapple_head.glb-11612e45dc2e9b971e9e659a866be976.scn"
+uid="uid://bipx605hokfmf"
+path="res://.godot/imported/Untitled.glb-b1c6f9ebdf1ced4bd42cfa86bce59fd4.scn"
 
 [deps]
 
-source_file="res://assets/worldmodels/grappletip/grapple_head.glb"
-dest_files=["res://.godot/imported/grapple_head.glb-11612e45dc2e9b971e9e659a866be976.scn"]
+source_file="res://assets/worldmodels/grappletip/Untitled.glb"
+dest_files=["res://.godot/imported/Untitled.glb-b1c6f9ebdf1ced4bd42cfa86bce59fd4.scn"]
 
 [params]
 

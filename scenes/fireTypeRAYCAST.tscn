@@ -1,4 +1,0 @@
-[gd_scene format=3 uid="uid://x51q4hwcyu2q"]
-
-[node name="fireTypeRAYCAST" type="RayCast3D"]
-collision_mask = 6
