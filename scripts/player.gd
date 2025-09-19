@@ -84,7 +84,7 @@ var current_player_string_name:String = "null state"
 var rope_origin
 var skeleton
 var grapple_hook
-var hook_holder
+var grapple_hook_holder
 
 func _ready() -> void:
 	# object reference definitions
@@ -92,7 +92,7 @@ func _ready() -> void:
 	skeleton = grapple_arm.get_node("grappleArm/whiplash_ARM/Skeleton3D")
 	rope_origin = skeleton.get_node("rope_origin")
 	grapple_hook = get_node("Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder/hook")
-	hook_holder = get_node("Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder")
+	grapple_hook_holder = get_node("Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder")
 	
 	# disables the camera if you are not the current client in control of it
 	camera_3d.current = is_multiplayer_authority()
@@ -119,13 +119,14 @@ func set_player_state(new_player_state:int):
 	if new_player_state == player_states.GRAPPLING and Grapple_Enabled:
 		print("state set to grapple")
 		grapple_rope_mesh_gen.visible = true
-		grapple_hook.reparent(get_tree().root) # parent transform to root node
+		grapple_hook.reparent(get_tree().root, true) # parent transform to root node
+		grapple_hook.position = Vector3.ZERO
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
 	if previous_player_state == player_states.GRAPPLING:
 		print("state left grapple")
 		grapple_rope_mesh_gen.visible = false
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
-		grapple_hook.reparent(hook_holder)
+		grapple_hook.reparent(grapple_hook_holder, true)
 		grapple_hook.position = Vector3.ZERO
 		
 	

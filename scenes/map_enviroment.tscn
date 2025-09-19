@@ -324,6 +324,9 @@ bones/16/position = Vector3(0.0665548, 0.468296, 0.207635)
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
 transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896232, -0.419368, 0.0912846, 0.434093, -0.896234, -0.00338173, 0.181374, -0.147858)
 
+[node name="hook" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder" index="0"]
+gravity_scale = 0.0
+
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
