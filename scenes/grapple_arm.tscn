@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=4 uid="uid://dd4noi18xloe6"]
+[gd_scene load_steps=16 format=4 uid="uid://dd4noi18xloe6"]
 
-[ext_resource type="PackedScene" uid="uid://2w5unk62u55g" path="res://scenes/grapple_hook.tscn" id="1_1h7p2"]
+[ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="1_yv6i5"]
+[ext_resource type="Texture2D" uid="uid://b634drxy8nceb" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_normal000.png" id="2_eeik8"]
 [ext_resource type="Animation" uid="uid://cc5jsyaulies1" path="res://assets/gunmodels/grapple arm/grapple_rebound.res" id="3_o3u0h"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2h11y"]
@@ -99,6 +100,51 @@ bind/18/name = &"bip_pinky_2_L"
 bind/18/bone = -1
 bind/18/pose = Transform3D(0.957998, -0.242681, 0.152795, -0.282426, -0.890851, 0.355839, 0.049762, -0.384046, -0.921972, -1.0026, 0.157685, -4.18958)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyyto"]
+resource_name = "Whiplash"
+cull_mode = 2
+albedo_texture = ExtResource("1_yv6i5")
+roughness = 0.0195313
+normal_enabled = true
+normal_texture = ExtResource("2_eeik8")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_n30hq"]
+_surfaces = [{
+"aabb": AABB(-0.095876, -0.268371, -0.227273, 0.191117, 0.56812, 0.827943),
+"format": 34896613377,
+"index_count": 426,
+"index_data": PackedByteArray("AAABAAIAAwABAAAAAQADADIAAQAyADMAAQAzAAIABAAzADIABAAyAAMABAAHADMAAwAGAAQABgAHAAQAAgAzADQANAAzAAcANQAAAAIAAAA1AAUAAAAFAAMANQACABsAAgA0ABoAGwACABoAGwA2ADUANQA2AAUAGwAaACcAGwAlADYAJQAbACcAJwAaADcAGgA0ACoAGgAqADcAJwA3AA0AJQAnACgAKAAnAA0AKQANADcAKgApADcAKAANAA4AKQAOAA0AEAAoAA4AKQAQAA4AJgAlACgAEAAmACgAKQA4ABAAJgAQADgAOQA4ACkAJgAjACUAIwA2ACUAJgA4ACQAJAAjACYAJAA4ADkAIwA6ADYAJAASACMAOgAjABIAOgAFADYABQA6ABEAOgASABEAIgASACQAJAA5ACIAEQASABkABQARAAsACwARABkAGQASACEAIgAhABIAGQAhADsAGQA7AAsAFgAhACIAGAA7ACEAGAALADsAGAAhABYACwAYABcAFwAYABYAFgAiADwAPAAiADkAFgA9ABcAHwAWADwAFgAfAD0ACAAXAD0ACAALABcAHwA+AD0APQA+AAgAHwA8ACAAHwAeAD4AHgAfACAAMAAgADwAPAA5ADAAHgAgADEAMAAVACAAMQAgABUAMQAVABQAEwAVADAAEwAUABUADAAxABQAEwAMABQAHQAeADEADAAdADEAHQAcAB4AHAA+AB4AHQAMACwALAAMABMAPwAcAB0AHQAsAD8AHABAAD4AQAAcAAcAPwAHABwAQAAIAD4ANAAHAD8AQAAHAAYABgAIAEAAPwAqADQAPwAsACoABgADAAgALABBACoALAATAEEAQQATAEIAAwAKAAgACgALAAgAAwBDAAoACgBEAAsARQAKAEMARQBEAAoAQwAJAEUARABFAAkAAwAJAEMACwBEAAkAAwAFAAkACwAJAAUARgBCABMAEwAwAEYAMAA5AEYADwBCAEYADwBBAEIARgA5AC0ADwBGAC0ADwAvAEEAQQAvACoADwAtAEcADwBHAC8ALQAuAEcALwBHAC4ALQBIAC4ALwAuAEgALQA5ACsALwArACoALQArAEgALwBIACsAKQAqACsAKQArADkA"),
+"lods": [0.0481222, PackedByteArray("AAABAAIAAwABAAAAAQAEAAIAAQADAAQABQAAAAIAAAAFAAMAAgAEABoABQACABsAGwACABoAAwAGAAQABgAHAAQAGgAEAAcABgADAAgACAAHAAYAAwAKAAgAAwAJAAoAAwAFAAkACwAKAAkACwAJAAUACgALAAgACAAcAAcAHQAHABwAGgAHAB0AHAAIAB4AHQAcAB4AHwAeAAgACAAXAB8ACAALABcAHgAfACAAFgAfABcAHwAWACAACwAYABcAFwAYABYAGAALABkAGAAhABYAGAAZACEACwARABkABQARAAsAGQASACEAEQASABkAFgAhACIAIgAhABIAFgAiACAAIwASABEABQAjABEAJAASACMAIgASACQAIwAFACUAGwAlAAUAJAAjACYAJgAjACUAJQAbACcAGwAaACcAJgAlACgAJQAnACgAJgAQACQAEAAmACgAKQAkABAAIgAkACkAEAAoAA4AKQAQAA4AKAAnAA0AKAANAA4AJwAaAA0AKQAOAA0AKQANABoAKgApABoAHQAqABoAKQArACIAKQAqACsAHQAsACoALQAiACsALQArAC4ADwAiAC0ADwAtAC4ALwAuACsADwAuAC8ALwArACoAMAAiAA8AIAAiADAADwAvABMAEwAvACoAEwAwAA8ALAATACoAMAAVACAAEwAVADAALAAMABMAHQAMACwAEwAUABUAEwAMABQAMQAgABUAMQAVABQADAAxABQADAAdADEAHgAgADEAHQAeADEA"), 0.091095, PackedByteArray("AAABAAIAAwABAAAAAQAEAAIAAQADAAQABQAAAAIAAAAFAAMAAwAGAAQABgAHAAQAAgAEAAcABgADAAgACAAHAAYAAwAFAAkAAwAJAAoAAwAKAAgACwAKAAkACgALAAgACwAJAAUAAgAHAAwADAAHAAgABQACAA0ABQANAA4ADwANAAIADwAOAA0AEAAFAA4ADwAQAA4ABQAQABEABQARAAsAEAASABEAAgAMABMAEwAPAAIAEwAMABQADAAIABQAEwAUABUACAAVABQAEwAVABYAEwAWAA8ACAAWABUADwAWABAAFgASABAACAAXABYACAALABcAFwAYABYACwAYABcAGAAZABYAGAALABkAFgAZABIACwARABkAEQASABkA")],
+"name": "Whiplash",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 73,
+"vertex_data": PackedByteArray("d79vkrQRAACdz1GRQhIAAFLNJ5S+FwAADq83gIUOAAB90spvTRIAALh7vKyBDgAAjsJbbr8RAACu0PFsyhcAAG2DxVKcDgAA2nzJnngBAAAtgqhgiwEAABdQS3+LDgAA7rJBBzhtAAAsnob57mwAAAh1///fbAAA5oS+S6rGAAARTb3482wAAJ48K5G9EQAAjC6dksgXAADShsIzDaoAAPeKAAAtbQAA02F4Bj1tAADoMWdr1BcAALU/Fm3IEQAAkC81blcSAACxLL2PTRIAAN7M0aP9RwAANJ+gvQcXAAC9qaRCLBcAAAW8hTztSAAAZIVLPMsWAAAFYO1BMRcAAElPdzv0SAAAlSftfhsYAACfKA9/ZUkAAHtV6bwLFwAAxixEogdIAADUeULDohYAAKZDScPKSAAAYrBXxMNIAABqeJPWmEkAANF6ocA0uAAA//88gYlsAACpgGCA//8AAJr5QlIObQAAe2Pabe/XAABhgjJq09kAAJagcm7r1wAAbg77Tx1tAABEhzwpzUkAAJvVmYDdEQAApteigBAYAAAO18CAWUkAADeUg7UsEQAAmHoEulsRAACR8QOw8WwAAGUGvK0AbQAAAADBfplsAADJYQa1LxEAAJIp7n7oEQAAzDL8WxxIAAD0agJKTxEAAJSEgkV/EQAA49KJXRJIAABinX9KTBEAACSnBEewswAARIV6Rly0AACtqB+AvwEAAFtWUn/EAQAAgn+3fwAAAABYY1xGtbMAAASEn1ZS0QAAIIJXblDvAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_a04ym"]
+resource_name = "Untitled_Mesh_0"
+_surfaces = [{
+"aabb": AABB(-0.095876, -0.268371, -0.227273, 0.191117, 0.56812, 0.827943),
+"attribute_data": PackedByteArray("RfuW4iT77OJW+23jJPvs4vf57uLE+XDjyvxI4Y36x+Ek++zi9/nu4tb5mOL3+e7iT/hQ4dH17u0y9fLtCPcq9TL18u0X+N/4Wv8H7v//Du7//w7u0raY4vS27uLBtnDj9Lbu4iC47OJTuG3jTLVQ4Yq3x+H0tu7iILjs4kG4luIguOzix7lI4Ve8B+77vA7uFLXf+Pu8Du4FtCr1zrLu7S6y8u0usvLtirfH4RK2qd//uKffTLVQ4ce5SOGN+sfhA/yn3xX5qd/K/EjhT/hQ4Sv9PuO5/dbikf1L6bz+OOkM/Dzpl/0g9/H3SONj9+PikfdN6Y36r+1q9jzpjfr//7j4wO28+ev6T/l9++60SONgtOPijrRN6WezPOkouj7jtrrW4o26S+m5uzjpCbk86ZS6IPeKt2rpirf//7i26/pMtn37ireo47W1wO1F+5biVvtt49K2mOLBtnDj1vmY4sT5cOOKt8fhirc44Iq3OOCN+sfhjfo44I36OOCKtzjgirft3v+4p98StqnfWP344fH8V+KN+u/iKvhg4sL3BOIS+T3pCPcq9QL4R/aN+mrpjfqo44367+Jl/Mftwvn6/Rf43/iT+Cj6T/l9+wW0KvX/tEf2irev7Q62Pem+tATiJrVg4oq37+JBuJbi7blX4lW6+OFTuG3jYrnH7b62+v0Utd/4kLUo+ky2ffuKt+/i/7RH9pW00vYC+Ef2mffS9o367d4V+anfjfo44AP8p98="),
+"format": 34896613399,
+"index_count": 426,
+"index_data": PackedByteArray("UwABAFQAVQAWAFYAVwBYAAsAWQBaACwAWQAsAC4AKwBbACoAKwAqAC0AXABdADEAXAAxADMALwAyADAALwAwAF4AXwBgAGEAYABfAGIANAA1AGMANABjAGQAZABjAAYAAABkAAYAAAAGAAcAZAAAAAIAZAACADQABwAIAAAACAAHAGUACQBlAAcABwAKAAkACgAHAAwACgAMAGYAZgAMAGcAZgAFAAoAOgBmAGcAZgA6AAUAOgBnADsAPAA6ADsAPAA7AD4AaAAFADoAaAA6ADwADQA8AD4ADQA+AA4APABAAGgAPAANAEAAQAANAGkAaQANABAAQABpAGoAaABAAD0AQABqAD0AawAFAGgAaAA9AGsAawBsAAUABAAFAGwABABsAG0AAwBtAGwAAwBsAAIAAgBsAGsAAgBrADgAOABrAD0ANAACADgANAA4ADYANQA0ADYANQA2ADcANgA4AG4AOAA9AG4ANwA2ABIANgBuABIANwASABQAOQASAG4APQA5AG4AOQATABIAOQA9AD8AQQA/AD0AQQBvAD8AQQBCAG8AagBBAD0AcABBAGoAcABxAEEAQQBxAHIAcwAoACcAcwAnAFIAcwBSAHQARgAnACkARgBFACcAUgAnAEUARABFAEYAUgB1AHQARABDAEUAUgBFAHYAQwB2AEUAdgB1AFIAQwBEAHcAQwB3AHgAeAB3ABsAGwAVAHgAFwBDAHgAQwAXAHYAFwB4ABUAGwAcABUAHAAdABUAHQAcAHkAHgB5ABwAHAB6AB4AIQB6ABwAIQB7AHoAewAhAHwAewB9AHoARwB7AHwAewBHAH0ARwB8AEgASQBHAEgASQBIAEoASwB9AEcASwBHAEkAIgBJAEoAIgBKACMASQB+AEsASQAiAH4ATAB+ACIATAAiACUAdQB+AEwASwB+AHUATABOAHUASwB1AE0ATQB9AEsAdgBNAHUAFwBNAHYATwB1AE4AdAB1AE8ATwBOAH8ATwB/AFAAgAB0AE8AgABPAIEATwCCAIEAFwBRAE0ATQBRAH0AGABRABcAGQB9AFEAGACDAFEAGQBRAIMAhACFACYAJACFAIQAhgAPAIcAEQCGAIcAiACJAIoAigCLAIgAHwAaACAA"),
+"lods": [0.0481222, PackedByteArray("AAABAAIABgAAAAIAAAAGAAcABwAIAAAACAAHAAkABwAKAAkACgAHAAwABgACADQANAA1AAYAAwAEAAIANQA0ADYANQA2ADcANAACADgAAgAEADgANAA4ADYANwA2ABIANwASABQANgA4ABIAOQATABIAOQASADgAOAAEAAUACgAFAAsADAAFAAoADAA6AAUAOgAMADsAPAAFADoAPAA6ADsAOAAFADwAPQA5ADgAPAA9ADgAPAA7AD4AOQA9AD8APABAAD0ADQA8AD4APAANAEAADQA+AA4AQAANAA8AQAAPAD0ADwANABAAQQA/AD0ADwBBAD0AQQBCAD8AEQBBAA8AEQBCAEEAFQAWABcAFwBDABUAGwAVAEMAQwBEABsAGwAcABUAHAAdABUAHQAcAB4AHAAfAB4AIQAfABwARABDAEUAQwAXAEUARABFAEYARgBFACcARgAnACkAIQBHAB8ARwAhAEgARwAaAB8AHwAaACAASQBHAEgASQBIAEoASwAaAEcASwBHAEkAIgBJAEoASQAiAEsAIgBKACMATABLACIATAAiACUATQBLAEwATQAaAEsATABOAE0ATwBNAE4ATwBOAFAAJABPAFAAJABNAE8ATQBRABoAGQAaAFEAGAAZAFEAGABRABcAFwBRAE0AFwBNAEUAUgBNACQARQBNAFIAJgBSACQAUgAnAEUAJgAnAFIAJgAoACcAKgArACwAKwAqAC0AKgAsAC4ALwAwADEALwAyADAALwAxADMA"), 0.091095, PackedByteArray("AAABAAIAAwAEAAIAAgAEAAUABgAAAAIAAAAGAAcABwAIAAAACAAHAAkABwAKAAkACgAFAAsACgAHAAwADAAFAAoADQAFAAwADQAMAA4AAgAFAA0AAgANAA8ADwANABAADwARAAIAEQASAAIABgACABIAEQATABIABgASABQAFQAWABcAGAAZABcAFwAZABoAGwAVABcAGwAcABUAHAAdABUAHQAcAB4AHAAfAB4AHwAaACAAIQAfABwAIgAaAB8AIQAiAB8AIgAhACMAFwAaACIAJAAXACIAJAAiACUAJgAXACQAJgAnABcAGwAXACcAJgAoACcAGwAnACkAKgArACwAKwAqAC0AKgAsAC4ALwAwADEALwAyADAALwAxADMA")],
+"material": SubResource("StandardMaterial3D_gyyto"),
+"name": "Whiplash",
+"primitive": 3,
+"uv_scale": Vector4(3.82011, 1.94264, 0, 0),
+"vertex_count": 140,
+"vertex_data": PackedByteArray("d79vkrQR6Qmdz1GRQhIYCVLNJ5S+F58fnc9RkUISxSN90spvTRLZL67Q8WzKF4wsuHu8rIEO8QMOrzeAhQ6ICZ3PUZFCEkYEfdLKb00SCAuOwltuvxGJEn3Sym9NEsMybYPFUpwOywXuskEHOG3xN/eKAAAtbSwk0obCMw2qU1v3igAALW1jT+aEvkuqxoZELJ6G+e5sVBUIdf//32weEAh1///fbGEFtT8WbcgRBvaQLzVuVxIR9+gxZ2vUFzrgkC81blcSD9yxLL2PTRIE0IwunZLIF1nNbYPFUpwOEfwXUEt/iw549pAvNW5XErP7sSy9j00SAPWePCuRvRFZzbEsvY9NElnNuHu8rIEOSvoRTb3482xdyAh1///fbO3b5oS+S6rGBfEIdf//32zpsNKGwjMNquvq02F4Bj1twer3igAALW0s8PeKAAAtbYH6F1BLf4sOWuYtgqhgiwGu5dp8yZ54Af/RbYPFUpwOY+W4e7ysgQ6K0w6vN4CFDogZ2nzJnngBLBotgqhgiwHwLbh7vKyBDnEabYPFUpwOYSw0n6C9BxfXDdR5QsOiFq0LYrBXxMNIhBhqeJPWmEl1C97M0aP9Ry8i0XqhwDS4nia9qaRCLBdPLGSFSzzLFiArBbyFPO1IDy3//zyBiWz3KUSHPCnNSXsnqYBggP//Pi6a+UJSDm3bLpagcm7r1/Y6YYIyatPZ/D0FYO1BMRfz8WSFSzzLFpT0SU93O/RIdudEhzwpzUmh9HtV6bwLF67T1HlCw6IWDdWmQ0nDykj90mp4k9aYSaPYxixEogdIF9bReqHANLjXyJ8oD39lSWPZqYBggP//SdB7Y9pt79d52WGCMmrT2YPplSftfhsYZ9ZuDvtPHW232ne/b5K0ERgJUs0nlL4XGAm1PxZtyBER9+gxZ2vUFxH3jsJbbr8RwzKu0PFsyhfDMhdQS3+LDgbPW1ZSf8QBusxbVlJ/xAH45g6vN4CFDvIwragfgL8BRTOtqB+AvwH1GFtWUn/EAdL6gn+3fwAA+f/afMmeeAG6/S2CqGCLATD+mHoEulsRigk3lIO1LBFjCJvVmYDdETQKYp1/SkwRfxeUhIJFfxHmFOPSiV0SSOwp0obCMw2qfTwkpwRHsLOCOA7XwIBZSZwmpteigBAYeCmb1ZmA3RExKJHxA7DxbEQmIIJXblDvuTjmhL5LqsbEQASEn1ZS0RxCYYIyatPZkVDShsIzDari4FhjXEa1s/TbAADBfpls19XMMvxbHEjN3ZSEgkV/EZz29GoCSk8Re/eSKe5+6BHN9Z48K5G9EXntyWEGtS8RheiYegS6WxE/64wunZLIF13TZQa8rQBtHdEgglduUO/32eaEvkuqxkLdBISfVlLR+N1hgjJq09lt3ZIp7n7oEbjXWGNcRrWzwO1EhXpGXLQU7ySnBEews+dQRIV6Rly0y1CCf7d/AAAFAC2CqGCLAVMCragfgL8BNAXafMmeeAHJAeA+ni6dmpC4tC7AJqIp8yeaLA8spyvXMY6wbsm2OzI6d0EpM5E3f0NNM6pBkjGUWAM3LU0lHfhFOhdbb5EQw8SBEptMuROUrkY3vBQkLUAJ8on0z/rAotGbZWFHONFd2UjWJthM0wLUQs6Lp9RPXzYqxArGZ74bzUbIxbxCzounQs6Lp8LILLNc47u5k+kukDEz9PEY7lmzlh5h9iXJB+sh05f2vHVfMAbR6tu1z/Ha09P5yQbPa9rB0/LJ9i4qJDkwMCUSLBk23zC7JRssJTaSOBwfkJHsxIA1bSAyk3PGxC9aJ3IrAB6MKI1Fsib9ZiwngzxtK2Mp6idiZZYnQiabJ/4vmx62MVUCQ1dMxyDh1W7vOpXKmN/0bI05ONeUut/YVpns2HrDFNixmirV8c4Q3VvQ8NIu1ELYLtkt1MTmQz7M/53U6NX70TfcnZqQuJ2akLibZWFHm2VhR5IxlFiSMZRY6NMCyu7TAsoJ0qfcDywGNhgs/jX8LWkj9cHNwwNBEj/yxTq4CEqHOGWgm8qcQHEoZzvWOeouGEc/L8ta6ioOMfgejzjbItYxJS3SK1UrKSojLOwqxi3FI5ccCDWMGgA25Bv0NK4L2TFn0T7o6tMM41/Vx9VP0KjYHWAgNS6/4NeIxFjGhMySvs3QMLlV0KOlP9Q8zsbYqdC60Ejo+9P163bVLuss3iz51tMi1coqm/YpKl70HQ6ytBoSibXpQCo/CzrvRwg+WjwktnnH")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_n30hq")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g1k45"]
+size = Vector3(0.197021, 0.57666, 0.830444)
+
 [sub_resource type="Animation" id="Animation_2h11y"]
 resource_name = "RESET"
 length = 0.1
@@ -133,112 +179,250 @@ tracks/3/keys = PackedFloat32Array(0, 1, -0.0227307, 0.0489716, -0.0332371, 0.99
 tracks/4/type = "rotation_3d"
 tracks/4/imported = false
 tracks/4/enabled = true
+tracks/4/path = NodePath("whiplash_ARM/Skeleton3D:bip_thumb_0_L")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0.0210953, -0.046421, 0.100697, 0.99361)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("whiplash_ARM/Skeleton3D:bip_thumb_1_L")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0.0918091, 0.0182713, -0.00352148, 0.995603)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_0_L")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0.0130555, -0.0272884, 0.0869477, 0.995754)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_1_L")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, -0.000128749, -0.00115718, 0.000754162, 0.999999)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_2_L")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0.00424119, -0.00723928, 0.0946462, 0.995476)
+tracks/9/type = "rotation_3d"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_0_L")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, 0.0131009, -0.0291353, 0.0881255, 0.995597)
+tracks/10/type = "rotation_3d"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_1_L")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, -0.000140048, -0.00166004, 0.00108778, 0.999998)
+tracks/11/type = "rotation_3d"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_2_L")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 0.00373961, 0.000908251, 0.0889827, 0.996026)
+tracks/12/type = "rotation_3d"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_0_L")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0.0130548, -0.0272868, 0.0869461, 0.995754)
+tracks/13/type = "rotation_3d"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_1_L")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = PackedFloat32Array(0, 1, -0.000128906, -0.00115852, 0.000755158, 0.999999)
+tracks/14/type = "rotation_3d"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_2_L")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = PackedFloat32Array(0, 1, 0.00424343, -0.00724048, 0.0946477, 0.995475)
+tracks/15/type = "rotation_3d"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_0_L")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = PackedFloat32Array(0, 1, -0.000873604, -0.0298618, 0.0856834, 0.995874)
+tracks/16/type = "rotation_3d"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_1_L")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = PackedFloat32Array(0, 1, 0.0263633, 0.00421721, 0.000516592, 0.999644)
+tracks/17/type = "rotation_3d"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_2_L")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = PackedFloat32Array(0, 1, -0.00777791, -0.0230112, 0.10497, 0.994179)
+tracks/18/type = "rotation_3d"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("whiplash_ARM/Skeleton3D:prp_hook")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = PackedFloat32Array(0, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761)
+
+[sub_resource type="Animation" id="Animation_1h7p2"]
+resource_name = "grapple_out"
+length = 0.2333
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("whiplash_ARM/Skeleton3D:bip_collar_L")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.509306, -0.490668, -0.491617, 0.5081, 0.0666667, 1, -0.509306, -0.490668, -0.491617, 0.5081, 0.1, 1, -0.509306, -0.490668, -0.491617, 0.5081, 0.133333, 1, -0.509306, -0.490668, -0.491617, 0.5081, 0.2333, 1, -0.509306, -0.490668, -0.491617, 0.5081)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("whiplash_ARM/Skeleton3D:bip_upperarm_L")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.632794, 0.582326, -0.301657, -0.411668, 0.0666667, 1, -0.714988, -0.638865, 0.148164, 0.242264, 0.1, 1, -0.718661, -0.644468, 0.131062, 0.225856, 0.133333, 1, 0.724697, 0.654497, -0.0966291, -0.19264, 0.233333, 1, -0.730718, -0.667301, 0.040729, 0.138209)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("whiplash_ARM/Skeleton3D:bip_lowerarm_L")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.519874, -0.0453556, 0.00650853, 0.853013, 0.0666667, 1, -0.261927, -0.413187, 0.130604, 0.86233, 0.1, 1, -0.289855, -0.406858, 0.139866, 0.85492, 0.133333, 1, -0.34485, -0.393035, 0.157977, 0.837643, 0.233333, 1, -0.168931, -0.43109, 0.0994722, 0.880755)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("whiplash_ARM/Skeleton3D:bip_hand_L")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, -0.0227307, 0.0489716, -0.0332371, 0.997988, 0.0666667, 1, -0.00285972, 0.545728, -0.0401648, 0.836994, 0.1, 1, -0.0988948, 0.663197, -0.013844, 0.741754, 0.133333, 1, -0.278196, 0.829766, 0.0392815, 0.482237, 0.233333, 1, -0.248354, 0.855841, -0.0572191, 0.450091)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("whiplash_ARM/Skeleton3D:prp_hook")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/keys = PackedFloat32Array(0, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761)
+tracks/4/keys = PackedFloat32Array(0, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761, 0.0666667, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761, 0.1, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761, 0.133333, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761, 0.233333, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761)
 tracks/5/type = "rotation_3d"
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/path = NodePath("whiplash_ARM/Skeleton3D:bip_thumb_0_L")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
-tracks/5/keys = PackedFloat32Array(0, 1, 0.0210953, -0.046421, 0.100697, 0.99361)
+tracks/5/keys = PackedFloat32Array(0, 1, 0.0210953, -0.046421, 0.100697, 0.99361, 0.0666667, 1, 0.0210953, -0.046421, 0.100697, 0.99361, 0.1, 1, 0.00308341, -0.0482384, 0.099839, 0.993829, 0.133333, 1, 0.0210953, -0.046421, 0.100697, 0.99361, 0.233333, 1, -0.108622, -0.0591527, 0.0937856, 0.98788)
 tracks/6/type = "rotation_3d"
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/path = NodePath("whiplash_ARM/Skeleton3D:bip_thumb_1_L")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
-tracks/6/keys = PackedFloat32Array(0, 1, 0.0918091, 0.0182713, -0.00352148, 0.995603)
+tracks/6/keys = PackedFloat32Array(0, 1, 0.0918091, 0.0182713, -0.00352148, 0.995603, 0.0666667, 1, 0.0918091, 0.0182713, -0.00352148, 0.995603, 0.1, 1, 0.42712, 0.0159615, -0.00956409, 0.904004, 0.133333, 1, 0.0918091, 0.0182713, -0.00352148, 0.995603, 0.233333, 1, 0.402567, 0.0162138, -0.00912988, 0.915201)
 tracks/7/type = "rotation_3d"
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_0_L")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
-tracks/7/keys = PackedFloat32Array(0, 1, 0.0130555, -0.0272884, 0.0869477, 0.995754)
+tracks/7/keys = PackedFloat32Array(0, 1, 0.0130555, -0.0272884, 0.0869477, 0.995754, 0.0666667, 1, 0.0130555, -0.0272884, 0.0869477, 0.995754, 0.1, 1, 0.0203123, -0.022417, -0.201356, 0.979051, 0.133333, 1, 0.0130555, -0.0272884, 0.0869477, 0.995754, 0.233333, 1, -0.0937258, 0.208477, 0.00029563, 0.973526)
 tracks/8/type = "rotation_3d"
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_1_L")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
-tracks/8/keys = PackedFloat32Array(0, 1, -0.000128749, -0.00115718, 0.000754162, 0.999999)
+tracks/8/keys = PackedFloat32Array(0, 1, -0.000128749, -0.00115718, 0.000754162, 0.999999, 0.0666667, 1, -0.000128749, -0.00115718, 0.000754162, 0.999999, 0.1, 1, -0.000128749, -0.00115718, 0.000754162, 0.999999, 0.133333, 1, -0.000128749, -0.00115718, 0.000754162, 0.999999, 0.233333, 1, -0.000294221, -0.00112652, 0.144783, 0.989463)
 tracks/9/type = "rotation_3d"
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_2_L")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
-tracks/9/keys = PackedFloat32Array(0, 1, 0.00424119, -0.00723928, 0.0946462, 0.995476)
+tracks/9/keys = PackedFloat32Array(0, 1, 0.00424119, -0.00723928, 0.0946462, 0.995476, 0.0666667, 1, 0.00424119, -0.00723928, 0.0946462, 0.995476, 0.1, 1, 0.00424119, -0.00723928, 0.0946462, 0.995476, 0.133333, 1, 0.00424119, -0.00723928, 0.0946462, 0.995476, 0.233333, 1, 0.0026462, -0.00796171, 0.299199, 0.954154)
 tracks/10/type = "rotation_3d"
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_0_L")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
-tracks/10/keys = PackedFloat32Array(0, 1, 0.0131009, -0.0291353, 0.0881255, 0.995597)
+tracks/10/keys = PackedFloat32Array(0, 1, 0.0131009, -0.0291353, 0.0881255, 0.995597, 0.0666667, 1, 0.0131009, -0.0291353, 0.0881255, 0.995597, 0.1, 1, 0.0196049, -0.0252221, -0.149245, 0.988284, 0.133333, 1, 0.0131009, -0.0291353, 0.0881255, 0.995597, 0.233333, 1, -0.000627426, -0.0305329, 0.041657, 0.998665)
 tracks/11/type = "rotation_3d"
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_1_L")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
-tracks/11/keys = PackedFloat32Array(0, 1, -0.000140048, -0.00166004, 0.00108778, 0.999998)
+tracks/11/keys = PackedFloat32Array(0, 1, -0.000140048, -0.00166004, 0.00108778, 0.999998, 0.0666667, 1, -0.000140048, -0.00166004, 0.00108778, 0.999998, 0.1, 1, -0.000140048, -0.00166004, 0.00108778, 0.999998, 0.133333, 1, -0.000140048, -0.00166004, 0.00108778, 0.999998, 0.233333, 1, -0.000297042, -0.00163923, 0.096077, 0.995373)
 tracks/12/type = "rotation_3d"
 tracks/12/imported = false
 tracks/12/enabled = true
 tracks/12/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_2_L")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
-tracks/12/keys = PackedFloat32Array(0, 1, 0.00373961, 0.000908251, 0.0889827, 0.996026)
+tracks/12/keys = PackedFloat32Array(0, 1, 0.00373961, 0.000908251, 0.0889827, 0.996026, 0.0666667, 1, 0.00373961, 0.000908251, 0.0889827, 0.996026, 0.1, 1, 0.00373961, 0.000908251, 0.0889827, 0.996026, 0.133333, 1, 0.00373961, 0.000908251, 0.0889827, 0.996026, 0.233333, 1, 0.00384767, 8.44347e-05, 0.300681, 0.953717)
 tracks/13/type = "rotation_3d"
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_0_L")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
-tracks/13/keys = PackedFloat32Array(0, 1, 0.0130548, -0.0272868, 0.0869461, 0.995754)
+tracks/13/keys = PackedFloat32Array(0, 1, 0.0130548, -0.0272868, 0.0869461, 0.995754, 0.0666667, 1, 0.0130548, -0.0272868, 0.0869461, 0.995754, 0.1, 1, 0.0172557, -0.0248444, -0.073618, 0.996828, 0.133333, 1, 0.0130548, -0.0272868, 0.0869461, 0.995754, 0.233333, 1, 0.101606, -0.019442, 0.0890292, 0.990642)
 tracks/14/type = "rotation_3d"
 tracks/14/imported = false
 tracks/14/enabled = true
 tracks/14/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_1_L")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
-tracks/14/keys = PackedFloat32Array(0, 1, -0.000128906, -0.00115852, 0.000755158, 0.999999)
+tracks/14/keys = PackedFloat32Array(0, 1, -0.000128906, -0.00115852, 0.000755158, 0.999999, 0.0666667, 1, -0.000128906, -0.00115852, 0.000755158, 0.999999, 0.1, 1, -0.000128906, -0.00115852, 0.000755158, 0.999999, 0.133333, 1, -0.000128906, -0.00115852, 0.000755158, 0.999999, 0.233333, 1, -0.000184124, -0.00115101, 0.0485841, 0.998818)
 tracks/15/type = "rotation_3d"
 tracks/15/imported = false
 tracks/15/enabled = true
 tracks/15/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_2_L")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
-tracks/15/keys = PackedFloat32Array(0, 1, 0.00424343, -0.00724048, 0.0946477, 0.995475)
+tracks/15/keys = PackedFloat32Array(0, 1, 0.00424343, -0.00724048, 0.0946477, 0.995475, 0.0666667, 1, 0.00424343, -0.00724048, 0.0946478, 0.995476, 0.1, 1, 0.00424343, -0.00724048, 0.0946477, 0.995475, 0.133333, 1, 0.00424343, -0.00724048, 0.0946477, 0.995475, 0.233333, 1, 0.00277425, -0.00792059, 0.284051, 0.958772)
 tracks/16/type = "rotation_3d"
 tracks/16/imported = false
 tracks/16/enabled = true
 tracks/16/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_0_L")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
-tracks/16/keys = PackedFloat32Array(0, 1, -0.000873604, -0.0298618, 0.0856834, 0.995874)
+tracks/16/keys = PackedFloat32Array(0, 1, -0.000873604, -0.0298618, 0.0856834, 0.995874, 0.0666667, 1, -0.000873605, -0.0298618, 0.0856834, 0.995874, 0.1, 1, 0.00383092, -0.029628, -0.0719085, 0.996964, 0.133333, 1, -0.000873605, -0.0298618, 0.0856834, 0.995874, 0.233333, 1, 0.165614, -0.0151184, 0.0894696, 0.982008)
 tracks/17/type = "rotation_3d"
 tracks/17/imported = false
 tracks/17/enabled = true
 tracks/17/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_1_L")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
-tracks/17/keys = PackedFloat32Array(0, 1, 0.0263633, 0.00421721, 0.000516592, 0.999644)
+tracks/17/keys = PackedFloat32Array(0, 1, 0.0263633, 0.00421721, 0.000516592, 0.999643, 0.0666667, 1, 0.0263633, 0.00421721, 0.000516592, 0.999643, 0.1, 1, 0.0263633, 0.00421721, 0.000516592, 0.999644, 0.133333, 1, 0.0263633, 0.00421721, 0.000516592, 0.999643, 0.233333, 1, 0.026591, 0.00239418, 0.0692635, 0.997241)
 tracks/18/type = "rotation_3d"
 tracks/18/imported = false
 tracks/18/enabled = true
 tracks/18/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_2_L")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
-tracks/18/keys = PackedFloat32Array(0, 1, -0.00777791, -0.0230112, 0.10497, 0.994179)
+tracks/18/keys = PackedFloat32Array(0, 1, -0.00777791, -0.0230112, 0.10497, 0.994179, 0.0666667, 1, -0.00777791, -0.0230112, 0.10497, 0.994179, 0.1, 1, -0.00777791, -0.0230112, 0.10497, 0.994179, 0.133333, 1, -0.00777791, -0.0230112, 0.10497, 0.994179, 0.233333, 1, -0.0105477, -0.0218805, 0.226393, 0.973733)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tnvrt"]
 _data = {
 &"RESET": SubResource("Animation_2h11y"),
+&"grapple_out": SubResource("Animation_1h7p2"),
 &"grapple_rebound": ExtResource("3_o3u0h")
 }
 
@@ -269,14 +453,14 @@ bones/2/rest = Transform3D(0.995801, -0.0179546, -0.0897663, 0.0582622, 0.880648
 bones/2/enabled = true
 bones/2/position = Vector3(3.39933e-06, 1.34715, -1.45435e-05)
 bones/2/rotation = Quaternion(-0.243494, -0.0413846, 0.0196674, 0.968819)
-bones/2/scale = Vector3(1, 1, 1)
+bones/2/scale = Vector3(0.999999, 1, 1)
 bones/3/name = "bip_hand_L"
 bones/3/parent = 2
 bones/3/rest = Transform3D(0.992994, 0.0641141, 0.0992572, -0.0685667, 0.996757, 0.0421144, -0.0962352, -0.0486251, 0.99417, -2.11596e-06, 1.35814, 3.07336e-06)
 bones/3/enabled = true
 bones/3/position = Vector3(-2.11596e-06, 1.35814, 3.07336e-06)
 bones/3/rotation = Quaternion(-0.0227307, 0.0489716, -0.0332371, 0.997988)
-bones/3/scale = Vector3(1, 1, 1)
+bones/3/scale = Vector3(0.999999, 1, 1)
 bones/3/bone_meta/pos = Vector3(0, 0, 0)
 bones/4/name = "prp_hook"
 bones/4/parent = 3
@@ -303,14 +487,14 @@ bones/7/name = "bip_index_0_L"
 bones/7/parent = 3
 bones/7/rest = Transform3D(0.983391, -0.173869, -0.0520747, 0.172444, 0.984539, -0.0307452, 0.0566153, 0.0212545, 0.99817, 0.0356591, 0.462087, -0.112099)
 bones/7/enabled = true
-bones/7/position = Vector3(0.0370376, 0.462941, -0.112276)
+bones/7/position = Vector3(0.0356591, 0.462087, -0.112099)
 bones/7/rotation = Quaternion(0.0130555, -0.0272884, 0.0869477, 0.995754)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/name = "bip_index_1_L"
 bones/8/parent = 7
 bones/8/rest = Transform3D(0.999996, -0.00150803, -0.00231456, 0.00150863, 0.999999, 0.000255751, 0.00231417, -0.000259242, 0.999997, 2.23517e-08, 0.145916, 4.84288e-07)
 bones/8/enabled = true
-bones/8/position = Vector3(5.54166e-08, 0.145916, 6.14467e-07)
+bones/8/position = Vector3(2.23517e-08, 0.145916, 4.84288e-07)
 bones/8/rotation = Quaternion(-0.000128749, -0.00115718, 0.000754162, 0.999999)
 bones/8/scale = Vector3(1, 1, 1)
 bones/9/name = "bip_index_2_L"
@@ -319,19 +503,19 @@ bones/9/rest = Transform3D(0.98198, -0.188497, -0.0136102, 0.188375, 0.982048, -
 bones/9/enabled = true
 bones/9/position = Vector3(1.86265e-08, 0.18898, -6.92904e-07)
 bones/9/rotation = Quaternion(0.00424119, -0.00723928, 0.0946462, 0.995476)
-bones/9/scale = Vector3(1, 1, 1)
+bones/9/scale = Vector3(0.999999, 1, 1)
 bones/10/name = "bip_middle_0_L"
 bones/10/parent = 3
 bones/10/rest = Transform3D(0.98277, -0.176238, -0.055705, 0.174712, 0.984124, -0.0312215, 0.0603231, 0.0209512, 0.997959, 0.050103, 0.474876, -0.00128058)
 bones/10/enabled = true
-bones/10/position = Vector3(0.048711, 0.475597, -0.00111648)
+bones/10/position = Vector3(0.050103, 0.474876, -0.00128058)
 bones/10/rotation = Quaternion(0.0131009, -0.0291353, 0.0881255, 0.995597)
 bones/10/scale = Vector3(1, 1, 1)
 bones/11/name = "bip_middle_1_L"
 bones/11/parent = 10
 bones/11/rest = Transform3D(0.999992, -0.00217509, -0.00332038, 0.00217602, 0.999998, 0.000276392, 0.00331977, -0.000283615, 0.999994, -3.42727e-07, 0.157137, -4.47035e-07)
 bones/11/enabled = true
-bones/11/position = Vector3(-2.05861e-07, 0.157136, -6.9525e-07)
+bones/11/position = Vector3(-3.42727e-07, 0.157137, -4.47035e-07)
 bones/11/rotation = Quaternion(-0.000140048, -0.00166004, 0.00108778, 0.999998)
 bones/11/scale = Vector3(1, 1, 1)
 bones/12/name = "bip_middle_2_L"
@@ -340,19 +524,19 @@ bones/12/rest = Transform3D(0.984162, -0.177251, 0.00247477, 0.177265, 0.984136,
 bones/12/enabled = true
 bones/12/position = Vector3(-3.72529e-08, 0.20889, -2.38419e-07)
 bones/12/rotation = Quaternion(0.00373961, 0.000908251, 0.0889827, 0.996026)
-bones/12/scale = Vector3(1, 1, 1)
+bones/12/scale = Vector3(0.999999, 1, 1)
 bones/13/name = "bip_ring_0_L"
 bones/13/parent = 3
 bones/13/rest = Transform3D(0.983392, -0.173866, -0.0520719, 0.172441, 0.98454, -0.0307436, 0.0566121, 0.0212537, 0.99817, 0.0587468, 0.474315, 0.109341)
 bones/13/enabled = true
-bones/13/position = Vector3(0.0587469, 0.474314, 0.109341)
+bones/13/position = Vector3(0.0587468, 0.474315, 0.109341)
 bones/13/rotation = Quaternion(0.0130548, -0.0272868, 0.0869461, 0.995754)
 bones/13/scale = Vector3(1, 1, 1)
 bones/14/name = "bip_ring_1_L"
 bones/14/parent = 13
 bones/14/rest = Transform3D(0.999996, -0.00151002, -0.00231723, 0.00151062, 0.999999, 0.00025603, 0.00231684, -0.00025953, 0.999997, -1.11759e-07, 0.145913, -1.11759e-07)
 bones/14/enabled = true
-bones/14/position = Vector3(-3.63575e-07, 0.145913, -2.54517e-08)
+bones/14/position = Vector3(-1.11759e-07, 0.145913, -1.11759e-07)
 bones/14/rotation = Quaternion(-0.000128906, -0.00115852, 0.000755158, 0.999999)
 bones/14/scale = Vector3(1, 1, 1)
 bones/15/name = "bip_ring_2_L"
@@ -361,19 +545,19 @@ bones/15/rest = Transform3D(0.981979, -0.1885, -0.0136122, 0.188377, 0.982048, -
 bones/15/enabled = true
 bones/15/position = Vector3(0, 0.188979, 3.7998e-07)
 bones/15/rotation = Quaternion(0.00424343, -0.00724048, 0.0946477, 0.995475)
-bones/15/scale = Vector3(1, 1, 1)
+bones/15/scale = Vector3(0.999999, 1, 1)
 bones/16/name = "bip_pinky_0_L"
 bones/16/parent = 3
 bones/16/rest = Transform3D(0.983533, -0.170608, -0.0596268, 0.170712, 0.985315, -0.0033773, 0.0593274, -0.00685733, 0.998215, 0.0665548, 0.468296, 0.207635)
 bones/16/enabled = true
-bones/16/position = Vector3(0.067439, 0.46711, 0.207539)
+bones/16/position = Vector3(0.0665548, 0.468296, 0.207635)
 bones/16/rotation = Quaternion(-0.000873604, -0.0298618, 0.0856834, 0.995874)
 bones/16/scale = Vector3(1, 1, 1)
 bones/17/name = "bip_pinky_1_L"
 bones/17/parent = 16
 bones/17/rest = Transform3D(0.999964, -0.000810461, 0.00845866, 0.00125518, 0.998609, -0.0527034, -0.00840418, 0.0527121, 0.998574, 9.20147e-07, 0.123773, -2.5332e-07)
 bones/17/enabled = true
-bones/17/position = Vector3(4.80107e-07, 0.123773, 1.58742e-07)
+bones/17/position = Vector3(9.20147e-07, 0.123773, -2.5332e-07)
 bones/17/rotation = Quaternion(0.0263633, 0.00421721, 0.000516592, 0.999643)
 bones/17/scale = Vector3(1, 1, 1)
 bones/18/name = "bip_pinky_2_L"
@@ -382,14 +566,14 @@ bones/18/rest = Transform3D(0.976904, -0.20836, -0.0473874, 0.209076, 0.977842, 
 bones/18/enabled = true
 bones/18/position = Vector3(-3.241e-07, 0.161602, -5.88596e-07)
 bones/18/rotation = Quaternion(-0.00777791, -0.0230112, 0.10497, 0.994179)
-bones/18/scale = Vector3(1, 1, 1)
+bones/18/scale = Vector3(0.999999, 1, 1)
 
 [node name="whiplash_smd" type="MeshInstance3D" parent="grappleArm/whiplash_ARM/Skeleton3D"]
 mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985275, 0.0912852, 0.144568, 0.144569, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896232, -0.0033818, 0.181376, -0.147857)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896232, -0.419368, 0.0912846, 0.434093, -0.896234, -0.00338185, 0.181374, -0.147857)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -398,7 +582,19 @@ external_skeleton = NodePath("..")
 [node name="hook_holder" type="Node3D" parent="grappleArm/whiplash_ARM/Skeleton3D/rope_origin"]
 transform = Transform3D(1, 0, 0, 0, 0.0334343, -0.999441, 0, 0.999441, 0.0334343, -0.0791362, 0.188635, -0.00524319)
 
-[node name="grapple_hook" parent="grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder" instance=ExtResource("1_1h7p2")]
+[node name="hook" type="RigidBody3D" parent="grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder"]
+transform = Transform3D(1, -7.45058e-09, 1.11759e-08, -1.49012e-08, 1, 0, -3.72529e-09, -2.98023e-08, 1, 0, 0, 0)
+collision_layer = 512
+collision_mask = 256
+
+[node name="hook_smd" type="MeshInstance3D" parent="grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder/hook"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("ArrayMesh_a04ym")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder/hook"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00354004, 0.0153809, -0.182922)
+shape = SubResource("BoxShape3D_g1k45")
+debug_color = Color(0, 1, 0, 1)
 
 [node name="grapple_arm_animator" type="AnimationPlayer" parent="grappleArm"]
 libraries = {

@@ -1,0 +1,5 @@
+Adding weapon checklist
+
+1. Add a conditional for the ammo counter in hud.gd
+2. append the player enumerations with the respective weapon's state:
+	weapon_states.{.., NEW_WEAPON_STATE}

@@ -51,7 +51,7 @@ var BLL_AMMO := BLL_MAGSIZE
 @export var BLL_projectile_travel_speed := 300.0
 @export var BLL_pull_speed := 10
 
-# incorporation of 2 seperate FSMs (finite state machines) to replace conditional trees
+# 2 seperate FSMs (finite state machines) to replace conditional trees
 enum player_states{IDLE, DEAD, GRAPPLING, FALLING}
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
 
@@ -84,13 +84,15 @@ var current_player_string_name:String = "null state"
 var rope_origin
 var skeleton
 var grapple_hook
+var hook_holder
 
 func _ready() -> void:
 	# object reference definitions
 	pistol = get_node("Pivot/Camera3D/Guns/Pistol")
 	skeleton = grapple_arm.get_node("grappleArm/whiplash_ARM/Skeleton3D")
 	rope_origin = skeleton.get_node("rope_origin")
-	grapple_hook = get_node("Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder/grapple_hook")
+	grapple_hook = get_node("Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder/hook")
+	hook_holder = get_node("Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder")
 	
 	# disables the camera if you are not the current client in control of it
 	camera_3d.current = is_multiplayer_authority()
@@ -113,44 +115,42 @@ func set_player_state(new_player_state:int):
 		player_look_input_enabled = false
 		player_move_input_enabled = false
 	
-	elif new_player_state == player_states.GRAPPLING:
-		grapple_arm.visible = true
-		if Grapple_Enabled:
-			print("grapple initiating")
-	
-	# run when the state was switched from
+	# grapple to and from
+	if new_player_state == player_states.GRAPPLING and Grapple_Enabled:
+		print("state set to grapple")
+		grapple_rope_mesh_gen.visible = true
+		grapple_hook.reparent(get_tree().root) # parent transform to root node
+		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
 	if previous_player_state == player_states.GRAPPLING:
-		grapple_arm.visible = false
+		print("state left grapple")
+		grapple_rope_mesh_gen.visible = false
+		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
+		grapple_hook.reparent(hook_holder)
+		grapple_hook.position = Vector3.ZERO
+		
 	
 func set_weapon_state(new_weapon_state:int):
 	# init vars
 	var previous_weapon_state := weapon_state
 	weapon_state = new_weapon_state
 	
-	# run when the state was switched from
-	if  previous_weapon_state == weapon_states.PISTOL:
-		arm_pivot_pistol.visible = false
-		pistol.visible = false
-	
-	elif previous_weapon_state == weapon_states.BLL:
-		arm_pivot_bll.visible = false
-		black_hole_launcher.visible = false
-	
-	# run when the state was switched to
+	# pistol to and from
 	if new_weapon_state == weapon_states.PISTOL:
-	
 		# make visible
 		arm_pivot_pistol.visible = true
 		pistol.visible = true
-
 		# if gun is not reloading, play equip anim
 		if gun_animator.current_animation == "reload_pistol":
 			pass
 		else:
 			gun_animator.stop()
 			gun_animator.play("equip_pistol")
+	if  previous_weapon_state == weapon_states.PISTOL:
+		arm_pivot_pistol.visible = false
+		pistol.visible = false
 	
-	elif new_weapon_state == weapon_states.BLL:
+	# black hole launcher to and from
+	if new_weapon_state == weapon_states.BLL:
 	
 		# make visible
 		arm_pivot_bll.visible = true
@@ -162,6 +162,11 @@ func set_weapon_state(new_weapon_state:int):
 		else:
 			bll_animator.stop()
 			bll_animator.play("Black Hole Launcher/BLL_equip")
+	if previous_weapon_state == weapon_states.BLL:
+		arm_pivot_bll.visible = false
+		black_hole_launcher.visible = false
+	
+	
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
@@ -171,7 +176,7 @@ func _input(event) -> void:
 	
 	# handle grapple activation
 	if Input.is_action_just_pressed("grapple"):
-		if not is_on_floor():
+		if not is_on_floor() and player_state != player_states.GRAPPLING:
 			player_state = player_states.GRAPPLING
 	
 	# handle mouselook
@@ -342,6 +347,7 @@ func gunInputs(): # run every frame in _process
 
 var a = true
 func _process(_delta) -> void:
+	
 	# updates string variables with the current state for debug purposes
 	updateStateStrings()
 	
