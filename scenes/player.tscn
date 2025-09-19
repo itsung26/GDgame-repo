@@ -1374,7 +1374,7 @@ bones/10/position = Vector3(0.0487347, 0.475584, -0.00111934)
 bones/16/position = Vector3(0.0674238, 0.467131, 0.207541)
 
 [node name="rope_origin" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896232, -0.419368, 0.0912846, 0.434093, -0.896234, -0.00338179, 0.181374, -0.147857)
+transform = Transform3D(0.882054, 0.174875, -0.437488, -0.370894, 0.830352, -0.415877, 0.290542, 0.529089, 0.797278, 0.141427, 3.2739, 1.42021)
 
 [node name="Guns" type="Node3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
