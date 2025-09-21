@@ -580,7 +580,7 @@ use_external_skeleton = true
 external_skeleton = NodePath("..")
 
 [node name="hook_holder" type="Node3D" parent="grappleArm/whiplash_ARM/Skeleton3D/rope_origin"]
-transform = Transform3D(1, 0, 0, 0, 0.0334343, -0.999441, 0, 0.999441, 0.0334343, -0.0791362, 0.188635, -0.00524319)
+transform = Transform3D(0.986502, 0.0555297, 0.154046, 0.153263, 0.0181213, -0.98802, -0.057656, 0.998293, 0.00936605, -0.0688092, 0.252083, 0.0429794)
 
 [node name="hook" type="RigidBody3D" parent="grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder"]
 collision_layer = 512

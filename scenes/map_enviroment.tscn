@@ -313,14 +313,8 @@ transform = Transform3D(0.325357, -0.512599, 0.794596, 0.927407, 0.00898343, -0.
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
 transform = Transform3D(0.921615, 0.376129, 0.0956483, 0.148141, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
 
-[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
-transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
-
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
 transform = Transform3D(0.985273, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338268, 0.181375, -0.147858)
-
-[node name="hook" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder" index="0"]
-gravity_scale = 0.0
 
 [node name="Enemies" type="Node3D" parent="."]
 
@@ -452,6 +446,5 @@ omni_range = 151.554
 [editable path="HUD"]
 [editable path="Pause"]
 [editable path="Player"]
-[editable path="Player/Pivot/Camera3D/GrappleArm"]
 [editable path="Player/Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Player/Pivot/Camera3D/Guns/Pistol"]
