@@ -118,9 +118,10 @@ func set_player_state(new_player_state:int):
 		grapple_rope_mesh_gen.visible = true
 		grapple_hook.reparent(get_tree().root) # reparent and face direction raycast is looking
 		grapple_hook.rotation = Vector3.ZERO
-		grapple_hook.rotation.y = grapple_direction_getter.global_rotation.y
-		grapple_hook.rotation.x = grapple_direction_getter.global_rotation.x
+		var grapple_dir = grapple_direction_getter.global_rotation
+		grapple_hook.rotation = grapple_dir
 		grapple_hook.freeze = false
+		grapple_hook.linear_velocity = grapple_dir * GRAPPLE_SPEED_MAX
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
 	if previous_player_state == player_states.GRAPPLING:
 		print("state left grapple")

@@ -1693,6 +1693,7 @@ _data = {
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 15
 script = ExtResource("1_qhqgy")
+GRAPPLE_SPEED_MAX = 25
 
 [node name="GunAnimator" type="AnimationPlayer" parent="."]
 libraries = {
