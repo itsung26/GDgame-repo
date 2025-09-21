@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://ccl7hn0ddburv"]
+[gd_scene load_steps=48 format=4 uid="uid://ccl7hn0ddburv"]
 
 [ext_resource type="Shader" uid="uid://8xbgim55117h" path="res://shaders/grapple_cube.tres" id="1_wxfaj"]
 
@@ -366,6 +366,9 @@ vertex_color_use_as_albedo = true
 material = SubResource("StandardMaterial3D_euxnb")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wxfaj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wxfaj"]
+radius = 1.20257
 
 [sub_resource type="Animation" id="Animation_wxfaj"]
 length = 0.001
@@ -918,12 +921,13 @@ transform = Transform3D(1.71751, 0, 0, 0, 1.71751, 0, 0, 0, 1.71751, 0, 0, 0)
 shape = SubResource("BoxShape3D_wxfaj")
 
 [node name="GrappleDetectBlock" type="StaticBody3D" parent="."]
+transform = Transform3D(1.33542, 0, 0, 0, 1.33542, 0, 0, 0, 1.33542, 0, 0, 0)
 collision_layer = 256
 collision_mask = 512
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleDetectBlock"]
-transform = Transform3D(1.71751, 0, 0, 0, 1.71751, 0, 0, 0, 1.71751, 0, 0, 0)
-shape = SubResource("BoxShape3D_wxfaj")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.228324, 0)
+shape = SubResource("SphereShape3D_wxfaj")
 
 [node name="cube_animator" type="AnimationPlayer" parent="."]
 libraries = {

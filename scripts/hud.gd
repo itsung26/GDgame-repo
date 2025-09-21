@@ -6,8 +6,8 @@ extends Control
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var progress_bar: ProgressBar = $OverclockBar/ProgressBar
 @onready var current_weapon_special: Label = %currentWeaponSpecial
-@onready var current_weapon: Label = %CurrentWeapon
-@onready var fire_type_debug: Label = %FireTypeDebug
+@onready var current_weapon_state: Label = %CurrentWeaponState
+@onready var current_action_state: Label = %CurrentActionState
 @onready var overclock_bar: Control = $OverclockBar
 @onready var key_indicator_2: AnimatedSprite2D = $pistolPreviewIcon/KeyIndicator2
 @onready var key_animator_2: AnimationPlayer = $KeyAnimator_2
@@ -135,9 +135,9 @@ func _process(_delta) -> void:
 		
 	# set debug text-------------------------------------------------------------------------------
 	anim_debug.text = "current animation: " + str(player.weapon_anim_playing)
-	fire_type_debug.text = "Current fireType: " + str(Global.current_fireType)
+	current_action_state.text = "Current action state: " + "NULL_STATE"
 	body_hit_debug.text = "last object hit: " + str(Global.body_hit)
-	current_weapon.text = "Current weapon state: " + player.current_weapon_string_name
+	current_weapon_state.text = "Current weapon state: " + player.current_weapon_string_name
 	current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
 	current_player_pos.text = "Player Pos: " + str(player.global_position)
 	current_player_health.text = "Player health: " + str(player.HEALTH)

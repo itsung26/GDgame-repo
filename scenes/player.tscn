@@ -1693,7 +1693,7 @@ _data = {
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 15
 script = ExtResource("1_qhqgy")
-GRAPPLE_SPEED_MAX = 25
+GRAPPLE_SPEED_MAX = 50
 
 [node name="GunAnimator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1943,7 +1943,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985273, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338191, 0.181375, -0.147857)
+transform = Transform3D(0.494441, -0.22507, 0.839565, 0.695415, 0.681897, -0.226745, -0.521463, 0.69596, 0.493675, -0.394574, 2.59183, 1.9481)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1952,7 +1952,7 @@ external_skeleton = NodePath("..")
 [node name="hook" type="RigidBody3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin"]
 transform = Transform3D(0.986502, 0.0555298, 0.154046, 0.153263, 0.0181213, -0.98802, -0.057656, 0.998293, 0.00936612, -0.0688093, 0.252083, 0.0429795)
 collision_layer = 512
-collision_mask = 256
+collision_mask = 260
 mass = 0.2
 gravity_scale = 0.0
 freeze = true

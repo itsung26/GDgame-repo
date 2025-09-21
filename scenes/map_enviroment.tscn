@@ -307,9 +307,6 @@ visible = false
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.07014, 0, -1.25347)
 
-[node name="CollisionShape3D" parent="Player" index="6"]
-debug_color = Color(0, 0.6, 0.701961, 0)
-
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotPistol" index="0"]
 transform = Transform3D(0.325357, -0.512599, 0.794596, 0.927407, 0.00898343, -0.373943, 0.184545, 0.85858, 0.478312, 0.171948, 1.28058, -0.0726245)
 

@@ -651,17 +651,17 @@ text = "Last body hit: null"
 [node name="CurrentPlayerState" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Current player state: null state"
+text = "Current player state: NULL_STATE"
 
-[node name="CurrentWeapon" type="Label" parent="DebugContainer"]
+[node name="CurrentWeaponState" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Current weapon: null"
+text = "Current weapon state: NULL_STATE"
 
-[node name="FireTypeDebug" type="Label" parent="DebugContainer"]
+[node name="CurrentActionState" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "FireType = null"
+text = "Curent action state: NULL_STATE"
 
 [node name="CurrentLookDir" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
