@@ -18,6 +18,7 @@ extends CharacterBody3D
 @onready var grapple_rope_mesh_gen: Node3D = $"../grapple_rope_meshGen"
 @onready var grapple_arm: Node3D = $Pivot/Camera3D/GrappleArm
 @onready var grapple_direction_getter: RayCast3D = $Pivot/Camera3D/GrappleDirectionGetter
+@onready var grapple_hook: RigidBody3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook
 
 @export_category("Settings")
 @export var HEALTH: int = 100
@@ -35,7 +36,6 @@ extends CharacterBody3D
 @export var Grapple_Enabled:= true
 @export var GRAPPLE_MAX_RANGE = 50
 @export var GRAPPLE_SPEED_MAX = 20
-@export var GRAPPLE_HOP = 8
 
 @export_category("Pistol")
 @export var PISTOL_MAGSIZE:= 35
@@ -52,14 +52,16 @@ var BLL_AMMO := BLL_MAGSIZE
 @export var BLL_projectile_travel_speed := 300.0
 @export var BLL_pull_speed := 10
 
-# 2 seperate FSMs (finite state machines) to replace conditional trees
-enum player_states{IDLE, DEAD, GRAPPLING, FALLING}
+# 3 seperate FSMs (finite state machines) to replace conditional trees
+enum player_states{GROUNDED, DEAD, GRAPPLING, FALLING}
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
+# enum action_states{IDLE, GRAPPLING, DASHING, SLIDING}
 
-var player_state:player_states = player_states.IDLE:
+var player_state:player_states = player_states.GROUNDED:
 	set = set_player_state
 var weapon_state:weapon_states = weapon_states.PISTOL:
 	set = set_weapon_state
+# var action_state:action_states = action_states.IDLE
 
 var can_slam_jump = false
 var storagevar = JUMP_VELOCITY
@@ -83,20 +85,21 @@ var current_weapon_string_name:String = "null state"
 var current_player_string_name:String = "null state"
 var rope_origin
 var skeleton
-var grapple_hook
 
 func _ready() -> void:
 	# object reference definitions
 	pistol = get_node("Pivot/Camera3D/Guns/Pistol")
 	skeleton = grapple_arm.get_node("grappleArm/whiplash_ARM/Skeleton3D")
 	rope_origin = skeleton.get_node("rope_origin")
-	grapple_hook = get_node("Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook")
 	black_hole_cooldown_timer = get_node("../HUD/BlackHoleCooldownIcon/BlackHoleCooldownTimer")
 	death_animator = get_node("../DeathScreen/DeathAnimator")
 	cause_of_death_message = get_node("../DeathScreen/VBoxContainer/CauseOfDeathMessage")
 
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# set the grapple hook's physics computing to static so it doesn't fall to the depths of hell
+	grapple_hook.freeze = true
 	
 func set_player_state(new_player_state:int):
 	# init vars
@@ -113,16 +116,22 @@ func set_player_state(new_player_state:int):
 	if new_player_state == player_states.GRAPPLING and Grapple_Enabled:
 		print("state set to grapple")
 		grapple_rope_mesh_gen.visible = true
-		grapple_hook.reparent(get_tree().root) # reparent and face direction player looks
+		grapple_hook.reparent(get_tree().root) # reparent and face direction raycast is looking
 		grapple_hook.rotation = Vector3.ZERO
+		grapple_hook.rotation.y = grapple_direction_getter.global_rotation.y
+		grapple_hook.rotation.x = grapple_direction_getter.global_rotation.x
+		grapple_hook.freeze = false
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
 	if previous_player_state == player_states.GRAPPLING:
 		print("state left grapple")
 		grapple_rope_mesh_gen.visible = false
-		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
+		grapple_hook.freeze = true
 		grapple_hook.reparent(rope_origin) # reparent and set it to face how it did before
 		grapple_hook.position = Vector3(-0.069, 0.252, 0.043)
 		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
+		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
+		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
+
 		
 	
 func set_weapon_state(new_weapon_state:int):
@@ -224,7 +233,7 @@ func _physics_process(delta: float) -> void:
 	
 	# state control
 	if is_on_floor():
-		player_state = player_states.IDLE
+		player_state = player_states.GROUNDED
 	elif not is_on_floor() and player_state != player_states.GRAPPLING:
 		player_state = player_states.FALLING
 	
@@ -381,8 +390,8 @@ func updateStateStrings():
 		current_weapon_string_name = "MELEE"
 		
 	# update the string name of the player state every frame
-	if player_state == player_states.IDLE:
-		current_player_string_name = "IDLE"
+	if player_state == player_states.GROUNDED:
+		current_player_string_name = "GROUNDED"
 	elif player_state == player_states.DEAD:
 		current_player_string_name = "DEAD"
 	elif player_state == player_states.FALLING:

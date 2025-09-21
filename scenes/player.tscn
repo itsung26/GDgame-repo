@@ -1736,6 +1736,7 @@ speed_scale = 5.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -1753,6 +1754,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 unique_name_in_owner = true
 
 [node name="GrappleDirectionGetter" type="RayCast3D" parent="Pivot/Camera3D"]
+visible = false
 target_position = Vector3(0, 0, -1)
 
 [node name="BulletRayCast" type="RayCast3D" parent="Pivot/Camera3D"]
@@ -1950,6 +1952,8 @@ external_skeleton = NodePath("..")
 transform = Transform3D(0.986502, 0.0555298, 0.154046, 0.153263, 0.0181213, -0.98802, -0.057656, 0.998293, 0.00936612, -0.0688093, 0.252083, 0.0429795)
 collision_layer = 512
 collision_mask = 256
+mass = 0.2
+gravity_scale = 0.0
 freeze = true
 
 [node name="hook_smd" type="MeshInstance3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
