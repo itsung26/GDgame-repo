@@ -60,7 +60,6 @@ var player_state:player_states = player_states.IDLE:
 var weapon_state:weapon_states = weapon_states.PISTOL:
 	set = set_weapon_state
 
-var grapple_dir = Vector3.ZERO
 var can_slam_jump = false
 var storagevar = JUMP_VELOCITY
 var mouse_delta2 : Vector2
@@ -93,14 +92,15 @@ func _ready() -> void:
 	rope_origin = skeleton.get_node("rope_origin")
 	grapple_hook = get_node("Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder/hook")
 	grapple_hook_holder = get_node("Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook_holder")
-	
-	# disables the camera if you are not the current client in control of it
-	camera_3d.current = is_multiplayer_authority()
-	
 	black_hole_cooldown_timer = get_node("../HUD/BlackHoleCooldownIcon/BlackHoleCooldownTimer")
 	death_animator = get_node("../DeathScreen/DeathAnimator")
 	cause_of_death_message = get_node("../DeathScreen/VBoxContainer/CauseOfDeathMessage")
 	
+	# reset the transforms to zero of the hook rigidBody
+	grapple_hook.position = Vector3.ZERO
+	grapple_hook.rotation = Vector3.ZERO
+	grapple_hook.scale = Vector3.ZERO
+
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -109,7 +109,7 @@ func set_player_state(new_player_state:int):
 	var previous_player_state := player_state
 	player_state = new_player_state
 	
-	# run when the state was switched to
+	# death to and from
 	if new_player_state == player_states.DEAD:
 		player_fire_input_enabled = false
 		player_look_input_enabled = false
@@ -120,14 +120,14 @@ func set_player_state(new_player_state:int):
 		print("state set to grapple")
 		grapple_rope_mesh_gen.visible = true
 		grapple_hook.reparent(get_tree().root, true) # parent transform to root node
-		grapple_hook.position = Vector3.ZERO
+		# grapple_hook.position = Vector3.ZERO
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
 	if previous_player_state == player_states.GRAPPLING:
 		print("state left grapple")
 		grapple_rope_mesh_gen.visible = false
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
 		grapple_hook.reparent(grapple_hook_holder, true)
-		grapple_hook.position = Vector3.ZERO
+		# grapple_hook.position = Vector3.ZERO
 		
 	
 func set_weapon_state(new_weapon_state:int):
@@ -152,11 +152,9 @@ func set_weapon_state(new_weapon_state:int):
 	
 	# black hole launcher to and from
 	if new_weapon_state == weapon_states.BLL:
-	
 		# make visible
 		arm_pivot_bll.visible = true
 		black_hole_launcher.visible = true
-		
 		# if gun is not on cooldown anim, play equip anim
 		if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
 			pass

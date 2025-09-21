@@ -1368,13 +1368,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 [node name="GrappleArm" parent="Pivot/Camera3D" instance=ExtResource("3_qlg0r")]
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, -0.154, -0.5, 0)
 
-[node name="Skeleton3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM" index="0"]
-bones/7/position = Vector3(0.0370138, 0.462927, -0.112273)
-bones/10/position = Vector3(0.0487347, 0.475584, -0.00111934)
-bones/16/position = Vector3(0.0674238, 0.467131, 0.207541)
-
 [node name="rope_origin" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.882054, 0.174875, -0.437488, -0.370894, 0.830352, -0.415877, 0.290542, 0.529089, 0.797278, 0.141427, 3.2739, 1.42021)
+transform = Transform3D(0.985273, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338191, 0.181375, -0.147857)
 
 [node name="Guns" type="Node3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)

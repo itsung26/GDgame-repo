@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7flsfviplefd"]
+[gd_scene load_steps=4 format=3 uid="uid://b7flsfviplefd"]
 
 [ext_resource type="Script" uid="uid://dpdnfyww4l5wh" path="res://scripts/weapon_wheel.gd" id="1_dgnc7"]
 [ext_resource type="Texture2D" uid="uid://dp3hpw1lc7jmi" path="res://assets/sprite assets/gunmodel previews/black hole gun/black hole gun image.png" id="2_0oy35"]
 [ext_resource type="Texture2D" uid="uid://xwjr4mrc4u3l" path="res://assets/sprite assets/gunmodel previews/blaster-a.png" id="2_7uen1"]
-[ext_resource type="StyleBox" uid="uid://cywqm3l8pokel" path="res://corners.tres" id="2_elf6b"]
-[ext_resource type="StyleBox" uid="uid://bsyv8s1cwqogq" path="res://normal.tres" id="3_lfmw0"]
 
 [node name="WeaponWheel" type="Control"]
 layout_mode = 3
@@ -21,8 +19,6 @@ offset_left = 207.0
 offset_top = 163.0
 offset_right = 429.0
 offset_bottom = 270.0
-theme_override_styles/hover = ExtResource("2_elf6b")
-theme_override_styles/normal = ExtResource("3_lfmw0")
 
 [node name="Sprite2D" type="Sprite2D" parent="PistolButton"]
 position = Vector2(110, 52)
@@ -37,8 +33,6 @@ offset_left = 466.0
 offset_top = 163.0
 offset_right = 688.0
 offset_bottom = 270.0
-theme_override_styles/hover = ExtResource("2_elf6b")
-theme_override_styles/normal = ExtResource("3_lfmw0")
 
 [node name="Sprite2D" type="Sprite2D" parent="BlackHoleButton"]
 position = Vector2(110, 53)
