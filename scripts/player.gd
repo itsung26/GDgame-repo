@@ -121,7 +121,9 @@ func set_player_state(new_player_state:int):
 		var grapple_dir = grapple_direction_getter.global_rotation
 		grapple_hook.rotation = grapple_dir
 		grapple_hook.freeze = false
-		grapple_hook.linear_velocity = grapple_dir * GRAPPLE_SPEED_MAX
+		# Use basis to get the forward direction
+		var forward = grapple_hook.global_transform.basis.z.normalized()
+		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
 	if previous_player_state == player_states.GRAPPLING:
 		print("state left grapple")
