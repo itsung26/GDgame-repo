@@ -134,12 +134,11 @@ func _process(_delta) -> void:
 		key_animator_tab.play("key_tab_set_light")
 		
 	# set debug text-------------------------------------------------------------------------------
-	anim_debug.text = "current animation: " + str(player.weapon_anim_playing)
-	current_action_state.text = "Current action state: " + "NULL_STATE"
+	current_action_state.text = "Current action state: " + player.current_action_string_name
 	body_hit_debug.text = "last object hit: " + str(Global.body_hit)
 	current_weapon_state.text = "Current weapon state: " + player.current_weapon_string_name
 	current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
-	current_player_pos.text = "Player Pos: " + str(player.global_position)
+	current_player_pos.text = "Player Global Position: " + str(player.global_position)
 	current_player_health.text = "Player health: " + str(player.HEALTH)
 	current_player_state.text = "Current player state: " + player.current_player_string_name
 	# ----------------------------------------------------------------------------------------------

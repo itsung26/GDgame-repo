@@ -306,28 +306,12 @@ visible = false
 
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.07014, 0, -1.25347)
-HEALTH = null
-max_camera_roll = null
-camera_roll_speed = null
-SPEED = null
-JUMP_VELOCITY = null
-look_sensitivity = null
-gravity_enabled = null
-Aerial_Slowdown = null
-Grapple_Enabled = null
-GRAPPLE_MAX_RANGE = null
-PISTOL_MAGSIZE = null
-Pistol_Damage_Range_Min = null
-Pistol_Damage_Range_Max = null
-Pistol_Overclock_Damage_Range_Min = null
-Pistol_OverClock_Damage_Range_Max = null
-BLL_MAGSIZE = null
-black_hole_damage_per_frame = null
-BLL_projectile_travel_speed = null
-BLL_pull_speed = null
 
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotPistol" index="0"]
 transform = Transform3D(0.325357, -0.512599, 0.794596, 0.927407, 0.00898343, -0.373943, 0.184545, 0.85858, 0.478312, 0.171948, 1.28058, -0.0726245)
+
+[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotPistol" index="1"]
+transform = Transform3D(-0.705745, -0.708466, 0, 0.708466, -0.705745, 0, 0, 0, 1, -0.218833, 1.24202, 0.0100964)
 
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
 transform = Transform3D(0.921615, 0.376129, 0.0956483, 0.148141, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
@@ -335,8 +319,44 @@ transform = Transform3D(0.921615, 0.376129, 0.0956483, 0.148141, -0.113148, -0.9
 [node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
 transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
 
+[node name="Skeleton3D" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM" index="0"]
+bones/0/rotation = Quaternion(-0.509306, -0.490668, -0.491617, 0.5081)
+bones/1/rotation = Quaternion(-0.482158, -0.466603, 0.46085, 0.580881)
+bones/2/rotation = Quaternion(-0.243494, -0.0413846, 0.0196674, 0.968819)
+bones/3/rotation = Quaternion(-0.0227307, 0.0489716, -0.0332371, 0.997988)
+bones/4/rotation = Quaternion(0.00588774, -0.0175101, 0.0116556, 0.999761)
+bones/5/rotation = Quaternion(0.0210953, -0.046421, 0.100697, 0.99361)
+bones/6/rotation = Quaternion(0.0918091, 0.0182713, -0.00352148, 0.995603)
+bones/7/rotation = Quaternion(0.0130555, -0.0272884, 0.0869477, 0.995754)
+bones/8/rotation = Quaternion(-0.000128749, -0.00115718, 0.000754162, 0.999999)
+bones/9/rotation = Quaternion(0.00424119, -0.00723928, 0.0946462, 0.995476)
+bones/10/rotation = Quaternion(0.0131009, -0.0291353, 0.0881255, 0.995597)
+bones/11/rotation = Quaternion(-0.000140048, -0.00166004, 0.00108778, 0.999998)
+bones/12/rotation = Quaternion(0.00373961, 0.000908251, 0.0889827, 0.996026)
+bones/13/rotation = Quaternion(0.0130548, -0.0272868, 0.0869461, 0.995754)
+bones/14/rotation = Quaternion(-0.000128906, -0.00115852, 0.000755158, 0.999999)
+bones/15/rotation = Quaternion(0.00424343, -0.00724048, 0.0946477, 0.995475)
+bones/16/rotation = Quaternion(-0.000873604, -0.0298618, 0.0856834, 0.995874)
+bones/17/rotation = Quaternion(0.0263633, 0.00421721, 0.000516592, 0.999643)
+bones/18/rotation = Quaternion(-0.00777791, -0.0230112, 0.10497, 0.994179)
+
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
 transform = Transform3D(0.985273, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338268, 0.181375, -0.147858)
+
+[node name="BlackHoleLauncher" parent="Player/Pivot/Camera3D/Guns" index="0"]
+transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)
+
+[node name="PanelPivot2" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="2"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.206563, 0, 0.398)
+
+[node name="PanelPivot3" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="3"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.209735, 0, -0.328399)
+
+[node name="core" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????" index="1"]
+transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0.0247345, 1.39009, -0.00136375)
+
+[node name="magazine" parent="Player/Pivot/Camera3D/Guns/Pistol/pistolPart" index="1"]
+transform = Transform3D(0.116955, 0, 0, 0, -4.23376e-07, -0.116955, 0, 0.116955, -4.23376e-07, 0, -1.08348, -0.896698)
 
 [node name="Enemies" type="Node3D" parent="."]
 
@@ -350,7 +370,7 @@ navigation_mesh = SubResource("NavigationMesh_idmwj")
 [node name="Floor" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 collision_layer = 4
-collision_mask = 519
+collision_mask = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Floor"]
 mesh = SubResource("BoxMesh_x647l")
@@ -361,7 +381,7 @@ shape = SubResource("ConcavePolygonShape3D_bcvk1")
 [node name="Wall" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62648, 0, 2.72307)
 collision_layer = 4
-collision_mask = 519
+collision_mask = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Wall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
@@ -374,7 +394,7 @@ shape = SubResource("ConcavePolygonShape3D_prwh2")
 [node name="Wall2" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.37352, 0, -1.27693)
 collision_layer = 4
-collision_mask = 519
+collision_mask = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Wall2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
@@ -387,7 +407,7 @@ shape = SubResource("ConcavePolygonShape3D_prwh2")
 [node name="Wall3" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.37352, 0, -8.27693)
 collision_layer = 4
-collision_mask = 519
+collision_mask = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Wall3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
@@ -400,7 +420,7 @@ shape = SubResource("ConcavePolygonShape3D_prwh2")
 [node name="Wall4" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.62648, 0, -4.27693)
 collision_layer = 4
-collision_mask = 519
+collision_mask = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Wall4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.5784, 39.32, -5.85608)
@@ -413,7 +433,7 @@ shape = SubResource("ConcavePolygonShape3D_prwh2")
 [node name="Roof" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.0762668, 78.1217, -5.85608)
 collision_layer = 4
-collision_mask = 519
+collision_mask = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Roof"]
 transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1.26112, 0, 0.701401)
@@ -454,9 +474,6 @@ transform = Transform3D(-0.334843, 0, 0.942274, 0, 1, 0, -0.942274, 0, -0.334843
 
 [node name="GrappleCube" parent="WorldObjects" instance=ExtResource("18_s0dw4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.35693, 4.02731, -7.90094)
-
-[node name="GrappleCube2" parent="WorldObjects" instance=ExtResource("18_s0dw4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8739, 4.02731, -7.82601)
 
 [node name="WorldLights" type="Node3D" parent="."]
 

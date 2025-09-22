@@ -75,7 +75,6 @@ func set_state(new_state:int):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(float) -> void:
-	print(pause_state)
 	shaderOverlayLogic()
 	
 func _input(event: InputEvent) -> void:

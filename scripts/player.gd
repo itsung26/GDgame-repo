@@ -19,6 +19,7 @@ extends CharacterBody3D
 @onready var grapple_arm: Node3D = $Pivot/Camera3D/GrappleArm
 @onready var grapple_direction_getter: RayCast3D = $Pivot/Camera3D/GrappleDirectionGetter
 @onready var grapple_hook: RigidBody3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook
+@onready var grapple_timer: Timer = $GrappleTimer
 
 @export_category("Settings")
 @export var HEALTH: int = 100
@@ -53,15 +54,16 @@ var BLL_AMMO := BLL_MAGSIZE
 @export var BLL_pull_speed := 10
 
 # 3 seperate FSMs (finite state machines) to replace conditional trees
-enum player_states{GROUNDED, DEAD, GRAPPLING, FALLING}
+enum player_states{GROUNDED, DEAD, FALLING}
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
-# enum action_states{IDLE, GRAPPLING, DASHING, SLIDING}
+enum action_states{IDLE, GRAPPLING, REELING_PLAYER, DASHING, SLIDING}
 
 var player_state:player_states = player_states.GROUNDED:
 	set = set_player_state
 var weapon_state:weapon_states = weapon_states.PISTOL:
 	set = set_weapon_state
-# var action_state:action_states = action_states.IDLE
+var action_state:action_states = action_states.IDLE:
+	set = set_action_state
 
 var can_slam_jump = false
 var storagevar = JUMP_VELOCITY
@@ -83,6 +85,7 @@ var input_dir := Vector2.ZERO
 var camera_target_roll: float = 0.0
 var current_weapon_string_name:String = "null state"
 var current_player_string_name:String = "null state"
+var current_action_string_name:String = "null state"
 var rope_origin
 var skeleton
 
@@ -98,7 +101,7 @@ func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	# set the grapple hook's physics computing to static so it doesn't fall to the depths of hell
+	# set the grapple hook's physics process to static so it doesn't fall to the depths of hell
 	grapple_hook.freeze = true
 	
 func set_player_state(new_player_state:int):
@@ -111,30 +114,6 @@ func set_player_state(new_player_state:int):
 		player_fire_input_enabled = false
 		player_look_input_enabled = false
 		player_move_input_enabled = false
-	
-	# grapple to and from
-	if new_player_state == player_states.GRAPPLING and Grapple_Enabled:
-		print("state set to grapple")
-		grapple_rope_mesh_gen.visible = true
-		grapple_hook.reparent(get_tree().root) # reparent and face direction raycast is looking
-		grapple_hook.rotation = Vector3.ZERO
-		var grapple_dir = grapple_direction_getter.global_rotation
-		grapple_hook.rotation = grapple_dir
-		grapple_hook.freeze = false
-		# Use basis to get the forward direction
-		var forward = grapple_hook.global_transform.basis.z.normalized()
-		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX
-		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
-	if previous_player_state == player_states.GRAPPLING:
-		print("state left grapple")
-		grapple_rope_mesh_gen.visible = false
-		grapple_hook.freeze = true
-		grapple_hook.reparent(rope_origin) # reparent and set it to face how it did before
-		grapple_hook.position = Vector3(-0.069, 0.252, 0.043)
-		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
-		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
-		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
-
 		
 	
 func set_weapon_state(new_weapon_state:int):
@@ -172,7 +151,38 @@ func set_weapon_state(new_weapon_state:int):
 		arm_pivot_bll.visible = false
 		black_hole_launcher.visible = false
 	
+func set_action_state(new_action_state:int):
+	# init vars
+	var previous_action_state := action_state
+	action_state = new_action_state
 	
+	# grapple to and from
+	if new_action_state == action_states.GRAPPLING and Grapple_Enabled:
+		print("state set to grapple")
+		grapple_rope_mesh_gen.visible = true
+		grapple_hook.reparent(get_tree().root) # reparent and face direction raycast is looking
+		grapple_hook.rotation = Vector3.ZERO
+		var grapple_dir = grapple_direction_getter.global_rotation
+		grapple_hook.rotation = grapple_dir
+		grapple_hook.freeze = false
+		# Use basis to get the forward direction
+		var forward = grapple_hook.global_transform.basis.z.normalized()
+		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX
+		grapple_timer.start()
+		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
+	if previous_action_state == action_states.GRAPPLING:
+		print("state left grapple")
+		grapple_rope_mesh_gen.visible = false
+		grapple_hook.freeze = true
+		grapple_hook.reparent(rope_origin) # reparent and set it to face how it did before
+		grapple_hook.position = Vector3(-0.069, 0.252, 0.043)
+		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
+		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
+		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
+		
+	# grapple reeling stage to and from
+	if new_action_state == action_states.REELING_PLAYER:
+		
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
@@ -182,8 +192,8 @@ func _input(event) -> void:
 	
 	# handle grapple activation
 	if Input.is_action_just_pressed("grapple"):
-		if not is_on_floor() and player_state != player_states.GRAPPLING:
-			player_state = player_states.GRAPPLING
+		if action_state != action_states.GRAPPLING:
+			action_state = action_states.GRAPPLING
 	
 	# handle mouselook
 	if event is InputEventMouseMotion and player.player_look_input_enabled:
@@ -231,13 +241,15 @@ func zoomOut():
 
 
 func _physics_process(delta: float) -> void:
+	# runs main grapple logic every physics frame.
+	grappleFrameLogic()
 	
 	cameraFX(delta) # roll, tilt, clamp
 	
 	# state control
 	if is_on_floor():
 		player_state = player_states.GROUNDED
-	elif not is_on_floor() and player_state != player_states.GRAPPLING:
+	elif not is_on_floor():
 		player_state = player_states.FALLING
 	
 	# Add the gravity 
@@ -360,10 +372,6 @@ func _process(_delta) -> void:
 	# keeps the rope attatched to the grapple bit
 	grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
 	
-	# runs main grapple logic every frame.
-	if player_state == player_states.GRAPPLING:
-		pass
-	
 	# retrn the time remaining on the current black hole cooldown animation and save as a time
 	if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
 		black_hole_time_remaining = bll_animator.current_animation_length - bll_animator.current_animation_position
@@ -399,8 +407,16 @@ func updateStateStrings():
 		current_player_string_name = "DEAD"
 	elif player_state == player_states.FALLING:
 		current_player_string_name = "FALLING"
-	elif player_state == player_states.GRAPPLING:
-		current_player_string_name = "GRAPPLING"
+
+	# update the string name of the action every frame
+	if action_state == action_states.GRAPPLING:
+		current_action_string_name = "GRAPPLING"
+	elif action_state == action_states.IDLE:
+		current_action_string_name = "IDLE"
+
+func grappleFrameLogic():
+	if action_state == action_states.GRAPPLING:
+		print(grapple_hook.get_colliding_bodies())
 
 # note: zoomOut and zoomIn are reversed. I screwed up.
 func _on_hud_zoom_in_trigger() -> void:
@@ -410,13 +426,12 @@ func _on_hud_zoom_in_trigger() -> void:
 func _on_hud_zoom_out_trigger() -> void:
 	zoomIn()
 
-
-func _on_slam_timer_timeout() -> void:
-	can_slam_jump = false
-	JUMP_VELOCITY = storagevar
-
 func playerDie():
 	player_state = player_states.DEAD
 	cause_of_death_message.text = cause_of_death
 	Engine.time_scale = 0.3
 	death_animator.play("death")
+
+
+func _on_grapple_timer_timeout() -> void:
+	action_state = action_states.IDLE

@@ -1691,7 +1691,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" groups=["players"]]
-collision_mask = 15
+collision_mask = 271
 script = ExtResource("1_qhqgy")
 GRAPPLE_SPEED_MAX = 50
 
@@ -1943,7 +1943,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.494441, -0.22507, 0.839565, 0.695415, 0.681897, -0.226745, -0.521463, 0.69596, 0.493675, -0.394574, 2.59183, 1.9481)
+transform = Transform3D(0.985273, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338191, 0.181375, -0.147857)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1954,8 +1954,10 @@ transform = Transform3D(0.986502, 0.0555298, 0.154046, 0.153263, 0.0181213, -0.9
 collision_layer = 512
 collision_mask = 260
 mass = 0.2
-gravity_scale = 0.0
 freeze = true
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 5
 
 [node name="hook_smd" type="MeshInstance3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -2008,7 +2010,11 @@ wait_time = 0.5
 one_shot = true
 ignore_time_scale = true
 
-[connection signal="timeout" from="SlamTimer" to="." method="_on_slam_timer_timeout"]
+[node name="GrappleTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="GrappleTimer" to="." method="_on_grapple_timer_timeout"]
 
 [editable path="Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]

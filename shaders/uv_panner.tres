@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=18 format=3 uid="uid://8xbgim55117h"]
+[gd_resource type="VisualShader" load_steps=18 format=3 uid="uid://bbw2p10e51ye2"]
 
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_pw61p"]
 
@@ -153,7 +153,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-333.953, -51.7485)
+graph_offset = Vector2(-494.953, 187.251)
 modes/cull = 2
 preview_params/Emission_intensity = "4.13"
 preview_params/cull_threshhold = "0.55"
