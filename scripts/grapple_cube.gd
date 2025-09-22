@@ -7,8 +7,6 @@ extends Node3D
 func _on_grapple_detect_block_body_entered(body: RigidBody3D) -> void:
 	if body.name == "hook":
 		print("grapple hook entered the box")
-		player.action_state = player.action_states.REELING_PLAYER
-		body.global_position = position # kill velocity and move to origin point
 		cube_hit_animator.play("cube_open")
 
 
@@ -16,3 +14,5 @@ func _on_grapple_detect_block_body_exited(body: RigidBody3D) -> void:
 	if body.name == "hook":
 		print("grapple hook left the box")
 		cube_hit_animator.play("cube_close")
+		
+	

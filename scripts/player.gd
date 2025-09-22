@@ -182,7 +182,7 @@ func set_action_state(new_action_state:int):
 		
 	# grapple reeling stage to and from
 	if new_action_state == action_states.REELING_PLAYER:
-		
+		pass
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
@@ -415,8 +415,7 @@ func updateStateStrings():
 		current_action_string_name = "IDLE"
 
 func grappleFrameLogic():
-	if action_state == action_states.GRAPPLING:
-		print(grapple_hook.get_colliding_bodies())
+	pass
 
 # note: zoomOut and zoomIn are reversed. I screwed up.
 func _on_hud_zoom_in_trigger() -> void:
@@ -435,3 +434,8 @@ func playerDie():
 
 func _on_grapple_timer_timeout() -> void:
 	action_state = action_states.IDLE
+
+# signals the first body the hook collides with
+func _on_hook_body_entered(body) -> void:
+	if not body.is_in_group("grapple_cubes"):
+		action_state = action_states.IDLE

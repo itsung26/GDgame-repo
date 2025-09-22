@@ -306,25 +306,6 @@ visible = false
 
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.07014, 0, -1.25347)
-HEALTH = null
-max_camera_roll = null
-camera_roll_speed = null
-SPEED = null
-JUMP_VELOCITY = null
-look_sensitivity = null
-gravity_enabled = null
-Aerial_Slowdown = null
-Grapple_Enabled = null
-GRAPPLE_MAX_RANGE = null
-PISTOL_MAGSIZE = null
-Pistol_Damage_Range_Min = null
-Pistol_Damage_Range_Max = null
-Pistol_Overclock_Damage_Range_Min = null
-Pistol_OverClock_Damage_Range_Max = null
-BLL_MAGSIZE = null
-black_hole_damage_per_frame = null
-BLL_projectile_travel_speed = null
-BLL_pull_speed = null
 
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotPistol" index="0"]
 transform = Transform3D(0.325357, -0.512599, 0.794596, 0.927407, 0.00898343, -0.373943, 0.184545, 0.85858, 0.478312, 0.171948, 1.28058, -0.0726245)
