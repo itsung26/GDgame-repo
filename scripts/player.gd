@@ -20,9 +20,12 @@ extends CharacterBody3D
 @onready var grapple_direction_getter: RayCast3D = $Pivot/Camera3D/GrappleDirectionGetter
 @onready var grapple_hook: RigidBody3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook
 @onready var grapple_timer: Timer = $GrappleTimer
+@onready var cam_shake_timer: Timer = $CamShakeTimer
 
 @export_category("Settings")
 @export var HEALTH: int = 100
+
+@export_category("Camera")
 @export var max_camera_roll: float = 7.5 # degrees, adjust as desired
 @export var camera_roll_speed: float = 6.5 # how quickly the camera rolls
 
@@ -54,7 +57,7 @@ var BLL_AMMO := BLL_MAGSIZE
 @export var BLL_pull_speed := 10
 
 # 3 seperate FSMs (finite state machines) to replace conditional trees
-enum player_states{GROUNDED, DEAD, FALLING}
+enum player_states{GROUNDED, DEAD, FALLING, REELINGTO}
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
 enum action_states{IDLE, GRAPPLING, DASHING, SLIDING}
 
@@ -89,6 +92,8 @@ var current_action_string_name:String = "null state"
 var rope_origin
 var skeleton
 var impact_particles_scene = preload("res://scenes/impact_particles.tscn")
+var doing_shake = false
+var reel_vector
 
 func _ready() -> void:
 	# object reference definitions
@@ -115,6 +120,12 @@ func set_player_state(new_player_state:int):
 		player_fire_input_enabled = false
 		player_look_input_enabled = false
 		player_move_input_enabled = false
+		
+	# REELINGTO to and from
+	if new_player_state == player_states.REELINGTO:
+		camera_animator.play("camera_overclock_zoom_out")
+	if previous_player_state == player_states.REELINGTO:
+		camera_animator.play("camera_overclock_zoom_in")
 		
 	
 func set_weapon_state(new_weapon_state:int):
@@ -244,9 +255,9 @@ func _physics_process(delta: float) -> void:
 	cameraFX(delta) # roll, tilt, clamp
 	
 	# state control
-	if is_on_floor():
+	if is_on_floor() and player_state != player_states.REELINGTO:
 		player_state = player_states.GROUNDED
-	elif not is_on_floor():
+	elif not is_on_floor() and player_state != player_states.REELINGTO:
 		player_state = player_states.FALLING
 	
 	# Add the gravity 
@@ -270,6 +281,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0.0, 10.0)
 			velocity.z = move_toward(velocity.z, 0.0, 10.0)
 	
+	# falling state logic
 	elif player_state == player_states.FALLING:
 		if direction and player_move_input_enabled:
 			velocity.x = direction.x * SPEED
@@ -278,6 +290,10 @@ func _physics_process(delta: float) -> void:
 		elif direction == Vector3.ZERO and not is_on_floor():
 			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
 			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
+	
+	# reeling state logic
+	elif player_state == player_states.REELINGTO:
+			velocity = reel_vector
 
 		
 	move_and_slide()
@@ -411,6 +427,8 @@ func updateStateStrings():
 		current_player_string_name = "DEAD"
 	elif player_state == player_states.FALLING:
 		current_player_string_name = "FALLING"
+	elif player_state == player_states.REELINGTO:
+		current_player_string_name = "REELINGTO"
 
 	# update the string name of the action every frame
 	if action_state == action_states.GRAPPLING:
@@ -450,3 +468,7 @@ func _on_hook_collide(body) -> void:
 		impact_particles.global_position = impact_pos
 		particle_look_marker.global_position = camera_3d.global_position
 		action_state = action_states.IDLE
+
+
+func _on_cam_shake_timer_timeout() -> void:
+	doing_shake = false

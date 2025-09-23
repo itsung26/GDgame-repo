@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=42 format=4 uid="uid://mhij3rnbxw0r"]
 
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
 [ext_resource type="Material" uid="uid://d25ece0xga0hd" path="res://assets/materials/map_enviroment.tres" id="1_te4ph"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://2dd245bud88p" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_NormalGL.jpg" id="13_4i6sm"]
 [ext_resource type="Texture2D" uid="uid://brv83cxi4cb8m" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Roughness.jpg" id="14_oma2s"]
 [ext_resource type="PackedScene" uid="uid://du50kuq805ea1" path="res://scenes/black_hole_ammo.tscn" id="16_4i6sm"]
+[ext_resource type="Texture2D" uid="uid://cread3gedp1k3" path="res://assets/textures/normalmapped dark/blackprototype/texture_01_normal.png" id="16_wjjk7"]
 [ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube.tscn" id="18_s0dw4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bq1pm"]
@@ -230,6 +231,26 @@ size = Vector3(1, 201.455, 201.265)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_he5cq"]
 data = PackedVector3Array(-0.5, 100.728, 100.632, 0.5, 100.728, 100.632, -0.5, -100.728, 100.632, 0.5, 100.728, 100.632, 0.5, -100.728, 100.632, -0.5, -100.728, 100.632, 0.5, 100.728, -100.632, -0.5, 100.728, -100.632, 0.5, -100.728, -100.632, -0.5, 100.728, -100.632, -0.5, -100.728, -100.632, 0.5, -100.728, -100.632, 0.5, 100.728, 100.632, 0.5, 100.728, -100.632, 0.5, -100.728, 100.632, 0.5, 100.728, -100.632, 0.5, -100.728, -100.632, 0.5, -100.728, 100.632, -0.5, 100.728, -100.632, -0.5, 100.728, 100.632, -0.5, -100.728, -100.632, -0.5, 100.728, 100.632, -0.5, -100.728, 100.632, -0.5, -100.728, -100.632, 0.5, 100.728, 100.632, -0.5, 100.728, 100.632, 0.5, 100.728, -100.632, -0.5, 100.728, 100.632, -0.5, 100.728, -100.632, 0.5, 100.728, -100.632, -0.5, -100.728, 100.632, 0.5, -100.728, 100.632, -0.5, -100.728, -100.632, 0.5, -100.728, 100.632, 0.5, -100.728, -100.632, -0.5, -100.728, -100.632)
 
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_atici"]
+data = PackedVector3Array(0.35486, -5.9883, 0, 0.35486, -5.9883, -191.25, 0.476734, 2.04313, -191.25, 0.35486, -5.9883, -191.25, 0.35486, -5.9883, 0, 14.8598, -6.21009, 0, 15.0373, 2.08482, -191.25, 0.476734, 2.04313, -191.25, 0.35486, -5.9883, -191.25, 0.476734, 2.04313, 0, 0.476734, 2.04313, -191.25, 15.0373, 2.08482, -191.25, 0.476734, 2.04313, -191.25, 0.476734, 2.04313, 0, 0.35486, -5.9883, 0, 0.35486, -5.9883, 0, 0.476734, 2.04313, 0, 15.0373, 2.08482, 0, 14.8598, -6.21009, 0, 14.8598, -6.21009, -191.25, 0.35486, -5.9883, -191.25, 0.35486, -5.9883, -191.25, 14.8598, -6.21009, -191.25, 15.0373, 2.08482, -191.25, 15.0373, 2.08482, 0, 14.8598, -6.21009, 0, 0.35486, -5.9883, 0, 14.8598, -6.21009, -191.25, 14.8598, -6.21009, 0, 15.0373, 2.08482, 0, 15.0373, 2.08482, 0, 15.0373, 2.08482, -191.25, 14.8598, -6.21009, -191.25, 15.0373, 2.08482, -191.25, 15.0373, 2.08482, 0, 0.476734, 2.04313, 0)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ihdwp"]
+_surfaces = [{
+"aabb": AABB(0.35486, -6.21009, -191.25, 14.6824, 8.2949, 191.25),
+"attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAgD8AAAA+AACAPwAAAD8AAAAAAAAAPwAAAAAAAMA+AAAAPwAAAD8B8H4/qqQAPwAAgD/Yk3w/AAAAAAAAAD4AAIA/AAAAPgAAgD8AAIA+AACAPwAAAD4AAAAAAAAAPgAAAAAAAAAAAAAAANiTfD+F/4c7qqQAPwAAAD8AAAA/AAAAAAAAwD4AAIA/AADAPgAAgD8AAAA/AACAP9iTfD/8iwE/AACAPwAAAD8AAAA/AAAAPwAAAD8I6Pw+AACAPwAAAADYk3w/AACAPwAAwD4AAAAAAADAPgAAAAAAAIA+AAAAAAAAgD4AAIA/AACAPgAAgD8AAMA+AACAPwAAgD4AAAAAAACAPgAAAAAAAAA+"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("QLC1PiCgv8AAAAAAQLC1PiCgv8AAQD/DgBb0PrDCAkAAQD/DQLC1PiCgv8AAQD/DQLC1PiCgv8AAAAAA8MFtQQi5xsAAAAAAsJhwQaBtBUAAQD/DgBb0PrDCAkAAQD/DQLC1PiCgv8AAQD/DgBb0PrDCAkAAAAAAgBb0PrDCAkAAQD/DsJhwQaBtBUAAQD/DgBb0PrDCAkAAQD/DgBb0PrDCAkAAAAAAQLC1PiCgv8AAAAAAQLC1PiCgv8AAAAAAgBb0PrDCAkAAAAAAsJhwQaBtBUAAAAAA8MFtQQi5xsAAAAAA8MFtQQi5xsAAQD/DQLC1PiCgv8AAQD/DQLC1PiCgv8AAQD/D8MFtQQi5xsAAQD/DsJhwQaBtBUAAQD/DsJhwQaBtBUAAAAAA8MFtQQi5xsAAAAAAQLC1PiCgv8AAAAAA8MFtQQi5xsAAQD/D8MFtQQi5xsAAAAAAsJhwQaBtBUAAAAAAsJhwQaBtBUAAAAAAsJhwQaBtBUAAQD/D8MFtQQi5xsAAQD/DsJhwQaBtBUAAQD/DsJhwQaBtBUAAAAAAgBb0PrDCAkAAAAAA6QHpgf/////pAemB/////+kB6YH/////En7tAf////8Sfu0B/////xJ+7QH//////////wAA/7//////AAD/v/////8AAP+/oX+h//////+hf6H//////6F/of//////6QHpgf/////pAemB/////+kB6YH//////3//f////7//f/9/////v/9//3////+/En7tAf////8Sfu0B/////xJ+7QH//////////wAA/7//////AAD/v/////8AAP+//3//f////7//f/9/////v/9//3////+/UP1Rff////9Q/VF9/////1D9UX3/////UP1Rff////9Q/VF9/////1D9UX3/////oX+h//////+hf6H//////6F/of//////")
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnstj"]
+albedo_texture = ExtResource("2_prwh2")
+normal_enabled = true
+normal_texture = ExtResource("16_wjjk7")
+uv1_scale = Vector3(12.001, 12.001, 12.001)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjjk7"]
 resource_local_to_scene = true
 
@@ -267,7 +288,13 @@ script = ExtResource("1_wix4b")
 
 [node name="HUD" parent="." instance=ExtResource("2_pd1ih")]
 
-[node name="versionText" parent="HUD" index="4"]
+[node name="Label" parent="HUD" index="3"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 137.0
+offset_bottom = 23.0
+
+[node name="versionText" parent="HUD" index="5"]
 text = "ALPHA BUILD 0.9.7"
 
 [node name="Pause" parent="." instance=ExtResource("3_p1xl4")]
@@ -327,6 +354,7 @@ visible = false
 
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.07014, 0, -1.25347)
+JUMP_VELOCITY = 8.0
 
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotPistol" index="0"]
 transform = Transform3D(0.325357, -0.512599, 0.794596, 0.927407, 0.00898343, -0.373943, 0.184545, 0.85858, 0.478312, 0.171948, 1.28058, -0.0726245)
@@ -334,8 +362,11 @@ transform = Transform3D(0.325357, -0.512599, 0.794596, 0.927407, 0.00898343, -0.
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
 transform = Transform3D(0.921615, 0.376129, 0.0956483, 0.148141, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
 
+[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
+transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
+
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.985274, 0.0912851, 0.144568, 0.144568, -0.896232, -0.419368, 0.0912846, 0.434093, -0.896233, -0.163892, 0.180755, 0.00796509)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796509)
 
 [node name="Enemies" type="Node3D" parent="."]
 
@@ -422,6 +453,18 @@ mesh = SubResource("BoxMesh_prwh2")
 transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1.26112, 0, 0.701401)
 shape = SubResource("ConcavePolygonShape3D_he5cq")
 
+[node name="Bridge" type="StaticBody3D" parent="WorldStructures"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -95.7117, 25.91, -45.6926)
+collision_layer = 4
+collision_mask = 519
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+shape = SubResource("ConcavePolygonShape3D_atici")
+
+[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+mesh = SubResource("ArrayMesh_ihdwp")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnstj")
+
 [node name="WorldObjects" type="Node3D" parent="."]
 
 [node name="enemy_spawner" parent="WorldObjects" instance=ExtResource("10_idmwj")]
@@ -437,7 +480,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.69271, -4.76837e-07, 8.6173
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2055, 4.02731, 12.3253)
 
 [node name="GrappleCube2" parent="WorldObjects" instance=ExtResource("18_s0dw4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2868, 7.64937, 18.1701)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.8928, 18.2143, 42.1817)
+
+[node name="GrappleCube3" parent="WorldObjects" instance=ExtResource("18_s0dw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9615, 11.6742, 26.477)
+
+[node name="GrappleCube4" parent="WorldObjects" instance=ExtResource("18_s0dw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.32492, 9.71115, -12.2627)
+
+[node name="GrappleCube5" parent="WorldObjects" instance=ExtResource("18_s0dw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.24937, 22.2445, -23.0593)
+
+[node name="GrappleCube6" parent="WorldObjects" instance=ExtResource("18_s0dw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.71894, 44.5812, 69.2612)
 
 [node name="text" type="MeshInstance3D" parent="WorldObjects"]
 transform = Transform3D(4.54403e-07, 0, -3.46517, 0, 3.46517, 0, 3.46517, 0, 4.54403e-07, 8.1638, 5.50843, -0.56695)

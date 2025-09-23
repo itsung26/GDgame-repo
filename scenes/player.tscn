@@ -1,10 +1,11 @@
-[gd_scene load_steps=40 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=44 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://b634drxy8nceb" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_normal000.png" id="3_fjrip"]
 [ext_resource type="PackedScene" uid="uid://csatdjhfoaqcw" path="res://scenes/pistol.tscn" id="4_dqkch"]
 [ext_resource type="Animation" uid="uid://cc5jsyaulies1" path="res://assets/gunmodels/grapple arm/grapple_rebound.res" id="4_smehm"]
+[ext_resource type="Script" uid="uid://cjhvcb5uyoehj" path="res://scripts/wind_particles.gd" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://d6b4gnbdcx45" path="res://scenes/black_hole_launcher.tscn" id="11_d2wvv"]
 
 [sub_resource type="Animation" id="Animation_g2els"]
@@ -1697,11 +1698,32 @@ _data = {
 &"grapple_rebound": ExtResource("4_smehm")
 }
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
+particle_flag_align_y = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 2)
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjrip"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.054902)
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_smehm"]
+material = SubResource("StandardMaterial3D_fjrip")
+size = 0.175
+section_length = 0.03
+
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 271
 script = ExtResource("1_qhqgy")
 camera_roll_speed = 4.5
-Aerial_Slowdown = 1.0
+JUMP_VELOCITY = 9.0
 GRAPPLE_SPEED_MAX = 50
 
 [node name="GunAnimator" type="AnimationPlayer" parent="."]
@@ -1952,7 +1974,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(-0.0127837, -0.101558, 0.994748, 0.705735, 0.703839, 0.0809283, -0.708361, 0.703064, 0.0626753, 0.532447, 2.63885, 1.94059)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912845, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -2013,6 +2035,16 @@ transform = Transform3D(0.116955, 0, 0, 0, -5.11227e-09, -0.116955, 0, 0.116955,
 [node name="OmniLight3D" parent="Pivot/Camera3D/Guns/Pistol/VFX/muzzle" index="2"]
 visible = false
 
+[node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
+amount = 30
+lifetime = 0.39
+local_coords = true
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_tuyoq")
+draw_pass_1 = SubResource("RibbonTrailMesh_smehm")
+script = ExtResource("7_fjrip")
+
 [node name="SlamTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 0.5
@@ -2023,8 +2055,12 @@ ignore_time_scale = true
 wait_time = 2.0
 one_shot = true
 
+[node name="CamShakeTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook" to="." method="_on_hook_collide"]
 [connection signal="timeout" from="GrappleTimer" to="." method="_on_grapple_timer_timeout"]
+[connection signal="timeout" from="CamShakeTimer" to="." method="_on_cam_shake_timer_timeout"]
 
 [editable path="Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]

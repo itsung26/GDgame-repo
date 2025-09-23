@@ -132,5 +132,6 @@ func _process(_delta) -> void:
 	current_player_pos.text = "Player Global Position: " + str(player.global_position)
 	current_player_health.text = "Player health: " + str(player.HEALTH)
 	current_player_state.text = "Current player state: " + player.current_player_string_name
+	%CurrentVelocity.text = str(player.velocity)
 	# ----------------------------------------------------------------------------------------------
 	

@@ -573,6 +573,102 @@ tracks/15/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("grapple_cube/outers/outer:rotation")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("grapple_cube/outers/outer_001:rotation")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("grapple_cube/outers/outer_002:rotation")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("grapple_cube/outers/outer_003:rotation")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("grapple_cube/outers/outer_004:rotation")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("grapple_cube/outers/outer_005:rotation")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("grapple_cube/outers/outer_006:rotation")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("grapple_cube/outers/outer_007:rotation")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_lnha8"]
 resource_name = "cube_close"
@@ -580,26 +676,26 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("grapple_cube/outers/outer_001:position")
+tracks/0/path = NodePath("grapple_cube/outers/outer:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.218337, 0.217071, -0.226734), Vector3(0, 0, 0)]
+"values": [Vector3(0.701542, 0.717071, -0.793915), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("grapple_cube/outers/outer:position")
+tracks/1/path = NodePath("grapple_cube/outers/outer_001:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.201542, 0.217071, -0.293915), Vector3(0, 0, 0)]
+"values": [Vector3(-0.718337, 0.717071, -0.726734), Vector3(0, 0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -611,7 +707,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.193145, 0.217071, 0.167952), Vector3(0, 0, 0)]
+"values": [Vector3(0.693145, 0.717071, 0.667952), Vector3(0, 0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -623,7 +719,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.209939, 0.217071, 0.209939), Vector3(0, 0, 0)]
+"values": [Vector3(-0.709939, 0.717071, 0.709939), Vector3(0, 0, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -635,7 +731,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.193197, -0.274308, -0.29488), Vector3(0, 0, 0)]
+"values": [Vector3(0.693197, -0.774308, -0.79488), Vector3(0, 0, 0)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -647,7 +743,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.213533, -0.274308, -0.23387), Vector3(0, 0, 0)]
+"values": [Vector3(-0.713533, -0.774308, -0.73387), Vector3(0, 0, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -659,7 +755,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.183029, -0.274308, 0.162692), Vector3(0, 0, 0)]
+"values": [Vector3(0.683029, -0.774308, 0.662692), Vector3(0, 0, 0)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -671,7 +767,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.213534, -0.274308, 0.183029), Vector3(0, 0, 0)]
+"values": [Vector3(-0.713534, -0.774308, 0.683029), Vector3(0, 0, 0)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -864,7 +960,7 @@ tracks/5/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_pjrce"]
-resource_name = "cube_open_2"
+resource_name = "cube_open"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -876,7 +972,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.218337, 0.217071, -0.226734)]
+"values": [Vector3(0, 0, 0), Vector3(-0.718337, 0.717071, -0.726734)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -888,7 +984,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.201542, 0.217071, -0.293915)]
+"values": [Vector3(0, 0, 0), Vector3(0.701542, 0.717071, -0.793915)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -900,7 +996,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.193145, 0.217071, 0.167952)]
+"values": [Vector3(0, 0, 0), Vector3(0.693145, 0.717071, 0.667952)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -912,7 +1008,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.209939, 0.217071, 0.209939)]
+"values": [Vector3(0, 0, 0), Vector3(-0.709939, 0.717071, 0.709939)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -924,7 +1020,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.193197, -0.274308, -0.29488)]
+"values": [Vector3(0, 0, 0), Vector3(0.693197, -0.774308, -0.79488)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -936,7 +1032,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.213533, -0.274308, -0.23387)]
+"values": [Vector3(0, 0, 0), Vector3(-0.713533, -0.774308, -0.73387)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -948,7 +1044,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.183029, -0.274308, 0.162692)]
+"values": [Vector3(0, 0, 0), Vector3(0.683029, -0.774308, 0.662692)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -960,7 +1056,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.213534, -0.274308, 0.183029)]
+"values": [Vector3(0, 0, 0), Vector3(-0.713534, -0.774308, 0.683029)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -986,6 +1082,102 @@ tracks/9/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("grapple_cube/outers/outer:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("grapple_cube/outers/outer_001:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("grapple_cube/outers/outer_002:rotation")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("grapple_cube/outers/outer_003:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("grapple_cube/outers/outer_004:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("grapple_cube/outers/outer_005:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("grapple_cube/outers/outer_006:rotation")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("grapple_cube/outers/outer_007:rotation")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kgreb"]
 _data = {
@@ -998,6 +1190,8 @@ _data = {
 
 [node name="GrappleCube" type="Node3D" groups=["grapple_cubes"]]
 script = ExtResource("1_lpllt")
+yank_speed = 25.0
+boost_speed = 10.0
 
 [node name="grapple_cube" type="Node3D" parent="."]
 
@@ -1123,6 +1317,7 @@ autoplay = "cube_idle"
 [node name="YankDelayTimer" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="body_entered" from="SpeedBoostBlock" to="." method="_on_speed_boost_block_body_entered"]
 [connection signal="body_entered" from="GrappleDetectBlock" to="." method="_on_grapple_detect_block_body_entered"]
 [connection signal="body_exited" from="GrappleDetectBlock" to="." method="_on_grapple_detect_block_body_exited"]
 [connection signal="timeout" from="YankDelayTimer" to="." method="_on_yank_delay_timer_timeout"]
