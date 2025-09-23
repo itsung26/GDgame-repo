@@ -28,25 +28,26 @@ var current_frames_per_second = "null"
 @onready var key_animator_tab: AnimationPlayer = $KeyAnimator_TAB
 @onready var current_player_state: Label = %CurrentPlayerState
 
-signal zoom_in_trigger
-signal zoom_out_trigger
+var pistol
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	pistol = player.get_node("Pivot/Camera3D/Guns/Pistol")
 	
-func barChargeReady():
-	Global.is_pistol_charged = true
-	Global.pistol_activate_special = false
+func barChargeSetReady():
+	pistol.isCharged = true
 	
-func barChargeNotReady():
-	Global.is_pistol_charged = false
+func barChargeSetNotReady():
+	pistol.isCharged = false
 	
-func triggerZoomIn():
-	zoom_in_trigger.emit()
-	
-func triggerZoomOut():
-	zoom_out_trigger.emit()
+func startBarFill():
+	animation_player.play("bar_charge_fill")
+
+func setOnState():
+	player.zoomOut()
+
+func setOffState():
+	player.zoomIn()
 	
 func updateAmmoCounter():
 	if player.weapon_state == player.weapon_states.PISTOL:
@@ -68,12 +69,6 @@ func hideIcons():
 		reload_prompt.visible = false
 		pistol_bullet_icon.visible = false
 		black_hole_2.visible = true
-	
-	# if the bar is totally empty, begin refilling, disable special state, and put screen back to like before
-	# if the bar is totally empty, disable the special state
-	if progress_bar.value == 0:
-		animation_player.play("bar_charge_fill")
-		Global.pistol_special_state = false
 		
 	# if the blackhole cooldown timer is 0 or "hide": hide the cooldown icon
 	if black_hole_cooldown_timer.text == str(0.00) + "s":
@@ -102,10 +97,6 @@ func _process(_delta) -> void:
 	else:
 		fps_counter.add_theme_color_override("font_color", Color.RED)
 		
-	# if rmb clicked, initiate barcharge empty animation
-	if Global.pistol_activate_special :
-		if not animation_player.is_playing():
-			animation_player.play("bar_charge_empty")
 	
 	# set the corresponding input keys animation frames to react to the current weapon
 	if player.weapon_state == player.weapon_states.PISTOL:
@@ -113,7 +104,7 @@ func _process(_delta) -> void:
 	else:
 		key_animator_2.play("key_2_set_light")
 	
-	if player.weapon_state == player.weapon_states.PISTOL:
+	if player.weapon_state == player.weapon_states.SHOTGUN:
 		key_animator_3.play("key_3_set_dark")
 	else:
 		key_animator_3.play("key_3_set_light")

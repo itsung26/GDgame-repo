@@ -4,19 +4,19 @@ extends Node3D
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var gun_animator: AnimationPlayer = $"../../../../GunAnimator"
 var player:CharacterBody3D
+var hud:Control
 
 const DAMAGE_HITMARKER_SCENE = preload("res://scenes/damage_hitmarker.tscn")
 const BULLET_DECAL_BLUE = preload("res://scenes/bullet_decal.tscn")
 const BLUE_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/blue_emissive_material.tres")
 const RED_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/red_emissive_material.tres")
 
+var on_special = false
+var isCharged = true
+
 func _ready() -> void:
 	player = $"../../../.."
-
-# ammo is globally defined
-
-# bar charge
-var pistol_isCharged
+	hud = get_tree().root.get_node("MapEnviroment/HUD")
 
 # instantiate a body from the return of the get_collider() method
 # this method is called every time the animation for firing runs and is essentially the bulk of the shoot code
@@ -28,16 +28,13 @@ func fire():
 	
 	# duplicates the surface material and applies the duplicate to the new instance
 	# conditional for if special is active
-	if Global.pistol_special_state:
+	if hud.animation_player.current_animation == "bar_charge_empty":
 		b_mesh.set_surface_override_material(0, RED_EMISSIVE_MATERIAL.duplicate())
 	else:
 		b_mesh.set_surface_override_material(0, BLUE_EMISSIVE_MATERIAL.duplicate())
 	
 	# below occurs regardless of wether the bullets hit something or otherwise
 	player.PISTOL_AMMO -= 1
-	
-	# signal the body that was just hit for debug
-	Global.body_hit = body
 	
 	# pass if returns null to avoid null refrence errors
 	# in other words, IF IT HITS SOMETHING DO THIS VVVVVV
@@ -61,7 +58,7 @@ func fire():
 			var hitmarker_label_node = hitmarker.get_node("DamageNumberLabel") # Use the correct node name
 			# set the text
 			if hitmarker_label_node:
-				hitmarker_label_node.text = str(Global.pistol_DAMAGE)
+				hitmarker_label_node.text = "null"
 			
 			# Get the HUD node (adjust path as needed)
 			var hud = get_tree().root.get_node("MapEnviroment/HUD")
@@ -81,11 +78,9 @@ func fire():
 func reload():
 	player.PISTOL_AMMO = player.PISTOL_MAGSIZE
 	
-# called on right click
+# called on right click from player
 func special():
-	# if the pistol is charged and not busy, activate the special state
-	if Global.is_pistol_charged:
-		# special state is currently active
-		Global.pistol_activate_special = true
-		Global.pistol_special_state = true
-			
+	if isCharged:
+		isCharged = false
+		hud.animation_player.play("bar_charge_empty")
+		

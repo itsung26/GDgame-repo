@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=51 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/sprite assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
@@ -147,6 +147,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_apjy4"]
+
 [sub_resource type="Animation" id="Animation_047uy"]
 length = 0.001
 tracks/0/type = "value"
@@ -159,7 +161,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [100.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -220,24 +222,22 @@ tracks/0/path = NodePath("OverclockBar/ProgressBar:value")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 9.9),
+"times": PackedFloat32Array(0, 10),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [100.0, 0.0]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("RedBorder:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"barChargeNotReady"
-}]
+"times": PackedFloat32Array(0, 1, 8.9, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -246,27 +246,29 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 9.9),
+"times": PackedFloat32Array(0, 10),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
-"method": &"triggerZoomIn"
+"method": &"setOnState"
 }, {
 "args": [],
-"method": &"triggerZoomOut"
+"method": &"setOffState"
 }]
 }
-tracks/3/type = "value"
+tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("RedBorder:modulate")
+tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1, 8.9, 9.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"times": PackedFloat32Array(10),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"startBarFill"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_uo2fv"]
@@ -295,7 +297,7 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"barChargeReady"
+"method": &"barChargeSetReady"
 }]
 }
 
@@ -565,7 +567,7 @@ region_enabled = true
 region_rect = Rect2(11, 10, 42, 42)
 
 [node name="ReloadPrompt" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
-position = Vector2(225, 192)
+position = Vector2(378, 251)
 scale = Vector2(0.373837, 0.373837)
 sprite_frames = SubResource("SpriteFrames_qkknv")
 
@@ -618,9 +620,17 @@ scale = Vector2(0.379856, 0.379856)
 texture = ExtResource("11_5n1hp")
 
 [node name="WeaponWheelPrompt" type="AnimatedSprite2D" parent="pistolPreviewIcon"]
-position = Vector2(225, 151)
+position = Vector2(325, 252)
 scale = Vector2(0.500584, 0.500584)
 sprite_frames = SubResource("SpriteFrames_48y67")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 77.0
+offset_top = 355.0
+offset_right = 214.0
+offset_bottom = 378.0
+text = "UI WIP"
+label_settings = SubResource("LabelSettings_apjy4")
 
 [node name="DebugContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -755,6 +765,7 @@ offset_left = 47.0
 offset_top = 58.0
 offset_right = 77.0
 offset_bottom = 373.0
+value = 100.0
 fill_mode = 3
 
 [node name="Overclock" type="Label" parent="OverclockBar"]

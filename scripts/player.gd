@@ -56,7 +56,7 @@ var BLL_AMMO := BLL_MAGSIZE
 # 3 seperate FSMs (finite state machines) to replace conditional trees
 enum player_states{GROUNDED, DEAD, FALLING}
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
-enum action_states{IDLE, GRAPPLING, REELING_PLAYER, DASHING, SLIDING}
+enum action_states{IDLE, GRAPPLING, DASHING, SLIDING}
 
 var player_state:player_states = player_states.GROUNDED:
 	set = set_player_state
@@ -180,10 +180,6 @@ func set_action_state(new_action_state:int):
 		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
 		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
-		
-	# grapple reeling stage to and from
-	if new_action_state == action_states.REELING_PLAYER:
-		pass
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
@@ -368,7 +364,7 @@ func gunInputs(): # run every frame in _process
 			print("shotgun special")
 			
 		elif weapon_state == weapon_states.BLL:
-			pass
+			print("no special attack available")
 	# ======================================================================================================
 
 var a = true

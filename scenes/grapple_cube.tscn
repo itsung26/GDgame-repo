@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://ccl7hn0ddburv"]
+[gd_scene load_steps=50 format=4 uid="uid://ccl7hn0ddburv"]
 
 [ext_resource type="Script" uid="uid://cc850csi67pvh" path="res://scripts/grapple_cube.gd" id="1_lpllt"]
 
@@ -374,6 +374,8 @@ vertex_color_use_as_albedo = true
 [sub_resource type="SphereMesh" id="SphereMesh_y22kw"]
 material = SubResource("StandardMaterial3D_euxnb")
 rings = 5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lpllt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wxfaj"]
 
@@ -1090,12 +1092,13 @@ process_material = SubResource("ParticleProcessMaterial_kgreb")
 draw_pass_1 = SubResource("SphereMesh_y22kw")
 
 [node name="SpeedBoostBlock" type="Area3D" parent="."]
-visible = false
+transform = Transform3D(0.942136, 0, 0, 0, 0.942136, 0, 0, 0, 0.942136, 0, 0, 0)
 collision_layer = 256
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SpeedBoostBlock"]
-transform = Transform3D(1.71751, 0, 0, 0, 1.71751, 0, 0, 0, 1.71751, 0, 0, 0)
-shape = SubResource("BoxShape3D_wxfaj")
+transform = Transform3D(1.50475, 0, 0, 0, 1.50475, 0, 0, 0, 1.50475, 0, 0, 0)
+shape = SubResource("BoxShape3D_lpllt")
+debug_color = Color(1, 0, 0, 1)
 
 [node name="GrappleDetectBlock" type="Area3D" parent="."]
 collision_layer = 256
@@ -1117,5 +1120,9 @@ libraries = {
 }
 autoplay = "cube_idle"
 
+[node name="YankDelayTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="GrappleDetectBlock" to="." method="_on_grapple_detect_block_body_entered"]
 [connection signal="body_exited" from="GrappleDetectBlock" to="." method="_on_grapple_detect_block_body_exited"]
+[connection signal="timeout" from="YankDelayTimer" to="." method="_on_yank_delay_timer_timeout"]
