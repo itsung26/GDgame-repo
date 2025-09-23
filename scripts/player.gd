@@ -88,6 +88,7 @@ var current_player_string_name:String = "null state"
 var current_action_string_name:String = "null state"
 var rope_origin
 var skeleton
+var impact_particles_scene = preload("res://scenes/impact_particles.tscn")
 
 func _ready() -> void:
 	# object reference definitions
@@ -261,36 +262,43 @@ func _physics_process(delta: float) -> void:
 		velocity.y += JUMP_VELOCITY
 	
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	input_dir = Input.get_vector("left", "right", "forward", "back")
 	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	if direction and player_move_input_enabled:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	# Player will stop moving in the air when the movement is stopped
-	elif direction == Vector3.ZERO and not is_on_floor():
-		velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
-		velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
-	elif direction == Vector3.ZERO and is_on_floor():
-		velocity.x = move_toward(velocity.x, 0.0, 10.0)
-		velocity.z = move_toward(velocity.z, 0.0, 10.0)
+	# movement state logic
+	if player_state == player_states.GROUNDED:
+		if direction and player_move_input_enabled:
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+		elif direction == Vector3.ZERO:
+			velocity.x = move_toward(velocity.x, 0.0, 10.0)
+			velocity.z = move_toward(velocity.z, 0.0, 10.0)
+	
+	elif player_state == player_states.FALLING:
+		if direction and player_move_input_enabled:
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+		# Player will stop moving in the air when the movement is stopped
+		elif direction == Vector3.ZERO and not is_on_floor():
+			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
+			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
+
 		
 	move_and_slide()
 
 func gunInputs(): # run every frame in _process
 	
 	# switch weapon block==================================================================================
-	if Input.is_action_just_pressed("slot1"): #and not gun_animator.is_playing():
+	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states.MELEE:
 		weapon_state = weapon_states.MELEE
 		
-	if Input.is_action_just_pressed("slot2"): #and not gun_animator.is_playing():
+	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states.PISTOL:
 		weapon_state = weapon_states.PISTOL
 		
-	if Input.is_action_just_pressed("slot3"): #and not gun_animator.is_playing():
+	if Input.is_action_just_pressed("slot3") and weapon_state != weapon_states.SHOTGUN:
 		weapon_state = weapon_states.SHOTGUN
 		
-	if Input.is_action_just_pressed("slot4"):
+	if Input.is_action_just_pressed("slot4") and weapon_state != weapon_states.BLL:
 		weapon_state = weapon_states.BLL
 	
 	# automatic fire block===================================================================================
@@ -433,9 +441,16 @@ func playerDie():
 
 
 func _on_grapple_timer_timeout() -> void:
-	action_state = action_states.IDLE
+	pass
 
 # signals the first body the hook collides with
-func _on_hook_body_entered(body) -> void:
+# if hook collides with something that is not the grapple cube, retract
+func _on_hook_collide(body) -> void:
 	if not body.is_in_group("grapple_cubes"):
+		var impact_particles = impact_particles_scene.instantiate()
+		var impact_pos = grapple_hook.global_position
+		var particle_look_marker = impact_particles.get_node("Marker")
+		get_tree().root.add_child(impact_particles)
+		impact_particles.global_position = impact_pos
+		particle_look_marker.global_position = camera_3d.global_position
 		action_state = action_states.IDLE

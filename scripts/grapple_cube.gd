@@ -7,6 +7,8 @@ extends Node3D
 func _on_grapple_detect_block_body_entered(body: RigidBody3D) -> void:
 	if body.name == "hook":
 		print("grapple hook entered the box")
+		body.global_position = position
+		body.freeze = true
 		cube_hit_animator.play("cube_open")
 
 

@@ -74,11 +74,8 @@ func fire():
 				hitmarker.position = camera_3d.unproject_position(body.global_position) + hitmarker.randoffset
 				# Add a process callback to update the hitmarker position every frame
 				hitmarker.process_mode = Node.PROCESS_MODE_ALWAYS
-		else:
+		else: # if the raycast hits something that is not an enemy
 			pass
-	
-	# bullet spread
-	bullet_ray_cast.rotation_degrees = Vector3(randf_range(-4, 4), randf_range(-184, -176), 0)
 
 
 func reload():
