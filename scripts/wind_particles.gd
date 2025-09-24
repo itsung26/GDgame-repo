@@ -6,6 +6,12 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	look_at(player.velocity.normalized())
+# Looks in the direction of the player's velocity vector
+# emits if magnitude is greater than 15.0
+func _process(_delta: float) -> void:
+	if player.velocity.length() > 15.0:
+		var direction = player.velocity.normalized()
+		look_at(global_position + direction, Vector3.UP)
+		emitting = true
+	else:
+		emitting = false
