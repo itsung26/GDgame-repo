@@ -226,6 +226,8 @@ func _input(event) -> void:
 	if Input.is_action_just_pressed("grapple"):
 		if action_state != action_states.GRAPPLING:
 			action_state = action_states.GRAPPLING
+		elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
+			action_state = action_states.IDLE
 			
 	# get the slide action input for a state change
 	if Input.is_action_just_pressed("slide") and is_on_floor():
@@ -291,8 +293,6 @@ func zoomOut():
 
 
 func _physics_process(delta: float) -> void:
-	# runs main grapple logic every physics frame.
-	grappleFrameLogic()
 	
 	cameraFX(delta) # roll, tilt, clamp
 	
@@ -489,9 +489,6 @@ func updateStateStrings():
 	elif action_state == action_states.IDLE:
 		current_action_string_name = "IDLE"
 
-func grappleFrameLogic():
-	pass
-
 # note: zoomOut and zoomIn are reversed. I screwed up.
 func _on_hud_zoom_in_trigger() -> void:
 	zoomOut()
@@ -510,9 +507,12 @@ func playerDie():
 func _on_grapple_timer_timeout() -> void:
 	pass
 
-# signals the first body the hook collides with
-# if hook collides with something that is not the grapple cube, retract
-func _on_hook_collide(body) -> void:
+
+func _on_cam_shake_timer_timeout() -> void:
+	doing_shake = false
+
+# when the grapple hook's smaller collider hits the world, retract
+func _on_world_collide_box_body_entered(body: Node3D) -> void:
 	if not body.is_in_group("grapple_cubes"):
 		var impact_particles = impact_particles_scene.instantiate()
 		var impact_pos = grapple_hook.global_position
@@ -521,7 +521,3 @@ func _on_hook_collide(body) -> void:
 		impact_particles.global_position = impact_pos
 		particle_look_marker.global_position = camera_3d.global_position
 		action_state = action_states.IDLE
-
-
-func _on_cam_shake_timer_timeout() -> void:
-	doing_shake = false

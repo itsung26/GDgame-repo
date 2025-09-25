@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=53 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
@@ -1438,8 +1438,11 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_n30hq")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_g1k45"]
-size = Vector3(0.197021, 0.57666, 0.830444)
+[sub_resource type="SphereShape3D" id="SphereShape3D_ur7pv"]
+radius = 0.918926
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ur7pv"]
+size = Vector3(0.212082, 0.559998, 0.803833)
 
 [sub_resource type="Animation" id="Animation_2h11y"]
 resource_name = "RESET"
@@ -2015,7 +2018,7 @@ external_skeleton = NodePath("..")
 [node name="hook" type="RigidBody3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin"]
 transform = Transform3D(0.986502, 0.0555298, 0.154046, 0.153263, 0.0181213, -0.98802, -0.057656, 0.998293, 0.00936612, -0.0688093, 0.252083, 0.0429795)
 collision_layer = 512
-collision_mask = 260
+collision_mask = 256
 mass = 0.2
 freeze = true
 continuous_cd = true
@@ -2027,9 +2030,17 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 mesh = SubResource("ArrayMesh_a04ym")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00354004, 0.0153809, -0.182922)
-shape = SubResource("BoxShape3D_g1k45")
+transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.0035401, 0.0153806, -0.182922)
+shape = SubResource("SphereShape3D_ur7pv")
 debug_color = Color(0, 1, 0, 1)
+
+[node name="WorldCollideBox" type="Area3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
+collision_layer = 512
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox"]
+transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.000191152, 0.0108926, -0.202086)
+shape = SubResource("BoxShape3D_ur7pv")
 
 [node name="grapple_arm_animator" type="AnimationPlayer" parent="Pivot/Camera3D/GrappleArm/grappleArm"]
 libraries = {
@@ -2113,7 +2124,7 @@ one_shot = true
 [node name="CamShakeTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook" to="." method="_on_hook_collide"]
+[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
 [connection signal="timeout" from="GrappleTimer" to="." method="_on_grapple_timer_timeout"]
 [connection signal="timeout" from="CamShakeTimer" to="." method="_on_cam_shake_timer_timeout"]
 
