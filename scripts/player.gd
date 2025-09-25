@@ -316,13 +316,13 @@ func _physics_process(delta: float) -> void:
 	# movement state logic
 	if player_state == player_states.GROUNDED:
 		if direction and player_move_input_enabled:
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
+			var ground_dir = direction.normalized()
+			velocity.x = ground_dir.x * SPEED
+			velocity.z = ground_dir.z * SPEED
 		elif direction == Vector3.ZERO:
 			velocity.x = move_toward(velocity.x, 0.0, 10.0)
 			velocity.z = move_toward(velocity.z, 0.0, 10.0)
 	
-	# falling state logic
 	elif player_state == player_states.FALLING:
 		if direction and player_move_input_enabled:
 			velocity.x = direction.x * SPEED
