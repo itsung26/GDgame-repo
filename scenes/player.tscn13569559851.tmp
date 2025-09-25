@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=51 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
@@ -7,7 +7,6 @@
 [ext_resource type="Animation" uid="uid://cc5jsyaulies1" path="res://assets/gunmodels/grapple arm/grapple_rebound.res" id="4_smehm"]
 [ext_resource type="Script" uid="uid://cjhvcb5uyoehj" path="res://scripts/wind_particles.gd" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://bh4w73yqjy2wa" path="res://scenes/slide_particles.tscn" id="8_smehm"]
-[ext_resource type="Script" uid="uid://1g4a60ev1c5u" path="res://scripts/slide_particles.gd" id="9_ur7pv"]
 [ext_resource type="PackedScene" uid="uid://d6b4gnbdcx45" path="res://scenes/black_hole_launcher.tscn" id="11_d2wvv"]
 
 [sub_resource type="Animation" id="Animation_g2els"]
@@ -1799,6 +1798,7 @@ speed_scale = 5.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="footCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0694726, 0.00931263)
@@ -1828,7 +1828,6 @@ collision_mask = 6
 
 [node name="ArmPivotPistol" type="Node3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
-visible = false
 
 [node name="ArmR" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotPistol"]
 transform = Transform3D(0.325357, -0.512599, 0.794597, 0.927407, 0.00898343, -0.373943, 0.184545, 0.85858, 0.478312, 0.171948, 1.28058, -0.0726245)
@@ -2006,7 +2005,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419368, 0.0912843, 0.434093, -0.896231, -0.163892, 0.180759, 0.00796503)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912845, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -2078,19 +2077,7 @@ draw_pass_1 = SubResource("RibbonTrailMesh_smehm")
 script = ExtResource("7_fjrip")
 
 [node name="SlideParticles" parent="." instance=ExtResource("8_smehm")]
-script = ExtResource("9_ur7pv")
-
-[node name="ImpactParticles" parent="SlideParticles" index="0"]
-emitting = false
-
-[node name="OmniLight3D" parent="SlideParticles/ImpactParticles" index="0"]
-visible = false
-
-[node name="ImpactSparks" parent="SlideParticles/ImpactParticles/SparkTrailsSide" index="0"]
-emitting = false
-
-[node name="ImpactSparks2" parent="SlideParticles/ImpactParticles/SparkTrailsSide" index="1"]
-emitting = false
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -1.22753)
 
 [node name="CameraMarkerPositions" type="Node3D" parent="."]
 

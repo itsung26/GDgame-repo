@@ -1,0 +1,137 @@
+[gd_scene load_steps=13 format=3 uid="uid://bh4w73yqjy2wa"]
+
+[ext_resource type="Texture2D" uid="uid://b6gofasc8y31r" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/flare_01.png" id="1_fqo70"]
+[ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="1_mjc1v"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fqo70"]
+particle_flag_align_y = true
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, -1)
+spread = 39.698
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lojhx"]
+albedo_color = Color(1, 0.843137, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.843137, 0, 1)
+emission_energy_multiplier = 1.5
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_ieo72"]
+material = SubResource("StandardMaterial3D_lojhx")
+shape = 0
+size = 0.031
+section_length = 0.009
+
+[sub_resource type="Animation" id="Animation_wrw1b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OmniLight3D:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [8.374]
+}
+
+[sub_resource type="Animation" id="Animation_hwj24"]
+resource_name = "slide_fx"
+length = 0.2515
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OmniLight3D:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.159983, 0.200804, 0.2515),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [8.374, 2.556, 11.894, 4.638, 7.316]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4xg4q"]
+_data = {
+&"RESET": SubResource("Animation_wrw1b"),
+&"slide_fx": SubResource("Animation_hwj24")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lojhx"]
+direction = Vector3(0, 0.25, -1)
+spread = 5.0
+initial_velocity_min = 4.27
+initial_velocity_max = 4.77
+collision_mode = 1
+collision_friction = 0.02
+collision_bounce = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ieo72"]
+transparency = 1
+albedo_color = Color(1, 0.431373, 0, 1)
+albedo_texture = ExtResource("1_fqo70")
+emission_enabled = true
+emission = Color(1, 0.431373, 0, 1)
+emission_energy_multiplier = 5.0
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_wrw1b"]
+material = SubResource("StandardMaterial3D_ieo72")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2xxst"]
+material = ExtResource("1_mjc1v")
+
+[node name="SlideParticles" type="Node3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="ImpactParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, -3.7529e-08, 0.90317, -0.429282, -7.89577e-08, -0.429282, -0.90317, 0, 0, -0.379057)
+lifetime = 0.05
+local_coords = true
+trail_enabled = true
+trail_lifetime = 0.7
+process_material = SubResource("ParticleProcessMaterial_fqo70")
+draw_pass_1 = SubResource("RibbonTrailMesh_ieo72")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="ImpactParticles"]
+transform = Transform3D(1, -4.76456e-22, -1.06581e-14, 0, 1, -4.47035e-08, 1.06581e-14, 4.47035e-08, 1, -4.07312e-08, -0.22145, -0.465911)
+light_color = Color(1, 0.843137, 0, 1)
+light_energy = 8.374
+omni_range = 1.37887
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ImpactParticles"]
+libraries = {
+&"": SubResource("AnimationLibrary_4xg4q")
+}
+
+[node name="SparkTrailsSide" type="Node3D" parent="ImpactParticles"]
+transform = Transform3D(1, 0, -7.10543e-15, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="ImpactSparks" type="GPUParticles3D" parent="ImpactParticles/SparkTrailsSide"]
+transform = Transform3D(0.875135, -0.000108915, 0.483878, -0.207779, 0.903028, 0.37599, -0.436997, -0.429582, 0.790249, 0, 0, 0)
+amount = 20
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_lojhx")
+draw_pass_1 = SubResource("QuadMesh_wrw1b")
+
+[node name="ImpactSparks2" type="GPUParticles3D" parent="ImpactParticles/SparkTrailsSide"]
+transform = Transform3D(0.86639, 0.156032, -0.474365, 0.0408947, 0.924571, 0.378808, 0.49769, -0.347595, 0.794659, 0, 0, 0)
+process_material = SubResource("ParticleProcessMaterial_lojhx")
+draw_pass_1 = SubResource("QuadMesh_wrw1b")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.379057)
+size = Vector3(10, 0.25, 10)
+
+[node name="ExampleFloor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0281882, -0.379057)
+visible = false
+mesh = SubResource("PlaneMesh_2xxst")

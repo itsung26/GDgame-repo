@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=43 format=4 uid="uid://mhij3rnbxw0r"]
 
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
 [ext_resource type="Material" uid="uid://d25ece0xga0hd" path="res://assets/materials/map_enviroment.tres" id="1_te4ph"]
@@ -36,6 +36,9 @@ background_mode = 2
 sky = SubResource("Sky_tbgi4")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wjjk7"]
+viewport_path = NodePath("AmmoDisplay/WeaponChoiceContainer/ViewportRect/SubViewport")
 
 [sub_resource type="Animation" id="Animation_fulsm"]
 length = 0.001
@@ -288,14 +291,24 @@ script = ExtResource("1_wix4b")
 
 [node name="HUD" parent="." instance=ExtResource("2_pd1ih")]
 
-[node name="Label" parent="HUD" index="3"]
+[node name="Label" parent="HUD" index="2"]
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 137.0
 offset_bottom = 23.0
 
-[node name="versionText" parent="HUD" index="5"]
+[node name="versionText" parent="HUD" index="4"]
 text = "ALPHA BUILD 0.9.7"
+
+[node name="WeaponChoiceContainer" parent="HUD/AmmoDisplay" index="1"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 467.0
+offset_bottom = 120.0
+
+[node name="ViewportRect" parent="HUD/AmmoDisplay/WeaponChoiceContainer" index="0"]
+texture = SubResource("ViewportTexture_wjjk7")
 
 [node name="Pause" parent="." instance=ExtResource("3_p1xl4")]
 
@@ -361,9 +374,6 @@ transform = Transform3D(0.325357, -0.512599, 0.794596, 0.927407, 0.00898343, -0.
 
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
 transform = Transform3D(0.921615, 0.376129, 0.0956483, 0.148141, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
-
-[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
-transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
 
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
 transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796509)
@@ -518,3 +528,4 @@ omni_range = 151.554
 [editable path="Player"]
 [editable path="Player/Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Player/Pivot/Camera3D/Guns/Pistol"]
+[editable path="Player/SlideParticles"]

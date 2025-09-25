@@ -21,6 +21,9 @@ extends CharacterBody3D
 @onready var grapple_hook: RigidBody3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook
 @onready var grapple_timer: Timer = $GrappleTimer
 @onready var cam_shake_timer: Timer = $CamShakeTimer
+@onready var slide_particles: Node3D = $SlideParticles
+@onready var sliding_marker: Marker3D = $CameraMarkerPositions/SlidingMarker
+@onready var head_marker: Marker3D = $CameraMarkerPositions/HeadMarker
 
 @export_category("Settings")
 @export var HEALTH: int = 100
@@ -57,9 +60,9 @@ var BLL_AMMO := BLL_MAGSIZE
 @export var BLL_pull_speed := 10
 
 # 3 seperate FSMs (finite state machines) to replace conditional trees
-enum player_states{GROUNDED, DEAD, FALLING, REELINGTO}
+enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING}
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
-enum action_states{IDLE, GRAPPLING, DASHING, SLIDING}
+enum action_states{IDLE, GRAPPLING, DASHING}
 
 var player_state:player_states = player_states.GROUNDED:
 	set = set_player_state
@@ -68,7 +71,6 @@ var weapon_state:weapon_states = weapon_states.PISTOL:
 var action_state:action_states = action_states.IDLE:
 	set = set_action_state
 
-var can_slam_jump = false
 var storagevar = JUMP_VELOCITY
 var mouse_delta2 : Vector2
 var pistol_damage_increase:bool = false
@@ -94,9 +96,17 @@ var skeleton
 var impact_particles_scene = preload("res://scenes/impact_particles.tscn")
 var doing_shake = false
 var reel_vector
+var impact_particles:GPUParticles3D
+var impact_sparks:GPUParticles3D
+var impact_sparks_2:GPUParticles3D
+var slide_light:OmniLight3D
 
 func _ready() -> void:
 	# object reference definitions
+	slide_light = slide_particles.get_node("ImpactParticles/OmniLight3D")
+	impact_particles = slide_particles.get_node("ImpactParticles")
+	impact_sparks = slide_particles.get_node("ImpactParticles/SparkTrailsSide/ImpactSparks")
+	impact_sparks_2 = slide_particles.get_node("ImpactParticles/SparkTrailsSide/ImpactSparks2")
 	pistol = get_node("Pivot/Camera3D/Guns/Pistol")
 	skeleton = grapple_arm.get_node("grappleArm/whiplash_ARM/Skeleton3D")
 	rope_origin = skeleton.get_node("rope_origin")
@@ -127,6 +137,19 @@ func set_player_state(new_player_state:int):
 	if previous_player_state == player_states.REELINGTO:
 		camera_animator.play("camera_overclock_zoom_in")
 		
+	# SLIDING to and from
+	if new_player_state == player_states.SLIDING:
+		pivot.global_position = sliding_marker.global_position
+		impact_particles.emitting = true
+		impact_sparks.emitting = true
+		impact_sparks_2.emitting = true
+		slide_light.visible = true
+	if previous_player_state == player_states.SLIDING:
+		pivot.global_position = head_marker.global_position
+		impact_particles.emitting = false
+		impact_sparks.emitting = false
+		impact_sparks_2.emitting = false
+		slide_light.visible = false
 	
 func set_weapon_state(new_weapon_state:int):
 	# init vars
@@ -202,6 +225,22 @@ func _input(event) -> void:
 	if Input.is_action_just_pressed("grapple"):
 		if action_state != action_states.GRAPPLING:
 			action_state = action_states.GRAPPLING
+			
+	# get the slide action input for a state change
+	if Input.is_action_just_pressed("slide") and is_on_floor():
+		if velocity == Vector3.ZERO:
+			var forward_dir = -transform.basis.z.normalized()
+			velocity = forward_dir * SPEED
+		player_state = player_states.SLIDING
+
+	# on slide released do state check
+	if Input.is_action_just_released("slide") and player_state == player_states.SLIDING:
+		if player_state == player_states.REELINGTO:
+			pass
+		else:
+			player_state = player_states.GROUNDED
+	else:
+		push_error("ERROR: expected the state to be sliding in order to go back to GROUNDED")
 	
 	# handle mouselook
 	if event is InputEventMouseMotion and player.player_look_input_enabled:
@@ -211,6 +250,8 @@ func _input(event) -> void:
 		var pitch = -mouse_delta.y
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
+		
+
 
 func cameraFX(delta):
 	# Set target roll based on left/right input
@@ -255,7 +296,7 @@ func _physics_process(delta: float) -> void:
 	cameraFX(delta) # roll, tilt, clamp
 	
 	# state control
-	if is_on_floor() and player_state != player_states.REELINGTO:
+	if is_on_floor() and player_state != player_states.REELINGTO and player_state != player_states.SLIDING:
 		player_state = player_states.GROUNDED
 	elif not is_on_floor() and player_state != player_states.REELINGTO:
 		player_state = player_states.FALLING
@@ -271,7 +312,7 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	input_dir = Input.get_vector("left", "right", "forward", "back")
 	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
+
 	# movement state logic
 	if player_state == player_states.GROUNDED:
 		if direction and player_move_input_enabled:
@@ -290,11 +331,16 @@ func _physics_process(delta: float) -> void:
 		elif direction == Vector3.ZERO and not is_on_floor():
 			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
 			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
-	
+
 	# reeling state logic
 	elif player_state == player_states.REELINGTO:
-			velocity = reel_vector
+		velocity = reel_vector
 
+	# sliding state logic
+	elif player_state == player_states.SLIDING:
+		var direction = velocity.normalized()
+		velocity.x = direction.x * 24
+		velocity.z = direction.z * 24
 		
 	move_and_slide()
 
@@ -429,6 +475,8 @@ func updateStateStrings():
 		current_player_string_name = "FALLING"
 	elif player_state == player_states.REELINGTO:
 		current_player_string_name = "REELINGTO"
+	elif player_state == player_states.SLIDING:
+		current_player_string_name = "SLIDING"
 
 	# update the string name of the action every frame
 	if action_state == action_states.GRAPPLING:
