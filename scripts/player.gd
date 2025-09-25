@@ -38,6 +38,7 @@ extends CharacterBody3D
 @export var look_sensitivity = 0.1
 @export var gravity_enabled = true
 @export var Aerial_Slowdown := 0.0
+@export var AIR_ACCELERATION := 6.0
 
 @export_category("Grappling Hook")
 @export var Grapple_Enabled:= true
@@ -324,13 +325,13 @@ func _physics_process(delta: float) -> void:
 			velocity.z = move_toward(velocity.z, 0.0, 10.0)
 	
 	elif player_state == player_states.FALLING:
-		if direction and player_move_input_enabled:
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
-		# Player will stop moving in the air when the movement is stopped
-		elif direction == Vector3.ZERO and not is_on_floor():
-			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
-			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
+		if player_move_input_enabled:
+			# Air control: accelerate toward desired direction, don't snap
+			var desired = direction * SPEED
+			var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
+			var new_horizontal = horizontal_velocity.lerp(Vector3(desired.x, 0, desired.z), AIR_ACCELERATION * delta)
+			velocity.x = new_horizontal.x
+			velocity.z = new_horizontal.z
 
 	# reeling state logic
 	elif player_state == player_states.REELINGTO:
