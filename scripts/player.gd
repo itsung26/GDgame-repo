@@ -96,14 +96,16 @@ var rope_origin
 var skeleton
 var impact_particles_scene = preload("res://scenes/impact_particles.tscn")
 var doing_shake = false
-var reel_vector
+var reel_vector:Vector3
 var impact_particles:GPUParticles3D
 var impact_sparks:GPUParticles3D
 var impact_sparks_2:GPUParticles3D
 var slide_light:OmniLight3D
+var pause:Control
 
 func _ready() -> void:
 	# object reference definitions
+	pause = get_tree().current_scene.find_child("Pause")
 	slide_light = slide_particles.get_node("ImpactParticles/OmniLight3D")
 	impact_particles = slide_particles.get_node("ImpactParticles")
 	impact_sparks = slide_particles.get_node("ImpactParticles/SparkTrailsSide/ImpactSparks")
@@ -120,6 +122,11 @@ func _ready() -> void:
 	
 	# set the grapple hook's physics process to static so it doesn't fall to the depths of hell
 	grapple_hook.freeze = true
+	
+	# Set the initial states (optional)
+	#player_state = player_states.GROUNDED
+	#action_state = action_states.IDLE
+	#weapon_state = weapon_states.PISTOL
 	
 func set_player_state(new_player_state:int):
 	# init vars
@@ -204,7 +211,6 @@ func set_action_state(new_action_state:int):
 		# Use basis to get the forward direction
 		var forward = grapple_hook.global_transform.basis.z.normalized()
 		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX
-		grapple_timer.start()
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
 	if previous_action_state == action_states.GRAPPLING:
 		print("state left grapple")
@@ -242,8 +248,6 @@ func _input(event) -> void:
 			pass
 		else:
 			player_state = player_states.GROUNDED
-	else:
-		push_error("ERROR: expected the state to be sliding in order to go back to GROUNDED")
 	
 	# handle mouselook
 	if event is InputEventMouseMotion and player.player_look_input_enabled:
@@ -503,11 +507,6 @@ func playerDie():
 	Engine.time_scale = 0.3
 	death_animator.play("death")
 
-
-func _on_grapple_timer_timeout() -> void:
-	pass
-
-
 func _on_cam_shake_timer_timeout() -> void:
 	doing_shake = false
 
@@ -521,3 +520,12 @@ func _on_world_collide_box_body_entered(body: Node3D) -> void:
 		impact_particles.global_position = impact_pos
 		particle_look_marker.global_position = camera_3d.global_position
 		action_state = action_states.IDLE
+
+# when the unstuck button is pressed, reset the player states and go to origin
+func _on_unstuck_pressed() -> void:
+	player_state = player_states.GROUNDED
+	action_state = action_states.IDLE
+	global_position = Vector3.ZERO
+	velocity = Vector3.ZERO
+	pause.pause_state = pause.pause_states.UNPAUSED
+	

@@ -161,3 +161,5 @@ func _on_quit_cancel_mouse_exited() -> void:
 	mouse_in_cancel_quit_button = false
 	quit_cancel.get_active_material(0).albedo_color = Color.WHITE
 	quit_confirm_capsule_animator.stop()
+
+	

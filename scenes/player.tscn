@@ -2117,15 +2117,10 @@ wait_time = 0.5
 one_shot = true
 ignore_time_scale = true
 
-[node name="GrappleTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
 [node name="CamShakeTimer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
-[connection signal="timeout" from="GrappleTimer" to="." method="_on_grapple_timer_timeout"]
 [connection signal="timeout" from="CamShakeTimer" to="." method="_on_cam_shake_timer_timeout"]
 
 [editable path="Pivot/Camera3D/Guns/BlackHoleLauncher"]

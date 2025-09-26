@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
-@export var HEALTH:float = 100.0
+@export var HEALTH:float = 100.0:
+	set = enemyHurt
 @export var gravity_enabled = true
 @export var SPEED = 3
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -16,59 +17,65 @@ var player: Node3D
 var is_attacking:bool = false
 var body_in_hurtbox
 var player_in_hurtbox: bool = false
-var being_pulled:bool = false
+
+# state machine==============================================================
+var enemy_state := enemy_states.FOLLOWING:
+	set = set_enemy_state
+
+enum enemy_states {FOLLOWING, STUNNED}
+
+func set_enemy_state(new_enemy_state:int):
+	# init vars
+	var previous_enemy_state := enemy_state
+	enemy_state = new_enemy_state
+	
+	if new_enemy_state == enemy_states.STUNNED:
+		velocity = Vector3.ZERO
+	
+func enemyHurt(new_enemy_health:int):
+	# init vars
+	var previous_enemy_health := HEALTH
+	var enemy_damage_taken := previous_enemy_health - new_enemy_health
+	HEALTH = new_enemy_health
+	
+	print("enemy took " + str(enemy_damage_taken) + "damage")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Find the player node anywhere in the scene tree
-	player = get_tree().get_root().find_child("Player", true, false)
-
-
+	player = get_tree().get_root().find_child("Player")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
-	
+	player = get_tree().current_scene.find_child("Player")
 	enemy_melee_cooldown.wait_time = AttackCooldown
-	if is_instance_valid(player):
+	if player:
 		var look_at_player_pos: Vector3 = Vector3(player.global_position.x, global_position.y, player.global_position.z)
 		look_at(look_at_player_pos, Vector3.UP)
 	if HEALTH <= 0:
 		animation_player.play("enemy_death")
 	if player:
 		nav_agent.target_position = player.global_position
-	if nav_agent.is_navigation_finished():
-		# print("Navigation finished or no path!")
-		pass
-	else:
-		# print("Next path position: ", nav_agent.get_next_path_position())
-		pass
-		
 
 func _physics_process(delta) -> void:
-	if being_pulled:
-		# Only apply gravity if needed, then move
-		if not is_on_floor() and gravity_enabled:
-			velocity += get_gravity() * delta
+	# Only apply gravity if needed, then move
+	if not is_on_floor() and gravity_enabled:
+		velocity += get_gravity() * delta
+	
+	if enemy_state == enemy_states.FOLLOWING:
+		# Navigation movement
+		if nav_agent.is_navigation_finished() == false:
+			var next_pos = nav_agent.get_next_path_position()
+			var direction = (next_pos - global_position).normalized()
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+		else:
+			velocity.x = 0
+			velocity.z = 0
+
+	elif enemy_state == enemy_states.STUNNED:
 		move_and_slide()
-		return
-
-	# Navigation movement
-	if nav_agent.is_navigation_finished() == false:
-		var next_pos = nav_agent.get_next_path_position()
-		var direction = (next_pos - global_position).normalized()
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = 0
-		velocity.z = 0
-	
-	
-	# Add the gravity.
-	if not is_on_floor():
-		if gravity_enabled:
-			velocity += get_gravity() * delta
-
-	
+		
 	move_and_slide()
 
 

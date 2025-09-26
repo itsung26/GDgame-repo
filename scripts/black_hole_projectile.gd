@@ -48,7 +48,7 @@ func pullBodies(_blackHolePos):
 			body.HEALTH -= player.black_hole_damage_per_frame
 			enemy_pull_dir = (global_position - body.global_position).normalized()
 			body.velocity = (enemy_pull_dir * player.BLL_pull_speed)
-			body.being_pulled = true
+			body.enemy_state = body.enemy_states.STUNNED
 
 		# handle pull for players
 		if body.is_in_group("players"):
@@ -63,5 +63,5 @@ func blackHoleExit():
 	get_node("../Player").player_move_input_enabled = true
 	for body in pull_box.get_overlapping_bodies():
 		if body.is_in_group("enemy"):
-			body.being_pulled = false
+			body.enemy_state = body.enemy_states.FOLLOWING
 	queue_free()

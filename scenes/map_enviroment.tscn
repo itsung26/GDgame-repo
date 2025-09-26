@@ -479,7 +479,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xnstj")
 
 [node name="enemy_spawner" parent="WorldObjects" instance=ExtResource("10_idmwj")]
 transform = Transform3D(-2.03662, 0, 3.07522e-07, 0, 2.03662, 0, -3.07522e-07, 0, -2.03662, 9.04049, 9.84669e-05, -0.643265)
-enabled = false
 spawn_interval = 5.0
 max_enemy_count = 3
 
@@ -522,6 +521,8 @@ mesh = SubResource("TextMesh_s0dw4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5802, 73.64, -6.86713)
 light_energy = 16.0
 omni_range = 151.554
+
+[connection signal="pressed" from="Pause/CenterButtons/VBoxContainer/Unstuck" to="Player" method="_on_unstuck_pressed"]
 
 [editable path="HUD"]
 [editable path="Pause"]
