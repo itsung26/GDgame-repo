@@ -75,6 +75,7 @@ func _process(_delta) -> void:
 	current_player_health.text = "Player health: " + str(player.HEALTH)
 	current_player_state.text = "Current player state: " + player.current_player_string_name
 	%CurrentVelocity.text = "Player Velocity Vector: " + str(player.velocity)
-	%CurrentMagnitude.text = "Current Velocity Magnitude: " + str(player.velocity.length())
+	%CurrentMagnitude.text = "Current Velocity Magnitude: " + str(roundi(player.velocity.length()))
+	%CurrentMagnitudeXZ.text = "Current player velocity magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
 	# ----------------------------------------------------------------------------------------------
 	

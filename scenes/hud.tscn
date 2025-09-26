@@ -650,6 +650,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Current player velocity magnitude: "
 
+[node name="CurrentMagnitudeXZ" type="Label" parent="DebugContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Current player velocity magnitude (XZ plane): "
+
 [node name="fpsCounter" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
