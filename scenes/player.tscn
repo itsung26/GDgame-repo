@@ -1442,7 +1442,7 @@ shadow_mesh = SubResource("ArrayMesh_n30hq")
 radius = 0.918926
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ur7pv"]
-size = Vector3(0.212082, 0.559998, 0.803833)
+size = Vector3(0.622295, 0.979965, 1.14894)
 
 [sub_resource type="Animation" id="Animation_2h11y"]
 resource_name = "RESET"
@@ -2009,7 +2009,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419368, 0.0912843, 0.434093, -0.896231, -0.163892, 0.180759, 0.00796503)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912845, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -2039,7 +2039,7 @@ collision_layer = 512
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox"]
-transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.000191152, 0.0108926, -0.202086)
+transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.0217384, 0.0388086, -0.0921926)
 shape = SubResource("BoxShape3D_ur7pv")
 
 [node name="grapple_arm_animator" type="AnimationPlayer" parent="Pivot/Camera3D/GrappleArm/grappleArm"]
@@ -2092,16 +2092,29 @@ script = ExtResource("7_fjrip")
 script = ExtResource("9_ur7pv")
 
 [node name="ImpactParticles" parent="SlideParticles" index="0"]
+transform = Transform3D(-1, 0, 8.74228e-08, -3.7529e-08, 0.90317, -0.429282, -7.89577e-08, -0.429282, -0.90317, 0, 0, -0.379057)
 emitting = false
 
 [node name="OmniLight3D" parent="SlideParticles/ImpactParticles" index="0"]
+transform = Transform3D(1, -4.76456e-22, -1.06581e-14, 0, 1, -4.47035e-08, 1.06581e-14, 4.47035e-08, 1, -4.07312e-08, -0.22145, -0.465911)
 visible = false
 
+[node name="SparkTrailsSide" parent="SlideParticles/ImpactParticles" index="2"]
+transform = Transform3D(1, 0, -7.10543e-15, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
 [node name="ImpactSparks" parent="SlideParticles/ImpactParticles/SparkTrailsSide" index="0"]
+transform = Transform3D(0.875135, -0.000108915, 0.483878, -0.207779, 0.903028, 0.37599, -0.436997, -0.429582, 0.790249, 0, 0, 0)
 emitting = false
 
 [node name="ImpactSparks2" parent="SlideParticles/ImpactParticles/SparkTrailsSide" index="1"]
+transform = Transform3D(0.86639, 0.156032, -0.474365, 0.0408947, 0.924571, 0.378808, 0.49769, -0.347595, 0.794659, 0, 0, 0)
 emitting = false
+
+[node name="GPUParticlesCollisionBox3D" parent="SlideParticles" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.379057)
+
+[node name="ExampleFloor" parent="SlideParticles" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0281882, -0.379057)
 
 [node name="CameraMarkerPositions" type="Node3D" parent="."]
 

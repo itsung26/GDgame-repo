@@ -31,6 +31,7 @@ material = SubResource("StandardMaterial3D_wk2q4")
 emission_shape = 2
 emission_sphere_radius = 6.26494
 gravity = Vector3(0, 0, 0)
+collision_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gvxtt"]
 transparency = 1
@@ -156,7 +157,7 @@ transform = Transform3D(1.73405, 0, 0, 0, -7.57977e-08, -1.73405, 0, 1.73405, -7
 mesh = SubResource("SphereMesh_rfnx6")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-amount = 25
+amount = 75
 lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_behx8")
 draw_pass_1 = SubResource("QuadMesh_3mswi")
@@ -165,6 +166,9 @@ draw_pass_1 = SubResource("QuadMesh_3mswi")
 strength = 75.0
 attenuation = 0.0
 radius = 6.59848
+
+[node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="GPUParticles3D"]
+radius = 1.22975
 
 [node name="PullBox" type="Area3D" parent="."]
 collision_layer = 8
@@ -182,6 +186,12 @@ collision_mask = 7
 [node name="corehurtbox" type="CollisionShape3D" parent="HurtBox"]
 shape = SubResource("SphereShape3D_bdj2v")
 debug_color = Color(1, 0, 0, 1)
+
+[node name="light" type="OmniLight3D" parent="."]
+light_color = Color(0.627451, 0.12549, 0.941176, 1)
+light_energy = 50.0
+shadow_enabled = true
+omni_range = 8.21336
 
 [node name="BlackHoleLifeTime" type="AnimationPlayer" parent="."]
 libraries = {
@@ -214,3 +224,5 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -500, 0)
 collision_mask = 0
+debug_shape_custom_color = Color(0.627451, 0.12549, 0.941176, 1)
+debug_shape_thickness = 5

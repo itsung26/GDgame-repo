@@ -512,6 +512,7 @@ func _on_cam_shake_timer_timeout() -> void:
 
 # when the grapple hook's smaller collider hits the world, retract
 func _on_world_collide_box_body_entered(body: Node3D) -> void:
+	print("recieved signal")
 	if not body.is_in_group("grapple_cubes"):
 		var impact_particles = impact_particles_scene.instantiate()
 		var impact_pos = grapple_hook.global_position

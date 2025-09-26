@@ -479,6 +479,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xnstj")
 
 [node name="enemy_spawner" parent="WorldObjects" instance=ExtResource("10_idmwj")]
 transform = Transform3D(-2.03662, 0, 3.07522e-07, 0, 2.03662, 0, -3.07522e-07, 0, -2.03662, 9.04049, 9.84669e-05, -0.643265)
+enabled = false
 spawn_interval = 5.0
 max_enemy_count = 3
 

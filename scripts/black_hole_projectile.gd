@@ -47,8 +47,11 @@ func pullBodies():
 		if body.is_in_group("enemy"):
 			body.HEALTH -= player.black_hole_damage_per_frame
 			enemy_pull_dir = (global_position - body.global_position).normalized()
-			body.velocity = (enemy_pull_dir * player.BLL_pull_speed)
-			print(body.velocity)
+			body.velocity = enemy_pull_dir * player.BLL_pull_speed
+			var g = 0
+			if g == 0:
+				body.enemy_state = body.enemy_states.STUNNED
+				g += 1
 
 		# handle pull for players
 		if body.is_in_group("players"):
