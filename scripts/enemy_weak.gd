@@ -30,7 +30,7 @@ func set_enemy_state(new_enemy_state:int):
 	enemy_state = new_enemy_state
 	
 	if new_enemy_state == enemy_states.STUNNED:
-		velocity = Vector3.ZERO
+		pass
 	
 func enemyHurt(new_enemy_health:int):
 	# init vars
@@ -74,7 +74,7 @@ func _physics_process(delta) -> void:
 			velocity.z = 0
 
 	elif enemy_state == enemy_states.STUNNED:
-		move_and_slide()
+		pass
 		
 	move_and_slide()
 
