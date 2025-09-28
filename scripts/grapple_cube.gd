@@ -3,6 +3,7 @@ extends Node3D
 @onready var cube_hit_animator: AnimationPlayer = $cube_hit_animator
 @onready var player: CharacterBody3D = $"../../Player"
 @onready var yank_delay_timer: Timer = $YankDelayTimer
+@onready var wind_rings: GPUParticles3D = $Pivot/Camera3D/WindRings
 
 @export_category("Settings")
 @export var time_before_yank := 1.0
