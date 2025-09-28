@@ -147,13 +147,17 @@ func set_player_state(new_player_state:int):
 		
 	# SLIDING to and from
 	if new_player_state == player_states.SLIDING:
-		pivot.global_position = sliding_marker.global_position
+		pivot.position = sliding_marker.position
+		# Clamp after moving
+		pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
 		impact_particles.emitting = true
 		impact_sparks.emitting = true
 		impact_sparks_2.emitting = true
 		slide_light.visible = true
 	if previous_player_state == player_states.SLIDING:
-		pivot.global_position = head_marker.global_position
+		pivot.position = head_marker.position
+		# Clamp after moving
+		pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
 		impact_particles.emitting = false
 		impact_sparks.emitting = false
 		impact_sparks_2.emitting = false
@@ -529,4 +533,3 @@ func _on_unstuck_pressed() -> void:
 	global_position = Vector3.ZERO
 	velocity = Vector3.ZERO
 	pause.pause_state = pause.pause_states.UNPAUSED
-	

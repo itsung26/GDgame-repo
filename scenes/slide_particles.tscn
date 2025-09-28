@@ -117,19 +117,18 @@ transform = Transform3D(1, 0, -7.10543e-15, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="ImpactSparks" type="GPUParticles3D" parent="ImpactParticles/SparkTrailsSide"]
 transform = Transform3D(0.875135, -0.000108915, 0.483878, -0.207779, 0.903028, 0.37599, -0.436997, -0.429582, 0.790249, 0, 0, 0)
-amount = 20
-lifetime = 3.0
+amount = 24
 process_material = SubResource("ParticleProcessMaterial_lojhx")
 draw_pass_1 = SubResource("QuadMesh_wrw1b")
 
 [node name="ImpactSparks2" type="GPUParticles3D" parent="ImpactParticles/SparkTrailsSide"]
 transform = Transform3D(0.86639, 0.156032, -0.474365, 0.0408947, 0.924571, 0.378808, 0.49769, -0.347595, 0.794659, 0, 0, 0)
+amount = 24
 process_material = SubResource("ParticleProcessMaterial_lojhx")
 draw_pass_1 = SubResource("QuadMesh_wrw1b")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.379057)
-size = Vector3(10, 0.25, 10)
+size = Vector3(75.36, 0.25, 103.85)
 
 [node name="ExampleFloor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0281882, -0.379057)
