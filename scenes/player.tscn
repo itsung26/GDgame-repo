@@ -1773,27 +1773,9 @@ outer_radius = 0.715
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 271
 script = ExtResource("1_qhqgy")
-HEALTH = null
-max_camera_roll = null
 camera_roll_speed = 4.5
-SPEED = null
 JUMP_VELOCITY = 9.0
-look_sensitivity = null
-gravity_enabled = null
-Aerial_Slowdown = null
-AIR_ACCELERATION = null
-Grapple_Enabled = null
-GRAPPLE_MAX_RANGE = null
 GRAPPLE_SPEED_MAX = 50
-PISTOL_MAGSIZE = null
-Pistol_Damage_Range_Min = null
-Pistol_Damage_Range_Max = null
-Pistol_Overclock_Damage_Range_Min = null
-Pistol_OverClock_Damage_Range_Max = null
-BLL_MAGSIZE = null
-black_hole_damage_per_frame = null
-BLL_projectile_travel_speed = null
-BLL_pull_speed = null
 
 [node name="GunAnimator" type="AnimationPlayer" parent="."]
 libraries = {
