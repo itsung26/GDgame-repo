@@ -24,6 +24,7 @@ extends CharacterBody3D
 @onready var slide_particles: Node3D = $SlideParticles
 @onready var sliding_marker: Marker3D = $CameraMarkerPositions/SlidingMarker
 @onready var head_marker: Marker3D = $CameraMarkerPositions/HeadMarker
+@onready var wind_rings: GPUParticles3D = $Pivot/Camera3D/WindRings
 
 @export_category("Settings")
 @export var HEALTH: int = 100
@@ -42,7 +43,6 @@ extends CharacterBody3D
 
 @export_category("Grappling Hook")
 @export var Grapple_Enabled:= true
-@export var GRAPPLE_MAX_RANGE = 50
 @export var GRAPPLE_SPEED_MAX = 20
 
 @export_category("Pistol")
@@ -171,7 +171,6 @@ func set_weapon_state(new_weapon_state:int):
 	# pistol to and from
 	if new_weapon_state == weapon_states.PISTOL:
 		# make visible
-		arm_pivot_pistol.visible = true
 		pistol.visible = true
 		# if gun is not reloading, play equip anim
 		if gun_animator.current_animation == "reload_pistol":
@@ -180,7 +179,6 @@ func set_weapon_state(new_weapon_state:int):
 			gun_animator.stop()
 			gun_animator.play("equip_pistol")
 	if  previous_weapon_state == weapon_states.PISTOL:
-		arm_pivot_pistol.visible = false
 		pistol.visible = false
 	
 	# black hole launcher to and from
@@ -205,7 +203,6 @@ func set_action_state(new_action_state:int):
 	
 	# grapple to and from
 	if new_action_state == action_states.GRAPPLING and Grapple_Enabled:
-		print("state set to grapple")
 		grapple_rope_mesh_gen.visible = true
 		grapple_hook.reparent(get_tree().root) # reparent and face direction raycast is looking
 		grapple_hook.rotation = Vector3.ZERO
@@ -217,7 +214,6 @@ func set_action_state(new_action_state:int):
 		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
 	if previous_action_state == action_states.GRAPPLING:
-		print("state left grapple")
 		grapple_rope_mesh_gen.visible = false
 		grapple_hook.freeze = true
 		grapple_hook.reparent(rope_origin) # reparent and set it to face how it did before
@@ -241,9 +237,6 @@ func _input(event) -> void:
 			
 	# get the slide action input for a state change
 	if Input.is_action_just_pressed("slide") and is_on_floor():
-		if velocity == Vector3.ZERO:
-			var forward_dir = -transform.basis.z.normalized()
-			velocity = forward_dir * SPEED
 		player_state = player_states.SLIDING
 
 	# on slide released do state check
@@ -516,7 +509,6 @@ func _on_cam_shake_timer_timeout() -> void:
 
 # when the grapple hook's smaller collider hits the world, retract
 func _on_world_collide_box_body_entered(body: Node3D) -> void:
-	print("recieved signal")
 	if not body.is_in_group("grapple_cubes"):
 		var impact_particles = impact_particles_scene.instantiate()
 		var impact_pos = grapple_hook.global_position

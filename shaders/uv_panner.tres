@@ -1,6 +1,7 @@
 [gd_resource type="VisualShader" load_steps=18 format=3 uid="uid://bbw2p10e51ye2"]
 
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_pw61p"]
+output_port_for_preview = 0
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_fhy8r"]
 input_name = "time"
@@ -153,7 +154,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-436.12, -15.7462)
+graph_offset = Vector2(-777.962, 266.6)
 modes/cull = 2
 preview_params/Emission_intensity = "4.13"
 preview_params/cull_threshhold = "0.55"

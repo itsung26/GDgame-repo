@@ -25,6 +25,7 @@ var current_frames_per_second = "null"
 @onready var current_player_state: Label = %CurrentPlayerState
 
 var pistol
+var pistol_on_overclock = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,9 +42,11 @@ func startBarFill():
 
 func setOnState():
 	player.zoomOut()
+	pistol_on_overclock = true
 
 func setOffState():
 	player.zoomIn()
+	pistol_on_overclock = false
 	
 func updateAmmoCounter():
 	if player.weapon_state == player.weapon_states.PISTOL:

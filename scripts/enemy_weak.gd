@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
-@export var HEALTH:float = 100.0:
-	set = enemyHurt
+@export var HEALTH:int = 100.0:
+	set = onEnemyHurt
 @export var gravity_enabled = true
 @export var SPEED = 3
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -17,6 +17,8 @@ var player: Node3D
 var is_attacking:bool = false
 var body_in_hurtbox
 var player_in_hurtbox: bool = false
+enum damage_types{NORMAL, OVERCLOCK, DARK}
+@export var last_hit_damage_type:damage_types
 
 # state machine==============================================================
 var enemy_state := enemy_states.FOLLOWING:
@@ -29,17 +31,24 @@ func set_enemy_state(new_enemy_state:int):
 	var previous_enemy_state := enemy_state
 	enemy_state = new_enemy_state
 	
+	# STUNNED to and from
 	if new_enemy_state == enemy_states.STUNNED:
 		pass
 	
-func enemyHurt(new_enemy_health:int):
+func onEnemyHurt(new_enemy_health:int):
 	# init vars
 	var previous_enemy_health := HEALTH
 	var enemy_damage_taken := previous_enemy_health - new_enemy_health
 	HEALTH = new_enemy_health
 	
-	print("enemy took " + str(enemy_damage_taken) + "damage")
+	var a = DAMAGE_HITMARKER_SCENE.instantiate()
+	a.tracked_camera = player.camera_3d
+	a.tracked_enemy = self
+	add_child(a)
+	a.damage_number_label.text = str(enemy_damage_taken)
 
+
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Find the player node anywhere in the scene tree
@@ -106,7 +115,6 @@ func _on_enemy_melee_cooldown_timeout() -> void:
 		attackRepeatedly()
 
 func hurtTouching():
-	print(body_in_hurtbox)
 	body_in_hurtbox.HEALTH -= AttackDamage
 	if body_in_hurtbox.is_in_group("players"):
 		body_in_hurtbox.cause_of_death = "Mauled to death by [prototype enemy]"

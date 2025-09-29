@@ -36,6 +36,7 @@ func _on_yank_delay_timer_timeout() -> void:
 
 # when the player enters the speed block
 func _on_speed_boost_block_body_entered(body: CharacterBody3D) -> void:
+	player.wind_rings.emitting = true
 	player.velocity += direction * -boost_speed
 	player.player_state = player.player_states.FALLING
 	player.action_state = player.action_states.IDLE

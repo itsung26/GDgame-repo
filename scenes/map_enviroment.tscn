@@ -37,9 +37,6 @@ sky = SubResource("Sky_tbgi4")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_wjjk7"]
-viewport_path = NodePath("AmmoDisplay/WeaponChoiceContainer/ViewportRect/SubViewport")
-
 [sub_resource type="Animation" id="Animation_fulsm"]
 length = 0.001
 tracks/0/type = "value"
@@ -199,17 +196,19 @@ _data = {
 &"death": SubResource("Animation_qfm1y")
 }
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_idmwj"]
-vertices = PackedVector3Array(-98, -1.8794, -99.75, -96.75, -1.8794, -100.5, -96.75, -1.8794, -249.5, -249.5, -1.8794, -249.5, -249.5, -1.8794, -99, -98, -1.8794, -99, -95.25, -1.8794, -100.5, -95, -1.8794, -100, 94.25, -1.8794, -100, 94.25, -1.8794, -249.5, 96.75, -1.8794, -99.75, 97, -1.8794, -97.5, 249.5, -1.8794, -97.5, 249.5, -1.8794, -249.5, -101, 76.6206, -105, -101, 76.6206, 95.75, 99.5, 76.6206, 95.75, 99.5, 76.6206, -105, -98, -1.8794, -98, -249.5, -1.8794, 94.75, -97.25, -1.8794, 94.5, -97.75, -1.8794, 94.25, -97.75, -1.8794, 92.5, -97.25, -1.8794, -97.75, -97.25, -1.8794, 92.25, 6.75, -1.8794, -6.75, 9, -1.8794, -6.75, 9, -1.8794, -97.75, 6.5, -1.8794, -4.5, -95, -1.8794, -97.75, -95, -1.8794, -4.5, 11.5, -1.8794, -6.75, 11.75, -1.8794, -4.5, 94.75, -1.8794, -4.5, 94.75, -1.8794, -97.75, 97, -1.8794, 92.5, 249.5, -1.8794, 92.5, -95, -1.8794, 3.25, 6.5, -1.8794, 3.25, 11.75, -1.8794, 3.25, 94.75, -1.8794, 3.25, 8, -1.8794, 92.25, 8.25, -1.8794, 5.5, 6.5, -1.8794, 5.25, -95, -1.8794, 92.25, 11.75, -1.8794, 5.25, 10, -1.8794, 5.5, 10.25, -1.8794, 92.25, 94.75, -1.8794, 92.25, 97, -1.8794, 94.5, 95.25, -1.8794, 94.75, 95.5, -1.8794, 249.5, 249.5, -1.8794, 249.5, -95.5, -1.8794, 94.5, -249.5, -1.8794, 249.5, -95.5, -1.8794, 249.5)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(0, 5, 4), PackedInt32Array(6, 1, 2), PackedInt32Array(6, 2, 7), PackedInt32Array(7, 2, 8), PackedInt32Array(8, 2, 9), PackedInt32Array(10, 8, 9), PackedInt32Array(10, 9, 11), PackedInt32Array(11, 9, 12), PackedInt32Array(12, 9, 13), PackedInt32Array(17, 16, 14), PackedInt32Array(14, 16, 15), PackedInt32Array(4, 5, 18), PackedInt32Array(21, 20, 19), PackedInt32Array(22, 21, 19), PackedInt32Array(18, 23, 4), PackedInt32Array(4, 23, 24), PackedInt32Array(4, 24, 22), PackedInt32Array(4, 22, 19), PackedInt32Array(27, 26, 25), PackedInt32Array(25, 28, 27), PackedInt32Array(27, 28, 30), PackedInt32Array(27, 30, 29), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 34), PackedInt32Array(34, 31, 27), PackedInt32Array(31, 26, 27), PackedInt32Array(11, 12, 35), PackedInt32Array(35, 12, 36), PackedInt32Array(30, 28, 37), PackedInt32Array(37, 28, 38), PackedInt32Array(32, 33, 39), PackedInt32Array(39, 33, 40), PackedInt32Array(42, 41, 43), PackedInt32Array(43, 41, 44), PackedInt32Array(43, 44, 37), PackedInt32Array(37, 38, 43), PackedInt32Array(45, 39, 40), PackedInt32Array(45, 40, 46), PackedInt32Array(46, 40, 47), PackedInt32Array(47, 40, 48), PackedInt32Array(42, 46, 41), PackedInt32Array(41, 46, 47), PackedInt32Array(49, 35, 36), PackedInt32Array(49, 36, 50), PackedInt32Array(50, 36, 51), PackedInt32Array(51, 36, 52), PackedInt32Array(20, 53, 19), PackedInt32Array(19, 53, 54), PackedInt32Array(54, 53, 55), PackedInt32Array(53, 50, 55), PackedInt32Array(55, 50, 51)]
-region_min_size = 12.55
+[sub_resource type="NavigationMesh" id="NavigationMesh_wjjk7"]
+vertices = PackedVector3Array(7, 0.75, -4.75, 8.5, 0.75, -4.75, 8.25, 0.75, -124.5, 6.75, 0.75, -2.75, -124.5, 0.75, -124.5, -124.5, 0.75, -3, 9.75, 0.75, -4.75, 10, 0.75, -124.5, 11.25, 0.75, -4.75, 11.25, 0.75, -3.25, 124.5, 0.75, -3.5, 124.5, 0.75, -124.5, 11.25, 0.75, 2, 124.5, 0.75, 2.25, -124.5, 0.75, 2.25, 6.75, 0.75, 2, 9, 0.75, 124.5, 9, 0.75, 3.5, 6.75, 0.75, 3.5, -124.5, 0.75, 124.5, 11.25, 0.75, 3.5, 124.5, 0.75, 124.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(1, 2, 6), PackedInt32Array(6, 2, 7), PackedInt32Array(10, 9, 8), PackedInt32Array(8, 6, 7), PackedInt32Array(7, 11, 8), PackedInt32Array(8, 11, 10), PackedInt32Array(9, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(15, 14, 3), PackedInt32Array(3, 14, 5), PackedInt32Array(18, 17, 16), PackedInt32Array(14, 15, 18), PackedInt32Array(14, 18, 19), PackedInt32Array(19, 18, 16), PackedInt32Array(20, 12, 13), PackedInt32Array(16, 17, 20), PackedInt32Array(13, 21, 20), PackedInt32Array(20, 21, 16)]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wjjk7"]
+size = Vector3(250, 0.5, 250)
 
 [sub_resource type="BoxMesh" id="BoxMesh_x647l"]
 material = ExtResource("1_te4ph")
-size = Vector3(500, 0.5, 500)
+size = Vector3(250, 0.5, 250)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bcvk1"]
-data = PackedVector3Array(-250, 0.25, 250, 250, 0.25, 250, -250, -0.25, 250, 250, 0.25, 250, 250, -0.25, 250, -250, -0.25, 250, 250, 0.25, -250, -250, 0.25, -250, 250, -0.25, -250, -250, 0.25, -250, -250, -0.25, -250, 250, -0.25, -250, 250, 0.25, 250, 250, 0.25, -250, 250, -0.25, 250, 250, 0.25, -250, 250, -0.25, -250, 250, -0.25, 250, -250, 0.25, -250, -250, 0.25, 250, -250, -0.25, -250, -250, 0.25, 250, -250, -0.25, 250, -250, -0.25, -250, 250, 0.25, 250, -250, 0.25, 250, 250, 0.25, -250, -250, 0.25, 250, -250, 0.25, -250, 250, 0.25, -250, -250, -0.25, 250, 250, -0.25, 250, -250, -0.25, -250, 250, -0.25, 250, 250, -0.25, -250, -250, -0.25, -250)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wjjk7"]
+data = PackedVector3Array(-125, 0.25, 125, 125, 0.25, 125, -125, -0.25, 125, 125, 0.25, 125, 125, -0.25, 125, -125, -0.25, 125, 125, 0.25, -125, -125, 0.25, -125, 125, -0.25, -125, -125, 0.25, -125, -125, -0.25, -125, 125, -0.25, -125, 125, 0.25, 125, 125, 0.25, -125, 125, -0.25, 125, 125, 0.25, -125, 125, -0.25, -125, 125, -0.25, 125, -125, 0.25, -125, -125, 0.25, 125, -125, -0.25, -125, -125, 0.25, 125, -125, -0.25, 125, -125, -0.25, -125, 125, 0.25, 125, -125, 0.25, 125, 125, 0.25, -125, -125, 0.25, 125, -125, 0.25, -125, 125, 0.25, -125, -125, -0.25, 125, 125, -0.25, 125, -125, -0.25, -125, 125, -0.25, 125, 125, -0.25, -125, -125, -0.25, -125)
 
 [sub_resource type="BoxMesh" id="BoxMesh_p1xl4"]
 material = ExtResource("10_prwh2")
@@ -306,9 +305,6 @@ offset_top = 0.0
 offset_right = 467.0
 offset_bottom = 120.0
 
-[node name="ViewportRect" parent="HUD/AmmoDisplay/WeaponChoiceContainer" index="0"]
-texture = SubResource("ViewportTexture_wjjk7")
-
 [node name="Pause" parent="." instance=ExtResource("3_p1xl4")]
 
 [node name="DeathScreen" type="Control" parent="."]
@@ -365,14 +361,8 @@ speed_scale = 3.0
 visible = false
 
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.07014, 0, -1.25347)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.1, 0)
 JUMP_VELOCITY = 8.0
-
-[node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotPistol" index="0"]
-transform = Transform3D(0.325357, -0.512599, 0.794596, 0.927407, 0.00898343, -0.373943, 0.184545, 0.85858, 0.478312, 0.171948, 1.28058, -0.0726245)
-
-[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotPistol" index="1"]
-transform = Transform3D(-0.705745, -0.708466, 0, 0.708466, -0.705745, 0, 0, 0, 1, -0.218833, 1.24202, 0.0100964)
 
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
 transform = Transform3D(0.921615, 0.376129, 0.0956483, 0.148141, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
@@ -402,7 +392,7 @@ bones/17/rotation = Quaternion(0.0263633, 0.00421721, 0.000516592, 0.999643)
 bones/18/rotation = Quaternion(-0.00777791, -0.0230112, 0.10497, 0.994179)
 
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796509)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
 
 [node name="BlackHoleLauncher" parent="Player/Pivot/Camera3D/Guns" index="0"]
 transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)
@@ -421,10 +411,23 @@ transform = Transform3D(0.116955, 0, 0, 0, -4.23376e-07, -0.116955, 0, 0.116955,
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.87227, 0)
+[node name="Navigation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.726669, 0)
 visible = false
-navigation_mesh = SubResource("NavigationMesh_idmwj")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Navigation"]
+navigation_mesh = SubResource("NavigationMesh_wjjk7")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="Navigation/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.06518, -2.12995, -0.962806)
+height = 5.27
+vertices = PackedVector3Array(2.71299, 0, 0.140316, 2.82388, 0, -3.87544, 7.0742, 0, -3.89203, 7.13477, 0, 4.47094, 2.70106, 0, 4.45546)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Navigation/NavigationRegion3D"]
+visible = false
+mesh = SubResource("BoxMesh_wjjk7")
 
 [node name="WorldStructures" type="Node3D" parent="."]
 
@@ -437,7 +440,7 @@ collision_mask = 519
 mesh = SubResource("BoxMesh_x647l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldStructures/Floor"]
-shape = SubResource("ConcavePolygonShape3D_bcvk1")
+shape = SubResource("ConcavePolygonShape3D_wjjk7")
 
 [node name="Wall" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62648, 0, 2.72307)

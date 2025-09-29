@@ -1,8 +1,10 @@
-[gd_scene load_steps=32 format=4 uid="uid://cj0vx655hbmtp"]
+[gd_scene load_steps=48 format=4 uid="uid://cj0vx655hbmtp"]
 
 [ext_resource type="Texture2D" uid="uid://cn60mtph16uil" path="res://assets/worldmodels/enemyspawner/enemyspawner_paint_layer1 Base Color.png" id="1_devoi"]
 [ext_resource type="Script" uid="uid://5b8u1q2t4425" path="res://scripts/enemy_spawner.gd" id="1_xl0gr"]
 [ext_resource type="Texture2D" uid="uid://c5x3vegb3lo8d" path="res://assets/worldmodels/enemyspawner/enemyspawner_Door.png" id="2_xl0gr"]
+[ext_resource type="Texture2D" uid="uid://du7y8ka21d6xs" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/smoke_03.png" id="4_ih16b"]
+[ext_resource type="Texture2D" uid="uid://d12tn5injrdk8" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/Rotated/spark_06_rotated.png" id="5_31irv"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_devoi"]
 data = PackedVector3Array(0, -0.7489, -1.2467, 1, -0.7489, 0.7533, 1, -0.7489, -1.2467, 0, -0.7489, -1.2467, -1, -0.7489, -1.2467, 1, -0.7489, 0.7533, 1, -0.7489, 0.7533, -1, -0.7489, -1.2467, -1, -0.7489, 0.7533, -0.9311, 0.4269, -0.3849, -1, 0.0661, -0.6759, -0.9311, 0.1116, -0.7283, -0.9311, 0.4269, -0.3849, -1, 0.3756, -0.3389, -1, 0.0661, -0.6759, 0.9311, 0.9738, 0.2742, 1, 1.1776, 0.7533, 0.9311, 1.2166, 0.6936, 0.9311, 0.9738, 0.2742, 1, 0.9402, 0.3435, 1, 1.1776, 0.7533, 0, 1.2166, 0.6936, -1, 1.1776, 0.7533, -0.9311, 1.2166, 0.6936, 0, 1.2166, 0.6936, 0, 1.1778, 0.7533, -1, 1.1776, 0.7533, -0.9311, 0.9738, 0.2742, -1, 0.7041, 0.0365, -0.9311, 0.7574, -0.0072, -0.9311, 0.9738, 0.2742, -1, 0.9402, 0.3435, -1, 0.7041, 0.0365, 0.9311, 0.4269, -0.3849, 1, 0.7041, 0.0365, 0.9311, 0.7574, -0.0072, 0.9311, 0.4269, -0.3849, 1, 0.3756, -0.3389, 1, 0.7041, 0.0365, -0.9311, 0.7574, -0.0072, -1, 0.3756, -0.3389, -0.9311, 0.4269, -0.3849, -0.9311, 0.7574, -0.0072, -1, 0.7041, 0.0365, -1, 0.3756, -0.3389, -0.9311, 0.1116, -0.7283, -1, -0.7489, -1.2467, -0.9311, -0.3529, -1.0464, -0.9311, 0.1116, -0.7283, -1, 0.0661, -0.6759, -1, -0.7489, -1.2467, 1, 0.0661, -0.6759, 0.9311, -0.3529, -1.0464, 1, -0.7489, -1.2467, 1, 0.0661, -0.6759, 0.9311, 0.1116, -0.7283, 0.9311, -0.3529, -1.0464, 0.9311, 0.7574, -0.0072, 1, 0.9402, 0.3435, 0.9311, 0.9738, 0.2742, 0.9311, 0.7574, -0.0072, 1, 0.7041, 0.0365, 1, 0.9402, 0.3435, 0.9311, 1.2166, 0.6936, 0, 1.1778, 0.7533, 0, 1.2166, 0.6936, 0.9311, 1.2166, 0.6936, 1, 1.1776, 0.7533, 0, 1.1778, 0.7533, -0.9311, 1.2166, 0.6936, -1, 0.9402, 0.3435, -0.9311, 0.9738, 0.2742, -0.9311, 1.2166, 0.6936, -1, 1.1776, 0.7533, -1, 0.9402, 0.3435, 0.9311, 0.1116, -0.7283, 1, 0.3756, -0.3389, 0.9311, 0.4269, -0.3849, 0.9311, 0.1116, -0.7283, 1, 0.0661, -0.6759, 1, 0.3756, -0.3389, -1, 0.0661, -0.6759, -1, -0.7489, 0.7533, -1, -0.7489, -1.2467, -1, 0.3756, -0.3389, -1, -0.7489, 0.7533, -1, 0.0661, -0.6759, -1, -0.7489, 0.7533, -1, 0.3756, -0.3389, -1, 0.9402, 0.3435, -1, 0.9402, 0.3435, -1, 0.3756, -0.3389, -1, 0.7041, 0.0365, -1, -0.7489, 0.7533, -1, 0.9402, 0.3435, -1, 1.1776, 0.7533, 1, -0.7489, 0.7533, 0, 1.1778, 0.7533, 1, 1.1776, 0.7533, 0, 1.1778, 0.7533, 1, -0.7489, 0.7533, -1, -0.7489, 0.7533, 0, 1.1778, 0.7533, -1, -0.7489, 0.7533, -1, 1.1776, 0.7533, 0, 0.9738, 0.2742, -0.9311, 1.2166, 0.6936, -0.9311, 0.9738, 0.2742, 0, 0.9738, 0.2742, 0, 1.2166, 0.6936, -0.9311, 1.2166, 0.6936, 0.9311, 0.9738, 0.2742, 0, 1.2166, 0.6936, 0, 0.9738, 0.2742, 0.9311, 0.9738, 0.2742, 0.9311, 1.2166, 0.6936, 0, 1.2166, 0.6936, 0, 0.1116, -0.7283, -0.9311, 0.4269, -0.3849, -0.9311, 0.1116, -0.7283, 0, 0.1116, -0.7283, 0, 0.4269, -0.3849, -0.9311, 0.4269, -0.3849, 0.9311, 0.1116, -0.7283, 0, 0.4269, -0.3849, 0, 0.1116, -0.7283, 0.9311, 0.1116, -0.7283, 0.9311, 0.4269, -0.3849, 0, 0.4269, -0.3849, -0.9311, -0.3529, -1.0464, 0, 0.1116, -0.7283, -0.9311, 0.1116, -0.7283, -0.9311, -0.3529, -1.0464, 0, -0.3529, -1.0464, 0, 0.1116, -0.7283, 0, -0.3529, -1.0464, 0.9311, 0.1116, -0.7283, 0, 0.1116, -0.7283, 0, -0.3529, -1.0464, 0.9311, -0.3529, -1.0464, 0.9311, 0.1116, -0.7283, 1, -0.7489, -1.2467, 1, 0.3756, -0.3389, 1, 0.0661, -0.6759, 1, -0.466, -0.9877, 1, 0.3756, -0.3389, 1, -0.7489, -1.2467, 1, -0.466, -0.9877, 1, -0.7489, -1.2467, 1, -0.6934, -0.9877, 1, -0.6934, 0.5405, 1, -0.6934, -0.9877, 1, -0.7489, -1.2467, 1, -0.6934, 0.5405, 1, -0.7489, -1.2467, 1, -0.7489, 0.7533, 1, -0.7489, 0.7533, 1, -0.466, 0.5405, 1, -0.6934, 0.5405, 1, 0.9402, 0.3435, 1, -0.466, -0.9877, 1, -0.466, 0.5405, 1, 0.9402, 0.3435, 1, -0.466, 0.5405, 1, -0.7489, 0.7533, 1, 0.3756, -0.3389, 1, -0.466, -0.9877, 1, 0.9402, 0.3435, 1, 0.9402, 0.3435, 1, -0.7489, 0.7533, 1, 1.1776, 0.7533, 1, 0.3756, -0.3389, 1, 0.9402, 0.3435, 1, 0.7041, 0.0365, 0, 0.7574, -0.0072, -0.9311, 0.9738, 0.2742, -0.9311, 0.7574, -0.0072, 0, 0.7574, -0.0072, 0, 0.9738, 0.2742, -0.9311, 0.9738, 0.2742, 0.9311, 0.7574, -0.0072, 0, 0.9738, 0.2742, 0, 0.7574, -0.0072, 0.9311, 0.7574, -0.0072, 0.9311, 0.9738, 0.2742, 0, 0.9738, 0.2742, 0, 0.4269, -0.3849, -0.9311, 0.7574, -0.0072, -0.9311, 0.4269, -0.3849, 0, 0.4269, -0.3849, 0, 0.7574, -0.0072, -0.9311, 0.7574, -0.0072, 0.9311, 0.4269, -0.3849, 0, 0.7574, -0.0072, 0, 0.4269, -0.3849, 0.9311, 0.4269, -0.3849, 0.9311, 0.7574, -0.0072, 0, 0.7574, -0.0072, 0, -0.7489, -1.2467, -0.9311, -0.3529, -1.0464, -1, -0.7489, -1.2467, 0, -0.7489, -1.2467, 0, -0.3529, -1.0464, -0.9311, -0.3529, -1.0464, 1, -0.7489, -1.2467, 0, -0.3529, -1.0464, 0, -0.7489, -1.2467, 1, -0.7489, -1.2467, 0.9311, -0.3529, -1.0464, 0, -0.3529, -1.0464, 0.9442, -0.466, 0.5405, 0.9442, -0.6934, -0.9877, 0.9442, -0.6934, 0.5405, 0.9442, -0.466, 0.5405, 0.9442, -0.466, -0.9877, 0.9442, -0.6934, -0.9877, 1, -0.466, -0.9877, 0.9442, -0.6934, -0.9877, 0.9442, -0.466, -0.9877, 1, -0.466, -0.9877, 1, -0.6934, -0.9877, 0.9442, -0.6934, -0.9877, 0.9442, -0.6934, 0.5405, 1, -0.466, 0.5405, 0.9442, -0.466, 0.5405, 0.9442, -0.6934, 0.5405, 1, -0.6934, 0.5405, 1, -0.466, 0.5405, 0.9442, -0.6934, -0.9877, 1, -0.6934, 0.5405, 0.9442, -0.6934, 0.5405, 0.9442, -0.6934, -0.9877, 1, -0.6934, -0.9877, 1, -0.6934, 0.5405, 0.9442, -0.466, 0.5405, 1, -0.466, -0.9877, 0.9442, -0.466, -0.9877, 0.9442, -0.466, 0.5405, 1, -0.466, 0.5405, 1, -0.466, -0.9877)
@@ -126,6 +128,15 @@ emission_enabled = true
 emission = Color(0, 1, 0, 1)
 emission_energy_multiplier = 10.94
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_22nel"]
+albedo_color = Color(1, 0.94902, 0.172549, 1)
+emission_enabled = true
+emission = Color(1, 0.94902, 0.172549, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ih16b"]
+material = SubResource("StandardMaterial3D_22nel")
+size = Vector3(0.226, 1, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pym1w"]
 resource_name = "Material.001"
 cull_mode = 2
@@ -166,6 +177,45 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_g3vx7")
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_xl0gr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_txvhj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sukom"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_31irv"]
+angle_min = -360.0
+angle_max = 360.0
+direction = Vector3(0, 1, 0)
+spread = 1.344
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1hw7"]
+transparency = 1
+albedo_texture = ExtResource("4_ih16b")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_22nel"]
+material = SubResource("StandardMaterial3D_e1hw7")
+size = Vector2(1.5, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tovkt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_md2sj"]
+albedo_color = Color(1, 0.647059, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.647059, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5g07m"]
+material = SubResource("StandardMaterial3D_md2sj")
+size = Vector3(0.226, 1, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lwat7"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_goqa3"]
@@ -202,6 +252,25 @@ shadow_mesh = SubResource("ArrayMesh_goqa3")
 albedo_color = Color(0.662745, 0.662745, 0.662745, 1)
 emission_enabled = true
 emission = Color(1, 0.94902, 0.172549, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ih16b"]
+emission_shape_scale = Vector3(1, 1, 0)
+emission_shape = 3
+emission_box_extents = Vector3(0.384, 0.448, 1)
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c01tg"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 0.94902, 0.172549, 1)
+albedo_texture = ExtResource("5_31irv")
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_31irv"]
+material = SubResource("StandardMaterial3D_c01tg")
+size = Vector2(3.459, 1)
+orientation = 0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_devoi"]
 emission_shape = 3
@@ -268,7 +337,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.000130296, 0.748852, -1.61225)]
+"values": [Vector3(0.000130296, 0.748852, -0.766968)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -280,7 +349,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.000130296, 0.748852, 1.60843)]
+"values": [Vector3(0.000130296, 0.748852, 0.718862)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -293,6 +362,30 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(1.05105, 0.910528, -1.09743)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GPUParticles3D:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Door_L_joint/GlowingPart2:mesh:size")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.226, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ih16b"]
@@ -381,6 +474,18 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(1.05105, 0.910528, -1.09743), Vector3(1.05105, 0.910528, -0.237607)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Door_L_joint/GlowingPart2:mesh:size")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.266667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.226, 1.5, 1.5), Vector3(0.226, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_devoi"]
@@ -534,6 +639,30 @@ tracks/11/keys = {
 "method": &"spawnEnemyWeak"
 }]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("GPUParticles3D:emitting")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Door_L_joint/GlowingPart2:mesh:size")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.226, 1, 1), Vector3(0.226, 1, 1), Vector3(0.226, 1.5, 1.5)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xl0gr"]
 _data = {
@@ -549,11 +678,11 @@ collision_mask = 11
 script = ExtResource("1_xl0gr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000130296, 0.748852, -1.61225)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000130296, 0.748852, -0.766968)
 shape = SubResource("ConcavePolygonShape3D_devoi")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0.000130296, 0.748852, 1.60843)
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0.000130296, 0.748852, 0.718862)
 shape = SubResource("ConcavePolygonShape3D_xl0gr")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
@@ -563,7 +692,7 @@ shape = SubResource("BoxShape3D_devoi")
 [node name="EnemySpawner" type="Node3D" parent="."]
 
 [node name="Door_R_joint" type="Node3D" parent="EnemySpawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.995, 0, -0.861)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.995, 0, 0)
 
 [node name="Door_R" type="MeshInstance3D" parent="EnemySpawner/Door_R_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99487, 0.748852, -0.751248)
@@ -585,19 +714,73 @@ mesh = SubResource("ArrayMesh_xoh7l")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_xl0gr")
 
+[node name="GlowingPart2" type="MeshInstance3D" parent="EnemySpawner/Door_R_joint"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.947872, 1.06352, -0.0642052)
+mesh = SubResource("BoxMesh_ih16b")
+skeleton = NodePath("../../Door_L_joint")
+
 [node name="Door_L_joint" type="Node3D" parent="EnemySpawner"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.995, 0, 0.861493)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.995, 0, 0)
 
 [node name="Door_L" type="MeshInstance3D" parent="EnemySpawner/Door_L_joint"]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, -0.99487, 0.748852, 0.746939)
 mesh = SubResource("ArrayMesh_ujiqw")
 skeleton = NodePath("")
 
+[node name="Smokestack" type="MeshInstance3D" parent="EnemySpawner/Door_L_joint"]
+transform = Transform3D(0.383417, 0, 0, 0, 0.383417, 0, 0, 0, 0.383417, -0.323207, 1.99113, 0.359744)
+mesh = SubResource("CylinderMesh_xl0gr")
+surface_material_override/0 = SubResource("StandardMaterial3D_txvhj")
+
+[node name="Smokestack3" type="MeshInstance3D" parent="EnemySpawner/Door_L_joint/Smokestack"]
+transform = Transform3D(0.811047, 0, 0, 0, 0.811047, 0, 0, 0, 0.811047, 0, 0.223442, 0)
+mesh = SubResource("CylinderMesh_xl0gr")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_sukom")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="EnemySpawner/Door_L_joint/Smokestack"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03532, 0)
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_31irv")
+draw_pass_1 = SubResource("QuadMesh_22nel")
+
+[node name="SmokestackShorter" type="MeshInstance3D" parent="EnemySpawner/Door_L_joint"]
+transform = Transform3D(0.383417, 0, 0, 0, 0.383417, 0, 0, 0, 0.383417, -0.773868, 1.66376, 0.359744)
+mesh = SubResource("CylinderMesh_xl0gr")
+surface_material_override/0 = SubResource("StandardMaterial3D_tovkt")
+
+[node name="Smokestack4" type="MeshInstance3D" parent="EnemySpawner/Door_L_joint/SmokestackShorter"]
+transform = Transform3D(0.811047, 0, 0, 0, 0.811047, 0, 0, 0, 0.811047, 0.0137109, 0.20474, 0)
+mesh = SubResource("CylinderMesh_xl0gr")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_sukom")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="EnemySpawner/Door_L_joint/SmokestackShorter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.019217, 1.02687, 0)
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_31irv")
+draw_pass_1 = SubResource("QuadMesh_22nel")
+
+[node name="GlowingPart" type="MeshInstance3D" parent="EnemySpawner/Door_L_joint"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.947872, 1.06352, 0.00766265)
+mesh = SubResource("BoxMesh_ih16b")
+
+[node name="GlowingPart2" type="MeshInstance3D" parent="EnemySpawner/Door_L_joint"]
+transform = Transform3D(-2.69749e-08, 0, 0.617114, 0, 0.617114, 0, -0.617114, 0, -2.69749e-08, -0.947872, 1.06352, -0.0509925)
+mesh = SubResource("BoxMesh_5g07m")
+
 [node name="Cube" type="MeshInstance3D" parent="EnemySpawner"]
 transform = Transform3D(0.834998, 0, 0, 0, 0.196591, 0, 0, 0, 3.33262, 0, 0.0890845, 0.00713027)
 mesh = SubResource("ArrayMesh_3sssl")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_ih16b")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="EnemySpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04767, 0)
+lifetime = 0.5
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_ih16b")
+draw_pass_1 = SubResource("QuadMesh_31irv")
 
 [node name="SpawnPoint" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06031, 0)
