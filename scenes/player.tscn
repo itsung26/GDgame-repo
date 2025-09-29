@@ -1773,9 +1773,27 @@ outer_radius = 0.715
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 271
 script = ExtResource("1_qhqgy")
+HEALTH = null
+max_camera_roll = null
 camera_roll_speed = 4.5
+SPEED = null
 JUMP_VELOCITY = 9.0
+look_sensitivity = null
+gravity_enabled = null
+Aerial_Slowdown = null
+AIR_ACCELERATION = null
+Grapple_Enabled = null
+GRAPPLE_MAX_RANGE = null
 GRAPPLE_SPEED_MAX = 50
+PISTOL_MAGSIZE = null
+Pistol_Damage_Range_Min = null
+Pistol_Damage_Range_Max = null
+Pistol_Overclock_Damage_Range_Min = null
+Pistol_OverClock_Damage_Range_Max = null
+BLL_MAGSIZE = null
+black_hole_damage_per_frame = null
+BLL_projectile_travel_speed = null
+BLL_pull_speed = null
 
 [node name="GunAnimator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -2026,7 +2044,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419368, 0.0912843, 0.434093, -0.896231, -0.163892, 0.180759, 0.00796503)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912845, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
