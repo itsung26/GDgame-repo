@@ -334,19 +334,12 @@ func _physics_process(delta: float) -> void:
 	
 	elif player_state == player_states.FALLING:
 		if player_move_input_enabled and direction != Vector3.ZERO:
-
-			# if the horizontal player velocity is less than SPEED, smooth lerp for smooth air control
-			if Vector3(velocity.x, 0, velocity.z).length() < SPEED:
-				# Air control: accelerate toward desired direction, don't snap
-				var desired = direction * SPEED
-				var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
-				var new_horizontal = horizontal_velocity.lerp(Vector3(desired.x, 0, desired.z), AIR_ACCELERATION * delta)
-				velocity.x = new_horizontal.x
-				velocity.z = new_horizontal.z
-			# else if horizontal velocity is greater than SPEED, prevent the player from reducing the speed by moving forwards
-			elif Vector3(velocity.x, 0, velocity.z).length() >= SPEED:
-				pass
-
+			# Air control: accelerate toward desired direction, don't snap
+			var desired = direction * SPEED
+			var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
+			var new_horizontal = horizontal_velocity.lerp(Vector3(desired.x, 0, desired.z), AIR_ACCELERATION * delta)
+			velocity.x = new_horizontal.x
+			velocity.z = new_horizontal.z
 		elif direction == Vector3.ZERO:
 			# passive aerial slowdown (on no keys pressed)
 			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
