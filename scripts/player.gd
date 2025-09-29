@@ -341,7 +341,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = new_horizontal.x
 			velocity.z = new_horizontal.z
 		elif direction == Vector3.ZERO:
-			# Slow down in air to the speed limit when no keys are pressed
+			# passive aerial slowdown (on no keys pressed)
 			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
 			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
 
