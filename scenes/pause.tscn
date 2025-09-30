@@ -1,14 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccwx4hsr3uqux"]
+[gd_scene load_steps=9 format=3 uid="uid://ccwx4hsr3uqux"]
 
 [ext_resource type="FontFile" uid="uid://3svjt1ifyndm" path="res://assets/sprite assets/ui/kenney_ui-pack/Font/Kenney Future.ttf" id="1_f1d2v"]
 [ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/pause.gd" id="1_r8yp4"]
 [ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="2_jn4bt"]
 [ext_resource type="Texture2D" uid="uid://bya6b43uw7q5w" path="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Extra/icon_play_outline.svg" id="3_aicil"]
 [ext_resource type="Texture2D" uid="uid://cpwpswqumj6y3" path="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Default/icon_cross.png" id="4_jn4bt"]
+[ext_resource type="Texture2D" uid="uid://io1boip5xtqn" path="res://assets/sprite assets/ui/icons generic/question-mark-3.png" id="6_r1fnm"]
 
 [sub_resource type="Theme" id="Theme_r1fnm"]
 Button/fonts/font = ExtResource("2_jn4bt")
 Label/fonts/font = ExtResource("2_jn4bt")
+
+[sub_resource type="Theme" id="Theme_jn4bt"]
+HBoxContainer/constants/separation = 32
 
 [node name="Pause" type="Control"]
 process_mode = 3
@@ -21,6 +25,7 @@ grow_vertical = 2
 script = ExtResource("1_r8yp4")
 
 [node name="CenterButtons" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -85,6 +90,15 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
+[node name="BackPanel" type="ColorRect" parent="OptionsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.141176, 0.141176, 0.141176, 0.498039)
+
 [node name="Back" type="Button" parent="OptionsMenu"]
 layout_mode = 2
 offset_top = 579.0
@@ -94,26 +108,99 @@ theme_override_fonts/font = ExtResource("1_f1d2v")
 theme_override_font_sizes/font_size = 50
 text = "back"
 
-[node name="ShaderToggle" type="CheckButton" parent="OptionsMenu"]
-layout_mode = 0
-offset_left = 54.0
-offset_top = 52.0
-offset_right = 193.0
-offset_bottom = 83.0
-scale = Vector2(1.56344, 1.56344)
-text = "Retro Mode"
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_jn4bt")
 
-[node name="Graphics" type="Label" parent="OptionsMenu"]
-layout_mode = 0
-offset_right = 339.0
-offset_bottom = 63.0
+[node name="GraphicsBox" type="VBoxContainer" parent="OptionsMenu/HBoxContainer"]
+layout_mode = 2
+
+[node name="Graphics" type="Label" parent="OptionsMenu/HBoxContainer/GraphicsBox"]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("1_f1d2v")
 theme_override_font_sizes/font_size = 55
 text = "Graphics"
+
+[node name="ShaderToggleHolder" type="Control" parent="OptionsMenu/HBoxContainer/GraphicsBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ShaderToggle" type="CheckButton" parent="OptionsMenu/HBoxContainer/GraphicsBox/ShaderToggleHolder"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.5
+offset_top = -15.5
+offset_right = 69.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Performance Mode"
+alignment = 1
+
+[node name="GameplayBox" type="VBoxContainer" parent="OptionsMenu/HBoxContainer"]
+layout_mode = 2
+
+[node name="GameplayLabel" type="Label" parent="OptionsMenu/HBoxContainer/GameplayBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_f1d2v")
+theme_override_font_sizes/font_size = 55
+text = "GamePlay"
+
+[node name="FreeSlideToggleHolder" type="Control" parent="OptionsMenu/HBoxContainer/GameplayBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="OptionsMenu/HBoxContainer/GameplayBox/FreeSlideToggleHolder"]
+layout_mode = 1
+offset_left = -105.0
+offset_top = -14.0
+offset_right = -60.0
+offset_bottom = 31.0
+scale = Vector2(0.660575, 0.660575)
+tooltip_text = "This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature."
+mouse_default_cursor_shape = 16
+texture = ExtResource("6_r1fnm")
+expand_mode = 1
+
+[node name="FreeSlideToggle" type="CheckButton" parent="OptionsMenu/HBoxContainer/GameplayBox/FreeSlideToggleHolder"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.5
+offset_top = -15.5
+offset_right = 85.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Free slide mode"
+alignment = 1
+
+[node name="ControlsLabel" type="VBoxContainer" parent="OptionsMenu/HBoxContainer"]
+layout_mode = 2
+
+[node name="ControlsLabel" type="Label" parent="OptionsMenu/HBoxContainer/ControlsLabel"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_f1d2v")
+theme_override_font_sizes/font_size = 55
+text = "Controls"
 
 [connection signal="pressed" from="CenterButtons/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CenterButtons/VBoxContainer/MainMenu" to="." method="_on_multiplater_pressed"]
 [connection signal="pressed" from="CenterButtons/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="OptionsMenu/Back" to="." method="_on_back_pressed"]
-[connection signal="toggled" from="OptionsMenu/ShaderToggle" to="." method="_on_shader_toggle_toggled"]
+[connection signal="toggled" from="OptionsMenu/HBoxContainer/GraphicsBox/ShaderToggleHolder/ShaderToggle" to="." method="_on_shader_toggle_toggled"]
+[connection signal="toggled" from="OptionsMenu/HBoxContainer/GameplayBox/FreeSlideToggleHolder/FreeSlideToggle" to="." method="_on_free_slide_toggle_toggled"]

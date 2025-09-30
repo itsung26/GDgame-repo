@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=21 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/sprite assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
@@ -9,8 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://or2ej7i2utos" path="res://assets/materials/pistol_bullet.tres" id="6_5pdws"]
 [ext_resource type="Texture2D" uid="uid://cmgvv04tqig53" path="res://assets/sprite assets/gunmodel previews/black hole gun/black_hole_2.png" id="11_5n1hp"]
 [ext_resource type="FontFile" uid="uid://dkbqwfkfiwoii" path="res://assets/fonts/numberFont/Ethnocentric Rg It.otf" id="12_apjy4"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_apjy4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_apjy4"]
 atlas = ExtResource("6_5pdws")
@@ -196,15 +194,6 @@ offset_bottom = 648.0
 texture = ExtResource("4_5pdws")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 77.0
-offset_top = 355.0
-offset_right = 214.0
-offset_bottom = 378.0
-text = "UI WIP"
-label_settings = SubResource("LabelSettings_apjy4")
-
 [node name="DebugContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 offset_right = 40.0
@@ -290,7 +279,7 @@ offset_top = 625.0
 offset_right = 1151.0
 offset_bottom = 655.0
 theme_override_font_sizes/font_size = 21
-text = "ALPHA BUILD 0.9.5"
+text = "ALPHA BUILD 0.9.8"
 
 [node name="DebugShapesText" type="Label" parent="."]
 layout_mode = 1

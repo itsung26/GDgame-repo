@@ -1,4 +1,4 @@
-extends Control
+class_name pauseMenu extends Control
 @onready var resume: Button = $CenterButtons/Resume
 @onready var options_menu: Control = $OptionsMenu
 @onready var center_buttons: Control = $CenterButtons
@@ -9,6 +9,8 @@ extends Control
 @onready var quit_confirm: MeshInstance3D = $"../world_parts/wall_quit_confirm/quit_confirm"
 @onready var quit_cancel: MeshInstance3D = $"../world_parts/wall_quit_confirm/quit_cancel"
 @onready var quit_confirm_capsule_animator: AnimationPlayer = $"../quit_confirm_capsule_animator"
+@onready var player: CharacterBody3D = get_tree().current_scene.find_child("Player")
+@onready var free_slide_toggle: CheckButton = $OptionsMenu/HBoxContainer/GameplayBox/FreeSlideToggleHolder/FreeSlideToggle
 
 # objects
 var hud
@@ -162,4 +164,6 @@ func _on_quit_cancel_mouse_exited() -> void:
 	quit_cancel.get_active_material(0).albedo_color = Color.WHITE
 	quit_confirm_capsule_animator.stop()
 
-	
+func _on_free_slide_toggle_toggled(toggled_on: bool) -> void:
+	player.free_slide_enabled = toggled_on
+	print(player.free_slide_enabled)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=52 format=4 uid="uid://mhij3rnbxw0r"]
 
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
 [ext_resource type="Material" uid="uid://d25ece0xga0hd" path="res://assets/materials/map_enviroment.tres" id="1_te4ph"]
@@ -253,6 +253,38 @@ normal_enabled = true
 normal_texture = ExtResource("16_wjjk7")
 uv1_scale = Vector3(12.001, 12.001, 12.001)
 
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ihdwp"]
+data = PackedVector3Array(0.3549, -5.9883, 0, 0.3549, -5.9883, -191.25, 0.4767, 2.0431, -191.25, 0.3549, -5.9883, -191.25, 0.3549, -5.9883, 0, 14.8598, -6.2101, 0, 15.0373, 2.0848, -191.25, 0.4767, 2.0431, -191.25, 0.3549, -5.9883, -191.25, 0.4767, 2.0431, 0, 0.4767, 2.0431, -191.25, 15.0373, 2.0848, -191.25, 0.4767, 2.0431, -191.25, 0.4767, 2.0431, 0, 0.3549, -5.9883, 0, 0.3549, -5.9883, 0, 0.4767, 2.0431, 0, 15.0373, 2.0848, 0, 14.8598, -6.2101, 0, 14.8598, -6.2101, -191.25, 0.3549, -5.9883, -191.25, 0.3549, -5.9883, -191.25, 14.8598, -6.2101, -191.25, 15.0373, 2.0848, -191.25, 15.0373, 2.0848, 0, 14.8598, -6.2101, 0, 0.3549, -5.9883, 0, 14.8598, -6.2101, -191.25, 14.8598, -6.2101, 0, 15.0373, 2.0848, 0, 15.0373, 2.0848, 0, 15.0373, 2.0848, -191.25, 14.8598, -6.2101, -191.25, 15.0373, 2.0848, -191.25, 15.0373, 2.0848, 0, 0.4767, 2.0431, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xnstj"]
+data = PackedVector3Array(0.3549, -5.9883, 0, 0.3549, -5.9883, -191.25, 0.4767, 2.0431, -191.25, 0.3549, -5.9883, -191.25, 0.3549, -5.9883, 0, 14.8598, -6.2101, 0, 15.0373, 2.0848, -191.25, 0.4767, 2.0431, -191.25, 0.3549, -5.9883, -191.25, 0.4767, 2.0431, 0, 0.4767, 2.0431, -191.25, 15.0373, 2.0848, -191.25, 0.4767, 2.0431, -191.25, 0.4767, 2.0431, 0, 0.3549, -5.9883, 0, 0.3549, -5.9883, 0, 0.4767, 2.0431, 0, 15.0373, 2.0848, 0, 14.8598, -6.2101, 0, 14.8598, -6.2101, -191.25, 0.3549, -5.9883, -191.25, 0.3549, -5.9883, -191.25, 14.8598, -6.2101, -191.25, 15.0373, 2.0848, -191.25, 15.0373, 2.0848, 0, 14.8598, -6.2101, 0, 0.3549, -5.9883, 0, 14.8598, -6.2101, -191.25, 14.8598, -6.2101, 0, 15.0373, 2.0848, 0, 15.0373, 2.0848, 0, 15.0373, 2.0848, -191.25, 14.8598, -6.2101, -191.25, 15.0373, 2.0848, -191.25, 15.0373, 2.0848, 0, 0.4767, 2.0431, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_a4lt4"]
+data = PackedVector3Array(0.3549, -5.9883, 0, 0.3549, -5.9883, -191.25, 0.4767, 2.0431, -191.25, 0.3549, -5.9883, -191.25, 0.3549, -5.9883, 0, 14.8598, -6.2101, 0, 15.0373, 2.0848, -191.25, 0.4767, 2.0431, -191.25, 0.3549, -5.9883, -191.25, 0.4767, 2.0431, 0, 0.4767, 2.0431, -191.25, 15.0373, 2.0848, -191.25, 0.4767, 2.0431, -191.25, 0.4767, 2.0431, 0, 0.3549, -5.9883, 0, 0.3549, -5.9883, 0, 0.4767, 2.0431, 0, 15.0373, 2.0848, 0, 14.8598, -6.2101, 0, 14.8598, -6.2101, -191.25, 0.3549, -5.9883, -191.25, 0.3549, -5.9883, -191.25, 14.8598, -6.2101, -191.25, 15.0373, 2.0848, -191.25, 15.0373, 2.0848, 0, 14.8598, -6.2101, 0, 0.3549, -5.9883, 0, 14.8598, -6.2101, -191.25, 14.8598, -6.2101, 0, 15.0373, 2.0848, 0, 15.0373, 2.0848, 0, 15.0373, 2.0848, -191.25, 14.8598, -6.2101, -191.25, 15.0373, 2.0848, -191.25, 15.0373, 2.0848, 0, 0.4767, 2.0431, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_stfwy"]
+data = PackedVector3Array(0.3549, -5.9883, 0, 0.3549, -5.9883, -191.25, 0.4767, 2.0431, -191.25, 0.3549, -5.9883, -191.25, 0.3549, -5.9883, 0, 14.8598, -6.2101, 0, 15.0373, 2.0848, -191.25, 0.4767, 2.0431, -191.25, 0.3549, -5.9883, -191.25, 0.4767, 2.0431, 0, 0.4767, 2.0431, -191.25, 15.0373, 2.0848, -191.25, 0.4767, 2.0431, -191.25, 0.4767, 2.0431, 0, 0.3549, -5.9883, 0, 0.3549, -5.9883, 0, 0.4767, 2.0431, 0, 15.0373, 2.0848, 0, 14.8598, -6.2101, 0, 14.8598, -6.2101, -191.25, 0.3549, -5.9883, -191.25, 0.3549, -5.9883, -191.25, 14.8598, -6.2101, -191.25, 15.0373, 2.0848, -191.25, 15.0373, 2.0848, 0, 14.8598, -6.2101, 0, 0.3549, -5.9883, 0, 14.8598, -6.2101, -191.25, 14.8598, -6.2101, 0, 15.0373, 2.0848, 0, 15.0373, 2.0848, 0, 15.0373, 2.0848, -191.25, 14.8598, -6.2101, -191.25, 15.0373, 2.0848, -191.25, 15.0373, 2.0848, 0, 0.4767, 2.0431, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_hfjtv"]
+data = PackedVector3Array(0.3549, -5.9883, 0, 0.3549, -5.9883, -191.25, 0.4767, 2.0431, -191.25, 0.3549, -5.9883, -191.25, 0.3549, -5.9883, 0, 14.8598, -6.2101, 0, 15.0373, 2.0848, -191.25, 0.4767, 2.0431, -191.25, 0.3549, -5.9883, -191.25, 0.4767, 2.0431, 0, 0.4767, 2.0431, -191.25, 15.0373, 2.0848, -191.25, 0.4767, 2.0431, -191.25, 0.4767, 2.0431, 0, 0.3549, -5.9883, 0, 0.3549, -5.9883, 0, 0.4767, 2.0431, 0, 15.0373, 2.0848, 0, 14.8598, -6.2101, 0, 14.8598, -6.2101, -191.25, 0.3549, -5.9883, -191.25, 0.3549, -5.9883, -191.25, 14.8598, -6.2101, -191.25, 15.0373, 2.0848, -191.25, 15.0373, 2.0848, 0, 14.8598, -6.2101, 0, 0.3549, -5.9883, 0, 14.8598, -6.2101, -191.25, 14.8598, -6.2101, 0, 15.0373, 2.0848, 0, 15.0373, 2.0848, 0, 15.0373, 2.0848, -191.25, 14.8598, -6.2101, -191.25, 15.0373, 2.0848, -191.25, 15.0373, 2.0848, 0, 0.4767, 2.0431, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4bepf"]
+albedo_texture = ExtResource("2_prwh2")
+normal_enabled = true
+normal_texture = ExtResource("16_wjjk7")
+uv1_scale = Vector3(-6.285, -6.285, -6.285)
+
+[sub_resource type="PrismMesh" id="PrismMesh_h7aqf"]
+material = SubResource("StandardMaterial3D_4bepf")
+left_to_right = 0.0
+size = Vector3(3.595, 2.395, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4bepf"]
+data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_h7aqf"]
+data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjjk7"]
 resource_local_to_scene = true
 
@@ -290,13 +322,7 @@ script = ExtResource("1_wix4b")
 
 [node name="HUD" parent="." instance=ExtResource("2_pd1ih")]
 
-[node name="Label" parent="HUD" index="2"]
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 137.0
-offset_bottom = 23.0
-
-[node name="versionText" parent="HUD" index="4"]
+[node name="versionText" parent="HUD" index="3"]
 text = "ALPHA BUILD 0.9.7"
 
 [node name="WeaponChoiceContainer" parent="HUD/AmmoDisplay" index="1"]
@@ -370,44 +396,8 @@ transform = Transform3D(0.921615, 0.376129, 0.0956483, 0.148141, -0.113148, -0.9
 [node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
 transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
 
-[node name="Skeleton3D" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM" index="0"]
-bones/0/rotation = Quaternion(-0.509306, -0.490668, -0.491617, 0.5081)
-bones/1/rotation = Quaternion(-0.482158, -0.466603, 0.46085, 0.580881)
-bones/2/rotation = Quaternion(-0.243494, -0.0413846, 0.0196674, 0.968819)
-bones/3/rotation = Quaternion(-0.0227307, 0.0489716, -0.0332371, 0.997988)
-bones/4/rotation = Quaternion(0.00588774, -0.0175101, 0.0116556, 0.999761)
-bones/5/rotation = Quaternion(0.0210953, -0.046421, 0.100697, 0.99361)
-bones/6/rotation = Quaternion(0.0918091, 0.0182713, -0.00352148, 0.995603)
-bones/7/rotation = Quaternion(0.0130555, -0.0272884, 0.0869477, 0.995754)
-bones/8/rotation = Quaternion(-0.000128749, -0.00115718, 0.000754162, 0.999999)
-bones/9/rotation = Quaternion(0.00424119, -0.00723928, 0.0946462, 0.995476)
-bones/10/rotation = Quaternion(0.0131009, -0.0291353, 0.0881255, 0.995597)
-bones/11/rotation = Quaternion(-0.000140048, -0.00166004, 0.00108778, 0.999998)
-bones/12/rotation = Quaternion(0.00373961, 0.000908251, 0.0889827, 0.996026)
-bones/13/rotation = Quaternion(0.0130548, -0.0272868, 0.0869461, 0.995754)
-bones/14/rotation = Quaternion(-0.000128906, -0.00115852, 0.000755158, 0.999999)
-bones/15/rotation = Quaternion(0.00424343, -0.00724048, 0.0946477, 0.995475)
-bones/16/rotation = Quaternion(-0.000873604, -0.0298618, 0.0856834, 0.995874)
-bones/17/rotation = Quaternion(0.0263633, 0.00421721, 0.000516592, 0.999643)
-bones/18/rotation = Quaternion(-0.00777791, -0.0230112, 0.10497, 0.994179)
-
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
 transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
-
-[node name="BlackHoleLauncher" parent="Player/Pivot/Camera3D/Guns" index="0"]
-transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)
-
-[node name="PanelPivot2" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="2"]
-transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.206563, 0, 0.398)
-
-[node name="PanelPivot3" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="3"]
-transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.209735, 0, -0.328399)
-
-[node name="core" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????" index="1"]
-transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0.0247345, 1.39009, -0.00136375)
-
-[node name="magazine" parent="Player/Pivot/Camera3D/Guns/Pistol/pistolPart" index="1"]
-transform = Transform3D(0.116955, 0, 0, 0, -4.23376e-07, -0.116955, 0, 0.116955, -4.23376e-07, 0, -1.08348, -0.896698)
 
 [node name="Enemies" type="Node3D" parent="."]
 
@@ -444,6 +434,7 @@ shape = SubResource("ConcavePolygonShape3D_wjjk7")
 
 [node name="Wall" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62648, 0, 2.72307)
+visible = false
 collision_layer = 4
 collision_mask = 519
 
@@ -457,6 +448,7 @@ shape = SubResource("ConcavePolygonShape3D_prwh2")
 
 [node name="Wall2" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.37352, 0, -1.27693)
+visible = false
 collision_layer = 4
 collision_mask = 519
 
@@ -518,6 +510,67 @@ shape = SubResource("ConcavePolygonShape3D_atici")
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Bridge"]
 mesh = SubResource("ArrayMesh_ihdwp")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnstj")
+
+[node name="CSGBakedMeshInstance3D2" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067, -6.24185, -59.5151)
+mesh = SubResource("ArrayMesh_ihdwp")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnstj")
+
+[node name="CSGBakedMeshInstance3D6" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067, -6.24184, -23.5104)
+mesh = SubResource("ArrayMesh_ihdwp")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnstj")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067, -6.24184, -23.5104)
+shape = SubResource("ConcavePolygonShape3D_ihdwp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067, -6.24185, -59.5151)
+shape = SubResource("ConcavePolygonShape3D_xnstj")
+
+[node name="CSGBakedMeshInstance3D3" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067, -6.24185, -91.0536)
+mesh = SubResource("ArrayMesh_ihdwp")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnstj")
+
+[node name="CSGBakedMeshInstance3D4" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067, -6.24185, -164.786)
+mesh = SubResource("ArrayMesh_ihdwp")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnstj")
+
+[node name="CSGBakedMeshInstance3D5" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067, -6.24185, -129.652)
+mesh = SubResource("ArrayMesh_ihdwp")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnstj")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067, -6.24185, -129.652)
+shape = SubResource("ConcavePolygonShape3D_a4lt4")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067, -6.24185, -164.786)
+shape = SubResource("ConcavePolygonShape3D_stfwy")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067, -6.24185, -91.0536)
+shape = SubResource("ConcavePolygonShape3D_hfjtv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.18, -57.301)
+mesh = SubResource("PrismMesh_h7aqf")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.18, -57.301)
+mesh = SubResource("PrismMesh_h7aqf")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.18, -57.301)
+shape = SubResource("ConcavePolygonShape3D_4bepf")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.18, -57.301)
+shape = SubResource("ConcavePolygonShape3D_h7aqf")
 
 [node name="WorldObjects" type="Node3D" parent="."]
 

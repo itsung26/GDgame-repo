@@ -26,7 +26,7 @@ extends CharacterBody3D
 @onready var head_marker: Marker3D = $CameraMarkerPositions/HeadMarker
 @onready var wind_rings: GPUParticles3D = $Pivot/Camera3D/WindRings
 
-@export_category("Settings")
+@export_category("Attributes")
 @export var HEALTH: int = 100
 
 @export_category("Camera")
@@ -38,8 +38,12 @@ extends CharacterBody3D
 @export var JUMP_VELOCITY = 8.0
 @export var look_sensitivity = 0.1
 @export var gravity_enabled = true
+## How much the player is slowed down passively in the air when not moving.
 @export var Aerial_Slowdown := 0.0
+## How quickly the player is able to accelerate/deccelerate in the air.
 @export var AIR_ACCELERATION := 6.0
+## The amount that base speed is multiplied with for the slide speed.
+@export var slide_speed_multiplier := 2.0
 
 @export_category("Grappling Hook")
 @export var Grapple_Enabled:= true
@@ -56,9 +60,14 @@ var PISTOL_AMMO := PISTOL_MAGSIZE
 @export_category("Black Hole Launcher")
 @export var BLL_MAGSIZE := 3
 var BLL_AMMO := BLL_MAGSIZE
-@export var black_hole_damage_per_frame := 1.0
+@export var black_hole_damage_per_frame := 1
 @export var BLL_projectile_travel_speed := 300.0
+## How violently entities are pulled to the center of the black hole in m/s.
 @export var BLL_pull_speed := 10
+
+@export_category("Extras")
+## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
+@export var free_slide_enabled := false
 
 # 3 seperate FSMs (finite state machines) to replace conditional trees
 enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING}
@@ -327,14 +336,12 @@ func _physics_process(delta: float) -> void:
 	
 	elif player_state == player_states.FALLING:
 		if player_move_input_enabled and direction != Vector3.ZERO:
-			# Air control: accelerate toward desired direction, don't snap
 			var desired = direction * SPEED
 			var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
 			var new_horizontal = horizontal_velocity.lerp(Vector3(desired.x, 0, desired.z), AIR_ACCELERATION * delta)
 			velocity.x = new_horizontal.x
 			velocity.z = new_horizontal.z
 		elif direction == Vector3.ZERO:
-			# passive aerial slowdown (on no keys pressed)
 			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
 			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
 
@@ -344,10 +351,29 @@ func _physics_process(delta: float) -> void:
 
 	# sliding state logic
 	elif player_state == player_states.SLIDING:
-		var direction = velocity.normalized()
-		velocity.x = direction.x * 24
-		velocity.z = direction.z * 24
-		
+		# allows free control of slide direction
+		if free_slide_enabled:
+			var input_dir = Input.get_vector("left", "right", "forward", "back")
+			if input_dir == Vector2.ZERO:
+				# No movement keys pressed: slide forward relative to camera
+				var forward = -global_transform.basis.z.normalized()
+				velocity.x = forward.x * SPEED * slide_speed_multiplier
+				velocity.z = forward.z * SPEED * slide_speed_multiplier
+			else:
+				# Movement keys pressed: slide in input direction relative to player
+				var slide_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+				velocity.x = slide_dir.x * SPEED * slide_speed_multiplier
+				velocity.z = slide_dir.z * SPEED * slide_speed_multiplier
+		# only allows direction of slide to be set on activation
+		elif not free_slide_enabled:
+			var forward_direction = -transform.basis.z
+			var horizontal_direction = Vector3(velocity.x, 0, velocity.z)
+			# if player is not moving, slide forwards
+			if horizontal_direction.length() == 0:
+				velocity = forward_direction * SPEED * slide_speed_multiplier
+			else:
+				var direction = velocity.normalized()
+				velocity = direction * SPEED * slide_speed_multiplier
 	move_and_slide()
 
 func gunInputs(): # run every frame in _process
