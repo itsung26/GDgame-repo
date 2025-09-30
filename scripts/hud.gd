@@ -1,4 +1,5 @@
-extends Control
+@tool
+class_name hudGui extends Control
 @onready var ammo_counter: Label = %ammoCounter
 @onready var anim_debug: Label = %AnimDebug
 @onready var fps_counter: Label = %fpsCounter
@@ -23,13 +24,33 @@ var current_frames_per_second = "null"
 @onready var black_hole_cooldown_timer: Label = $BlackHoleCooldownIcon/BlackHoleCooldownTimer
 @onready var key_animator_tab: AnimationPlayer = $KeyAnimator_TAB
 @onready var current_player_state: Label = %CurrentPlayerState
+@onready var crosshair_right: Line2D = $CrosshairContainer/CrosshairRIGHT
+@onready var crosshair_left: Line2D = $CrosshairContainer/CrosshairLEFT
+@onready var crosshair_up: Line2D = $CrosshairContainer/CrosshairUP
+@onready var crosshair_down: Line2D = $CrosshairContainer/CrosshairDOWN
+
+@export_category("Crosshair Properties")
+## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.
+@export var crosshair_width := 1.0
+## Determines the color of the crosshair beams.
+@export var crosshair_albedo := Color.WHITE
+## Determines the distance of the beams from the center of the crosshair.
+@export var crosshair_spread := 1.0
+## Determines the length of the crosshair beams.
+@export var crosshair_length := 5.0
 
 var pistol
 var pistol_on_overclock = false
+var crosshair_lines := []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pistol = player.get_node("Pivot/Camera3D/Guns/Pistol")
+	if Engine.is_editor_hint():
+		print("in editor")
+		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
+	else:
+		pistol = player.get_node("Pivot/Camera3D/Guns/Pistol")
+		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
 	
 func barChargeSetReady():
 	pistol.isCharged = true
@@ -47,38 +68,72 @@ func setOnState():
 func setOffState():
 	player.zoomIn()
 	pistol_on_overclock = false
-	
+
+# updates the ammo counter based on the weapon's ammo and name. To be called every frame.
 func updateAmmoCounter():
 	if player.weapon_state == player.weapon_states.PISTOL:
 		ammo_counter.text = str(player.PISTOL_AMMO) + "/" + str(player.PISTOL_MAGSIZE)
 	elif player.weapon_state == player.weapon_states.BLL:
 		ammo_counter.text = str(player.BLL_AMMO) + "/" + str(player.BLL_MAGSIZE)
 
+# updates the crosshair based on editor set properties. To be called every frame.
+func updateCrosshair():
+	for crosshairline:Line2D in crosshair_lines:
+		# update width
+		crosshairline.width = crosshair_width
+		# update color
+		crosshairline.default_color = crosshair_albedo
+		# update the positions from center
+		if crosshairline == crosshair_right:
+			# set the first point's position
+			crosshair_right.set_point_position(0, Vector2(crosshair_spread, 0))
+			# set the second point's position
+			crosshair_right.set_point_position(1, Vector2(crosshair_spread + crosshair_length, 0))
+		elif crosshairline == crosshair_left:
+			# set the first point's position
+			crosshair_left.set_point_position(0, Vector2(-crosshair_spread, 0))
+			# set the second point's position
+			crosshair_left.set_point_position(1, Vector2(-crosshair_spread - crosshair_length, 0))
+		elif crosshairline == crosshair_up:
+			# set the first point's position
+			crosshair_up.set_point_position(0, Vector2(0, -crosshair_spread))
+			# set the second point's position
+			crosshair_up.set_point_position(1, Vector2(0, -crosshair_spread - crosshair_length))
+		elif crosshairline == crosshair_down:
+			# set the first point's position
+			crosshair_down.set_point_position(0, Vector2(0, crosshair_spread))
+			# set the second point's position
+			crosshair_down.set_point_position(1, Vector2(0, crosshair_spread + crosshair_length))
+	print("updated crosshair")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
-	
-	updateAmmoCounter()	
-		
-	# get engine fps
-	current_frames_per_second = Engine.get_frames_per_second()
-	fps_counter.text = "FPS: " + str(current_frames_per_second)
-	
-	# fps counter
-	if current_frames_per_second >= 30:
-		fps_counter.add_theme_color_override("font_color", Color.GREEN)
+	if Engine.is_editor_hint():
+		updateCrosshair()
 	else:
-		fps_counter.add_theme_color_override("font_color", Color.RED)
+		updateAmmoCounter()
+		updateCrosshair()
+			
+		# get engine fps
+		current_frames_per_second = Engine.get_frames_per_second()
+		fps_counter.text = "FPS: " + str(current_frames_per_second)
 		
-	# set debug text-------------------------------------------------------------------------------
-	current_action_state.text = "Current action state: " + player.current_action_string_name
-	body_hit_debug.text = "last object hit: " + str(Global.body_hit)
-	current_weapon_state.text = "Current weapon state: " + player.current_weapon_string_name
-	current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
-	current_player_pos.text = "Player Global Position: " + str(player.global_position)
-	current_player_health.text = "Player health: " + str(player.HEALTH)
-	current_player_state.text = "Current player state: " + player.current_player_string_name
-	%CurrentVelocity.text = "Player Velocity Vector: " + str(player.velocity)
-	%CurrentMagnitude.text = "Current Velocity Magnitude: " + str(roundi(player.velocity.length()))
-	%CurrentMagnitudeXZ.text = "Current player velocity magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
-	# ----------------------------------------------------------------------------------------------
-	
+		# fps counter
+		if current_frames_per_second >= 30:
+			fps_counter.add_theme_color_override("font_color", Color.GREEN)
+		else:
+			fps_counter.add_theme_color_override("font_color", Color.RED)
+			
+		# set debug text-------------------------------------------------------------------------------
+		current_action_state.text = "Current action state: " + player.current_action_string_name
+		body_hit_debug.text = "last object hit: " + str(Global.body_hit)
+		current_weapon_state.text = "Current weapon state: " + player.current_weapon_string_name
+		current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
+		current_player_pos.text = "Player Global Position: " + str(player.global_position)
+		current_player_health.text = "Player health: " + str(player.HEALTH)
+		current_player_state.text = "Current player state: " + player.current_player_string_name
+		%CurrentVelocity.text = "Player Velocity Vector: " + str(player.velocity)
+		%CurrentMagnitude.text = "Current Velocity Magnitude: " + str(roundi(player.velocity.length()))
+		%CurrentMagnitudeXZ.text = "Current player velocity magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
+		# ----------------------------------------------------------------------------------------------
+		

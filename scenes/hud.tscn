@@ -1,7 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=20 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
-[ext_resource type="Texture2D" uid="uid://d0baqjritsous" path="res://assets/sprite assets/2068352235_preview_Crosshair 2.png" id="2_oo0fn"]
 [ext_resource type="Texture2D" uid="uid://cesgf4gdxak83" path="res://assets/sprite assets/ui/redBorder.png" id="4_5pdws"]
 [ext_resource type="Texture2D" uid="uid://cck5a75oy6yxe" path="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/mouse_right.png" id="4_047uy"]
 [ext_resource type="Theme" uid="uid://dm766vchyhueo" path="res://assets/styles/arm_selection.tres" id="4_mphia"]
@@ -170,9 +169,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_ahhtf")
+crosshair_width = 2.86
+crosshair_spread = 3.02
+crosshair_length = 8.685
 
-[node name="crosshair" type="TextureRect" parent="."]
-z_index = 1
+[node name="CrosshairContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -181,10 +182,22 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.418943, 0.418943)
-texture = ExtResource("2_oo0fn")
-expand_mode = 1
-stretch_mode = 3
+
+[node name="CrosshairRIGHT" type="Line2D" parent="CrosshairContainer"]
+points = PackedVector2Array(3.02, 0, 11.705, 0)
+width = 2.86
+
+[node name="CrosshairLEFT" type="Line2D" parent="CrosshairContainer"]
+points = PackedVector2Array(-3.02, 0, -11.705, 0)
+width = 2.86
+
+[node name="CrosshairUP" type="Line2D" parent="CrosshairContainer"]
+points = PackedVector2Array(0, -3.02, 0, -11.705)
+width = 2.86
+
+[node name="CrosshairDOWN" type="Line2D" parent="CrosshairContainer"]
+points = PackedVector2Array(0, 3.02, 0, 11.705)
+width = 2.86
 
 [node name="RedBorder" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -263,9 +276,9 @@ text = "Current player velocity magnitude (XZ plane): "
 [node name="fpsCounter" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 41
-text = "FPS: null"
+text = "FPS: 61.0"
 
 [node name="==========2" type="Label" parent="DebugContainer"]
 layout_mode = 2
@@ -293,7 +306,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 21
 text = "DEBUG SHAPES: ENABLED"
 
-[node name="AmmoDisplay" type="Control" parent="."]
+[node name="BottomLeftArea" type="Control" parent="."]
 clip_contents = true
 layout_mode = 2
 anchors_preset = 0
@@ -301,47 +314,47 @@ offset_top = 465.0
 offset_right = 420.0
 offset_bottom = 648.0
 
-[node name="BackPanel" type="ColorRect" parent="AmmoDisplay"]
+[node name="BackPanel" type="ColorRect" parent="BottomLeftArea"]
 z_index = -1
 layout_mode = 0
-offset_right = 491.0
-offset_bottom = 251.0
+offset_right = 420.0
+offset_bottom = 183.0
 color = Color(0, 0, 0, 0.529412)
 
-[node name="WeaponChoiceContainer" type="HBoxContainer" parent="AmmoDisplay"]
+[node name="WeaponChoiceContainer" type="HBoxContainer" parent="BottomLeftArea"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 8.0
-offset_right = 519.0
-offset_bottom = 520.0
+offset_right = 1545.0
+offset_bottom = 447.0
 scale = Vector2(0.157344, 0.157344)
 
-[node name="ArmChoiceContainer" type="VBoxContainer" parent="AmmoDisplay"]
+[node name="ArmChoiceContainer" type="VBoxContainer" parent="BottomLeftArea"]
 layout_mode = 2
-offset_left = 292.0
+offset_left = 275.0
 offset_top = 9.0
-offset_right = 361.0
+offset_right = 344.0
 offset_bottom = 107.0
 theme = ExtResource("4_mphia")
 
-[node name="AmmoCounterContainer" type="BoxContainer" parent="AmmoDisplay"]
+[node name="AmmoCounterContainer" type="BoxContainer" parent="BottomLeftArea"]
 layout_mode = 0
 offset_top = 103.0
 offset_right = 420.0
 offset_bottom = 183.0
 
-[node name="ammoCounter" type="Label" parent="AmmoDisplay/AmmoCounterContainer"]
+[node name="ammoCounter" type="Label" parent="BottomLeftArea/AmmoCounterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_0i1j5")
 theme_override_font_sizes/font_size = 41
 text = "35/35"
 
-[node name="BulletControl" type="Control" parent="AmmoDisplay/AmmoCounterContainer"]
+[node name="BulletControl" type="Control" parent="BottomLeftArea/AmmoCounterContainer"]
 custom_minimum_size = Vector2(12.93, 0)
 layout_mode = 2
 
-[node name="BulletIcon" type="TextureRect" parent="AmmoDisplay/AmmoCounterContainer/BulletControl"]
+[node name="BulletIcon" type="TextureRect" parent="BottomLeftArea/AmmoCounterContainer/BulletControl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -356,16 +369,60 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_apjy4")
 
-[node name="BlackHoleControl" type="Control" parent="AmmoDisplay/AmmoCounterContainer"]
+[node name="BlackHoleControl" type="Control" parent="BottomLeftArea/AmmoCounterContainer"]
 custom_minimum_size = Vector2(76.815, 0)
 layout_mode = 2
 
-[node name="BlackHoleIcon" type="TextureRect" parent="AmmoDisplay/AmmoCounterContainer/BlackHoleControl"]
+[node name="BlackHoleIcon" type="TextureRect" parent="BottomLeftArea/AmmoCounterContainer/BlackHoleControl"]
 layout_mode = 1
 offset_right = 225.0
 offset_bottom = 225.0
 scale = Vector2(0.342352, 0.342352)
 texture = ExtResource("11_5n1hp")
+
+[node name="StatusEffectContainer" type="VBoxContainer" parent="BottomLeftArea"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_bottom = 183.0
+grow_horizontal = 0
+
+[node name="BlackHoleCooldownContainer" type="VBoxContainer" parent="BottomLeftArea/StatusEffectContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="BlackHoleCooldownTimer" type="Label" parent="BottomLeftArea/StatusEffectContainer/BlackHoleCooldownContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.646292, 0.141552, 0.966634, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("12_apjy4")
+theme_override_font_sizes/font_size = 20
+text = "0.00s"
+
+[node name="Control" type="Control" parent="BottomLeftArea/StatusEffectContainer/BlackHoleCooldownContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="BottomLeftArea/StatusEffectContainer/BlackHoleCooldownContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("11_5n1hp")
+expand_mode = 1
 
 [node name="OverclockBar" type="Control" parent="."]
 layout_mode = 1
@@ -412,57 +469,6 @@ theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("12_apjy4")
 theme_override_font_sizes/font_size = 36
 text = "OVERCLOCK"
-
-[node name="BlackHoleCooldownIcon" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -37.5
-offset_top = -293.0
-offset_right = 37.5
-offset_bottom = -218.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="CenterContainer" type="CenterContainer" parent="BlackHoleCooldownIcon"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="BlackHoleCooldownIcon/CenterContainer"]
-scale = Vector2(0.312857, 0.312857)
-texture = ExtResource("11_5n1hp")
-region_enabled = true
-region_rect = Rect2(20, 24, 181, 175)
-
-[node name="BlackHoleCooldownTimer" type="Label" parent="BlackHoleCooldownIcon"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -10.0
-offset_right = 20.0
-offset_bottom = 13.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_color = Color(0.646292, 0.141552, 0.966634, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("12_apjy4")
-theme_override_font_sizes/font_size = 20
-text = "hide"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

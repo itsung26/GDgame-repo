@@ -122,7 +122,7 @@ func _ready() -> void:
 	pistol = get_node("Pivot/Camera3D/Guns/Pistol")
 	skeleton = grapple_arm.get_node("grappleArm/whiplash_ARM/Skeleton3D")
 	rope_origin = skeleton.get_node("rope_origin")
-	black_hole_cooldown_timer = get_node("../HUD/BlackHoleCooldownIcon/BlackHoleCooldownTimer")
+	black_hole_cooldown_timer = get_tree().current_scene.find_child("BlackHoleCooldownTimer")
 	death_animator = get_node("../DeathScreen/DeathAnimator")
 	cause_of_death_message = get_node("../DeathScreen/VBoxContainer/CauseOfDeathMessage")
 
