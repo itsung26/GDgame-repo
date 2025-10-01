@@ -76,35 +76,34 @@ func updateAmmoCounter():
 	elif player.weapon_state == player.weapon_states.BLL:
 		ammo_counter.text = str(player.BLL_AMMO) + "/" + str(player.BLL_MAGSIZE)
 
-# updates the crosshair based on editor set properties. To be called every frame.
-func updateCrosshair():
+# updates the crosshair based on editor set properties
+func updateCrosshair(width:float=crosshair_width, color:Color=crosshair_albedo, spread:float=crosshair_spread, length:float=crosshair_length):
 	for crosshairline:Line2D in crosshair_lines:
 		# update width
-		crosshairline.width = crosshair_width
+		crosshairline.width = width
 		# update color
-		crosshairline.default_color = crosshair_albedo
+		crosshairline.default_color = color
 		# update the positions from center
 		if crosshairline == crosshair_right:
 			# set the first point's position
-			crosshair_right.set_point_position(0, Vector2(crosshair_spread, 0))
+			crosshair_right.set_point_position(0, Vector2(spread, 0))
 			# set the second point's position
-			crosshair_right.set_point_position(1, Vector2(crosshair_spread + crosshair_length, 0))
+			crosshair_right.set_point_position(1, Vector2(spread + length, 0))
 		elif crosshairline == crosshair_left:
 			# set the first point's position
-			crosshair_left.set_point_position(0, Vector2(-crosshair_spread, 0))
+			crosshair_left.set_point_position(0, Vector2(-spread, 0))
 			# set the second point's position
-			crosshair_left.set_point_position(1, Vector2(-crosshair_spread - crosshair_length, 0))
+			crosshair_left.set_point_position(1, Vector2(-spread - length, 0))
 		elif crosshairline == crosshair_up:
 			# set the first point's position
-			crosshair_up.set_point_position(0, Vector2(0, -crosshair_spread))
+			crosshair_up.set_point_position(0, Vector2(0, -spread))
 			# set the second point's position
-			crosshair_up.set_point_position(1, Vector2(0, -crosshair_spread - crosshair_length))
+			crosshair_up.set_point_position(1, Vector2(0, -spread - length))
 		elif crosshairline == crosshair_down:
 			# set the first point's position
-			crosshair_down.set_point_position(0, Vector2(0, crosshair_spread))
+			crosshair_down.set_point_position(0, Vector2(0, spread))
 			# set the second point's position
-			crosshair_down.set_point_position(1, Vector2(0, crosshair_spread + crosshair_length))
-	print("updated crosshair")
+			crosshair_down.set_point_position(1, Vector2(0, spread + length))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:

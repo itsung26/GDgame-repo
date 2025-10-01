@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://eek22gpn6m28" path="res://assets/materials/grapple_rope.tres" id="2_kw7jf"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_exg5u"]
+resource_local_to_scene = true
 _surfaces = [{
 "aabb": AABB(-0.25, -0.25, 0, 2.8756, 0.5, 1e-05),
 "format": 34359742465,

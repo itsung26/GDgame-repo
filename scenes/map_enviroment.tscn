@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=59 format=4 uid="uid://mhij3rnbxw0r"]
 
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
 [ext_resource type="Material" uid="uid://d25ece0xga0hd" path="res://assets/materials/map_enviroment.tres" id="1_te4ph"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="3_p1xl4"]
 [ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="4_prwh2"]
 [ext_resource type="PackedScene" uid="uid://b7flsfviplefd" path="res://scenes/weapon_wheel.tscn" id="5_bq1pm"]
+[ext_resource type="Script" uid="uid://b8rgrmpbcgknm" path="res://scripts/laser_meshGenerator.gd" id="9_atici"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="9_oma2s"]
 [ext_resource type="PackedScene" uid="uid://cj0vx655hbmtp" path="res://scenes/enemy_spawner.tscn" id="10_idmwj"]
 [ext_resource type="Material" uid="uid://c7kojx37vkg4i" path="res://assets/materials/metal_material.tres" id="10_prwh2"]
@@ -196,6 +197,119 @@ _data = {
 &"death": SubResource("Animation_qfm1y")
 }
 
+[sub_resource type="ArrayMesh" id="ArrayMesh_wjjk7"]
+resource_local_to_scene = true
+_surfaces = [{
+"aabb": AABB(-0.25, -0.25, 0, 2.8756, 0.5, 1e-05),
+"format": 34359742465,
+"index_count": 12,
+"index_data": PackedByteArray("AQACAAYABgACAAcAAwAEAAkACQAIAAQA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 10,
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAACAPgAAAAAAAAAAAACAvgAAAAAAAAAAAAAAAAAAgD4AAAAAAAAAAAAAgL4AAAAAzgkYQAAAAAAAAAAAzgkoQAAAAAAAAAAAzgkIQAAAAAAAAAAAzgkYQAAAgL4AAAAAzgkYQAAAgD4AAAAA")
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atici"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0, 0, 1, 1)
+emission_enabled = true
+emission = Color(0, 0, 1, 1)
+emission_energy_multiplier = 16.0
+disable_receive_shadows = true
+
+[sub_resource type="Animation" id="Animation_atici"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:surface_material_override/0:emission")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ihdwp"]
+resource_name = "fade_out_normal"
+length = 0.1424
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1424),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 1, 1, 1), Color(0, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:surface_material_override/0:emission")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xnstj"]
+resource_name = "fade_out_overclock"
+length = 0.1424
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:surface_material_override/0:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1424),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:surface_material_override/0:emission")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xnstj"]
+_data = {
+&"RESET": SubResource("Animation_atici"),
+&"fade_out_normal": SubResource("Animation_ihdwp"),
+&"fade_out_overclock": SubResource("Animation_xnstj")
+}
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_wjjk7"]
 vertices = PackedVector3Array(7, 0.75, -4.75, 8.5, 0.75, -4.75, 8.25, 0.75, -124.5, 6.75, 0.75, -2.75, -124.5, 0.75, -124.5, -124.5, 0.75, -3, 9.75, 0.75, -4.75, 10, 0.75, -124.5, 11.25, 0.75, -4.75, 11.25, 0.75, -3.25, 124.5, 0.75, -3.5, 124.5, 0.75, -124.5, 11.25, 0.75, 2, 124.5, 0.75, 2.25, -124.5, 0.75, 2.25, 6.75, 0.75, 2, 9, 0.75, 124.5, 9, 0.75, 3.5, 6.75, 0.75, 3.5, -124.5, 0.75, 124.5, 11.25, 0.75, 3.5, 124.5, 0.75, 124.5)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(1, 2, 6), PackedInt32Array(6, 2, 7), PackedInt32Array(10, 9, 8), PackedInt32Array(8, 6, 7), PackedInt32Array(7, 11, 8), PackedInt32Array(8, 11, 10), PackedInt32Array(9, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(15, 14, 3), PackedInt32Array(3, 14, 5), PackedInt32Array(18, 17, 16), PackedInt32Array(14, 15, 18), PackedInt32Array(14, 18, 19), PackedInt32Array(19, 18, 16), PackedInt32Array(20, 12, 13), PackedInt32Array(16, 17, 20), PackedInt32Array(13, 21, 20), PackedInt32Array(20, 21, 16)]
@@ -326,19 +440,19 @@ crosshair_spread = 8.03
 crosshair_length = 20.17
 
 [node name="CrosshairRIGHT" parent="HUD/CrosshairContainer" index="0"]
-points = PackedVector2Array(13.1541, 0, 33.3241, 0)
+points = PackedVector2Array(8.03, 0, 28.2, 0)
 width = 5.535
 
 [node name="CrosshairLEFT" parent="HUD/CrosshairContainer" index="1"]
-points = PackedVector2Array(-13.1541, 0, -33.3241, 0)
+points = PackedVector2Array(-8.03, 0, -28.2, 0)
 width = 5.535
 
 [node name="CrosshairUP" parent="HUD/CrosshairContainer" index="2"]
-points = PackedVector2Array(0, -13.1541, 0, -33.3241)
+points = PackedVector2Array(0, -8.03, 0, -28.2)
 width = 5.535
 
 [node name="CrosshairDOWN" parent="HUD/CrosshairContainer" index="3"]
-points = PackedVector2Array(0, 13.1541, 0, 33.3241)
+points = PackedVector2Array(0, 8.03, 0, 28.2)
 width = 5.535
 
 [node name="versionText" parent="HUD" index="3"]
@@ -399,6 +513,24 @@ speed_scale = 3.0
 [node name="grapple_rope_meshGen" parent="." instance=ExtResource("9_oma2s")]
 visible = false
 
+[node name="LaserGenerator" type="Node3D" parent="."]
+script = ExtResource("9_atici")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LaserGenerator"]
+mesh = SubResource("ArrayMesh_wjjk7")
+surface_material_override/0 = SubResource("StandardMaterial3D_atici")
+
+[node name="A" type="Marker3D" parent="LaserGenerator"]
+visible = false
+
+[node name="B" type="Marker3D" parent="LaserGenerator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3756, 0, 0)
+
+[node name="LaserFX" type="AnimationPlayer" parent="LaserGenerator"]
+libraries = {
+&"": SubResource("AnimationLibrary_xnstj")
+}
+
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.1, 0)
 JUMP_VELOCITY = 8.0
@@ -406,47 +538,8 @@ JUMP_VELOCITY = 8.0
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
 transform = Transform3D(0.921615, 0.376129, 0.0956483, 0.148141, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
 
-[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
-transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
-
-[node name="Skeleton3D" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM" index="0"]
-bones/0/rotation = Quaternion(-0.509306, -0.490668, -0.491617, 0.5081)
-bones/1/rotation = Quaternion(-0.482158, -0.466603, 0.46085, 0.580881)
-bones/2/rotation = Quaternion(-0.243494, -0.0413846, 0.0196674, 0.968819)
-bones/3/rotation = Quaternion(-0.0227307, 0.0489716, -0.0332371, 0.997988)
-bones/4/rotation = Quaternion(0.00588774, -0.0175101, 0.0116556, 0.999761)
-bones/5/rotation = Quaternion(0.0210953, -0.046421, 0.100697, 0.99361)
-bones/6/rotation = Quaternion(0.0918091, 0.0182713, -0.00352148, 0.995603)
-bones/7/rotation = Quaternion(0.0130555, -0.0272884, 0.0869477, 0.995754)
-bones/8/rotation = Quaternion(-0.000128749, -0.00115718, 0.000754162, 0.999999)
-bones/9/rotation = Quaternion(0.00424119, -0.00723928, 0.0946462, 0.995476)
-bones/10/rotation = Quaternion(0.0131009, -0.0291353, 0.0881255, 0.995597)
-bones/11/rotation = Quaternion(-0.000140048, -0.00166004, 0.00108778, 0.999998)
-bones/12/rotation = Quaternion(0.00373961, 0.000908251, 0.0889827, 0.996026)
-bones/13/rotation = Quaternion(0.0130548, -0.0272868, 0.0869461, 0.995754)
-bones/14/rotation = Quaternion(-0.000128906, -0.00115852, 0.000755158, 0.999999)
-bones/15/rotation = Quaternion(0.00424343, -0.00724048, 0.0946477, 0.995475)
-bones/16/rotation = Quaternion(-0.000873604, -0.0298618, 0.0856834, 0.995874)
-bones/17/rotation = Quaternion(0.0263633, 0.00421721, 0.000516592, 0.999643)
-bones/18/rotation = Quaternion(-0.00777791, -0.0230112, 0.10497, 0.994179)
-
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419368, 0.0912843, 0.434093, -0.896231, -0.163892, 0.180759, 0.00796503)
-
-[node name="BlackHoleLauncher" parent="Player/Pivot/Camera3D/Guns" index="0"]
-transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)
-
-[node name="PanelPivot2" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="2"]
-transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.206563, 0, 0.398)
-
-[node name="PanelPivot3" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="3"]
-transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.209735, 0, -0.328399)
-
-[node name="core" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????" index="1"]
-transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0.0247345, 1.39009, -0.00136375)
-
-[node name="magazine" parent="Player/Pivot/Camera3D/Guns/Pistol/pistolPart" index="1"]
-transform = Transform3D(0.116955, 0, 0, 0, -4.23376e-07, -0.116955, 0, 0.116955, -4.23376e-07, 0, -1.08348, -0.896698)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
 
 [node name="Enemies" type="Node3D" parent="."]
 

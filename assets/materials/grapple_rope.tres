@@ -1,6 +1,7 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://eek22gpn6m28"]
 
 [resource]
+resource_local_to_scene = true
 cull_mode = 2
 albedo_color = Color(0, 0, 0, 1)
 disable_receive_shadows = true

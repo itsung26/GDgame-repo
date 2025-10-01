@@ -440,6 +440,7 @@ func gunInputs(): # run every frame in _process
 	if Input.is_action_just_pressed("reload"):
 		if weapon_state == weapon_states.PISTOL:
 			if PISTOL_AMMO != PISTOL_MAGSIZE:
+				gun_animator.stop()
 				gun_animator.play("reload_pistol")
 		
 		elif weapon_state == weapon_states.SHOTGUN:
@@ -536,6 +537,7 @@ func _on_cam_shake_timer_timeout() -> void:
 # when the grapple hook's smaller collider hits the world, retract
 func _on_world_collide_box_body_entered(body: Node3D) -> void:
 	if not body.is_in_group("grapple_cubes"):
+		print(body)
 		var impact_particles = impact_particles_scene.instantiate()
 		var impact_pos = grapple_hook.global_position
 		var particle_look_marker = impact_particles.get_node("Marker")

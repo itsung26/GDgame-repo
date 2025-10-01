@@ -1,22 +1,10 @@
-# @tool
-class_name ropeMeshGenerator extends Node3D
-@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
-@onready var player: CharacterBody3D = $"../Player"
-@onready var grapple_target: Node3D = $"../GrappleTarget"
-
-@onready var a: Marker3D = $A
-@onready var b: Marker3D = $B
-@onready var measure: Node3D = %measure
-
-@export_category("Visual Configuration")
-@export var width := 0.25
-@export var height := 0.25
-@export var color := Color.BLACK
-
-var current_mesh
+extends ropeMeshGenerator
+@onready var laser_fx: AnimationPlayer = $LaserFX
+@onready var pistol:Node3D = get_tree().current_scene.find_child("Pistol")
 
 # generates two parallel quads using 2 points with ops to get 10 points total
 func generate_mesh_planes(origin:Vector3,target:Vector3):
+	laser_fx.stop()
 	var shape_width := Vector3(width, 0, 0)
 	var shape_height := Vector3(0, height, 0)
 	
@@ -70,5 +58,9 @@ func generate_mesh_planes(origin:Vector3,target:Vector3):
 	
 	# modify color
 	mesh_instance_3d.get_surface_override_material(0).albedo_color = color
-
 	
+	# on finished generation run fx
+	if pistol.getSpecialState():
+		laser_fx.play("fade_out_overclock")
+	elif not pistol.getSpecialState():
+		laser_fx.play("fade_out_normal")

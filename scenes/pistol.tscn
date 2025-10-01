@@ -154,3 +154,7 @@ modulate = Color(0, 1, 1, 1)
 texture = ExtResource("3_1e3ry")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="VFX/muzzle"]
+
+[node name="LaserLifeTimeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

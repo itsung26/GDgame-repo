@@ -14,10 +14,11 @@ var direction := Vector3.ZERO
 
 # when the hook enters the cube
 func _on_grapple_detect_block_body_entered(body: RigidBody3D) -> void:
+	# if the hook was the body that entered and it's parent is the root node
 	if body.name == "hook" and body.get_parent() == get_tree().root:
-		print("grapple hook entered the box")
-		body.global_position = position
-		body.freeze = true
+		print("grapple hook entered grapple box")
+		body.global_position = position # move to cube origin
+		body.freeze = true # disable physics
 		direction = (player.camera_3d.global_position - global_position).normalized()
 		player.reel_vector = direction * -yank_speed
 		player.player_state = player.player_states.REELINGTO

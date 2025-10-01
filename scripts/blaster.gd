@@ -5,6 +5,8 @@ extends Node3D
 @onready var gun_animator: AnimationPlayer = $"../../../../GunAnimator"
 var player:CharacterBody3D
 var hud:Control
+@onready var laser_generator:Node3D = get_tree().current_scene.find_child("LaserGenerator")
+@onready var muzzle: Node3D = $VFX/muzzle
 
 const DAMAGE_HITMARKER_SCENE = preload("res://scenes/damage_hitmarker.tscn")
 const BULLET_DECAL_BLUE = preload("res://scenes/bullet_decal.tscn")
@@ -39,11 +41,17 @@ func fire():
 	# pass if returns null to avoid null refrence errors
 	# in other words, IF IT HITS SOMETHING DO THIS VVVVVV
 	if body != null:
+		var hit_target_point = bullet_ray_cast.get_collision_point()
+		# adds the bullet decal to the object hit
 		body.add_child(b)
-		b.global_transform.origin = bullet_ray_cast.get_collision_point()
-		# Add a small offset to the target position to avoid collinearity
-		var look_target = bullet_ray_cast.get_collision_point() + bullet_ray_cast.get_collision_normal() + Vector3(0.001, 0, 0)
+		b.global_transform.origin = hit_target_point
+		# orients bullet decal to aim away from surface normal and
+		# adds a small offset to the target position to avoid collinearity
+		var look_target = hit_target_point + bullet_ray_cast.get_collision_normal() + Vector3(0.001, 0, 0)
 		b.look_at(look_target, Vector3.UP)
+		
+		# uses a mesh generator to generate a laser between the muzzle and the shot point
+		laser_generator.generate_mesh_planes(muzzle.global_position, hit_target_point)
 
 		if body.is_in_group("enemy"):
 			# change the damage type that the hit enemy registers
@@ -58,7 +66,6 @@ func fire():
 			elif player.pistol_damage_increase:
 				body.HEALTH -= randi_range(player.Pistol_Overclock_Damage_Range_Min,player.Pistol_OverClock_Damage_Range_Max)
 			print("HEALTH of enemy: " + str(body.HEALTH))
-
 		else: # if the raycast hits something that is not an enemy
 			pass
 
