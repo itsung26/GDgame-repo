@@ -45,14 +45,15 @@ func pullBodies():
 		
 		# handle pull for enemies
 		if body.is_in_group("enemy"):
-			body.last_hit_damage_type = body.damage_types.DARK
-			body.HEALTH -= player.black_hole_damage_per_frame
-			enemy_pull_dir = (global_position - body.global_position).normalized()
-			body.velocity = enemy_pull_dir * player.BLL_pull_speed
-			var g = 0
-			if g == 0:
-				body.enemy_state = body.enemy_states.STUNNED
-				g += 1
+			if body.weight == body.weight_class.LIGHT:
+				body.last_hit_damage_type = body.damage_types.DARK
+				body.HEALTH -= player.black_hole_damage_per_frame
+				enemy_pull_dir = (global_position - body.global_position).normalized()
+				body.velocity = enemy_pull_dir * player.BLL_pull_speed
+				var g = 0
+				if g == 0:
+					body.enemy_state = body.enemy_states.STUNNED
+					g += 1
 
 		# handle pull for players
 		if body.is_in_group("players"):
@@ -66,6 +67,6 @@ func pullBodies():
 func blackHoleExit():
 	get_node("../Player").player_move_input_enabled = true
 	for body in pull_box.get_overlapping_bodies():
-		if body.is_in_group("enemy"):
+		if body.is_in_group("weak enemy"):
 			body.enemy_state = body.enemy_states.FOLLOWING
 	queue_free()

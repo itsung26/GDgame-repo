@@ -14,8 +14,11 @@ const DAMAGE_HITMARKER_SCENE = preload("res://scenes/damage_hitmarker.tscn")
 var player
 
 enum damage_types{NORMAL, OVERCLOCK, DARK}
-enum enemy_states {FOLLOWING, STUNNED}
-var enemy_state =
+enum enemy_states {STUNNED}
+@export var enemy_state:enemy_states = enemy_states.STUNNED
+
+enum weight_class{LIGHT,MEDIUM,HEAVY,FATASS}
+@export var weight:weight_class = weight_class.LIGHT
 
 func _ready() -> void:
 	player = get_tree().current_scene.find_child("Player")
@@ -33,11 +36,19 @@ func onEnemyHurt(new_enemy_health:int):
 	add_child(a)
 	a.damage_number_label.text = str(enemy_damage_taken)
 
-func _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		# handle gravity
-		velocity += get_gravity()
+func statePhysicsLogic(delta = get_process_delta_time()):
+	match enemy_state:
 		
-		if enemy_st
+		enemy_states.STUNNED:
+			if is_on_floor():
+				velocity = lerp(velocity, Vector3.ZERO, 5 * delta)
+
+func _physics_process(delta: float) -> void:
+	if not is_on_floor() and gravity_enabled:
+		# handle gravity
+		velocity += get_gravity() * delta
+		
+	# handle allowed physics
+	statePhysicsLogic()
 		
 	move_and_slide()

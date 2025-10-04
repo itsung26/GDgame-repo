@@ -11,15 +11,19 @@ class_name enemyWeak extends CharacterBody3D
 @onready var hurt_box_melee: Area3D = $HurtBoxMelee
 const DAMAGE_HITMARKER_SCENE = preload("res://scenes/damage_hitmarker.tscn")
 
-@export var AttackCooldown:float = 0.0
-@export var AttackDamage:float = 0.0
-
 var player: Node3D
 var is_attacking:bool = false
 var body_in_hurtbox
 var player_in_hurtbox: bool = false
+
+@export var AttackCooldown:float = 0.0
+@export var AttackDamage:float = 0.0
+
 enum damage_types{NORMAL, OVERCLOCK, DARK}
 @export var last_hit_damage_type:damage_types
+
+enum weight_class{LIGHT,MEDIUM,HEAVY,FATASS}
+@export var weight:weight_class = weight_class.LIGHT
 
 # state machine==============================================================
 var enemy_state := enemy_states.FOLLOWING:
@@ -71,50 +75,20 @@ func _physics_process(delta) -> void:
 	if not is_on_floor() and gravity_enabled:
 		velocity += get_gravity() * delta
 	
-	if enemy_state == enemy_states.FOLLOWING:
-		# Navigation movement
-		if nav_agent.is_navigation_finished() == false:
-			var next_pos = nav_agent.get_next_path_position()
-			var direction = (next_pos - global_position).normalized()
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
-		else:
-			velocity.x = 0
-			velocity.z = 0
-
-	elif enemy_state == enemy_states.STUNNED:
-		pass
+	# state physics logic
+	match enemy_state:
+		enemy_states.FOLLOWING:
+			# Navigation movement
+			if nav_agent.is_navigation_finished() == false:
+				var next_pos = nav_agent.get_next_path_position()
+				var direction = (next_pos - global_position).normalized()
+				velocity.x = direction.x * SPEED
+				velocity.z = direction.z * SPEED
+			else:
+				velocity.x = 0
+				velocity.z = 0
+		
+		enemy_states.STUNNED:
+			pass
 		
 	move_and_slide()
-
-
-func _on_hurt_box_melee_body_entered(body) -> void:
-	if body.name == "Player":
-		player_in_hurtbox = true
-		body_in_hurtbox = body
-		# Only attack if not already attacking
-	if not is_attacking:
-		attackRepeatedly()
-
-func _on_hurt_box_melee_body_exited(body) -> void:
-	if body.name == "Player":
-		player_in_hurtbox = false
-		# Optionally stop attacking if player leaves
-		is_attacking = false
-
-func attackRepeatedly():
-	if player_in_hurtbox and body_in_hurtbox and not is_attacking:
-		is_attacking = true
-		animation_player.play("enemy_attack_melee")
-		enemy_melee_cooldown.start()
-
-func _on_enemy_melee_cooldown_timeout() -> void:
-	is_attacking = false
-	# If player is still in hurtbox, attack again
-	if player_in_hurtbox:
-		attackRepeatedly()
-
-func hurtTouching():
-	body_in_hurtbox.HEALTH -= AttackDamage
-	if body_in_hurtbox.is_in_group("players"):
-		body_in_hurtbox.cause_of_death = "Mauled to death by [prototype enemy]"

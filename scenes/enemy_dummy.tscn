@@ -103,14 +103,10 @@ _data = {
 &"enemy_death": SubResource("Animation_7p1mj")
 }
 
-[node name="EnemyDummy" type="CharacterBody3D" groups=["enemy"]]
+[node name="EnemyDummy" type="CharacterBody3D" groups=["dummy enemy", "enemy"]]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_im74q")
-last_hit_damage_type = null
-HEALTH = null
-gravity_enabled = null
-SPEED = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_7p1mj")

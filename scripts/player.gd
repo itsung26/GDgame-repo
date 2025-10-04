@@ -571,7 +571,8 @@ func _process(delta) -> void:
 		if black_hole_time_remaining < 0.50:
 			black_hole_time_remaining = 0.00
 		var time_left = str(snappedf(black_hole_time_remaining, 0.01)) + "s"
-		black_hole_cooldown_timer.text = time_left
+		if black_hole_cooldown_timer:
+			black_hole_cooldown_timer.text = time_left
 	
 	# kill the player
 	if HEALTH <= 0:

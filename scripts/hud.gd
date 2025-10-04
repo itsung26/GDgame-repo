@@ -28,8 +28,8 @@ var current_frames_per_second = "null"
 @onready var crosshair_left: Line2D = $CrosshairContainer/CrosshairLEFT
 @onready var crosshair_up: Line2D = $CrosshairContainer/CrosshairUP
 @onready var crosshair_down: Line2D = $CrosshairContainer/CrosshairDOWN
-@onready var health_bar: ProgressBar = $BottomLeftArea/SubViewportContainer/SubViewport/BGpanel/HealthBar
-@onready var stamina_bar: ProgressBar = $BottomLeftArea/SubViewportContainer/SubViewport/BGpanel/StaminaBar
+@onready var health_bar: ProgressBar = get_tree().current_scene.find_child("HealthBar")
+@onready var stamina_bar: ProgressBar = get_tree().current_scene.find_child("StaminaBar")
 
 @export_category("Crosshair Properties")
 ## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.

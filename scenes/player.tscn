@@ -1,10 +1,10 @@
-[gd_scene load_steps=59 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=56 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://b634drxy8nceb" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_normal000.png" id="3_fjrip"]
 [ext_resource type="PackedScene" uid="uid://csatdjhfoaqcw" path="res://scenes/pistol.tscn" id="4_dqkch"]
-[ext_resource type="Animation" uid="uid://cc5jsyaulies1" path="res://assets/gunmodels/grapple arm/grapple_rebound.res" id="4_smehm"]
+[ext_resource type="AnimationLibrary" uid="uid://df4wluqxdk4ww" path="res://animations/grapple arm animation library.res" id="4_ur7pv"]
 [ext_resource type="Script" uid="uid://cjhvcb5uyoehj" path="res://scripts/wind_particles.gd" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://bh4w73yqjy2wa" path="res://scenes/slide_particles.tscn" id="8_smehm"]
 [ext_resource type="Script" uid="uid://1g4a60ev1c5u" path="res://scripts/slide_particles.gd" id="9_ur7pv"]
@@ -1301,294 +1301,6 @@ radius = 0.918926
 margin = 0.0
 size = Vector3(0.242, 0.62793, 0.966628)
 
-[sub_resource type="Animation" id="Animation_2h11y"]
-resource_name = "RESET"
-length = 0.1
-tracks/0/type = "rotation_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("whiplash_ARM/Skeleton3D:bip_collar_L")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.509306, -0.490668, -0.491617, 0.5081)
-tracks/1/type = "rotation_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("whiplash_ARM/Skeleton3D:bip_upperarm_L")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, -0.482158, -0.466603, 0.46085, 0.580881)
-tracks/2/type = "rotation_3d"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("whiplash_ARM/Skeleton3D:bip_lowerarm_L")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = PackedFloat32Array(0, 1, -0.243494, -0.0413846, 0.0196674, 0.96882)
-tracks/3/type = "rotation_3d"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("whiplash_ARM/Skeleton3D:bip_hand_L")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = PackedFloat32Array(0, 1, -0.0227307, 0.0489716, -0.0332371, 0.997988)
-tracks/4/type = "rotation_3d"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("whiplash_ARM/Skeleton3D:bip_thumb_0_L")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = PackedFloat32Array(0, 1, 0.0210953, -0.046421, 0.100697, 0.99361)
-tracks/5/type = "rotation_3d"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("whiplash_ARM/Skeleton3D:bip_thumb_1_L")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = PackedFloat32Array(0, 1, 0.0918091, 0.0182713, -0.00352148, 0.995603)
-tracks/6/type = "rotation_3d"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_0_L")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = PackedFloat32Array(0, 1, 0.0130555, -0.0272884, 0.0869477, 0.995754)
-tracks/7/type = "rotation_3d"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_1_L")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = PackedFloat32Array(0, 1, -0.000128749, -0.00115718, 0.000754162, 0.999999)
-tracks/8/type = "rotation_3d"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_2_L")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = PackedFloat32Array(0, 1, 0.00424119, -0.00723928, 0.0946462, 0.995476)
-tracks/9/type = "rotation_3d"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_0_L")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = PackedFloat32Array(0, 1, 0.0131009, -0.0291353, 0.0881255, 0.995597)
-tracks/10/type = "rotation_3d"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_1_L")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = PackedFloat32Array(0, 1, -0.000140048, -0.00166004, 0.00108778, 0.999998)
-tracks/11/type = "rotation_3d"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_2_L")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = PackedFloat32Array(0, 1, 0.00373961, 0.000908251, 0.0889827, 0.996026)
-tracks/12/type = "rotation_3d"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_0_L")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = PackedFloat32Array(0, 1, 0.0130548, -0.0272868, 0.0869461, 0.995754)
-tracks/13/type = "rotation_3d"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_1_L")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = PackedFloat32Array(0, 1, -0.000128906, -0.00115852, 0.000755158, 0.999999)
-tracks/14/type = "rotation_3d"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_2_L")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = PackedFloat32Array(0, 1, 0.00424343, -0.00724048, 0.0946477, 0.995475)
-tracks/15/type = "rotation_3d"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_0_L")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = PackedFloat32Array(0, 1, -0.000873604, -0.0298618, 0.0856834, 0.995874)
-tracks/16/type = "rotation_3d"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_1_L")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = PackedFloat32Array(0, 1, 0.0263633, 0.00421721, 0.000516592, 0.999644)
-tracks/17/type = "rotation_3d"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_2_L")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = PackedFloat32Array(0, 1, -0.00777791, -0.0230112, 0.10497, 0.994179)
-tracks/18/type = "rotation_3d"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("whiplash_ARM/Skeleton3D:prp_hook")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = PackedFloat32Array(0, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761)
-
-[sub_resource type="Animation" id="Animation_1h7p2"]
-resource_name = "grapple_out"
-length = 0.2333
-tracks/0/type = "rotation_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("whiplash_ARM/Skeleton3D:bip_collar_L")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.509306, -0.490668, -0.491617, 0.5081, 0.0666667, 1, -0.494525, -0.505772, -0.361583, 0.607369, 0.2333, 1, -0.529271, -0.469932, -0.496051, 0.502961)
-tracks/1/type = "rotation_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("whiplash_ARM/Skeleton3D:bip_upperarm_L")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, -0.39883, -0.617183, 0.229409, 0.638272, 0.0666667, 1, -0.632215, -0.673785, 0.13284, 0.358709, 0.2333, 1, -0.557393, -0.791197, 0.0842384, 0.237117, 0.233333, 1, -0.730718, -0.667301, 0.040729, 0.138209)
-tracks/2/type = "rotation_3d"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("whiplash_ARM/Skeleton3D:bip_lowerarm_L")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = PackedFloat32Array(0, 1, -0.443394, -0.0446139, 0.0104445, 0.895155, 0.0666667, 1, -0.204072, -0.444617, 0.0136273, 0.872058, 0.2333, 1, -0.34485, -0.393035, 0.157977, 0.837643, 0.233333, 1, -0.168931, -0.43109, 0.0994722, 0.880755)
-tracks/3/type = "rotation_3d"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("whiplash_ARM/Skeleton3D:bip_hand_L")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = PackedFloat32Array(0, 1, -0.0227307, 0.0489716, -0.0332371, 0.997988, 0.0666667, 1, -0.00285964, 0.545728, -0.0401648, 0.836994, 0.2333, 1, -0.278196, 0.829766, 0.0392815, 0.482237, 0.233333, 1, -0.248354, 0.855841, -0.0572191, 0.450091)
-tracks/4/type = "rotation_3d"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("whiplash_ARM/Skeleton3D:prp_hook")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = PackedFloat32Array(0, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761, 0.0666667, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761, 0.2333, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761, 0.233333, 1, 0.00588774, -0.0175101, 0.0116556, 0.999761)
-tracks/5/type = "rotation_3d"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("whiplash_ARM/Skeleton3D:bip_thumb_0_L")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = PackedFloat32Array(0, 1, 0.0210953, -0.046421, 0.100697, 0.99361, 0.0666667, 1, 0.0210953, -0.046421, 0.100697, 0.99361, 0.2333, 1, 0.0210953, -0.046421, 0.100697, 0.99361, 0.233333, 1, -0.108622, -0.0591527, 0.0937856, 0.98788)
-tracks/6/type = "rotation_3d"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("whiplash_ARM/Skeleton3D:bip_thumb_1_L")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = PackedFloat32Array(0, 1, 0.0918091, 0.0182713, -0.00352148, 0.995603, 0.0666667, 1, 0.0918088, 0.0182713, -0.00352147, 0.995603, 0.2333, 1, 0.0918091, 0.0182713, -0.00352148, 0.995603, 0.233333, 1, 0.402567, 0.0162138, -0.00912988, 0.915201)
-tracks/7/type = "rotation_3d"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_0_L")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = PackedFloat32Array(0, 1, 0.0130555, -0.0272884, 0.0869477, 0.995754, 0.0666667, 1, 0.0130555, -0.0272884, 0.0869479, 0.995753, 0.2333, 1, 0.0130555, -0.0272884, 0.0869477, 0.995754, 0.233333, 1, -0.0937258, 0.208477, 0.00029563, 0.973526)
-tracks/8/type = "rotation_3d"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_1_L")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = PackedFloat32Array(0, 1, -0.000128749, -0.00115718, 0.000754162, 0.999999, 0.0666667, 1, -0.000128749, -0.00115718, 0.000754162, 0.999999, 0.2333, 1, -0.000128749, -0.00115718, 0.000754162, 0.999999, 0.233333, 1, -0.000294221, -0.00112652, 0.144783, 0.989463)
-tracks/9/type = "rotation_3d"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("whiplash_ARM/Skeleton3D:bip_index_2_L")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = PackedFloat32Array(0, 1, 0.00424119, -0.00723928, 0.0946462, 0.995476, 0.0666667, 1, 0.00424119, -0.00723928, 0.0946462, 0.995476, 0.2333, 1, 0.00424119, -0.00723928, 0.0946462, 0.995476, 0.233333, 1, 0.0026462, -0.00796171, 0.299199, 0.954154)
-tracks/10/type = "rotation_3d"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_0_L")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = PackedFloat32Array(0, 1, 0.0131009, -0.0291353, 0.0881255, 0.995597, 0.0666667, 1, 0.0131009, -0.0291353, 0.0881257, 0.995597, 0.2333, 1, 0.0131009, -0.0291353, 0.0881255, 0.995597, 0.233333, 1, -0.000627426, -0.0305329, 0.041657, 0.998665)
-tracks/11/type = "rotation_3d"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_1_L")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = PackedFloat32Array(0, 1, -0.000140048, -0.00166004, 0.00108778, 0.999998, 0.0666667, 1, -0.000140048, -0.00166004, 0.00108778, 0.999998, 0.2333, 1, -0.000140048, -0.00166004, 0.00108778, 0.999998, 0.233333, 1, -0.000297042, -0.00163923, 0.096077, 0.995373)
-tracks/12/type = "rotation_3d"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("whiplash_ARM/Skeleton3D:bip_middle_2_L")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = PackedFloat32Array(0, 1, 0.00373961, 0.000908251, 0.0889827, 0.996026, 0.0666667, 1, 0.00373961, 0.000908251, 0.0889827, 0.996026, 0.2333, 1, 0.00373961, 0.000908251, 0.0889827, 0.996026, 0.233333, 1, 0.00384767, 8.44347e-05, 0.300681, 0.953717)
-tracks/13/type = "rotation_3d"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_0_L")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = PackedFloat32Array(0, 1, 0.0130548, -0.0272868, 0.0869461, 0.995754, 0.0666667, 1, 0.0130548, -0.0272868, 0.0869462, 0.995754, 0.2333, 1, 0.0130548, -0.0272868, 0.0869461, 0.995754, 0.233333, 1, 0.101606, -0.019442, 0.0890292, 0.990642)
-tracks/14/type = "rotation_3d"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_1_L")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = PackedFloat32Array(0, 1, -0.000128906, -0.00115852, 0.000755158, 0.999999, 0.0666667, 1, -0.000128906, -0.00115852, 0.000755158, 0.999999, 0.2333, 1, -0.000128906, -0.00115852, 0.000755158, 0.999999, 0.233333, 1, -0.000184124, -0.00115101, 0.0485841, 0.998818)
-tracks/15/type = "rotation_3d"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("whiplash_ARM/Skeleton3D:bip_ring_2_L")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = PackedFloat32Array(0, 1, 0.00424343, -0.00724048, 0.0946477, 0.995475, 0.0666667, 1, 0.00424343, -0.00724048, 0.0946478, 0.995475, 0.2333, 1, 0.00424343, -0.00724048, 0.0946477, 0.995475, 0.233333, 1, 0.00277425, -0.00792059, 0.284051, 0.958772)
-tracks/16/type = "rotation_3d"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_0_L")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = PackedFloat32Array(0, 1, -0.000873605, -0.0298618, 0.0856834, 0.995874, 0.0666667, 1, -0.00087361, -0.0298618, 0.0856836, 0.995874, 0.2333, 1, -0.000873606, -0.0298618, 0.0856834, 0.995874, 0.233333, 1, 0.165614, -0.0151184, 0.0894696, 0.982008)
-tracks/17/type = "rotation_3d"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_1_L")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = PackedFloat32Array(0, 1, 0.0263633, 0.00421721, 0.000516592, 0.999643, 0.0666667, 1, 0.0263633, 0.00421721, 0.000516592, 0.999643, 0.2333, 1, 0.0263633, 0.00421721, 0.000516592, 0.999644, 0.233333, 1, 0.026591, 0.00239418, 0.0692635, 0.997241)
-tracks/18/type = "rotation_3d"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("whiplash_ARM/Skeleton3D:bip_pinky_2_L")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = PackedFloat32Array(0, 1, -0.00777791, -0.0230112, 0.10497, 0.994179, 0.0666667, 1, -0.00777791, -0.0230112, 0.10497, 0.994179, 0.2333, 1, -0.00777791, -0.0230112, 0.10497, 0.994179, 0.233333, 1, -0.0105477, -0.0218805, 0.226393, 0.973733)
-tracks/19/type = "position_3d"
-tracks/19/imported = false
-tracks/19/enabled = true
-tracks/19/path = NodePath("whiplash_ARM/Skeleton3D:bip_collar_L")
-tracks/19/interp = 1
-tracks/19/loop_wrap = true
-tracks/19/keys = PackedFloat32Array(0.2333, 1, -0.345549, 2.76579, -0.40007)
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tnvrt"]
-_data = {
-&"RESET": SubResource("Animation_2h11y"),
-&"grapple_out": SubResource("Animation_1h7p2"),
-&"grapple_rebound": ExtResource("4_smehm")
-}
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 2)
@@ -1649,10 +1361,11 @@ outer_radius = 0.715
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 271
 script = ExtResource("1_qhqgy")
+stamina_charge_delay = 0.1
 camera_roll_speed = 4.5
 JUMP_VELOCITY = 9.0
-dash_velocity_increase = 50.0
-dash_time_length = 0.125
+dash_velocity_increase = 35.0
+dash_time_length = 0.175
 GRAPPLE_SPEED_MAX = 75
 
 [node name="GunAnimator" type="AnimationPlayer" parent="."]
@@ -1696,6 +1409,7 @@ speed_scale = 5.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 shape = SubResource("CapsuleShape3D_b2mh8")
 
 [node name="footCollider" type="CollisionShape3D" parent="."]
@@ -1888,7 +1602,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419368, 0.0912843, 0.434093, -0.896231, -0.163892, 0.180759, 0.00796503)
+transform = Transform3D(0.765287, 0.245234, 0.595141, 0.643042, -0.332568, -0.68985, 0.0287503, 0.910636, -0.412207, 0.73265, 1.14728, 1.04801)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1923,7 +1637,7 @@ shape = SubResource("BoxShape3D_ur7pv")
 
 [node name="grapple_arm_animator" type="AnimationPlayer" parent="Pivot/Camera3D/GrappleArm/grappleArm"]
 libraries = {
-&"": SubResource("AnimationLibrary_tnvrt")
+&"": ExtResource("4_ur7pv")
 }
 
 [node name="Guns" type="Node3D" parent="Pivot/Camera3D"]

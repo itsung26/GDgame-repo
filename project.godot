@@ -30,6 +30,8 @@ enemy="contains all enemies"
 weapons="Contains all weapons"
 players=""
 weaponBlocks=""
+"weak enemy"=""
+"dummy enemy"=""
 
 [input]
 

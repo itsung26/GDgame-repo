@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=4 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=70 format=4 uid="uid://mhij3rnbxw0r"]
 
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_wix4b"]
@@ -366,6 +366,14 @@ _data = {
 &"fade_out_overclock": SubResource("Animation_xnstj")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihdwp"]
+resource_local_to_scene = true
+
+[sub_resource type="TextMesh" id="TextMesh_xnstj"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_ihdwp")
+text = "Enemy Weak Dummy"
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_wjjk7"]
 vertices = PackedVector3Array(7, 0.75, -4.75, 8.5, 0.75, -4.75, 8.25, 0.75, -124.5, 6.75, 0.75, -2.75, -124.5, 0.75, -124.5, -124.5, 0.75, -3, 9.75, 0.75, -4.75, 10, 0.75, -124.5, 11.25, 0.75, -4.75, 11.25, 0.75, -3.25, 124.5, 0.75, -3.5, 124.5, 0.75, -124.5, 11.25, 0.75, 2, 124.5, 0.75, 2.25, -124.5, 0.75, 2.25, 6.75, 0.75, 2, 9, 0.75, 124.5, 9, 0.75, 3.5, 6.75, 0.75, 3.5, -124.5, 0.75, 124.5, 11.25, 0.75, 3.5, 124.5, 0.75, 124.5)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(1, 2, 6), PackedInt32Array(6, 2, 7), PackedInt32Array(10, 9, 8), PackedInt32Array(8, 6, 7), PackedInt32Array(7, 11, 8), PackedInt32Array(8, 11, 10), PackedInt32Array(9, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(15, 14, 3), PackedInt32Array(3, 14, 5), PackedInt32Array(18, 17, 16), PackedInt32Array(14, 15, 18), PackedInt32Array(14, 18, 19), PackedInt32Array(19, 18, 16), PackedInt32Array(20, 12, 13), PackedInt32Array(16, 17, 20), PackedInt32Array(13, 21, 20), PackedInt32Array(20, 21, 16)]
@@ -461,16 +469,16 @@ material = SubResource("StandardMaterial3D_4bepf")
 left_to_right = 0.0
 size = Vector3(3.595, 2.395, 1)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_agfbe"]
-data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0qioc"]
-data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
-
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4bepf"]
 data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_h7aqf"]
+data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_agfbe"]
+data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0qioc"]
 data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjjk7"]
@@ -532,12 +540,8 @@ width = 5.535
 [node name="versionText" parent="HUD" index="3"]
 text = "ALPHA BUILD 0.9.7"
 
-[node name="HealthBar" parent="HUD/BottomLeftArea/SubViewportContainer/SubViewport/BGpanel" index="0"]
+[node name="HealthBar" parent="HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
 theme = SubResource("Theme_ihdwp")
-
-[node name="SubViewport" parent="HUD/SubViewportContainer" index="0"]
-handle_input_locally = false
-render_target_update_mode = 4
 
 [node name="Pause" parent="." instance=ExtResource("3_p1xl4")]
 
@@ -628,7 +632,11 @@ transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.41
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="EnemyDummy" parent="Enemies" instance=ExtResource("11_ihdwp")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.51268, 1, -8.5337)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.29153, 6.07939, -7.78401)
+
+[node name="text" type="MeshInstance3D" parent="Enemies/EnemyDummy"]
+transform = Transform3D(-2.95053, 0, -2.57944e-07, 0, 2.95053, 0, 2.57944e-07, 0, -2.95053, 0, 1.97397, 0)
+mesh = SubResource("TextMesh_xnstj")
 
 [node name="Navigation" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.726669, 0)
@@ -791,36 +799,36 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.067
 shape = SubResource("ConcavePolygonShape3D_hfjtv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Bridge"]
-transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.18, -57.301)
+transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.239, -57.301)
 mesh = SubResource("PrismMesh_h7aqf")
 
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.239, -57.301)
+shape = SubResource("ConcavePolygonShape3D_4bepf")
+
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="WorldStructures/Bridge"]
-transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.18, -127.585)
+transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.239, -127.585)
+mesh = SubResource("PrismMesh_h7aqf")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.239, -127.585)
+shape = SubResource("ConcavePolygonShape3D_h7aqf")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.239, -57.301)
 mesh = SubResource("PrismMesh_h7aqf")
 
 [node name="CollisionShape3D8" type="CollisionShape3D" parent="WorldStructures/Bridge"]
-transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.18, -127.585)
+transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.239, -57.301)
 shape = SubResource("ConcavePolygonShape3D_agfbe")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="WorldStructures/Bridge"]
-transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.18, -57.301)
-mesh = SubResource("PrismMesh_h7aqf")
-
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="WorldStructures/Bridge"]
-transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.18, -127.707)
+transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.239, -127.707)
 mesh = SubResource("PrismMesh_h7aqf")
 
 [node name="CollisionShape3D9" type="CollisionShape3D" parent="WorldStructures/Bridge"]
-transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.18, -127.707)
+transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.239, -127.707)
 shape = SubResource("ConcavePolygonShape3D_0qioc")
-
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="WorldStructures/Bridge"]
-transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.18, -57.301)
-shape = SubResource("ConcavePolygonShape3D_4bepf")
-
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="WorldStructures/Bridge"]
-transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.18, -57.301)
-shape = SubResource("ConcavePolygonShape3D_h7aqf")
 
 [node name="WorldObjects" type="Node3D" parent="."]
 
