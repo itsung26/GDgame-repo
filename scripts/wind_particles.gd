@@ -10,9 +10,10 @@ func _ready() -> void:
 # Looks in the direction of the player's velocity vector
 # emits if magnitude is greater than 15.0
 func _process(_delta: float) -> void:
-	if player.velocity.length() > 15.0:
-		var direction = player.velocity.normalized()
-		look_at(global_position + direction, Vector3.UP)
-		emitting = true
+	if player.velocity.length() > 20.0:
+		if player.player_state == player.player_states.REELINGTO or player.player_state == player.player_states.FALLING or player.player_states.DASHING:
+			var direction = player.velocity.normalized()
+			look_at(global_position + direction, Vector3.UP)
+			emitting = true
 	else:
 		emitting = false

@@ -25,11 +25,27 @@ extends CharacterBody3D
 @onready var sliding_marker: Marker3D = $CameraMarkerPositions/SlidingMarker
 @onready var head_marker: Marker3D = $CameraMarkerPositions/HeadMarker
 @onready var wind_rings: GPUParticles3D = $Pivot/Camera3D/WindRings
+@onready var dash_length_timer: Timer = $DashLengthTimer
+@onready var stamina_charge_delay_timer: Timer = $StaminaChargeDelayTimer
 
-@export_category("Attributes")
-@export var HEALTH: int = 100
+@export_category("General")
+@export var player_move_input_enabled:bool = true
+@export var player_look_input_enabled:bool = true
+@export var player_fire_input_enabled:bool = true
+@export var player_kinematics_enabled:bool = true
+@export var player_dash_input_enabled:bool = true
+@export var stamina_recharging:bool = true
+
+@export_category("Main Attributes")
+@export var HEALTH:float = 100
+@export var STAMINA:float = 300
+## Delay after dash before stamina before stamina begins to recharge in seconds.
+@export var stamina_charge_delay:float = 1.0 # seconds
+## Speed at which the stamina charges.
+@export var stamina_charge_speed:float = 100.0
 
 @export_category("Camera")
+@export var camera_roll_enabled:bool = true
 @export var max_camera_roll: float = 7.5 # degrees, adjust as desired
 @export var camera_roll_speed: float = 6.5 # how quickly the camera rolls
 
@@ -44,6 +60,12 @@ extends CharacterBody3D
 @export var AIR_ACCELERATION := 6.0
 ## The amount that base speed is multiplied with for the slide speed.
 @export var slide_speed_multiplier := 2.0
+## How much velocity the dash applies.
+@export var dash_velocity_increase := 5.0
+## Amount of time that the dash velocity is applied for
+@export var dash_time_length := 0.5
+## The velocity applied in the negative y direction. Should remain constant.
+@export var slam_velocity := 35.0
 
 @export_category("Grappling Hook")
 @export var Grapple_Enabled:= true
@@ -70,9 +92,9 @@ var BLL_AMMO := BLL_MAGSIZE
 @export var free_slide_enabled := false
 
 # 3 seperate FSMs (finite state machines) to replace conditional trees
-enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING}
+enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING, DASHING, SLAMMING}
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
-enum action_states{IDLE, GRAPPLING, DASHING}
+enum action_states{IDLE, GRAPPLING, PARRYING}
 
 var player_state:player_states = player_states.GROUNDED:
 	set = set_player_state
@@ -92,9 +114,6 @@ var black_hole_cooldown_timer
 var prev_jump_velocity = JUMP_VELOCITY
 var pistol
 var weapon_anim_playing
-var player_move_input_enabled = true
-var player_look_input_enabled = true
-var player_fire_input_enabled = true
 var direction
 var input_dir := Vector2.ZERO
 var camera_target_roll: float = 0.0
@@ -111,6 +130,7 @@ var impact_sparks:GPUParticles3D
 var impact_sparks_2:GPUParticles3D
 var slide_light:OmniLight3D
 var pause:Control
+var dash_dir:Vector3
 
 func _ready() -> void:
 	# object reference definitions
@@ -171,6 +191,43 @@ func set_player_state(new_player_state:int):
 		impact_sparks.emitting = false
 		impact_sparks_2.emitting = false
 		slide_light.visible = false
+		
+	# DASHING to and from
+	if new_player_state == player_states.DASHING:
+		print("entered dashing state")
+		stamina_recharging = false
+		stamina_charge_delay_timer.start(stamina_charge_delay)
+		STAMINA -= 100
+		# cancels grapple if it is active
+		if action_state == action_states.GRAPPLING:
+			action_state = action_states.IDLE
+		# disables gravity
+		gravity_enabled = false
+		# starts the timer and zeroes velocity
+		dash_length_timer.start(dash_time_length)
+		velocity = Vector3.ZERO
+		# gets foward direction relative to players BASIS.Z
+		var forward_dir = -transform.basis.z
+		# if no input, dash fowards
+		if input_dir == Vector2.ZERO:
+			velocity = forward_dir * dash_velocity_increase
+		# else, dash in the direction of horizontal travel
+		else:
+			velocity = direction * dash_velocity_increase
+	if previous_player_state == player_states.DASHING:
+		print("exited dashing state")
+		velocity = Vector3.ZERO
+		gravity_enabled = true
+	
+	# SLAMMING to and from
+	if new_player_state == player_states.SLAMMING:
+		gravity_enabled = false
+		velocity = Vector3.ZERO # kill velocity
+		velocity.y = -slam_velocity # slam down
+		camera_roll_enabled = false
+	if previous_player_state == player_states.SLAMMING:
+		gravity_enabled = true
+		camera_roll_enabled = true
 	
 func set_weapon_state(new_weapon_state:int):
 	# init vars
@@ -244,19 +301,27 @@ func _input(event) -> void:
 		elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
 			action_state = action_states.IDLE
 			
-	# get the slide action input for a state change
-	if Input.is_action_just_pressed("slide") and is_on_floor():
+	# on slide | slam pressed
+	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor():
 		player_state = player_states.SLIDING
+	elif Input.is_action_just_pressed("Slide | Slam") and not is_on_floor():
+		player_state = player_states.SLAMMING
 
-	# on slide released do state check
-	if Input.is_action_just_released("slide") and player_state == player_states.SLIDING:
+	# on slide | slam released do state check
+	if Input.is_action_just_released("Slide | Slam") and player_state == player_states.SLIDING:
 		if player_state == player_states.REELINGTO:
 			pass
 		else:
 			player_state = player_states.GROUNDED
 	
+	if Input.is_action_just_pressed("dash") and player_dash_input_enabled and STAMINA >= 100:
+		dash_dir = Vector3(velocity.x, 0, velocity.z).normalized()
+		if not player_state == player_states.DASHING: # if player is not already dashing
+			player_state = player_states.DASHING
+	
+	
 	# handle mouselook
-	if event is InputEventMouseMotion and player.player_look_input_enabled:
+	if event is InputEventMouseMotion and player_look_input_enabled:
 		mouse_delta2 = event.relative
 		var mouse_delta = event.relative
 		var yaw = -mouse_delta.x
@@ -267,11 +332,14 @@ func _input(event) -> void:
 
 
 func cameraFX(delta):
-	# Set target roll based on left/right input
-	if input_dir.x > 0:
-		camera_target_roll = -max_camera_roll # rolling right (negative z)
-	elif input_dir.x < 0:
-		camera_target_roll = max_camera_roll  # rolling left (positive z)
+	if camera_roll_enabled:
+		# Set target roll based on left/right input
+		if input_dir.x > 0:
+			camera_target_roll = -max_camera_roll # rolling right (negative z)
+		elif input_dir.x < 0:
+			camera_target_roll = max_camera_roll  # rolling left (positive z)
+		else:
+			camera_target_roll = 0.0
 	else:
 		camera_target_roll = 0.0
 
@@ -279,8 +347,7 @@ func cameraFX(delta):
 	camera_3d.rotation.z = lerp_angle(camera_3d.rotation.z, deg_to_rad(camera_target_roll), camera_roll_speed * delta)
 	
 	# clamp the camera view to prevent back breaking
-	var b = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
-	pivot.rotation_degrees.x = b
+	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
 
 # called when overclock ends
 func zoomIn():
@@ -307,9 +374,16 @@ func _physics_process(delta: float) -> void:
 	cameraFX(delta) # roll, tilt, clamp
 	
 	# state control
-	if is_on_floor() and player_state != player_states.REELINGTO and player_state != player_states.SLIDING:
+	if (is_on_floor() and 
+	player_state != player_states.REELINGTO and 
+	player_state != player_states.SLIDING and 
+	player_state != player_states.DASHING):
 		player_state = player_states.GROUNDED
-	elif not is_on_floor() and player_state != player_states.REELINGTO:
+
+	elif (not is_on_floor() and 
+	player_state != player_states.REELINGTO and 
+	player_state != player_states.DASHING and 
+	player_state != player_states.SLAMMING):
 		player_state = player_states.FALLING
 	
 	# Add the gravity 
@@ -322,9 +396,9 @@ func _physics_process(delta: float) -> void:
 	
 	# Get the input direction and handle the movement/deceleration.
 	input_dir = Input.get_vector("left", "right", "forward", "back")
-	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	direction = Vector3(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	# movement state logic
+	# grounded movement state logic
 	if player_state == player_states.GROUNDED:
 		if direction and player_move_input_enabled:
 			var ground_dir = direction.normalized()
@@ -334,6 +408,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0.0, 10.0)
 			velocity.z = move_toward(velocity.z, 0.0, 10.0)
 	
+	# falling movement state logic
 	elif player_state == player_states.FALLING:
 		if player_move_input_enabled and direction != Vector3.ZERO:
 			var desired = direction * SPEED
@@ -374,6 +449,18 @@ func _physics_process(delta: float) -> void:
 			else:
 				var direction = velocity.normalized()
 				velocity = direction * SPEED * slide_speed_multiplier
+				
+	# dashing state logic
+	elif player_state == player_states.DASHING:
+		pass # see set_player_state()
+
+	# slamming state logic
+	elif player_state == player_states.SLAMMING:
+		pass # see set_player_state()
+
+	# if kinematics are not enabled, kill all velocity before computing physics
+	if not player_kinematics_enabled:
+		velocity = Vector3.ZERO
 	move_and_slide()
 
 func gunInputs(): # run every frame in _process
@@ -439,7 +526,7 @@ func gunInputs(): # run every frame in _process
 	# reload block=========================================================================================
 	if Input.is_action_just_pressed("reload"):
 		if weapon_state == weapon_states.PISTOL:
-			if PISTOL_AMMO != PISTOL_MAGSIZE:
+			if PISTOL_AMMO != PISTOL_MAGSIZE and gun_animator.current_animation != "reload_pistol":
 				gun_animator.stop()
 				gun_animator.play("reload_pistol")
 		
@@ -447,7 +534,7 @@ func gunInputs(): # run every frame in _process
 			print("shotgun reload")
 	
 		elif weapon_state == weapon_states.BLL:
-			pass
+			print("the weapon does not reload")
 			
 			
 	# special block=========================================================================================
@@ -462,8 +549,14 @@ func gunInputs(): # run every frame in _process
 			print("no special attack available")
 	# ======================================================================================================
 
+func charge_stamina(delta):
+	if stamina_recharging:
+		STAMINA = move_toward(STAMINA, 300.0, stamina_charge_speed * delta)
+
+
 var a = true
-func _process(_delta) -> void:
+func _process(delta) -> void:
+	charge_stamina(delta)
 	
 	# updates string variables with the current state for debug purposes
 	updateStateStrings()
@@ -510,6 +603,10 @@ func updateStateStrings():
 		current_player_string_name = "REELINGTO"
 	elif player_state == player_states.SLIDING:
 		current_player_string_name = "SLIDING"
+	elif player_state == player_states.DASHING:
+		current_player_string_name = "DASHING"
+	elif player_state == player_states.SLAMMING:
+		current_player_string_name = "SLAMMING"
 
 	# update the string name of the action every frame
 	if action_state == action_states.GRAPPLING:
@@ -553,3 +650,15 @@ func _on_unstuck_pressed() -> void:
 	global_position = Vector3.ZERO
 	velocity = Vector3.ZERO
 	pause.pause_state = pause.pause_states.UNPAUSED
+
+
+func _on_dash_length_timer_timeout() -> void:
+	if player_state != player_states.REELINGTO:
+		if is_on_floor():
+			player_state = player_states.GROUNDED
+		elif not is_on_floor():
+			player_state = player_states.FALLING
+
+
+func _on_stamina_charge_delay_timer_timeout() -> void:
+	stamina_recharging = true

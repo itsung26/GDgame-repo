@@ -1,7 +1,6 @@
-[gd_scene load_steps=59 format=4 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=68 format=4 uid="uid://mhij3rnbxw0r"]
 
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/pixelated.tres" id="1_p1xl4"]
-[ext_resource type="Material" uid="uid://d25ece0xga0hd" path="res://assets/materials/map_enviroment.tres" id="1_te4ph"]
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_wix4b"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="2_bcvk1"]
 [ext_resource type="PackedScene" uid="uid://ctxddstc2vto8" path="res://scenes/hud.tscn" id="2_pd1ih"]
@@ -14,12 +13,14 @@
 [ext_resource type="PackedScene" uid="uid://cj0vx655hbmtp" path="res://scenes/enemy_spawner.tscn" id="10_idmwj"]
 [ext_resource type="Material" uid="uid://c7kojx37vkg4i" path="res://assets/materials/metal_material.tres" id="10_prwh2"]
 [ext_resource type="Texture2D" uid="uid://dog0uevkajdqv" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Color.jpg" id="11_he5cq"]
+[ext_resource type="PackedScene" uid="uid://5vpgp7wqh8vn" path="res://scenes/enemy_dummy.tscn" id="11_ihdwp"]
 [ext_resource type="Texture2D" uid="uid://saoujndj0ul2" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Metalness.jpg" id="12_idmwj"]
 [ext_resource type="Texture2D" uid="uid://2dd245bud88p" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_NormalGL.jpg" id="13_4i6sm"]
 [ext_resource type="Texture2D" uid="uid://brv83cxi4cb8m" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Roughness.jpg" id="14_oma2s"]
 [ext_resource type="PackedScene" uid="uid://du50kuq805ea1" path="res://scenes/black_hole_ammo.tscn" id="16_4i6sm"]
 [ext_resource type="Texture2D" uid="uid://cread3gedp1k3" path="res://assets/textures/normalmapped dark/blackprototype/texture_01_normal.png" id="16_wjjk7"]
 [ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube.tscn" id="18_s0dw4"]
+[ext_resource type="PackedScene" uid="uid://bo4oc21my4mk" path="res://scenes/props/test_prop.tscn" id="21_ihdwp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bq1pm"]
 shader = ExtResource("1_p1xl4")
@@ -37,6 +38,25 @@ background_mode = 2
 sky = SubResource("Sky_tbgi4")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m4u7"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apjy4"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_ihdwp"]
+resource_local_to_scene = true
+ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
 
 [sub_resource type="Animation" id="Animation_fulsm"]
 length = 0.001
@@ -246,6 +266,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(0, 0, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_ihdwp"]
 resource_name = "fade_out_normal"
@@ -273,6 +305,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_xnstj"]
@@ -302,6 +346,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 0, 0, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xnstj"]
 _data = {
@@ -317,8 +373,20 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Arr
 [sub_resource type="BoxMesh" id="BoxMesh_wjjk7"]
 size = Vector3(250, 0.5, 250)
 
-[sub_resource type="BoxMesh" id="BoxMesh_x647l"]
-material = ExtResource("1_te4ph")
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_atici"]
+load_path = "res://.godot/imported/texture_01.png-3a8f846f21e0fa319446858f894dc2c0.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ihdwp"]
+load_path = "res://.godot/imported/texture_01_normal.png-9e3bb017788362e389059b7c8256ae0d.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4lt4"]
+albedo_texture = SubResource("CompressedTexture2D_atici")
+normal_enabled = true
+normal_texture = SubResource("CompressedTexture2D_ihdwp")
+uv1_scale = Vector3(-58.81, -58.81, -58.81)
+
+[sub_resource type="BoxMesh" id="BoxMesh_stfwy"]
+material = SubResource("StandardMaterial3D_a4lt4")
 size = Vector3(250, 0.5, 250)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wjjk7"]
@@ -393,6 +461,12 @@ material = SubResource("StandardMaterial3D_4bepf")
 left_to_right = 0.0
 size = Vector3(3.595, 2.395, 1)
 
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_agfbe"]
+data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0qioc"]
+data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
+
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4bepf"]
 data = PackedVector3Array(-1.7975, 1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, 1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, -1.7975, 1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, 1.1975, 0.5, -1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, -1.7975, -1.1975, 0.5, 1.7975, -1.1975, 0.5, -1.7975, -1.1975, -0.5, 1.7975, -1.1975, 0.5, 1.7975, -1.1975, -0.5, -1.7975, -1.1975, -0.5)
 
@@ -457,6 +531,13 @@ width = 5.535
 
 [node name="versionText" parent="HUD" index="3"]
 text = "ALPHA BUILD 0.9.7"
+
+[node name="HealthBar" parent="HUD/BottomLeftArea/SubViewportContainer/SubViewport/BGpanel" index="0"]
+theme = SubResource("Theme_ihdwp")
+
+[node name="SubViewport" parent="HUD/SubViewportContainer" index="0"]
+handle_input_locally = false
+render_target_update_mode = 4
 
 [node name="Pause" parent="." instance=ExtResource("3_p1xl4")]
 
@@ -538,10 +619,16 @@ JUMP_VELOCITY = 8.0
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
 transform = Transform3D(0.921615, 0.376129, 0.0956483, 0.148141, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
 
+[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
+transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
+
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
 transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
 
 [node name="Enemies" type="Node3D" parent="."]
+
+[node name="EnemyDummy" parent="Enemies" instance=ExtResource("11_ihdwp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.51268, 1, -8.5337)
 
 [node name="Navigation" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.726669, 0)
@@ -558,7 +645,6 @@ affect_navigation_mesh = true
 carve_navigation_mesh = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Navigation/NavigationRegion3D"]
-visible = false
 mesh = SubResource("BoxMesh_wjjk7")
 
 [node name="WorldStructures" type="Node3D" parent="."]
@@ -569,10 +655,15 @@ collision_layer = 4
 collision_mask = 519
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldStructures/Floor"]
-mesh = SubResource("BoxMesh_x647l")
+mesh = SubResource("BoxMesh_stfwy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldStructures/Floor"]
 shape = SubResource("ConcavePolygonShape3D_wjjk7")
+
+[node name="Room" type="StaticBody3D" parent="WorldStructures"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2629, 0, 1.98096)
+collision_layer = 4
+collision_mask = 519
 
 [node name="Wall" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62648, 0, 2.72307)
@@ -630,6 +721,7 @@ shape = SubResource("ConcavePolygonShape3D_prwh2")
 
 [node name="Roof" type="StaticBody3D" parent="WorldStructures"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.0762668, 78.1217, -5.85608)
+visible = false
 collision_layer = 4
 collision_mask = 519
 
@@ -702,9 +794,25 @@ shape = SubResource("ConcavePolygonShape3D_hfjtv")
 transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.18, -57.301)
 mesh = SubResource("PrismMesh_h7aqf")
 
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.18, -127.585)
+mesh = SubResource("PrismMesh_h7aqf")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(11.623, 0, 0, 0, 12.763, 0, 0, 0, 7.823, 35.896, -13.18, -127.585)
+shape = SubResource("ConcavePolygonShape3D_agfbe")
+
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="WorldStructures/Bridge"]
 transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.18, -57.301)
 mesh = SubResource("PrismMesh_h7aqf")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.18, -127.707)
+mesh = SubResource("PrismMesh_h7aqf")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="WorldStructures/Bridge"]
+transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.18, -127.707)
+shape = SubResource("ConcavePolygonShape3D_0qioc")
 
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="WorldStructures/Bridge"]
 transform = Transform3D(-11.623, 0, 6.83908e-07, 0, 12.763, 0, -1.01611e-06, 0, -7.823, -20.389, -13.18, -57.301)
@@ -765,6 +873,9 @@ omni_range = 151.554
 [node name="WorldAnimators" type="Node" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="WorldAnimators"]
+
+[node name="TestProp" parent="." instance=ExtResource("21_ihdwp")]
+transform = Transform3D(-0.974415, 0, -0.845405, 0, 1.29004, 0, 0.845405, 0, -0.974415, 2.22383, 0, 5.08015)
 
 [connection signal="pressed" from="Pause/CenterButtons/VBoxContainer/Unstuck" to="Player" method="_on_unstuck_pressed"]
 

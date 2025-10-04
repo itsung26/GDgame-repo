@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx4nq556tme8p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4xpj6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j30v6"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_4xpj6")
+size = Vector3(1, 0.5, 2.295)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0qxho"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0qxho"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_0qxho")
+size = Vector3(0.32, 0.255, 0.685)
+
+[node name="SwitchInteractable" type="StaticBody3D"]
+collision_layer = 4
+collision_mask = 9
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25881, 0)
+mesh = SubResource("BoxMesh_j30v6")
+
+[node name="SwitchPivot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.760723, 0.649076, 0, -0.649076, 0.760723, 0, 0.327658, -0.0735252)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="SwitchPivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.350138, 0)
+mesh = SubResource("BoxMesh_0qxho")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]

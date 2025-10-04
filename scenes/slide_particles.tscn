@@ -102,10 +102,10 @@ process_material = SubResource("ParticleProcessMaterial_fqo70")
 draw_pass_1 = SubResource("RibbonTrailMesh_ieo72")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="ImpactParticles"]
-transform = Transform3D(1, -4.76456e-22, -1.06581e-14, 0, 1, -4.47035e-08, 1.06581e-14, 4.47035e-08, 1, -4.07312e-08, -0.22145, -0.465911)
+transform = Transform3D(0.333333, -1.86517e-14, 1.42109e-14, 0, 0.333333, -1.49012e-08, 3.55271e-15, 1.49012e-08, 0.333333, -5.19995e-10, -0.00282714, -0.00594804)
 light_color = Color(1, 0.843137, 0, 1)
 light_energy = 8.374
-omni_range = 1.37887
+omni_range = 2.741
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ImpactParticles"]
 libraries = {

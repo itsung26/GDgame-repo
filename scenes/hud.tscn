@@ -1,24 +1,503 @@
-[gd_scene load_steps=20 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=54 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
+[ext_resource type="Shader" uid="uid://bi2iehpkbu0ux" path="res://shaders/fake3dshader.tres" id="3_0m4u7"]
+[ext_resource type="Script" uid="uid://ckv8nv3jfaqv3" path="res://scripts/top_right_area.gd" id="3_apjy4"]
 [ext_resource type="Texture2D" uid="uid://cesgf4gdxak83" path="res://assets/sprite assets/ui/redBorder.png" id="4_5pdws"]
 [ext_resource type="Texture2D" uid="uid://cck5a75oy6yxe" path="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/mouse_right.png" id="4_047uy"]
-[ext_resource type="Theme" uid="uid://dm766vchyhueo" path="res://assets/styles/arm_selection.tres" id="4_mphia"]
+[ext_resource type="LabelSettings" uid="uid://bnh6vlxey4bnf" path="res://assets/styles/parry_label_settings.tres" id="5_apjy4"]
 [ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="6_0i1j5"]
 [ext_resource type="Texture2D" uid="uid://or2ej7i2utos" path="res://assets/materials/pistol_bullet.tres" id="6_5pdws"]
+[ext_resource type="Theme" uid="uid://87fgt3sr1n4k" path="res://assets/styles/healthbar theme.tres" id="9_mphia"]
 [ext_resource type="Texture2D" uid="uid://cmgvv04tqig53" path="res://assets/sprite assets/gunmodel previews/black hole gun/black_hole_2.png" id="11_5n1hp"]
 [ext_resource type="FontFile" uid="uid://dkbqwfkfiwoii" path="res://assets/fonts/numberFont/Ethnocentric Rg It.otf" id="12_apjy4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mphia"]
+shader = ExtResource("3_0m4u7")
+shader_parameter/cull_backface = false
+shader_parameter/use_front = true
+shader_parameter/fov = 90.0
+shader_parameter/rot_y_deg = -18.582
+shader_parameter/rot_x_deg = 0.0
+shader_parameter/inset = 0.304
+
+[sub_resource type="Animation" id="Animation_3swnk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StyleBox:material:shader_parameter/cull_backface")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StyleBox:material:shader_parameter/use_front")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StyleBox:material:shader_parameter/fov")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [90.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StyleBox:material:shader_parameter/rot_y_deg")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-18.582]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StyleBox:material:shader_parameter/rot_x_deg")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("StyleBox:material:shader_parameter/inset")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.304]
+}
+
+[sub_resource type="Animation" id="Animation_qkknv"]
+resource_name = "spin_right"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StyleBox:material:shader_parameter/rot_y_deg")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-18.582, 341.418]
+}
+
+[sub_resource type="Animation" id="Animation_eld54"]
+resource_name = "set_angle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StyleBox:material:shader_parameter/cull_backface")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StyleBox:material:shader_parameter/use_front")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StyleBox:material:shader_parameter/fov")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [90.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StyleBox:material:shader_parameter/rot_y_deg")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-15.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StyleBox:material:shader_parameter/rot_x_deg")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("StyleBox:material:shader_parameter/inset")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.304]
+}
+
+[sub_resource type="Animation" id="Animation_084dp"]
+resource_name = "normal_angle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StyleBox:material:shader_parameter/rot_y_deg")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StyleBox:material:shader_parameter/inset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uxdf7"]
+_data = {
+&"RESET": SubResource("Animation_3swnk"),
+&"normal_angle": SubResource("Animation_084dp"),
+&"set_angle": SubResource("Animation_eld54"),
+&"spin_right": SubResource("Animation_qkknv")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mphia"]
+bg_color = Color(0, 0, 0, 0.266667)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0m4u7"]
+font = ExtResource("12_apjy4")
+font_size = 103
+font_color = Color(0, 0, 1, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_apjy4"]
+font = ExtResource("12_apjy4")
+font_size = 103
+font_color = Color(0, 0.878431, 1, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5n1hp"]
+font = ExtResource("12_apjy4")
+font_size = 103
+font_color = Color(0, 0.741176, 0, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_eld54"]
+font = ExtResource("12_apjy4")
+font_size = 103
+font_color = Color(1, 0, 0, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3swnk"]
+font = ExtResource("12_apjy4")
+font_size = 39
+font_color = Color(1, 1, 0, 1)
+
+[sub_resource type="Animation" id="Animation_iypfu"]
+resource_name = "shake"
+length = 0.1735
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0182423, 0.038956, 0.06247, 0.0901954, 0.104139, 0.130555, 0.170849),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(5, 17), Vector2(2, 14), Vector2(18, 9), Vector2(10, 16), Vector2(6, 6), Vector2(10.8366, 11.1821), Vector2(20, 21), Vector2(11, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_qpprf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 17)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3xg78"]
+_data = {
+&"RESET": SubResource("Animation_qpprf"),
+&"shake": SubResource("Animation_iypfu")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_qkknv"]
+font = ExtResource("6_0i1j5")
+font_color = Color(1, 0.647059, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eld54"]
+resource_local_to_scene = true
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3swnk"]
+resource_local_to_scene = true
+bg_color = Color(1, 1, 0, 1)
+
+[sub_resource type="Theme" id="Theme_qkknv"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_eld54")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_3swnk")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0m4u7"]
+shader = ExtResource("3_0m4u7")
+shader_parameter/cull_backface = false
+shader_parameter/use_front = true
+shader_parameter/fov = 90.0
+shader_parameter/rot_y_deg = 15.0
+shader_parameter/rot_x_deg = 0.0
+shader_parameter/inset = 0.0
+
+[sub_resource type="Animation" id="Animation_3xg78"]
+resource_name = "set_angle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/rot_y_deg")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [15.0]
+}
+
+[sub_resource type="Animation" id="Animation_48y67"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/rot_y_deg")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [15.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/rot_x_deg")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(44, -23)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_y2nlu"]
+resource_name = "normal_angle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/rot_y_deg")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_kp442"]
+resource_name = "show_at_front"
+length = 0.3585
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/rot_y_deg")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [15.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/rot_x_deg")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_084dp"]
+_data = {
+&"RESET": SubResource("Animation_48y67"),
+&"normal_angle": SubResource("Animation_y2nlu"),
+&"set_angle": SubResource("Animation_3xg78"),
+&"show_at_front": SubResource("Animation_kp442")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5n1hp"]
+bg_color = Color(0, 0, 0, 0.564706)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m4u7"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apjy4"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_5n1hp"]
+resource_local_to_scene = true
+ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_apjy4"]
 atlas = ExtResource("6_5pdws")
 region = Rect2(28, 22, 8, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkknv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uxdf7"]
+font = ExtResource("6_0i1j5")
+font_size = 31
+font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_047uy"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("OverclockBar/ProgressBar:value")
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/OverclockBar/ProgressBar:value")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -46,7 +525,7 @@ length = 10.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("OverclockBar/ProgressBar:value")
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/OverclockBar/ProgressBar:value")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -105,7 +584,7 @@ length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("OverclockBar/ProgressBar:value")
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/OverclockBar/ProgressBar:value")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -172,6 +651,9 @@ script = ExtResource("1_ahhtf")
 crosshair_width = 2.86
 crosshair_spread = 3.02
 crosshair_length = 8.685
+healthbar_react_speed = 5.0
+staminabar_smooth_react_enabled = false
+staminabar_react_speed = 5.0
 
 [node name="CrosshairContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -292,7 +774,7 @@ offset_top = 625.0
 offset_right = 1151.0
 offset_bottom = 655.0
 theme_override_font_sizes/font_size = 21
-text = "ALPHA BUILD 0.9.8"
+text = " 0.9.10-ALPHA"
 
 [node name="DebugShapesText" type="Label" parent="."]
 layout_mode = 1
@@ -306,55 +788,274 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 21
 text = "DEBUG SHAPES: ENABLED"
 
+[node name="TopRightArea" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.835
+anchor_right = 1.0
+anchor_bottom = 0.389
+offset_left = 0.0799561
+offset_bottom = -0.0720215
+grow_horizontal = 0
+script = ExtResource("3_apjy4")
+
+[node name="StyleBox" type="SubViewportContainer" parent="TopRightArea"]
+material = SubResource("ShaderMaterial_mphia")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="StylePanelAnimator" type="AnimationPlayer" parent="TopRightArea/StyleBox"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_uxdf7")
+}
+
+[node name="SubViewport" type="SubViewport" parent="TopRightArea/StyleBox"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(201, 252)
+render_target_update_mode = 0
+
+[node name="Panel" type="Panel" parent="TopRightArea/StyleBox/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mphia")
+
+[node name="MainScoreLabelD" type="Label" parent="TopRightArea/StyleBox/SubViewport/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.0
+offset_top = -10.0
+offset_right = 52.0
+offset_bottom = 115.0
+grow_horizontal = 2
+scale = Vector2(0.835772, 0.835772)
+size_flags_vertical = 1
+text = "D"
+label_settings = SubResource("LabelSettings_0m4u7")
+
+[node name="MainScoreLabelC" type="Label" parent="TopRightArea/StyleBox/SubViewport/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -59.5
+offset_top = -10.0
+offset_right = 38.5
+offset_bottom = 115.0
+grow_horizontal = 2
+scale = Vector2(0.835772, 0.835772)
+size_flags_vertical = 1
+text = "C"
+label_settings = SubResource("LabelSettings_apjy4")
+
+[node name="MainScoreLabelB" type="Label" parent="TopRightArea/StyleBox/SubViewport/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = -10.0
+offset_right = 39.0
+offset_bottom = 115.0
+grow_horizontal = 2
+scale = Vector2(0.835772, 0.835772)
+size_flags_vertical = 1
+text = "B"
+label_settings = SubResource("LabelSettings_5n1hp")
+
+[node name="MainScoreLabelS" type="Label" parent="TopRightArea/StyleBox/SubViewport/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = -10.0
+offset_right = 39.0
+offset_bottom = 115.0
+grow_horizontal = 2
+scale = Vector2(0.835772, 0.835772)
+size_flags_vertical = 1
+text = "S"
+label_settings = SubResource("LabelSettings_eld54")
+
+[node name="MainScoreLabelMAXED" type="Label" parent="TopRightArea/StyleBox/SubViewport/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.067
+anchor_right = 0.5
+anchor_bottom = 0.067
+offset_left = -109.5
+offset_top = 0.115999
+offset_right = 99.5
+offset_bottom = 74.116
+grow_horizontal = 2
+scale = Vector2(0.835772, 0.835772)
+size_flags_vertical = 1
+text = "MAXED"
+label_settings = SubResource("LabelSettings_3swnk")
+
+[node name="TextShaker" type="AnimationPlayer" parent="TopRightArea/StyleBox/SubViewport/Panel/MainScoreLabelMAXED"]
+libraries = {
+&"": SubResource("AnimationLibrary_3xg78")
+}
+autoplay = "shake"
+
+[node name="Line2D" type="Line2D" parent="TopRightArea/StyleBox/SubViewport/Panel"]
+position = Vector2(0, 92)
+points = PackedVector2Array(-10, -1, 196, -1)
+default_color = Color(0, 0, 0, 0.627451)
+
+[node name="BoxContainer" type="VBoxContainer" parent="TopRightArea/StyleBox/SubViewport/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node" type="Node" parent="TopRightArea/StyleBox/SubViewport/Panel/BoxContainer"]
+
+[node name="StylePointGreen" type="Label" parent="TopRightArea/StyleBox/SubViewport/Panel/BoxContainer/Node"]
+visible = false
+offset_left = 22.0
+offset_top = 96.0
+offset_right = 202.0
+offset_bottom = 117.0
+size_flags_vertical = 1
+text = "+ kill"
+label_settings = ExtResource("5_apjy4")
+
+[node name="StylePointOrange" type="Label" parent="TopRightArea/StyleBox/SubViewport/Panel/BoxContainer/Node"]
+visible = false
+offset_left = 22.0
+offset_top = 117.0
+offset_right = 202.0
+offset_bottom = 138.0
+size_flags_vertical = 1
+text = "+ grapple combo"
+label_settings = SubResource("LabelSettings_qkknv")
+autowrap_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="TopRightArea/StyleBox/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -179.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_qkknv")
+value = 75.0
+fill_mode = 3
+show_percentage = false
+
 [node name="BottomLeftArea" type="Control" parent="."]
-clip_contents = true
+layout_mode = 1
+anchor_top = 0.718
+anchor_right = 0.365
+anchor_bottom = 1.0
+offset_top = -0.264038
+offset_right = -0.480011
+grow_vertical = 0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="BottomLeftArea"]
+material = SubResource("ShaderMaterial_0m4u7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = -23.0
+offset_right = 44.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="AmmoPanelAnimator" type="AnimationPlayer" parent="BottomLeftArea/SubViewportContainer"]
+libraries = {
+&"": SubResource("AnimationLibrary_084dp")
+}
+
+[node name="SubViewport" type="SubViewport" parent="BottomLeftArea/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(420, 183)
+render_target_update_mode = 4
+
+[node name="BGpanel" type="Panel" parent="BottomLeftArea/SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_5n1hp")
+
+[node name="HealthBar" type="ProgressBar" parent="BottomLeftArea/SubViewportContainer/SubViewport/BGpanel"]
 layout_mode = 2
-anchors_preset = 0
-offset_top = 465.0
-offset_right = 420.0
-offset_bottom = 648.0
+offset_right = 15.0
+offset_bottom = 124.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = SubResource("Theme_5n1hp")
+value = 50.0
+fill_mode = 3
+show_percentage = false
 
-[node name="BackPanel" type="ColorRect" parent="BottomLeftArea"]
-z_index = -1
-layout_mode = 0
-offset_right = 420.0
-offset_bottom = 183.0
-color = Color(0, 0, 0, 0.529412)
-
-[node name="WeaponChoiceContainer" type="HBoxContainer" parent="BottomLeftArea"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 8.0
-offset_right = 1545.0
-offset_bottom = 447.0
-scale = Vector2(0.157344, 0.157344)
-
-[node name="ArmChoiceContainer" type="VBoxContainer" parent="BottomLeftArea"]
+[node name="StaminaBar" type="ProgressBar" parent="BottomLeftArea/SubViewportContainer/SubViewport/BGpanel"]
 layout_mode = 2
-offset_left = 275.0
-offset_top = 9.0
-offset_right = 344.0
-offset_bottom = 107.0
-theme = ExtResource("4_mphia")
+offset_left = 19.0
+offset_right = 34.0
+offset_bottom = 124.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("9_mphia")
+max_value = 300.0
+value = 250.0
+fill_mode = 3
+show_percentage = false
 
-[node name="AmmoCounterContainer" type="BoxContainer" parent="BottomLeftArea"]
+[node name="AmmoCounterContainer" type="HBoxContainer" parent="BottomLeftArea/SubViewportContainer/SubViewport/BGpanel"]
 layout_mode = 0
 offset_top = 103.0
 offset_right = 420.0
 offset_bottom = 183.0
 
-[node name="ammoCounter" type="Label" parent="BottomLeftArea/AmmoCounterContainer"]
+[node name="ammoCounter" type="Label" parent="BottomLeftArea/SubViewportContainer/SubViewport/BGpanel/AmmoCounterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_0i1j5")
 theme_override_font_sizes/font_size = 41
 text = "35/35"
 
-[node name="BulletControl" type="Control" parent="BottomLeftArea/AmmoCounterContainer"]
+[node name="BulletControl" type="Control" parent="BottomLeftArea/SubViewportContainer/SubViewport/BGpanel/AmmoCounterContainer"]
 custom_minimum_size = Vector2(12.93, 0)
 layout_mode = 2
 
-[node name="BulletIcon" type="TextureRect" parent="BottomLeftArea/AmmoCounterContainer/BulletControl"]
+[node name="BulletIcon" type="TextureRect" parent="BottomLeftArea/SubViewportContainer/SubViewport/BGpanel/AmmoCounterContainer/BulletControl"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -369,75 +1070,44 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_apjy4")
 
-[node name="BlackHoleControl" type="Control" parent="BottomLeftArea/AmmoCounterContainer"]
+[node name="BlackHoleControl" type="Control" parent="BottomLeftArea/SubViewportContainer/SubViewport/BGpanel/AmmoCounterContainer"]
 custom_minimum_size = Vector2(76.815, 0)
 layout_mode = 2
 
-[node name="BlackHoleIcon" type="TextureRect" parent="BottomLeftArea/AmmoCounterContainer/BlackHoleControl"]
+[node name="BlackHoleIcon" type="TextureRect" parent="BottomLeftArea/SubViewportContainer/SubViewport/BGpanel/AmmoCounterContainer/BlackHoleControl"]
 layout_mode = 1
 offset_right = 225.0
 offset_bottom = 225.0
 scale = Vector2(0.342352, 0.342352)
 texture = ExtResource("11_5n1hp")
 
-[node name="StatusEffectContainer" type="VBoxContainer" parent="BottomLeftArea"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -56.0
-offset_bottom = 183.0
-grow_horizontal = 0
-
-[node name="BlackHoleCooldownContainer" type="VBoxContainer" parent="BottomLeftArea/StatusEffectContainer"]
-layout_mode = 2
-theme_override_constants/separation = 18
-
-[node name="BlackHoleCooldownTimer" type="Label" parent="BottomLeftArea/StatusEffectContainer/BlackHoleCooldownContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.646292, 0.141552, 0.966634, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("12_apjy4")
-theme_override_font_sizes/font_size = 20
-text = "0.00s"
-
-[node name="Control" type="Control" parent="BottomLeftArea/StatusEffectContainer/BlackHoleCooldownContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="TextureRect" type="TextureRect" parent="BottomLeftArea/StatusEffectContainer/BlackHoleCooldownContainer/Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -28.0
-offset_right = 28.0
-offset_bottom = 28.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-texture = ExtResource("11_5n1hp")
-expand_mode = 1
-
-[node name="OverclockBar" type="Control" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -103.0
-offset_top = -396.0
+offset_left = -83.0
+offset_top = -378.0
 grow_horizontal = 0
 grow_vertical = 0
+stretch = true
 
-[node name="MouseIcon" type="TextureRect" parent="OverclockBar"]
-layout_mode = 0
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+size = Vector2i(83, 378)
+
+[node name="OverclockBar" type="Panel" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qkknv")
+
+[node name="MouseIcon" type="TextureRect" parent="SubViewportContainer/SubViewport/OverclockBar"]
+layout_mode = 2
 offset_left = 41.0
 offset_top = 12.0
 offset_right = 81.0
@@ -445,30 +1115,34 @@ offset_bottom = 52.0
 texture = ExtResource("4_047uy")
 expand_mode = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="OverclockBar"]
+[node name="ProgressBar" type="ProgressBar" parent="SubViewportContainer/SubViewport/OverclockBar"]
 layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 47.0
 offset_top = 58.0
-offset_right = 77.0
-offset_bottom = 373.0
+offset_right = -6.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
 value = 100.0
 fill_mode = 3
+show_percentage = false
 
-[node name="Overclock" type="Label" parent="OverclockBar"]
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/OverclockBar"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -27.0
-offset_right = 307.0
-offset_bottom = 23.0
-grow_vertical = 0
-rotation = -1.57079
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_fonts/font = ExtResource("12_apjy4")
-theme_override_font_sizes/font_size = 36
+offset_left = 12.0
+offset_top = 350.0
+offset_right = 194.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
 text = "OVERCLOCK"
+label_settings = SubResource("LabelSettings_uxdf7")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

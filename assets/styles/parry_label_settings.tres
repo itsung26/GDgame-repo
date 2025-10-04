@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bnh6vlxey4bnf"]
+
+[ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="1_b372o"]
+
+[resource]
+font = ExtResource("1_b372o")
+font_color = Color(0, 1, 0, 1)

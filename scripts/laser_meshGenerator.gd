@@ -2,6 +2,9 @@ extends ropeMeshGenerator
 @onready var laser_fx: AnimationPlayer = $LaserFX
 @onready var pistol:Node3D = get_tree().current_scene.find_child("Pistol")
 
+func _ready() -> void:
+	visible = false
+
 # generates two parallel quads using 2 points with ops to get 10 points total
 func generate_mesh_planes(origin:Vector3,target:Vector3):
 	laser_fx.stop()

@@ -28,6 +28,8 @@ var current_frames_per_second = "null"
 @onready var crosshair_left: Line2D = $CrosshairContainer/CrosshairLEFT
 @onready var crosshair_up: Line2D = $CrosshairContainer/CrosshairUP
 @onready var crosshair_down: Line2D = $CrosshairContainer/CrosshairDOWN
+@onready var health_bar: ProgressBar = $BottomLeftArea/SubViewportContainer/SubViewport/BGpanel/HealthBar
+@onready var stamina_bar: ProgressBar = $BottomLeftArea/SubViewportContainer/SubViewport/BGpanel/StaminaBar
 
 @export_category("Crosshair Properties")
 ## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.
@@ -38,6 +40,14 @@ var current_frames_per_second = "null"
 @export var crosshair_spread := 1.0
 ## Determines the length of the crosshair beams.
 @export var crosshair_length := 5.0
+
+@export_category("UI visual properties")
+@export var healthbar_smooth_react_enabled:bool = true
+## The speed at which the healthbar fills and drains in reaction to the player being damaged
+@export var healthbar_react_speed := 1.0
+@export var staminabar_smooth_react_enabled:bool = true
+## The speed at which the healthbar fills and drains in reaction to the player being damaged
+@export var staminabar_react_speed := 1.0
 
 var pistol
 var pistol_on_overclock = false
@@ -105,13 +115,28 @@ func updateCrosshair(width:float=crosshair_width, color:Color=crosshair_albedo, 
 			# set the second point's position
 			crosshair_down.set_point_position(1, Vector2(0, spread + length))
 
+# updates the healthbar
+func updateHealthBar(delta):
+	if healthbar_smooth_react_enabled:
+		health_bar.value = lerp(health_bar.value, player.HEALTH, healthbar_react_speed * delta)
+	else:
+		health_bar.value = player.HEALTH
+
+# updates stamina bar
+func updateStaminaBar(delta):
+	if staminabar_smooth_react_enabled:
+		stamina_bar.value = lerp(stamina_bar.value, player.STAMINA, staminabar_react_speed * delta)
+	else: stamina_bar.value = player.STAMINA
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta) -> void:
+func _process(delta) -> void:
 	if Engine.is_editor_hint():
 		updateCrosshair()
 	else:
 		updateAmmoCounter()
 		updateCrosshair()
+		updateHealthBar(delta)
+		updateStaminaBar(delta)
 			
 		# get engine fps
 		current_frames_per_second = Engine.get_frames_per_second()

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bo4oc21my4mk"]
+
+[ext_resource type="ArrayMesh" uid="uid://mnik7b034pdp" path="res://assets/worldmodels/chair test prop/mesh.res" id="1_abbiu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_abbiu"]
+size = Vector3(1.03717, 0.818787, 0.757568)
+
+[node name="TestProp" type="StaticBody3D"]
+
+[node name="ukkiejiaw_LOD0_TIER3_000" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_abbiu")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00302124, 0.403721, 0.00939941)
+shape = SubResource("BoxShape3D_abbiu")

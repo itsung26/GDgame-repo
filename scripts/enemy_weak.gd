@@ -1,7 +1,8 @@
-extends CharacterBody3D
+class_name enemyWeak extends CharacterBody3D
 
-@export var HEALTH:int = 100.0:
-	set = onEnemyHurt
+@export var HEALTH := 100.0:
+		set = onEnemyHurt
+
 @export var gravity_enabled = true
 @export var SPEED = 3
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -56,7 +57,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta) -> void:
-	player = get_tree().current_scene.find_child("Player")
 	enemy_melee_cooldown.wait_time = AttackCooldown
 	if player:
 		var look_at_player_pos: Vector3 = Vector3(player.global_position.x, global_position.y, player.global_position.z)

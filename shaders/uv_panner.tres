@@ -154,7 +154,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-777.962, 266.6)
 modes/cull = 2
 preview_params/Emission_intensity = "4.13"
 preview_params/cull_threshhold = "0.55"

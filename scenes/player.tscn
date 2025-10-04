@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=59 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
@@ -1590,7 +1590,6 @@ _data = {
 }
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
-particle_flag_align_y = true
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 2)
 direction = Vector3(0, 0, 1)
@@ -1607,6 +1606,26 @@ use_particle_trails = true
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_smehm"]
 material = SubResource("StandardMaterial3D_fjrip")
+size = 0.175
+section_length = 0.03
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d2wvv"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 2)
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3v2ag"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.054902)
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_jej6c"]
+material = SubResource("StandardMaterial3D_3v2ag")
 size = 0.175
 section_length = 0.03
 
@@ -1632,6 +1651,8 @@ collision_mask = 271
 script = ExtResource("1_qhqgy")
 camera_roll_speed = 4.5
 JUMP_VELOCITY = 9.0
+dash_velocity_increase = 50.0
+dash_time_length = 0.125
 GRAPPLE_SPEED_MAX = 75
 
 [node name="GunAnimator" type="AnimationPlayer" parent="."]
@@ -1867,7 +1888,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912845, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419368, 0.0912843, 0.434093, -0.896231, -0.163892, 0.180759, 0.00796503)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1939,12 +1960,23 @@ visible = false
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
 visible = false
-amount = 24
+amount = 12
 lifetime = 0.39
 local_coords = true
 trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_tuyoq")
 draw_pass_1 = SubResource("RibbonTrailMesh_smehm")
+script = ExtResource("7_fjrip")
+
+[node name="WindParticlesRotated" type="GPUParticles3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0, 1, 0, 0, -0.284131)
+visible = false
+amount = 12
+lifetime = 0.39
+local_coords = true
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_d2wvv")
+draw_pass_1 = SubResource("RibbonTrailMesh_jej6c")
 script = ExtResource("7_fjrip")
 
 [node name="WindRings" type="GPUParticles3D" parent="Pivot/Camera3D"]
@@ -1989,8 +2021,16 @@ ignore_time_scale = true
 [node name="CamShakeTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="DashLengthTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StaminaChargeDelayTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
 [connection signal="timeout" from="CamShakeTimer" to="." method="_on_cam_shake_timer_timeout"]
+[connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
+[connection signal="timeout" from="StaminaChargeDelayTimer" to="." method="_on_stamina_charge_delay_timer_timeout"]
 
 [editable path="Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]
