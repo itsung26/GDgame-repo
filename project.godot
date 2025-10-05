@@ -18,8 +18,6 @@ config/name="icantthinkofaname"
 config/version="0.8.9"
 run/main_scene="uid://mhij3rnbxw0r"
 config/features=PackedStringArray("4.4", "Forward Plus")
-boot_splash/fullsize=false
-boot_splash/image="uid://gufxqvpl428h"
 config/icon="res://icon.svg"
 
 [audio]
