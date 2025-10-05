@@ -1,7 +1,7 @@
-[gd_scene load_steps=68 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=63 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
-[ext_resource type="Shader" uid="uid://bi2iehpkbu0ux" path="res://shaders/fake3dshader.tres" id="3_0m4u7"]
+[ext_resource type="Shader" uid="uid://bi2iehpkbu0ux" path="res://shaders/GDSL shaders/fake3dshader.tres" id="3_0m4u7"]
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_5n1hp"]
 [ext_resource type="Script" uid="uid://ckv8nv3jfaqv3" path="res://scripts/top_right_area.gd" id="3_apjy4"]
 [ext_resource type="Texture2D" uid="uid://cesgf4gdxak83" path="res://assets/sprite assets/ui/redBorder.png" id="4_5pdws"]
@@ -11,8 +11,13 @@
 [ext_resource type="Texture2D" uid="uid://or2ej7i2utos" path="res://assets/materials/pistol_bullet.tres" id="6_5pdws"]
 [ext_resource type="Script" uid="uid://1ueu18jmd682" path="res://scripts/bottom_left_area.gd" id="8_apjy4"]
 [ext_resource type="Theme" uid="uid://87fgt3sr1n4k" path="res://assets/styles/healthbar theme.tres" id="9_mphia"]
+[ext_resource type="StyleBox" uid="uid://1t7ewdnol1t4" path="res://assets/styles/bottom left panels.tres" id="10_eld54"]
 [ext_resource type="Texture2D" uid="uid://cmgvv04tqig53" path="res://assets/sprite assets/gunmodel previews/black hole gun/black_hole_2.png" id="11_5n1hp"]
 [ext_resource type="FontFile" uid="uid://dkbqwfkfiwoii" path="res://assets/fonts/numberFont/Ethnocentric Rg It.otf" id="12_apjy4"]
+[ext_resource type="Texture2D" uid="uid://blirnfdidmoky" path="res://assets/sprite assets/ui/icons generic/800px-WhiplashRenderFull.webp" id="14_3swnk"]
+[ext_resource type="Texture2D" uid="uid://63pq8i0x4ors" path="res://assets/sprite assets/ui/icons generic/Black hole gun outline.png" id="14_uxdf7"]
+[ext_resource type="Texture2D" uid="uid://divrgvxmrkt80" path="res://assets/sprite assets/ui/icons generic/pistol outline.png" id="15_5357l"]
+[ext_resource type="Texture2D" uid="uid://dv28tr2kvmsjf" path="res://assets/sprite assets/ui/icons generic/WhiplashHUDNew.webp" id="15_qkknv"]
 
 [sub_resource type="Theme" id="Theme_eld54"]
 Label/fonts/font = ExtResource("3_5n1hp")
@@ -25,212 +30,9 @@ shader = ExtResource("3_0m4u7")
 shader_parameter/cull_backface = false
 shader_parameter/use_front = true
 shader_parameter/fov = 90.0
-shader_parameter/rot_y_deg = -18.582
+shader_parameter/rot_y_deg = -15.0
 shader_parameter/rot_x_deg = 0.0
 shader_parameter/inset = 0.304
-
-[sub_resource type="Animation" id="Animation_3swnk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StyleBox:material:shader_parameter/cull_backface")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StyleBox:material:shader_parameter/use_front")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("StyleBox:material:shader_parameter/fov")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [90.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("StyleBox:material:shader_parameter/rot_y_deg")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-18.582]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("StyleBox:material:shader_parameter/rot_x_deg")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("StyleBox:material:shader_parameter/inset")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.304]
-}
-
-[sub_resource type="Animation" id="Animation_084dp"]
-resource_name = "normal_angle"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StyleBox:material:shader_parameter/rot_y_deg")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StyleBox:material:shader_parameter/inset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_eld54"]
-resource_name = "set_angle"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StyleBox:material:shader_parameter/cull_backface")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StyleBox:material:shader_parameter/use_front")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("StyleBox:material:shader_parameter/fov")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [90.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("StyleBox:material:shader_parameter/rot_y_deg")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-15.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("StyleBox:material:shader_parameter/rot_x_deg")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("StyleBox:material:shader_parameter/inset")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.304]
-}
-
-[sub_resource type="Animation" id="Animation_qkknv"]
-resource_name = "spin_right"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StyleBox:material:shader_parameter/rot_y_deg")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-18.582, 341.418]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_uxdf7"]
-_data = {
-&"RESET": SubResource("Animation_3swnk"),
-&"normal_angle": SubResource("Animation_084dp"),
-&"set_angle": SubResource("Animation_eld54"),
-&"spin_right": SubResource("Animation_qkknv")
-}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mphia"]
 bg_color = Color(0, 0, 0, 0.266667)
@@ -327,147 +129,9 @@ shader = ExtResource("3_0m4u7")
 shader_parameter/cull_backface = false
 shader_parameter/use_front = true
 shader_parameter/fov = 90.0
-shader_parameter/rot_y_deg = 15.0
+shader_parameter/rot_y_deg = 18.0
 shader_parameter/rot_x_deg = 0.0
 shader_parameter/inset = 0.0
-
-[sub_resource type="Animation" id="Animation_48y67"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/rot_y_deg")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [15.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/rot_x_deg")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(44, -23)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_y2nlu"]
-resource_name = "normal_angle"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/rot_y_deg")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_3xg78"]
-resource_name = "set_angle"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/rot_y_deg")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [15.0]
-}
-
-[sub_resource type="Animation" id="Animation_kp442"]
-resource_name = "show_at_front"
-length = 0.3585
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/rot_y_deg")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [15.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/rot_x_deg")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_084dp"]
-_data = {
-&"RESET": SubResource("Animation_48y67"),
-&"normal_angle": SubResource("Animation_y2nlu"),
-&"set_angle": SubResource("Animation_3xg78"),
-&"show_at_front": SubResource("Animation_kp442")
-}
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5n1hp"]
-bg_color = Color(0, 0, 0, 0.564706)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m4u7"]
 bg_color = Color(0, 0, 0, 1)
@@ -495,6 +159,13 @@ font_size = 41
 [sub_resource type="AtlasTexture" id="AtlasTexture_apjy4"]
 atlas = ExtResource("6_5pdws")
 region = Rect2(28, 22, 8, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iypfu"]
+bg_color = Color(0, 0, 0, 0.564706)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="Shader" id="Shader_0m4u7"]
 code = "/// Faux 3D Perspective Shader for 2D CanvasItems in Godot.
@@ -569,6 +240,21 @@ shader_parameter/rot_y_deg = -4.99998
 shader_parameter/rot_x_deg = 0.0
 shader_parameter/inset = 0.0
 
+[sub_resource type="Animation" id="Animation_ptr5m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/rot_y_deg")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-4.99998]
+}
+
 [sub_resource type="Animation" id="Animation_gltyx"]
 resource_name = "set_angle"
 length = 0.001
@@ -599,21 +285,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_ptr5m"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/rot_y_deg")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-4.99998]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_of3ib"]
@@ -912,7 +583,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 41
-text = "FPS: 61.0"
+text = "FPS: 60.0"
 
 [node name="==========2" type="Label" parent="DebugContainer"]
 layout_mode = 2
@@ -949,12 +620,6 @@ offset_left = -11.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-
-[node name="StylePanelAnimator" type="AnimationPlayer" parent="TopRightArea/StyleBox"]
-root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_uxdf7")
-}
 
 [node name="SubViewport" type="SubViewport" parent="TopRightArea/StyleBox"]
 transparent_bg = true
@@ -1109,11 +774,10 @@ show_percentage = false
 
 [node name="BottomLeftArea" type="Control" parent="."]
 layout_mode = 1
-anchor_top = 0.718
-anchor_right = 0.365
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -0.264038
-offset_right = -0.480011
+offset_top = 465.0
+offset_right = -732.0
 grow_vertical = 0
 script = ExtResource("8_apjy4")
 ammo_panel_lerp_left_target = 30.0
@@ -1125,37 +789,33 @@ ammo_panel_forward_target = 0.89
 [node name="AmmoPanel" type="SubViewportContainer" parent="BottomLeftArea"]
 material = SubResource("ShaderMaterial_0m4u7")
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 44.0
-offset_top = -23.0
-offset_right = 44.0
+offset_top = -206.0
+offset_right = 569.0
 offset_bottom = -23.0
-grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 stretch = true
-
-[node name="AmmoPanelAnimator" type="AnimationPlayer" parent="BottomLeftArea/AmmoPanel"]
-libraries = {
-&"": SubResource("AnimationLibrary_084dp")
-}
 
 [node name="SubViewport" type="SubViewport" parent="BottomLeftArea/AmmoPanel"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(420, 183)
+size = Vector2i(525, 183)
 render_target_update_mode = 4
 
 [node name="BGpanel" type="Panel" parent="BottomLeftArea/AmmoPanel/SubViewport"]
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_top = 1.0
 anchor_bottom = 1.0
+offset_top = -183.0
+offset_right = 420.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_5n1hp")
+theme_override_styles/panel = ExtResource("10_eld54")
 
 [node name="HealthBar" type="ProgressBar" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel"]
 layout_mode = 2
@@ -1224,6 +884,54 @@ offset_right = 225.0
 offset_bottom = 225.0
 scale = Vector2(0.342352, 0.342352)
 texture = ExtResource("11_5n1hp")
+
+[node name="Black hole gun outline" type="TextureRect" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_left = 37.0
+offset_top = 9.00003
+offset_right = 364.0
+offset_bottom = 102.0
+texture = ExtResource("14_uxdf7")
+expand_mode = 1
+
+[node name="Pistol outline" type="TextureRect" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -0.999969
+offset_right = 393.0
+offset_bottom = 111.0
+texture = ExtResource("15_5357l")
+expand_mode = 1
+
+[node name="ArmPanel" type="Panel" parent="BottomLeftArea/AmmoPanel/SubViewport"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 423.0
+offset_top = -128.0
+offset_right = 508.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_iypfu")
+
+[node name="TextureRect" type="TextureRect" parent="BottomLeftArea/AmmoPanel/SubViewport/ArmPanel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.00003
+offset_right = 75.0
+offset_bottom = 117.0
+texture = ExtResource("14_3swnk")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="BottomLeftArea/AmmoPanel/SubViewport/ArmPanel"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 38.0
+offset_right = 46.0
+offset_bottom = 82.0
+texture = ExtResource("15_qkknv")
+expand_mode = 1
 
 [node name="OverClockBarSubViewport" type="SubViewportContainer" parent="."]
 material = SubResource("ShaderMaterial_apjy4")

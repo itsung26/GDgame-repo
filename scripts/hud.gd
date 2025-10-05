@@ -30,6 +30,8 @@ var current_frames_per_second = "null"
 @onready var crosshair_down: Line2D = $CrosshairContainer/CrosshairDOWN
 @onready var health_bar: ProgressBar = get_tree().current_scene.find_child("HealthBar")
 @onready var stamina_bar: ProgressBar = get_tree().current_scene.find_child("StaminaBar")
+@onready var black_hole_gun_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/Black hole gun outline"
+@onready var pistol_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/Pistol outline"
 
 @export_category("Crosshair Properties")
 ## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.
@@ -56,7 +58,7 @@ var crosshair_lines := []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		print("in editor")
+		print("executing editor startup functions \ninitializing editor startup parameters")
 		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
 	else:
 		pistol = player.get_node("Pivot/Camera3D/Guns/Pistol")
@@ -128,6 +130,10 @@ func updateStaminaBar(delta):
 		stamina_bar.value = lerp(stamina_bar.value, player.STAMINA, staminabar_react_speed * delta)
 	else: stamina_bar.value = player.STAMINA
 
+# updates the weapon outline shown
+func updateWeaponOutline():
+	pass
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta) -> void:
 	if Engine.is_editor_hint():
@@ -161,3 +167,27 @@ func _process(delta) -> void:
 		%CurrentMagnitudeXZ.text = "Current player velocity magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
 		# ----------------------------------------------------------------------------------------------
 		
+
+
+func _on_player_entered_weapon_state(new_weapon_state: int, previous_weapon_state:int) -> void:
+	# ladder for current (new) weapon
+	match new_weapon_state:
+		
+		player.weapon_states.PISTOL:
+			pistol_outline.visible = true
+			
+		player.weapon_states.BLL:
+			black_hole_gun_outline.visible = true
+	
+	# ladder for old weapon
+	match previous_weapon_state:
+		
+		player.weapon_states.PISTOL:
+			pistol_outline.visible = false
+			
+		player.weapon_states.BLL:
+			black_hole_gun_outline.visible = false
+			
+			
+			
+			

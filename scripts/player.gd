@@ -28,12 +28,16 @@ extends CharacterBody3D
 @onready var dash_length_timer: Timer = $DashLengthTimer
 @onready var stamina_charge_delay_timer: Timer = $StaminaChargeDelayTimer
 
+signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_state:weapon_states)
+
 @export_category("General")
 @export var player_move_input_enabled:bool = true
 @export var player_look_input_enabled:bool = true
 @export var player_fire_input_enabled:bool = true
 @export var player_kinematics_enabled:bool = true
 @export var player_dash_input_enabled:bool = true
+@export var player_grapple_input_enabled:bool = true
+@export var weapon_switch_enabled:bool = true
 @export var stamina_recharging:bool = true
 
 @export_category("Main Attributes")
@@ -152,7 +156,7 @@ func _ready() -> void:
 	# set the grapple hook's physics process to static so it doesn't fall to the depths of hell
 	grapple_hook.freeze = true
 	
-	# Set the initial states (optional)
+	# Set the initial states
 	#player_state = player_states.GROUNDED
 	#action_state = action_states.IDLE
 	#weapon_state = weapon_states.PISTOL
@@ -167,6 +171,7 @@ func set_player_state(new_player_state:int):
 		player_fire_input_enabled = false
 		player_look_input_enabled = false
 		player_move_input_enabled = false
+		player_grapple_input_enabled = false
 		
 	# REELINGTO to and from
 	if new_player_state == player_states.REELINGTO:
@@ -194,7 +199,6 @@ func set_player_state(new_player_state:int):
 		
 	# DASHING to and from
 	if new_player_state == player_states.DASHING:
-		print("entered dashing state")
 		stamina_recharging = false
 		stamina_charge_delay_timer.start(stamina_charge_delay)
 		STAMINA -= 100
@@ -215,7 +219,6 @@ func set_player_state(new_player_state:int):
 		else:
 			velocity = direction * dash_velocity_increase
 	if previous_player_state == player_states.DASHING:
-		print("exited dashing state")
 		velocity = Vector3.ZERO
 		gravity_enabled = true
 	
@@ -233,6 +236,9 @@ func set_weapon_state(new_weapon_state:int):
 	# init vars
 	var previous_weapon_state := weapon_state
 	weapon_state = new_weapon_state
+	
+	# emit signal
+	entered_weapon_state.emit(weapon_state, previous_weapon_state)
 	
 	# pistol to and from
 	if new_weapon_state == weapon_states.PISTOL:
@@ -290,12 +296,15 @@ func set_action_state(new_action_state:int):
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
+	# handle weapon switch
+	gunInputs()
+	
 	# handle force-quitting
 	if Input.is_action_just_pressed("forcequit"):
 		get_tree().quit()
 	
 	# handle grapple activation
-	if Input.is_action_just_pressed("grapple"):
+	if Input.is_action_just_pressed("grapple") and player_grapple_input_enabled:
 		if action_state != action_states.GRAPPLING:
 			action_state = action_states.GRAPPLING
 		elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
@@ -345,7 +354,7 @@ func cameraFX(delta):
 
 	# Smoothly interpolate the camera roll
 	camera_3d.rotation.z = lerp_angle(camera_3d.rotation.z, deg_to_rad(camera_target_roll), camera_roll_speed * delta)
-	
+
 	# clamp the camera view to prevent back breaking
 	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
 
@@ -463,19 +472,18 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3.ZERO
 	move_and_slide()
 
-func gunInputs(): # run every frame in _process
-	
+func gunInputs(): # to be called in a method that can "hear" inputs
 	# switch weapon block==================================================================================
-	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states.MELEE:
+	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states.MELEE and weapon_switch_enabled:
 		weapon_state = weapon_states.MELEE
 		
-	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states.PISTOL:
+	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states.PISTOL and weapon_switch_enabled:
 		weapon_state = weapon_states.PISTOL
 		
-	if Input.is_action_just_pressed("slot3") and weapon_state != weapon_states.SHOTGUN:
+	if Input.is_action_just_pressed("slot3") and weapon_state != weapon_states.SHOTGUN and weapon_switch_enabled:
 		weapon_state = weapon_states.SHOTGUN
 		
-	if Input.is_action_just_pressed("slot4") and weapon_state != weapon_states.BLL:
+	if Input.is_action_just_pressed("slot4") and weapon_state != weapon_states.BLL and weapon_switch_enabled:
 		weapon_state = weapon_states.BLL
 	
 	# automatic fire block===================================================================================
@@ -579,19 +587,19 @@ func _process(delta) -> void:
 		playerDie()
 	
 	
-	gunInputs()
 	
 # updates the string variables that contain the names of the state based on the active state
 func updateStateStrings():
 	# update the string name of the weapon state every frame
-	if weapon_state == weapon_states.PISTOL:
-		current_weapon_string_name = "pistol"
-	elif weapon_state == weapon_states.BLL:
-		current_weapon_string_name = "black hole launcher"
-	elif weapon_state == weapon_states.SHOTGUN:
-		current_weapon_string_name = "shotgun"
-	elif weapon_state == weapon_states.MELEE:
-		current_weapon_string_name = "MELEE"
+	match weapon_state:
+		weapon_states.PISTOL:
+			current_weapon_string_name = "pistol"
+		weapon_states.BLL:
+			current_weapon_string_name = "black hole launcher"
+		weapon_states.SHOTGUN:
+			current_weapon_string_name = "shotgun"
+		weapon_states.MELEE:
+			current_weapon_string_name = "MELEE"
 		
 	# update the string name of the player state every frame
 	if player_state == player_states.GROUNDED:

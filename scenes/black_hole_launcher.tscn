@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cu4oqatpchesp" path="res://scripts/black_hole_launcher.gd" id="1_w71ph"]
 [ext_resource type="Material" uid="uid://bkuc7jl17ni87" path="res://assets/materials/BLL_body.tres" id="2_aixi7"]
-[ext_resource type="Shader" uid="uid://x7aeciq3y1ex" path="res://shaders/BlackHoleLauncher.tres" id="2_h8qga"]
+[ext_resource type="Shader" uid="uid://x7aeciq3y1ex" path="res://shaders/visual shaders/BlackHoleLauncher.tres" id="2_h8qga"]
 [ext_resource type="Material" uid="uid://dpqopovitldbr" path="res://assets/materials/emissives/heat_material.tres" id="2_hgjyr"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_w71ph"]

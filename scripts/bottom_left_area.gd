@@ -36,6 +36,4 @@ func shiftMenuPos(delta=get_process_delta_time()): # void
 
 	
 func _process(delta: float) -> void:
-	print(ammo_panel_lerp_left_target)
-	print(ammo_panel.position.x)
 	shiftMenuPos()
