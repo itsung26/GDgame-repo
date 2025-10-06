@@ -27,6 +27,7 @@ extends CharacterBody3D
 @onready var wind_rings: GPUParticles3D = $Pivot/Camera3D/WindRings
 @onready var dash_length_timer: Timer = $DashLengthTimer
 @onready var stamina_charge_delay_timer: Timer = $StaminaChargeDelayTimer
+@onready var tail_marker: Marker3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/TailMarker
 
 signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_state:weapon_states)
 
@@ -98,7 +99,7 @@ var BLL_AMMO := BLL_MAGSIZE
 # 3 seperate FSMs (finite state machines) to replace conditional trees
 enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING, DASHING, SLAMMING}
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
-enum action_states{IDLE, GRAPPLING, PARRYING}
+enum action_states{IDLE, GRAPPLING, PARRYING, REELINGFROM}
 
 var player_state:player_states = player_states.GROUNDED:
 	set = set_player_state
@@ -135,6 +136,8 @@ var impact_sparks_2:GPUParticles3D
 var slide_light:OmniLight3D
 var pause:Control
 var dash_dir:Vector3
+var hooked_target:Object = null
+var hooked_target_pull_origin:Object = null
 
 func _ready() -> void:
 	# object reference definitions
@@ -273,7 +276,7 @@ func set_action_state(new_action_state:int):
 	var previous_action_state := action_state
 	action_state = new_action_state
 	
-	# grapple to and from
+	# grappling to and from
 	if new_action_state == action_states.GRAPPLING and Grapple_Enabled:
 		grapple_rope_mesh_gen.visible = true
 		grapple_hook.reparent(get_tree().root) # reparent and face direction raycast is looking
@@ -283,9 +286,9 @@ func set_action_state(new_action_state:int):
 		grapple_hook.freeze = false
 		# Use basis to get the forward direction
 		var forward = grapple_hook.global_transform.basis.z.normalized()
-		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX
+		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX # move forwards with a set linear velocity
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
-	if previous_action_state == action_states.GRAPPLING:
+	if previous_action_state == action_states.GRAPPLING and new_action_state != action_states.REELINGFROM: # run these actions upon moving out of grappling state unless going into reelingfrom state
 		grapple_rope_mesh_gen.visible = false
 		grapple_hook.freeze = true
 		grapple_hook.reparent(rope_origin) # reparent and set it to face how it did before
@@ -293,11 +296,14 @@ func set_action_state(new_action_state:int):
 		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
 		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
+		
+	# reelingfrom (pulling) to and from
+	if new_action_state == action_states.REELINGFROM:
+		print("reeling to player")
+		
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
-	# handle weapon switch
-	gunInputs()
 	
 	# handle force-quitting
 	if Input.is_action_just_pressed("forcequit"):
@@ -557,17 +563,26 @@ func gunInputs(): # to be called in a method that can "hear" inputs
 			print("no special attack available")
 	# ======================================================================================================
 
-func charge_stamina(delta):
+func charge_stamina(delta=get_process_delta_time()):
 	if stamina_recharging:
 		STAMINA = move_toward(STAMINA, 300.0, stamina_charge_speed * delta)
 
+func processTargetPull(delta=get_process_delta_time()):
+	if hooked_target:
+		var target_to_player_dir:Vector3 = 
+		grapple_hook.look_at(player.global_position, Vector3.UP)
+		grapple_hook.global_position = hooked_target_pull_origin.global_position
+		# hooked_target.velocity = 
+	else:
+		print("WARNING: no target to pull detected")
 
 var a = true
 func _process(delta) -> void:
-	charge_stamina(delta)
+	charge_stamina()
 	
-	# updates string variables with the current state for debug purposes
-	updateStateStrings()
+	# the main process where the enemy gets drawn to the player on the hook
+	if action_state != action_states.IDLE:
+		processTargetPull()
 	
 	# keeps the rope attatched to the grapple bit
 	grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
@@ -586,42 +601,41 @@ func _process(delta) -> void:
 	if HEALTH <= 0:
 		playerDie()
 	
+	# handle all weapon inputs
+	gunInputs()
+	# updates string variables with the current state for debug purposes
+	updateStateStrings()
+
+	
 	
 	
 # updates the string variables that contain the names of the state based on the active state
 func updateStateStrings():
 	# update the string name of the weapon state every frame
 	match weapon_state:
-		weapon_states.PISTOL:
-			current_weapon_string_name = "pistol"
-		weapon_states.BLL:
-			current_weapon_string_name = "black hole launcher"
-		weapon_states.SHOTGUN:
-			current_weapon_string_name = "shotgun"
-		weapon_states.MELEE:
-			current_weapon_string_name = "MELEE"
+		weapon_states.PISTOL: current_weapon_string_name = "pistol"
+		weapon_states.BLL: current_weapon_string_name = "black hole launcher"
+		weapon_states.SHOTGUN: current_weapon_string_name = "shotgun"
+		weapon_states.MELEE: current_weapon_string_name = "MELEE"
 		
 	# update the string name of the player state every frame
-	if player_state == player_states.GROUNDED:
-		current_player_string_name = "GROUNDED"
-	elif player_state == player_states.DEAD:
-		current_player_string_name = "DEAD"
-	elif player_state == player_states.FALLING:
-		current_player_string_name = "FALLING"
-	elif player_state == player_states.REELINGTO:
-		current_player_string_name = "REELINGTO"
-	elif player_state == player_states.SLIDING:
-		current_player_string_name = "SLIDING"
-	elif player_state == player_states.DASHING:
-		current_player_string_name = "DASHING"
-	elif player_state == player_states.SLAMMING:
-		current_player_string_name = "SLAMMING"
+	match player_state:
+		player_states.GROUNDED: current_player_string_name = "GROUNDED"
+		player_states.DEAD: current_player_string_name = "DEAD"
+		player_states.FALLING: current_player_string_name = "FALLING"
+		player_states.REELINGTO: current_player_string_name = "REELINGTO"
+		player_states.SLIDING: current_player_string_name = "SLIDING"
+		player_states.DASHING: current_player_string_name = "DASHING"
+		player_states.SLAMMING: current_player_string_name = "SLAMMING"
+		
+		
 
 	# update the string name of the action every frame
-	if action_state == action_states.GRAPPLING:
-		current_action_string_name = "GRAPPLING"
-	elif action_state == action_states.IDLE:
-		current_action_string_name = "IDLE"
+	match action_state:
+		action_states.IDLE: current_action_string_name = "IDLE"
+		action_states.GRAPPLING: current_action_string_name = "GRAPPLING"
+		action_states.PARRYING: current_action_string_name = "PARRYING"
+		action_states.REELINGFROM: current_action_string_name = "REELINGFROM"
 
 # note: zoomOut and zoomIn are reversed. I screwed up.
 func _on_hud_zoom_in_trigger() -> void:
@@ -641,9 +655,14 @@ func _on_cam_shake_timer_timeout() -> void:
 	doing_shake = false
 
 # when the grapple hook's smaller collider hits the world, retract
+# when it hits enemies, pull them towards player
 func _on_world_collide_box_body_entered(body: Node3D) -> void:
-	if not body.is_in_group("grapple_cubes"):
-		print(body)
+	hooked_target = body
+	hooked_target_pull_origin = hooked_target.find_child("Pull Marker")
+
+	# if hit body was not in either group, it was part of the world
+	if not body.is_in_group("grapple_cubes") and not body.is_in_group("enemy"):
+		hooked_target = null
 		var impact_particles = impact_particles_scene.instantiate()
 		var impact_pos = grapple_hook.global_position
 		var particle_look_marker = impact_particles.get_node("Marker")
@@ -651,6 +670,13 @@ func _on_world_collide_box_body_entered(body: Node3D) -> void:
 		impact_particles.global_position = impact_pos
 		particle_look_marker.global_position = camera_3d.global_position
 		action_state = action_states.IDLE
+	elif hooked_target.is_in_group("light"):
+		grapple_hook.freeze = true
+		grapple_hook.global_position = hooked_target_pull_origin.global_position
+		grapple_hook.look_at(tail_marker.global_position, Vector3.UP)
+
+func _on_world_collide_box_body_exited(body: Node3D) -> void:
+	hooked_target = null
 
 # when the unstuck button is pressed, reset the player states and go to origin
 func _on_unstuck_pressed() -> void:
@@ -671,3 +697,8 @@ func _on_dash_length_timer_timeout() -> void:
 
 func _on_stamina_charge_delay_timer_timeout() -> void:
 	stamina_recharging = true
+
+
+func _on_grapple_enemy_cease_area_body_entered(body: CharacterBody3D) -> void:
+	if body.is_in_group("light"):
+		print("light enemy entered grapple area")

@@ -40,6 +40,8 @@ players=""
 weaponBlocks=""
 "weak enemy"=""
 "dummy enemy"=""
+light=""
+grapple_cubes=""
 
 [input]
 
@@ -152,4 +154,4 @@ dash={
 
 [physics]
 
-common/physics_ticks_per_second=90
+common/physics_ticks_per_second=120

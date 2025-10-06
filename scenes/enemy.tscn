@@ -106,7 +106,7 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_7p1mj"]
 size = Vector3(1, 1.99808, 1.02301)
 
-[node name="enemy" type="CharacterBody3D" groups=["enemy", "weak enemy"]]
+[node name="enemy" type="CharacterBody3D" groups=["enemy", "light", "weak enemy"]]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_7p1mj")

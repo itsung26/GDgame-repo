@@ -528,7 +528,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "============================="
 
-[node name="BodyHitDebug" type="Label" parent="DebugContainer"]
+[node name="HookedTarget" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Last body hit: null"
@@ -774,6 +774,7 @@ show_percentage = false
 
 [node name="BottomLeftArea" type="Control" parent="."]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 465.0
@@ -806,7 +807,7 @@ size = Vector2i(525, 183)
 render_target_update_mode = 4
 
 [node name="BGpanel" type="Panel" parent="BottomLeftArea/AmmoPanel/SubViewport"]
-anchors_preset = -1
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -183.0

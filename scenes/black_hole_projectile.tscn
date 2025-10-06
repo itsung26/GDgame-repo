@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8qwp5eoecr5x"]
+[gd_scene load_steps=19 format=3 uid="uid://b8qwp5eoecr5x"]
 
 [ext_resource type="Script" uid="uid://bl7r6a7ijf3n8" path="res://scripts/black_hole_projectile.gd" id="1_rfnx6"]
+[ext_resource type="Shader" uid="uid://bc8elyc8c7dbs" path="res://shaders/visual shaders/BlackHoleShader.tres" id="2_behx8"]
 [ext_resource type="Texture2D" uid="uid://bnrahmvqo7e3" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/star_04.png" id="2_v6maq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrdnh"]
@@ -17,15 +18,18 @@ disable_receive_shadows = true
 lightmap_size_hint = Vector2i(17, 9)
 material = SubResource("StandardMaterial3D_vrdnh")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wk2q4"]
-render_priority = 1
-transparency = 1
-depth_draw_mode = 2
-albedo_color = Color(0, 0, 0, 1)
-metallic_specular = 0.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gvxtt"]
+render_priority = 0
+shader = ExtResource("2_behx8")
+shader_parameter/oscillate_speed = 7.5
+shader_parameter/frensel = 1.315
+shader_parameter/ColorParameter = Color(0.627451, 0.12549, 0.941176, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/emissionintensity = 16.0
+shader_parameter/light_diffuse = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_rfnx6"]
-material = SubResource("StandardMaterial3D_wk2q4")
+material = SubResource("ShaderMaterial_gvxtt")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_behx8"]
 emission_shape = 2

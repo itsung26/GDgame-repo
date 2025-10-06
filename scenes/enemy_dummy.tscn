@@ -1,126 +1,53 @@
-[gd_scene load_steps=9 format=3 uid="uid://5vpgp7wqh8vn"]
+[gd_scene load_steps=4 format=3 uid="uid://5vpgp7wqh8vn"]
 
 [ext_resource type="Script" uid="uid://b7i20cjrk1rea" path="res://scripts/enemy_dummy.gd" id="1_im74q"]
+[ext_resource type="PackedScene" uid="uid://cii8ksvy3p5rs" path="res://scenes/filth.tscn" id="2_ohyeb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7p1mj"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_md0e3"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7p1mj"]
-metallic = 1.0
-roughness = 0.0
-
-[sub_resource type="Animation" id="Animation_4ra3w"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_md0e3"]
-resource_name = "enemy_attack_melee"
-length = 5.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.466667, 0.666667, 1.03333, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.134947, 0.145328), Vector3(0, 0.171279, 0.0882349), Vector3(0, 0.114186, -0.264704), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.466667, 0.666667, 1.03333, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.472269, 0, 0), Vector3(0.268973, 0, 0), Vector3(-0.300842, 0, 0), Vector3(0, 0, 0)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(1.03333),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"hurtTouching"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_7p1mj"]
-resource_name = "enemy_death"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ra3w"]
-_data = {
-&"RESET": SubResource("Animation_4ra3w"),
-&"enemy_attack_melee": SubResource("Animation_md0e3"),
-&"enemy_death": SubResource("Animation_7p1mj")
-}
-
-[node name="EnemyDummy" type="CharacterBody3D" groups=["dummy enemy", "enemy"]]
+[node name="EnemyDummy" type="CharacterBody3D" groups=["dummy enemy", "enemy", "light"]]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_im74q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7p1mj")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_md0e3")
-surface_material_override/0 = SubResource("StandardMaterial3D_7p1mj")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_4ra3w")
-}
-speed_scale = 5.0
 
 [node name="FacingDir" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.511753, 0)
 target_position = Vector3(0, 0, -2.04)
+
+[node name="Filth" parent="." instance=ExtResource("2_ohyeb")]
+transform = Transform3D(-0.661, 0, -5.77865e-08, 0, 0.661, 0, 5.77865e-08, 0, -0.661, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Filth/Sketchfab_Scene/Sketchfab_model/723e9cb5e56c43609987a2ece8187f26_fbx/Object_2/RootNode/ZombieFilth/Armature_001/Object_6" index="0"]
+bones/1/position = Vector3(0, 4.76837e-07, 0)
+bones/1/rotation = Quaternion(0.503735, 0.496237, 0.503735, 0.496237)
+bones/3/position = Vector3(-2.61515e-06, 16.8258, -2.38419e-07)
+bones/3/rotation = Quaternion(-0.0419204, -0.370446, 0.345411, 0.861222)
+bones/4/position = Vector3(0, 88.1781, 6.58631e-06)
+bones/4/rotation = Quaternion(0.534994, 0.0032016, -0.0188605, 0.84464)
+bones/5/position = Vector3(-2.09808e-05, 100.115, 1.41859e-05)
+bones/5/rotation = Quaternion(0.477571, -0.4125, 0.527886, -0.568425)
+bones/8/rotation = Quaternion(0.137695, -0.00263475, -0.69106, 0.709556)
+bones/9/rotation = Quaternion(0.904634, -0.0500942, -0.0150695, 0.422968)
+bones/10/rotation = Quaternion(-0.47757, -0.4125, 0.527886, 0.568425)
+bones/12/rotation = Quaternion(2.44053e-06, -2.83588e-07, 0.0633213, 0.997993)
+bones/13/rotation = Quaternion(-4.34765e-06, -2.64496e-07, -0.112798, 0.993618)
+bones/14/rotation = Quaternion(0.297392, 0.609554, 0.387799, 0.624191)
+bones/15/position = Vector3(-2.99513e-06, 30.7706, -2.83718e-05)
+bones/16/position = Vector3(0.000195026, 47.9684, -0.000142952)
+bones/16/rotation = Quaternion(0.434036, -0.593729, 0.349838, -0.580269)
+bones/17/position = Vector3(-1.65403e-05, 30.7707, -4.35114e-05)
+bones/19/position = Vector3(-4.673e-05, 13.6332, 4.44672e-05)
+bones/19/rotation = Quaternion(-4.76555e-06, -1.09345e-06, -0.55087, 0.834591)
+bones/20/position = Vector3(3.43319e-05, 29.0635, -4.92942e-05)
+
+[node name="AnimationPlayer" parent="Filth/Sketchfab_Scene/Sketchfab_model/723e9cb5e56c43609987a2ece8187f26_fbx/Object_2/RootNode" index="1"]
+autoplay = "Idle_8"
+
+[node name="Pull Marker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24969, 0)
+
+[editable path="Filth"]

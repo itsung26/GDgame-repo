@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=57 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
@@ -1113,6 +1113,9 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
 size = Vector3(0.752441, 0.138672, 0.796112)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_y4r1p"]
+radius = 0.910701
+
 [sub_resource type="Curve" id="Curve_fjrip"]
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
@@ -1361,12 +1364,43 @@ outer_radius = 0.715
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 271
 script = ExtResource("1_qhqgy")
+player_move_input_enabled = null
+player_look_input_enabled = null
+player_fire_input_enabled = null
+player_kinematics_enabled = null
+player_dash_input_enabled = null
+player_grapple_input_enabled = null
+weapon_switch_enabled = null
+stamina_recharging = null
+HEALTH = null
+STAMINA = null
 stamina_charge_delay = 0.1
+stamina_charge_speed = null
+camera_roll_enabled = null
+max_camera_roll = null
 camera_roll_speed = 4.5
+SPEED = null
 JUMP_VELOCITY = 9.0
+look_sensitivity = null
+gravity_enabled = null
+Aerial_Slowdown = null
+AIR_ACCELERATION = null
+slide_speed_multiplier = null
 dash_velocity_increase = 35.0
 dash_time_length = 0.175
+slam_velocity = null
+Grapple_Enabled = null
 GRAPPLE_SPEED_MAX = 75
+PISTOL_MAGSIZE = null
+Pistol_Damage_Range_Min = null
+Pistol_Damage_Range_Max = null
+Pistol_Overclock_Damage_Range_Min = null
+Pistol_OverClock_Damage_Range_Max = null
+BLL_MAGSIZE = null
+black_hole_damage_per_frame = null
+BLL_projectile_travel_speed = null
+BLL_pull_speed = null
+free_slide_enabled = null
 
 [node name="GunAnimator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1410,11 +1444,17 @@ speed_scale = 5.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
-debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="footCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0694726, 0.00931263)
 shape = SubResource("BoxShape3D_b2mh8")
+
+[node name="GrappleEnemyCeaseArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07879, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleEnemyCeaseArea"]
+shape = SubResource("SphereShape3D_y4r1p")
+debug_color = Color(1, 1, 0, 0.372549)
 
 [node name="GroundImpact" type="GPUParticles3D" parent="."]
 visible = false
@@ -1602,7 +1642,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419368, 0.0912843, 0.434093, -0.896231, -0.163892, 0.180759, 0.00796503)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912845, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1629,11 +1669,15 @@ debug_color = Color(0, 1, 0, 1)
 
 [node name="WorldCollideBox" type="Area3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
 collision_layer = 512
-collision_mask = 4
+collision_mask = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox"]
 transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.0217386, 0.00902176, -0.171709)
 shape = SubResource("BoxShape3D_ur7pv")
+
+[node name="TailMarker" type="Marker3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+gizmo_extents = 0.51
 
 [node name="grapple_arm_animator" type="AnimationPlayer" parent="Pivot/Camera3D/GrappleArm/grappleArm"]
 libraries = {
@@ -1741,7 +1785,9 @@ one_shot = true
 [node name="StaminaChargeDelayTimer" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="body_entered" from="GrappleEnemyCeaseArea" to="." method="_on_grapple_enemy_cease_area_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
+[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_exited"]
 [connection signal="timeout" from="CamShakeTimer" to="." method="_on_cam_shake_timer_timeout"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
 [connection signal="timeout" from="StaminaChargeDelayTimer" to="." method="_on_stamina_charge_delay_timer_timeout"]
