@@ -1,6 +1,5 @@
-[gd_scene load_steps=70 format=4 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=65 format=4 uid="uid://mhij3rnbxw0r"]
 
-[ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/visual shaders/pixelated.tres" id="1_p1xl4"]
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_wix4b"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="2_bcvk1"]
 [ext_resource type="PackedScene" uid="uid://ctxddstc2vto8" path="res://scenes/hud.tscn" id="2_pd1ih"]
@@ -15,16 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://dog0uevkajdqv" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Color.jpg" id="11_he5cq"]
 [ext_resource type="PackedScene" uid="uid://5vpgp7wqh8vn" path="res://scenes/enemy_dummy.tscn" id="11_ihdwp"]
 [ext_resource type="Texture2D" uid="uid://saoujndj0ul2" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Metalness.jpg" id="12_idmwj"]
-[ext_resource type="Script" uid="uid://b8l5hvscwr812" path="res://scripts/enemy state reaction.gd" id="12_ihdwp"]
 [ext_resource type="Texture2D" uid="uid://2dd245bud88p" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_NormalGL.jpg" id="13_4i6sm"]
 [ext_resource type="Texture2D" uid="uid://brv83cxi4cb8m" path="res://assets/textures/Metal029_1K-JPG/Metal029_1K-JPG_Roughness.jpg" id="14_oma2s"]
 [ext_resource type="PackedScene" uid="uid://du50kuq805ea1" path="res://scenes/black_hole_ammo.tscn" id="16_4i6sm"]
 [ext_resource type="Texture2D" uid="uid://cread3gedp1k3" path="res://assets/textures/normalmapped dark/blackprototype/texture_01_normal.png" id="16_wjjk7"]
 [ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube.tscn" id="18_s0dw4"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bq1pm"]
-shader = ExtResource("1_p1xl4")
-shader_parameter/Pixelated = 300.0
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_23q87"]
 ground_bottom_color = Color(0.146081, 0.121511, 0.0929725, 1)
@@ -366,14 +360,6 @@ _data = {
 &"fade_out_overclock": SubResource("Animation_xnstj")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihdwp"]
-resource_local_to_scene = true
-
-[sub_resource type="TextMesh" id="TextMesh_xnstj"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_ihdwp")
-text = "Enemy Weak Dummy"
-
 [sub_resource type="NavigationMesh" id="NavigationMesh_wjjk7"]
 vertices = PackedVector3Array(7, 0.75, -4.75, 8.5, 0.75, -4.75, 8.25, 0.75, -124.5, 6.75, 0.75, -2.75, -124.5, 0.75, -124.5, -124.5, 0.75, -3, 9.75, 0.75, -4.75, 10, 0.75, -124.5, 11.25, 0.75, -4.75, 11.25, 0.75, -3.25, 124.5, 0.75, -3.5, 124.5, 0.75, -124.5, 11.25, 0.75, 2, 124.5, 0.75, 2.25, -124.5, 0.75, 2.25, 6.75, 0.75, 2, 9, 0.75, 124.5, 9, 0.75, 3.5, 6.75, 0.75, 3.5, -124.5, 0.75, 124.5, 11.25, 0.75, 3.5, 124.5, 0.75, 124.5)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(1, 2, 6), PackedInt32Array(6, 2, 7), PackedInt32Array(10, 9, 8), PackedInt32Array(8, 6, 7), PackedInt32Array(7, 11, 8), PackedInt32Array(8, 11, 10), PackedInt32Array(9, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(15, 14, 3), PackedInt32Array(3, 14, 5), PackedInt32Array(18, 17, 16), PackedInt32Array(14, 15, 18), PackedInt32Array(14, 18, 19), PackedInt32Array(19, 18, 16), PackedInt32Array(20, 12, 13), PackedInt32Array(16, 17, 20), PackedInt32Array(13, 21, 20), PackedInt32Array(20, 21, 16)]
@@ -501,13 +487,6 @@ text = "Grapple Point"
 
 [node name="MapEnviroment" type="Node3D"]
 
-[node name="PixelShader" type="Sprite2D" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_bq1pm")
-scale = Vector2(1.125, 0.632813)
-texture = ExtResource("2_prwh2")
-centered = false
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dbf7g")
 
@@ -537,10 +516,10 @@ width = 5.535
 points = PackedVector2Array(0, 8.03, 0, 28.2)
 width = 5.535
 
-[node name="versionText" parent="HUD" index="3"]
+[node name="versionText" parent="HUD" index="4"]
 text = "ALPHA BUILD 0.9.7"
 
-[node name="BottomLeftArea" parent="HUD" index="5"]
+[node name="BottomLeftArea" parent="HUD" index="6"]
 offset_top = 0.0
 offset_right = 0.0
 grow_horizontal = 2
@@ -644,10 +623,11 @@ transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.41
 [node name="EnemyDummy" parent="Enemies" instance=ExtResource("11_ihdwp")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.29153, 1.19209e-07, -7.78401)
 
-[node name="text" type="MeshInstance3D" parent="Enemies/EnemyDummy"]
-transform = Transform3D(-2.95053, 0, -2.57944e-07, 0, 2.95053, 0, 2.57944e-07, 0, -2.95053, 0, 1.97397, 0)
-mesh = SubResource("TextMesh_xnstj")
-script = ExtResource("12_ihdwp")
+[node name="EnemyDummy2" parent="Enemies" instance=ExtResource("11_ihdwp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.29153, 1.19209e-07, -11.082)
+
+[node name="EnemyDummy3" parent="Enemies" instance=ExtResource("11_ihdwp")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.29153, 1.19209e-07, -14.4355)
 
 [node name="Navigation" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.726669, 0)

@@ -1,11 +1,15 @@
-[gd_scene load_steps=63 format=3 uid="uid://ctxddstc2vto8"]
+[gd_scene load_steps=69 format=3 uid="uid://ctxddstc2vto8"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
+[ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/visual shaders/pixelated.tres" id="2_3xg78"]
+[ext_resource type="Texture2D" uid="uid://cb01ujc6n6psl" path="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Grey/icon_circle.svg" id="2_iypfu"]
 [ext_resource type="Shader" uid="uid://bi2iehpkbu0ux" path="res://shaders/GDSL shaders/fake3dshader.tres" id="3_0m4u7"]
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_5n1hp"]
+[ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="3_48y67"]
 [ext_resource type="Script" uid="uid://ckv8nv3jfaqv3" path="res://scripts/top_right_area.gd" id="3_apjy4"]
 [ext_resource type="Texture2D" uid="uid://cesgf4gdxak83" path="res://assets/sprite assets/ui/redBorder.png" id="4_5pdws"]
 [ext_resource type="Texture2D" uid="uid://cck5a75oy6yxe" path="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/mouse_right.png" id="4_047uy"]
+[ext_resource type="Shader" uid="uid://ca72wtvygdko8" path="res://shaders/GDSL shaders/screenRipple.gdshader" id="4_48y67"]
 [ext_resource type="LabelSettings" uid="uid://bnh6vlxey4bnf" path="res://assets/styles/parry_label_settings.tres" id="5_apjy4"]
 [ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="6_0i1j5"]
 [ext_resource type="Texture2D" uid="uid://or2ej7i2utos" path="res://assets/materials/pistol_bullet.tres" id="6_5pdws"]
@@ -18,6 +22,19 @@
 [ext_resource type="Texture2D" uid="uid://63pq8i0x4ors" path="res://assets/sprite assets/ui/icons generic/Black hole gun outline.png" id="14_uxdf7"]
 [ext_resource type="Texture2D" uid="uid://divrgvxmrkt80" path="res://assets/sprite assets/ui/icons generic/pistol outline.png" id="15_5357l"]
 [ext_resource type="Texture2D" uid="uid://dv28tr2kvmsjf" path="res://assets/sprite assets/ui/icons generic/WhiplashHUDNew.webp" id="15_qkknv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xg78"]
+shader = ExtResource("2_3xg78")
+shader_parameter/Pixelated = 50.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2nlu"]
+shader = ExtResource("4_48y67")
+shader_parameter/strength = 0.1
+shader_parameter/center = Vector2(0.715, 0.365)
+shader_parameter/radius = 0.203
+shader_parameter/aberration = 0.425
+shader_parameter/width = 0.04
+shader_parameter/feather = 0.135
 
 [sub_resource type="Theme" id="Theme_eld54"]
 Label/fonts/font = ExtResource("3_5n1hp")
@@ -477,6 +494,27 @@ healthbar_react_speed = 5.0
 staminabar_smooth_react_enabled = false
 staminabar_react_speed = 5.0
 
+[node name="FullScreenShaders" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PixelShader" type="Sprite2D" parent="FullScreenShaders"]
+visible = false
+material = SubResource("ShaderMaterial_3xg78")
+position = Vector2(576, 324)
+scale = Vector2(1.125, 0.632812)
+texture = ExtResource("3_48y67")
+
+[node name="RippleShader" type="Sprite2D" parent="FullScreenShaders"]
+material = SubResource("ShaderMaterial_y2nlu")
+position = Vector2(576, 324)
+scale = Vector2(1.125, 0.632812)
+texture = ExtResource("3_48y67")
+
 [node name="CrosshairContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -502,6 +540,10 @@ width = 2.86
 [node name="CrosshairDOWN" type="Line2D" parent="CrosshairContainer"]
 points = PackedVector2Array(0, 3.02, 0, 11.705)
 width = 2.86
+
+[node name="Sprite2D" type="Sprite2D" parent="CrosshairContainer"]
+scale = Vector2(0.322429, 0.322429)
+texture = ExtResource("2_iypfu")
 
 [node name="RedBorder" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -531,7 +573,7 @@ text = "============================="
 [node name="HookedTarget" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Last body hit: null"
+text = "grapple target: null"
 
 [node name="CurrentPlayerState" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
@@ -601,6 +643,7 @@ text = " 0.9.10-ALPHA"
 label_settings = SubResource("LabelSettings_5357l")
 
 [node name="TopRightArea" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchor_left = 0.835
 anchor_right = 1.0
@@ -625,7 +668,7 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(201, 251)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="Panel" type="Panel" parent="TopRightArea/StyleBox/SubViewport"]
 anchors_preset = 15

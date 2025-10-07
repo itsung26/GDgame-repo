@@ -75,6 +75,9 @@ signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_stat
 @export_category("Grappling Hook")
 @export var Grapple_Enabled:= true
 @export var GRAPPLE_SPEED_MAX = 20
+@export var grapple_pull_speed:float = 10
+## The amount of upward velocity that is added to the player after beginning to pull the grapple on an enemy
+@export var grapple_hop:float = 1.0
 
 @export_category("Pistol")
 @export var PISTOL_MAGSIZE:= 35
@@ -227,6 +230,7 @@ func set_player_state(new_player_state:int):
 	
 	# SLAMMING to and from
 	if new_player_state == player_states.SLAMMING:
+		action_state = action_states.IDLE
 		gravity_enabled = false
 		velocity = Vector3.ZERO # kill velocity
 		velocity.y = -slam_velocity # slam down
@@ -288,7 +292,7 @@ func set_action_state(new_action_state:int):
 		var forward = grapple_hook.global_transform.basis.z.normalized()
 		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX # move forwards with a set linear velocity
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
-	if previous_action_state == action_states.GRAPPLING and new_action_state != action_states.REELINGFROM: # run these actions upon moving out of grappling state unless going into reelingfrom state
+	if previous_action_state == action_states.GRAPPLING: # run these actions upon moving out of grappling state unless going into reelingfrom state
 		grapple_rope_mesh_gen.visible = false
 		grapple_hook.freeze = true
 		grapple_hook.reparent(rope_origin) # reparent and set it to face how it did before
@@ -380,8 +384,61 @@ func zoomOut():
 	gun_animator.speed_scale = 3
 	pistol_damage_increase = true
 
-
-
+func physicsStateLogic(delta=get_physics_process_delta_time()):
+	# grounded movement state logic
+	if player_state == player_states.GROUNDED:
+		if direction and player_move_input_enabled:
+			var ground_dir = direction.normalized()
+			velocity.x = ground_dir.x * SPEED
+			velocity.z = ground_dir.z * SPEED
+		elif direction == Vector3.ZERO:
+			velocity.x = move_toward(velocity.x, 0.0, 10.0)
+			velocity.z = move_toward(velocity.z, 0.0, 10.0)
+	# falling movement state logic
+	elif player_state == player_states.FALLING:
+		if player_move_input_enabled and direction != Vector3.ZERO:
+			var desired = direction * SPEED
+			var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
+			var new_horizontal = horizontal_velocity.lerp(Vector3(desired.x, 0, desired.z), AIR_ACCELERATION * delta)
+			velocity.x = new_horizontal.x
+			velocity.z = new_horizontal.z
+		elif direction == Vector3.ZERO:
+			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
+			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
+	# reeling state logic
+	elif player_state == player_states.REELINGTO:
+		velocity = reel_vector
+	# sliding state logic
+	elif player_state == player_states.SLIDING:
+		# allows free control of slide direction
+		if free_slide_enabled:
+			var input_dir = Input.get_vector("left", "right", "forward", "back")
+			if input_dir == Vector2.ZERO:
+				# No movement keys pressed: slide forward relative to camera
+				var forward = -global_transform.basis.z.normalized()
+				velocity.x = forward.x * SPEED * slide_speed_multiplier
+				velocity.z = forward.z * SPEED * slide_speed_multiplier
+			else:
+				# Movement keys pressed: slide in input direction relative to player
+				var slide_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+				velocity.x = slide_dir.x * SPEED * slide_speed_multiplier
+				velocity.z = slide_dir.z * SPEED * slide_speed_multiplier
+		# only allows direction of slide to be set on activation
+		elif not free_slide_enabled:
+			var forward_direction = -transform.basis.z
+			var horizontal_direction = Vector3(velocity.x, 0, velocity.z)
+			# if player is not moving, slide forwards
+			if horizontal_direction.length() == 0:
+				velocity = forward_direction * SPEED * slide_speed_multiplier
+			else:
+				var direction = velocity.normalized()
+				velocity = direction * SPEED * slide_speed_multiplier
+	# dashing state logic
+	elif player_state == player_states.DASHING:
+		pass # see set_player_state()
+	# slamming state logic
+	elif player_state == player_states.SLAMMING:
+		pass # see set_player_state()
 
 
 func _physics_process(delta: float) -> void:
@@ -412,66 +469,9 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	input_dir = Input.get_vector("left", "right", "forward", "back")
 	direction = Vector3(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-	# grounded movement state logic
-	if player_state == player_states.GROUNDED:
-		if direction and player_move_input_enabled:
-			var ground_dir = direction.normalized()
-			velocity.x = ground_dir.x * SPEED
-			velocity.z = ground_dir.z * SPEED
-		elif direction == Vector3.ZERO:
-			velocity.x = move_toward(velocity.x, 0.0, 10.0)
-			velocity.z = move_toward(velocity.z, 0.0, 10.0)
 	
-	# falling movement state logic
-	elif player_state == player_states.FALLING:
-		if player_move_input_enabled and direction != Vector3.ZERO:
-			var desired = direction * SPEED
-			var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
-			var new_horizontal = horizontal_velocity.lerp(Vector3(desired.x, 0, desired.z), AIR_ACCELERATION * delta)
-			velocity.x = new_horizontal.x
-			velocity.z = new_horizontal.z
-		elif direction == Vector3.ZERO:
-			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
-			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
-
-	# reeling state logic
-	elif player_state == player_states.REELINGTO:
-		velocity = reel_vector
-
-	# sliding state logic
-	elif player_state == player_states.SLIDING:
-		# allows free control of slide direction
-		if free_slide_enabled:
-			var input_dir = Input.get_vector("left", "right", "forward", "back")
-			if input_dir == Vector2.ZERO:
-				# No movement keys pressed: slide forward relative to camera
-				var forward = -global_transform.basis.z.normalized()
-				velocity.x = forward.x * SPEED * slide_speed_multiplier
-				velocity.z = forward.z * SPEED * slide_speed_multiplier
-			else:
-				# Movement keys pressed: slide in input direction relative to player
-				var slide_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-				velocity.x = slide_dir.x * SPEED * slide_speed_multiplier
-				velocity.z = slide_dir.z * SPEED * slide_speed_multiplier
-		# only allows direction of slide to be set on activation
-		elif not free_slide_enabled:
-			var forward_direction = -transform.basis.z
-			var horizontal_direction = Vector3(velocity.x, 0, velocity.z)
-			# if player is not moving, slide forwards
-			if horizontal_direction.length() == 0:
-				velocity = forward_direction * SPEED * slide_speed_multiplier
-			else:
-				var direction = velocity.normalized()
-				velocity = direction * SPEED * slide_speed_multiplier
-				
-	# dashing state logic
-	elif player_state == player_states.DASHING:
-		pass # see set_player_state()
-
-	# slamming state logic
-	elif player_state == player_states.SLAMMING:
-		pass # see set_player_state()
+	# run all state machine related physics logic every physics frame
+	physicsStateLogic()
 
 	# if kinematics are not enabled, kill all velocity before computing physics
 	if not player_kinematics_enabled:
@@ -569,12 +569,12 @@ func charge_stamina(delta=get_process_delta_time()):
 
 func processTargetPull(delta=get_process_delta_time()):
 	if hooked_target:
-		var target_to_player_dir:Vector3 = 
-		grapple_hook.look_at(player.global_position, Vector3.UP)
+		# Get the vector from the hooked target to the player
+		var target_to_player_dir: Vector3 = global_position - hooked_target.global_position
 		grapple_hook.global_position = hooked_target_pull_origin.global_position
-		# hooked_target.velocity = 
+		hooked_target.velocity = target_to_player_dir.normalized() * grapple_pull_speed * delta
 	else:
-		print("WARNING: no target to pull detected")
+		pass
 
 var a = true
 func _process(delta) -> void:
@@ -583,6 +583,13 @@ func _process(delta) -> void:
 	# the main process where the enemy gets drawn to the player on the hook
 	if action_state != action_states.IDLE:
 		processTargetPull()
+	# if the hook is idle and in the holder, set it to look right and face right direction
+	elif action_state == action_states.IDLE and grapple_hook.get_parent() == rope_origin:
+		grapple_rope_mesh_gen.visible = false
+		grapple_hook.freeze = true
+		grapple_hook.position = Vector3(-0.069, 0.252, 0.043)
+		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
+		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
 	
 	# keeps the rope attatched to the grapple bit
 	grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
@@ -654,27 +661,37 @@ func playerDie():
 func _on_cam_shake_timer_timeout() -> void:
 	doing_shake = false
 
-# when the grapple hook's smaller collider hits the world, retract
+# when the grapple hook's smaller collider hits the world, go back to idle
 # when it hits enemies, pull them towards player
 func _on_world_collide_box_body_entered(body: Node3D) -> void:
 	hooked_target = body
 	hooked_target_pull_origin = hooked_target.find_child("Pull Marker")
+	
+	if hooked_target:
+		# if hit body was not in either group, it was part of the world
+		if not body.is_in_group("grapple_cubes") and not body.is_in_group("enemy"):
+			print("body was world, going back to idle")
+			hooked_target = null
+			var impact_particles = impact_particles_scene.instantiate()
+			var impact_pos = grapple_hook.global_position
+			var particle_look_marker = impact_particles.get_node("Marker")
+			get_tree().root.add_child(impact_particles)
+			impact_particles.global_position = impact_pos
+			particle_look_marker.global_position = camera_3d.global_position
+			action_state = action_states.IDLE
+		elif hooked_target.is_in_group("enemy"):
+			print("body was an enemy")
+			if not is_on_floor():
+				player.velocity.y = 0 + grapple_hop
+			hooked_target.last_hit_damage_type = hooked_target.damage_types.NORMAL
+			hooked_target.damageEnemy(2.0, hooked_target.damage_types.NORMAL)
+			if hooked_target.weight == hooked_target.weight_class.LIGHT:
+				print("body was a light enemy")
+				grapple_hook.freeze = true
+				grapple_hook.global_position = hooked_target_pull_origin.global_position
+				grapple_hook.look_at(tail_marker.global_position, Vector3.UP)
 
-	# if hit body was not in either group, it was part of the world
-	if not body.is_in_group("grapple_cubes") and not body.is_in_group("enemy"):
-		hooked_target = null
-		var impact_particles = impact_particles_scene.instantiate()
-		var impact_pos = grapple_hook.global_position
-		var particle_look_marker = impact_particles.get_node("Marker")
-		get_tree().root.add_child(impact_particles)
-		impact_particles.global_position = impact_pos
-		particle_look_marker.global_position = camera_3d.global_position
-		action_state = action_states.IDLE
-	elif hooked_target.is_in_group("light"):
-		grapple_hook.freeze = true
-		grapple_hook.global_position = hooked_target_pull_origin.global_position
-		grapple_hook.look_at(tail_marker.global_position, Vector3.UP)
-
+# when the hook's actual collider stops colliding with whatever it is colliding with
 func _on_world_collide_box_body_exited(body: Node3D) -> void:
 	hooked_target = null
 
@@ -698,7 +715,15 @@ func _on_dash_length_timer_timeout() -> void:
 func _on_stamina_charge_delay_timer_timeout() -> void:
 	stamina_recharging = true
 
-
-func _on_grapple_enemy_cease_area_body_entered(body: CharacterBody3D) -> void:
-	if body.is_in_group("light"):
-		print("light enemy entered grapple area")
+# when enemy touches player on grapple, kill player velocity and apply hop if on floor
+func _on_grapple_enemy_cease_area_body_entered(hooked_target) -> void:
+	if hooked_target.is_in_group("enemy"):
+		if hooked_target.weight == hooked_target.weight_class.LIGHT and not is_on_floor():
+			# applies the same hop affect to the hooked body
+			hooked_target.velocity.x = 0
+			hooked_target.velocity.z = 0
+			hooked_target.velocity.y = 0 + grapple_hop
+			action_state = action_states.IDLE
+			player.velocity.x = 0
+			player.velocity.z = 0
+			player.velocity.y = 0 + grapple_hop

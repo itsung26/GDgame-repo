@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://e8fmdjuyjp4x"]
+[gd_scene load_steps=24 format=3 uid="uid://e8fmdjuyjp4x"]
 
 [ext_resource type="Material" uid="uid://bdcaf4g4ue7ab" path="res://assets/materials/emissives/red_emissive_material.tres" id="1_n6lr6"]
-[ext_resource type="PackedScene" uid="uid://d1676ah8ebtd" path="res://scenes/bullet_impact_particles.tscn" id="2_ryybo"]
+[ext_resource type="Material" uid="uid://ddgholnejhv1x" path="res://assets/materials/smoke material/bullet_impact_particles.tres" id="2_ryybo"]
+[ext_resource type="Shader" uid="uid://byk3dfkudeyxo" path="res://scenes/Smoke_Project/Stylized_Smoke_Shader.gdshader" id="3_keces"]
+[ext_resource type="ArrayMesh" uid="uid://ba75jhtw8m12h" path="res://assets/meshes/smoke_mesh.tres" id="4_m8i3e"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_4url0"]
 
@@ -80,6 +82,90 @@ _data = {
 &"sizzle_out": SubResource("Animation_4url0")
 }
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ipf4c"]
+emission_shape = 1
+emission_sphere_radius = 0.25
+angle_min = -360.0
+angle_max = 360.0
+gravity = Vector3(0, 1, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ipf4c"]
+material = ExtResource("2_ryybo")
+size = Vector2(0.3, 0.3)
+
+[sub_resource type="Curve" id="Curve_f50i0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.907336, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b5hk4"]
+curve = SubResource("Curve_f50i0")
+
+[sub_resource type="Gradient" id="Gradient_3nm0d"]
+colors = PackedColorArray(1, 1, 1, 1, 0.43134, 0.43134, 0.43134, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b5hk4"]
+gradient = SubResource("Gradient_3nm0d")
+
+[sub_resource type="Gradient" id="Gradient_he42u"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_uijoc"]
+noise_type = 2
+frequency = 0.0308
+fractal_type = 0
+cellular_jitter = 0.955
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a4muy"]
+color_ramp = SubResource("Gradient_he42u")
+noise = SubResource("FastNoiseLite_uijoc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mow4g"]
+render_priority = 0
+shader = ExtResource("3_keces")
+shader_parameter/Color = Color(1, 1, 1, 1)
+shader_parameter/Color_Gradiant = SubResource("GradientTexture1D_b5hk4")
+shader_parameter/Vor_Noise = SubResource("NoiseTexture2D_a4muy")
+shader_parameter/Alpha_Curve = SubResource("CurveTexture_b5hk4")
+shader_parameter/Fernal_Power = 1.0
+shader_parameter/Vor_Scale = 0.8
+shader_parameter/Vor_Speed = 0.2
+shader_parameter/Emmision_Power = 1.0
+shader_parameter/Alpha_Clip = 0.0
+
+[sub_resource type="Curve" id="Curve_gexj4"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u6740"]
+texture_mode = 1
+curve = SubResource("Curve_gexj4")
+
+[sub_resource type="Curve" id="Curve_wmg8s"]
+_data = [Vector2(0, 0.274112), 0.0, 0.0, 0, 0, Vector2(0.767016, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_omdq4"]
+curve = SubResource("Curve_wmg8s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d31yn"]
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 0.05
+angle_min = -90.0
+angle_max = 90.0
+gravity = Vector3(0, 1, 0)
+scale_min = 0.1
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_omdq4")
+alpha_curve = SubResource("CurveTexture_u6740")
+hue_variation_min = -2.23517e-08
+hue_variation_max = 0.02
+turbulence_noise_strength = 0.05
+turbulence_noise_scale = 0.1
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+collision_use_scale = true
+
 [node name="BulletDecal" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -93,5 +179,24 @@ libraries = {
 }
 autoplay = "sizzle_out"
 
-[node name="bullet_impact_particles" parent="." instance=ExtResource("2_ryybo")]
+[node name="bullet_impact_particles" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0536231)
+visible = false
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="bullet_impact_particles"]
+amount = 16
+lifetime = 1.3
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ipf4c")
+draw_pass_1 = SubResource("QuadMesh_ipf4c")
+
+[node name="alternate_bullet_impact_particles" type="Node3D" parent="."]
+
+[node name="Smoke2" type="GPUParticles3D" parent="alternate_bullet_impact_particles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0499773)
+material_override = SubResource("ShaderMaterial_mow4g")
+cast_shadow = 0
+lifetime = 2.0
+trail_lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_d31yn")
+draw_pass_1 = ExtResource("4_m8i3e")

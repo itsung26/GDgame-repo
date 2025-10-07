@@ -54,18 +54,19 @@ func fire():
 		laser_generator.generate_mesh_planes(muzzle.global_position, hit_target_point)
 
 		if body.is_in_group("enemy"):
+			var damage_type
 			# change the damage type that the hit enemy registers
 			if getSpecialState() == false:
-				body.last_hit_damage_type = body.damage_types.NORMAL
+				damage_type = body.damage_types.NORMAL
 			elif getSpecialState():
-				body.last_hit_damage_type = body.damage_types.OVERCLOCK
+				damage_type = body.damage_types.LASER
 			
 			# if pistol on normal state, subtract enemy health with normal damage range
 			if not player.pistol_damage_increase:
-				body.HEALTH -= randi_range(player.Pistol_Damage_Range_Min,player.Pistol_Damage_Range_Max)
+				body.damageEnemy(randi_range(player.Pistol_Damage_Range_Min,player.Pistol_Damage_Range_Max), damage_type)
 			elif player.pistol_damage_increase:
-				body.HEALTH -= randi_range(player.Pistol_Overclock_Damage_Range_Min,player.Pistol_OverClock_Damage_Range_Max)
-			print("HEALTH of enemy: " + str(body.HEALTH))
+				body.damageEnemy(randi_range(player.Pistol_Overclock_Damage_Range_Min,player.Pistol_OverClock_Damage_Range_Max), damage_type)
+			print("HEALTH of enemy: " + str(body.getHealth()))
 		else: # if the raycast hits something that is not an enemy
 			pass
 

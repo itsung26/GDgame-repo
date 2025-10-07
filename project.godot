@@ -32,6 +32,10 @@ Global="*res://scripts/Global.gd"
 
 settings/addon_root_folder="res://addons/debug_draw_3d"
 
+[display]
+
+window/size/resizable=false
+
 [global_group]
 
 enemy="contains all enemies"
@@ -40,7 +44,6 @@ players=""
 weaponBlocks=""
 "weak enemy"=""
 "dummy enemy"=""
-light=""
 grapple_cubes=""
 
 [input]

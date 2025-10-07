@@ -5,4 +5,7 @@
 [resource]
 transparency = 1
 albedo_texture = ExtResource("1_aew0w")
-billboard_mode = 1
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
