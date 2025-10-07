@@ -5,7 +5,7 @@ enum damage_types{NORMAL, LASER, DARK}
 enum weight_class{LIGHT,MEDIUM,HEAVY,FATASS}
 
 var last_hit_damage_type:damage_types
-## The base health of the enemy.
+## The actual health of the enemy. This is the primary thing modified.
 @export var HEALTH:float = 100.0
 ## If the enemy should expirience gravity or not
 @export var gravity_enabled = true
@@ -21,6 +21,7 @@ func damageEnemy(damage:float, damage_type:damage_types):
 	var new_enemy_health = HEALTH - damage
 	last_hit_damage_type = damage_type
 	HEALTH = new_enemy_health
+	HEALTH = clampf(HEALTH, 0, 100)
 	
 	# spawn a hitmarker on own body
 	var a = DAMAGE_HITMARKER_SCENE.instantiate()

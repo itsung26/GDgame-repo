@@ -533,6 +533,8 @@ grow_vertical = 0
 theme = SubResource("Theme_ihdwp")
 
 [node name="Pause" parent="." instance=ExtResource("3_p1xl4")]
+lock_mouse_on_exit = null
+show_mouse_on_enter = null
 
 [node name="DeathScreen" type="Control" parent="."]
 layout_mode = 3
