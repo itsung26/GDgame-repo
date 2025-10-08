@@ -8,7 +8,7 @@ op_type = 0
 constant = Color(0, 0, 0, 1)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_gs745"]
-size = Vector2(249, 232)
+size = Vector2(244, 122)
 title = "center point"
 attached_nodes = PackedInt32Array(18)
 
@@ -24,7 +24,7 @@ default_value_enabled = true
 default_value = 0.3
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_6vipf"]
-size = Vector2(325, 303)
+size = Vector2(244, 122)
 title = "radius"
 attached_nodes = PackedInt32Array(19)
 
@@ -38,7 +38,7 @@ linked_parent_graph_frame = 23
 op_type = 3
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_tpmrc"]
-size = Vector2(244, 431)
+size = Vector2(244, 122)
 title = "circle"
 attached_nodes = PackedInt32Array(22)
 
@@ -51,7 +51,7 @@ default_value_enabled = true
 default_value = 0.1
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_ie6dy"]
-size = Vector2(325, 303)
+size = Vector2(244, 122)
 title = "radius"
 attached_nodes = PackedInt32Array(25)
 
@@ -139,7 +139,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-451.349, -141.613)
 preview_params/scissor = "0.0"
 nodes/fragment/0/position = Vector2(940, 160)
 nodes/fragment/3/node = SubResource("VisualShaderNodeFrame_2byky")

@@ -1302,7 +1302,7 @@ radius = 0.918926
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ur7pv"]
 margin = 0.0
-size = Vector3(0.275297, 0.62793, 1.4197)
+size = Vector3(0.275297, 0.62793, 2.11493)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
 emission_shape = 3
@@ -1415,6 +1415,7 @@ speed_scale = 5.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="footCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0694726, 0.00931263)
@@ -1426,7 +1427,7 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleEnemyCeaseArea"]
 shape = SubResource("SphereShape3D_y4r1p")
-debug_color = Color(1, 1, 0, 0.372549)
+debug_color = Color(1, 1, 0, 0)
 
 [node name="GroundImpact" type="GPUParticles3D" parent="."]
 visible = false
@@ -1638,15 +1639,16 @@ mesh = SubResource("ArrayMesh_a04ym")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
 transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.0035401, 0.0153806, -0.182922)
 shape = SubResource("SphereShape3D_ur7pv")
-debug_color = Color(0, 1, 0, 1)
+debug_color = Color(0, 1, 0, 0)
 
 [node name="WorldCollideBox" type="Area3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
 collision_layer = 512
 collision_mask = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox"]
-transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.00509036, 0.00902081, 0.0548253)
+transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.00509053, 0.00901985, 0.402443)
 shape = SubResource("BoxShape3D_ur7pv")
+debug_color = Color(0, 0.595, 0.7, 0)
 
 [node name="TailMarker" type="Marker3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)

@@ -14,7 +14,7 @@ class_name hudGui extends Control
 @onready var current_look_dir: Label = %CurrentLookDir
 @onready var pivot: Node3D = $"../Player/Pivot"
 var current_frames_per_second = "null"
-@onready var player: CharacterBody3D = $"../Player"
+@onready var player: Player = get_tree().current_scene.find_child("Player")
 @onready var black_hole_2: Sprite2D = $pistolPreviewIcon/BlackHole2
 @onready var pistol_bullet_icon: Sprite2D = $AmmoContainer/pistol_bullet_icon
 @onready var reload_prompt: AnimatedSprite2D = $pistolPreviewIcon/ReloadPrompt
@@ -30,8 +30,9 @@ var current_frames_per_second = "null"
 @onready var crosshair_down: Line2D = $CrosshairContainer/CrosshairDOWN
 @onready var health_bar: ProgressBar = get_tree().current_scene.find_child("HealthBar")
 @onready var stamina_bar: ProgressBar = get_tree().current_scene.find_child("StaminaBar")
-@onready var black_hole_gun_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/Black hole gun outline"
-@onready var pistol_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/Pistol outline"
+@onready var black_hole_gun_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Black hole gun outline"
+@onready var pistol_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Pistol outline"
+@onready var hand_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Hand outline"
 
 @export_category("Crosshair Properties")
 ## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.
@@ -178,6 +179,9 @@ func _on_player_entered_weapon_state(new_weapon_state: int, previous_weapon_stat
 			
 		player.weapon_states.BLL:
 			black_hole_gun_outline.visible = true
+		
+		player.weapon_states.MELEE:
+			hand_outline.visible = true
 	
 	# ladder for old weapon
 	match previous_weapon_state:
@@ -187,6 +191,10 @@ func _on_player_entered_weapon_state(new_weapon_state: int, previous_weapon_stat
 			
 		player.weapon_states.BLL:
 			black_hole_gun_outline.visible = false
+		
+		player.weapon_states.MELEE:
+			hand_outline.visible = false
+		
 			
 			
 			

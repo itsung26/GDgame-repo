@@ -40,9 +40,6 @@ func _ready() -> void:
 	center_buttons.visible = false
 	hud = get_node("../HUD")
 	pixel_shader = find_child("PixelShader")
-	# if no pixel shader is in the scene, remove the button
-	if get_tree().current_scene.has_node(find_child("PixelShader")):
-		find_child("ShaderToggle").visible = false
 
 func set_state(new_state:int):
 	var previous_state = pause_state

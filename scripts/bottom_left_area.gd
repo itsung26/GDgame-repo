@@ -1,15 +1,17 @@
-extends Control
-
+class_name BottomLeftMenu extends Control
+# Dev note: add documentation for the exported attributes
 @onready var player = get_tree().current_scene.find_child("Player")
 @onready var ammo_panel: SubViewportContainer = $AmmoPanel
 
 # left and right lerp parameters
+@export_category("Smooth Movement L/R")
 @export var ammo_panel_position_lerp_speed:float = 5.0
 @export var ammo_panel_lerp_left_target:float = 24.0
 @export var ammo_panel_lerp_right_target:float = 64.0
 var ammo_panel_lerp_center_target:float
 
 # foward and back (scale) parameters
+@export_category("Smooth Movement FWD/BACK")
 @export var ammo_panel_scale_lerp_speed:float = 5.0
 @export var ammo_panel_back_target:float = 1.5
 @export var ammo_panel_forward_target:float = 0.5

@@ -212,7 +212,6 @@ void light() {
 
 }
 "
-graph_offset = Vector2(-154.837, -132.738)
 preview_params/alpha = "1.0"
 preview_params/light_diffuse = "0.0"
 nodes/fragment/0/position = Vector2(960, 100)

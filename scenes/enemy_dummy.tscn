@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://5vpgp7wqh8vn"]
+[gd_scene load_steps=7 format=3 uid="uid://ct8bpldx1y1pa"]
 
 [ext_resource type="Script" uid="uid://b7i20cjrk1rea" path="res://scripts/EnemyDummy.gd" id="1_im74q"]
 [ext_resource type="PackedScene" uid="uid://cii8ksvy3p5rs" path="res://scenes/filth.tscn" id="2_ohyeb"]
@@ -30,10 +30,6 @@ target_position = Vector3(0, 0, -2.04)
 
 [node name="Filth" parent="." instance=ExtResource("2_ohyeb")]
 transform = Transform3D(-0.661, 0, -5.77865e-08, 0, 0.661, 0, 5.77865e-08, 0, -0.661, 0, 0, 0)
-
-[node name="Skeleton3D" parent="Filth/Sketchfab_Scene/Sketchfab_model/723e9cb5e56c43609987a2ece8187f26_fbx/Object_2/RootNode/ZombieFilth/Armature_001/Object_6" index="0"]
-bones/1/rotation = Quaternion(0.503735, 0.496237, 0.503735, 0.496237)
-bones/19/rotation = Quaternion(-3.51555e-06, -7.14845e-07, -0.257013, 0.966408)
 
 [node name="AnimationPlayer" parent="Filth/Sketchfab_Scene/Sketchfab_model/723e9cb5e56c43609987a2ece8187f26_fbx/Object_2/RootNode" index="1"]
 autoplay = "Idle_8"
