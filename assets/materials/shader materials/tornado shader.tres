@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dacrkvgaw0er8"]
+
+[ext_resource type="Shader" uid="uid://be02pk80ehgbc" path="res://shaders/visual shaders/tornado_test.tres" id="1_iwd50"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_iwd50")
+shader_parameter/uv_scale = Vector2(3.315, 2.53)
+shader_parameter/Pan_speed_x = 2.0
+shader_parameter/Pan_speed_y = 0.5
+shader_parameter/WindColor = Color(0.678431, 0.847059, 0.901961, 1)
+shader_parameter/Emission = 5.185
+shader_parameter/scissor_threshhold = 0.299

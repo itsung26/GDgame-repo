@@ -1,14 +1,32 @@
-[gd_scene load_steps=57 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=64 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
+[ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/visual shaders/pixelated.tres" id="2_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://b634drxy8nceb" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_normal000.png" id="3_fjrip"]
+[ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="3_oprun"]
+[ext_resource type="Shader" uid="uid://ca72wtvygdko8" path="res://shaders/GDSL shaders/screenRipple.gdshader" id="4_a8ls1"]
 [ext_resource type="PackedScene" uid="uid://csatdjhfoaqcw" path="res://scenes/pistol.tscn" id="4_dqkch"]
 [ext_resource type="AnimationLibrary" uid="uid://df4wluqxdk4ww" path="res://animations/grapple arm animation library.res" id="4_ur7pv"]
 [ext_resource type="Script" uid="uid://cjhvcb5uyoehj" path="res://scripts/wind_particles.gd" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://bh4w73yqjy2wa" path="res://scenes/slide_particles.tscn" id="8_smehm"]
 [ext_resource type="Script" uid="uid://1g4a60ev1c5u" path="res://scripts/slide_particles.gd" id="9_ur7pv"]
+[ext_resource type="PackedScene" uid="uid://cp1mmygsp63vr" path="res://scenes/hud.tscn" id="10_d2wvv"]
+[ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="11_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://d6b4gnbdcx45" path="res://scenes/black_hole_launcher.tscn" id="11_d2wvv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qfm1y"]
+shader = ExtResource("2_f1ej7")
+shader_parameter/Pixelated = 50.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fulsm"]
+shader = ExtResource("4_a8ls1")
+shader_parameter/strength = 0.08
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/radius = 0.25
+shader_parameter/aberration = 0.425
+shader_parameter/width = 0.04
+shader_parameter/feather = 0.135
 
 [sub_resource type="Animation" id="Animation_g2els"]
 length = 0.001
@@ -1372,6 +1390,34 @@ dash_time_length = 0.175
 GRAPPLE_SPEED_MAX = 120
 grapple_pull_speed = 1500.0
 grapple_hop = 5.0
+
+[node name="FullScreenShaders" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PixelShader" type="Sprite2D" parent="FullScreenShaders"]
+visible = false
+material = SubResource("ShaderMaterial_qfm1y")
+position = Vector2(576, 324)
+scale = Vector2(1.125, 0.632812)
+texture = ExtResource("3_oprun")
+
+[node name="RippleShader" type="Sprite2D" parent="FullScreenShaders"]
+visible = false
+material = SubResource("ShaderMaterial_fulsm")
+position = Vector2(576, 324)
+scale = Vector2(1.125, 0.632812)
+texture = ExtResource("3_oprun")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="HUD" parent="Node" instance=ExtResource("10_d2wvv")]
+
+[node name="Pause" parent="Node" instance=ExtResource("11_3v2ag")]
 
 [node name="GunAnimator" type="AnimationPlayer" parent="."]
 libraries = {

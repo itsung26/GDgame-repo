@@ -1,0 +1,232 @@
+[gd_resource type="VisualShader" load_steps=22 format=3 uid="uid://be02pk80ehgbc"]
+
+[ext_resource type="Texture2D" uid="uid://cntdjuba48bdv" path="res://shaders/shader textures/cf5e3552-b7de-4c24-80fc-ea0698ad3195.png" id="1_07nc6"]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_07nc6"]
+linked_parent_graph_frame = 15
+op_type = 0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_px2d3"]
+linked_parent_graph_frame = 15
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_51k3t"]
+linked_parent_graph_frame = 15
+parameter_name = "Pan_speed_y"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_7575s"]
+linked_parent_graph_frame = 15
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_07nc6"]
+linked_parent_graph_frame = 17
+parameter_name = "scissor_threshhold"
+hint = 1
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_07nc6"]
+size = Vector2(1264, 1068)
+title = "UV panning and scaling"
+attached_nodes = PackedInt32Array(4, 2, 12, 3, 5, 10, 13, 9, 11, 8, 7)
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_px2d3"]
+size = Vector2(624, 347)
+title = "color post processing"
+attached_nodes = PackedInt32Array(18, 19)
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_51k3t"]
+size = Vector2(600, 998)
+title = "output"
+attached_nodes = PackedInt32Array(0, 14)
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_7575s"]
+linked_parent_graph_frame = 16
+operator = 2
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_py3nf"]
+linked_parent_graph_frame = 16
+parameter_name = "WindColor"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_px2d3"]
+linked_parent_graph_frame = 15
+texture = ExtResource("1_07nc6")
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_pml7k"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_iq4o0"]
+parameter_name = "Emission"
+hint = 1
+max = 100.0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_07nc6"]
+default_input_values = [0, 0.0, 1, 1.0]
+operator = 2
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_51k3t"]
+default_input_values = [1, Vector2(1, 0), 2, Vector2(0, 0)]
+linked_parent_graph_frame = 15
+function = 1
+
+[sub_resource type="VisualShaderNodeVec2Parameter" id="VisualShaderNodeVec2Parameter_7575s"]
+linked_parent_graph_frame = 15
+parameter_name = "uv_scale"
+default_value_enabled = true
+default_value = Vector2(1, 1)
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_py3nf"]
+linked_parent_graph_frame = 15
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_pml7k"]
+linked_parent_graph_frame = 15
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_t5k3q"]
+linked_parent_graph_frame = 15
+parameter_name = "Pan_speed_x"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_iq4o0"]
+linked_parent_graph_frame = 15
+operator = 2
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+
+uniform vec2 uv_scale = vec2(1.000000, 1.000000);
+uniform float Pan_speed_x;
+uniform float Pan_speed_y;
+uniform sampler2D tex_frg_2;
+uniform vec4 WindColor : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+uniform float Emission : hint_range(0.0, 100.0);
+uniform float scissor_threshhold : hint_range(0.0, 1.0);
+
+
+
+void fragment() {
+// Vector2Parameter:4
+	vec2 n_out4p0 = uv_scale;
+
+
+// UVFunc:3
+	vec2 n_in3p2 = vec2(0.00000, 0.00000);
+	vec2 n_out3p0 = (UV - n_in3p2) * n_out4p0 + n_in3p2;
+
+
+// Input:7
+	float n_out7p0 = TIME;
+
+
+// FloatParameter:8
+	float n_out8p0 = Pan_speed_x;
+
+
+// FloatOp:9
+	float n_out9p0 = n_out7p0 * n_out8p0;
+
+
+// Input:11
+	float n_out11p0 = TIME;
+
+
+// FloatParameter:12
+	float n_out12p0 = Pan_speed_y;
+
+
+// FloatOp:13
+	float n_out13p0 = n_out11p0 * n_out12p0;
+
+
+// VectorCompose:10
+	vec2 n_out10p0 = vec2(n_out9p0, n_out13p0);
+
+
+// UVFunc:5
+	vec2 n_in5p1 = vec2(1.00000, 1.00000);
+	vec2 n_out5p0 = n_out10p0 * n_in5p1 + n_out3p0;
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, n_out5p0);
+
+
+// ColorParameter:19
+	vec4 n_out19p0 = WindColor;
+
+
+// VectorOp:18
+	vec3 n_out18p0 = vec3(n_out2p0.xyz) * vec3(n_out19p0.xyz);
+
+
+// FloatOp:22
+	float n_in22p1 = 1.00000;
+	float n_out22p0 = n_out2p0.x * n_in22p1;
+
+
+// FloatParameter:21
+	float n_out21p0 = Emission;
+
+
+// VectorOp:20
+	vec3 n_out20p0 = n_out18p0 * vec3(n_out21p0);
+
+
+// FloatParameter:14
+	float n_out14p0 = scissor_threshhold;
+
+
+// Output:0
+	ALBEDO = n_out18p0;
+	ALPHA = n_out22p0;
+	EMISSION = n_out20p0;
+	ALPHA_SCISSOR_THRESHOLD = n_out14p0;
+
+
+}
+"
+graph_offset = Vector2(928.28, 81.2482)
+modes/cull = 2
+preview_params/Pan_speed_x = "Vector2(3.685, 1)"
+preview_params/Pan_speed_y = "0.5"
+nodes/fragment/0/position = Vector2(2040, 120)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_px2d3")
+nodes/fragment/2/position = Vector2(80, 80)
+nodes/fragment/3/node = SubResource("VisualShaderNodeUVFunc_51k3t")
+nodes/fragment/3/position = Vector2(-600, 120)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVec2Parameter_7575s")
+nodes/fragment/4/position = Vector2(-940, 80)
+nodes/fragment/5/node = SubResource("VisualShaderNodeUVFunc_py3nf")
+nodes/fragment/5/position = Vector2(-220, 140)
+nodes/fragment/7/node = SubResource("VisualShaderNodeInput_pml7k")
+nodes/fragment/7/position = Vector2(-880, 520)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_t5k3q")
+nodes/fragment/8/position = Vector2(-860, 680)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatOp_iq4o0")
+nodes/fragment/9/position = Vector2(-500, 520)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVectorCompose_07nc6")
+nodes/fragment/10/position = Vector2(-280, 360)
+nodes/fragment/11/node = SubResource("VisualShaderNodeInput_px2d3")
+nodes/fragment/11/position = Vector2(-500, 720)
+nodes/fragment/12/node = SubResource("VisualShaderNodeFloatParameter_51k3t")
+nodes/fragment/12/position = Vector2(-480, 880)
+nodes/fragment/13/node = SubResource("VisualShaderNodeFloatOp_7575s")
+nodes/fragment/13/position = Vector2(-120, 720)
+nodes/fragment/14/node = SubResource("VisualShaderNodeFloatParameter_07nc6")
+nodes/fragment/14/position = Vector2(1720, 780)
+nodes/fragment/15/node = SubResource("VisualShaderNodeFrame_07nc6")
+nodes/fragment/15/position = Vector2(-980, 39)
+nodes/fragment/16/node = SubResource("VisualShaderNodeFrame_px2d3")
+nodes/fragment/16/position = Vector2(480, -161)
+nodes/fragment/17/node = SubResource("VisualShaderNodeFrame_51k3t")
+nodes/fragment/17/position = Vector2(1680, 80)
+nodes/fragment/18/node = SubResource("VisualShaderNodeVectorOp_7575s")
+nodes/fragment/18/position = Vector2(900, -40)
+nodes/fragment/19/node = SubResource("VisualShaderNodeColorParameter_py3nf")
+nodes/fragment/19/position = Vector2(520, -120)
+nodes/fragment/20/node = SubResource("VisualShaderNodeVectorOp_pml7k")
+nodes/fragment/20/position = Vector2(1466.71, 376.709)
+nodes/fragment/21/node = SubResource("VisualShaderNodeFloatParameter_iq4o0")
+nodes/fragment/21/position = Vector2(1100, 580)
+nodes/fragment/22/node = SubResource("VisualShaderNodeFloatOp_07nc6")
+nodes/fragment/22/position = Vector2(1573.28, 188.244)
+nodes/fragment/connections = PackedInt32Array(4, 0, 3, 1, 3, 0, 5, 0, 5, 0, 2, 0, 7, 0, 9, 0, 8, 0, 9, 1, 10, 0, 5, 2, 11, 0, 13, 0, 12, 0, 13, 1, 9, 0, 10, 0, 13, 0, 10, 1, 14, 0, 0, 19, 2, 0, 18, 0, 19, 0, 18, 1, 18, 0, 0, 0, 18, 0, 20, 0, 21, 0, 20, 1, 20, 0, 0, 5, 2, 0, 22, 0, 22, 0, 0, 1)

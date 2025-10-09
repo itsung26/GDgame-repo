@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://8ncpkk70asjb"]
+
+[ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_msh1k"]
+[ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="1_t18mp"]
+[ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="2_lo83r"]
+[ext_resource type="PackedScene" uid="uid://bpljuobbfpsww" path="res://scenes/laser_generator.tscn" id="3_t18mp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ocl4u"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_msh1k"]
+sky_material = SubResource("ProceduralSkyMaterial_ocl4u")
+
+[sub_resource type="Environment" id="Environment_8pfqq"]
+background_mode = 2
+sky = SubResource("Sky_msh1k")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s1f0r"]
+albedo_texture = ExtResource("1_t18mp")
+
+[sub_resource type="BoxMesh" id="BoxMesh_lo83r"]
+material = SubResource("StandardMaterial3D_s1f0r")
+size = Vector3(100, 1, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ocl4u"]
+data = PackedVector3Array(-50, 0.5, -50, -50, -0.5, -50, 50, -0.5, -50, -50, 0.5, 50, -50, -0.5, 50, -50, -0.5, -50, -50, -0.5, 50, 50, -0.5, 50, -50, -0.5, -50, -50, 0.5, -50, -50, 0.5, 50, -50, -0.5, -50, -50, 0.5, 50, -50, 0.5, -50, 50, 0.5, -50, -50, 0.5, 50, 50, 0.5, 50, -50, -0.5, 50, 50, -0.5, 50, 50, -0.5, -50, -50, -0.5, -50, 50, 0.5, -50, 50, -0.5, -50, 50, -0.5, 50, 50, 0.5, 50, 50, -0.5, 50, -50, -0.5, 50, 50, 0.5, -50, -50, 0.5, -50, 50, -0.5, -50, 50, 0.5, 50, -50, 0.5, 50, 50, 0.5, -50, 50, 0.5, 50, 50, 0.5, -50, 50, -0.5, 50)
+
+[node name="The Center" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8pfqq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldFloor" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 519
+
+[node name="MeshInstance3D" type="CSGMesh3D" parent="WorldFloor"]
+mesh = SubResource("BoxMesh_lo83r")
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="WorldFloor"]
+shape = SubResource("ConcavePolygonShape3D_ocl4u")
+
+[node name="Player" parent="." instance=ExtResource("1_msh1k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="grapple_rope_meshGen" parent="." instance=ExtResource("2_lo83r")]
+
+[node name="LaserGenerator" parent="." instance=ExtResource("3_t18mp")]
+width = 0.05
+height = 0.05

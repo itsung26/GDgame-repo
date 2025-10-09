@@ -12,7 +12,7 @@ class_name hudGui extends Control
 @onready var overclock_bar: Control = $OverclockBar
 @onready var key_indicator_2: AnimatedSprite2D = $pistolPreviewIcon/KeyIndicator2
 @onready var current_look_dir: Label = %CurrentLookDir
-@onready var pivot: Node3D = $"../Player/Pivot"
+@onready var pivot: Node3D = $"../../Pivot"
 var current_frames_per_second = "null"
 @onready var player: Player = get_tree().current_scene.find_child("Player")
 @onready var black_hole_2: Sprite2D = $pistolPreviewIcon/BlackHole2
@@ -33,6 +33,8 @@ var current_frames_per_second = "null"
 @onready var black_hole_gun_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Black hole gun outline"
 @onready var pistol_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Pistol outline"
 @onready var hand_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Hand outline"
+
+
 
 @export_category("Crosshair Properties")
 ## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.

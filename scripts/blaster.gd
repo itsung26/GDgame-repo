@@ -3,8 +3,8 @@ extends Node3D
 @onready var bullet_ray_cast: RayCast3D = $"../../BulletRayCast"
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var gun_animator: AnimationPlayer = $"../../../../GunAnimator"
-var player:CharacterBody3D
-var hud:Control
+@onready var player:CharacterBody3D = get_tree().current_scene.find_child("Player")
+@onready var hud:Control = get_tree().current_scene.find_child("HUD")
 @onready var laser_generator:Node3D = get_tree().current_scene.find_child("LaserGenerator")
 @onready var muzzle: Node3D = $VFX/muzzle
 
@@ -17,8 +17,7 @@ var on_special = false
 var isCharged = true
 
 func _ready() -> void:
-	player = $"../../../.."
-	hud = get_tree().root.get_node("MapEnviroment/HUD")
+	pass
 
 # instantiate a body from the return of the get_collider() method
 # this method is called every time the animation for firing runs and is essentially the bulk of the shoot code

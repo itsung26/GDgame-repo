@@ -9,7 +9,7 @@ default_input_values = [2, false, 3, 0.68]
 linked_parent_graph_frame = 25
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_vur33"]
-size = Vector2(1064, 222)
+size = Vector2(1064, 491)
 title = "viewport"
 attached_nodes = PackedInt32Array(7, 5, 8, 10)
 
@@ -60,6 +60,8 @@ operator = 2
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_m7ol5"]
 linked_parent_graph_frame = 25
 parameter_name = "oscillate_speed"
+hint = 1
+max = 100.0
 default_value_enabled = true
 default_value = 5.0
 
@@ -73,12 +75,13 @@ default_input_values = [0, 1.0, 1, 4.894]
 linked_parent_graph_frame = 25
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_qmhn0"]
-size = Vector2(2304, 402)
+size = Vector2(2304, 583)
 title = "Black Hole frensel ring"
 attached_nodes = PackedInt32Array(24, 11, 17, 13, 22, 18, 23, 21, 20, 19, 16, 14, 15)
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_7cxvo"]
 parameter_name = "alpha"
+hint = 1
 default_value_enabled = true
 default_value = 1.0
 
@@ -114,10 +117,10 @@ default_value_enabled = true
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
 
-uniform float oscillate_speed = 5.0;
+uniform float oscillate_speed : hint_range(0.0, 100.0) = 5.0;
 uniform float frensel = 1.0;
 uniform vec4 ColorParameter : source_color = vec4(0.627451, 0.125490, 0.941176, 1.000000);
-uniform float alpha = 1.0;
+uniform float alpha : hint_range(0.0, 1.0) = 1.0;
 uniform float emissionintensity = 16.0;
 uniform float light_diffuse : hint_range(-1.0, 0.0) = 0.0;
 
@@ -212,6 +215,7 @@ void light() {
 
 }
 "
+graph_offset = Vector2(-1647.27, 85.1177)
 preview_params/alpha = "1.0"
 preview_params/light_diffuse = "0.0"
 nodes/fragment/0/position = Vector2(960, 100)
