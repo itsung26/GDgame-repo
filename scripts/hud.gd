@@ -92,31 +92,32 @@ func updateAmmoCounter():
 # updates the crosshair based on editor set properties
 func updateCrosshair(width:float=crosshair_width, color:Color=crosshair_albedo, spread:float=crosshair_spread, length:float=crosshair_length):
 	for crosshairline:Line2D in crosshair_lines:
-		# update width
-		crosshairline.width = width
-		# update color
-		crosshairline.default_color = color
-		# update the positions from center
-		if crosshairline == crosshair_right:
-			# set the first point's position
-			crosshair_right.set_point_position(0, Vector2(spread, 0))
-			# set the second point's position
-			crosshair_right.set_point_position(1, Vector2(spread + length, 0))
-		elif crosshairline == crosshair_left:
-			# set the first point's position
-			crosshair_left.set_point_position(0, Vector2(-spread, 0))
-			# set the second point's position
-			crosshair_left.set_point_position(1, Vector2(-spread - length, 0))
-		elif crosshairline == crosshair_up:
-			# set the first point's position
-			crosshair_up.set_point_position(0, Vector2(0, -spread))
-			# set the second point's position
-			crosshair_up.set_point_position(1, Vector2(0, -spread - length))
-		elif crosshairline == crosshair_down:
-			# set the first point's position
-			crosshair_down.set_point_position(0, Vector2(0, spread))
-			# set the second point's position
-			crosshair_down.set_point_position(1, Vector2(0, spread + length))
+		if crosshairline:
+			# update width
+			crosshairline.width = width
+			# update color
+			crosshairline.default_color = color
+			# update the positions from center
+			if crosshairline == crosshair_right:
+				# set the first point's position
+				crosshair_right.set_point_position(0, Vector2(spread, 0))
+				# set the second point's position
+				crosshair_right.set_point_position(1, Vector2(spread + length, 0))
+			elif crosshairline == crosshair_left:
+				# set the first point's position
+				crosshair_left.set_point_position(0, Vector2(-spread, 0))
+				# set the second point's position
+				crosshair_left.set_point_position(1, Vector2(-spread - length, 0))
+			elif crosshairline == crosshair_up:
+				# set the first point's position
+				crosshair_up.set_point_position(0, Vector2(0, -spread))
+				# set the second point's position
+				crosshair_up.set_point_position(1, Vector2(0, -spread - length))
+			elif crosshairline == crosshair_down:
+				# set the first point's position
+				crosshair_down.set_point_position(0, Vector2(0, spread))
+				# set the second point's position
+				crosshair_down.set_point_position(1, Vector2(0, spread + length))
 
 # updates the healthbar
 func updateHealthBar(delta):
@@ -168,34 +169,4 @@ func _process(delta) -> void:
 		%CurrentMagnitudeXZ.text = "Current player velocity magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
 		# ----------------------------------------------------------------------------------------------
 		
-
-
-func _on_player_entered_weapon_state(new_weapon_state: int, previous_weapon_state:int) -> void:
-	# ladder for current (new) weapon
-	match new_weapon_state:
 		
-		player.weapon_states.PISTOL:
-			pistol_outline.visible = true
-			
-		player.weapon_states.BLL:
-			black_hole_gun_outline.visible = true
-		
-		player.weapon_states.MELEE:
-			hand_outline.visible = true
-	
-	# ladder for old weapon
-	match previous_weapon_state:
-		
-		player.weapon_states.PISTOL:
-			pistol_outline.visible = false
-			
-		player.weapon_states.BLL:
-			black_hole_gun_outline.visible = false
-		
-		player.weapon_states.MELEE:
-			hand_outline.visible = false
-		
-			
-			
-			
-			

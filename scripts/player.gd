@@ -701,6 +701,7 @@ func _on_unstuck_pressed() -> void:
 	action_state = action_states.IDLE
 	global_position = Vector3.ZERO
 	velocity = Vector3.ZERO
+	player.rotation = Vector3.ZERO
 	pause.pause_state = pause.pause_states.UNPAUSED
 
 
