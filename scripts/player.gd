@@ -1,7 +1,6 @@
 class_name Player extends CharacterBody3D
 
 @onready var player: CharacterBody3D = $"."
-
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var pivot: Node3D = $Pivot
 @onready var gun_animator: AnimationPlayer = $GunAnimator
@@ -15,7 +14,7 @@ class_name Player extends CharacterBody3D
 @onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
 @onready var hud: Control = $"../HUD"
 @onready var grapple_target: Node3D = $"../GrappleTarget"
-@onready var grapple_rope_mesh_gen: Node3D = $"../grapple_rope_meshGen"
+@onready var grapple_rope_mesh_gen: Node3D = Helper.getFirstInScene("grapple_rope_meshGen")
 @onready var grapple_arm: Node3D = $Pivot/Camera3D/GrappleArm
 @onready var grapple_direction_getter: RayCast3D = $Pivot/Camera3D/GrappleDirectionGetter
 @onready var grapple_hook: RigidBody3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook

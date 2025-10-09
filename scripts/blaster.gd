@@ -5,7 +5,7 @@ extends Node3D
 @onready var gun_animator: AnimationPlayer = $"../../../../GunAnimator"
 @onready var player:CharacterBody3D = get_tree().current_scene.find_child("Player")
 @onready var hud:Control = get_tree().current_scene.find_child("HUD")
-@onready var laser_generator:Node3D = get_tree().current_scene.find_child("LaserGenerator")
+@onready var laser_generator:Node3D = Helper.getFirstInScene("LaserGenerator")
 @onready var muzzle: Node3D = $VFX/muzzle
 
 const DAMAGE_HITMARKER_SCENE = preload("res://scenes/damage_hitmarker.tscn")
