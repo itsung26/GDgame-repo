@@ -1,9 +1,12 @@
-[gd_scene load_steps=23 format=4 uid="uid://cpf81oira8jjb"]
+[gd_scene load_steps=31 format=4 uid="uid://cpf81oira8jjb"]
 
 [ext_resource type="Script" uid="uid://yw1hxeuk3y18" path="res://scripts/wave_terminal_controller.gd" id="1_l34vy"]
+[ext_resource type="Shader" uid="uid://dcu2v4v1is3l8" path="res://shaders/GDSL shaders/holographic.gdshader" id="2_3gjfy"]
 [ext_resource type="PackedScene" uid="uid://x7sgwtjvuib" path="res://scenes/terminal_screen.tscn" id="2_n4o0q"]
+[ext_resource type="Shader" uid="uid://cy3gitfti74c8" path="res://shaders/visual shaders/wave_terminal_lines.tres" id="5_pkfgk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xclv"]
+albedo_color = Color(0.447059, 0.447059, 0.447059, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_vb1ex"]
 _surfaces = [{
@@ -38,6 +41,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vb1ex")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wco2a"]
+albedo_color = Color(0.277528, 0.277528, 0.277528, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_q7u2d"]
 _surfaces = [{
@@ -107,8 +111,14 @@ shadow_mesh = SubResource("ArrayMesh_7wtkf")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l34vy"]
 cull_mode = 2
+albedo_color = Color(0.2484, 0.2484, 0.2484, 1)
+metallic = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d07rg"]
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 16.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_h46f7"]
 _surfaces = [{
@@ -140,15 +150,81 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_h46f7")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvcw8"]
+albedo_color = Color(0.678431, 0.847059, 0.901961, 1)
+metallic = 1.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.678431, 0.847059, 0.901961, 1)
+emission_energy_multiplier = 10.64
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_pkfgk"]
+_surfaces = [{
+"aabb": AABB(-0.39762, -0.561083, -0.39762, 0.79524, 0.88801, 0.79524),
+"format": 34896613377,
+"index_count": 60,
+"index_data": PackedByteArray("AAAGAAcAAAABAAYAAQAAAAMAAwAAAAcAAQADAAQAAwAHAAgABAADAAgAAQAEAAkAAQAJAAYABAAIAAkAAgAIAAcACgAGAAkABQAJAAgACgAJAAUABQAIAAIACwAGAAoABQALAAoACwAHAAYABQACAAsAAgAHAAsA"),
+"lods": [0.297768, PackedByteArray("AAABAAIAAQAAAAMAAwAAAAIAAQADAAQABAADAAIAAgABAAUABQABAAQABQAEAAIA")],
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAAAAAAAAABbf//8W3wAA//8AAP//AAD//wAAAAAAABbf///oIAAAAABA5QAAAAAAAEDl//8AAP//QOX//wAA//9A5QAAAADoIP//6CAAAOgg//8W3wAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_i60vg"]
+resource_name = "wave_terminal_Cube_003"
+_surfaces = [{
+"aabb": AABB(-0.39762, -0.561083, -0.39762, 0.79524, 0.88801, 0.79524),
+"attribute_data": PackedByteArray("cwC0ieFUtIlOC4v/BkqL/3MAhSrhVIUqBkrMiE4LzIjIVYUqNqqFKqNgzIiL/4v/Hasdq4v/Hasdq4v/W5+L/8hVRKE2qkSh4VRwwnMAcMI2qrH1yFWx9eFU835zAPN+NqrzfshV835OCxjRBkoY0U4LGNHhVHDCBkoY0XMAcMKjYIv/Nqqx9chVsfXhVPN+cwDzfjaq835bn8yIyFXzfg=="),
+"format": 34896613399,
+"index_count": 60,
+"index_data": PackedByteArray("AAASABMAAAABABIAEAAUABUAEAARABQABAAWABcABAAFABYACAAYABkACAAJABgACwAMAA0ACwAOAAwAAwAaABsAAwACABoAHAAdAB4AHAAfAB0AIAAhAA8AIAAiACEABwAjAAYABwAkACMACgAlACYACgAnACUA"),
+"lods": [0.297768, PackedByteArray("AAABAAIAAgABAAMABAAFAAYABwAEAAYACAAJAAoACwAMAA0ACwAOAAwADwAQABEA")],
+"material": SubResource("StandardMaterial3D_yvcw8"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("AAAAAP////8AAAAAAAD//xbf//8W31TVFt///+ggVNX//wAAAAD/////AAD/////Ft///xbfVOgW3///6CBU6P//AAD/////AAAAAP////8W3///Ft///wAAAAAAAFTV//8AAP//VNX//wAAAABU1QAAAAD//1TVFt///+ggBd4AAAAAAAD/////AAAAAP//AABA5QAA//8AAEDl////////QOUAAP//AABA5QAA/////0Dl////////QOUAAP//AABA5f///////0Dl/////+gg//8W31TV6CD//+ggVNXoIP//Ft9U6AAAQOUAAFTo6CD//+ggVOgAAEDl//9U6Ogg///oIAXe//9A5QAABd4AAEDlAAAF3v//QOX//1To//9A5QAAVOgAAEDl/////+gg//8W3/////9A5f//////P/9//z//f1TVqipU1aoq/7//f/+//39ktDSXZLQ0l/9//3//f/9//39Kp1VVVFVVVVRVVFVUVVVVVFX///9/////f////3//P/9//z//f////3////9//7//f/+//3//f/9//3//f1TVqipU1aoqyehlNMnoZTTJ6GU0yehlNP///3////9/////f2S0NJdktDSX/39Kp/9/Sqf/f0qn")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_pkfgk")
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_n4o0q"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gjfy"]
 resource_local_to_scene = true
+transparency = 1
 albedo_texture = SubResource("ViewportTexture_n4o0q")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yvcw8"]
+render_priority = -1
+shader = ExtResource("2_3gjfy")
+shader_parameter/albedo_alpha = 0.22
+shader_parameter/tint_color = Color(0, 1, 0, 1)
+shader_parameter/edge_color = Color(0, 1, 0, 1)
+shader_parameter/edge_power = 0.5
+shader_parameter/edge_size = 1.0
+shader_parameter/edge_intensity = 0.8
+shader_parameter/scanline_tint = Color(0, 1, 0, 1)
+shader_parameter/scanline_intensity = 2.0
+shader_parameter/scanline_density = 5.78
+shader_parameter/scanline_thickness = 1.0
+shader_parameter/scanline_spacing = 0.5
+shader_parameter/scanline_angle = 1.583
+shader_parameter/scanline_speed = 2.0
+shader_parameter/enable_glitch = true
+shader_parameter/glitch_intensity = 0.5
+shader_parameter/shake_power = 0.5
+shader_parameter/shake_rate = 0.5
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.5
+
 [sub_resource type="QuadMesh" id="QuadMesh_l34vy"]
-material = SubResource("StandardMaterial3D_3gjfy")
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_yvcw8")
 size = Vector2(10, 5)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_yvcw8"]
@@ -167,10 +243,24 @@ size = Vector2(10, 5)
 [sub_resource type="SphereShape3D" id="SphereShape3D_3gjfy"]
 radius = 4.9
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i60vg"]
+render_priority = 0
+shader = ExtResource("5_pkfgk")
+shader_parameter/speed = 0.295
+shader_parameter/angle = 2.93
+shader_parameter/color = Color(0, 1, 0, 1)
+shader_parameter/emission = 15.49
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yvcw8"]
+material = SubResource("ShaderMaterial_i60vg")
+top_radius = 0.0
+bottom_radius = 0.033
+height = 7.524
+
 [node name="wave_terminal" type="Node3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_l34vy")
-look_at_target = Vector3(0, 1.05578, 2.5)
+look_at_target = Vector3(-0.999995, 0, 0.00324695)
 
 [node name="Cube" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.191625, -0.391461, -0.186312)
@@ -178,7 +268,7 @@ mesh = SubResource("ArrayMesh_d1jh7")
 skeleton = NodePath("")
 
 [node name="Cube_head" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.0197197, 0, -0.468972, 0, 0.469386, 0, 0.468972, 0, -0.0197197, 0.201975, 1.26191, 0.196662)
+transform = Transform3D(-0.467645, 0, 0.0403872, 0, 0.469386, 0, -0.0403872, 0, -0.467645, 0.201975, 1.26191, 0.196662)
 mesh = SubResource("ArrayMesh_6ql2c")
 skeleton = NodePath("")
 
@@ -193,20 +283,39 @@ transform = Transform3D(0.170622, 0, 0, 0, 0.170622, 0, 0, 0, 0.170622, -0.01132
 mesh = SubResource("ArrayMesh_ov46r")
 skeleton = NodePath("")
 
-[node name="Screen" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.999413, 0, 0.0342541, 0, 1, 0, -0.0342541, 0, -0.999413, 0, 2.11157, 5)
-mesh = SubResource("QuadMesh_l34vy")
+[node name="Cube_head_lens" type="MeshInstance3D" parent="Cube_head"]
+transform = Transform3D(-2.02588e-08, 0.463466, 1.86265e-09, -0.463466, -2.02588e-08, 0, 5.55112e-17, -1.86265e-09, 0.463466, 0.39636, -0.105013, 1.91245e-09)
+mesh = SubResource("ArrayMesh_i60vg")
+skeleton = NodePath("")
 
-[node name="Screen2" type="MeshInstance3D" parent="Screen"]
+[node name="Screen" type="MeshInstance3D" parent="Cube_head"]
+transform = Transform3D(0.0165391, 0, -2.13038, 0, 2.13044, 0, 2.13038, 0, 0.0165391, 10.2423, 1.81015, 2.98023e-08)
+material_overlay = SubResource("StandardMaterial3D_3gjfy")
+mesh = SubResource("QuadMesh_l34vy")
+skeleton = NodePath("../..")
+
+[node name="Screen2" type="MeshInstance3D" parent="Cube_head/Screen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.000362694)
 visible = false
 mesh = SubResource("QuadMesh_i60vg")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="target" type="Marker3D" parent="Screen"]
-gizmo_extents = 1.12
+[node name="EdgeMarkers" type="Node3D" parent="Cube_head/Screen"]
+
+[node name="screenTopLeft" type="Marker3D" parent="Cube_head/Screen/EdgeMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.96648, 2.49682, -4.36962e-05)
+
+[node name="screenTopRight" type="Marker3D" parent="Cube_head/Screen/EdgeMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.02668, 2.49682, -4.36664e-05)
+
+[node name="screenBottomLeft" type="Marker3D" parent="Cube_head/Screen/EdgeMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.96648, -2.49621, -4.36962e-05)
+
+[node name="screenBottomRight" type="Marker3D" parent="Cube_head/Screen/EdgeMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.04593, -2.47575, -4.36664e-05)
 
 [node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
 
 [node name="Control" parent="SubViewport" instance=ExtResource("2_n4o0q")]
 
@@ -218,3 +327,25 @@ shape = SubResource("SphereShape3D_3gjfy")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.48298, -3.77473)
+
+[node name="target" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75049, 0, 0.0186716)
+gizmo_extents = 1.12
+
+[node name="EdgeLines" type="Node3D" parent="."]
+
+[node name="topLeftLine" type="MeshInstance3D" parent="EdgeLines"]
+transform = Transform3D(-0.673753, -0.660122, 0.331759, 0, 0.448921, 0.893533, -0.738823, 0.601984, -0.30254, -2.48006, 2.9105, 2.45744)
+mesh = SubResource("CylinderMesh_yvcw8")
+
+[node name="topRightLine" type="MeshInstance3D" parent="EdgeLines"]
+transform = Transform3D(0.788974, -0.550385, 0.272689, 0, 0.44385, 0.896072, -0.614217, -0.706981, 0.350275, -2.0888, 2.9105, -2.5238)
+mesh = SubResource("CylinderMesh_yvcw8")
+
+[node name="bottomLeftLine" type="MeshInstance3D" parent="EdgeLines"]
+transform = Transform3D(-0.673752, -0.718996, -0.169958, 0, -0.22999, 0.973181, -0.738821, 0.655673, 0.15499, -2.48006, 0.41399, 2.45744)
+mesh = SubResource("CylinderMesh_yvcw8")
+
+[node name="bottomRightLine" type="MeshInstance3D" parent="EdgeLines"]
+transform = Transform3D(0.790151, -0.597145, -0.137102, 0, -0.223688, 0.974626, -0.612739, -0.770043, -0.176799, -2.08804, 0.42422, -2.53339)
+mesh = SubResource("CylinderMesh_yvcw8")
