@@ -43,13 +43,11 @@ func _process(delta: float) -> void:
 		look_at_target = target.global_position
 		look_at_target = look_at_target.normalized()
 	
-	# cube head to look at target pos
-	cube_head.look_at(look_at_target, Vector3.UP)
+	# cube head to look in the opposite direction of look_at_target
+	var opposite_direction = cube_head.global_position - look_at_target
+	cube_head.look_at(cube_head.global_position + opposite_direction, Vector3.UP)
 	cube_head.rotation.z = 0
 	cube_head.rotation.x = 0
 	cube_head.rotation.y = cube_head.rotation.y + deg_to_rad(90)
 	
 	linesGotoEdges()
-	
-
-	

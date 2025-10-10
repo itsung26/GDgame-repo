@@ -260,7 +260,7 @@ height = 7.524
 [node name="wave_terminal" type="Node3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 script = ExtResource("1_l34vy")
-look_at_target = Vector3(-0.999995, 0, 0.00324695)
+look_at_target = Vector3(0.953276, 0, -0.302101)
 
 [node name="Cube" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.191625, -0.391461, -0.186312)
@@ -268,7 +268,7 @@ mesh = SubResource("ArrayMesh_d1jh7")
 skeleton = NodePath("")
 
 [node name="Cube_head" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.467645, 0, 0.0403872, 0, 0.469386, 0, -0.0403872, 0, -0.467645, 0.201975, 1.26191, 0.196662)
+transform = Transform3D(-0.424833, 0, -0.1996, 0, 0.469386, 0, 0.1996, 0, -0.424833, 0.201975, 1.26191, 0.196662)
 mesh = SubResource("ArrayMesh_6ql2c")
 skeleton = NodePath("")
 
@@ -329,23 +329,23 @@ shape = SubResource("SphereShape3D_3gjfy")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.48298, -3.77473)
 
 [node name="target" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75049, 0, 0.0186716)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.02022, 0, -2.85858)
 gizmo_extents = 1.12
 
 [node name="EdgeLines" type="Node3D" parent="."]
 
 [node name="topLeftLine" type="MeshInstance3D" parent="EdgeLines"]
-transform = Transform3D(-0.673753, -0.660122, 0.331759, 0, 0.448921, 0.893533, -0.738823, 0.601984, -0.30254, -2.48006, 2.9105, 2.45744)
+transform = Transform3D(-0.953424, -0.269174, 0.135281, 0, 0.448911, 0.89352, -0.301269, 0.851853, -0.428121, -0.984491, 2.9105, 3.49768)
 mesh = SubResource("CylinderMesh_yvcw8")
 
 [node name="topRightLine" type="MeshInstance3D" parent="EdgeLines"]
-transform = Transform3D(0.788974, -0.550385, 0.272689, 0, 0.44385, 0.896072, -0.614217, -0.706981, 0.350275, -2.0888, 2.9105, -2.5238)
+transform = Transform3D(0.374516, -0.830688, 0.411583, 0, 0.443826, 0.89606, -0.92707, -0.33558, 0.166271, -3.14426, 2.9105, -1.00801)
 mesh = SubResource("CylinderMesh_yvcw8")
 
 [node name="bottomLeftLine" type="MeshInstance3D" parent="EdgeLines"]
-transform = Transform3D(-0.673752, -0.718996, -0.169958, 0, -0.22999, 0.973181, -0.738821, 0.655673, 0.15499, -2.48006, 0.41399, 2.45744)
+transform = Transform3D(-0.953422, -0.293181, -0.0693045, 0, -0.229985, 0.973181, -0.301268, 0.927828, 0.219327, -0.984491, 0.41399, 3.49768)
 mesh = SubResource("CylinderMesh_yvcw8")
 
 [node name="bottomRightLine" type="MeshInstance3D" parent="EdgeLines"]
-transform = Transform3D(0.790151, -0.597145, -0.137102, 0, -0.223688, 0.974626, -0.612739, -0.770043, -0.176799, -2.08804, 0.42422, -2.53339)
+transform = Transform3D(0.376279, -0.902857, -0.207283, 0, -0.223698, 0.974626, -0.92639, -0.36672, -0.0841937, -3.14842, 0.42422, -1.01669)
 mesh = SubResource("CylinderMesh_yvcw8")
