@@ -1,0 +1,7 @@
+[gd_resource type="PlaneMesh" load_steps=2 format=3 uid="uid://cfhhmqbewj66t"]
+
+[ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="1_2ircc"]
+
+[resource]
+material = ExtResource("1_2ircc")
+size = Vector2(50, 50)

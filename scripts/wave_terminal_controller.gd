@@ -1,7 +1,7 @@
 @tool
 class_name WaveTerminal extends Node3D
 @onready var cube_head: MeshInstance3D = $Cube_head
-@onready var target: Marker3D = $target
+@onready var target: Marker3D = %target
 @onready var cube_head_ears: MeshInstance3D = $Cube_head/Cube_head_ears
 @onready var screen: MeshInstance3D = $Cube_head/Screen
 @onready var screen_top_left: Marker3D = $Cube_head/Screen/EdgeMarkers/screenTopLeft
@@ -13,10 +13,13 @@ class_name WaveTerminal extends Node3D
 @onready var bottom_left_line: MeshInstance3D = $EdgeLines/bottomLeftLine
 @onready var bottom_right_line: MeshInstance3D = $EdgeLines/bottomRightLine
 @onready var cube_head_lens: MeshInstance3D = $Cube_head/Cube_head_lens
+@onready var player:Player = Helper.getFirstInScene("Player")
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 @export var look_at_target:Vector3 = Vector3.ZERO
 @export var player_in_collider:bool = false
+@export var look_at_enabled:bool = false
 var cube_ears_inactive_rotation = Vector3.ZERO
 var cube_ears_active_rotation = Vector3(0.0,0.0,60.0)
 
@@ -38,10 +41,12 @@ func linesGotoEdges():
 	bottom_right_line.rotation.x -= deg_to_rad(90)
 
 func _process(delta: float) -> void:
-	# if in editor, set the look target to the target node's position
-	if Engine.is_editor_hint():
-		look_at_target = target.global_position
-		look_at_target = look_at_target.normalized()
+	if look_at_enabled:
+		if not Engine.is_editor_hint():
+			target.global_position = player.global_position
+			look_at_target = target.global_position
+		else:
+			look_at_target = target.global_position
 	
 	# cube head to look in the opposite direction of look_at_target
 	var opposite_direction = cube_head.global_position - look_at_target
@@ -51,3 +56,13 @@ func _process(delta: float) -> void:
 	cube_head.rotation.y = cube_head.rotation.y + deg_to_rad(90)
 	
 	linesGotoEdges()
+
+
+func _on_player_collider_body_entered(body: Player) -> void:
+	look_at_enabled = true
+	animation_player.play("activate")
+
+
+func _on_player_collider_body_exited(body: Player) -> void:
+	look_at_enabled = false
+	animation_player.play("deactivate")

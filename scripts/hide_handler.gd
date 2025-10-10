@@ -8,6 +8,7 @@ extends Node
 
 # recieves signal on player weapon state change
 func _on_player_entered_weapon_state(new_weapon_state: int, previous_weapon_state:int) -> void:
+	print("recieved signal")
 	# ladder for current (new) weapon
 	match new_weapon_state:
 		player.weapon_states.PISTOL:
