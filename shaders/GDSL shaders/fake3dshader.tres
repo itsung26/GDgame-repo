@@ -40,7 +40,7 @@ void vertex() {
 	world_pos_3d.xy *= depth_scale * rotation_matrix[2].z;
 	offset = depth_scale * rotation_matrix[2].xy;
 
-	// Apply perspective transformation to vertex position 
+	// Apply perspective transformation to vertex position
 	VERTEX += (UV - 0.5) / TEXTURE_PIXEL_SIZE * perspective_scale * (1.0 - inset);
 }
 

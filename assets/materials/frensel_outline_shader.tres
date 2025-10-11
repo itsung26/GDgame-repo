@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cynpet0x6y5db"]
+
+[ext_resource type="Shader" uid="uid://cro2l2dohltv1" path="res://shaders/visual shaders/frenselOutline.tres" id="1_tdrxd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_tdrxd")
+shader_parameter/scale = Vector2(2.78, 1)
+shader_parameter/offset = Vector2(18.015, 0)

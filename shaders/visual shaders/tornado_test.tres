@@ -34,7 +34,7 @@ title = "color post processing"
 attached_nodes = PackedInt32Array(18, 19)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_51k3t"]
-size = Vector2(600, 998)
+size = Vector2(325, 338)
 title = "output"
 attached_nodes = PackedInt32Array(0, 14)
 
@@ -48,6 +48,7 @@ parameter_name = "WindColor"
 default_value_enabled = true
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_px2d3"]
+output_port_for_preview = 0
 linked_parent_graph_frame = 15
 texture = ExtResource("1_07nc6")
 
@@ -184,7 +185,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(928.28, 81.2482)
+graph_offset = Vector2(-478.763, 23.7585)
 modes/cull = 2
 preview_params/Pan_speed_x = "Vector2(3.685, 1)"
 preview_params/Pan_speed_y = "0.5"
