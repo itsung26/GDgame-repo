@@ -204,7 +204,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(1000.92, -53.5033)
+graph_offset = Vector2(-305.222, -85.2346)
 modes/cull = 2
 nodes/fragment/0/position = Vector2(2220, 240)
 nodes/fragment/3/node = SubResource("VisualShaderNodeFloatParameter_evber")
