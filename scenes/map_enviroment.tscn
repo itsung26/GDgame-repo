@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=53 format=4 uid="uid://mhij3rnbxw0r"]
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_wix4b"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="2_bcvk1"]
@@ -29,6 +29,25 @@ background_mode = 2
 sky = SubResource("Sky_tbgi4")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m4u7"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apjy4"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_4i6sm"]
+resource_local_to_scene = true
+ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_wjjk7"]
 vertices = PackedVector3Array(7, 0.75, -4.75, 8.5, 0.75, -4.75, 8.25, 0.75, -124.5, 6.75, 0.75, -2.75, -124.5, 0.75, -124.5, -124.5, 0.75, -3, 9.75, 0.75, -4.75, 10, 0.75, -124.5, 11.25, 0.75, -4.75, 11.25, 0.75, -3.25, 124.5, 0.75, -3.5, 124.5, 0.75, -124.5, 11.25, 0.75, 2, 124.5, 0.75, 2.25, -124.5, 0.75, 2.25, 6.75, 0.75, 2, 9, 0.75, 124.5, 9, 0.75, 3.5, 6.75, 0.75, 3.5, -124.5, 0.75, 124.5, 11.25, 0.75, 3.5, 124.5, 0.75, 124.5)
@@ -165,20 +184,21 @@ unique_name_in_owner = true
 process_mode = 3
 script = ExtResource("1_wix4b")
 
-[node name="grapple_rope_meshGen" parent="." instance=ExtResource("9_oma2s")]
+[node name="RopeGenerators" type="Node" parent="."]
+
+[node name="grapple_rope_meshGen" parent="RopeGenerators" instance=ExtResource("9_oma2s")]
 visible = false
 
-[node name="LaserGenerator" parent="." instance=ExtResource("3_idmwj")]
+[node name="LaserGenerator" parent="RopeGenerators" instance=ExtResource("3_idmwj")]
 
 [node name="Player" parent="." instance=ExtResource("2_bcvk1")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.1, 0)
-JUMP_VELOCITY = 8.0
+
+[node name="HealthBar" parent="Player/huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
+theme = SubResource("Theme_4i6sm")
 
 [node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
 transform = Transform3D(0.921615, 0.376129, 0.0956483, 0.148141, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
-
-[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
-transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
 
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
 transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.163892, 0.180758, 0.00796479)
@@ -443,6 +463,7 @@ omni_range = 151.554
 [node name="AnimationPlayer" type="AnimationPlayer" parent="WorldAnimators"]
 
 [editable path="Player"]
+[editable path="Player/huds/HUD"]
 [editable path="Player/Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Player/Pivot/Camera3D/Guns/Pistol"]
 [editable path="Player/SlideParticles"]

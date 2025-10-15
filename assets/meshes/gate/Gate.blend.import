@@ -4,16 +4,16 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bfb45dot2ipki"
-path="res://.godot/imported/two_cubes.blend-80f28b13e443ad1fabb31c0cca75cb8f.scn"
+path="res://.godot/imported/Gate.blend-3c0b339b8e9b2d7a3fd778f183005856.scn"
 
 [deps]
 
-source_file="res://assets/meshes/two_cubes.blend"
-dest_files=["res://.godot/imported/two_cubes.blend-80f28b13e443ad1fabb31c0cca75cb8f.scn"]
+source_file="res://assets/meshes/gate/Gate.blend"
+dest_files=["res://.godot/imported/Gate.blend-3c0b339b8e9b2d7a3fd778f183005856.scn"]
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="Node3D"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

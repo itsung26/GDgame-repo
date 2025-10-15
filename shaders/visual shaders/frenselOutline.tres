@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=10 format=3 uid="uid://cro2l2dohltv1"]
+[gd_resource type="VisualShader" load_steps=10 format=3 uid="uid://dagrnu38kh5hx"]
 
 [ext_resource type="Texture2D" uid="uid://sju5vyor67fi" path="res://shaders/shader textures/Plane Base Color.png" id="1_0mqi4"]
 

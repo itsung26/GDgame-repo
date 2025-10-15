@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=26 format=3 uid="uid://d2st6r85ifqpk"]
+[gd_resource type="VisualShader" load_steps=26 format=3 uid="uid://d0ve3v6vcp75l"]
 
 [ext_resource type="Texture2D" uid="uid://cokfhyvwqq2g3" path="res://assets/meshes/sign/MainProceduralColor.png" id="1_evber"]
 [ext_resource type="Texture2D" uid="uid://dlpvc3j8jg8yc" path="res://assets/meshes/sign/ArrowProceduralBase.png" id="2_v0r6h"]

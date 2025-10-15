@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="1_t18mp"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="2_lo83r"]
 [ext_resource type="PackedScene" uid="uid://bpljuobbfpsww" path="res://scenes/laser_generator.tscn" id="3_t18mp"]
-[ext_resource type="PackedScene" uid="uid://bfb45dot2ipki" path="res://assets/meshes/two_cubes.blend" id="5_s1f0r"]
+[ext_resource type="PackedScene" uid="uid://dhbm7xrs1r6sb" path="res://scenes/gate.tscn" id="5_s1f0r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ocl4u"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -53,7 +53,7 @@ width = 0.05
 height = 0.05
 
 [node name="Player" parent="." instance=ExtResource("1_msh1k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.45824, 0.5, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.51604, 0.965514, 0)
 
 [node name="WorldFloor" type="StaticBody3D" parent="."]
 collision_layer = 4
@@ -77,5 +77,5 @@ mesh = SubResource("BoxMesh_t18mp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.139, 0)
 mesh = SubResource("BoxMesh_s1f0r")
 
-[node name="two_cubes" parent="WorldFloor" instance=ExtResource("5_s1f0r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0324, 0)
+[node name="Gate" parent="." instance=ExtResource("5_s1f0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462567, 0)

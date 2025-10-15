@@ -515,7 +515,7 @@ func gunInputs(): # to be called in a method that can "hear" inputs
 			if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
 				pass
 			else:
-				if Global.BLL_ammo > 0:
+				if BLL_AMMO > 0:
 					black_hole_launcher.bll_animator.play("Black Hole Launcher/BLL_cooldown")
 
 	
