@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccwx4hsr3uqux"]
+[gd_scene load_steps=10 format=3 uid="uid://ccwx4hsr3uqux"]
 
 [ext_resource type="FontFile" uid="uid://3svjt1ifyndm" path="res://assets/sprite assets/ui/kenney_ui-pack/Font/Kenney Future.ttf" id="1_f1d2v"]
 [ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/pause.gd" id="1_r8yp4"]
 [ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="2_jn4bt"]
 [ext_resource type="Texture2D" uid="uid://bya6b43uw7q5w" path="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Extra/icon_play_outline.svg" id="3_aicil"]
 [ext_resource type="Texture2D" uid="uid://cpwpswqumj6y3" path="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Default/icon_cross.png" id="4_jn4bt"]
+[ext_resource type="Script" uid="uid://bw05khwxr3227" path="res://scripts/unstuckHandler.gd" id="5_wen6a"]
 [ext_resource type="Texture2D" uid="uid://io1boip5xtqn" path="res://assets/sprite assets/ui/icons generic/question-mark-3.png" id="6_r1fnm"]
 
 [sub_resource type="Theme" id="Theme_r1fnm"]
@@ -25,7 +26,6 @@ grow_vertical = 2
 script = ExtResource("1_r8yp4")
 
 [node name="CenterButtons" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -78,6 +78,7 @@ text = "Main Menu"
 layout_mode = 2
 text = "Unstuck
 "
+script = ExtResource("5_wen6a")
 
 [node name="Quit" type="Button" parent="CenterButtons/VBoxContainer"]
 layout_mode = 2
@@ -200,6 +201,7 @@ text = "Controls"
 [connection signal="pressed" from="CenterButtons/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CenterButtons/VBoxContainer/MainMenu" to="." method="_on_multiplater_pressed"]
+[connection signal="pressed" from="CenterButtons/VBoxContainer/Unstuck" to="CenterButtons/VBoxContainer/Unstuck" method="_on_pressed"]
 [connection signal="pressed" from="CenterButtons/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="OptionsMenu/Back" to="." method="_on_back_pressed"]
 [connection signal="toggled" from="OptionsMenu/HBoxContainer/GraphicsBox/ShaderToggleHolder/ShaderToggle" to="." method="_on_shader_toggle_toggled"]
