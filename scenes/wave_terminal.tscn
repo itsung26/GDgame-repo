@@ -242,7 +242,7 @@ material = SubResource("StandardMaterial3D_pkfgk")
 size = Vector2(10, 5)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3gjfy"]
-radius = 14.494
+radius = 7.66018
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i60vg"]
 render_priority = 0

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxxkd4hpb5py8"
-path.s3tc="res://.godot/imported/door.l Base Color.png-9a59d22718614ae199238c03bfeaba17.s3tc.ctex"
+uid="uid://bivu5hxeo1tij"
+path.s3tc="res://.godot/imported/Cube Base Color.png-b4e741ce0837c2e1d4d5358fc1c2e2b7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/meshes/gate/textures/door.l Base Color.png"
-dest_files=["res://.godot/imported/door.l Base Color.png-9a59d22718614ae199238c03bfeaba17.s3tc.ctex"]
+source_file="res://assets/meshes/SpawnPlatform/textures/Cube Base Color.png"
+dest_files=["res://.godot/imported/Cube Base Color.png-b4e741ce0837c2e1d4d5358fc1c2e2b7.s3tc.ctex"]
 
 [params]
 

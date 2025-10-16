@@ -1,7 +1,8 @@
-[gd_scene load_steps=67 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=69 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/visual shaders/pixelated.tres" id="2_f1ej7"]
+[ext_resource type="Script" uid="uid://dp8ehpipke67n" path="res://scripts/player_debug_mesh.gd" id="2_oprun"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://b634drxy8nceb" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_normal000.png" id="3_fjrip"]
 [ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="3_oprun"]
@@ -14,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://cp1mmygsp63vr" path="res://scenes/hud.tscn" id="10_d2wvv"]
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="11_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://d6b4gnbdcx45" path="res://scenes/black_hole_launcher.tscn" id="11_d2wvv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a8ls1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qfm1y"]
 shader = ExtResource("2_f1ej7")
@@ -1408,6 +1411,12 @@ dash_time_length = 0.175
 GRAPPLE_SPEED_MAX = 120
 grapple_pull_speed = 1500.0
 grapple_hop = 5.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_a8ls1")
+skeleton = NodePath("../CollisionShape3D")
+script = ExtResource("2_oprun")
 
 [node name="FullScreenShaders" type="Control" parent="."]
 layout_mode = 3
