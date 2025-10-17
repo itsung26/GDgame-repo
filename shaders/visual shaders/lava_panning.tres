@@ -1,0 +1,87 @@
+[gd_resource type="VisualShader" load_steps=9 format=3 uid="uid://cbfayxc1ra1w2"]
+
+[ext_resource type="Texture2D" uid="uid://bstpowjyy85ub" path="res://assets/meshes/building1/textures/bright-volcanic-texture-lava-3d-8825334 (1).png" id="1_w3dkp"]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_w3dkp"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ckqf1"]
+texture = ExtResource("1_w3dkp")
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_viqj3"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_axx1m"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_alako"]
+function = 31
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_mj6jk"]
+parameter_name = "scroll_speed"
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_ckqf1"]
+op_type = 0
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform float scroll_speed;
+uniform sampler2D tex_frg_2;
+
+
+
+void fragment() {
+// Input:4
+	float n_out4p0 = TIME;
+
+
+// FloatFunc:6
+	float n_out6p0 = 1.0 - n_out4p0;
+
+
+// FloatParameter:8
+	float n_out8p0 = scroll_speed;
+
+
+// FloatOp:10
+	float n_out10p0 = n_out6p0 * n_out8p0;
+
+
+// VectorCompose:9
+	float n_in9p0 = 0.00000;
+	vec2 n_out9p0 = vec2(n_in9p0, n_out10p0);
+
+
+// UVFunc:3
+	vec2 n_in3p1 = vec2(1.00000, 1.00000);
+	vec2 n_out3p0 = n_out9p0 * n_in3p1 + UV;
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, n_out3p0);
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-279.754, -1.61246)
+nodes/fragment/0/position = Vector2(820, 40)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_ckqf1")
+nodes/fragment/2/position = Vector2(400, -140)
+nodes/fragment/3/node = SubResource("VisualShaderNodeUVFunc_viqj3")
+nodes/fragment/3/position = Vector2(60, -40)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_axx1m")
+nodes/fragment/4/position = Vector2(-1300, -20)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatFunc_alako")
+nodes/fragment/6/position = Vector2(-960, -20)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_mj6jk")
+nodes/fragment/8/position = Vector2(-800, 140)
+nodes/fragment/9/node = SubResource("VisualShaderNodeVectorCompose_ckqf1")
+nodes/fragment/9/position = Vector2(-200, -60)
+nodes/fragment/10/node = SubResource("VisualShaderNodeFloatOp_w3dkp")
+nodes/fragment/10/position = Vector2(-480, -60)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 0, 2, 0, 4, 0, 6, 0, 6, 0, 10, 0, 8, 0, 10, 1, 10, 0, 9, 1, 9, 0, 3, 2)
