@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dn7v4oyte3wwn"
-path.s3tc="res://.godot/imported/building1_Fabric004_2K-PNG_NormalGL.png-9c255fdb96aab1b861d991997e59bd3e.s3tc.ctex"
+path.s3tc="res://.godot/imported/building1_Fabric004_2K-PNG_NormalGL.png-8e3a71260d27b333a53e36bc8c7d7eef.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/meshes/building1/building1_Fabric004_2K-PNG_NormalGL.png"
-dest_files=["res://.godot/imported/building1_Fabric004_2K-PNG_NormalGL.png-9c255fdb96aab1b861d991997e59bd3e.s3tc.ctex"]
+source_file="res://assets/meshes/building1/textures/building1_Fabric004_2K-PNG_NormalGL.png"
+dest_files=["res://.godot/imported/building1_Fabric004_2K-PNG_NormalGL.png-8e3a71260d27b333a53e36bc8c7d7eef.s3tc.ctex"]
 
 [params]
 

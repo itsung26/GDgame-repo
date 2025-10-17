@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ywli5jq3ebpw"
-path.s3tc="res://.godot/imported/building1_Roughness.png-9e49415a115559d904c9885204b339eb.s3tc.ctex"
+uid="uid://bwxejfw2kj8pi"
+path.s3tc="res://.godot/imported/DoorSmall_Metal054A_2K-PNG_Color.png-938877387f15324917b30339cc1193e3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "204a5e6d705e36b6906de8c65dfdfdf4"
+"md5": "00c0a072a6a7176c152fe4ea349ad421"
 }
 
 [deps]
 
-source_file="res://assets/meshes/building1/building1_Roughness.png"
-dest_files=["res://.godot/imported/building1_Roughness.png-9e49415a115559d904c9885204b339eb.s3tc.ctex"]
+source_file="res://assets/meshes/DoorSmall/textures/DoorSmall_Metal054A_2K-PNG_Color.png"
+dest_files=["res://.godot/imported/DoorSmall_Metal054A_2K-PNG_Color.png-938877387f15324917b30339cc1193e3.s3tc.ctex"]
 
 [params]
 

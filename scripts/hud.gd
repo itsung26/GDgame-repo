@@ -158,7 +158,7 @@ func _process(delta) -> void:
 			
 		# set debug text-------------------------------------------------------------------------------
 		current_action_state.text = "Current action state: " + player.current_action_string_name
-		hooked_target.text = "last object hit: " + str(player.hooked_target)
+		hooked_target.text = "grapple target: " + str(player.hooked_target)
 		current_weapon_state.text = "Current weapon state: " + player.current_weapon_string_name
 		current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
 		current_player_pos.text = "Player Global Position: " + str(player.global_position)

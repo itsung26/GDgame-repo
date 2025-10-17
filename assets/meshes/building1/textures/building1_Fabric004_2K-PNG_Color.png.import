@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b61052uxv7ru8"
-path.s3tc="res://.godot/imported/building1_normal.png.png-f2d04aa01bc1a9483bf64b8c9b15de45.s3tc.ctex"
+uid="uid://btm6j82xbltur"
+path.s3tc="res://.godot/imported/building1_Fabric004_2K-PNG_Color.png-ad50ad05ba6beec7f4442ac2c779fb7a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "53dccb5d086b7c976e86806b1370792c"
+"md5": "77a91e577c6379305e14070334620585"
 }
 
 [deps]
 
-source_file="res://assets/meshes/building1/building1_normal.png.png"
-dest_files=["res://.godot/imported/building1_normal.png.png-f2d04aa01bc1a9483bf64b8c9b15de45.s3tc.ctex"]
+source_file="res://assets/meshes/building1/textures/building1_Fabric004_2K-PNG_Color.png"
+dest_files=["res://.godot/imported/building1_Fabric004_2K-PNG_Color.png-ad50ad05ba6beec7f4442ac2c779fb7a.s3tc.ctex"]
 
 [params]
 
@@ -23,12 +23,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://assets/meshes/building1/building1_normal.png.png"
+roughness/mode=0
+roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

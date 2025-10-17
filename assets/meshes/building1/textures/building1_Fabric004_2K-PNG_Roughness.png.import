@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8338btqfw2ye"
-path.s3tc="res://.godot/imported/building1_color.png-84630331b4d38b70e1ab91639c4159f0.s3tc.ctex"
+uid="uid://hbtsieaxd10t"
+path.s3tc="res://.godot/imported/building1_Fabric004_2K-PNG_Roughness.png-2859b4aeb6d63f60952fdffe41e206e0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "a5bb85e8ab9e2a312a897369409afa64"
+"md5": "f739f4240dbae1d161529b40283f1cac"
 }
 
 [deps]
 
-source_file="res://assets/meshes/building1/building1_color.png"
-dest_files=["res://.godot/imported/building1_color.png-84630331b4d38b70e1ab91639c4159f0.s3tc.ctex"]
+source_file="res://assets/meshes/building1/textures/building1_Fabric004_2K-PNG_Roughness.png"
+dest_files=["res://.godot/imported/building1_Fabric004_2K-PNG_Roughness.png-2859b4aeb6d63f60952fdffe41e206e0.s3tc.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxn5cetnq3ay5"
-path.s3tc="res://.godot/imported/DoorSmall_Metal054A_2K-PNG_NormalGL.png-fc1219245935c7f477ef6e266b53e708.s3tc.ctex"
+path.s3tc="res://.godot/imported/DoorSmall_Metal054A_2K-PNG_NormalGL.png-86b7f529d9ce2fb6df8f4133e64b2993.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/meshes/DoorSmall/DoorSmall_Metal054A_2K-PNG_NormalGL.png"
-dest_files=["res://.godot/imported/DoorSmall_Metal054A_2K-PNG_NormalGL.png-fc1219245935c7f477ef6e266b53e708.s3tc.ctex"]
+source_file="res://assets/meshes/DoorSmall/textures/DoorSmall_Metal054A_2K-PNG_NormalGL.png"
+dest_files=["res://.godot/imported/DoorSmall_Metal054A_2K-PNG_NormalGL.png-86b7f529d9ce2fb6df8f4133e64b2993.s3tc.ctex"]
 
 [params]
 

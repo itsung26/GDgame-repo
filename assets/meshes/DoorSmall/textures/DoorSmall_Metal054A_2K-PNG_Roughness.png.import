@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6qbx0wqeba0m"
-path.s3tc="res://.godot/imported/DoorSmall_futuristic-phone-keypad-touchscreens-vector-260nw-1551970622.png-2eade3a7364875ba1f0deccad39ec6ec.s3tc.ctex"
+uid="uid://cqav0ctn13ip4"
+path.s3tc="res://.godot/imported/DoorSmall_Metal054A_2K-PNG_Roughness.png-08c89fe059e4bdd0b8913638315c6f2f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "5e82866a32596f368f030a737dea0f03"
+"md5": "0681bcda365039daaae4346286036aef"
 }
 
 [deps]
 
-source_file="res://assets/meshes/DoorSmall/DoorSmall_futuristic-phone-keypad-touchscreens-vector-260nw-1551970622.png"
-dest_files=["res://.godot/imported/DoorSmall_futuristic-phone-keypad-touchscreens-vector-260nw-1551970622.png-2eade3a7364875ba1f0deccad39ec6ec.s3tc.ctex"]
+source_file="res://assets/meshes/DoorSmall/textures/DoorSmall_Metal054A_2K-PNG_Roughness.png"
+dest_files=["res://.godot/imported/DoorSmall_Metal054A_2K-PNG_Roughness.png-08c89fe059e4bdd0b8913638315c6f2f.s3tc.ctex"]
 
 [params]
 
