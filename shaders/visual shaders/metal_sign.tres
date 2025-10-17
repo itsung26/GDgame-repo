@@ -9,12 +9,12 @@ linked_parent_graph_frame = 15
 texture = ExtResource("1_evber")
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_evber"]
-size = Vector2(604, 652)
+size = Vector2(604, 342)
 title = "Arrow procedure"
 attached_nodes = PackedInt32Array(7, 6, 5)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_vqijv"]
-size = Vector2(684, 585)
+size = Vector2(684, 442)
 title = "border procedure"
 attached_nodes = PackedInt32Array(9, 13, 14)
 
@@ -27,7 +27,7 @@ linked_parent_graph_frame = 12
 parameter_name = "border_color"
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_a60md"]
-size = Vector2(584, 605)
+size = Vector2(584, 462)
 title = "main procedure"
 attached_nodes = PackedInt32Array(10, 18, 17)
 
@@ -58,12 +58,12 @@ parameter_name = "emission_enabled"
 linked_parent_graph_frame = 23
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_isw38"]
-size = Vector2(929, 573)
+size = Vector2(924, 462)
 title = "arrow emission logic"
 attached_nodes = PackedInt32Array(22, 19, 21, 20)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_8xplo"]
-size = Vector2(604, 327)
+size = Vector2(604, 182)
 title = "final adding"
 attached_nodes = PackedInt32Array(16, 8)
 
@@ -204,7 +204,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-305.222, -85.2346)
 modes/cull = 2
 nodes/fragment/0/position = Vector2(2220, 240)
 nodes/fragment/3/node = SubResource("VisualShaderNodeFloatParameter_evber")

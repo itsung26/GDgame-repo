@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cynpet0x6y5db"]
 
-[ext_resource type="Shader" uid="uid://cro2l2dohltv1" path="res://shaders/visual shaders/frenselOutline.tres" id="1_tdrxd"]
+[ext_resource type="Shader" uid="uid://dagrnu38kh5hx" path="res://shaders/visual shaders/frenselOutline.tres" id="1_tdrxd"]
 
 [resource]
 render_priority = 0

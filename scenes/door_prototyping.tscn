@@ -1,0 +1,119 @@
+[gd_scene load_steps=13 format=3 uid="uid://bg6pi12lfctht"]
+
+[ext_resource type="PackedScene" uid="uid://bpljuobbfpsww" path="res://scenes/laser_generator.tscn" id="1_nud0g"]
+[ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="2_k8i0r"]
+[ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_1575w"]
+[ext_resource type="PackedScene" uid="uid://dkcmqlhhhkcqd" path="res://scenes/door_small.tscn" id="4_k8i0r"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nud0g"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_k8i0r"]
+sky_material = SubResource("ProceduralSkyMaterial_nud0g")
+
+[sub_resource type="Environment" id="Environment_1575w"]
+background_mode = 2
+sky = SubResource("Sky_k8i0r")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ils7t"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_6hmn5"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m4u7"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apjy4"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_rjmve"]
+resource_local_to_scene = true
+ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
+
+[node name="Door_Prototyping" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1575w")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshGenerators" type="Node" parent="."]
+
+[node name="LaserGenerator" parent="MeshGenerators" instance=ExtResource("1_nud0g")]
+
+[node name="grapple_rope_meshGen" parent="MeshGenerators" instance=ExtResource("2_k8i0r")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 519
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(29.8052, 0, 0, 0, 29.8052, 0, 0, 0, 29.8052, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ils7t")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(29.8052, 0, 0, 0, 29.8052, 0, 0, 0, 29.8052, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_6hmn5")
+
+[node name="Player" parent="." instance=ExtResource("3_1575w")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -4.40062)
+
+[node name="HealthBar" parent="Player/huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
+theme = SubResource("Theme_rjmve")
+
+[node name="Unstuck" parent="Player/huds/Pause/CenterButtons/VBoxContainer" index="4" node_paths=PackedStringArray("unstuck_position")]
+unstuck_position = NodePath("../../../../../../Unstuck")
+
+[node name="Skeleton3D" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM" index="0"]
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/position = Vector3(-0.0189005, 0.461312, 0.00161639)
+bones/1/scale = Vector3(0.999999, 0.999999, 1)
+bones/2/position = Vector3(3.39933e-06, 1.34715, -1.45435e-05)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/position = Vector3(-0.0519902, -0.0479269, 0.0310608)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/scale = Vector3(1, 0.999999, 1)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/scale = Vector3(0.999999, 1, 1)
+bones/13/scale = Vector3(1, 1, 1)
+bones/14/scale = Vector3(1, 1, 1)
+bones/15/scale = Vector3(1, 1, 1)
+bones/16/scale = Vector3(1, 1, 1)
+bones/17/scale = Vector3(1, 1, 1)
+bones/18/scale = Vector3(1, 1, 1)
+
+[node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
+transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.89623, -0.00338209, 0.181376, -0.147858)
+
+[node name="Unstuck" type="Marker3D" parent="."]
+
+[node name="DoorSmall" parent="." instance=ExtResource("4_k8i0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.12893, -4.76837e-07, 1.4604)
+
+[editable path="Player"]
+[editable path="Player/huds/HUD"]
+[editable path="Player/huds/Pause"]
+[editable path="Player/Pivot/Camera3D/Guns/BlackHoleLauncher"]
+[editable path="Player/Pivot/Camera3D/Guns/Pistol"]
+[editable path="Player/SlideParticles"]

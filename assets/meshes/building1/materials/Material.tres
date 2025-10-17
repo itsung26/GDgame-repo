@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://cabsdji5rxvhp"]
+
+[ext_resource type="Texture2D" uid="uid://d3kdx318oj1te" path="res://assets/meshes/building1/textures/bridgeMaterial Base Color.png" id="1_nluiw"]
+[ext_resource type="Texture2D" uid="uid://dms518rdixxqy" path="res://assets/meshes/building1/textures/bridgeMaterial_Metallic.png" id="2_84ads"]
+[ext_resource type="Texture2D" uid="uid://cd5mlqx3ehx5j" path="res://assets/meshes/building1/textures/bridge_material.png" id="3_t67bv"]
+[ext_resource type="Texture2D" uid="uid://c7y375jk8pt2w" path="res://assets/meshes/building1/textures/bridgeMaterial_roughness.png" id="4_ivd73"]
+
+[resource]
+resource_name = "Material"
+cull_mode = 2
+albedo_texture = ExtResource("1_nluiw")
+metallic = 1.0
+metallic_texture = ExtResource("2_84ads")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("4_ivd73")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 5.92
+normal_texture = ExtResource("3_t67bv")

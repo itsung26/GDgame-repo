@@ -14,7 +14,6 @@ class_name Player extends CharacterBody3D
 @onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
 @onready var hud: Control = $"../HUD"
 @onready var grapple_target: Node3D = $"../GrappleTarget"
-@onready var grapple_rope_mesh_gen: Node3D = Helper.getFirstInScene("grapple_rope_meshGen")
 @onready var grapple_arm: Node3D = $Pivot/Camera3D/GrappleArm
 @onready var grapple_direction_getter: RayCast3D = $Pivot/Camera3D/GrappleDirectionGetter
 @onready var grapple_hook: RigidBody3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook
@@ -27,6 +26,7 @@ class_name Player extends CharacterBody3D
 @onready var dash_length_timer: Timer = $DashLengthTimer
 @onready var stamina_charge_delay_timer: Timer = $StaminaChargeDelayTimer
 @onready var tail_marker: Marker3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/TailMarker
+@onready var grapple_rope_mesh_gen:ropeMeshGenerator = Helper.getFirstInScene("grapple_rope_meshGen")
 
 signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_state:weapon_states)
 
@@ -314,10 +314,13 @@ func _input(event) -> void:
 	
 	# handle grapple activation
 	if Input.is_action_just_pressed("grapple") and player_grapple_input_enabled:
-		if action_state != action_states.GRAPPLING:
-			action_state = action_states.GRAPPLING
-		elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
-			action_state = action_states.IDLE
+		if not grapple_rope_mesh_gen == null:
+			if action_state != action_states.GRAPPLING:
+				action_state = action_states.GRAPPLING
+			elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
+				action_state = action_states.IDLE
+		else:
+			print("Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
 			
 	# on slide | slam pressed
 	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor():
@@ -584,14 +587,16 @@ func _process(delta) -> void:
 		processTargetPull()
 	# if the hook is idle and in the holder, set it to look right and face right direction
 	elif action_state == action_states.IDLE and grapple_hook.get_parent() == rope_origin:
-		grapple_rope_mesh_gen.visible = false
+		if grapple_rope_mesh_gen:
+			grapple_rope_mesh_gen.visible = false
 		grapple_hook.freeze = true
 		grapple_hook.position = Vector3(-0.069, 0.252, 0.043)
 		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
 		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
 	
 	# keeps the rope attatched to the grapple bit
-	grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
+	if grapple_rope_mesh_gen:
+		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
 	
 	# retrn the time remaining on the current black hole cooldown animation and save as a time
 	if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":

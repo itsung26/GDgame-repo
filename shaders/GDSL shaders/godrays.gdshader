@@ -28,14 +28,14 @@ float random(vec2 uv) {
 float noise(vec2 uv) {
     vec2 i = floor(uv);
     vec2 f = fract(uv);
-    
+
     float a = random(i);
     float b = random(i + vec2(1.0, 0.0));
     float c = random(i + vec2(0.0, 1.0));
     float d = random(i + vec2(1.0, 1.0));
-    
+
     vec2 u = f * f * (3.0 - 2.0 * f);
-    
+
     return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
 }
 
@@ -55,46 +55,46 @@ void fragment() {
 
     vec2 centered_uv = UV - vec2(0.5, ray_position);
     vec2 transformed_uv = create_rotation_matrix(ray_angle) * centered_uv;
-    
+
 
     transformed_uv.y = transformed_uv.y / (transformed_uv.y * spread + 1.0);
     transformed_uv += vec2(0.5);
-    
+
     float time_factor = TIME * speed;
     vec2 ray1_uv = vec2(
         transformed_uv.x * ray1_density + sin(time_factor * 0.1) * (ray1_density * 0.2) + seed,
         transformed_uv.y
     );
-    
+
     vec2 ray2_uv = vec2(
         transformed_uv.x * ray2_density + sin(time_factor * 0.2) * (ray1_density * 0.2) + seed,
         transformed_uv.y
     );
-    
-    float cut_x = smoothstep(cutoff - 0.1, cutoff + 0.1, transformed_uv.x) * 
+
+    float cut_x = smoothstep(cutoff - 0.1, cutoff + 0.1, transformed_uv.x) *
                  smoothstep(1.0 + cutoff + 0.1, 1.0 + cutoff - 0.1, transformed_uv.x);
 
     float ray1 = noise(ray1_uv);
     float ray2 = noise(ray2_uv) * ray2_intensity;
-    
+
     float rays;
     if (hdr) {
         rays = ray1 + ray2;
     } else {
         rays = clamp(ray1 + ray2, 0.0, 1.0);
     }
-    
+
 
     rays *= cut_x;
     rays *= smoothstep(0.0, falloff, 1.0 - UV.y);
     rays *= smoothstep(0.0, edge_fade, transformed_uv.x);
     rays *= smoothstep(0.0, edge_fade, 1.0 - transformed_uv.x);
-    
+
 
     vec3 final_color = vec3(rays) * color.rgb;
 
     vec3 screen_color = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
     final_color = screen_blend(screen_color, final_color * color.a);
-    
+
     COLOR = vec4(final_color, rays * color.a);
 }

@@ -34,9 +34,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"lavaMaterial": {
+"Material": {
 "use_external/enabled": true,
-"use_external/path": "res://assets/meshes/building1/materials/lavaMaterial.tres"
+"use_external/path": "res://assets/meshes/building1/materials/Material.tres"
 }
 }
 }

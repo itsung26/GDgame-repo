@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=70 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/visual shaders/pixelated.tres" id="2_f1ej7"]
@@ -415,7 +415,7 @@ tracks/29/keys = {
 tracks/30/type = "value"
 tracks/30/imported = false
 tracks/30/enabled = true
-tracks/30/path = NodePath("../HUD:crosshair_spread")
+tracks/30/path = NodePath("huds/HUD:crosshair_spread")
 tracks/30/interp = 1
 tracks/30/loop_wrap = true
 tracks/30/keys = {
@@ -587,11 +587,11 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("../HUD:crosshair_spread")
+tracks/8/path = NodePath("huds/HUD:crosshair_spread")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.0518673, 0.185166),
+"times": PackedFloat32Array(0, 0.0519, 0.1852),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [8.03, 22.36, 8.03]
@@ -1153,6 +1153,10 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
 size = Vector3(0.752441, 0.138672, 0.796112)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_oprun"]
+height = 1.98193
+radius = 0.508789
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_y4r1p"]
 radius = 0.85471
 
@@ -1443,6 +1447,7 @@ texture = ExtResource("3_oprun")
 [node name="huds" type="Node" parent="."]
 
 [node name="HUD" parent="huds" instance=ExtResource("10_d2wvv")]
+crosshair_spread = 8.03
 
 [node name="HealthBar" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
 theme = SubResource("Theme_f1ej7")
@@ -1491,11 +1496,16 @@ speed_scale = 5.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
-debug_color = Color(0, 0.595, 0.7, 0)
+disabled = true
 
 [node name="footCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0694726, 0.00931263)
 shape = SubResource("BoxShape3D_b2mh8")
+disabled = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.990967, 0)
+shape = SubResource("CylinderShape3D_oprun")
 
 [node name="GrappleEnemyCeaseArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.941914, 0)
@@ -1544,7 +1554,7 @@ skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
 [node name="GrappleArm" type="Node3D" parent="Pivot/Camera3D"]
-transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, -0.154, -0.5, 0)
+transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, -0.154, -0.5, 0.0226591)
 
 [node name="grappleArm" type="Node3D" parent="Pivot/Camera3D/GrappleArm"]
 
@@ -1555,7 +1565,7 @@ bones/0/name = "bip_collar_L"
 bones/0/parent = -1
 bones/0/rest = Transform3D(0.0351161, 0.999381, 0.00215055, 0.000219792, -0.0021596, 0.999998, 0.999383, -0.0351155, -0.000295493, -0.645405, 2.76579, -0.520804)
 bones/0/enabled = true
-bones/0/position = Vector3(-0.345549, 2.76579, -0.40007)
+bones/0/position = Vector3(-0.645405, 2.76579, -0.520804)
 bones/0/rotation = Quaternion(-0.509306, -0.490668, -0.491617, 0.5081)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "bip_upperarm_L"
@@ -1691,7 +1701,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419368, 0.0912843, 0.434093, -0.896231, -0.163892, 0.180759, 0.00796503)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912845, 0.434092, -0.896231, -0.463748, 0.180758, -0.112769)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1845,6 +1855,7 @@ one_shot = true
 [connection signal="timeout" from="StaminaChargeDelayTimer" to="." method="_on_stamina_charge_delay_timer_timeout"]
 
 [editable path="huds/HUD"]
+[editable path="huds/Pause"]
 [editable path="Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]
 [editable path="SlideParticles"]

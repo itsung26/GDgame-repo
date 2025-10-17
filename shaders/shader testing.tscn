@@ -13,7 +13,7 @@
 [ext_resource type="Shader" uid="uid://cwqvoe2yiuisl" path="res://shaders/GDSL shaders/holographic_shader.gdshader" id="11_aagwi"]
 [ext_resource type="Shader" uid="uid://bc8elyc8c7dbs" path="res://shaders/visual shaders/BlackHoleShader.tres" id="12_hl1cy"]
 [ext_resource type="Shader" uid="uid://dcu2v4v1is3l8" path="res://shaders/GDSL shaders/holographic.gdshader" id="13_7c073"]
-[ext_resource type="Material" path="res://assets/materials/frensel_outline_shader.tres" id="14_03nm1"]
+[ext_resource type="Material" uid="uid://cynpet0x6y5db" path="res://assets/materials/frensel_outline_shader.tres" id="14_03nm1"]
 [ext_resource type="Material" uid="uid://cfe6eqv35y70m" path="res://temp/Smoke_Scene.tres" id="14_6cuth"]
 [ext_resource type="Material" uid="uid://dxt37gdn05eyw" path="res://temp/Smoke_Scene_process_material.tres" id="15_lqk2t"]
 [ext_resource type="ArrayMesh" uid="uid://c03p1wq8x7grl" path="res://scenes/Smoke_Project/Mesh.tres" id="16_7b3fo"]

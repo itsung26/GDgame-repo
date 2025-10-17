@@ -14,7 +14,7 @@ class_name hudGui extends Control
 @onready var current_look_dir: Label = %CurrentLookDir
 @onready var pivot: Node3D = $"../../Pivot"
 var current_frames_per_second = "null"
-@onready var player: Player = get_tree().current_scene.find_child("Player")
+@onready var player: Player = Helper.getFirstInScene("Player")
 @onready var black_hole_2: Sprite2D = $pistolPreviewIcon/BlackHole2
 @onready var pistol_bullet_icon: Sprite2D = $AmmoContainer/pistol_bullet_icon
 @onready var reload_prompt: AnimatedSprite2D = $pistolPreviewIcon/ReloadPrompt
@@ -33,7 +33,7 @@ var current_frames_per_second = "null"
 @onready var black_hole_gun_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Black hole gun outline"
 @onready var pistol_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Pistol outline"
 @onready var hand_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Hand outline"
-
+@onready var pistol = Helper.getFirstInScene("Pistol")
 
 
 @export_category("Crosshair Properties")
@@ -54,7 +54,6 @@ var current_frames_per_second = "null"
 ## The speed at which the healthbar fills and drains in reaction to the player being damaged
 @export var staminabar_react_speed := 1.0
 
-var pistol
 var pistol_on_overclock = false
 var crosshair_lines := []
 
@@ -64,7 +63,6 @@ func _ready() -> void:
 		print("executing editor startup functions \ninitializing editor startup parameters")
 		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
 	else:
-		pistol = player.get_node("Pivot/Camera3D/Guns/Pistol")
 		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
 	
 func barChargeSetReady():
