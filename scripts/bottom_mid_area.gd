@@ -1,3 +1,4 @@
+# Godot version: 4.4.1 stable
 extends Control
 @onready var tooltip: Panel = $Tooltip
 @export_category("Showable tooltips")
@@ -33,10 +34,11 @@ func getAssociatedKey(action:StringName) -> String:
 	for ev in events:
 		if ev is InputEventKey:
 			# Prefer a human readable string from the event (works in both Godot 3/4)
-			# as_text() returns a concise representation like "Key: W" or "Key: Space".
 			var s = ev.as_text()
 			# Strip any leading "Key: " if present
 			s = s.replace("Key: ", "").replace("KEY: ", "")
+			# Remove the "(physical)" marker and any surrounding whitespace
+			s = s.replace(" (physical)", "").replace("(physical)", "").strip_edges()
 			return s
 		elif ev is InputEventMouseButton:
 			match ev.button_index:
