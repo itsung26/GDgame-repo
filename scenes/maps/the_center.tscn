@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=4 uid="uid://8ncpkk70asjb"]
+[gd_scene load_steps=70 format=4 uid="uid://8ncpkk70asjb"]
 
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_msh1k"]
 [ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="1_t18mp"]
@@ -231,6 +231,9 @@ data = PackedVector3Array(-2.165, 0.25, 4.1, 2.165, 0.25, 4.1, -2.165, -0.25, 4.
 [sub_resource type="BoxShape3D" id="BoxShape3D_i776v"]
 size = Vector3(34.5, 12.6, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4tgr5"]
+size = Vector3(22.3018, 5.35889, 2.84964)
+
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_aurki"]
 data = PackedVector3Array(-1.769, -12.0982, 1.769, -1.769, 12.0982, -1.769, -1.769, 12.0982, 1.769, -1.769, -12.0982, 1.769, -1.769, -12.0982, -1.769, -1.769, 12.0982, -1.769, -1.769, -12.0982, -1.769, 1.769, 12.0982, -1.769, -1.769, 12.0982, -1.769, -1.769, -12.0982, -1.769, 1.769, -12.0982, -1.769, 1.769, 12.0982, -1.769, 1.769, -12.0982, -1.769, 1.769, 12.0982, 1.769, 1.769, 12.0982, -1.769, 1.769, -12.0982, -1.769, 1.769, -12.0982, 1.769, 1.769, 12.0982, 1.769, 1.769, -12.0982, 1.769, -1.769, 12.0982, 1.769, 1.769, 12.0982, 1.769, 1.769, -12.0982, 1.769, -1.769, -12.0982, 1.769, -1.769, 12.0982, 1.769, 1.3288, 12.0982, 1.3288, 1.3288, -12.0982, -1.3289, 1.3288, 12.0982, -1.3289, 1.3288, 12.0982, 1.3288, 1.3288, -12.0982, 1.3288, 1.3288, -12.0982, -1.3289, -1.3289, 12.0982, 1.3288, 1.3288, -12.0982, 1.3288, 1.3288, 12.0982, 1.3288, -1.3289, 12.0982, 1.3288, -1.3289, -12.0982, 1.3288, 1.3288, -12.0982, 1.3288, -1.3289, -12.0982, -1.3289, -1.769, -12.0982, 1.769, -1.3289, -12.0982, 1.3288, -1.3289, -12.0982, 1.3288, -1.769, -12.0982, 1.769, 1.769, -12.0982, 1.769, -1.3289, -12.0982, -1.3289, -1.769, -12.0982, -1.769, -1.769, -12.0982, 1.769, -1.3289, -12.0982, 1.3288, 1.769, -12.0982, 1.769, 1.3288, -12.0982, 1.3288, 1.3288, -12.0982, -1.3289, -1.769, -12.0982, -1.769, -1.3289, -12.0982, -1.3289, 1.3288, -12.0982, 1.3288, 1.769, -12.0982, 1.769, 1.769, -12.0982, -1.769, 1.3288, -12.0982, -1.3289, 1.769, -12.0982, -1.769, -1.769, -12.0982, -1.769, 1.3288, -12.0982, 1.3288, 1.769, -12.0982, -1.769, 1.3288, -12.0982, -1.3289, -1.3289, 12.0982, 1.3288, -1.769, 12.0982, -1.769, -1.3289, 12.0982, -1.3289, -1.3289, 12.0982, -1.3289, -1.769, 12.0982, -1.769, 1.769, 12.0982, -1.769, -1.3289, 12.0982, 1.3288, -1.769, 12.0982, 1.769, -1.769, 12.0982, -1.769, -1.3289, 12.0982, -1.3289, 1.769, 12.0982, -1.769, 1.3288, 12.0982, -1.3289, 1.3288, 12.0982, 1.3288, -1.769, 12.0982, 1.769, -1.3289, 12.0982, 1.3288, 1.3288, 12.0982, -1.3289, 1.769, 12.0982, -1.769, 1.769, 12.0982, 1.769, 1.3288, 12.0982, 1.3288, 1.769, 12.0982, 1.769, -1.769, 12.0982, 1.769, 1.3288, 12.0982, -1.3289, 1.769, 12.0982, 1.769, 1.3288, 12.0982, 1.3288, 1.3288, 12.0982, -1.3289, -1.3289, -12.0982, -1.3289, -1.3289, 12.0982, -1.3289, 1.3288, 12.0982, -1.3289, 1.3288, -12.0982, -1.3289, -1.3289, -12.0982, -1.3289, -1.3289, 12.0982, -1.3289, -1.3289, -12.0982, 1.3288, -1.3289, 12.0982, 1.3288, -1.3289, 12.0982, -1.3289, -1.3289, -12.0982, -1.3289, -1.3289, -12.0982, 1.3288)
 
@@ -301,7 +304,7 @@ bones/17/scale = Vector3(1, 1, 1)
 bones/18/scale = Vector3(1, 1, 1)
 
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.985274, 0.0912836, 0.144568, 0.144567, -0.896231, -0.419367, 0.0912851, 0.434092, -0.89623, -0.00338531, 0.181366, -0.147827)
+transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.89623, -0.00338221, 0.181366, -0.147827)
 
 [node name="SpawnPlatform" parent="." instance=ExtResource("6_k5r3f")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -151.504, 42.0832, -0.377709)
@@ -631,6 +634,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.58679e-07, -2.16371, -58.52
 [node name="CollisionShape3D" type="CollisionShape3D" parent="starterRoom2/initialRoom/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65, 1.4, -2.8)
 shape = SubResource("BoxShape3D_i776v")
+debug_color = Color(1, 1, 0, 1)
+
+[node name="Area3D2" type="Area3D" parent="starterRoom2/initialRoom" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -53.0135)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="starterRoom2/initialRoom/Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.703216, 0.786346, 1.22932)
+shape = SubResource("BoxShape3D_4tgr5")
+debug_color = Color(1, 1, 0, 1)
 
 [node name="starterRoom2StaticBody" type="StaticBody3D" parent="starterRoom2"]
 collision_layer = 4
@@ -712,6 +724,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38229, 1.78777, -74.6217)
 light_color = Color(1, 0.45098, 0, 1)
 
 [connection signal="body_entered" from="starterRoom2/initialRoom/Area3D" to="Player/huds/HUD/BottomMidArea" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="starterRoom2/initialRoom/Area3D2" to="Player/huds/HUD/BottomMidArea" method="_on_area_3d_2_body_entered" flags=6]
 
 [editable path="Player"]
 [editable path="Player/huds/HUD"]
