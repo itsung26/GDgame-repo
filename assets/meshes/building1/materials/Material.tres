@@ -17,3 +17,4 @@ roughness_texture_channel = 1
 normal_enabled = true
 normal_scale = 5.92
 normal_texture = ExtResource("3_t67bv")
+uv1_scale = Vector3(2.11, 8.725, 1)

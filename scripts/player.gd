@@ -41,6 +41,7 @@ signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_stat
 @export var stamina_recharging:bool = true
 
 @export_category("Main Attributes")
+@export var Godmode:bool = false
 @export var HEALTH:float = 100
 @export var STAMINA:float = 300
 ## Delay after dash before stamina before stamina begins to recharge in seconds.
@@ -103,11 +104,12 @@ enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING, DASHING, SLAMMIN
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
 enum action_states{IDLE, GRAPPLING, PARRYING, REELINGFROM}
 
-var player_state:player_states = player_states.GROUNDED:
+@export_category("State Machine")
+@export var player_state:player_states = player_states.GROUNDED:
 	set = set_player_state
-var weapon_state:weapon_states = weapon_states.PISTOL:
+@export var weapon_state:weapon_states = weapon_states.PISTOL:
 	set = set_weapon_state
-var action_state:action_states = action_states.IDLE:
+@export var action_state:action_states = action_states.IDLE:
 	set = set_action_state
 
 var storagevar = JUMP_VELOCITY
@@ -350,7 +352,14 @@ func _input(event) -> void:
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
 		
-
+func damagePlayer(damage:float, death_cause:String = "Unknown"):
+	var previous_health:float = HEALTH
+	var new_health:float = HEALTH - damage
+	
+	cause_of_death = death_cause
+	
+	if not Godmode:
+		HEALTH = new_health
 
 func cameraFX(delta):
 	if camera_roll_enabled:
@@ -440,6 +449,7 @@ func physicsStateLogic(delta=get_physics_process_delta_time()):
 		pass # see set_player_state()
 	# slamming state logic
 	elif player_state == player_states.SLAMMING:
+		# velocity was set from beginning, so no changes are made
 		pass # see set_player_state()
 
 

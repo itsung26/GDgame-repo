@@ -1,11 +1,11 @@
-class_name Door extends Node3D
+class_name DoorSmall extends Node3D
 @onready var open_delay: Timer = %OpenDelay
 @onready var close_delay: Timer = %CloseDelay
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var front_box: Area3D = $FrontBox
 @onready var front_collider: CollisionShape3D = $FrontBox/FrontCollider
 
-signal door_opened(door:Door)
+signal door_opened(door:DoorSmall)
 
 @export_enum ("STAYOPEN", "CLOSEONEXIT", "LOCKED") var door_modes:int = 0
 @export var delay_before_open:float = 1.0

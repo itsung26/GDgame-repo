@@ -1,5 +1,6 @@
-[gd_scene load_steps=53 format=4 uid="uid://mhij3rnbxw0r"]
+[gd_scene load_steps=54 format=4 uid="uid://mhij3rnbxw0r"]
 
+[ext_resource type="PackedScene" uid="uid://b8qwp5eoecr5x" path="res://scenes/black_hole_projectile.tscn" id="1_oma2s"]
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_wix4b"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="2_bcvk1"]
 [ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="2_prwh2"]
@@ -175,6 +176,9 @@ material = SubResource("StandardMaterial3D_wjjk7")
 text = "Grapple Point"
 
 [node name="MapEnviroment" type="Node3D"]
+
+[node name="ResourcePreloader" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("black_hole_projectile"), [ExtResource("1_oma2s")]]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dbf7g")
