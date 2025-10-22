@@ -4,12 +4,11 @@ extends Control
 @export_category("Showable tooltips")
 @export var tooltip_array: Array[Label]
 @onready var tool_tip_dissapear_timer: Timer = $Tooltip/ToolTipDissapearTimer
+@onready var player = Helper.getFirstInScene("player")
 
-# sets the text of every tooltip to the corresponding key when the ui is loaded
+# hides the tooltip on ui load
 func _ready() -> void:
-	var events = InputMap.get_actions()
-	setToolTipText("JumpToolTip", "Press " + getAssociatedKey("jump") + "to jump.")
-	
+	tooltip.visible = false
 
 func showToolTip(node_pattern:String):
 	for tip:Label in tooltip_array:
@@ -25,9 +24,6 @@ func setToolTipText(node_pattern:String, text:String):
 	for tip:Label in tooltip_array:
 		if tip.name == node_pattern:
 			tip.text = text
-
-func getAssociatedAction(key:InputEvent):
-	pass
 
 func getAssociatedKey(action:StringName) -> String:
 	var events: Array = InputMap.action_get_events(action)
@@ -59,9 +55,40 @@ func getAssociatedKey(action:StringName) -> String:
 # the jump tooltip show area
 func _on_area_3d_body_entered(body: Player) -> void:
 	tooltip.visible = true
-	showToolTip("JumpToolTip")
+	var associated_key = getAssociatedKey("jump")
+	setToolTipText("KEY", associated_key)
+	setToolTipText("ACTION", "jump.")
 
 # the jump tooltip hide area
 func _on_area_3d_2_body_entered(body: Player) -> void:
 	tooltip.visible = false
-	hideToolTip("JumpToolTip")
+
+
+func _on_dash_tooltip_show_body_entered(body: Player) -> void:
+	tooltip.visible = true
+	var associated_key = getAssociatedKey("dash")
+	setToolTipText("KEY", associated_key)
+	setToolTipText("ACTION", "dash.")
+	body.player_dash_input_enabled = true
+
+
+func _on_dash_tooltip_hide_body_entered(body: Player) -> void:
+	var associated_key = getAssociatedKey("Slide | Slam")
+	setToolTipText("KEY", associated_key)
+	setToolTipText("ACTION", "slam while in the air.")
+	body.player_slide_slam_input_enabled = true
+
+
+func _on_slam_tooltip_hide_body_entered(body: Player) -> void:
+	tooltip.visible = false
+
+
+func _on_slide_tooltip_show_body_entered(body: Player) -> void:
+	tooltip.visible = true
+	var associated_key = getAssociatedKey("Slide | Slam")
+	setToolTipText("KEY", associated_key)
+	setToolTipText("ACTION", "slide long distances.")
+
+
+func _on_slide_tooltip_hide_body_entered(body: Player) -> void:
+	tooltip.visible= false

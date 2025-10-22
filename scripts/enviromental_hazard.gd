@@ -7,7 +7,7 @@ class_name EnviromentalHazard extends Area3D
 
 # connect signals
 func _ready() -> void:
-	print("hazard init")
+	print("initialized env_hazard at address " + str(self))
 	connect("body_entered", _on_hazard_area_body_entered)
 	if not bounce_direction.is_normalized():
 		print("Parameter bounce direction was not a normalized vector, auto-normalizing.")

@@ -30,7 +30,7 @@ class_name Player extends CharacterBody3D
 
 signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_state:weapon_states)
 
-@export_category("General")
+@export_category("Input Allowments")
 @export var player_move_input_enabled:bool = true
 @export var player_look_input_enabled:bool = true
 @export var player_fire_input_enabled:bool = true
@@ -38,7 +38,12 @@ signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_stat
 @export var player_dash_input_enabled:bool = true
 @export var player_grapple_input_enabled:bool = true
 @export var weapon_switch_enabled:bool = true
-@export var stamina_recharging:bool = true
+@export var melee_switch_enabled:bool = true
+@export var pistol_switch_enabled:bool = true
+@export var shotgun_switch_enabled:bool = true
+@export var BLL_switch_enabled:bool = true
+@export var player_slide_slam_input_enabled:bool = true
+var stamina_recharging:bool = true
 
 @export_category("Main Attributes")
 @export var Godmode:bool = false
@@ -48,6 +53,7 @@ signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_stat
 @export var stamina_charge_delay:float = 1.0 # seconds
 ## Speed at which the stamina charges.
 @export var stamina_charge_speed:float = 100.0
+@export var initial_weapon:weapon_states = weapon_states.PISTOL
 
 @export_category("Camera")
 @export var camera_roll_enabled:bool = true
@@ -117,7 +123,6 @@ var mouse_delta2 : Vector2
 var pistol_damage_increase:bool = false
 var death_animator
 var cause_of_death
-var cause_of_death_message
 var black_hole_time_remaining
 var black_hole_cooldown_timer
 var prev_jump_velocity = JUMP_VELOCITY
@@ -155,7 +160,6 @@ func _ready() -> void:
 	rope_origin = skeleton.get_node("rope_origin")
 	black_hole_cooldown_timer = get_tree().current_scene.find_child("BlackHoleCooldownTimer")
 	death_animator = get_node("../DeathScreen/DeathAnimator")
-	cause_of_death_message = get_node("../DeathScreen/VBoxContainer/CauseOfDeathMessage")
 
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -163,10 +167,8 @@ func _ready() -> void:
 	# set the grapple hook's physics process to static so it doesn't fall to the depths of hell
 	grapple_hook.freeze = true
 	
-	# Set the initial states
-	#player_state = player_states.GROUNDED
-	#action_state = action_states.IDLE
-	#weapon_state = weapon_states.PISTOL
+	# switch to the initial weapon
+	weapon_state = initial_weapon
 	
 func set_player_state(new_player_state:int):
 	# init vars
@@ -325,9 +327,9 @@ func _input(event) -> void:
 			print("Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
 			
 	# on slide | slam pressed
-	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor():
+	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor() and player_slide_slam_input_enabled:
 		player_state = player_states.SLIDING
-	elif Input.is_action_just_pressed("Slide | Slam") and not is_on_floor():
+	elif Input.is_action_just_pressed("Slide | Slam") and not is_on_floor() and player_slide_slam_input_enabled:
 		player_state = player_states.SLAMMING
 
 	# on slide | slam released do state check
@@ -492,16 +494,16 @@ func _physics_process(delta: float) -> void:
 
 func gunInputs(): # to be called in a method that can "hear" inputs
 	# switch weapon block==================================================================================
-	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states.MELEE and weapon_switch_enabled:
+	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states.MELEE and weapon_switch_enabled and melee_switch_enabled:
 		weapon_state = weapon_states.MELEE
 		
-	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states.PISTOL and weapon_switch_enabled:
+	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states.PISTOL and weapon_switch_enabled and pistol_switch_enabled:
 		weapon_state = weapon_states.PISTOL
 		
-	if Input.is_action_just_pressed("slot3") and weapon_state != weapon_states.SHOTGUN and weapon_switch_enabled:
+	if Input.is_action_just_pressed("slot3") and weapon_state != weapon_states.SHOTGUN and weapon_switch_enabled and shotgun_switch_enabled:
 		weapon_state = weapon_states.SHOTGUN
 		
-	if Input.is_action_just_pressed("slot4") and weapon_state != weapon_states.BLL and weapon_switch_enabled:
+	if Input.is_action_just_pressed("slot4") and weapon_state != weapon_states.BLL and weapon_switch_enabled and BLL_switch_enabled:
 		weapon_state = weapon_states.BLL
 	
 	# automatic fire block===================================================================================
@@ -668,7 +670,6 @@ func _on_hud_zoom_out_trigger() -> void:
 
 func playerDie():
 	player_state = player_states.DEAD
-	cause_of_death_message.text = cause_of_death
 	Engine.time_scale = 0.3
 	death_animator.play("death")
 

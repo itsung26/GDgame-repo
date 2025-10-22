@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dc1mign3j6f3k"
-path="res://.godot/imported/building1.blend-0deea69cd22e9f9dab95fe95229e3f55.scn"
+uid="uid://fl6p5bnicoov"
+path="res://.godot/imported/finalRoom.blend-a478140701db7bc267520b6b80a2c01d.scn"
 
 [deps]
 
-source_file="res://assets/meshes/building1/building1.blend"
-dest_files=["res://.godot/imported/building1.blend-0deea69cd22e9f9dab95fe95229e3f55.scn"]
+source_file="res://assets/meshes/finalRoom/finalRoom.blend"
+dest_files=["res://.godot/imported/finalRoom.blend-a478140701db7bc267520b6b80a2c01d.scn"]
 
 [params]
 
@@ -32,30 +32,7 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={
-"materials": {
-"BaseWholeMaterial": {
-"use_external/enabled": true,
-"use_external/path": "res://assets/meshes/building1/materials/BaseWholeMaterial.tres"
-},
-"Material": {
-"use_external/enabled": true,
-"use_external/path": "res://assets/meshes/building1/materials/Material.tres"
-},
-"PartMaterial": {
-"use_external/enabled": true,
-"use_external/path": "res://assets/meshes/building1/materials/PartMaterial.tres"
-},
-"RampStepMaterialBridge": {
-"use_external/enabled": true,
-"use_external/path": "res://assets/meshes/building1/materials/RampStepMaterialBridge.tres"
-},
-"pedestalBaseMaterial": {
-"use_external/enabled": true,
-"use_external/path": "res://assets/meshes/building1/materials/pedestalBaseMaterial.tres"
-}
-}
-}
+_subresources={}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true
