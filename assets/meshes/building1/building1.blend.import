@@ -38,6 +38,10 @@ _subresources={
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/BaseWholeMaterial.tres"
 },
+"LastRoom": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/LastRoom.tres"
+},
 "Material": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/Material.tres"
@@ -46,13 +50,29 @@ _subresources={
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/PartMaterial.tres"
 },
+"PipeWrench": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/PipeWrench.tres"
+},
 "RampStepMaterialBridge": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/RampStepMaterialBridge.tres"
 },
+"blaster-c-IH": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/blaster-c-IH.tres"
+},
+"colormap.002": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/colormap.002.tres"
+},
 "pedestalBaseMaterial": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/pedestalBaseMaterial.tres"
+},
+"pipes": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/pipes.tres"
 }
 }
 }

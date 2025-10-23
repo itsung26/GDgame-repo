@@ -54,6 +54,7 @@ var stamina_recharging:bool = true
 ## Speed at which the stamina charges.
 @export var stamina_charge_speed:float = 100.0
 @export var initial_weapon:weapon_states = weapon_states.PISTOL
+@export var IN_COMBAT = false
 
 @export_category("Camera")
 @export var camera_roll_enabled:bool = true
@@ -174,6 +175,9 @@ func set_player_state(new_player_state:int):
 	# init vars
 	var previous_player_state := player_state
 	player_state = new_player_state
+	
+	if previous_player_state == new_player_state:
+		print("WARNING: Player entered a new state matching it's own. This is allowed, but may cause state machine override problems.")
 	
 	# death to and from
 	if new_player_state == player_states.DEAD:

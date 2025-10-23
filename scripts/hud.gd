@@ -163,6 +163,7 @@ func _process(delta) -> void:
 		%CurrentVelocity.text = "Player Velocity Vector: " + str(player.velocity)
 		%CurrentMagnitude.text = "Current Velocity Magnitude: " + str(roundi(player.velocity.length()))
 		%CurrentMagnitudeXZ.text = "Current player velocity magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
+		%CombatState.text = "Combat state: " + str(player.IN_COMBAT)
 		# ----------------------------------------------------------------------------------------------
 		
 		
