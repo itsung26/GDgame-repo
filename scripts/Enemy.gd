@@ -5,6 +5,7 @@ enum damage_types{NORMAL, LASER, DARK}
 enum weight_class{LIGHT,MEDIUM,HEAVY,FATASS}
 
 var last_hit_damage_type:damage_types
+
 ## The actual health of the enemy. This is the primary thing modified.
 @export var HEALTH:float = 100.0
 ## If the enemy should expirience gravity or not
@@ -15,6 +16,10 @@ var last_hit_damage_type:damage_types
 @export var weight:weight_class = weight_class.LIGHT
 const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarker.tscn")
 @onready var player:CharacterBody3D = get_tree().current_scene.find_child("Player")
+## How quickly the enemy is slowed when in the air on the xz plane
+@export var slowInAirFactor:float = 10.0
+
+@export var grapple_origin:Marker3D
 
 func damageEnemy(damage:float, damage_type:damage_types):
 	var previous_enemy_health = HEALTH

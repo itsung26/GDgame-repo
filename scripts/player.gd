@@ -26,7 +26,9 @@ class_name Player extends CharacterBody3D
 @onready var dash_length_timer: Timer = $DashLengthTimer
 @onready var stamina_charge_delay_timer: Timer = $StaminaChargeDelayTimer
 @onready var tail_marker: Marker3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/TailMarker
-@onready var grapple_rope_mesh_gen:ropeMeshGenerator = Helper.getFirstInScene("grapple_rope_meshGen")
+const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
+var grapple_rope_mesh_gen:ropeMeshGenerator
+const LaserGenerator_SCENE = preload("res://scenes/laser_generator.tscn")
 
 signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_state:weapon_states)
 
@@ -150,6 +152,8 @@ var hooked_target:Object = null
 var hooked_target_pull_origin:Object = null
 
 func _ready() -> void:
+	checkForMeshGens()
+	
 	# object reference definitions
 	pause = get_tree().current_scene.find_child("Pause")
 	slide_light = slide_particles.get_node("ImpactParticles/OmniLight3D")
@@ -169,7 +173,8 @@ func _ready() -> void:
 	grapple_hook.freeze = true
 	
 	# switch to the initial weapon
-	weapon_state = initial_weapon
+	if weapon_state != initial_weapon:
+		weapon_state = initial_weapon
 	
 func set_player_state(new_player_state:int):
 	# init vars
@@ -289,6 +294,8 @@ func set_action_state(new_action_state:int):
 	
 	# grappling to and from
 	if new_action_state == action_states.GRAPPLING and Grapple_Enabled:
+		player.velocity.x = 0.0
+		player.velocity.z = 0.0
 		grapple_rope_mesh_gen.visible = true
 		grapple_hook.reparent(get_tree().root) # reparent and face direction raycast is looking
 		grapple_hook.rotation = Vector3.ZERO
@@ -311,7 +318,18 @@ func set_action_state(new_action_state:int):
 	# reelingfrom (pulling) to and from
 	if new_action_state == action_states.REELINGFROM:
 		print("reeling to player")
-		
+
+# checks for mesh generators and adds them to the scene if they are not already found
+func checkForMeshGens():
+	if Helper.getFirstInScene("grapple_rope_meshGen") == null:
+		print("cannot locate grapple mesh generator in scene. proceeding to autoload.")
+		var t = grapple_rope_mesh_gen_SCENE.instantiate()
+		get_tree().current_scene.add_child.call_deferred(t)
+	if Helper.getFirstInScene("LaserGenerator") == null:
+		print("cannot locate laser mesh generator in scene. proceeding to autoload.")
+		var b = LaserGenerator_SCENE.instantiate()
+		get_tree().current_scene.add_child.call_deferred(b)
+			
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
@@ -467,13 +485,15 @@ func _physics_process(delta: float) -> void:
 	if (is_on_floor() and 
 	player_state != player_states.REELINGTO and 
 	player_state != player_states.SLIDING and 
-	player_state != player_states.DASHING):
+	player_state != player_states.DASHING and
+	player_state != player_states.GROUNDED):
 		player_state = player_states.GROUNDED
 
 	elif (not is_on_floor() and 
 	player_state != player_states.REELINGTO and 
 	player_state != player_states.DASHING and 
-	player_state != player_states.SLAMMING):
+	player_state != player_states.SLAMMING and 
+	player_state != player_states.FALLING):
 		player_state = player_states.FALLING
 	
 	# Add the gravity 
@@ -596,6 +616,7 @@ func processTargetPull(delta=get_process_delta_time()):
 
 var a = true
 func _process(delta) -> void:
+	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	charge_stamina()
 	
 	# the main process where the enemy gets drawn to the player on the hook
@@ -684,7 +705,6 @@ func _on_cam_shake_timer_timeout() -> void:
 # when it hits enemies, pull them towards player
 func _on_world_collide_box_body_entered(body: Node3D) -> void:
 	hooked_target = body
-	hooked_target_pull_origin = hooked_target.find_child("Pull Marker")
 	
 	if hooked_target:
 		# if hit body was not in either group, it was part of the world
@@ -698,14 +718,16 @@ func _on_world_collide_box_body_entered(body: Node3D) -> void:
 			impact_particles.global_position = impact_pos
 			particle_look_marker.global_position = camera_3d.global_position
 			action_state = action_states.IDLE
+
 		elif hooked_target.is_in_group("enemy"):
-			print("body was an enemy")
+			var enemy_hooked:Enemy = hooked_target
+			hooked_target_pull_origin = enemy_hooked.grapple_origin
+			
 			if not is_on_floor():
 				player.velocity.y = 0 + grapple_hop
-			hooked_target.last_hit_damage_type = hooked_target.damage_types.NORMAL
-			hooked_target.damageEnemy(2.0, hooked_target.damage_types.NORMAL)
-			if hooked_target.weight == hooked_target.weight_class.LIGHT:
-				print("body was a light enemy")
+			enemy_hooked.last_hit_damage_type = enemy_hooked.damage_types.NORMAL
+			enemy_hooked.damageEnemy(2.0, enemy_hooked.damage_types.NORMAL)
+			if enemy_hooked.weight == enemy_hooked.weight_class.LIGHT:
 				grapple_hook.freeze = true
 				grapple_hook.global_position = hooked_target_pull_origin.global_position
 				grapple_hook.look_at(tail_marker.global_position, Vector3.UP)

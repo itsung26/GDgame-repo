@@ -8,7 +8,7 @@ var pulldir:Vector3
 enum enemy_states {STUNNED, GROUNDED, FALLING}
 @export var enemy_state:enemy_states = enemy_states.GROUNDED:
 	set = set_enemy_state
-@export var slowInAirFactor:float = 10.0
+
 
 func set_enemy_state(new_enemy_state:enemy_states):
 	var previous_enemy_state = enemy_state
@@ -53,8 +53,10 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if (is_on_floor() and
-	enemy_state != enemy_states.STUNNED):
+	enemy_state != enemy_states.STUNNED and 
+	enemy_state != enemy_states.GROUNDED):
 		enemy_state = enemy_states.GROUNDED
 	elif not (is_on_floor() and
-	enemy_state != enemy_states.STUNNED):
+	enemy_state != enemy_states.STUNNED and 
+	enemy_state != enemy_states.FALLING):
 		enemy_state = enemy_states.FALLING

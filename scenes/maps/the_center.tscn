@@ -91,7 +91,7 @@ size = Vector3(1, 1.47572, 1)
 radius = 4.20464
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_siqfr"]
-size = Vector3(30.9889, 34.9161, 20.0162)
+size = Vector3(30.4074, 34.9161, 25.9132)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_whrnx"]
 size = Vector3(0.539503, 0.21888, 0.533)
@@ -502,9 +502,10 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -151.2
 environment = SubResource("Environment_8pfqq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 visible = false
-shadow_enabled = true
+light_energy = 0.143
+light_volumetric_fog_energy = 10.772
 editor_only = true
 
 [node name="RopeGenerators" type="Node" parent="."]
@@ -661,7 +662,7 @@ debug_color = Color(1, 1, 0, 0.282353)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8145, -3.0716, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building12/LastRoom/areas/enemyCounter"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.49443, 16.958, -0.00308213)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.78196, 16.958, 0.219017)
 shape = SubResource("BoxShape3D_siqfr")
 debug_color = Color(0.569685, 0.556209, 0, 0.42)
 
@@ -813,6 +814,9 @@ shape = SubResource("BoxShape3D_1b06p")
 [node name="lastRoomCollisionShape3D" type="CollisionShape3D" parent="building12/buildingCollider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.513, 3.92, 0)
 shape = SubResource("ConcavePolygonShape3D_1b06p")
+
+[node name="exitTunnel" parent="building12" index="14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.513, 3.92, 0)
 
 [node name="Doors" type="Node3D" parent="."]
 

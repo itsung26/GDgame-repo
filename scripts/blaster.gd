@@ -19,6 +19,10 @@ var isCharged = true
 func _ready() -> void:
 	pass
 
+func _process(delta: float) -> void:
+	# get laser every frame
+	laser_generator = get_tree().current_scene.get_node("LaserGenerator")
+
 # instantiate a body from the return of the get_collider() method
 # this method is called every time the animation for firing runs and is essentially the bulk of the shoot code
 # refer to the _process method for the animations, which are triggered by only input

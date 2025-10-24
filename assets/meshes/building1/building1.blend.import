@@ -58,13 +58,17 @@ _subresources={
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/RampStepMaterialBridge.tres"
 },
-"blaster-c-IH": {
-"use_external/enabled": true,
-"use_external/path": "res://assets/meshes/building1/materials/blaster-c-IH.tres"
-},
 "colormap.002": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/colormap.002.tres"
+},
+"exitTunnel": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/exitTunnel.tres"
+},
+"floorPads": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/floorPads.tres"
 },
 "pedestalBaseMaterial": {
 "use_external/enabled": true,
@@ -73,6 +77,14 @@ _subresources={
 "pipes": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/pipes.tres"
+},
+"pipes2": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/pipes2.tres"
+},
+"whiteLight": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/whiteLight.tres"
 }
 }
 }

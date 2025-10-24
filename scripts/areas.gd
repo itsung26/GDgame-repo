@@ -37,6 +37,6 @@ func _on_enemy_counter_body_entered(enemy: Enemy) -> void:
 	enemies_in_LastRoom.append(enemy)
 
 func _process(delta: float) -> void:
-	if enemies_in_LastRoom.length() == 0 and can_check_for_no_enemies:
+	if enemies_in_LastRoom.is_empty() and can_check_for_no_enemies:
 		print("no enemies detected in area. deactivating combat state")
 		player.IN_COMBAT = false

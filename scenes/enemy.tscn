@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b42afh5fqoslr"]
-
-[ext_resource type="Script" uid="uid://cikqg67necxxx" path="res://scripts/enemy_weak.gd" id="1_7p1mj"]
-
-[node name="Enemy" type="CharacterBody3D" groups=["enemy", "weak enemy"]]
-collision_layer = 2
-collision_mask = 15
-script = ExtResource("1_7p1mj")
