@@ -185,57 +185,6 @@ _data = {
 &"RESET": SubResource("Animation_tlbyk")
 }
 
-[sub_resource type="Animation" id="Animation_h577k"]
-resource_name = "lower"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(68.7488, -2.19678, 0.156492), Vector3(68.7488, -3.42783, 0.156492)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("blaster-c:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../LastRoomCollision/PedestalCollisionShape3D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../LastRoomCollision/PedestalCollisionShape3D2:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="Animation" id="Animation_1hc6e"]
 length = 0.001
 tracks/0/type = "value"
@@ -285,6 +234,57 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_h577k"]
+resource_name = "lower"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(68.7488, -2.19678, 0.156492), Vector3(68.7488, -3.42783, 0.156492)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blaster-c:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../LastRoomCollision/PedestalCollisionShape3D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../LastRoomCollision/PedestalCollisionShape3D2:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1hc6e"]
@@ -508,11 +508,9 @@ light_energy = 0.143
 light_volumetric_fog_energy = 10.772
 editor_only = true
 
-[node name="RopeGenerators" type="Node" parent="."]
+[node name="grapple_rope_meshGen" parent="." instance=ExtResource("2_lo83r")]
 
-[node name="grapple_rope_meshGen" parent="RopeGenerators" instance=ExtResource("2_lo83r")]
-
-[node name="LaserGenerator" parent="RopeGenerators" instance=ExtResource("3_t18mp")]
+[node name="LaserGenerator" parent="." instance=ExtResource("3_t18mp")]
 width = 0.05
 height = 0.05
 
@@ -533,31 +531,19 @@ theme = SubResource("Theme_3wou8")
 unstuck_position = NodePath("../../../../../../checkpoint")
 
 [node name="Skeleton3D" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM" index="0"]
-bones/0/scale = Vector3(1, 1, 1)
 bones/1/position = Vector3(-0.0189005, 0.461312, 0.00161639)
 bones/1/scale = Vector3(0.999999, 0.999999, 1)
 bones/2/position = Vector3(3.39933e-06, 1.34715, -1.45435e-05)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/position = Vector3(-0.0519902, -0.0479269, 0.0310608)
-bones/4/scale = Vector3(1, 1, 1)
-bones/5/scale = Vector3(1, 1, 1)
-bones/6/scale = Vector3(1, 1, 1)
-bones/7/scale = Vector3(1, 1, 1)
-bones/8/scale = Vector3(1, 1, 1)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/scale = Vector3(1, 0.999999, 1)
-bones/11/scale = Vector3(1, 1, 1)
-bones/12/scale = Vector3(0.999999, 1, 1)
-bones/13/scale = Vector3(1, 1, 1)
-bones/14/scale = Vector3(1, 1, 1)
 bones/15/scale = Vector3(1, 1, 1)
-bones/16/scale = Vector3(1, 1, 1)
-bones/17/scale = Vector3(1, 1, 1)
 bones/18/scale = Vector3(1, 1, 1)
 
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.89623, -0.00338221, 0.181366, -0.147827)
+transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338221, 0.181396, -0.147827)
 
 [node name="SpawnPlatform" parent="." instance=ExtResource("6_k5r3f")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -151.504, 42.0832, -0.377709)
@@ -688,6 +674,9 @@ lifetime = 0.38
 process_material = SubResource("ParticleProcessMaterial_bnfbd")
 draw_pass_1 = SubResource("QuadMesh_1b06p")
 
+[node name="PistolPedestal" parent="building12/LastRoom" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.7488, -2.19678, 0.156492)
+
 [node name="blaster-c-IH" parent="building12/LastRoom/PistolPedestal/blaster-c" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_up2hn")
 
@@ -701,6 +690,9 @@ autoplay = "GlowOscillate"
 libraries = {
 &"": SubResource("AnimationLibrary_1hc6e")
 }
+
+[node name="exitTunnel" parent="building12" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.513, 3.92, 0)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="building12"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.086, 5.32068, 0)
@@ -814,9 +806,6 @@ shape = SubResource("BoxShape3D_1b06p")
 [node name="lastRoomCollisionShape3D" type="CollisionShape3D" parent="building12/buildingCollider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.513, 3.92, 0)
 shape = SubResource("ConcavePolygonShape3D_1b06p")
-
-[node name="exitTunnel" parent="building12" index="14"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.513, 3.92, 0)
 
 [node name="Doors" type="Node3D" parent="."]
 

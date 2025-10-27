@@ -35,8 +35,23 @@ func damageEnemy(damage:float, damage_type:damage_types):
 	add_child(a)
 	a.damage_number_label.text = str(damage)
 
+## heals the enemy
 func healEnemy(health:float):
 	HEALTH += health
 
+## gets the health of the enemy
 func getHealth():
 	return HEALTH
+
+
+## gets the vector looking at the target (returns in radians)
+func getVec3LookingAtTarget(target_pos:Vector3) -> Vector3:
+	# store the rotation
+	var prev_rot = rotation
+	look_at(target_pos, Vector3.UP)
+	# get the rotation looking at the player
+	var rot = rotation
+	# set rotation back to previous
+	rotation = prev_rot
+	return rot
+	

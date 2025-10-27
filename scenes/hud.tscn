@@ -184,11 +184,11 @@ font_size = 64
 
 [sub_resource type="LabelSettings" id="LabelSettings_48y67"]
 font = ExtResource("3_5n1hp")
-font_size = 52
+font_size = 42
 
 [sub_resource type="LabelSettings" id="LabelSettings_y2nlu"]
 font = ExtResource("3_5n1hp")
-font_size = 52
+font_size = 42
 font_color = Color(0, 1, 0, 1)
 
 [sub_resource type="Shader" id="Shader_0m4u7"]
@@ -1011,52 +1011,50 @@ offset_right = 329.5
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("21_48y67")
-tooltip_array = [NodePath("Tooltip/HBoxContainer/KEY"), NodePath("Tooltip/HBoxContainer/ACTION")]
+tooltip_array = [NodePath("tooltipMargin/HBoxContainer/KEY"), NodePath("tooltipMargin/HBoxContainer/ACTION")]
 
-[node name="Tooltip" type="Panel" parent="BottomMidArea"]
+[node name="tooltipMargin" type="MarginContainer" parent="BottomMidArea"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = ExtResource("10_eld54")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BottomMidArea/Tooltip"]
-layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -319.5
-offset_top = -23.0
-offset_right = 319.5
-offset_bottom = 23.0
+anchor_bottom = 1.0
+offset_left = -418.0
+offset_top = -86.0
+offset_right = 418.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 
-[node name="Press" type="Label" parent="BottomMidArea/Tooltip/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BottomMidArea/tooltipMargin"]
 layout_mode = 2
-text = "Press"
+
+[node name="Press" type="Label" parent="BottomMidArea/tooltipMargin/HBoxContainer"]
+layout_mode = 2
+text = "Press "
 label_settings = SubResource("LabelSettings_48y67")
 
-[node name="KEY" type="Label" parent="BottomMidArea/Tooltip/HBoxContainer"]
+[node name="KEY" type="Label" parent="BottomMidArea/tooltipMargin/HBoxContainer"]
 layout_mode = 2
-text = "jump key"
+text = "ctrl"
 label_settings = SubResource("LabelSettings_y2nlu")
 
-[node name="to" type="Label" parent="BottomMidArea/Tooltip/HBoxContainer"]
+[node name="to" type="Label" parent="BottomMidArea/tooltipMargin/HBoxContainer"]
 layout_mode = 2
-text = "to"
+text = "to "
 label_settings = SubResource("LabelSettings_48y67")
 
-[node name="ACTION" type="Label" parent="BottomMidArea/Tooltip/HBoxContainer"]
+[node name="ACTION" type="Label" parent="BottomMidArea/tooltipMargin/HBoxContainer"]
 layout_mode = 2
-text = "action"
+text = "slam while in the air."
 label_settings = SubResource("LabelSettings_48y67")
 
-[node name="ToolTipDissapearTimer" type="Timer" parent="BottomMidArea/Tooltip"]
+[node name="TooltipPanel" type="Panel" parent="BottomMidArea/tooltipMargin"]
+z_index = -1
+layout_mode = 2
+theme_override_styles/panel = ExtResource("10_eld54")
+
+[node name="ToolTipDissapearTimer" type="Timer" parent="BottomMidArea/tooltipMargin/TooltipPanel"]
 one_shot = true
 
 [node name="OverClockBarSubViewport" type="SubViewportContainer" parent="."]

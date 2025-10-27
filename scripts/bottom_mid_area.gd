@@ -1,6 +1,6 @@
 # Godot version: 4.4.1 stable
 extends Control
-@onready var tooltip: Panel = $Tooltip
+@onready var tooltip_margin: MarginContainer = $tooltipMargin
 @export_category("Showable tooltips")
 @export var tooltip_array: Array[Label]
 @onready var tool_tip_dissapear_timer: Timer = $Tooltip/ToolTipDissapearTimer
@@ -8,7 +8,7 @@ extends Control
 
 # hides the tooltip on ui load
 func _ready() -> void:
-	tooltip.visible = false
+	tooltip_margin.visible = false
 
 func showToolTip(node_pattern:String):
 	for tip:Label in tooltip_array:
@@ -34,8 +34,8 @@ func getAssociatedKey(action:StringName) -> String:
 			# Strip any leading "Key: " if present
 			s = s.replace("Key: ", "").replace("KEY: ", "")
 			# Remove the "(physical)" marker and any surrounding whitespace
-			s = s.replace(" (physical)", "").replace("(physical)", "").strip_edges()
-			return s
+			s = s.replace(" (Physical)", "")
+			return s + " "
 		elif ev is InputEventMouseButton:
 			match ev.button_index:
 				1:
@@ -54,18 +54,18 @@ func getAssociatedKey(action:StringName) -> String:
 
 # the jump tooltip show area
 func _on_area_3d_body_entered(body: Player) -> void:
-	tooltip.visible = true
+	tooltip_margin.visible = true
 	var associated_key = getAssociatedKey("jump")
 	setToolTipText("KEY", associated_key)
 	setToolTipText("ACTION", "jump.")
 
 # the jump tooltip hide area
 func _on_area_3d_2_body_entered(body: Player) -> void:
-	tooltip.visible = false
+	tooltip_margin.visible = false
 
 
 func _on_dash_tooltip_show_body_entered(body: Player) -> void:
-	tooltip.visible = true
+	tooltip_margin.visible = true
 	var associated_key = getAssociatedKey("dash")
 	setToolTipText("KEY", associated_key)
 	setToolTipText("ACTION", "dash.")
@@ -80,15 +80,15 @@ func _on_dash_tooltip_hide_body_entered(body: Player) -> void:
 
 
 func _on_slam_tooltip_hide_body_entered(body: Player) -> void:
-	tooltip.visible = false
+	tooltip_margin.visible = false
 
 
 func _on_slide_tooltip_show_body_entered(body: Player) -> void:
-	tooltip.visible = true
+	tooltip_margin.visible = true
 	var associated_key = getAssociatedKey("Slide | Slam")
 	setToolTipText("KEY", associated_key)
 	setToolTipText("ACTION", "slide long distances.")
 
 
 func _on_slide_tooltip_hide_body_entered(body: Player) -> void:
-	tooltip.visible= false
+	tooltip_margin.visible= false

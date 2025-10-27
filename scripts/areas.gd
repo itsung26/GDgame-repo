@@ -11,10 +11,10 @@ var can_check_for_no_enemies:bool = false
 func _ready() -> void:
 	blaster_c_ih.visible = false
 
-func _on_pistol_obtain_body_entered(player: Player) -> void:
-	print(str(player) + " obtained pistol, conferring weapon authority")
-	player.pistol_switch_enabled = true
-	player.weapon_state = player.weapon_states.PISTOL
+func _on_pistol_obtain_body_entered(plr: Player) -> void:
+	print(str(plr) + " obtained pistol, conferring weapon authority")
+	plr.pistol_switch_enabled = true
+	plr.weapon_state = plr.weapon_states.PISTOL
 	pedestal_animation.play("lower")
 	fight_start_timer.start(fight_start_delay)
 	

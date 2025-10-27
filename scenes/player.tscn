@@ -49,6 +49,11 @@ resource_local_to_scene = true
 ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a8ls1"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qfm1y"]
+material = ExtResource("16_a8ls1")
+
 [sub_resource type="Animation" id="Animation_g2els"]
 length = 0.001
 tracks/0/type = "value"
@@ -1156,8 +1161,6 @@ size = Vector3(0.752441, 0.138672, 0.796112)
 height = 1.72484
 radius = 0.508789
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_a8ls1"]
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_y4r1p"]
 radius = 0.85471
 
@@ -1410,9 +1413,6 @@ material = SubResource("StandardMaterial3D_ur7pv")
 inner_radius = 0.645
 outer_radius = 0.715
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_qfm1y"]
-material = ExtResource("16_a8ls1")
-
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 271
 script = ExtResource("1_qhqgy")
@@ -1457,6 +1457,20 @@ crosshair_spread = 8.03
 theme = SubResource("Theme_f1ej7")
 
 [node name="Pause" parent="huds" instance=ExtResource("11_3v2ag")]
+
+[node name="debugVisuals" type="Node3D" parent="."]
+script = ExtResource("2_oprun")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="debugVisuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_a8ls1")
+skeleton = NodePath("../../CollisionShape3D")
+
+[node name="debugFloor" type="MeshInstance3D" parent="debugVisuals"]
+transform = Transform3D(6.02424, 0, 0, 0, 6.02424, 0, 0, 0, 6.02424, 0, 0, 0)
+visible = false
+mesh = SubResource("PlaneMesh_qfm1y")
+skeleton = NodePath("../..")
 
 [node name="GunAnimator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1510,12 +1524,6 @@ disabled = true
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.862421, 0)
 shape = SubResource("CylinderShape3D_oprun")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_a8ls1")
-skeleton = NodePath("../CollisionShape3D")
-script = ExtResource("2_oprun")
 
 [node name="GrappleEnemyCeaseArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.941914, 0)
@@ -1856,11 +1864,6 @@ one_shot = true
 
 [node name="StaminaChargeDelayTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="debugFloor" type="MeshInstance3D" parent="."]
-transform = Transform3D(6.02424, 0, 0, 0, 6.02424, 0, 0, 0, 6.02424, 0, 0, 0)
-visible = false
-mesh = SubResource("PlaneMesh_qfm1y")
 
 [connection signal="entered_weapon_state" from="." to="huds/HUD/HideHandler" method="_on_player_entered_weapon_state"]
 [connection signal="body_entered" from="GrappleEnemyCeaseArea" to="." method="_on_grapple_enemy_cease_area_body_entered"]
