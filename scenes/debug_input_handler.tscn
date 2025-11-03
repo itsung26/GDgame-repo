@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctiyq7asgyq80"]
+
+[ext_resource type="Script" uid="uid://c7q03w8w8sh4e" path="res://scripts/debug_input_handler.gd" id="1_vfglq"]
+
+[node name="DebugInputHandler" type="Node"]
+script = ExtResource("1_vfglq")

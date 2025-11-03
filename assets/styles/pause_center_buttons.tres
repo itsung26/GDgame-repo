@@ -1,0 +1,44 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bn6oc86kvsu5j"]
+
+[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="1_tdbgf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tdbgf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iybon"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljlb5"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.481789, 0.481789, 0.481789, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdbgf"]
+bg_color = Color(0, 0, 0, 0.45098)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[resource]
+Button/font_sizes/font_size = 26
+Button/fonts/font = ExtResource("1_tdbgf")
+Button/styles/focus = SubResource("StyleBoxEmpty_tdbgf")
+Button/styles/hover = SubResource("StyleBoxFlat_iybon")
+Button/styles/normal = SubResource("StyleBoxFlat_iybon")
+Button/styles/pressed = SubResource("StyleBoxFlat_ljlb5")
+Label/fonts/font = ExtResource("1_tdbgf")
+Panel/styles/panel = SubResource("StyleBoxFlat_tdbgf")

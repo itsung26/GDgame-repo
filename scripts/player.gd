@@ -56,7 +56,6 @@ var stamina_recharging:bool = true
 ## Speed at which the stamina charges.
 @export var stamina_charge_speed:float = 100.0
 @export var initial_weapon:weapon_states = weapon_states.PISTOL
-@export var IN_COMBAT = false
 
 @export_category("Camera")
 @export var camera_roll_enabled:bool = true
@@ -109,8 +108,11 @@ var BLL_AMMO := BLL_MAGSIZE
 @export var free_slide_enabled := false
 
 # 3 seperate FSMs (finite state machines) to replace conditional trees
+## Player states. These states affect the player's kinematics.
 enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING, DASHING, SLAMMING}
+## Weapon states. These states serve as the weapons that the player is allowed to use.
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
+## Action states. These states affect the special actions that the player can take. This includes any special mechanics such as grappling or parrying.
 enum action_states{IDLE, GRAPPLING, PARRYING, REELINGFROM}
 
 @export_category("State Machine")
@@ -151,10 +153,13 @@ var dash_dir:Vector3
 var hooked_target:Object = null
 var hooked_target_pull_origin:Object = null
 
+# called when the player is loaded into the scene.
+# Player should be loaded after main enviroment and global lighting, but before 
+# map and everything else.
 func _ready() -> void:
 	checkForMeshGens()
 	
-	# object reference definitions
+	# object reference definitions (needs to be moved)
 	pause = get_tree().current_scene.find_child("Pause")
 	slide_light = slide_particles.get_node("ImpactParticles/OmniLight3D")
 	impact_particles = slide_particles.get_node("ImpactParticles")
@@ -175,7 +180,8 @@ func _ready() -> void:
 	# switch to the initial weapon
 	if weapon_state != initial_weapon:
 		weapon_state = initial_weapon
-	
+
+
 func set_player_state(new_player_state:int):
 	# init vars
 	var previous_player_state := player_state
@@ -186,10 +192,7 @@ func set_player_state(new_player_state:int):
 	
 	# death to and from
 	if new_player_state == player_states.DEAD:
-		player_fire_input_enabled = false
-		player_look_input_enabled = false
-		player_move_input_enabled = false
-		player_grapple_input_enabled = false
+		pass
 		
 	# REELINGTO to and from
 	if new_player_state == player_states.REELINGTO:
@@ -334,10 +337,6 @@ func checkForMeshGens():
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
 	
-	# handle force-quitting
-	if Input.is_action_just_pressed("forcequit"):
-		get_tree().quit()
-	
 	# handle grapple activation
 	if Input.is_action_just_pressed("grapple") and player_grapple_input_enabled:
 		if not grapple_rope_mesh_gen == null:
@@ -419,6 +418,8 @@ func zoomOut():
 	gun_animator.speed_scale = 3
 	pistol_damage_increase = true
 
+
+## This method performs the primary computations for kinematics based on which state player_state is in.
 func physicsStateLogic(delta=get_physics_process_delta_time()):
 	# grounded movement state logic
 	if player_state == player_states.GROUNDED:
@@ -476,7 +477,7 @@ func physicsStateLogic(delta=get_physics_process_delta_time()):
 		# velocity was set from beginning, so no changes are made
 		pass # see set_player_state()
 
-
+# Called every physics frame. FPS: 120
 func _physics_process(delta: float) -> void:
 	
 	cameraFX(delta) # roll, tilt, clamp
@@ -615,6 +616,9 @@ func processTargetPull(delta=get_process_delta_time()):
 		pass
 
 var a = true
+# Called every frame. Main thread frames fluctuate around a target fps of 60.
+# Kinematic-related operations should only be run in _physics_process, while logic and other operations
+# should be run in _process
 func _process(delta) -> void:
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	charge_stamina()
@@ -696,7 +700,6 @@ func _on_hud_zoom_out_trigger() -> void:
 func playerDie():
 	player_state = player_states.DEAD
 	Engine.time_scale = 0.3
-	death_animator.play("death")
 
 func _on_cam_shake_timer_timeout() -> void:
 	doing_shake = false

@@ -3,24 +3,40 @@ class_name EnemyFilth extends Enemy
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var filth_animator:AnimationPlayer = $FilthAnimator
-@export var air_navigation_accel: float = 2.5
+@onready var body_collider: CollisionShape3D = $bodyCollider
+@onready var body_collider_2: CollisionShape3D = $bodyCollider2
+
+
+@export_category("General Properties")
+## The weight that the enemy rotates exponentially with to look at it's target
 @export var lerp_angle_factor:float
+## The velocity that the enemy launches forwards with when it does the attack.
+@export var bite_velocity:float
+## bite damage
+@export var bite_damage:float
+## attack player cause of death
+@export var player_cause_of_death_message:String
+## time after death untill the process_mode disables. When set to 0, the process will never disable.
+@export var time_untill_process_disable:float
 
-const spawn_intro_particles_SCENE:PackedScene = preload("res://scenes/spawn_intro_particles.tscn")
+@export_category("Object Refrences")
+@export var time_untill_process_disable_timer:Timer
 
-enum enemy_states {STUNNED, FALLING, RUNNING, PREPARINGBITE, BITING, NULL}
+enum enemy_states {STUNNED, FALLING, RUNNING, PREPARINGBITE, BITING, ENDINGBITE, DYING, DEAD, NULL}
 var enemy_state:enemy_states = enemy_states.RUNNING:
 	set = set_enemy_state
 
+enum enemy_box_states {RUNNING, ATTACKING, DYING}
+var enemy_box_state:enemy_box_states = enemy_box_states.RUNNING:
+	set = set_enemy_box_state
+
+var player_in_bite_box:bool = false
 
 func _ready() -> void:
 	if filth_animator == null:
 		print("ERROR: filth animation player not found")
-		print(get_tree().current_scene.get_children())
 	if player == null:
 		print("ERROR: initial call to PLAYER returned null ensure that the player is loaded before the given object")
-	var b := spawn_intro_particles_SCENE.instantiate()
-	add_child(b)
 
 func set_enemy_state(new_enemy_state:enemy_states):
 	var previous_enemy_state = enemy_state
@@ -31,16 +47,71 @@ func set_enemy_state(new_enemy_state:enemy_states):
 		filth_animator.play("Falling_4")
 	
 	# STUNNED to and from
-	elif new_enemy_state == enemy_states.STUNNED:
+	if new_enemy_state == enemy_states.STUNNED:
 		filth_animator.play("Idle_8")
 		
 	# running to and from
-	elif new_enemy_state == enemy_states.RUNNING:
+	if new_enemy_state == enemy_states.RUNNING:
 		filth_animator.play("Run_11")
 	
-	elif new_enemy_state == enemy_states.PREPARINGBITE:
+	# preparing bite to and from
+	if new_enemy_state == enemy_states.PREPARINGBITE:
+		velocity = Vector3.ZERO
 		filth_animator.play("Bite_0")
+	
+	if previous_enemy_state == enemy_states.ENDINGBITE:
+		# on ending the bite, check if the player is still in the bite box and and begin another attack chain
+		if player_in_bite_box:
+			beginBiteChain()
+	
+	# Biting to and from
+	if new_enemy_state == enemy_states.BITING:
+		# initiate velocity change
+		var dir:Vector3 = -transform.basis.z
+		velocity = dir * bite_velocity * get_physics_process_delta_time()
+	
+	# end of bite to and from
+	if new_enemy_state == enemy_states.ENDINGBITE:
+		velocity = Vector3.ZERO
 		
+	# DYING to and from
+	if new_enemy_state == enemy_states.DYING:
+		set_enemy_box_state(enemy_box_states.DYING)
+		damage_enabled = false
+		filth_animator.play("ChestExplosion")
+		
+	# DEAD to and from
+	if new_enemy_state == enemy_states.DEAD:
+		velocity = Vector3.ZERO
+		set_collision_layer_value(2, false)
+		if time_untill_process_disable != 0:
+			time_untill_process_disable_timer.start(time_untill_process_disable)
+		else: pass
+		
+
+func _killEnemy():
+	set_enemy_state(enemy_states.DYING)
+
+func set_enemy_box_state(new_enemy_box_state:enemy_box_states):
+	var previous_enemy_box_state = enemy_box_state
+	enemy_box_state = new_enemy_box_state
+	
+	if new_enemy_box_state == enemy_box_states.ATTACKING:
+		set_collision_mask_value(1, false)  # disable collision with player
+		#body_collider_2.disabled = false
+		#body_collider.disabled = true
+	if previous_enemy_box_state == enemy_box_states.ATTACKING:
+		set_collision_mask_value(1, true)  # enable collision with player
+	
+	# death box state to and from
+	if new_enemy_box_state == enemy_box_states.DYING:
+		$deadbodyCollider3.disabled = false
+		$bodyCollider.disabled = true
+		$biteHurtBox/CollisionShape3D.disabled = true
+		$readyBiteBox/CollisionShape3D.disabled = true
+	if previous_enemy_box_state == enemy_box_states.DYING:
+		print("ERROR: enemy left death box state")
+	
 
 func statePhysicsLogic(delta = get_physics_process_delta_time()): # run every physics frame
 	match enemy_state:
@@ -64,22 +135,32 @@ func statePhysicsLogic(delta = get_physics_process_delta_time()): # run every ph
 			
 			# rotation
 			rotation.y = lerp_angle(rotation.y, getVec3LookingAtTarget(navigation_agent_3d.get_next_path_position()).y, lerp_angle_factor * delta)
-		
-		enemy_states.BITING:
-			pass
 			
+		enemy_states.DYING:
+			velocity.x = lerp(velocity.x, 0.0, slowInAirFactor * delta)
+			velocity.z = lerp(velocity.z, 0.0, slowInAirFactor * delta)
+
+func disableProcess():
+	print("disabled process")
+	# set the process thread to disabled
+	process_mode = Node.PROCESS_MODE_DISABLED # disables all interactions with node
+	
 
 ## checks to see if the enemy is in the air or on the ground and sets the state once accordingly if it is not already in another state
 func checkForStates():
-	if (is_on_floor() and enemy_state != enemy_states.RUNNING and enemy_state == enemy_states.FALLING):
+	if (is_on_floor() and enemy_state == enemy_states.FALLING):
 		set_enemy_state(enemy_states.RUNNING)
-	elif not (is_on_floor() and enemy_state == enemy_states.RUNNING):
+	elif not is_on_floor() and enemy_state == enemy_states.RUNNING:
 		set_enemy_state(enemy_states.FALLING)
+
+## Begins the method stack for the bite attack
+func beginBiteChain():
+	set_enemy_state(enemy_states.PREPARINGBITE)
+
 
 
 func _process(delta: float) -> void:
-	$MeshInstance3D.mesh.text = str(enemy_states.keys()[enemy_state])
-	print(is_on_floor())
+	$"debug state text".mesh.text = str(enemy_states.keys()[enemy_state])
 
 func _physics_process(delta: float) -> void:
 	
@@ -93,14 +174,26 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func _on_visibility_body_entered(body: Player) -> void:
-	print(body)
-
-
-func _on_visibility_body_exited(body: Player) -> void:
-	print(body)
 
 
 func _on_ready_bite_box_body_entered(body: Player) -> void:
-	set_enemy_state(enemy_states.PREPARINGBITE)
-	
+	if enemy_state != enemy_states.FALLING:
+		player_in_bite_box = true
+		beginBiteChain()
+
+
+func _on_ready_bite_box_body_exited(body: Player) -> void:
+	player_in_bite_box = false
+
+
+
+
+func _on_bite_hurt_box_body_entered(body: Player) -> void:
+	if enemy_state == enemy_states.BITING:
+		var plr:Player = body
+		plr.damagePlayer(bite_damage, player_cause_of_death_message)
+
+
+func _on_time_untill_disable_timeout() -> void:
+	print("timeout. disabling enemy process.")
+	disableProcess()

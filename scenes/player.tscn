@@ -1514,16 +1514,16 @@ speed_scale = 5.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
-disabled = true
 
 [node name="footCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0694726, 0.00931263)
 shape = SubResource("BoxShape3D_b2mh8")
 disabled = true
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+[node name="cylinerCollisionShape3D2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.862421, 0)
 shape = SubResource("CylinderShape3D_oprun")
+disabled = true
 
 [node name="GrappleEnemyCeaseArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.941914, 0)

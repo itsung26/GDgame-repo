@@ -163,4 +163,3 @@ func _on_quit_cancel_mouse_exited() -> void:
 
 func _on_free_slide_toggle_toggled(toggled_on: bool) -> void:
 	player.free_slide_enabled = toggled_on
-	print(player.free_slide_enabled)

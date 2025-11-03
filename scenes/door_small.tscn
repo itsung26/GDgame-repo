@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkcmqlhhhkcqd"]
+[gd_scene load_steps=10 format=3 uid="uid://dkcmqlhhhkcqd"]
 
 [ext_resource type="PackedScene" uid="uid://bpxpbdxdfv45d" path="res://assets/meshes/DoorSmall/DoorSmall.blend" id="1_0eec4"]
 [ext_resource type="Script" uid="uid://c7kuo7naultbd" path="res://scripts/door_small.gd" id="2_77xcc"]
+[ext_resource type="Texture2D" uid="uid://d33jol0ekpnkn" path="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Double/icon_cross.png" id="3_s2q3u"]
 
 [sub_resource type="Animation" id="Animation_s2q3u"]
 length = 0.001
@@ -95,26 +96,26 @@ tracks/2/keys = PackedFloat32Array(0, 1, -4.71065, 1.63108, 0.106505, 0.0333333,
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../DoorSmall/Armature/Skeleton3D/door_L/StaticBody3D/CollisionShape3D:position")
+tracks/3/path = NodePath("StaticBody3D/CollisionShape3D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(2.00346, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(1.05082, 1.32482, 0.106842), Vector3(-0.951582, 1.32482, 0.106842)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../DoorSmall/Armature/Skeleton3D/door_R/StaticBody3D/CollisionShape3D:position")
+tracks/4/path = NodePath("StaticBody3D/CollisionShape3D2:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-1.99529, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(-3.91677, 1.32482, 0.106842), Vector3(-1.92047, 1.32482, 0.106842)]
 }
 
 [sub_resource type="Animation" id="Animation_kpspx"]
@@ -185,6 +186,7 @@ delay_before_open = 0.0
 delay_before_close = 0.0
 
 [node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/rotation = Quaternion(-1.27781e-07, -1.41934e-07, 1, -8.40691e-08)
 bones/1/position = Vector3(0.70904, 1.63628, 6.24561e-07)
 bones/2/position = Vector3(-0.71065, 1.63108, 0.106505)
 
@@ -210,9 +212,7 @@ one_shot = true
 unique_name_in_owner = true
 one_shot = true
 
-[node name="AnimatableBody3D" type="AnimatableBody3D" parent="." index="5"]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="6"]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="5"]
 collision_layer = 4
 collision_mask = 519
 
@@ -223,6 +223,16 @@ shape = SubResource("BoxShape3D_kpspx")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92047, 1.32482, 0.106842)
 shape = SubResource("BoxShape3D_kpspx")
+
+[node name="big_red_x" type="Sprite3D" parent="." index="6"]
+transform = Transform3D(5.75755, 0, 0, 0, 5.75755, 0, 0, 0, 5.75755, -1.43826, 1.25349, -0.109027)
+texture_filter = 0
+texture = ExtResource("3_s2q3u")
+
+[node name="big_red_x2" type="Sprite3D" parent="." index="7"]
+transform = Transform3D(5.75755, 0, 0, 0, 5.75755, 0, 0, 0, 5.75755, -1.43826, 1.25349, 0.349402)
+texture_filter = 0
+texture = ExtResource("3_s2q3u")
 
 [connection signal="body_entered" from="FrontBox" to="." method="_on_front_box_body_entered"]
 [connection signal="body_exited" from="FrontBox" to="." method="_on_front_box_body_exited"]

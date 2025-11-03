@@ -65,6 +65,8 @@ func _on_area_3d_2_body_entered(body: Player) -> void:
 
 
 func _on_dash_tooltip_show_body_entered(body: Player) -> void:
+	var checkpoint:Marker3D = Helper.getCheckPoint()
+	checkpoint.global_position = Helper.getFirstInScene("checkpointPos1").global_position
 	tooltip_margin.visible = true
 	var associated_key = getAssociatedKey("dash")
 	setToolTipText("KEY", associated_key)
@@ -84,6 +86,8 @@ func _on_slam_tooltip_hide_body_entered(body: Player) -> void:
 
 
 func _on_slide_tooltip_show_body_entered(body: Player) -> void:
+	var checkpoint:Marker3D = Helper.getCheckPoint()
+	checkpoint.global_position = Helper.getFirstInScene("checkpointPos2").global_position
 	tooltip_margin.visible = true
 	var associated_key = getAssociatedKey("Slide | Slam")
 	setToolTipText("KEY", associated_key)

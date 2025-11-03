@@ -609,11 +609,6 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Current player velocity magnitude (XZ plane): "
 
-[node name="CombatState" type="Label" parent="DebugContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Combat State: null"
-
 [node name="fpsCounter" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -633,8 +628,16 @@ offset_top = 628.0
 offset_right = 1152.0
 offset_bottom = 658.0
 theme_override_font_sizes/font_size = 21
-text = " 0.12.14-ALPHA"
+text = " 0.14.0-ALPHA"
 label_settings = SubResource("LabelSettings_5357l")
+
+[node name="MiddleArea" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TopRightArea" type="Control" parent="."]
 visible = false
@@ -1015,16 +1018,14 @@ tooltip_array = [NodePath("tooltipMargin/HBoxContainer/KEY"), NodePath("tooltipM
 
 [node name="tooltipMargin" type="MarginContainer" parent="BottomMidArea"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = -1
+anchor_left = -0.162367
+anchor_top = 0.422819
+anchor_right = 1.16237
 anchor_bottom = 1.0
-offset_left = -418.0
-offset_top = -86.0
-offset_right = 418.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BottomMidArea/tooltipMargin"]
 layout_mode = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://b42afh5fqoslr"]
+[gd_scene load_steps=25 format=4 uid="uid://b42afh5fqoslr"]
 
 [ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="1_rmsvs"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_tl03c"]
@@ -6,17 +6,21 @@
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="2_ty5ug"]
 [ext_resource type="PackedScene" uid="uid://ct8bpldx1y1pa" path="res://scenes/enemy_dummy.tscn" id="5_s4eqj"]
 [ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/enemy_filth.tscn" id="6_gw1xc"]
+[ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="7_j6hpd"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s4eqj"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j6hpd"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0.219985, 0.211475, 0.201593, 1)
+ground_bottom_color = Color(0.225893, 0.191851, 0.152324, 1)
+ground_horizon_color = Color(0.219985, 0.211475, 0.201593, 1)
+energy_multiplier = 0.0
 
-[sub_resource type="Sky" id="Sky_gw1xc"]
-sky_material = SubResource("ProceduralSkyMaterial_s4eqj")
+[sub_resource type="Sky" id="Sky_drxgl"]
+sky_material = SubResource("ProceduralSkyMaterial_j6hpd")
 
-[sub_resource type="Environment" id="Environment_j6hpd"]
+[sub_resource type="Environment" id="Environment_wpmbn"]
 background_mode = 2
-sky = SubResource("Sky_gw1xc")
+sky = SubResource("Sky_drxgl")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -76,14 +80,24 @@ _surfaces = [{
 "vertex_data": PackedByteArray("ytJPQVnLUD8K1zvAW4+nQOjLAcAK1zvASXG9QMZxUcAK1zvAytJPQYnXDkAK1ztAytJPQVnLUD8K1ztAW4+nQOjLAcAK1ztAW4+nQOjLAcAK1ztAytJPQYnXDkAK1zvAytJPQYnXDkAK1ztAW4+nQOjLAcAK1zvAytJPQVnLUD8K1zvAytJPQYnXDkAK1zvASXG9QMZxUcAK1zvAW4+nQOjLAcAK1zvASXG9QMZxUcAK1ztASXG9QMZxUcAK1ztAytJPQVnLUD8K1ztAE8NVQVnLUD8K1ztAytJPQVnLUD8K1ztASXG9QMZxUcAK1ztAW4+nQOjLAcAK1ztAE8NVQVnLUD8K1ztASXG9QMZxUcAK1zvASXG9QMZxUcAK1ztAW4+nQOjLAcAK1zvAW4+nQOjLAcAK1ztASXG9QMZxUcAK1ztASXG9QMZxUcAK1zvAE8NVQVnLUD8K1ztAE8NVQVnLUD8K1zvAytJPQVnLUD8K1zvASXG9QMZxUcAK1zvAE8NVQVnLUD8K1zvAytJPQYnXDkAK1zvAW4+nQOjLAcAK1ztAW4+nQOjLAcAK1zvAeZfNQSAUD0DD9QNBeZfNQWPLUD/D9QNBytJPQR0UD0DD9QNBeZfNQWPLUD/D9QPBeZfNQSAUD0DD9QPBytJPQVnLUD/D9QPBeZfNQSAUD0DD9QPBeZfNQSAUD0DD9QNBytJPQR0UD0DD9QPBytJPQR0UD0DD9QPBytJPQVnLUD/D9QPBeZfNQSAUD0DD9QPBeZfNQSAUD0DD9QNBeZfNQSAUD0DD9QPBeZfNQWPLUD/D9QPBE8NVQVnLUD8K1ztAytJPQVnLUD/D9QNBeZfNQWPLUD/D9QPBytJPQR0UD0DD9QNBytJPQR0UD0DD9QPBeZfNQSAUD0DD9QNBytJPQVnLUD/D9QNBytJPQR0UD0DD9QNBeZfNQWPLUD/D9QNBeZfNQWPLUD/D9QNBeZfNQWPLUD/D9QPBytJPQVnLUD/D9QNBeZfNQWPLUD/D9QNBeZfNQSAUD0DD9QNBeZfNQWPLUD/D9QPBE8NVQVnLUD8K1ztAeZfNQWPLUD/D9QPBE8NVQVnLUD8K1zvAE8NVQVnLUD8K1zvAeZfNQWPLUD/D9QPBytJPQVnLUD/D9QPBytJPQYnXDkAK1ztAytJPQR0UD0DD9QNBytJPQVnLUD/D9QNBytJPQVnLUD/D9QNBytJPQVnLUD8K1ztAytJPQYnXDkAK1ztAytJPQYnXDkAK1ztAytJPQR0UD0DD9QPBytJPQR0UD0DD9QNBytJPQVnLUD/D9QNBE8NVQVnLUD8K1ztAytJPQVnLUD8K1ztAytJPQYnXDkAK1zvAytJPQR0UD0DD9QPBytJPQYnXDkAK1ztAytJPQR0UD0DD9QPBytJPQYnXDkAK1zvAytJPQVnLUD8K1zvAytJPQVnLUD/D9QPBytJPQR0UD0DD9QPBytJPQVnLUD8K1zvAE8NVQVnLUD8K1zvAytJPQVnLUD/D9QPBytJPQVnLUD8K1zvA/////5tSTOn/////m1JM6f////+bUkzp/3//f2OtsZb/f/9/Y62xlv9//39jrbGWm1Ka0v9//7+bUprS/3//v5tSmtL/f/+//////5tSTOn/////m1JM6f////+bUkzpZC2bUmOtsZZkLZtSY62xlmQtm1JjrbGW/3//f2OtsZb/f/9/Y62xlv9//39jrbGW/3//f2OtsZb/f/9/Y62xlv9//39jrbGWY61kLf////9jrWQt/////2OtZC3/////ZC2bUmOtsZZkLZtSY62xlmQtm1JjrbGWY61kLf////9jrWQt/////2OtZC3//////////5tSTOn/////m1JM6f////+bUkzpm1Ka0v9//7+bUprS/3//v5tSmtL/f/+//3//f/9/////f/9//3////9//3//f/////////9/AID//////38AgP//////fwCA/3//////////f/////////9///////////////9/AID//////38AgP//////fwCA////f/9///////9//3///////3//f////38AAP9//7//fwAA/3//v/9/AAD/f/+//3//////////f/////////9//////////3//f/9/////f/9//3////9//3//f////38AAP9//7//fwAA/3//v/9/AAD/f/+/////f/9///////9//3///////3//f////38AAP9//7//fwAA/3//v/9/AAD/f/+//38AAP9//7//fwAA/3//v/9/AAD/f/+/AAD/fwKAAIAAAP9//38AgAAA/3//fwCAAAD/f/9/AIAAAP9//38AgAAA/38CgACAAAD/fwKAAIAAAP9//38AgAAA/3//fwCA/38AAP9//7//fwAA/3//v/9/AAD/f/+/AAD/f/9/BYAAAP9//38AgAAA/38CgACAAAD/f/9/AIAAAP9//38FgAAA/3//fwCAAAD/f/9/AIAAAP9//38AgAAA/3//fwCA/38AAP9//7//fwAA/3//v/9/AAD/f/+/")
 }]
 
+[sub_resource type="GDScript" id="GDScript_j6hpd"]
+resource_name = "enemy spawn test"
+script/source = "extends Area3D
+@onready var enemy_spawn_handler: EnemySpawnHandler = $\"../EnemySpawnHandler\"
+
+
+func _on_body_entered(plr: Player) -> void:
+	print(\"plr enterd spawning enemies\")
+	enemy_spawn_handler.spawnEnemies()
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j6hpd"]
+size = Vector3(1, 4, 11.1973)
+
 [node name="enemy_testing" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_j6hpd")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
+environment = SubResource("Environment_wpmbn")
 
 [node name="grapple_rope_meshGen" parent="." instance=ExtResource("1_tl03c")]
 
@@ -95,8 +109,28 @@ transform = Transform3D(-0.36853, 0, 0.929616, 0, 1, 0, -0.929616, 0, -0.36853, 
 [node name="HealthBar" parent="Player/huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
 theme = SubResource("Theme_gw1xc")
 
+[node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
+transform = Transform3D(0.921616, 0.376129, 0.0956483, 0.148142, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
+
+[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
+transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
+
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.985272, 0.0912849, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.463749, 0.180758, -0.11277)
+transform = Transform3D(0.985272, 0.0912849, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912845, 0.434092, -0.896232, -0.463747, 0.180758, -0.112772)
+
+[node name="EnemySpawnHandler" type="Node" parent="."]
+script = ExtResource("7_j6hpd")
+enemy_to_spawn_SCENE = ExtResource("6_gw1xc")
+metadata/_custom_type_script = "uid://s0gj2noon5cx"
+
+[node name="Marker3D" type="Marker3D" parent="EnemySpawnHandler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.0559, 0, 4.1842)
+
+[node name="Marker3D2" type="Marker3D" parent="EnemySpawnHandler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.0559, 0, -1.37742)
+
+[node name="Marker3D3" type="Marker3D" parent="EnemySpawnHandler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.0559, 0, 10.628)
 
 [node name="debugfloor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0560181, 0)
@@ -121,6 +155,7 @@ shape = SubResource("ConcavePolygonShape3D_j6hpd")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="nav"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29462, 0)
+visible = false
 navigation_mesh = SubResource("NavigationMesh_gw1xc")
 
 [node name="testObstacle" type="MeshInstance3D" parent="nav/NavigationRegion3D"]
@@ -148,12 +183,6 @@ mesh = SubResource("BoxMesh_drxgl")
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="nav/NavigationRegion3D"]
 mesh = SubResource("ArrayMesh_wpmbn")
 
-[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="nav"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.21105, 0, 8.5065)
-height = 3.56
-affect_navigation_mesh = true
-carve_navigation_mesh = true
-
 [node name="Enemies" type="Node3D" parent="."]
 
 [node name="EnemyDummy" parent="Enemies" instance=ExtResource("5_s4eqj")]
@@ -165,12 +194,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.89268, 0, 7.64487)
 [node name="EnemyDummy3" parent="Enemies" instance=ExtResource("5_s4eqj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.68555, 0, 7.64487)
 
-[node name="enemy_filth" parent="Enemies" instance=ExtResource("6_gw1xc")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12.8267, -2.38419e-07, -0.355853)
-SPEED = 500
+[node name="enemySpawnCollision" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1622, 0, 0)
+collision_layer = 4
+script = SubResource("GDScript_j6hpd")
 
-[node name="Skeleton3D" parent="Enemies/enemy_filth/Filth/Sketchfab_Scene/Sketchfab_model/723e9cb5e56c43609987a2ece8187f26_fbx/Object_2/RootNode/ZombieFilth/Armature_001/Object_6" index="0"]
-bones/10/rotation = Quaternion(-0.529188, -0.351873, 0.570854, 0.519877)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="enemySpawnCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.59253, 1.5, 4.33233)
+shape = SubResource("BoxShape3D_j6hpd")
+debug_color = Color(1, 1, 0, 1)
+
+[connection signal="body_entered" from="enemySpawnCollision" to="enemySpawnCollision" method="_on_body_entered" flags=6]
 
 [editable path="Player"]
 [editable path="Player/huds/HUD"]
@@ -178,4 +212,3 @@ bones/10/rotation = Quaternion(-0.529188, -0.351873, 0.570854, 0.519877)
 [editable path="Player/Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Player/Pivot/Camera3D/Guns/Pistol"]
 [editable path="Player/SlideParticles"]
-[editable path="Enemies/enemy_filth"]

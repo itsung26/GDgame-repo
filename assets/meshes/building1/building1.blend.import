@@ -46,6 +46,10 @@ _subresources={
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/Material.tres"
 },
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/Material.001.tres"
+},
 "PartMaterial": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/PartMaterial.tres"
@@ -62,13 +66,13 @@ _subresources={
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/colormap.002.tres"
 },
-"exitTunnel": {
-"use_external/enabled": true,
-"use_external/path": "res://assets/meshes/building1/materials/exitTunnel.tres"
-},
 "floorPads": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/floorPads.tres"
+},
+"lava": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/lava.tres"
 },
 "pedestalBaseMaterial": {
 "use_external/enabled": true,

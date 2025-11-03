@@ -15,7 +15,7 @@ func _ready() -> void:
 	elif bounce_direction.is_normalized():
 		pass # passed check
 
-func _on_hazard_area_body_entered(body: Node3D) -> void:
+func _on_hazard_area_body_entered(body: CharacterBody3D) -> void:
 	if body.is_in_group("players"):
 		var player:Player = body
 		player.damagePlayer(damage, enviroment_death_cause)
