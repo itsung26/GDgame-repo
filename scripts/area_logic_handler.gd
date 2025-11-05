@@ -1,4 +1,4 @@
-## Handles area3d logic
+## Handles area3d logic for this level
 extends Node
 
 @onready var tablet_text: MeshInstance3D = $"../the cold winds map/cold_winds/startingZone/Sci-fi Tablet/tabletText"

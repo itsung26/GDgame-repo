@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cnpkvbb1sx1yt"]
+
+[resource]
+resource_name = "Handle"
+cull_mode = 2
+albedo_color = Color(0.349492, 0.349492, 0.349492, 1)
+roughness = 0.7
+metadata/extras = {
+"DM": {}
+}

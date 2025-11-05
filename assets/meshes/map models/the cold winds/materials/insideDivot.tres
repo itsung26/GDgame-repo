@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dpoo06opjx4c8"]
+
+[ext_resource type="Texture2D" uid="uid://dlkno6dfy7ayc" path="res://assets/2d assets/generic/generic 512x512/Metal/Metal_19-512x512.png" id="1_scxwi"]
+
+[resource]
+resource_name = "insideDivot"
+cull_mode = 2
+albedo_texture = ExtResource("1_scxwi")
+metallic = 0.722054
+roughness = 0.155589

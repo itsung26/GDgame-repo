@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dlnwxl7blgw8c"]
+
+[resource]
+resource_name = "backWallMain"
+cull_mode = 2
+albedo_color = Color(0.247858, 0.247858, 0.247858, 1)
+metallic = 0.667674
+roughness = 0.509063

@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dtff3uncyjs8m"]
+
+[ext_resource type="Texture2D" uid="uid://bgcky22ku46fo" path="res://assets/2d assets/generic/generic 512x512/Metal/Metal_21-512x512.png" id="1_hvu0w"]
+
+[resource]
+resource_name = "panel"
+cull_mode = 2
+albedo_texture = ExtResource("1_hvu0w")
+metallic = 0.76435
+roughness = 0.306646

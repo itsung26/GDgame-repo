@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://daq1q4jxvbg1a"]
+
+[resource]
+resource_name = "Glass_sh"
+cull_mode = 2
+metadata/extras = {
+"DM": {}
+}

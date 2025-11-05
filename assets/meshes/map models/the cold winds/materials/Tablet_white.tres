@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bpkebc1y15smt"]
+
+[resource]
+resource_name = "Tablet_white"
+cull_mode = 2
+albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
+roughness = 0.3
+metadata/extras = {
+"DM": {},
+"blenderkit": {
+"has_thumbnail": 0.0
+}
+}

@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://4yeqo7ljnq68"]
+
+[resource]
+resource_name = "backWallPanel2"
+cull_mode = 2
+roughness = 0.5

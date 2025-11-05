@@ -1,8 +1,9 @@
+@tool
 class_name levelTeleporter extends Node3D
 
 @export_category("General")
-@export var enabled:bool = true:
-	set = setEnable
+@export var enabled:bool = true: set = setEnable
+@export var visual_area_enabled:bool = true: set = setVisualEnable
 var time_before_teleport:float = 3.0
 @export var target_scene:PackedScene
 
@@ -23,10 +24,19 @@ func setEnable(new_enable_state:bool):
 		for node:Node3D in visibility_group:
 			node.visible = false
 		collider.disabled = true
-		cylinder_mesh.visible = false
 
 	elif new_enable_state == true:
 		collider.disabled = false
+
+func setVisualEnable(new_enable_state:bool):
+	visual_area_enabled = new_enable_state
+	
+	if new_enable_state == false:
+		for node:Node3D in visibility_group:
+			node.visible = false
+		cylinder_mesh.visible = false
+
+	elif new_enable_state == true:
 		cylinder_mesh.visible = true
 
 func _on_interaction_area_body_entered(player: Player) -> void:

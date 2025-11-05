@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bjobxb50ctfy3"]
+
+[ext_resource type="Texture2D" uid="uid://bgcky22ku46fo" path="res://assets/2d assets/generic/generic 512x512/Metal/Metal_21-512x512.png" id="1_srup8"]
+
+[resource]
+resource_name = "backWallPanel"
+cull_mode = 2
+albedo_texture = ExtResource("1_srup8")
+metallic = 0.76435
+roughness = 0.306646

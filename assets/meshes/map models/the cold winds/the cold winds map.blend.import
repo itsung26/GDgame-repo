@@ -34,6 +34,18 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
+"Display_tablet": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/the cold winds/materials/Display_tablet.tres"
+},
+"Glass_sh": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/the cold winds/materials/Glass_sh.tres"
+},
+"Handle": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/the cold winds/materials/Handle.tres"
+},
 "Material.001": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/map models/the cold winds/materials/Material.001.tres"
@@ -41,6 +53,26 @@ _subresources={
 "Material.010": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/map models/the cold winds/materials/Material.010.tres"
+},
+"Tablet_white": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/the cold winds/materials/Tablet_white.tres"
+},
+"backWallMain": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/the cold winds/materials/backWallMain.tres"
+},
+"backWallPanel": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/the cold winds/materials/backWallPanel.tres"
+},
+"backWallPanel2": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/the cold winds/materials/backWallPanel2.tres"
+},
+"backWallinsideDivot": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/the cold winds/materials/backWallinsideDivot.tres"
 },
 "bone": {
 "use_external/enabled": true,
@@ -79,6 +111,22 @@ _subresources={
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
 "save_to_file/path": "res://assets/meshes/map models/the cold winds/mesh assets/emission_shape.res"
+},
+"the cold winds map_Cube_004": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/the cold winds/mesh assets/the cold winds map_Cube_004.res"
+},
+"the cold winds map_Cube_005": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/the cold winds/mesh assets/the cold winds map_Cube_005.res"
 },
 "the cold winds map_Cube_006": {
 "generate/lightmap_uv": 0,
@@ -399,6 +447,14 @@ _subresources={
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
 "save_to_file/path": "res://assets/meshes/map models/the cold winds/mesh assets/the cold winds map_Plane_001.res"
+},
+"the cold winds map_Plane_023": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/the cold winds/mesh assets/the cold winds map_Plane_023.res"
 },
 "the cold winds map_Sphere": {
 "generate/lightmap_uv": 0,
