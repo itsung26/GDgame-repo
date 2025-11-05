@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bh4w73yqjy2wa"]
 
-[ext_resource type="Texture2D" uid="uid://b6gofasc8y31r" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/flare_01.png" id="1_fqo70"]
+[ext_resource type="Texture2D" uid="uid://b6gofasc8y31r" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/flare_01.png" id="1_fqo70"]
 [ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="1_mjc1v"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fqo70"]
