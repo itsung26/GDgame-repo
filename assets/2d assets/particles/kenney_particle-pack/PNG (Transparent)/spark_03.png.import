@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ohcajlr30b6p"
-path.s3tc="res://.godot/imported/spark_03.png-41b1d33d13cfc941cb46486b7ef2b044.s3tc.ctex"
+path.s3tc="res://.godot/imported/spark_03.png-ca8b540e7cc35c14eb0f39ce3dadf553.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/spark_03.png"
-dest_files=["res://.godot/imported/spark_03.png-41b1d33d13cfc941cb46486b7ef2b044.s3tc.ctex"]
+source_file="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/spark_03.png"
+dest_files=["res://.godot/imported/spark_03.png-ca8b540e7cc35c14eb0f39ce3dadf553.s3tc.ctex"]
 
 [params]
 

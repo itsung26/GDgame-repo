@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxaju5s534duv"
-path="res://.godot/imported/twirl_02.png-42ae5e4a61090c7fc06c854b16e8a7e8.ctex"
+path="res://.godot/imported/twirl_02.png-4a327c7e0978f7feedbd0f5942da0c40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/twirl_02.png"
-dest_files=["res://.godot/imported/twirl_02.png-42ae5e4a61090c7fc06c854b16e8a7e8.ctex"]
+source_file="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/twirl_02.png"
+dest_files=["res://.godot/imported/twirl_02.png-4a327c7e0978f7feedbd0f5942da0c40.ctex"]
 
 [params]
 

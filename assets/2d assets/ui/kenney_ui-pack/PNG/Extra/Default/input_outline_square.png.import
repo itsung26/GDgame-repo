@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c16d6hvr7ppak"
-path="res://.godot/imported/input_outline_square.png-292909dbbd7516eba14c09050f35b209.ctex"
+path="res://.godot/imported/input_outline_square.png-87dce9e33eaefde64cfb8f42bd698147.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Extra/Default/input_outline_square.png"
-dest_files=["res://.godot/imported/input_outline_square.png-292909dbbd7516eba14c09050f35b209.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Extra/Default/input_outline_square.png"
+dest_files=["res://.godot/imported/input_outline_square.png-87dce9e33eaefde64cfb8f42bd698147.ctex"]
 
 [params]
 

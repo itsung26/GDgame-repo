@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dipbtvl2178l8"
-path="res://.godot/imported/scrollrect.png-5d6bcf0823299fc62f03e54464128cb6.ctex"
+path="res://.godot/imported/scrollrect.png-09008b714839283ff4710832d2caea1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/scrollrect.png"
-dest_files=["res://.godot/imported/scrollrect.png-5d6bcf0823299fc62f03e54464128cb6.ctex"]
+source_file="res://assets/2d assets/ui/scrollrect.png"
+dest_files=["res://.godot/imported/scrollrect.png-09008b714839283ff4710832d2caea1d.ctex"]
 
 [params]
 

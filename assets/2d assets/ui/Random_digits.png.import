@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ir2oh2pbdo6e"
-path="res://.godot/imported/Random_digits.png-a57df324ba95070abc4c4f7698fddbdf.ctex"
+path="res://.godot/imported/Random_digits.png-492e98148c32d8fa737b2d8b06ab3827.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/Random_digits.png"
-dest_files=["res://.godot/imported/Random_digits.png-a57df324ba95070abc4c4f7698fddbdf.ctex"]
+source_file="res://assets/2d assets/ui/Random_digits.png"
+dest_files=["res://.godot/imported/Random_digits.png-492e98148c32d8fa737b2d8b06ab3827.ctex"]
 
 [params]
 

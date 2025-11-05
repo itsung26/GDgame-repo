@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cadn8hebwr182"
-path="res://.godot/imported/button_round_gloss.png-fc9e213590e2a776caa0afbc50d85ab5.ctex"
+path="res://.godot/imported/button_round_gloss.png-2f27fded08cf3d248b7790eccd164311.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Double/button_round_gloss.png"
-dest_files=["res://.godot/imported/button_round_gloss.png-fc9e213590e2a776caa0afbc50d85ab5.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Red/Double/button_round_gloss.png"
+dest_files=["res://.godot/imported/button_round_gloss.png-2f27fded08cf3d248b7790eccd164311.ctex"]
 
 [params]
 

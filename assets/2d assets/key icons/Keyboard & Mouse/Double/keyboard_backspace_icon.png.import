@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bm6og8dextptc"
-path="res://.godot/imported/keyboard_backspace_icon.png-6bb63edfd06b0033cf524fd718ae5c53.ctex"
+path="res://.godot/imported/keyboard_backspace_icon.png-7d4c1f7590f76c048bc43e7747ff7f7b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/keyboard_backspace_icon.png"
-dest_files=["res://.godot/imported/keyboard_backspace_icon.png-6bb63edfd06b0033cf524fd718ae5c53.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Double/keyboard_backspace_icon.png"
+dest_files=["res://.godot/imported/keyboard_backspace_icon.png-7d4c1f7590f76c048bc43e7747ff7f7b.ctex"]
 
 [params]
 

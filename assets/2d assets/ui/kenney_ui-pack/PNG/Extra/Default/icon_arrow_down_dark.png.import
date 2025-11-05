@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b13aqkyfb2dln"
-path="res://.godot/imported/icon_arrow_down_dark.png-bb9767952579a603f74370603ad70dcb.ctex"
+path="res://.godot/imported/icon_arrow_down_dark.png-60a0c163115ec4de1bd5e0f9fff9a915.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Extra/Default/icon_arrow_down_dark.png"
-dest_files=["res://.godot/imported/icon_arrow_down_dark.png-bb9767952579a603f74370603ad70dcb.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Extra/Default/icon_arrow_down_dark.png"
+dest_files=["res://.godot/imported/icon_arrow_down_dark.png-60a0c163115ec4de1bd5e0f9fff9a915.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bvt0cchjwthm1"
-path="res://.godot/imported/mouse_left.png-5a26b650471aa1416d2fd2fcc10093eb.ctex"
+path="res://.godot/imported/mouse_left.png-f34849eb1a036c3f9aa54b5903af674a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Default/mouse_left.png"
-dest_files=["res://.godot/imported/mouse_left.png-5a26b650471aa1416d2fd2fcc10093eb.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Default/mouse_left.png"
+dest_files=["res://.godot/imported/mouse_left.png-f34849eb1a036c3f9aa54b5903af674a.ctex"]
 
 [params]
 

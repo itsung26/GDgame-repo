@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d1ci0o12orfbv"
-path="res://.godot/imported/check_round_color.svg-a6f4b13aef1e7eaa855f461fa95b7594.ctex"
+path="res://.godot/imported/check_round_color.svg-35252f098c003e98e0a80a67e7d39236.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Blue/check_round_color.svg"
-dest_files=["res://.godot/imported/check_round_color.svg-a6f4b13aef1e7eaa855f461fa95b7594.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Blue/check_round_color.svg"
+dest_files=["res://.godot/imported/check_round_color.svg-35252f098c003e98e0a80a67e7d39236.ctex"]
 
 [params]
 

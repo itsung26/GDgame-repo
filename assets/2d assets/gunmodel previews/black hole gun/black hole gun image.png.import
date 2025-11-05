@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dp3hpw1lc7jmi"
-path="res://.godot/imported/black hole gun image.png-334df59bef08887d4bd9d82bda892b5b.ctex"
+path="res://.godot/imported/black hole gun image.png-1075145f8ad77cd5ede24c8bce9139d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/gunmodel previews/black hole gun/black hole gun image.png"
-dest_files=["res://.godot/imported/black hole gun image.png-334df59bef08887d4bd9d82bda892b5b.ctex"]
+source_file="res://assets/2d assets/gunmodel previews/black hole gun/black hole gun image.png"
+dest_files=["res://.godot/imported/black hole gun image.png-1075145f8ad77cd5ede24c8bce9139d6.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7n7vwq3shg3p"
-path="res://.godot/imported/keyboard_numlock.png-ef140d6568c3592951c5847904f02e82.ctex"
+path="res://.godot/imported/keyboard_numlock.png-6afc00225283e05f8412ea280fceffb4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Default/keyboard_numlock.png"
-dest_files=["res://.godot/imported/keyboard_numlock.png-ef140d6568c3592951c5847904f02e82.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Default/keyboard_numlock.png"
+dest_files=["res://.godot/imported/keyboard_numlock.png-6afc00225283e05f8412ea280fceffb4.ctex"]
 
 [params]
 

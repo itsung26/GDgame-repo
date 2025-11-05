@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://41g6e717nn63"
-path.s3tc="res://.godot/imported/40.png-76c572ade3c5abdb93caf8f86659cbe8.s3tc.ctex"
+path.s3tc="res://.godot/imported/40.png-5645f033ad9f5885ddcdb463165d187c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprite assets/particles/masks for  particles/masks for  particles transparent/40.png"
-dest_files=["res://.godot/imported/40.png-76c572ade3c5abdb93caf8f86659cbe8.s3tc.ctex"]
+source_file="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/40.png"
+dest_files=["res://.godot/imported/40.png-5645f033ad9f5885ddcdb463165d187c.s3tc.ctex"]
 
 [params]
 

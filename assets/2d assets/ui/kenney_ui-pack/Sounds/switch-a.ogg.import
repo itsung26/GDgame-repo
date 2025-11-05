@@ -3,12 +3,12 @@
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
 uid="uid://ctve7wfi2klqj"
-path="res://.godot/imported/switch-a.ogg-9428b38a5c27747d633ce860a0a73ad0.oggvorbisstr"
+path="res://.godot/imported/switch-a.ogg-c401ef179fc942cd6be06ec917246f1c.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Sounds/switch-a.ogg"
-dest_files=["res://.godot/imported/switch-a.ogg-9428b38a5c27747d633ce860a0a73ad0.oggvorbisstr"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Sounds/switch-a.ogg"
+dest_files=["res://.godot/imported/switch-a.ogg-c401ef179fc942cd6be06ec917246f1c.oggvorbisstr"]
 
 [params]
 

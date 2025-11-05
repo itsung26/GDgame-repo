@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhb7q33xdyf0r"
-path="res://.godot/imported/keyboard_semicolon.svg-6eeb3e2262f47cfd2e9e4637156bf6d6.ctex"
+path="res://.godot/imported/keyboard_semicolon.svg-9c450b14b8d5995f345aa4169f8334da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Vector/keyboard_semicolon.svg"
-dest_files=["res://.godot/imported/keyboard_semicolon.svg-6eeb3e2262f47cfd2e9e4637156bf6d6.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Vector/keyboard_semicolon.svg"
+dest_files=["res://.godot/imported/keyboard_semicolon.svg-9c450b14b8d5995f345aa4169f8334da.ctex"]
 
 [params]
 

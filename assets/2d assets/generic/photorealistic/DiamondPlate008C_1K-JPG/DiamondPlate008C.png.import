@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr4n62kdsdfbr"
-path="res://.godot/imported/DiamondPlate008C.png-b45774956fed6d5c34f9f19fe4ac4794.ctex"
+path="res://.godot/imported/DiamondPlate008C.png-b8809af024f4642b5456ddcf8ba2799c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/DiamondPlate008C_1K-JPG/DiamondPlate008C.png"
-dest_files=["res://.godot/imported/DiamondPlate008C.png-b45774956fed6d5c34f9f19fe4ac4794.ctex"]
+source_file="res://assets/2d assets/generic/photorealistic/DiamondPlate008C_1K-JPG/DiamondPlate008C.png"
+dest_files=["res://.godot/imported/DiamondPlate008C.png-b8809af024f4642b5456ddcf8ba2799c.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxf266dybw8nr"
-path="res://.godot/imported/DiamondPlate008C_1K-JPG_Displacement.jpg-cfcdf330cd177d3546498ebcf5d3d544.ctex"
+path="res://.godot/imported/DiamondPlate008C_1K-JPG_Displacement.jpg-a6931713283431356a3c4e8d8a073c22.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_Displacement.jpg"
-dest_files=["res://.godot/imported/DiamondPlate008C_1K-JPG_Displacement.jpg-cfcdf330cd177d3546498ebcf5d3d544.ctex"]
+source_file="res://assets/2d assets/generic/photorealistic/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_Displacement.jpg"
+dest_files=["res://.godot/imported/DiamondPlate008C_1K-JPG_Displacement.jpg-a6931713283431356a3c4e8d8a073c22.ctex"]
 
 [params]
 

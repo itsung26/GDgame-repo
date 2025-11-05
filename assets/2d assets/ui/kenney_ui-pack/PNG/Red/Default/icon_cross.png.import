@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpwpswqumj6y3"
-path="res://.godot/imported/icon_cross.png-7f071c1dec32c470b48ad4b742a52733.ctex"
+path="res://.godot/imported/icon_cross.png-c9e38793b2e0c4e645ece8d6668cf869.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Default/icon_cross.png"
-dest_files=["res://.godot/imported/icon_cross.png-7f071c1dec32c470b48ad4b742a52733.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Red/Default/icon_cross.png"
+dest_files=["res://.godot/imported/icon_cross.png-c9e38793b2e0c4e645ece8d6668cf869.ctex"]
 
 [params]
 

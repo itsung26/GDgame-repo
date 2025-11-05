@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2m8w5i0y7qk6"
-path="res://.godot/imported/magic_04.png-d87b1954a744bb947e6ea7a524a2e50b.ctex"
+path="res://.godot/imported/magic_04.png-17c1e3f6f93ad3f20e21640b15b0bb69.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Black background)/magic_04.png"
-dest_files=["res://.godot/imported/magic_04.png-d87b1954a744bb947e6ea7a524a2e50b.ctex"]
+source_file="res://assets/2d assets/particles/kenney_particle-pack/PNG (Black background)/magic_04.png"
+dest_files=["res://.godot/imported/magic_04.png-17c1e3f6f93ad3f20e21640b15b0bb69.ctex"]
 
 [params]
 

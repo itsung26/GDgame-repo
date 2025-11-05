@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://btay6333lpxt1"
-path="res://.godot/imported/button_square_line.png-db8a47a11af5d7eb93b73012391e5f2d.ctex"
+path="res://.godot/imported/button_square_line.png-70be8650341eb039398c9791f4a5fae4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Yellow/Double/button_square_line.png"
-dest_files=["res://.godot/imported/button_square_line.png-db8a47a11af5d7eb93b73012391e5f2d.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Yellow/Double/button_square_line.png"
+dest_files=["res://.godot/imported/button_square_line.png-70be8650341eb039398c9791f4a5fae4.ctex"]
 
 [params]
 

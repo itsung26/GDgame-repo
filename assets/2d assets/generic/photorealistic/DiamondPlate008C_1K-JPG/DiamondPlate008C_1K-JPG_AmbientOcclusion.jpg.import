@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvggnac7tmtlu"
-path.s3tc="res://.godot/imported/DiamondPlate008C_1K-JPG_AmbientOcclusion.jpg-d666ad3260984fe810945c0f228a9695.s3tc.ctex"
+path.s3tc="res://.godot/imported/DiamondPlate008C_1K-JPG_AmbientOcclusion.jpg-c8b37377c0f4fe0940bf8ce4f0e486a6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_AmbientOcclusion.jpg"
-dest_files=["res://.godot/imported/DiamondPlate008C_1K-JPG_AmbientOcclusion.jpg-d666ad3260984fe810945c0f228a9695.s3tc.ctex"]
+source_file="res://assets/2d assets/generic/photorealistic/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_AmbientOcclusion.jpg"
+dest_files=["res://.godot/imported/DiamondPlate008C_1K-JPG_AmbientOcclusion.jpg-c8b37377c0f4fe0940bf8ce4f0e486a6.s3tc.ctex"]
 
 [params]
 

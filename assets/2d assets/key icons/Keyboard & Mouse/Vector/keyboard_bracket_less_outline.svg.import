@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7anuhh5jscxl"
-path="res://.godot/imported/keyboard_bracket_less_outline.svg-09bef9dcba456319414a3e873c11b440.ctex"
+path="res://.godot/imported/keyboard_bracket_less_outline.svg-7237be6a3295203e07d48fc6fb6caa40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Vector/keyboard_bracket_less_outline.svg"
-dest_files=["res://.godot/imported/keyboard_bracket_less_outline.svg-09bef9dcba456319414a3e873c11b440.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Vector/keyboard_bracket_less_outline.svg"
+dest_files=["res://.godot/imported/keyboard_bracket_less_outline.svg-7237be6a3295203e07d48fc6fb6caa40.ctex"]
 
 [params]
 

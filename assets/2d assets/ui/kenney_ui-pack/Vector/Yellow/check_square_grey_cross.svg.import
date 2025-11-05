@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://badv26nt4rpja"
-path="res://.godot/imported/check_square_grey_cross.svg-af2fee5b3689b15d98a7cad84fe48daf.ctex"
+path="res://.godot/imported/check_square_grey_cross.svg-10c404812a4a60a3f9c87149b389ede7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Yellow/check_square_grey_cross.svg"
-dest_files=["res://.godot/imported/check_square_grey_cross.svg-af2fee5b3689b15d98a7cad84fe48daf.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Yellow/check_square_grey_cross.svg"
+dest_files=["res://.godot/imported/check_square_grey_cross.svg-10c404812a4a60a3f9c87149b389ede7.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7yk8u1qciyg6"
-path="res://.godot/imported/dirt_01.png-a5dc7f7bc79ec28b70e8f36f4378200c.ctex"
+path="res://.godot/imported/dirt_01.png-c7a89a1ceeef8ac492a3dad1c3e16732.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Black background)/dirt_01.png"
-dest_files=["res://.godot/imported/dirt_01.png-a5dc7f7bc79ec28b70e8f36f4378200c.ctex"]
+source_file="res://assets/2d assets/particles/kenney_particle-pack/PNG (Black background)/dirt_01.png"
+dest_files=["res://.godot/imported/dirt_01.png-c7a89a1ceeef8ac492a3dad1c3e16732.ctex"]
 
 [params]
 

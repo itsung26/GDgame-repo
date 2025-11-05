@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmer1qgwj6x54"
-path="res://.godot/imported/input_outline_rectangle.png-1c735164a859d7940bf21245b67c919a.ctex"
+path="res://.godot/imported/input_outline_rectangle.png-08a48c881c7a689da4bf85da5ee388ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Extra/Double/input_outline_rectangle.png"
-dest_files=["res://.godot/imported/input_outline_rectangle.png-1c735164a859d7940bf21245b67c919a.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Extra/Double/input_outline_rectangle.png"
+dest_files=["res://.godot/imported/input_outline_rectangle.png-08a48c881c7a689da4bf85da5ee388ea.ctex"]
 
 [params]
 

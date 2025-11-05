@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ctdus7wg21luw"
-path="res://.godot/imported/50.png-90ff11a32986a8395f31390a07ae5ac2.ctex"
+path="res://.godot/imported/50.png-274ba83fe593a858bf52f64875c001b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/particles/masks for  particles/masks for  particles transparent/50.png"
-dest_files=["res://.godot/imported/50.png-90ff11a32986a8395f31390a07ae5ac2.ctex"]
+source_file="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/50.png"
+dest_files=["res://.godot/imported/50.png-274ba83fe593a858bf52f64875c001b2.ctex"]
 
 [params]
 

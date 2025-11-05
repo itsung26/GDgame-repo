@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://divrgvxmrkt80"
-path="res://.godot/imported/pistol outline.png-df8039410c6c12629baf6c48e798442f.ctex"
+path="res://.godot/imported/pistol outline.png-4929b7bece41d9973075e2bf85f67c30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/icons generic/pistol outline.png"
-dest_files=["res://.godot/imported/pistol outline.png-df8039410c6c12629baf6c48e798442f.ctex"]
+source_file="res://assets/2d assets/ui/icons generic/pistol outline.png"
+dest_files=["res://.godot/imported/pistol outline.png-4929b7bece41d9973075e2bf85f67c30.ctex"]
 
 [params]
 

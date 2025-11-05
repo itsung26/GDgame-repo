@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://fx5loamfmmmy"
-path="res://.godot/imported/button_round_line.svg-9a0f51c31c5b82b9b99d956dfb8baf79.ctex"
+path="res://.godot/imported/button_round_line.svg-ef1b5c42cb83db94d560922c0b523e8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Grey/button_round_line.svg"
-dest_files=["res://.godot/imported/button_round_line.svg-9a0f51c31c5b82b9b99d956dfb8baf79.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Grey/button_round_line.svg"
+dest_files=["res://.godot/imported/button_round_line.svg-ef1b5c42cb83db94d560922c0b523e8a.ctex"]
 
 [params]
 

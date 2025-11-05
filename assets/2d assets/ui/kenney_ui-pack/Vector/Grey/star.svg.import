@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cn7rkaxbakn4"
-path="res://.godot/imported/star.svg-ce8b4a555cc1a30207c682317931d832.ctex"
+path="res://.godot/imported/star.svg-c4f9059ec39802e4c53469770bc376d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Grey/star.svg"
-dest_files=["res://.godot/imported/star.svg-ce8b4a555cc1a30207c682317931d832.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Grey/star.svg"
+dest_files=["res://.godot/imported/star.svg-c4f9059ec39802e4c53469770bc376d9.ctex"]
 
 [params]
 

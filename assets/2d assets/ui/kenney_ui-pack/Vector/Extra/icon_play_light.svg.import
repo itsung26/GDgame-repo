@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://nf1fsce4x0nu"
-path="res://.godot/imported/icon_play_light.svg-f8f94c449e48125e3b8e27cc450c3c26.ctex"
+path="res://.godot/imported/icon_play_light.svg-8f1d33b7dfe864417d84536604f52273.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Extra/icon_play_light.svg"
-dest_files=["res://.godot/imported/icon_play_light.svg-f8f94c449e48125e3b8e27cc450c3c26.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Extra/icon_play_light.svg"
+dest_files=["res://.godot/imported/icon_play_light.svg-8f1d33b7dfe864417d84536604f52273.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bkvigerf306wy"
-path="res://.godot/imported/button_round_depth_gradient.png-8bda08deeae569f46eb990aade17a7b3.ctex"
+path="res://.godot/imported/button_round_depth_gradient.png-9d19e60650c60af3946c1e0a0667ab41.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Yellow/Default/button_round_depth_gradient.png"
-dest_files=["res://.godot/imported/button_round_depth_gradient.png-8bda08deeae569f46eb990aade17a7b3.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Yellow/Default/button_round_depth_gradient.png"
+dest_files=["res://.godot/imported/button_round_depth_gradient.png-9d19e60650c60af3946c1e0a0667ab41.ctex"]
 
 [params]
 

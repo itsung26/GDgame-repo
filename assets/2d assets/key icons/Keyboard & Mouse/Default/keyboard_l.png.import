@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b34wjuojaib26"
-path="res://.godot/imported/keyboard_l.png-66108bc5bcf00b4b103b1430c514b9d8.ctex"
+path="res://.godot/imported/keyboard_l.png-f61b7d9d7249d5c9477a09f429501587.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Default/keyboard_l.png"
-dest_files=["res://.godot/imported/keyboard_l.png-66108bc5bcf00b4b103b1430c514b9d8.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Default/keyboard_l.png"
+dest_files=["res://.godot/imported/keyboard_l.png-f61b7d9d7249d5c9477a09f429501587.ctex"]
 
 [params]
 

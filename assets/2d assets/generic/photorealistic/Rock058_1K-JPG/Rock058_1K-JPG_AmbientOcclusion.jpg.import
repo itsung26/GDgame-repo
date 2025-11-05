@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bciu85jymsrhx"
-path.s3tc="res://.godot/imported/Rock058_1K-JPG_AmbientOcclusion.jpg-13c5af8510f4b2320dee3df913261384.s3tc.ctex"
+path.s3tc="res://.godot/imported/Rock058_1K-JPG_AmbientOcclusion.jpg-cf93c399324c9ebdc51950e22a7ffc7d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/Rock058_1K-JPG/Rock058_1K-JPG_AmbientOcclusion.jpg"
-dest_files=["res://.godot/imported/Rock058_1K-JPG_AmbientOcclusion.jpg-13c5af8510f4b2320dee3df913261384.s3tc.ctex"]
+source_file="res://assets/2d assets/generic/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_AmbientOcclusion.jpg"
+dest_files=["res://.godot/imported/Rock058_1K-JPG_AmbientOcclusion.jpg-cf93c399324c9ebdc51950e22a7ffc7d.s3tc.ctex"]
 
 [params]
 

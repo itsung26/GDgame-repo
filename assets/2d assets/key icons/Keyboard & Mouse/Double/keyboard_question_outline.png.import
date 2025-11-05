@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://xvc7juxwnp0v"
-path="res://.godot/imported/keyboard_question_outline.png-3afe8d4060def002bdbc7e20105cd208.ctex"
+path="res://.godot/imported/keyboard_question_outline.png-6a84d759e7b8488c6e6f35c0591fd071.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/keyboard_question_outline.png"
-dest_files=["res://.godot/imported/keyboard_question_outline.png-3afe8d4060def002bdbc7e20105cd208.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Double/keyboard_question_outline.png"
+dest_files=["res://.godot/imported/keyboard_question_outline.png-6a84d759e7b8488c6e6f35c0591fd071.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ca6snqol4x3kr"
-path="res://.godot/imported/keyboard_arrow_right_outline.png-e439edb4c13c6c428a188b02dae01718.ctex"
+path="res://.godot/imported/keyboard_arrow_right_outline.png-d7a5cd81aa98105ede8ab7854679d619.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/keyboard_arrow_right_outline.png"
-dest_files=["res://.godot/imported/keyboard_arrow_right_outline.png-e439edb4c13c6c428a188b02dae01718.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Double/keyboard_arrow_right_outline.png"
+dest_files=["res://.godot/imported/keyboard_arrow_right_outline.png-d7a5cd81aa98105ede8ab7854679d619.ctex"]
 
 [params]
 

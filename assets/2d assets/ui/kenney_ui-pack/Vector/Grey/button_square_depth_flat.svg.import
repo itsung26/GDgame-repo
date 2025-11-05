@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cnrei82lq7fh4"
-path="res://.godot/imported/button_square_depth_flat.svg-6eff13547e37e3094e88177961a31983.ctex"
+path="res://.godot/imported/button_square_depth_flat.svg-2578fcc6b099db7de4776d1e44f5dd09.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Grey/button_square_depth_flat.svg"
-dest_files=["res://.godot/imported/button_square_depth_flat.svg-6eff13547e37e3094e88177961a31983.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Grey/button_square_depth_flat.svg"
+dest_files=["res://.godot/imported/button_square_depth_flat.svg-2578fcc6b099db7de4776d1e44f5dd09.ctex"]
 
 [params]
 

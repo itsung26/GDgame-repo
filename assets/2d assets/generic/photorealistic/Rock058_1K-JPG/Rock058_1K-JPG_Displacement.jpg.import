@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmj5bjpb7e70s"
-path="res://.godot/imported/Rock058_1K-JPG_Displacement.jpg-49ad4e60ca5ebe9cc2744ae17ede28bc.ctex"
+path="res://.godot/imported/Rock058_1K-JPG_Displacement.jpg-9d33eaf17a037c29f036d1341f93a474.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/Rock058_1K-JPG/Rock058_1K-JPG_Displacement.jpg"
-dest_files=["res://.godot/imported/Rock058_1K-JPG_Displacement.jpg-49ad4e60ca5ebe9cc2744ae17ede28bc.ctex"]
+source_file="res://assets/2d assets/generic/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_Displacement.jpg"
+dest_files=["res://.godot/imported/Rock058_1K-JPG_Displacement.jpg-9d33eaf17a037c29f036d1341f93a474.ctex"]
 
 [params]
 

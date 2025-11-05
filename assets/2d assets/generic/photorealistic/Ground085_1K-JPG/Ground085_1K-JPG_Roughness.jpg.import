@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbgxiygc2iyd4"
-path.s3tc="res://.godot/imported/Ground085_1K-JPG_Roughness.jpg-91b720a0b582df9fb3076e492d00a51f.s3tc.ctex"
+path.s3tc="res://.godot/imported/Ground085_1K-JPG_Roughness.jpg-8d4ae660dfc50484e3db658da0953858.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/Ground085_1K-JPG/Ground085_1K-JPG_Roughness.jpg"
-dest_files=["res://.godot/imported/Ground085_1K-JPG_Roughness.jpg-91b720a0b582df9fb3076e492d00a51f.s3tc.ctex"]
+source_file="res://assets/2d assets/generic/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Roughness.jpg"
+dest_files=["res://.godot/imported/Ground085_1K-JPG_Roughness.jpg-8d4ae660dfc50484e3db658da0953858.s3tc.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://tcf3klew37wp"
-path="res://.godot/imported/arrow_decorative_w_small.svg-fd77c66c3ff55244f9a341c27cef721f.ctex"
+path="res://.godot/imported/arrow_decorative_w_small.svg-2d9c3aa801bc55f9759b3f0c898f63c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Red/arrow_decorative_w_small.svg"
-dest_files=["res://.godot/imported/arrow_decorative_w_small.svg-fd77c66c3ff55244f9a341c27cef721f.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Red/arrow_decorative_w_small.svg"
+dest_files=["res://.godot/imported/arrow_decorative_w_small.svg-2d9c3aa801bc55f9759b3f0c898f63c6.ctex"]
 
 [params]
 

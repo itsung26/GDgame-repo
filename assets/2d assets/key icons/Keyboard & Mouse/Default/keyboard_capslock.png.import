@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2j0xgp8kc8q6"
-path="res://.godot/imported/keyboard_capslock.png-192c08a4a1168ee7092c054363e661e4.ctex"
+path="res://.godot/imported/keyboard_capslock.png-4694f4c26104c70823841f5c10c2a183.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Default/keyboard_capslock.png"
-dest_files=["res://.godot/imported/keyboard_capslock.png-192c08a4a1168ee7092c054363e661e4.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Default/keyboard_capslock.png"
+dest_files=["res://.godot/imported/keyboard_capslock.png-4694f4c26104c70823841f5c10c2a183.ctex"]
 
 [params]
 

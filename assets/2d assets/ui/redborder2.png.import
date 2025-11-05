@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7c7fyhjdmk47"
-path="res://.godot/imported/redborder2.png-400c1aeb7e6710f73c1f0ba3eda57b21.ctex"
+path="res://.godot/imported/redborder2.png-c2f4533c1def7a12c5bf906962cae49a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/redborder2.png"
-dest_files=["res://.godot/imported/redborder2.png-400c1aeb7e6710f73c1f0ba3eda57b21.ctex"]
+source_file="res://assets/2d assets/ui/redborder2.png"
+dest_files=["res://.godot/imported/redborder2.png-c2f4533c1def7a12c5bf906962cae49a.ctex"]
 
 [params]
 

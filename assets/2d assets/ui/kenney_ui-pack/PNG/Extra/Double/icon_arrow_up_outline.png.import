@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://sll54n6dcdsb"
-path="res://.godot/imported/icon_arrow_up_outline.png-027347bff31a171affb93614df9134cf.ctex"
+path="res://.godot/imported/icon_arrow_up_outline.png-f6f27d32637f7b0d1c4be50053c7f319.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Extra/Double/icon_arrow_up_outline.png"
-dest_files=["res://.godot/imported/icon_arrow_up_outline.png-027347bff31a171affb93614df9134cf.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Extra/Double/icon_arrow_up_outline.png"
+dest_files=["res://.godot/imported/icon_arrow_up_outline.png-f6f27d32637f7b0d1c4be50053c7f319.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bufy0jhvahd8u"
-path="res://.godot/imported/crate-medium.png-10dc6ccc68d94e85965d8e18c5426aa3.ctex"
+path="res://.godot/imported/crate-medium.png-5dd6e3b67b1b6e21938e71f5bc77d24f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/gunmodel previews/crate-medium.png"
-dest_files=["res://.godot/imported/crate-medium.png-10dc6ccc68d94e85965d8e18c5426aa3.ctex"]
+source_file="res://assets/2d assets/gunmodel previews/crate-medium.png"
+dest_files=["res://.godot/imported/crate-medium.png-5dd6e3b67b1b6e21938e71f5bc77d24f.ctex"]
 
 [params]
 

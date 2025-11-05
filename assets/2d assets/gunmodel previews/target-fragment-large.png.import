@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqbf08vdypu6g"
-path="res://.godot/imported/target-fragment-large.png-3f5e2f886f7dee23a7683000b3792719.ctex"
+path="res://.godot/imported/target-fragment-large.png-89da5f0d950fdfd9a11999ae8160ebed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/gunmodel previews/target-fragment-large.png"
-dest_files=["res://.godot/imported/target-fragment-large.png-3f5e2f886f7dee23a7683000b3792719.ctex"]
+source_file="res://assets/2d assets/gunmodel previews/target-fragment-large.png"
+dest_files=["res://.godot/imported/target-fragment-large.png-89da5f0d950fdfd9a11999ae8160ebed.ctex"]
 
 [params]
 

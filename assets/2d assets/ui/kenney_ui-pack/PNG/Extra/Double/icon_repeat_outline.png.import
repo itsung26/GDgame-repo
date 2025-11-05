@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjsav455llkh4"
-path="res://.godot/imported/icon_repeat_outline.png-ff8c0e4e6de876ba6d7ee3a49e4854e0.ctex"
+path="res://.godot/imported/icon_repeat_outline.png-00e1e5f1cf1bd896d9d8edf8d87be169.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Extra/Double/icon_repeat_outline.png"
-dest_files=["res://.godot/imported/icon_repeat_outline.png-ff8c0e4e6de876ba6d7ee3a49e4854e0.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Extra/Double/icon_repeat_outline.png"
+dest_files=["res://.godot/imported/icon_repeat_outline.png-00e1e5f1cf1bd896d9d8edf8d87be169.ctex"]
 
 [params]
 

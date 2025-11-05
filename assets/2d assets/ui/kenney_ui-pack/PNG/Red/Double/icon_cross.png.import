@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d33jol0ekpnkn"
-path.s3tc="res://.godot/imported/icon_cross.png-1210ff1edd6f427ad6ad82e7fd8ebd57.s3tc.ctex"
+path.s3tc="res://.godot/imported/icon_cross.png-a3be5b185d26bc76ad93d6e40c74a65d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Double/icon_cross.png"
-dest_files=["res://.godot/imported/icon_cross.png-1210ff1edd6f427ad6ad82e7fd8ebd57.s3tc.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Red/Double/icon_cross.png"
+dest_files=["res://.godot/imported/icon_cross.png-a3be5b185d26bc76ad93d6e40c74a65d.s3tc.ctex"]
 
 [params]
 

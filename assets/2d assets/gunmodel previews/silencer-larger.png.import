@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2vl4lxu82x5h"
-path="res://.godot/imported/silencer-larger.png-839b06cce42e25fded1a408f1a3a0d89.ctex"
+path="res://.godot/imported/silencer-larger.png-079f034db906320de14d3158a3c2fc71.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/gunmodel previews/silencer-larger.png"
-dest_files=["res://.godot/imported/silencer-larger.png-839b06cce42e25fded1a408f1a3a0d89.ctex"]
+source_file="res://assets/2d assets/gunmodel previews/silencer-larger.png"
+dest_files=["res://.godot/imported/silencer-larger.png-079f034db906320de14d3158a3c2fc71.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bf0e641opqu2r"
-path="res://.godot/imported/star_outline_depth.svg-58bfe47fcb3ac09bf73a46b49c628af1.ctex"
+path="res://.godot/imported/star_outline_depth.svg-cb2ca0d025d9c0ee5f6fb4540afba5dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Yellow/star_outline_depth.svg"
-dest_files=["res://.godot/imported/star_outline_depth.svg-58bfe47fcb3ac09bf73a46b49c628af1.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Yellow/star_outline_depth.svg"
+dest_files=["res://.godot/imported/star_outline_depth.svg-cb2ca0d025d9c0ee5f6fb4540afba5dd.ctex"]
 
 [params]
 

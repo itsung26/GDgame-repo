@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://daedpymp3gii7"
-path="res://.godot/imported/blaster-k.png-dee5233fbf87e95dca5893cd72e8416a.ctex"
+path="res://.godot/imported/blaster-k.png-1f0545883474bfeaa6a8a4896b78d45a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/gunmodel previews/blaster-k.png"
-dest_files=["res://.godot/imported/blaster-k.png-dee5233fbf87e95dca5893cd72e8416a.ctex"]
+source_file="res://assets/2d assets/gunmodel previews/blaster-k.png"
+dest_files=["res://.godot/imported/blaster-k.png-1f0545883474bfeaa6a8a4896b78d45a.ctex"]
 
 [params]
 

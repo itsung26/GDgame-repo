@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxqw72xpat3kf"
-path.s3tc="res://.godot/imported/star.png-3a9f7507ebba5281cae83e3170710b41.s3tc.ctex"
+path.s3tc="res://.godot/imported/star.png-c719e1937a8f0a722a9df522d4a8abce.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Default/star.png"
-dest_files=["res://.godot/imported/star.png-3a9f7507ebba5281cae83e3170710b41.s3tc.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Red/Default/star.png"
+dest_files=["res://.godot/imported/star.png-c719e1937a8f0a722a9df522d4a8abce.s3tc.ctex"]
 
 [params]
 

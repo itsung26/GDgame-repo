@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8bv0qhpxhwc5"
-path="res://.godot/imported/keyboard_caret_outline.svg-8c48adf60871618adf22ab0120b4fa7e.ctex"
+path="res://.godot/imported/keyboard_caret_outline.svg-ace412fa4992d6e513e188b22a01476a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Vector/keyboard_caret_outline.svg"
-dest_files=["res://.godot/imported/keyboard_caret_outline.svg-8c48adf60871618adf22ab0120b4fa7e.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Vector/keyboard_caret_outline.svg"
+dest_files=["res://.godot/imported/keyboard_caret_outline.svg-ace412fa4992d6e513e188b22a01476a.ctex"]
 
 [params]
 

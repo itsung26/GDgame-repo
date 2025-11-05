@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6yl5bpj0dr81"
-path="res://.godot/imported/keyboard_apostrophe_outline.png-b470de2f8285438c6fe4d30c10aa3115.ctex"
+path="res://.godot/imported/keyboard_apostrophe_outline.png-e0946ad6d5620c856cd45b1c611300ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Default/keyboard_apostrophe_outline.png"
-dest_files=["res://.godot/imported/keyboard_apostrophe_outline.png-b470de2f8285438c6fe4d30c10aa3115.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Default/keyboard_apostrophe_outline.png"
+dest_files=["res://.godot/imported/keyboard_apostrophe_outline.png-e0946ad6d5620c856cd45b1c611300ed.ctex"]
 
 [params]
 

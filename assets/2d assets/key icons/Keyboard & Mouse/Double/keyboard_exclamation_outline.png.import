@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dra2l0guxmdjn"
-path="res://.godot/imported/keyboard_exclamation_outline.png-3b84c7bff0bebb83cabd99a139064f2d.ctex"
+path="res://.godot/imported/keyboard_exclamation_outline.png-77657d3660d7fe7adbcff6b97d7054c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/keyboard_exclamation_outline.png"
-dest_files=["res://.godot/imported/keyboard_exclamation_outline.png-3b84c7bff0bebb83cabd99a139064f2d.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Double/keyboard_exclamation_outline.png"
+dest_files=["res://.godot/imported/keyboard_exclamation_outline.png-77657d3660d7fe7adbcff6b97d7054c8.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c111qdvkxdqab"
-path="res://.godot/imported/check_round_grey.svg-042492ce5cc21dc6e27259524e3c8c3f.ctex"
+path="res://.godot/imported/check_round_grey.svg-61bc5bf106de7090b36238c3a4b6fe04.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Yellow/check_round_grey.svg"
-dest_files=["res://.godot/imported/check_round_grey.svg-042492ce5cc21dc6e27259524e3c8c3f.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Yellow/check_round_grey.svg"
+dest_files=["res://.godot/imported/check_round_grey.svg-61bc5bf106de7090b36238c3a4b6fe04.ctex"]
 
 [params]
 

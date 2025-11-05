@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvn0l5xyqfew1"
-path="res://.godot/imported/button_rectangle_depth_line.png-de3e3c2b21d265d1e85d3347efa33171.ctex"
+path="res://.godot/imported/button_rectangle_depth_line.png-a642481baf247e6665d0e385745d8888.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Extra/Default/button_rectangle_depth_line.png"
-dest_files=["res://.godot/imported/button_rectangle_depth_line.png-de3e3c2b21d265d1e85d3347efa33171.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Extra/Default/button_rectangle_depth_line.png"
+dest_files=["res://.godot/imported/button_rectangle_depth_line.png-a642481baf247e6665d0e385745d8888.ctex"]
 
 [params]
 

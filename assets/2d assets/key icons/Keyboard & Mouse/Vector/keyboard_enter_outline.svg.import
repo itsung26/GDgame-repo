@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://do71h2qw8ikdl"
-path="res://.godot/imported/keyboard_enter_outline.svg-5c3798c4ef12da5322318d5aa1c3d5f1.ctex"
+path="res://.godot/imported/keyboard_enter_outline.svg-e2c2fba802ebc1156d2009fa75f67d99.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Vector/keyboard_enter_outline.svg"
-dest_files=["res://.godot/imported/keyboard_enter_outline.svg-5c3798c4ef12da5322318d5aa1c3d5f1.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Vector/keyboard_enter_outline.svg"
+dest_files=["res://.godot/imported/keyboard_enter_outline.svg-e2c2fba802ebc1156d2009fa75f67d99.ctex"]
 
 [params]
 

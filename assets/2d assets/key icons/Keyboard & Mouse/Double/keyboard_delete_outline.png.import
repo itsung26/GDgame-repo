@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bcgjup45mr1gr"
-path="res://.godot/imported/keyboard_delete_outline.png-07f4b6bdc832377fbb41cd33c6d5e163.ctex"
+path="res://.godot/imported/keyboard_delete_outline.png-35901061f15118477ae06aa2e317cef2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Double/keyboard_delete_outline.png"
-dest_files=["res://.godot/imported/keyboard_delete_outline.png-07f4b6bdc832377fbb41cd33c6d5e163.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Double/keyboard_delete_outline.png"
+dest_files=["res://.godot/imported/keyboard_delete_outline.png-35901061f15118477ae06aa2e317cef2.ctex"]
 
 [params]
 

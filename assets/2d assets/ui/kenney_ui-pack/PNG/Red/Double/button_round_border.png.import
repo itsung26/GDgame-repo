@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dw3x1icnpejl3"
-path="res://.godot/imported/button_round_border.png-f91a3bfee68ec46f8b7349eb4dbc774b.ctex"
+path="res://.godot/imported/button_round_border.png-4114360cf70f46c5fa4dd857ce17748f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Double/button_round_border.png"
-dest_files=["res://.godot/imported/button_round_border.png-f91a3bfee68ec46f8b7349eb4dbc774b.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Red/Double/button_round_border.png"
+dest_files=["res://.godot/imported/button_round_border.png-4114360cf70f46c5fa4dd857ce17748f.ctex"]
 
 [params]
 

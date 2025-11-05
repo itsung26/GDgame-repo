@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8llvvj0f7j3w"
-path="res://.godot/imported/check_square_color_square.svg-67c554dc003df270278e3e31f6b1efd2.ctex"
+path="res://.godot/imported/check_square_color_square.svg-7b6ba51be3226b69814c296df4c6bd89.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Grey/check_square_color_square.svg"
-dest_files=["res://.godot/imported/check_square_color_square.svg-67c554dc003df270278e3e31f6b1efd2.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Grey/check_square_color_square.svg"
+dest_files=["res://.godot/imported/check_square_color_square.svg-7b6ba51be3226b69814c296df4c6bd89.ctex"]
 
 [params]
 

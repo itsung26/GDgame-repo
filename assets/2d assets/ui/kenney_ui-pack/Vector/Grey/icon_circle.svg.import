@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cb01ujc6n6psl"
-path.s3tc="res://.godot/imported/icon_circle.svg-454c244c8e0b68a38e16c70faf105daf.s3tc.ctex"
+path.s3tc="res://.godot/imported/icon_circle.svg-732a0fbcabb130627ae01085e2157130.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Grey/icon_circle.svg"
-dest_files=["res://.godot/imported/icon_circle.svg-454c244c8e0b68a38e16c70faf105daf.s3tc.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Grey/icon_circle.svg"
+dest_files=["res://.godot/imported/icon_circle.svg-732a0fbcabb130627ae01085e2157130.s3tc.ctex"]
 
 [params]
 

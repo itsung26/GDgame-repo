@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnufa7swoq73j"
-path="res://.godot/imported/icon_outline_circle.svg-95404bc881135cc0c0e8011f7e089c8c.ctex"
+path="res://.godot/imported/icon_outline_circle.svg-e8f3d8f67cb95609313a34486f710437.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Grey/icon_outline_circle.svg"
-dest_files=["res://.godot/imported/icon_outline_circle.svg-95404bc881135cc0c0e8011f7e089c8c.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Grey/icon_outline_circle.svg"
+dest_files=["res://.godot/imported/icon_outline_circle.svg-e8f3d8f67cb95609313a34486f710437.ctex"]
 
 [params]
 

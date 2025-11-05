@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cs1lyvxuraxjo"
-path="res://.godot/imported/flare_01.png-4d71de2a139f5a204fbd77f3699e5073.ctex"
+path="res://.godot/imported/flare_01.png-f7dfa18239c60810b79f4470b7c65cc7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Black background)/flare_01.png"
-dest_files=["res://.godot/imported/flare_01.png-4d71de2a139f5a204fbd77f3699e5073.ctex"]
+source_file="res://assets/2d assets/particles/kenney_particle-pack/PNG (Black background)/flare_01.png"
+dest_files=["res://.godot/imported/flare_01.png-f7dfa18239c60810b79f4470b7c65cc7.ctex"]
 
 [params]
 

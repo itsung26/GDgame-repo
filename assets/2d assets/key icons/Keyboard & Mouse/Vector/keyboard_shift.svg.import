@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://jpc5ul5dksaq"
-path="res://.godot/imported/keyboard_shift.svg-38d87d26fd2cd30334c3941b85ea1d65.ctex"
+path="res://.godot/imported/keyboard_shift.svg-caf722fc09df667a00b63041cfbfd160.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/key icons/Keyboard & Mouse/Vector/keyboard_shift.svg"
-dest_files=["res://.godot/imported/keyboard_shift.svg-38d87d26fd2cd30334c3941b85ea1d65.ctex"]
+source_file="res://assets/2d assets/key icons/Keyboard & Mouse/Vector/keyboard_shift.svg"
+dest_files=["res://.godot/imported/keyboard_shift.svg-caf722fc09df667a00b63041cfbfd160.ctex"]
 
 [params]
 

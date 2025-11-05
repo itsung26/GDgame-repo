@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blirnfdidmoky"
-path="res://.godot/imported/800px-WhiplashRenderFull.webp-096e0e44e88dca002a704080b2013ca8.ctex"
+path="res://.godot/imported/800px-WhiplashRenderFull.webp-3cb3b9d4cc26fd415bedc533f1b30245.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/icons generic/800px-WhiplashRenderFull.webp"
-dest_files=["res://.godot/imported/800px-WhiplashRenderFull.webp-096e0e44e88dca002a704080b2013ca8.ctex"]
+source_file="res://assets/2d assets/ui/icons generic/800px-WhiplashRenderFull.webp"
+dest_files=["res://.godot/imported/800px-WhiplashRenderFull.webp-3cb3b9d4cc26fd415bedc533f1b30245.ctex"]
 
 [params]
 

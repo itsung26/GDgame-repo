@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://de5xyrd3dwopy"
-path="res://.godot/imported/icon_outline_checkmark.png-3e05bee0d0555edc80c556a682e99243.ctex"
+path="res://.godot/imported/icon_outline_checkmark.png-706fe49b19421eed2a31593ee3066c34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Default/icon_outline_checkmark.png"
-dest_files=["res://.godot/imported/icon_outline_checkmark.png-3e05bee0d0555edc80c556a682e99243.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Red/Default/icon_outline_checkmark.png"
+dest_files=["res://.godot/imported/icon_outline_checkmark.png-706fe49b19421eed2a31593ee3066c34.ctex"]
 
 [params]
 

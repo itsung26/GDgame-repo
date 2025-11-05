@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvlp74qw3ky40"
-path="res://.godot/imported/slide_vertical_grey_section_wide.svg-c89117916aca22a3b1be1e2ab205783e.ctex"
+path="res://.godot/imported/slide_vertical_grey_section_wide.svg-6b625b0fdf0df7dda4226014a94fa657.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Yellow/slide_vertical_grey_section_wide.svg"
-dest_files=["res://.godot/imported/slide_vertical_grey_section_wide.svg-c89117916aca22a3b1be1e2ab205783e.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/Vector/Yellow/slide_vertical_grey_section_wide.svg"
+dest_files=["res://.godot/imported/slide_vertical_grey_section_wide.svg-6b625b0fdf0df7dda4226014a94fa657.ctex"]
 
 [params]
 

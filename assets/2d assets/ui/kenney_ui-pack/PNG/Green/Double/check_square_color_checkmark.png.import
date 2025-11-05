@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://po314bpqjuod"
-path="res://.godot/imported/check_square_color_checkmark.png-78319fad2d9edf46befe0ddbd08e4308.ctex"
+path="res://.godot/imported/check_square_color_checkmark.png-94acd0b913cc195c330920d1bc779011.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Green/Double/check_square_color_checkmark.png"
-dest_files=["res://.godot/imported/check_square_color_checkmark.png-78319fad2d9edf46befe0ddbd08e4308.ctex"]
+source_file="res://assets/2d assets/ui/kenney_ui-pack/PNG/Green/Double/check_square_color_checkmark.png"
+dest_files=["res://.godot/imported/check_square_color_checkmark.png-94acd0b913cc195c330920d1bc779011.ctex"]
 
 [params]
 
