@@ -1,12 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccwx4hsr3uqux"]
+[gd_scene load_steps=15 format=3 uid="uid://ccwx4hsr3uqux"]
 
 [ext_resource type="FontFile" uid="uid://3svjt1ifyndm" path="res://assets/sprite assets/ui/kenney_ui-pack/Font/Kenney Future.ttf" id="1_f1d2v"]
 [ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/pause.gd" id="1_r8yp4"]
+[ext_resource type="PackedScene" uid="uid://co052kx8ng1od" path="res://scenes/main menu screens/main_menu_mainscreen.tscn" id="2_cml1b"]
 [ext_resource type="Theme" uid="uid://bn6oc86kvsu5j" path="res://assets/styles/pause_center_buttons.tres" id="2_jn4bt"]
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="4_r1fnm"]
 [ext_resource type="Script" uid="uid://bw05khwxr3227" path="res://scripts/unstuckHandler.gd" id="5_wen6a"]
 [ext_resource type="Texture2D" uid="uid://io1boip5xtqn" path="res://assets/sprite assets/ui/icons generic/question-mark-3.png" id="6_r1fnm"]
 [ext_resource type="Theme" uid="uid://c746jwhw0u4xi" path="res://assets/styles/options_menu.tres" id="6_wen6a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wen6a"]
+font = ExtResource("4_r1fnm")
+font_size = 28
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tdbgf"]
 
@@ -57,6 +62,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r8yp4")
+main_menu_scene = ExtResource("2_cml1b")
 
 [node name="CenterButtons" type="Control" parent="."]
 layout_mode = 1
@@ -105,7 +111,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Options"
 
-[node name="MainMenu" type="Button" parent="CenterButtons/Panel/VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="CenterButtons/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Main Menu"
@@ -121,6 +127,50 @@ script = ExtResource("5_wen6a")
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Quit"
+
+[node name="ConfirmationPanel" type="Panel" parent="CenterButtons"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -39.0
+offset_right = 102.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterButtons/ConfirmationPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.5
+offset_right = 49.5
+offset_bottom = 19.0
+grow_horizontal = 2
+text = "Confirm?"
+label_settings = SubResource("LabelSettings_wen6a")
+horizontal_alignment = 1
+
+[node name="cancelButton" type="Button" parent="CenterButtons/ConfirmationPanel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 31.0
+offset_right = 111.0
+offset_bottom = 62.0
+text = "Cancel"
+
+[node name="confirmButton" type="Button" parent="CenterButtons/ConfirmationPanel"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 31.0
+offset_right = 190.0
+offset_bottom = 62.0
+text = "Yes"
 
 [node name="OptionsMenu" type="Control" parent="."]
 visible = false
@@ -241,9 +291,11 @@ text = "Controls"
 
 [connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/MainMenu" to="." method="_on_multiplater_pressed"]
+[connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/Unstuck" to="CenterButtons/Panel/VBoxContainer/Unstuck" method="_on_pressed"]
 [connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CenterButtons/ConfirmationPanel/cancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="CenterButtons/ConfirmationPanel/confirmButton" to="." method="_on_confirm_button_pressed"]
 [connection signal="pressed" from="OptionsMenu/Back" to="." method="_on_back_pressed"]
 [connection signal="toggled" from="OptionsMenu/HBoxContainer/GraphicsBox/ShaderToggleHolder/ShaderToggle" to="." method="_on_shader_toggle_toggled"]
 [connection signal="toggled" from="OptionsMenu/HBoxContainer/GameplayBox/FreeSlideToggleHolder/FreeSlideToggle" to="." method="_on_free_slide_toggle_toggled"]

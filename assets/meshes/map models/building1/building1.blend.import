@@ -1,0 +1,112 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://dc1mign3j6f3k"
+path="res://.godot/imported/building1.blend-9478faad8770bdba6981794c2af0421d.scn"
+
+[deps]
+
+source_file="res://assets/meshes/map models/building1/building1.blend"
+dest_files=["res://.godot/imported/building1.blend-9478faad8770bdba6981794c2af0421d.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+_subresources={
+"materials": {
+"BaseWholeMaterial": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/BaseWholeMaterial.tres"
+},
+"LastRoom": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/LastRoom.tres"
+},
+"Material": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/Material.tres"
+},
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/Material.001.tres"
+},
+"PartMaterial": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/PartMaterial.tres"
+},
+"PipeWrench": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/PipeWrench.tres"
+},
+"RampStepMaterialBridge": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/RampStepMaterialBridge.tres"
+},
+"colormap.002": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/colormap.002.tres"
+},
+"floorPads": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/floorPads.tres"
+},
+"lava": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/lava.tres"
+},
+"pedestalBaseMaterial": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/pedestalBaseMaterial.tres"
+},
+"pipes": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/pipes.tres"
+},
+"pipes2": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/pipes2.tres"
+},
+"whiteLight": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/building1/materials/whiteLight.tres"
+}
+}
+}
+blender/nodes/visible=0
+blender/nodes/active_collection_only=false
+blender/nodes/punctual_lights=true
+blender/nodes/cameras=true
+blender/nodes/custom_properties=true
+blender/nodes/modifiers=1
+blender/meshes/colors=false
+blender/meshes/uvs=true
+blender/meshes/normals=true
+blender/meshes/export_geometry_nodes_instances=false
+blender/meshes/tangents=true
+blender/meshes/skins=2
+blender/meshes/export_bones_deforming_mesh_only=false
+blender/materials/unpack_enabled=true
+blender/materials/export_materials=1
+blender/animation/limit_playback=true
+blender/animation/always_sample=true
+blender/animation/group_tracks=true

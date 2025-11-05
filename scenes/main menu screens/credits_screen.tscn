@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://8d3k73nxgu5q"]
+
+[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="1_vwyd0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pj651"]
+font = ExtResource("1_vwyd0")
+font_size = 151
+
+[node name="credits_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="bgColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="mainCreditsDisplay" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 648.0
+offset_bottom = 648.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="mainCreditsDisplay"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -177.0
+offset_right = 177.0
+offset_bottom = 270.0
+grow_horizontal = 2
+
+[node name="title" type="Label" parent="mainCreditsDisplay/VBoxContainer"]
+layout_mode = 2
+text = "Test"
+label_settings = SubResource("LabelSettings_pj651")
+horizontal_alignment = 1
+
+[node name="mainCredits" type="RichTextLabel" parent="mainCreditsDisplay/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "awfawfomgagpmwoapf"
+fit_content = true
+horizontal_alignment = 1

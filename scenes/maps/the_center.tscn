@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=4 uid="uid://8ncpkk70asjb"]
+[gd_scene load_steps=118 format=4 uid="uid://8ncpkk70asjb"]
 
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_msh1k"]
 [ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="1_t18mp"]
@@ -6,16 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://bpljuobbfpsww" path="res://scenes/laser_generator.tscn" id="3_t18mp"]
 [ext_resource type="PackedScene" uid="uid://dhbm7xrs1r6sb" path="res://scenes/gate.tscn" id="5_s1f0r"]
 [ext_resource type="PackedScene" uid="uid://u42s8o405gfk" path="res://assets/meshes/SpawnPlatform/SpawnPlatform.blend" id="6_k5r3f"]
-[ext_resource type="PackedScene" uid="uid://dc1mign3j6f3k" path="res://assets/meshes/building1/building1.blend" id="7_r0co0"]
+[ext_resource type="PackedScene" uid="uid://dc1mign3j6f3k" path="res://assets/meshes/map models/building1/building1.blend" id="7_r0co0"]
 [ext_resource type="Shader" uid="uid://cbfayxc1ra1w2" path="res://shaders/visual shaders/lava_panning.tres" id="8_3wou8"]
 [ext_resource type="Script" uid="uid://ikp63vv1tbya" path="res://scripts/areas.gd" id="8_h577k"]
 [ext_resource type="PackedScene" uid="uid://dkcmqlhhhkcqd" path="res://scenes/door_small.tscn" id="9_0yxr1"]
 [ext_resource type="PackedScene" uid="uid://fjs5pxdibfry" path="res://scenes/smoke_billow.tscn" id="9_1hc6e"]
 [ext_resource type="Script" uid="uid://bnd8mvqpb1r6f" path="res://scripts/enviromental_hazard.gd" id="9_3cvua"]
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="9_gm66d"]
-[ext_resource type="Texture2D" uid="uid://bstpowjyy85ub" path="res://assets/meshes/building1/textures/bright-volcanic-texture-lava-3d-8825334 (1).png" id="10_m4viu"]
+[ext_resource type="Texture2D" uid="uid://bstpowjyy85ub" path="res://assets/meshes/map models/building1/textures/bright-volcanic-texture-lava-3d-8825334 (1).png" id="10_m4viu"]
 [ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/enemy_filth.tscn" id="10_tlbyk"]
-[ext_resource type="Material" uid="uid://b45r0uk8tkdcp" path="res://assets/meshes/building1/materials/PartMaterial.tres" id="11_jqhbi"]
+[ext_resource type="Material" uid="uid://b45r0uk8tkdcp" path="res://assets/meshes/map models/building1/materials/PartMaterial.tres" id="11_jqhbi"]
 [ext_resource type="PackedScene" uid="uid://cob02e1fag71m" path="res://assets/meshes/transitionTunnel/transitionTunnel.blend" id="12_aurki"]
 [ext_resource type="PackedScene" uid="uid://ct350hslep20o" path="res://scenes/level_teleporter.tscn" id="12_bnfbd"]
 [ext_resource type="PackedScene" uid="uid://dac2xtv4bvcnk" path="res://assets/meshes/starterRoom2/starterRoom2.blend" id="13_i776v"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://bc66miqdgyu6n" path="res://scripts/player_enable.gd" id="14_4tgr5"]
 [ext_resource type="Script" uid="uid://0eva08dwr83r" path="res://scripts/out_of_bounds_hazard.gd" id="14_tqelc"]
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="20_tlbyk"]
+[ext_resource type="Script" uid="uid://vopxmq2jor5u" path="res://scripts/level_title.gd" id="24_u6jhj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ocl4u"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -526,6 +527,14 @@ font_color = Color(1, 0, 0, 1)
 outline_size = 16
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_whrnx"]
+font = ExtResource("20_tlbyk")
+font_size = 93
+
+[sub_resource type="LabelSettings" id="LabelSettings_u6jhj"]
+font = ExtResource("20_tlbyk")
+font_size = 35
+
 [node name="The Center" type="Node3D"]
 
 [node name="LevelTeleporter" parent="." instance=ExtResource("12_bnfbd")]
@@ -580,32 +589,26 @@ initial_weapon = 0
 [node name="HealthBar" parent="Player/huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
 theme = SubResource("Theme_3wou8")
 
+[node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
+transform = Transform3D(0.921616, 0.376129, 0.0956483, 0.148142, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
+
+[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
+transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
+
 [node name="Skeleton3D" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM" index="0"]
-bones/0/scale = Vector3(1, 1, 1)
 bones/1/position = Vector3(-0.0189005, 0.461312, 0.00161639)
 bones/1/scale = Vector3(0.999999, 0.999999, 1)
 bones/2/position = Vector3(3.39933e-06, 1.34715, -1.45435e-05)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/position = Vector3(-0.0519902, -0.0479269, 0.0310608)
-bones/4/scale = Vector3(1, 1, 1)
-bones/5/scale = Vector3(1, 1, 1)
-bones/6/scale = Vector3(1, 1, 1)
-bones/7/scale = Vector3(1, 1, 1)
-bones/8/scale = Vector3(1, 1, 1)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/scale = Vector3(1, 0.999999, 1)
-bones/11/scale = Vector3(1, 1, 1)
-bones/12/scale = Vector3(0.999999, 1, 1)
-bones/13/scale = Vector3(1, 1, 1)
-bones/14/scale = Vector3(1, 1, 1)
 bones/15/scale = Vector3(1, 1, 1)
-bones/16/scale = Vector3(1, 1, 1)
-bones/17/scale = Vector3(1, 1, 1)
 bones/18/scale = Vector3(1, 1, 1)
 
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.89623, -0.00338221, 0.181377, -0.147888)
+transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338221, 0.181377, -0.147858)
 
 [node name="EnemySpawnHandler" type="Node" parent="."]
 script = ExtResource("9_gm66d")
@@ -1079,9 +1082,6 @@ shape = SubResource("ConvexPolygonShape3D_i776v")
 [node name="DoorSmall4" parent="Doors" instance=ExtResource("9_0yxr1")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -118.809, 42.0889, -1.25959)
 
-[node name="Skeleton3D" parent="Doors/DoorSmall4/Armature" index="0"]
-bones/0/rotation = Quaternion(-1.27781e-07, -1.41934e-07, 1, -8.40691e-08)
-
 [node name="DoorSmall5" parent="Doors" instance=ExtResource("9_0yxr1")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -138.786, 42.0905, -1.82536)
 
@@ -1380,6 +1380,40 @@ layout_mode = 2
 text = "GAME NAME"
 label_settings = SubResource("LabelSettings_m4viu")
 
+[node name="LevelTitle" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("24_u6jhj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelTitle"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="LevelTitle/VBoxContainer"]
+layout_mode = 2
+text = "0-1"
+label_settings = SubResource("LabelSettings_whrnx")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="LevelTitle/VBoxContainer"]
+layout_mode = 2
+text = "The Entrance"
+label_settings = SubResource("LabelSettings_u6jhj")
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="LevelTitle"]
+one_shot = true
+
 [connection signal="body_entered" from="building12/Cube/slideTooltipShow" to="Player/huds/HUD/BottomMidArea" method="_on_slide_tooltip_show_body_entered" flags=6]
 [connection signal="body_entered" from="building12/Cube/slideTooltipHide" to="Player/huds/HUD/BottomMidArea" method="_on_slide_tooltip_hide_body_entered" flags=6]
 [connection signal="body_entered" from="building12/LastRoom/areas/pistolObtain" to="building12/LastRoom/areas" method="_on_pistol_obtain_body_entered" flags=6]
@@ -1396,6 +1430,7 @@ label_settings = SubResource("LabelSettings_m4viu")
 [connection signal="body_entered" from="starterRoom2/initialRoom/playerEnable" to="starterRoom2/initialRoom/playerEnable" method="_on_body_entered" flags=6]
 [connection signal="timeout" from="fightStartTimer" to="building12/LastRoom/areas" method="_on_fight_start_timer_timeout"]
 [connection signal="timeout" from="slightPedestalDelayLight" to="building12/LastRoom/areas" method="_on_slight_pedestal_delay_light_timeout"]
+[connection signal="timeout" from="LevelTitle/Timer" to="LevelTitle" method="_on_timer_timeout"]
 
 [editable path="LevelTeleporter"]
 [editable path="Player"]

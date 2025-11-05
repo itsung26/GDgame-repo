@@ -12,6 +12,8 @@ class_name pauseMenu extends Control
 @onready var player: CharacterBody3D = get_tree().current_scene.find_child("Player")
 @onready var free_slide_toggle: CheckButton = $OptionsMenu/HBoxContainer/GameplayBox/FreeSlideToggleHolder/FreeSlideToggle
 
+@export var main_menu_scene:PackedScene
+
 # objects
 var hud
 var pixel_shader
@@ -163,3 +165,21 @@ func _on_quit_cancel_mouse_exited() -> void:
 
 func _on_free_slide_toggle_toggled(toggled_on: bool) -> void:
 	player.free_slide_enabled = toggled_on
+
+
+func _on_main_menu_pressed() -> void:
+	var button:Button = Helper.getFirstInScene("MainMenuButton")
+	$CenterButtons/Panel.visible = false
+	$CenterButtons/ConfirmationPanel.visible = true
+
+	
+
+
+func _on_cancel_button_pressed() -> void:
+	$CenterButtons/Panel.visible = true
+	$CenterButtons/ConfirmationPanel.visible = false
+
+
+func _on_confirm_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_packed(main_menu_scene)

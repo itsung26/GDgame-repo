@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=23 format=3 uid="uid://cbfayxc1ra1w2"]
 
-[ext_resource type="Texture2D" uid="uid://bstpowjyy85ub" path="res://assets/meshes/building1/textures/bright-volcanic-texture-lava-3d-8825334 (1).png" id="1_w3dkp"]
+[ext_resource type="Texture2D" uid="uid://bstpowjyy85ub" path="res://assets/meshes/map models/building1/textures/bright-volcanic-texture-lava-3d-8825334 (1).png" id="1_w3dkp"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_w3dkp"]
 operator = 2
