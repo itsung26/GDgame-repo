@@ -47,7 +47,7 @@ func pullBodies():
 		if body.is_in_group("enemy"):
 			if body.weight == body.weight_class.LIGHT:
 				body.last_hit_damage_type = body.damage_types.DARK
-				body.HEALTH -= player.black_hole_damage_per_frame
+				body.damageEnemy(player.black_hole_damage_per_frame, Enemy.damage_types.DARK)
 				enemy_pull_dir = (global_position - body.global_position).normalized()
 				body.velocity = enemy_pull_dir * player.BLL_pull_speed
 				var g = 0
@@ -57,8 +57,7 @@ func pullBodies():
 
 		# handle pull for players
 		if body.is_in_group("players"):
-			body.cause_of_death = "Sucked into a black hole"
-			body.HEALTH -= player.black_hole_damage_per_frame
+			body.damagePlayer(player.black_hole_damage_per_frame, "Sucked into a black hole")
 			player_pull_dir = (global_position - body.global_position).normalized()
 			body.velocity = (player_pull_dir * player.BLL_pull_speed)
 			

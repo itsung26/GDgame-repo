@@ -1,15 +1,18 @@
-class_name Door extends Node3D
+class_name DoorSmall extends Node3D
 @onready var open_delay: Timer = %OpenDelay
 @onready var close_delay: Timer = %CloseDelay
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var front_box: Area3D = $FrontBox
 @onready var front_collider: CollisionShape3D = $FrontBox/FrontCollider
+@onready var big_red_x: Sprite3D = $big_red_x
+@onready var big_red_x_2: Sprite3D = $big_red_x2
 
-signal door_opened(door:Door)
+signal door_opened(door:DoorSmall)
 
 @export_enum ("STAYOPEN", "CLOSEONEXIT", "LOCKED") var door_modes:int = 0
 @export var delay_before_open:float = 1.0
 @export var delay_before_close:float = 1.0
+@export var can_show_red_x:bool = true
 var isOpen:bool = false
 var playerInFrontBox:bool = false
 var previous_door_mode:int
@@ -20,12 +23,15 @@ func _ready() -> void:
 
 	if delay_before_close == 0.0:
 		delay_before_close = 0.01
-		
-func _input(event: InputEvent) -> void:
-	if Input.is_key_pressed(KEY_L):
-		lock()
-	elif Input.is_key_pressed(KEY_J):
-		unlock()
+
+# check if locked and hide and show visuals if so
+func _process(delta: float) -> void:
+	if door_modes == 2 and can_show_red_x:
+		big_red_x.visible = true
+		big_red_x_2.visible = true
+	else:
+		big_red_x.visible = false
+		big_red_x_2.visible = false
 
 # checks which mode the door is in and opens accordingly
 func open():

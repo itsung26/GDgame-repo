@@ -15,17 +15,18 @@ material = SubResource("StandardMaterial3D_ihdwp")
 text = "Enemy Weak Dummy"
 depth = 0.0
 
-[node name="EnemyDummy" type="CharacterBody3D" groups=["dummy enemy", "enemy"]]
+[node name="EnemyDummy" type="CharacterBody3D" node_paths=PackedStringArray("grapple_origin") groups=["enemy"]]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_im74q")
+grapple_origin = NodePath("pullOrigin")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7p1mj")
 
 [node name="FacingDir" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.511753, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03689, 0)
 target_position = Vector3(0, 0, -2.04)
 
 [node name="Filth" parent="." instance=ExtResource("2_ohyeb")]
@@ -34,7 +35,7 @@ transform = Transform3D(-0.661, 0, -5.77865e-08, 0, 0.661, 0, 5.77865e-08, 0, -0
 [node name="AnimationPlayer" parent="Filth/Sketchfab_Scene/Sketchfab_model/723e9cb5e56c43609987a2ece8187f26_fbx/Object_2/RootNode" index="1"]
 autoplay = "Idle_8"
 
-[node name="Pull Marker" type="Marker3D" parent="."]
+[node name="pullOrigin" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24969, 0)
 
 [node name="text" type="MeshInstance3D" parent="."]

@@ -26,11 +26,13 @@ class_name Player extends CharacterBody3D
 @onready var dash_length_timer: Timer = $DashLengthTimer
 @onready var stamina_charge_delay_timer: Timer = $StaminaChargeDelayTimer
 @onready var tail_marker: Marker3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/TailMarker
-@onready var grapple_rope_mesh_gen:ropeMeshGenerator = Helper.getFirstInScene("grapple_rope_meshGen")
+const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
+var grapple_rope_mesh_gen:ropeMeshGenerator
+const LaserGenerator_SCENE = preload("res://scenes/laser_generator.tscn")
 
 signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_state:weapon_states)
 
-@export_category("General")
+@export_category("Input Allowments")
 @export var player_move_input_enabled:bool = true
 @export var player_look_input_enabled:bool = true
 @export var player_fire_input_enabled:bool = true
@@ -38,15 +40,22 @@ signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_stat
 @export var player_dash_input_enabled:bool = true
 @export var player_grapple_input_enabled:bool = true
 @export var weapon_switch_enabled:bool = true
-@export var stamina_recharging:bool = true
+@export var melee_switch_enabled:bool = true
+@export var pistol_switch_enabled:bool = true
+@export var shotgun_switch_enabled:bool = true
+@export var BLL_switch_enabled:bool = true
+@export var player_slide_slam_input_enabled:bool = true
+var stamina_recharging:bool = true
 
 @export_category("Main Attributes")
+@export var Godmode:bool = false
 @export var HEALTH:float = 100
 @export var STAMINA:float = 300
 ## Delay after dash before stamina before stamina begins to recharge in seconds.
 @export var stamina_charge_delay:float = 1.0 # seconds
 ## Speed at which the stamina charges.
 @export var stamina_charge_speed:float = 100.0
+@export var initial_weapon:weapon_states = weapon_states.PISTOL
 
 @export_category("Camera")
 @export var camera_roll_enabled:bool = true
@@ -99,15 +108,19 @@ var BLL_AMMO := BLL_MAGSIZE
 @export var free_slide_enabled := false
 
 # 3 seperate FSMs (finite state machines) to replace conditional trees
+## Player states. These states affect the player's kinematics.
 enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING, DASHING, SLAMMING}
+## Weapon states. These states serve as the weapons that the player is allowed to use.
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
+## Action states. These states affect the special actions that the player can take. This includes any special mechanics such as grappling or parrying.
 enum action_states{IDLE, GRAPPLING, PARRYING, REELINGFROM}
 
-var player_state:player_states = player_states.GROUNDED:
+@export_category("State Machine")
+@export var player_state:player_states = player_states.GROUNDED:
 	set = set_player_state
-var weapon_state:weapon_states = weapon_states.PISTOL:
+@export var weapon_state:weapon_states = weapon_states.PISTOL:
 	set = set_weapon_state
-var action_state:action_states = action_states.IDLE:
+@export var action_state:action_states = action_states.IDLE:
 	set = set_action_state
 
 var storagevar = JUMP_VELOCITY
@@ -115,7 +128,6 @@ var mouse_delta2 : Vector2
 var pistol_damage_increase:bool = false
 var death_animator
 var cause_of_death
-var cause_of_death_message
 var black_hole_time_remaining
 var black_hole_cooldown_timer
 var prev_jump_velocity = JUMP_VELOCITY
@@ -141,8 +153,13 @@ var dash_dir:Vector3
 var hooked_target:Object = null
 var hooked_target_pull_origin:Object = null
 
+# called when the player is loaded into the scene.
+# Player should be loaded after main enviroment and global lighting, but before 
+# map and everything else.
 func _ready() -> void:
-	# object reference definitions
+	checkForMeshGens()
+	
+	# object reference definitions (needs to be moved)
 	pause = get_tree().current_scene.find_child("Pause")
 	slide_light = slide_particles.get_node("ImpactParticles/OmniLight3D")
 	impact_particles = slide_particles.get_node("ImpactParticles")
@@ -153,7 +170,6 @@ func _ready() -> void:
 	rope_origin = skeleton.get_node("rope_origin")
 	black_hole_cooldown_timer = get_tree().current_scene.find_child("BlackHoleCooldownTimer")
 	death_animator = get_node("../DeathScreen/DeathAnimator")
-	cause_of_death_message = get_node("../DeathScreen/VBoxContainer/CauseOfDeathMessage")
 
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -161,22 +177,22 @@ func _ready() -> void:
 	# set the grapple hook's physics process to static so it doesn't fall to the depths of hell
 	grapple_hook.freeze = true
 	
-	# Set the initial states
-	#player_state = player_states.GROUNDED
-	#action_state = action_states.IDLE
-	#weapon_state = weapon_states.PISTOL
-	
+	# switch to the initial weapon
+	if weapon_state != initial_weapon:
+		weapon_state = initial_weapon
+
+
 func set_player_state(new_player_state:int):
 	# init vars
 	var previous_player_state := player_state
 	player_state = new_player_state
 	
+	if previous_player_state == new_player_state:
+		print("WARNING: Player entered a new state matching it's own. This is allowed, but may cause state machine override problems.")
+	
 	# death to and from
 	if new_player_state == player_states.DEAD:
-		player_fire_input_enabled = false
-		player_look_input_enabled = false
-		player_move_input_enabled = false
-		player_grapple_input_enabled = false
+		pass
 		
 	# REELINGTO to and from
 	if new_player_state == player_states.REELINGTO:
@@ -281,6 +297,8 @@ func set_action_state(new_action_state:int):
 	
 	# grappling to and from
 	if new_action_state == action_states.GRAPPLING and Grapple_Enabled:
+		player.velocity.x = 0.0
+		player.velocity.z = 0.0
 		grapple_rope_mesh_gen.visible = true
 		grapple_hook.reparent(get_tree().root) # reparent and face direction raycast is looking
 		grapple_hook.rotation = Vector3.ZERO
@@ -303,14 +321,21 @@ func set_action_state(new_action_state:int):
 	# reelingfrom (pulling) to and from
 	if new_action_state == action_states.REELINGFROM:
 		print("reeling to player")
-		
+
+# checks for mesh generators and adds them to the scene if they are not already found
+func checkForMeshGens():
+	if Helper.getFirstInScene("grapple_rope_meshGen") == null:
+		print("cannot locate grapple mesh generator in scene. proceeding to autoload.")
+		var t = grapple_rope_mesh_gen_SCENE.instantiate()
+		get_tree().current_scene.add_child.call_deferred(t)
+	if Helper.getFirstInScene("LaserGenerator") == null:
+		print("cannot locate laser mesh generator in scene. proceeding to autoload.")
+		var b = LaserGenerator_SCENE.instantiate()
+		get_tree().current_scene.add_child.call_deferred(b)
+			
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
-	
-	# handle force-quitting
-	if Input.is_action_just_pressed("forcequit"):
-		get_tree().quit()
 	
 	# handle grapple activation
 	if Input.is_action_just_pressed("grapple") and player_grapple_input_enabled:
@@ -323,9 +348,9 @@ func _input(event) -> void:
 			print("Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
 			
 	# on slide | slam pressed
-	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor():
+	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor() and player_slide_slam_input_enabled:
 		player_state = player_states.SLIDING
-	elif Input.is_action_just_pressed("Slide | Slam") and not is_on_floor():
+	elif Input.is_action_just_pressed("Slide | Slam") and not is_on_floor() and player_slide_slam_input_enabled:
 		player_state = player_states.SLAMMING
 
 	# on slide | slam released do state check
@@ -350,7 +375,14 @@ func _input(event) -> void:
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
 		
-
+func damagePlayer(damage:float, death_cause:String = "Unknown"):
+	var previous_health:float = HEALTH
+	var new_health:float = HEALTH - damage
+	
+	cause_of_death = death_cause
+	
+	if not Godmode:
+		HEALTH = new_health
 
 func cameraFX(delta):
 	if camera_roll_enabled:
@@ -386,6 +418,8 @@ func zoomOut():
 	gun_animator.speed_scale = 3
 	pistol_damage_increase = true
 
+
+## This method performs the primary computations for kinematics based on which state player_state is in.
 func physicsStateLogic(delta=get_physics_process_delta_time()):
 	# grounded movement state logic
 	if player_state == player_states.GROUNDED:
@@ -440,9 +474,10 @@ func physicsStateLogic(delta=get_physics_process_delta_time()):
 		pass # see set_player_state()
 	# slamming state logic
 	elif player_state == player_states.SLAMMING:
+		# velocity was set from beginning, so no changes are made
 		pass # see set_player_state()
 
-
+# Called every physics frame. FPS: 120
 func _physics_process(delta: float) -> void:
 	
 	cameraFX(delta) # roll, tilt, clamp
@@ -451,13 +486,15 @@ func _physics_process(delta: float) -> void:
 	if (is_on_floor() and 
 	player_state != player_states.REELINGTO and 
 	player_state != player_states.SLIDING and 
-	player_state != player_states.DASHING):
+	player_state != player_states.DASHING and
+	player_state != player_states.GROUNDED):
 		player_state = player_states.GROUNDED
 
 	elif (not is_on_floor() and 
 	player_state != player_states.REELINGTO and 
 	player_state != player_states.DASHING and 
-	player_state != player_states.SLAMMING):
+	player_state != player_states.SLAMMING and 
+	player_state != player_states.FALLING):
 		player_state = player_states.FALLING
 	
 	# Add the gravity 
@@ -482,16 +519,16 @@ func _physics_process(delta: float) -> void:
 
 func gunInputs(): # to be called in a method that can "hear" inputs
 	# switch weapon block==================================================================================
-	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states.MELEE and weapon_switch_enabled:
+	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states.MELEE and weapon_switch_enabled and melee_switch_enabled:
 		weapon_state = weapon_states.MELEE
 		
-	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states.PISTOL and weapon_switch_enabled:
+	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states.PISTOL and weapon_switch_enabled and pistol_switch_enabled:
 		weapon_state = weapon_states.PISTOL
 		
-	if Input.is_action_just_pressed("slot3") and weapon_state != weapon_states.SHOTGUN and weapon_switch_enabled:
+	if Input.is_action_just_pressed("slot3") and weapon_state != weapon_states.SHOTGUN and weapon_switch_enabled and shotgun_switch_enabled:
 		weapon_state = weapon_states.SHOTGUN
 		
-	if Input.is_action_just_pressed("slot4") and weapon_state != weapon_states.BLL and weapon_switch_enabled:
+	if Input.is_action_just_pressed("slot4") and weapon_state != weapon_states.BLL and weapon_switch_enabled and BLL_switch_enabled:
 		weapon_state = weapon_states.BLL
 	
 	# automatic fire block===================================================================================
@@ -579,7 +616,11 @@ func processTargetPull(delta=get_process_delta_time()):
 		pass
 
 var a = true
+# Called every frame. Main thread frames fluctuate around a target fps of 60.
+# Kinematic-related operations should only be run in _physics_process, while logic and other operations
+# should be run in _process
 func _process(delta) -> void:
+	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	charge_stamina()
 	
 	# the main process where the enemy gets drawn to the player on the hook
@@ -658,9 +699,7 @@ func _on_hud_zoom_out_trigger() -> void:
 
 func playerDie():
 	player_state = player_states.DEAD
-	cause_of_death_message.text = cause_of_death
 	Engine.time_scale = 0.3
-	death_animator.play("death")
 
 func _on_cam_shake_timer_timeout() -> void:
 	doing_shake = false
@@ -669,7 +708,6 @@ func _on_cam_shake_timer_timeout() -> void:
 # when it hits enemies, pull them towards player
 func _on_world_collide_box_body_entered(body: Node3D) -> void:
 	hooked_target = body
-	hooked_target_pull_origin = hooked_target.find_child("Pull Marker")
 	
 	if hooked_target:
 		# if hit body was not in either group, it was part of the world
@@ -683,14 +721,16 @@ func _on_world_collide_box_body_entered(body: Node3D) -> void:
 			impact_particles.global_position = impact_pos
 			particle_look_marker.global_position = camera_3d.global_position
 			action_state = action_states.IDLE
+
 		elif hooked_target.is_in_group("enemy"):
-			print("body was an enemy")
+			var enemy_hooked:Enemy = hooked_target
+			hooked_target_pull_origin = enemy_hooked.grapple_origin
+			
 			if not is_on_floor():
 				player.velocity.y = 0 + grapple_hop
-			hooked_target.last_hit_damage_type = hooked_target.damage_types.NORMAL
-			hooked_target.damageEnemy(2.0, hooked_target.damage_types.NORMAL)
-			if hooked_target.weight == hooked_target.weight_class.LIGHT:
-				print("body was a light enemy")
+			enemy_hooked.last_hit_damage_type = enemy_hooked.damage_types.NORMAL
+			enemy_hooked.damageEnemy(2.0, enemy_hooked.damage_types.NORMAL)
+			if enemy_hooked.weight == enemy_hooked.weight_class.LIGHT:
 				grapple_hook.freeze = true
 				grapple_hook.global_position = hooked_target_pull_origin.global_position
 				grapple_hook.look_at(tail_marker.global_position, Vector3.UP)

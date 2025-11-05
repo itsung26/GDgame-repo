@@ -1,0 +1,147 @@
+[gd_scene load_steps=15 format=3 uid="uid://bolenxpvfveya"]
+
+[ext_resource type="Texture2D" uid="uid://c6pjj4qu3g1ii" path="res://assets/sprite assets/particles/masks for  particles/masks for  particles transparent/46.png" id="1_gcd6f"]
+[ext_resource type="PlaneMesh" uid="uid://cfhhmqbewj66t" path="res://assets/meshes/example_floor.tres" id="2_s0kaa"]
+[ext_resource type="Script" uid="uid://b3eyw6tagvntj" path="res://scripts/spawn_intro_particles.gd" id="2_tp4cu"]
+
+[sub_resource type="Curve" id="Curve_s0kaa"]
+_data = [Vector2(0.207627, 1), 0.0, -13.1111, 0, 1, Vector2(0.283898, 0), -13.1111, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tp4cu"]
+curve = SubResource("Curve_s0kaa")
+
+[sub_resource type="CurveTexture" id="CurveTexture_uyeqg"]
+curve = SubResource("Curve_s0kaa")
+
+[sub_resource type="Curve" id="Curve_i3j5p"]
+_limits = [0.0, 1.0, 0.0, 0.597458]
+_data = [Vector2(0, 0), 0.0, 4.48872, 0, 1, Vector2(0.222781, 1), 4.48872, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_n1jd8"]
+curve = SubResource("Curve_i3j5p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vvi4w"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_n1jd8")
+color = Color(0.627451, 0.12549, 0.941176, 1)
+alpha_curve = SubResource("CurveTexture_tp4cu")
+emission_curve = SubResource("CurveTexture_uyeqg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gcd6f"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_gcd6f")
+
+[sub_resource type="QuadMesh" id="QuadMesh_s0kaa"]
+material = SubResource("StandardMaterial3D_gcd6f")
+size = Vector2(1, 2)
+
+[sub_resource type="Animation" id="Animation_s0kaa"]
+resource_name = "spawn_intro_play"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.145592),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 10.711, 0.0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_tp4cu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uyeqg"]
+_data = {
+&"RESET": SubResource("Animation_tp4cu"),
+&"spawn_intro_play": SubResource("Animation_s0kaa")
+}
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+amount = 1
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_vvi4w")
+draw_pass_1 = SubResource("QuadMesh_s0kaa")
+script = ExtResource("2_tp4cu")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.627451, 0.12549, 0.941176, 1)
+light_energy = 0.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.274485, 0)
+visible = false
+mesh = ExtResource("2_s0kaa")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.274484, -0.54917)
+visible = false
+mesh = ExtResource("2_s0kaa")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, 4.37114e-08, 0, -1, -1, -4.37114e-08, -4.37114e-08, -0.740762, -0.274485, -0.201766)
+visible = false
+mesh = ExtResource("2_s0kaa")
+
+[node name="spawnAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_uyeqg")
+}
+autoplay = "spawn_intro_play"

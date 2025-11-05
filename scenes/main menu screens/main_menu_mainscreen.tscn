@@ -1,0 +1,155 @@
+[gd_scene load_steps=8 format=3 uid="uid://co052kx8ng1od"]
+
+[ext_resource type="Theme" uid="uid://dske40xcm06o" path="res://assets/styles/main_menu_mainscreen.tres" id="1_273lj"]
+[ext_resource type="Script" uid="uid://dng1lb2qf8nhk" path="res://scripts/button_logic_handler.gd" id="2_fpxbn"]
+[ext_resource type="Texture2D" uid="uid://7c7fyhjdmk47" path="res://assets/sprite assets/ui/redborder2.png" id="3_c7tef"]
+[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="4_o0k7o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6cm7"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqqt6"]
+font = ExtResource("4_o0k7o")
+font_size = 174
+font_color = Color(1, 0, 0, 1)
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ekxnf"]
+font = ExtResource("4_o0k7o")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_273lj")
+
+[node name="ButtonLogicHandler" type="Node" parent="."]
+script = ExtResource("2_fpxbn")
+
+[node name="bgPanels" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="backBlack" type="Panel" parent="bgPanels"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l6cm7")
+
+[node name="TextureRect" type="TextureRect" parent="bgPanels"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_c7tef")
+expand_mode = 1
+
+[node name="gameName" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="gameName"]
+layout_mode = 2
+offset_left = 40.0
+offset_top = 58.0
+offset_right = 448.0
+offset_bottom = 211.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.644274, 0.644274)
+text = "GAME"
+label_settings = SubResource("LabelSettings_bqqt6")
+
+[node name="Line2D" type="Line2D" parent="gameName"]
+position = Vector2(0, 11)
+points = PackedVector2Array(41, 53, 299, 53)
+width = 6.12
+default_color = Color(1, 0, 0, 1)
+
+[node name="Line2D2" type="Line2D" parent="gameName"]
+position = Vector2(0, 110)
+points = PackedVector2Array(41, 53, 299, 53)
+width = 6.12
+default_color = Color(1, 0, 0, 1)
+
+[node name="versionText" type="Label" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 930.0
+offset_top = 591.0
+offset_right = -33.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.45526, 1.45526)
+theme_override_font_sizes/font_size = 21
+text = " 0.14.0-ALPHA"
+label_settings = SubResource("LabelSettings_ekxnf")
+
+[node name="LeftButtons" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftButtons"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 179.0
+offset_right = -849.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="playButton" type="Button" parent="LeftButtons/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"titleButton"
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "PLAY"
+
+[node name="optionsButton" type="Button" parent="LeftButtons/VBoxContainer"]
+layout_mode = 2
+text = "OPTIONS"
+
+[node name="creditsButton" type="Button" parent="LeftButtons/VBoxContainer"]
+layout_mode = 2
+text = "CREDITS"
+
+[node name="quitButton" type="Button" parent="LeftButtons/VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="pressed" from="LeftButtons/VBoxContainer/playButton" to="ButtonLogicHandler" method="_on_play_button_pressed"]
+[connection signal="pressed" from="LeftButtons/VBoxContainer/optionsButton" to="ButtonLogicHandler" method="_on_options_pressed"]
+[connection signal="pressed" from="LeftButtons/VBoxContainer/creditsButton" to="ButtonLogicHandler" method="_on_credits_pressed"]
+[connection signal="pressed" from="LeftButtons/VBoxContainer/quitButton" to="ButtonLogicHandler" method="_on_quit_pressed"]

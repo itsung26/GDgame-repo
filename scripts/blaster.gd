@@ -5,7 +5,7 @@ extends Node3D
 @onready var gun_animator: AnimationPlayer = $"../../../../GunAnimator"
 @onready var player:CharacterBody3D = get_tree().current_scene.find_child("Player")
 @onready var hud:Control = get_tree().current_scene.find_child("HUD")
-@onready var laser_generator:Node3D = Helper.getFirstInScene("LaserGenerator")
+@onready var laser_generator: Node3D = Helper.getFirstInScene("LaserGenerator")
 @onready var muzzle: Node3D = $VFX/muzzle
 
 const DAMAGE_HITMARKER_SCENE = preload("res://scenes/damage_hitmarker.tscn")
@@ -18,6 +18,10 @@ var isCharged = true
 
 func _ready() -> void:
 	pass
+
+func _process(delta: float) -> void:
+	# get laser every frame
+	laser_generator = get_tree().current_scene.get_node("LaserGenerator")
 
 # instantiate a body from the return of the get_collider() method
 # this method is called every time the animation for firing runs and is essentially the bulk of the shoot code

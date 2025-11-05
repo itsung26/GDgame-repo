@@ -1,4 +1,4 @@
-class_name unstuckHandler extends Button
+class_name unstuckHandler extends Node
 
 @export var unstuck_position:Node3D
 @onready var player:Player = Helper.getFirstInScene("Player")

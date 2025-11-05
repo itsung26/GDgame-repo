@@ -1,0 +1,265 @@
+[gd_scene load_steps=30 format=3 uid="uid://ct350hslep20o"]
+
+[ext_resource type="Script" uid="uid://i5tt4gspk2ac" path="res://scripts/level_teleporter.gd" id="1_crftx"]
+[ext_resource type="Shader" uid="uid://ccd2vvln3oxrd" path="res://shaders/visual shaders/level_teleporter.tres" id="2_xst8m"]
+[ext_resource type="Texture2D" uid="uid://ci23komwv4tlj" path="res://assets/sprite assets/particles/masks for  particles/masks for  particles transparent/39.png" id="3_dfl3j"]
+[ext_resource type="Texture2D" uid="uid://bqqadb7cemav6" path="res://assets/sprite assets/particles/masks for  particles/masks for  particles transparent/34.png" id="4_dfl3j"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_p7e8r"]
+orientation = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nv4cs"]
+render_priority = -1
+shader = ExtResource("2_xst8m")
+shader_parameter/ColorParameter = Color(0, 0.945098, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cgkqv"]
+material = SubResource("ShaderMaterial_nv4cs")
+top_radius = 0.717
+bottom_radius = 0.717
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kmm7r"]
+size = Vector3(1.00198, 1.95743, 1.00627)
+
+[sub_resource type="Animation" id="Animation_ygild"]
+resource_name = "fade_in"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xst8m"]
+resource_name = "fade_out"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dfl3j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_cgkqv"]
+resource_name = "go_to_transparent"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dfl3j"]
+_data = {
+&"RESET": SubResource("Animation_dfl3j"),
+&"fade_in": SubResource("Animation_ygild"),
+&"fade_out": SubResource("Animation_xst8m"),
+&"go_to_transparent": SubResource("Animation_cgkqv")
+}
+
+[sub_resource type="Curve" id="Curve_cjgfg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gk3li"]
+curve = SubResource("Curve_cjgfg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7fl0r"]
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 1.5
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_gk3li")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2ftr"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0.945098, 1, 1)
+albedo_texture = ExtResource("3_dfl3j")
+
+[sub_resource type="QuadMesh" id="QuadMesh_y812d"]
+material = SubResource("StandardMaterial3D_h2ftr")
+size = Vector2(1.855, 1.855)
+orientation = 1
+
+[sub_resource type="Curve" id="Curve_p7e8r"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_nv4cs"]
+curve = SubResource("Curve_p7e8r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cgkqv"]
+emission_shape_offset = Vector3(0, 1, 0)
+emission_shape = 3
+emission_box_extents = Vector3(0.705, 1, 0.69)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 1.5
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_nv4cs")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4bpui"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0.945098, 1, 1)
+albedo_texture = ExtResource("4_dfl3j")
+billboard_mode = 2
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_cjgfg"]
+material = SubResource("StandardMaterial3D_4bpui")
+shape = 0
+size = 0.1
+sections = 2
+section_length = 0.056
+
+[sub_resource type="Curve" id="Curve_gk3li"]
+_data = [Vector2(0, 0), 0.0, 3.41434, 0, 0, Vector2(0.285714, 1), 0.0, 0.0, 0, 1, Vector2(0.710317, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.45206, 0.0, 1, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_7fl0r"]
+curve = SubResource("Curve_gk3li")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h2ftr"]
+emission_shape_offset = Vector3(0, 1, 0)
+emission_shape = 3
+emission_box_extents = Vector3(0.705, 1, 0.69)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 1.5
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_7fl0r")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y812d"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.415981, 0.41598, 0.415981, 0.470588)
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_fmeci"]
+material = SubResource("StandardMaterial3D_y812d")
+size = Vector2(0.017, 0.146)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4bpui"]
+
+[node name="LevelTeleporter" type="Node3D" node_paths=PackedStringArray("teleport_timer", "animation_player_fade", "whitescreen_rect", "collider", "cylinder_mesh")]
+script = ExtResource("1_crftx")
+teleport_timer = NodePath("teleportTimer")
+animation_player_fade = NodePath("AnimationPlayerFade")
+whitescreen_rect = NodePath("Control/ColorRect")
+collider = NodePath("InteractionArea/CollisionShape3D")
+cylinder_mesh = NodePath("cylinder")
+
+[node name="basePlate" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("QuadMesh_p7e8r")
+
+[node name="cylinder" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_cgkqv")
+
+[node name="InteractionArea" type="Area3D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0019989, 0.970413, 0.00746925)
+shape = SubResource("BoxShape3D_kmm7r")
+debug_color = Color(1, 1, 0, 0.47451)
+
+[node name="teleportTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayerFade" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dfl3j")
+}
+
+[node name="ringParticles" type="GPUParticles3D" parent="." groups=["visibility"]]
+visible = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_7fl0r")
+draw_pass_1 = SubResource("QuadMesh_y812d")
+
+[node name="airStreakParticles" type="GPUParticles3D" parent="." groups=["visibility"]]
+visible = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_cgkqv")
+draw_pass_1 = SubResource("RibbonTrailMesh_cjgfg")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." groups=["visibility"]]
+visible = false
+trail_lifetime = 2.08
+process_material = SubResource("ParticleProcessMaterial_h2ftr")
+draw_pass_1 = SubResource("QuadMesh_fmeci")
+
+[node name="playerSizeComparison" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_4bpui")
+
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_interaction_area_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_interaction_area_body_exited"]
+[connection signal="timeout" from="teleportTimer" to="." method="_on_teleport_timer_timeout"]

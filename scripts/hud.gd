@@ -132,10 +132,6 @@ func updateStaminaBar(delta):
 		stamina_bar.value = lerp(stamina_bar.value, player.STAMINA, staminabar_react_speed * delta)
 	else: stamina_bar.value = player.STAMINA
 
-# updates the weapon outline shown
-func updateWeaponOutline():
-	pass
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta) -> void:
 	if Engine.is_editor_hint():

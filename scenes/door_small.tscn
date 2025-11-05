@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dkcmqlhhhkcqd"]
+[gd_scene load_steps=10 format=3 uid="uid://dkcmqlhhhkcqd"]
 
 [ext_resource type="PackedScene" uid="uid://bpxpbdxdfv45d" path="res://assets/meshes/DoorSmall/DoorSmall.blend" id="1_0eec4"]
 [ext_resource type="Script" uid="uid://c7kuo7naultbd" path="res://scripts/door_small.gd" id="2_77xcc"]
-[ext_resource type="Animation" uid="uid://d0y2wvqoqm3yn" path="res://assets/meshes/DoorSmall/animations/door_open.res" id="3_s2q3u"]
-[ext_resource type="Animation" uid="uid://cif68e1ixn7fm" path="res://assets/meshes/DoorSmall/animations/door_close.res" id="4_kpspx"]
+[ext_resource type="Texture2D" uid="uid://d33jol0ekpnkn" path="res://assets/sprite assets/ui/kenney_ui-pack/PNG/Red/Double/icon_cross.png" id="3_s2q3u"]
 
 [sub_resource type="Animation" id="Animation_s2q3u"]
 length = 0.001
@@ -31,21 +30,165 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D:Bone.R")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.70904, 1.63628, 6.24561e-07)
+tracks/3/type = "position_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Armature/Skeleton3D:Bone.L")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, -0.71065, 1.63108, 0.106505)
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StaticBody3D/CollisionShape3D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.951582, 1.32482, 0.106842)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("StaticBody3D/CollisionShape3D2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.92047, 1.32482, 0.106842)]
+}
+
+[sub_resource type="Animation" id="Animation_77xcc"]
+resource_name = "door_close"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D:Root")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1.27781e-07, 1.41934e-07, -1, 8.40691e-08)
+tracks/1/type = "position_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature/Skeleton3D:Bone.R")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 4.70904, 1.63628, 6.24561e-07, 0.0333333, 1, 4.65808, 1.63628, 6.24561e-07, 0.0666667, 1, 4.51467, 1.63628, 6.24561e-07, 0.1, 1, 4.29304, 1.63628, 6.24561e-07, 0.133333, 1, 4.00741, 1.63628, 6.24561e-07, 0.166667, 1, 3.672, 1.63628, 6.24561e-07, 0.2, 1, 3.30104, 1.63628, 6.24561e-07, 0.233333, 1, 2.90874, 1.63628, 6.24561e-07, 0.266667, 1, 2.50934, 1.63628, 6.24561e-07, 0.3, 1, 2.11704, 1.63628, 6.24561e-07, 0.333333, 1, 1.74608, 1.63628, 6.24561e-07, 0.366667, 1, 1.41067, 1.63628, 6.24561e-07, 0.4, 1, 1.12504, 1.63628, 6.24561e-07, 0.433333, 1, 0.90341, 1.63628, 6.24561e-07, 0.466667, 1, 0.760004, 1.63628, 6.24561e-07, 0.5, 1, 0.70904, 1.63628, 6.24561e-07)
+tracks/2/type = "position_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D:Bone.L")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -4.71065, 1.63108, 0.106505, 0.0333333, 1, -4.65969, 1.63108, 0.106505, 0.0666667, 1, -4.51628, 1.63108, 0.106505, 0.1, 1, -4.29465, 1.63108, 0.106505, 0.133333, 1, -4.00902, 1.63108, 0.106505, 0.166667, 1, -3.67361, 1.63108, 0.106505, 0.2, 1, -3.30265, 1.63108, 0.106505, 0.233333, 1, -2.91035, 1.63108, 0.106505, 0.266667, 1, -2.51095, 1.63108, 0.106505, 0.3, 1, -2.11865, 1.63108, 0.106505, 0.333333, 1, -1.74769, 1.63108, 0.106505, 0.366667, 1, -1.41228, 1.63108, 0.106505, 0.4, 1, -1.12665, 1.63108, 0.106505, 0.433333, 1, -0.90502, 1.63108, 0.106505, 0.466667, 1, -0.761614, 1.63108, 0.106505, 0.5, 1, -0.71065, 1.63108, 0.106505)
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StaticBody3D/CollisionShape3D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.05082, 1.32482, 0.106842), Vector3(-0.951582, 1.32482, 0.106842)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StaticBody3D/CollisionShape3D2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-3.91677, 1.32482, 0.106842), Vector3(-1.92047, 1.32482, 0.106842)]
+}
+
+[sub_resource type="Animation" id="Animation_kpspx"]
+resource_name = "door_open"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D:Root")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1.27781e-07, 1.41934e-07, -1, 8.40691e-08)
+tracks/1/type = "position_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("Armature/Skeleton3D:Bone.R")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.70904, 1.63628, 6.24561e-07, 0.0333333, 1, 0.760003, 1.63628, 6.24561e-07, 0.0666667, 1, 0.903411, 1.63628, 6.24561e-07, 0.1, 1, 1.12504, 1.63628, 6.24561e-07, 0.133333, 1, 1.41067, 1.63628, 6.24561e-07, 0.166667, 1, 1.74608, 1.63628, 6.24561e-07, 0.2, 1, 2.11704, 1.63628, 6.24561e-07, 0.233333, 1, 2.50934, 1.63628, 6.24561e-07, 0.266667, 1, 2.90874, 1.63628, 6.24561e-07, 0.3, 1, 3.30104, 1.63628, 6.24561e-07, 0.333333, 1, 3.672, 1.63628, 6.24561e-07, 0.366667, 1, 4.00741, 1.63628, 6.24561e-07, 0.4, 1, 4.29304, 1.63628, 6.24561e-07, 0.433333, 1, 4.51467, 1.63628, 6.24561e-07, 0.466667, 1, 4.65808, 1.63628, 6.24561e-07, 0.5, 1, 4.70904, 1.63628, 6.24561e-07)
+tracks/2/type = "position_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("Armature/Skeleton3D:Bone.L")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.71065, 1.63108, 0.106505, 0.0333333, 1, -0.761613, 1.63108, 0.106505, 0.0666667, 1, -0.905021, 1.63108, 0.106505, 0.1, 1, -1.12665, 1.63108, 0.106505, 0.133333, 1, -1.41228, 1.63108, 0.106505, 0.166667, 1, -1.74769, 1.63108, 0.106505, 0.2, 1, -2.11865, 1.63108, 0.106505, 0.233333, 1, -2.51095, 1.63108, 0.106505, 0.266667, 1, -2.91035, 1.63108, 0.106505, 0.3, 1, -3.30265, 1.63108, 0.106505, 0.333333, 1, -3.67361, 1.63108, 0.106505, 0.366667, 1, -4.00902, 1.63108, 0.106505, 0.4, 1, -4.29465, 1.63108, 0.106505, 0.433333, 1, -4.51628, 1.63108, 0.106505, 0.466667, 1, -4.65969, 1.63108, 0.106505, 0.5, 1, -4.71065, 1.63108, 0.106505)
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StaticBody3D/CollisionShape3D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.951582, 1.32482, 0.106842), Vector3(1.05082, 1.32482, 0.106842)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StaticBody3D/CollisionShape3D2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.92047, 1.32482, 0.106842), Vector3(-3.91677, 1.32482, 0.106842)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s2q3u"]
 _data = {
 &"RESET": SubResource("Animation_s2q3u"),
-&"door_close": ExtResource("4_kpspx"),
-&"door_open": ExtResource("3_s2q3u")
+&"door_close": SubResource("Animation_77xcc"),
+&"door_open": SubResource("Animation_kpspx")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_77xcc"]
 size = Vector3(2.89532, 2.65205, 1.61033)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_kpspx"]
+size = Vector3(1.42847, 2.63623, 0.176819)
+
 [node name="DoorSmall" instance=ExtResource("1_0eec4")]
 script = ExtResource("2_77xcc")
 delay_before_open = 0.0
 delay_before_close = 0.0
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/rotation = Quaternion(-1.27781e-07, -1.41934e-07, 1, -8.40691e-08)
+bones/1/position = Vector3(0.70904, 1.63628, 6.24561e-07)
+bones/2/position = Vector3(-0.71065, 1.63108, 0.106505)
 
 [node name="AnimationPlayer" parent="." index="1"]
 unique_name_in_owner = true
@@ -68,6 +211,28 @@ one_shot = true
 [node name="CloseDelay" type="Timer" parent="." index="4"]
 unique_name_in_owner = true
 one_shot = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="5"]
+collision_layer = 4
+collision_mask = 519
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.951582, 1.32482, 0.106842)
+shape = SubResource("BoxShape3D_kpspx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92047, 1.32482, 0.106842)
+shape = SubResource("BoxShape3D_kpspx")
+
+[node name="big_red_x" type="Sprite3D" parent="." index="6"]
+transform = Transform3D(5.75755, 0, 0, 0, 5.75755, 0, 0, 0, 5.75755, -1.43826, 1.25349, -0.109027)
+texture_filter = 0
+texture = ExtResource("3_s2q3u")
+
+[node name="big_red_x2" type="Sprite3D" parent="." index="7"]
+transform = Transform3D(5.75755, 0, 0, 0, 5.75755, 0, 0, 0, 5.75755, -1.43826, 1.25349, 0.349402)
+texture_filter = 0
+texture = ExtResource("3_s2q3u")
 
 [connection signal="body_entered" from="FrontBox" to="." method="_on_front_box_body_entered"]
 [connection signal="body_exited" from="FrontBox" to="." method="_on_front_box_body_exited"]

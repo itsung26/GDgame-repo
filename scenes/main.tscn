@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://gpqrqkj1ebeu" path="res://scripts/game_manager.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="1_o5qli"]
-[ext_resource type="PackedScene" uid="uid://ctxddstc2vto8" path="res://scenes/hud.tscn" id="2_tefeu"]
-[ext_resource type="PackedScene" uid="uid://b42afh5fqoslr" path="res://scenes/enemy.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://cp1mmygsp63vr" path="res://scenes/hud.tscn" id="2_tefeu"]
+[ext_resource type="PackedScene" uid="uid://b42afh5fqoslr" path="res://scenes/enemy_testing.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="5_choun"]
 [ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/textures/normalmapped dark/blackprototype/texture_01.png" id="5_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b7flsfviplefd" path="res://scenes/weapon_wheel.tscn" id="6_eb6dy"]

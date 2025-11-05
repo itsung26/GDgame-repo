@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvo6olmarb1k2"]
+
+[ext_resource type="Script" uid="uid://bnd8mvqpb1r6f" path="res://scripts/enviromental_hazard.gd" id="1_wmgrl"]
+
+[node name="HazardArea" type="Area3D"]
+collision_layer = 4
+collision_mask = 519
+script = ExtResource("1_wmgrl")
+
+[connection signal="body_entered" from="." to="." method="_on_hazard_area_body_entered"]

@@ -15,7 +15,7 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="icantthinkofaname"
-run/main_scene="uid://mhij3rnbxw0r"
+run/main_scene="uid://8ncpkk70asjb"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -27,6 +27,10 @@ buses/default_bus_layout=""
 
 Global="*res://scripts/Global.gd"
 Helper="*res://scripts/Helper.gd"
+DebugInputHandler="*res://scripts/debug_input_handler.gd"
+EnemyPopulationHandler="*res://scripts/enemy_population_handler.gd"
+LevelChangeHandler="*res://scripts/level_change_handler.gd"
+Stopwatch="*res://scripts/stopwatch.gd"
 
 [debug_draw_3d]
 
@@ -43,7 +47,6 @@ weapons="Contains all weapons"
 players=""
 weaponBlocks=""
 "weak enemy"=""
-"dummy enemy"=""
 grapple_cubes=""
 
 [input]

@@ -5,4 +5,4 @@ extends Node3D
 func _process(delta: float) -> void:
 	var direction = player.velocity.normalized()
 	if direction != Vector3.ZERO:
-		look_at(global_position + direction, Vector3.UP)
+		look_at(global_position + direction + Vector3(0,0.0001,0.), Vector3.UP)

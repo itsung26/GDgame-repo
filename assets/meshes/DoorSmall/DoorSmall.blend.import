@@ -3635,17 +3635,14 @@ _subresources={
 },
 "nodes": {
 "PATH:Armature/Skeleton3D/arch": {
-"generate/physics": true,
 "physics/layer": 4,
 "physics/mask": 519
 },
 "PATH:Armature/Skeleton3D/door_L": {
-"generate/physics": true,
 "physics/layer": 4,
 "physics/mask": 519
 },
 "PATH:Armature/Skeleton3D/door_R": {
-"generate/physics": true,
 "physics/layer": 4,
 "physics/mask": 519
 },

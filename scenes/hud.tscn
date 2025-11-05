@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://cp1mmygsp63vr"]
+[gd_scene load_steps=71 format=3 uid="uid://cp1mmygsp63vr"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://cb01ujc6n6psl" path="res://assets/sprite assets/ui/kenney_ui-pack/Vector/Grey/icon_circle.svg" id="2_iypfu"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://divrgvxmrkt80" path="res://assets/sprite assets/ui/icons generic/pistol outline.png" id="15_5357l"]
 [ext_resource type="Texture2D" uid="uid://dv28tr2kvmsjf" path="res://assets/sprite assets/ui/icons generic/WhiplashHUDNew.webp" id="15_qkknv"]
 [ext_resource type="Texture2D" uid="uid://djo8hu6042eub" path="res://assets/sprite assets/ui/icons generic/hand_outline.png" id="20_084dp"]
+[ext_resource type="Script" uid="uid://cm1aavjlbf0wc" path="res://scripts/bottom_mid_area.gd" id="21_48y67"]
 
 [sub_resource type="Theme" id="Theme_eld54"]
 Label/fonts/font = ExtResource("3_5n1hp")
@@ -180,6 +181,15 @@ corner_radius_bottom_left = 25
 [sub_resource type="LabelSettings" id="LabelSettings_084dp"]
 font = ExtResource("3_5n1hp")
 font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_48y67"]
+font = ExtResource("3_5n1hp")
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_y2nlu"]
+font = ExtResource("3_5n1hp")
+font_size = 42
+font_color = Color(0, 1, 0, 1)
 
 [sub_resource type="Shader" id="Shader_0m4u7"]
 code = "/// Faux 3D Perspective Shader for 2D CanvasItems in Godot.
@@ -618,8 +628,16 @@ offset_top = 628.0
 offset_right = 1152.0
 offset_bottom = 658.0
 theme_override_font_sizes/font_size = 21
-text = " 0.12.14-ALPHA"
+text = " 0.14.0-ALPHA"
 label_settings = SubResource("LabelSettings_5357l")
+
+[node name="MiddleArea" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TopRightArea" type="Control" parent="."]
 visible = false
@@ -835,8 +853,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -183.0
 offset_right = 420.0
-grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("10_eld54")
@@ -983,6 +1000,63 @@ grow_vertical = 2
 layout_mode = 2
 text = "00"
 label_settings = SubResource("LabelSettings_084dp")
+
+[node name="BottomMidArea" type="Control" parent="." node_paths=PackedStringArray("tooltip_array")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -329.5
+offset_top = -149.0
+offset_right = 329.5
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("21_48y67")
+tooltip_array = [NodePath("tooltipMargin/HBoxContainer/KEY"), NodePath("tooltipMargin/HBoxContainer/ACTION")]
+
+[node name="tooltipMargin" type="MarginContainer" parent="BottomMidArea"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.162367
+anchor_top = 0.422819
+anchor_right = 1.16237
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BottomMidArea/tooltipMargin"]
+layout_mode = 2
+
+[node name="Press" type="Label" parent="BottomMidArea/tooltipMargin/HBoxContainer"]
+layout_mode = 2
+text = "Press "
+label_settings = SubResource("LabelSettings_48y67")
+
+[node name="KEY" type="Label" parent="BottomMidArea/tooltipMargin/HBoxContainer"]
+layout_mode = 2
+text = "ctrl"
+label_settings = SubResource("LabelSettings_y2nlu")
+
+[node name="to" type="Label" parent="BottomMidArea/tooltipMargin/HBoxContainer"]
+layout_mode = 2
+text = "to "
+label_settings = SubResource("LabelSettings_48y67")
+
+[node name="ACTION" type="Label" parent="BottomMidArea/tooltipMargin/HBoxContainer"]
+layout_mode = 2
+text = "slam while in the air."
+label_settings = SubResource("LabelSettings_48y67")
+
+[node name="TooltipPanel" type="Panel" parent="BottomMidArea/tooltipMargin"]
+z_index = -1
+layout_mode = 2
+theme_override_styles/panel = ExtResource("10_eld54")
+
+[node name="ToolTipDissapearTimer" type="Timer" parent="BottomMidArea/tooltipMargin/TooltipPanel"]
+one_shot = true
 
 [node name="OverClockBarSubViewport" type="SubViewportContainer" parent="."]
 material = SubResource("ShaderMaterial_apjy4")

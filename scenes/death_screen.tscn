@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://cwvdm5n5mx3ox"]
+
+[ext_resource type="Script" uid="uid://duf6jw2aoi4hh" path="res://scripts/death_screen.gd" id="1_uyutr"]
+[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_dwo6e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uyutr"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mqh5l"]
+font = ExtResource("2_dwo6e")
+font_size = 121
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dwo6e"]
+font = ExtResource("2_dwo6e")
+font_size = 61
+
+[sub_resource type="Animation" id="Animation_mqh5l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bg/VBoxContainer/Label2:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Press [R] to restart"]
+}
+
+[sub_resource type="Animation" id="Animation_dwo6e"]
+resource_name = "flash_r"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bg/VBoxContainer/Label2:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.293762),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["Press [R] to restart", "Press     to restart"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mqh5l"]
+_data = {
+&"RESET": SubResource("Animation_mqh5l"),
+&"flash_r": SubResource("Animation_dwo6e")
+}
+
+[node name="DeathScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uyutr")
+
+[node name="bg" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uyutr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bg"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -461.0
+offset_top = -53.5
+offset_right = 461.0
+offset_bottom = 53.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="bg/VBoxContainer"]
+layout_mode = 2
+text = "You are dead."
+label_settings = SubResource("LabelSettings_mqh5l")
+
+[node name="Label2" type="Label" parent="bg/VBoxContainer"]
+layout_mode = 2
+text = "Press [R] to restart"
+label_settings = SubResource("LabelSettings_dwo6e")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mqh5l")
+}
