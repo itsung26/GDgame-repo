@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dy838fq5cq2mj"]
+
+[ext_resource type="Shader" uid="uid://bu6oi86gw7eij" path="res://shaders/visual shaders/dissolve.tres" id="1_b4klh"]
+[ext_resource type="Texture2D" uid="uid://cmv5ct41ul8wu" path="res://assets/2d assets/noise/noise 512x512/Manifold/Manifold_03-512x512.png" id="2_yljct"]
+
+[resource]
+render_priority = 1
+shader = ExtResource("1_b4klh")
+shader_parameter/pan_speed = 0.74
+shader_parameter/Texture2DParameter = ExtResource("2_yljct")
+shader_parameter/FloatParameter2 = 0.87

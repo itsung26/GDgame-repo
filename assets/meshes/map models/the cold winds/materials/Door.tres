@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bj4qv4ee48xom"]
+
+[ext_resource type="Texture2D" uid="uid://dpl0aiu2m6ffs" path="res://assets/meshes/map models/the cold winds/textures/TexturesCom_DoorsMetalSingle0488_S.jpg" id="1_deslx"]
+
+[resource]
+resource_name = "Door"
+cull_mode = 2
+albedo_texture = ExtResource("1_deslx")
+roughness = 0.895455
+metadata/extras = {
+"blenderkit": {}
+}

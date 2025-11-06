@@ -128,7 +128,9 @@ process_material = SubResource("ParticleProcessMaterial_lojhx")
 draw_pass_1 = SubResource("QuadMesh_wrw1b")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
-size = Vector3(75.36, 0.25, 103.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.141585, 0, 1.45065)
+visible = false
+size = Vector3(2.59, 0, 4.64302)
 
 [node name="ExampleFloor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0281882, -0.379057)
