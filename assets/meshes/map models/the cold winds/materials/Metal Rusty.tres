@@ -1,0 +1,160 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://i5yxgtpwbcbl"]
+
+[resource]
+resource_name = "Metal Rusty"
+cull_mode = 2
+metadata/extras = {
+"asset_data": {
+"addonVersion": "2.93.0",
+"adult": 0.0,
+"assetBaseId": "1bee5c59-1af0-4bd8-a213-df97c6bc6b41",
+"assetType": "material",
+"author": {
+"aboutMe": "I try to create quality content for everyone to use",
+"aboutMeUrl": null,
+"avatar128": "/avatar-redirect/29a61d3a-f91d-49d5-82ee-db099a670643/128/",
+"firstName": "Arfat",
+"gravatarHash": "e03de2b2e58341e4b4ecf724849d2cca",
+"id": "53100",
+"lastName": "Ikhte Rohman",
+"tooltip": "Arfat Ikhte Rohman
+
+I try to create quality content for everyone to use
+"
+},
+"available_resolutions": [],
+"canDownload": 1.0,
+"canDownloadError": 1.0,
+"category": "metal",
+"created": "2021-09-11T10:15:33.113555+02:00",
+"description": "Iron/steel that is rusted",
+"displayName": "Metal Rusty",
+"downloaded": 0.0,
+"files": [{
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/80828/",
+"fileThumbnail": null,
+"fileThumbnailLarge": null,
+"fileType": "blend",
+"file_name": "blend_6ad9cbe2-b0fc-4d09-8476-513dc79595eb.blend",
+"url": "https://public.blenderkit.com/public-assets/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/blend_6ad9cbe2-b0fc-4d09-8476-513dc79595eb.blend"
+}, {
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/80827/",
+"fileThumbnail": "https://public.blenderkit.com/thumbnails/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.96x96_q85_crop-%2C.png",
+"fileThumbnailLarge": "https://public.blenderkit.com/thumbnails/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.1024x1024_q85_crop-%2C.png",
+"fileType": "thumbnail"
+}],
+"filesSize": 64765.0,
+"id": "18a20f6d-aa0d-4522-b8c4-cb4a6aaf5131",
+"isFree": 1.0,
+"isPrivate": 0.0,
+"license": "royalty_free",
+"max_resolution": 0.0,
+"name": "Metal Rusty",
+"parameters": [{
+"parameterType": "textureSizeMeters",
+"value": 1.0
+}, {
+"parameterType": "procedural",
+"value": 1.0
+}, {
+"parameterType": "material_style",
+"value": "realistic"
+}, {
+"parameterType": "purePbr",
+"value": 0.0
+}, {
+"parameterType": "engine",
+"value": "cycles"
+}, {
+"parameterType": "shaders",
+"value": ["principled"]
+}, {
+"parameterType": "animated",
+"value": 0.0
+}, {
+"parameterType": "uv",
+"value": 0.0
+}, {
+"parameterType": "nodeCount",
+"value": 14.0
+}, {
+"parameterType": "textureCount",
+"value": 0.0
+}, {
+"parameterType": "megapixels",
+"value": 0.0
+}],
+"ratingsAverage": {
+"complexity": null,
+"complexityAdmin": null,
+"quality": 2.0,
+"virtualPrice": null,
+"virtualPriceAdmin": null,
+"workingHours": 1.0
+},
+"ratingsCount": {
+"complexity": 0.0,
+"complexityAdmin": 0.0,
+"quality": 1.0,
+"virtualPrice": 0.0,
+"virtualPriceAdmin": 0.0,
+"workingHours": 1.0
+},
+"ratingsMedian": {
+"complexity": null,
+"complexityAdmin": null,
+"quality": 2.0,
+"virtualPrice": null,
+"virtualPriceAdmin": null,
+"workingHours": 1.0
+},
+"resolution": "resolution_1K",
+"score": 20.0,
+"showMarketingLabels": 1.0,
+"sourceAppName": "blender",
+"sourceAppVersion": "2.93.2",
+"tags": ["rust", "rusty", "rusted", "corrosion", "corroded", "metal", "iron", "metallic", "steel"],
+"texture_size_meters": 1.0,
+"thumbnail": "thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.512x512_q85_crop-%2C.png",
+"thumbnailLargeUrl": "https://public.blenderkit.com/thumbnails/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.1024x1024_q85_crop-%2C.png",
+"thumbnailLargeUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.1024x1024_q85.png",
+"thumbnailMiddleUrl": "https://public.blenderkit.com/thumbnails/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.512x512_q85_crop-%2C.png",
+"thumbnailMiddleUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.512x512_q85.png",
+"thumbnailSmallUrl": "https://public.blenderkit.com/thumbnails/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.256x256_q85_crop-%2C.png",
+"thumbnailSmallUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.256x256_q85.png",
+"thumbnailXlargeUrl": "https://public.blenderkit.com/thumbnails/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.1024x1024_q85_crop-%2C.png",
+"thumbnailXlargeUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/18a20f6daa0d4522b8c4cb4a6aaf5131/files/thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.2048x2048_q85.png",
+"thumbnail_small": "thumbnail_7aeddff9-f545-4e8b-abf3-01a6538f502a.png.256x256_q85_crop-%2C.png",
+"tooltip": "Metal Rusty
+",
+"url": "https://www.blenderkit.com/api/v1/assets/18a20f6d-aa0d-4522-b8c4-cb4a6aaf5131/",
+"verificationStatus": "validated",
+"versionNumber": 1.0
+},
+"blenderkit": {
+"asset_base_id": "1bee5c59-1af0-4bd8-a213-df97c6bc6b41",
+"category": 18.0,
+"description": "Iron/steel that is rusted",
+"has_thumbnail": 1.0,
+"id": "18a20f6d-aa0d-4522-b8c4-cb4a6aaf5131",
+"is_generating_thumbnail": 0.0,
+"is_procedural": 1.0,
+"name": "Metal Rusty",
+"name_changed": 1.0,
+"name_old": "Metal Rusty",
+"node_count": 14.0,
+"pbr": 0.0,
+"report": "",
+"shaders": "principled, ",
+"tags": "rust, rusty, rusted, corrosion, corroded, metal, iron, metallic, steel",
+"texture_count": 0.0,
+"texture_resolution_max": 0.0,
+"texture_resolution_min": 0.0,
+"thumbnail": "//Metal Rusty_0000.png",
+"thumbnail_background": 0.0,
+"thumbnail_generating_state": "",
+"total_megapixels": 0.0,
+"upload_state": "Starting upload. Please don't close Blender until upload finishes",
+"uploading": 0.0
+}
+}

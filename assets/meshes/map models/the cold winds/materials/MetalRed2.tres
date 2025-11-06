@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://w6sr5edsx3p1"]
+
+[resource]
+resource_name = "MetalRed2"
+cull_mode = 2
+metadata/extras = {
+"blenderkit": {}
+}

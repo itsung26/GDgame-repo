@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dfqy5iqnj7qlr"]
+
+[ext_resource type="Texture2D" uid="uid://w44kiobjbi5u" path="res://assets/meshes/map models/the cold winds/textures/MetalWalkway004_1K_Opacity.jpg" id="1_idj3y"]
+[ext_resource type="Texture2D" uid="uid://b67p3cfluc0ew" path="res://assets/meshes/map models/the cold winds/textures/MetalWalkway004_1K_Roughness.jpg" id="2_1e2m2"]
+
+[resource]
+resource_name = "MetalGrid"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_idj3y")
+metallic = 1.0
+metallic_texture = ExtResource("2_1e2m2")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_1e2m2")
+roughness_texture_channel = 1
+uv1_scale = Vector3(4, 4, 1)
+uv1_offset = Vector3(0, -3, 0)
+metadata/extras = {
+"blenderkit": {}
+}
