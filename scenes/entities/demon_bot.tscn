@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://63ig3vaq5ybr"]
+
+[ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="1_adh3x"]
+[ext_resource type="PackedScene" uid="uid://elxljikn81l8" path="res://assets/meshes/demon/DemonBot.blend" id="2_p0eoy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p0eoy"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_jdack"]
+sky_material = SubResource("ProceduralSkyMaterial_p0eoy")
+
+[sub_resource type="Environment" id="Environment_igvx0"]
+background_mode = 2
+sky = SubResource("Sky_jdack")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_11tvm"]
+material = ExtResource("1_adh3x")
+
+[node name="DemonBot" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_igvx0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0390929, 0)
+mesh = SubResource("PlaneMesh_11tvm")
+
+[node name="DemonBot" parent="." instance=ExtResource("2_p0eoy")]
+
+[node name="BotDemon" parent="DemonBot" index="0"]
+transform = Transform3D(0.971475, 0.237143, 0, -0.237143, 0.971475, 0, 0, 0, 1, -0.0694867, 0.299241, 0.197319)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="DemonBot/BotDemon/ShoulderObject/ShoulderObject_Lights" index="0"]
+transform = Transform3D(0.0275212, 0.254695, -0.96663, -0.109434, 0.961952, 0.250346, 0.993613, 0.0988923, 0.0543464, -0.201102, 1.39528, 0.182245)
+light_energy = 0.091
+shadow_enabled = true
+spot_range = 0.0997229
+spot_attenuation = 2.0
+spot_angle = 18.1859
+
+[editable path="DemonBot"]

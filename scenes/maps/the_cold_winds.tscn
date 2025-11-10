@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=4 uid="uid://et5xjdlnuv88"]
+[gd_scene load_steps=62 format=4 uid="uid://et5xjdlnuv88"]
 
 [ext_resource type="PackedScene" uid="uid://c0sgdxokifaxf" path="res://assets/meshes/map models/the cold winds/the cold winds map.blend" id="1_5j57v"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_vp5av"]
@@ -165,15 +165,6 @@ _data = {
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xqawr"]
 size = Vector3(0.324234, 0.433029, 0.369858)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y780t"]
-cull_mode = 2
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_y780t"]
-material = SubResource("StandardMaterial3D_y780t")
-size = Vector2(0.718, 3.76)
-subdivide_width = 2
-subdivide_depth = 20
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_10fxx"]
 _surfaces = [{
@@ -421,13 +412,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 342.607)
 [node name="the cold winds map" parent="." instance=ExtResource("1_5j57v")]
 
 [node name="Crane Tower rope hanging" parent="the cold winds map/cold_winds/Crane Tower" index="1"]
-transform = Transform3D(1.46282, -1.01431, -3.43928, -0.0920915, 3.7026, -1.13114, 3.58455, 0.509052, 1.37448, -92.7734, 13.19, 19.0092)
+transform = Transform3D(1.46282, -1.01431, -3.43928, -0.0920915, 3.7026, -1.13114, 3.58455, 0.509053, 1.37448, -92.7734, 13.19, 19.0092)
 
 [node name="Crane Tower rope link" parent="the cold winds map/cold_winds/Crane Tower/Crane Tower rope hanging" index="0"]
-transform = Transform3D(0.996252, -0.0774912, 0.038426, 0.0838487, 0.974287, -0.209124, -0.0212327, 0.211562, 0.977134, 0.0259121, -2.48365, 0.68)
+transform = Transform3D(0.996252, -0.0774911, 0.038426, 0.0838487, 0.974287, -0.209124, -0.0212327, 0.211562, 0.977134, 0.0259121, -2.48365, 0.68)
 
 [node name="Crane Tower rope link 2" parent="the cold winds map/cold_winds/Crane Tower/Crane Tower rope hanging/Crane Tower rope link" index="0"]
-transform = Transform3D(0.994854, -0.0899369, 0.046638, 0.0986576, 0.964699, -0.244175, -0.0230312, 0.24752, 0.968609, 0.00669962, -0.199393, 0.0563548)
+transform = Transform3D(0.994854, -0.089937, 0.046638, 0.0986576, 0.964699, -0.244175, -0.0230312, 0.24752, 0.968609, 0.00669962, -0.199393, 0.0563548)
 
 [node name="electroParticle" type="GPUParticles3D" parent="the cold winds map/cold_winds/Crane Tower/Crane Tower rope hanging/Crane Tower rope link/Crane Tower rope link 2/particle spot" index="0" groups=["particles"]]
 transform = Transform3D(0.814707, 0.579838, -0.00638963, -0.579847, 0.814725, 0.000464846, 0.00547536, 0.00332629, 0.999979, 0, 0, 0)
@@ -466,7 +457,7 @@ debug_color = Color(1, 0, 0, 0.431373)
 transform = Transform3D(1.45357, -0.13215, -3.58706, -3.53065, -0.750497, -1.40306, -0.647276, 3.79692, -0.402174, -103.462, 4.47887, 24.6715)
 
 [node name="lower arm rope 1_004" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 1" index="0"]
-transform = Transform3D(0.975938, -0.218039, -0.00161269, 0.217319, 0.97206, 0.0887114, -0.0177749, -0.0869273, 0.996055, 0.0432364, -0.363123, -0.0274971)
+transform = Transform3D(0.975938, -0.218039, -0.0016127, 0.217319, 0.97206, 0.0887115, -0.0177749, -0.0869274, 0.996055, 0.0432364, -0.363123, -0.0274971)
 
 [node name="lower arm rope 1_003" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 1/lower arm rope 1_004" index="0"]
 transform = Transform3D(0.977725, -0.209691, 0.00910287, 0.208114, 0.974175, 0.0875884, -0.0272343, -0.083743, 0.996115, 0.0113146, -0.134597, -0.0156713)
@@ -475,16 +466,16 @@ transform = Transform3D(0.977725, -0.209691, 0.00910287, 0.208114, 0.974175, 0.0
 transform = Transform3D(0.999428, -0.0166354, 0.0294046, 0.0164963, 0.999851, 0.00496729, -0.0294829, -0.00447939, 0.999555, 0.0197439, -0.232137, 0.014073)
 
 [node name="lower arm rope 1_001" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 1/lower arm rope 1_004/lower arm rope 1_003/lower arm rope 1_002" index="0"]
-transform = Transform3D(0.999387, -0.0046485, 0.0347266, 0.0046731, 0.999989, -0.000626876, -0.0347233, 0.000788771, 0.999396, 0.0197459, -0.232143, 0.0140722)
+transform = Transform3D(0.999387, -0.0046485, 0.0347266, 0.0046731, 0.999989, -0.000626875, -0.0347233, 0.000788771, 0.999396, 0.0197459, -0.232143, 0.0140722)
 
 [node name="lower arm rope 2" parent="the cold winds map/cold_winds/Crane Tower" index="3"]
-transform = Transform3D(2.08434, 0.216648, -3.25667, -3.23716, 0.630525, -2.02991, 0.416676, 3.81482, 0.520461, -104.705, 1.7279, 24.73)
+transform = Transform3D(2.08434, 0.216648, -3.25667, -3.23716, 0.630525, -2.02991, 0.416677, 3.81482, 0.520461, -104.705, 1.7279, 24.73)
 
 [node name="lower arm rope 2_005" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 2" index="0"]
-transform = Transform3D(0.964478, -0.261164, -0.0397031, 0.264109, 0.950227, 0.165269, -0.0054355, -0.169884, 0.985449, -0.073596, -0.182123, -0.0670283)
+transform = Transform3D(0.964478, -0.261164, -0.0397031, 0.264109, 0.950227, 0.165269, -0.00543551, -0.169885, 0.985449, -0.073596, -0.182123, -0.0670283)
 
 [node name="lower arm rope 2_004" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 2/lower arm rope 2_005" index="0"]
-transform = Transform3D(0.9789, -0.202681, -0.0259818, 0.204338, 0.970433, 0.128469, -0.000824638, -0.131067, 0.991373, -0.0735936, -0.182119, -0.0670287)
+transform = Transform3D(0.9789, -0.202681, -0.0259818, 0.204338, 0.970433, 0.128469, -0.000824664, -0.131067, 0.991373, -0.0735936, -0.182119, -0.0670287)
 
 [node name="lower arm rope 2_003" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 2/lower arm rope 2_005/lower arm rope 2_004" index="0"]
 transform = Transform3D(0.994727, 0.0727967, 0.0722405, -0.0802462, 0.991097, 0.106235, -0.0638639, -0.111471, 0.991714, -0.147188, -0.364244, -0.134057)
@@ -493,169 +484,7 @@ transform = Transform3D(0.994727, 0.0727967, 0.0722405, -0.0802462, 0.991097, 0.
 transform = Transform3D(0.973224, 0.227752, -0.0310542, -0.227006, 0.931109, -0.285489, -0.0361059, 0.284894, 0.957878, -0.10898, -0.406503, -0.180974)
 
 [node name="lower arm rope 2_001" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 2/lower arm rope 2_005/lower arm rope 2_004/lower arm rope 2_003/lower arm rope 2_002" index="0"]
-transform = Transform3D(0.943958, 0.320433, -0.0791472, -0.326154, 0.868765, -0.372654, -0.0506505, 0.377584, 0.924589, -0.103734, -0.261205, -0.0966222)
-
-[node name="SoftBody3D" type="SoftBody3D" parent="the cold winds map/cold_winds/Crane Tower" index="5"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -91.6778, 1.66916, -28.4964)
-mesh = SubResource("PlaneMesh_y780t")
-collision_mask = 7
-pinned_points = [3, 2, 1, 0]
-attachments/0/point_index = 3
-attachments/0/spatial_attachment_path = NodePath("")
-attachments/0/offset = Vector3(0, 0, 0)
-attachments/1/point_index = 2
-attachments/1/spatial_attachment_path = NodePath("")
-attachments/1/offset = Vector3(0, 0, 0)
-attachments/2/point_index = 1
-attachments/2/spatial_attachment_path = NodePath("")
-attachments/2/offset = Vector3(0, 0, 0)
-attachments/3/point_index = 0
-attachments/3/spatial_attachment_path = NodePath("")
-attachments/3/offset = Vector3(0, 0, 0)
-
-[node name="SoftBody3D3" type="SoftBody3D" parent="the cold winds map/cold_winds/Crane Tower" index="6"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -92.7345, 1.66916, -28.4964)
-mesh = SubResource("PlaneMesh_y780t")
-collision_mask = 7
-pinned_points = [3, 2, 1, 0]
-attachments/0/point_index = 3
-attachments/0/spatial_attachment_path = NodePath("")
-attachments/0/offset = Vector3(0, 0, 0)
-attachments/1/point_index = 2
-attachments/1/spatial_attachment_path = NodePath("")
-attachments/1/offset = Vector3(0, 0, 0)
-attachments/2/point_index = 1
-attachments/2/spatial_attachment_path = NodePath("")
-attachments/2/offset = Vector3(0, 0, 0)
-attachments/3/point_index = 0
-attachments/3/spatial_attachment_path = NodePath("")
-attachments/3/offset = Vector3(0, 0, 0)
-
-[node name="SoftBody3D4" type="SoftBody3D" parent="the cold winds map/cold_winds/Crane Tower" index="7"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -93.7282, 1.66916, -28.4964)
-mesh = SubResource("PlaneMesh_y780t")
-collision_mask = 7
-pinned_points = [3, 2, 1, 0]
-attachments/0/point_index = 3
-attachments/0/spatial_attachment_path = NodePath("")
-attachments/0/offset = Vector3(0, 0, 0)
-attachments/1/point_index = 2
-attachments/1/spatial_attachment_path = NodePath("")
-attachments/1/offset = Vector3(0, 0, 0)
-attachments/2/point_index = 1
-attachments/2/spatial_attachment_path = NodePath("")
-attachments/2/offset = Vector3(0, 0, 0)
-attachments/3/point_index = 0
-attachments/3/spatial_attachment_path = NodePath("")
-attachments/3/offset = Vector3(0, 0, 0)
-
-[node name="SoftBody3D5" type="SoftBody3D" parent="the cold winds map/cold_winds/Crane Tower" index="8"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -94.643, 1.66916, -28.4964)
-mesh = SubResource("PlaneMesh_y780t")
-collision_mask = 7
-pinned_points = [3, 2, 1, 0]
-attachments/0/point_index = 3
-attachments/0/spatial_attachment_path = NodePath("")
-attachments/0/offset = Vector3(0, 0, 0)
-attachments/1/point_index = 2
-attachments/1/spatial_attachment_path = NodePath("")
-attachments/1/offset = Vector3(0, 0, 0)
-attachments/2/point_index = 1
-attachments/2/spatial_attachment_path = NodePath("")
-attachments/2/offset = Vector3(0, 0, 0)
-attachments/3/point_index = 0
-attachments/3/spatial_attachment_path = NodePath("")
-attachments/3/offset = Vector3(0, 0, 0)
-
-[node name="SoftBody3D6" type="SoftBody3D" parent="the cold winds map/cold_winds/Crane Tower" index="9"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -95.5105, 1.66916, -28.4964)
-mesh = SubResource("PlaneMesh_y780t")
-collision_mask = 7
-pinned_points = [3, 2, 1, 0]
-attachments/0/point_index = 3
-attachments/0/spatial_attachment_path = NodePath("")
-attachments/0/offset = Vector3(0, 0, 0)
-attachments/1/point_index = 2
-attachments/1/spatial_attachment_path = NodePath("")
-attachments/1/offset = Vector3(0, 0, 0)
-attachments/2/point_index = 1
-attachments/2/spatial_attachment_path = NodePath("")
-attachments/2/offset = Vector3(0, 0, 0)
-attachments/3/point_index = 0
-attachments/3/spatial_attachment_path = NodePath("")
-attachments/3/offset = Vector3(0, 0, 0)
-
-[node name="SoftBody3D9" type="SoftBody3D" parent="the cold winds map/cold_winds/Crane Tower" index="10"]
-transform = Transform3D(1, 0, 0, 0, 0.744801, 0.667287, 0, -0.667287, 0.744801, -93.659, 2.83605, -15.9214)
-mesh = SubResource("PlaneMesh_y780t")
-collision_mask = 7
-pinned_points = [3, 2, 1, 0]
-attachments/0/point_index = 3
-attachments/0/spatial_attachment_path = NodePath("")
-attachments/0/offset = Vector3(0, 0, 0)
-attachments/1/point_index = 2
-attachments/1/spatial_attachment_path = NodePath("")
-attachments/1/offset = Vector3(0, 0, 0)
-attachments/2/point_index = 1
-attachments/2/spatial_attachment_path = NodePath("")
-attachments/2/offset = Vector3(0, 0, 0)
-attachments/3/point_index = 0
-attachments/3/spatial_attachment_path = NodePath("")
-attachments/3/offset = Vector3(0, 0, 0)
-
-[node name="SoftBody3D7" type="SoftBody3D" parent="the cold winds map/cold_winds/Crane Tower" index="11"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -96.4172, 1.66916, -28.4964)
-mesh = SubResource("PlaneMesh_y780t")
-collision_mask = 7
-pinned_points = [3, 2, 1, 0]
-attachments/0/point_index = 3
-attachments/0/spatial_attachment_path = NodePath("")
-attachments/0/offset = Vector3(0, 0, 0)
-attachments/1/point_index = 2
-attachments/1/spatial_attachment_path = NodePath("")
-attachments/1/offset = Vector3(0, 0, 0)
-attachments/2/point_index = 1
-attachments/2/spatial_attachment_path = NodePath("")
-attachments/2/offset = Vector3(0, 0, 0)
-attachments/3/point_index = 0
-attachments/3/spatial_attachment_path = NodePath("")
-attachments/3/offset = Vector3(0, 0, 0)
-
-[node name="SoftBody3D8" type="SoftBody3D" parent="the cold winds map/cold_winds/Crane Tower" index="12"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -97.3472, 1.66916, -28.4964)
-mesh = SubResource("PlaneMesh_y780t")
-collision_mask = 7
-pinned_points = [3, 2, 1, 0]
-attachments/0/point_index = 3
-attachments/0/spatial_attachment_path = NodePath("")
-attachments/0/offset = Vector3(0, 0, 0)
-attachments/1/point_index = 2
-attachments/1/spatial_attachment_path = NodePath("")
-attachments/1/offset = Vector3(0, 0, 0)
-attachments/2/point_index = 1
-attachments/2/spatial_attachment_path = NodePath("")
-attachments/2/offset = Vector3(0, 0, 0)
-attachments/3/point_index = 0
-attachments/3/spatial_attachment_path = NodePath("")
-attachments/3/offset = Vector3(0, 0, 0)
-
-[node name="SoftBody3D2" type="SoftBody3D" parent="the cold winds map/cold_winds/Crane Tower" index="13"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -90.7264, 1.66916, -28.4964)
-mesh = SubResource("PlaneMesh_y780t")
-collision_mask = 7
-pinned_points = [3, 2, 1, 0]
-attachments/0/point_index = 3
-attachments/0/spatial_attachment_path = NodePath("")
-attachments/0/offset = Vector3(0, 0, 0)
-attachments/1/point_index = 2
-attachments/1/spatial_attachment_path = NodePath("")
-attachments/1/offset = Vector3(0, 0, 0)
-attachments/2/point_index = 1
-attachments/2/spatial_attachment_path = NodePath("")
-attachments/2/offset = Vector3(0, 0, 0)
-attachments/3/point_index = 0
-attachments/3/spatial_attachment_path = NodePath("")
-attachments/3/offset = Vector3(0, 0, 0)
+transform = Transform3D(0.943958, 0.320433, -0.0791471, -0.326154, 0.868765, -0.372654, -0.0506505, 0.377584, 0.924589, -0.103734, -0.261205, -0.0966222)
 
 [node name="emissionShape" parent="the cold winds map/cold_winds" index="7"]
 visible = false
