@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://fr3ugtoobwtl"]
+
+[ext_resource type="StyleBox" uid="uid://clwdm75eq73rh" path="res://assets/styles/menu styles/main menu level select/loadingStyleBox.tres" id="1_sasc7"]
+[ext_resource type="Theme" uid="uid://br0mo2gk8tmn" path="res://assets/styles/menu styles/main menu level select/main_menu_levelselectscreen.tres" id="2_densh"]
+
+[node name="MarginContainer" type="MarginContainer"]
+z_index = 999
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="loadingCenterBox" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="loadingPanelContainer" type="PanelContainer" parent="loadingCenterBox"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_sasc7")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="loadingCenterBox/loadingPanelContainer"]
+layout_mode = 2
+theme = ExtResource("2_densh")
+theme_override_font_sizes/normal_font_size = 80
+text = "LOADING"
+fit_content = true
+autowrap_mode = 0

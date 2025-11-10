@@ -29,7 +29,7 @@ Global="*res://scripts/Global.gd"
 Helper="*res://scripts/Helper.gd"
 DebugInputHandler="*res://scripts/debug_input_handler.gd"
 EnemyPopulationHandler="*res://scripts/enemy_population_handler.gd"
-LevelChangeHandler="*res://scripts/level_change_handler.gd"
+LoadHandler="*res://scripts/LoadHandler.gd"
 Stopwatch="*res://scripts/stopwatch.gd"
 
 [debug_draw_3d]

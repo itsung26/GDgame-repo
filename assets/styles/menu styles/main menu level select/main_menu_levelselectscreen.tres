@@ -1,0 +1,41 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://br0mo2gk8tmn"]
+
+[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="1_o1w85"]
+[ext_resource type="StyleBox" uid="uid://c0kxoasxk4ox2" path="res://assets/styles/menu styles/main menu main screen/main_menu_button_focus.tres" id="2_h0fwh"]
+[ext_resource type="StyleBox" uid="uid://b4vv4b4bkd1rg" path="res://assets/styles/menu styles/main menu main screen/main_menu_button_hover.tres" id="3_smklp"]
+[ext_resource type="StyleBox" uid="uid://b10ath4d4okyd" path="res://assets/styles/menu styles/main menu main screen/main_menu_button_normal.tres" id="4_hm7ew"]
+[ext_resource type="StyleBox" uid="uid://cc3lf45s3kncg" path="res://assets/styles/menu styles/main menu main screen/main_menu_button_pressed.tres" id="5_p0ern"]
+[ext_resource type="StyleBox" uid="uid://db8sut32seddm" path="res://assets/styles/menu styles/main menu level select/panel.tres" id="6_wrm7e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ai03g"]
+bg_color = Color(0.212305, 0.212305, 0.212305, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 33
+corner_radius_top_right = 33
+corner_radius_bottom_right = 33
+corner_radius_bottom_left = 33
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4b5f7"]
+border_width_top = 82
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b10o1"]
+bg_color = Color(0, 0, 0, 1)
+
+[resource]
+Button/font_sizes/font_size = 37
+Button/fonts/font = ExtResource("1_o1w85")
+Button/styles/focus = ExtResource("2_h0fwh")
+Button/styles/hover = ExtResource("3_smklp")
+Button/styles/normal = ExtResource("4_hm7ew")
+Button/styles/pressed = ExtResource("5_p0ern")
+Panel/styles/panel = ExtResource("6_wrm7e")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_ai03g")
+RichTextLabel/font_sizes/normal_font_size = 18
+RichTextLabel/fonts/normal_font = ExtResource("1_o1w85")
+VBoxContainer/constants/separation = 16
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_4b5f7")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_b10o1")

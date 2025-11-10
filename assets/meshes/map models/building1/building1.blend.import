@@ -50,6 +50,10 @@ _subresources={
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/Material.001.tres"
 },
+"Material.002": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/building1/materials/Material.002.tres"
+},
 "PartMaterial": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/PartMaterial.tres"
@@ -89,6 +93,144 @@ _subresources={
 "whiteLight": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/whiteLight.tres"
+}
+},
+"meshes": {
+"building1_Cube": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube.res"
+},
+"building1_Cube_001": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_001.res"
+},
+"building1_Cube_002": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_002.res"
+},
+"building1_Cube_003": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_003.res"
+},
+"building1_Cube_004": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_004.res"
+},
+"building1_Cube_005": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_005.res"
+},
+"building1_Cube_006": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_006.res"
+},
+"building1_Cube_008": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_008.res"
+},
+"building1_Cube_009": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_009.res"
+},
+"building1_Cube_010": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_010.res"
+},
+"building1_Cube_011": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_011.res"
+},
+"building1_Cube_013": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_013.res"
+},
+"building1_Cube_270_PipeWrench_0": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Cube_270_PipeWrench_0.res"
+},
+"building1_Scene_004": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Scene_004.res"
+},
+"building1_Scene_005": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Scene_005.res"
+},
+"building1_Scene_006": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Scene_006.res"
+},
+"building1_Scene_007": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/building1/mesh resources/building1_Scene_007.res"
 }
 }
 }

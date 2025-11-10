@@ -333,10 +333,12 @@ layout_mode = 2
 text = "2-1"
 label_settings = SubResource("LabelSettings_pctbt")
 horizontal_alignment = 1
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Label2" type="Label" parent="LevelTitle/VBoxContainer"]
 layout_mode = 2
-text = "THE WINDS OF RUIN"
+text = "THE COLD WINDS"
 label_settings = SubResource("LabelSettings_kbgxq")
 horizontal_alignment = 1
 
@@ -419,13 +421,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 342.607)
 [node name="the cold winds map" parent="." instance=ExtResource("1_5j57v")]
 
 [node name="Crane Tower rope hanging" parent="the cold winds map/cold_winds/Crane Tower" index="1"]
-transform = Transform3D(1.46137, -0.975377, -3.45114, -0.107427, 3.71307, -1.0949, 3.58471, 0.508903, 1.37411, -92.7734, 13.19, 19.0092)
+transform = Transform3D(1.46282, -1.01431, -3.43928, -0.0920915, 3.7026, -1.13114, 3.58455, 0.509052, 1.37448, -92.7734, 13.19, 19.0092)
 
 [node name="Crane Tower rope link" parent="the cold winds map/cold_winds/Crane Tower/Crane Tower rope hanging" index="0"]
-transform = Transform3D(0.997262, -0.0672812, 0.0306763, 0.0717128, 0.981163, -0.179376, -0.0180299, 0.181084, 0.983302, 0.0259121, -2.48365, 0.68)
+transform = Transform3D(0.996252, -0.0774912, 0.038426, 0.0838487, 0.974287, -0.209124, -0.0212327, 0.211562, 0.977134, 0.0259121, -2.48365, 0.68)
 
 [node name="Crane Tower rope link 2" parent="the cold winds map/cold_winds/Crane Tower/Crane Tower rope hanging/Crane Tower rope link" index="0"]
-transform = Transform3D(0.99677, -0.0735531, 0.0322283, 0.0784414, 0.977735, -0.194624, -0.0171956, 0.196523, 0.980348, 0.00669962, -0.199393, 0.0563548)
+transform = Transform3D(0.994854, -0.0899369, 0.046638, 0.0986576, 0.964699, -0.244175, -0.0230312, 0.24752, 0.968609, 0.00669962, -0.199393, 0.0563548)
 
 [node name="electroParticle" type="GPUParticles3D" parent="the cold winds map/cold_winds/Crane Tower/Crane Tower rope hanging/Crane Tower rope link/Crane Tower rope link 2/particle spot" index="0" groups=["particles"]]
 transform = Transform3D(0.814707, 0.579838, -0.00638963, -0.579847, 0.814725, 0.000464846, 0.00547536, 0.00332629, 0.999979, 0, 0, 0)
@@ -461,37 +463,37 @@ shape = SubResource("BoxShape3D_xqawr")
 debug_color = Color(1, 0, 0, 0.431373)
 
 [node name="lower arm rope 1" parent="the cold winds map/cold_winds/Crane Tower" index="2"]
-transform = Transform3D(1.48725, -0.13305, -3.57319, -3.55848, -0.43403, -1.46497, -0.350138, 3.84593, -0.288943, -103.462, 4.47887, 24.6715)
+transform = Transform3D(1.45357, -0.13215, -3.58706, -3.53065, -0.750497, -1.40306, -0.647276, 3.79692, -0.402174, -103.462, 4.47887, 24.6715)
 
 [node name="lower arm rope 1_004" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 1" index="0"]
-transform = Transform3D(0.915867, -0.400824, -0.0229487, 0.398906, 0.902044, 0.164889, -0.0453908, -0.160171, 0.986044, 0.0432364, -0.363123, -0.0274971)
+transform = Transform3D(0.975938, -0.218039, -0.00161269, 0.217319, 0.97206, 0.0887114, -0.0177749, -0.0869273, 0.996055, 0.0432364, -0.363123, -0.0274971)
 
 [node name="lower arm rope 1_003" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 1/lower arm rope 1_004" index="0"]
-transform = Transform3D(0.99946, 0.0327456, -0.00230173, -0.0327748, 0.999364, -0.0140573, 0.00183995, 0.0141252, 0.999899, 0.0113146, -0.134597, -0.0156713)
+transform = Transform3D(0.977725, -0.209691, 0.00910287, 0.208114, 0.974175, 0.0875884, -0.0272343, -0.083743, 0.996115, 0.0113146, -0.134597, -0.0156713)
 
 [node name="lower arm rope 1_002" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 1/lower arm rope 1_004/lower arm rope 1_003" index="0"]
-transform = Transform3D(0.999657, 0.0236143, 0.0112642, -0.0235347, 0.999697, -0.00714288, -0.0114295, 0.00687533, 0.999911, 0.0197439, -0.232137, 0.014073)
+transform = Transform3D(0.999428, -0.0166354, 0.0294046, 0.0164963, 0.999851, 0.00496729, -0.0294829, -0.00447939, 0.999555, 0.0197439, -0.232137, 0.014073)
 
 [node name="lower arm rope 1_001" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 1/lower arm rope 1_004/lower arm rope 1_003/lower arm rope 1_002" index="0"]
-transform = Transform3D(0.999036, -0.0429901, 0.00894293, 0.0428267, 0.998925, 0.0177225, -0.00969522, -0.0173224, 0.999802, 0.0197459, -0.232143, 0.0140722)
+transform = Transform3D(0.999387, -0.0046485, 0.0347266, 0.0046731, 0.999989, -0.000626876, -0.0347233, 0.000788771, 0.999396, 0.0197459, -0.232143, 0.0140722)
 
 [node name="lower arm rope 2" parent="the cold winds map/cold_winds/Crane Tower" index="3"]
-transform = Transform3D(2.08042, 0.216999, -3.25915, -3.25381, 0.476246, -2.0453, 0.286196, 3.83711, 0.438168, -104.705, 1.7279, 24.73)
+transform = Transform3D(2.08434, 0.216648, -3.25667, -3.23716, 0.630525, -2.02991, 0.416676, 3.81482, 0.520461, -104.705, 1.7279, 24.73)
 
 [node name="lower arm rope 2_005" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 2" index="0"]
-transform = Transform3D(0.987898, -0.154061, -0.017977, 0.155084, 0.983041, 0.0978736, 0.00259364, -0.0994771, 0.995036, -0.073596, -0.182123, -0.0670283)
+transform = Transform3D(0.964478, -0.261164, -0.0397031, 0.264109, 0.950227, 0.165269, -0.0054355, -0.169884, 0.985449, -0.073596, -0.182123, -0.0670283)
 
 [node name="lower arm rope 2_004" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 2/lower arm rope 2_005" index="0"]
-transform = Transform3D(0.972927, -0.22881, -0.0325442, 0.231105, 0.962062, 0.145005, -0.00186902, -0.1486, 0.988895, -0.0735936, -0.182119, -0.0670287)
+transform = Transform3D(0.9789, -0.202681, -0.0259818, 0.204338, 0.970433, 0.128469, -0.000824638, -0.131067, 0.991373, -0.0735936, -0.182119, -0.0670287)
 
 [node name="lower arm rope 2_003" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 2/lower arm rope 2_005/lower arm rope 2_004" index="0"]
-transform = Transform3D(0.998435, 0.00409048, 0.055774, -0.0127242, 0.987779, 0.155337, -0.054457, -0.155804, 0.986286, -0.147188, -0.364244, -0.134057)
+transform = Transform3D(0.994727, 0.0727967, 0.0722405, -0.0802462, 0.991097, 0.106235, -0.0638639, -0.111471, 0.991714, -0.147188, -0.364244, -0.134057)
 
 [node name="lower arm rope 2_002" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 2/lower arm rope 2_005/lower arm rope 2_004/lower arm rope 2_003" index="0"]
-transform = Transform3D(0.997177, 0.0678912, -0.0320789, -0.0725439, 0.981318, -0.178194, 0.0193818, 0.180018, 0.983472, -0.10898, -0.406503, -0.180974)
+transform = Transform3D(0.973224, 0.227752, -0.0310542, -0.227006, 0.931109, -0.285489, -0.0361059, 0.284894, 0.957878, -0.10898, -0.406503, -0.180974)
 
 [node name="lower arm rope 2_001" parent="the cold winds map/cold_winds/Crane Tower/lower arm rope 2/lower arm rope 2_005/lower arm rope 2_004/lower arm rope 2_003/lower arm rope 2_002" index="0"]
-transform = Transform3D(0.819442, 0.533536, -0.209411, -0.562044, 0.676384, -0.476036, -0.11234, 0.507782, 0.854129, -0.103734, -0.261205, -0.0966222)
+transform = Transform3D(0.943958, 0.320433, -0.0791472, -0.326154, 0.868765, -0.372654, -0.0506505, 0.377584, 0.924589, -0.103734, -0.261205, -0.0966222)
 
 [node name="SoftBody3D" type="SoftBody3D" parent="the cold winds map/cold_winds/Crane Tower" index="5"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -91.6778, 1.66916, -28.4964)
@@ -729,8 +731,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00210023, -1.07337, 181.71
 size = Vector3(8.17242, 2.72339, 340.185)
 
 [node name="GPUParticlesCollisionBox3D2" type="GPUParticlesCollisionBox3D" parent="the cold winds map" groups=["particle collision boxes"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24.9775, -0.354515)
-size = Vector3(27, 71.3051, 15.95)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32.3397, -0.354515)
+size = Vector3(27, 56.5807, 15.95)
 
 [connection signal="timeout" from="LevelTitle/Timer" to="LevelTitle" method="_on_timer_timeout"]
 [connection signal="body_entered" from="area3ds/tabletInteract" to="area3ds" method="_on_tablet_interact_body_entered"]

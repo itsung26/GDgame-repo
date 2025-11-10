@@ -183,3 +183,9 @@ func _on_cancel_button_pressed() -> void:
 func _on_confirm_button_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_packed(main_menu_scene)
+
+
+func _on_restart_pressed() -> void:
+	if get_tree().paused == true:
+		get_tree().paused = false
+	get_tree().reload_current_scene()

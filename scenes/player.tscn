@@ -1457,12 +1457,14 @@ crosshair_spread = 8.03
 theme = SubResource("Theme_f1ej7")
 
 [node name="Pause" parent="huds" instance=ExtResource("11_3v2ag")]
+z_index = 2
 
 [node name="debugVisuals" type="Node3D" parent="."]
 script = ExtResource("2_oprun")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="debugVisuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_a8ls1")
 skeleton = NodePath("../../CollisionShape3D")
 

@@ -1,0 +1,650 @@
+[gd_scene load_steps=12 format=3 uid="uid://qivlcldyvwb0"]
+
+[ext_resource type="Theme" uid="uid://br0mo2gk8tmn" path="res://assets/styles/menu styles/main menu level select/main_menu_levelselectscreen.tres" id="1_48vhx"]
+[ext_resource type="Texture2D" uid="uid://7c7fyhjdmk47" path="res://assets/2d assets/ui/redborder2.png" id="2_48vhx"]
+[ext_resource type="Script" uid="uid://cayp8u7cpk65c" path="res://scripts/main_menu_level_select_screen.gd" id="2_l006t"]
+[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_dv2t1"]
+[ext_resource type="Texture2D" uid="uid://duetcuwcjqmeu" path="res://assets/2d assets/ui/firstLevel.png" id="4_3i7vf"]
+[ext_resource type="StyleBox" uid="uid://d36fmeisoppql" path="res://assets/styles/menu styles/main menu level select/mission_button_normal.tres" id="5_oo015"]
+[ext_resource type="Texture2D" uid="uid://dkbewgfjrgmhy" path="res://assets/2d assets/ui/coldLevel.png" id="7_syq8s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l006t"]
+content_margin_bottom = 12.0
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3i7vf"]
+font = ExtResource("3_dv2t1")
+font_size = 55
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dv2t1"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_top = 2.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3i7vf"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_top = 4.0
+expand_margin_bottom = 1.0
+
+[node name="main_menu_levelSelectScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme = ExtResource("1_48vhx")
+script = ExtResource("2_l006t")
+
+[node name="bgRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_48vhx")
+expand_mode = 1
+
+[node name="panelContainer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = 26.0
+offset_right = -20.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="backButton" type="Button" parent="MarginContainer/Control"]
+layout_mode = 1
+offset_left = 38.0
+offset_top = 26.0
+offset_right = 276.0
+offset_bottom = 77.0
+text = "BACK"
+
+[node name="levelSelectScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+anchor_left = 0.03
+anchor_top = 0.058
+anchor_right = 0.978
+anchor_bottom = 0.95
+offset_left = 0.149998
+offset_top = 63.07
+offset_right = 0.0899658
+offset_bottom = 0.25
+scroll_horizontal_custom_step = 2.0
+scroll_vertical_custom_step = 2.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="levelSelectScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_dv2t1")
+theme_override_font_sizes/normal_font_size = 71
+bbcode_enabled = true
+text = "Area 0:"
+fit_content = true
+
+[node name="TitleDivider" type="PanelContainer" parent="levelSelectScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l006t")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="levelSelectScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="MissionButton0-1" type="Button" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("5_oo015")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 249.0
+offset_bottom = 280.0
+theme_override_constants/separation = -2
+
+[node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer"]
+layout_mode = 2
+text = "0-1"
+label_settings = SubResource("LabelSettings_3i7vf")
+horizontal_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=red]Level Title[/color]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="linecontainer1" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer/linecontainer1"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dv2t1")
+
+[node name="imageMarginContainer" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer/imageMarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_3i7vf")
+expand_mode = 5
+
+[node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer/lineContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3i7vf")
+
+[node name="MarginContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Best Time: 00.00.00s"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="MissionButton0-2" type="Button" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("5_oo015")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 249.0
+offset_bottom = 280.0
+theme_override_constants/separation = -2
+
+[node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer"]
+layout_mode = 2
+text = "0-2"
+label_settings = SubResource("LabelSettings_3i7vf")
+horizontal_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=red]Level Title[/color]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="linecontainer1" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer/linecontainer1"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dv2t1")
+
+[node name="imageMarginContainer" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer/imageMarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_3i7vf")
+expand_mode = 5
+
+[node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer/lineContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3i7vf")
+
+[node name="MarginContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Best Time: 00.00.00s"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="MissionButton0-3" type="Button" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("5_oo015")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 249.0
+offset_bottom = 280.0
+theme_override_constants/separation = -2
+
+[node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer"]
+layout_mode = 2
+text = "0-3"
+label_settings = SubResource("LabelSettings_3i7vf")
+horizontal_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=red]Level Title[/color]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="linecontainer1" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer/linecontainer1"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dv2t1")
+
+[node name="imageMarginContainer" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer/imageMarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_3i7vf")
+expand_mode = 5
+
+[node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer/lineContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3i7vf")
+
+[node name="MarginContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Best Time: 00.00.00s"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="MissionButton0-4" type="Button" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("5_oo015")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 249.0
+offset_bottom = 280.0
+theme_override_constants/separation = -2
+
+[node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer"]
+layout_mode = 2
+text = "0-4"
+label_settings = SubResource("LabelSettings_3i7vf")
+horizontal_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=red]Level Title[/color]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="linecontainer1" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer/linecontainer1"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dv2t1")
+
+[node name="imageMarginContainer" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer/imageMarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_3i7vf")
+expand_mode = 5
+
+[node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer/lineContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3i7vf")
+
+[node name="MarginContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Best Time: 00.00.00s"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_dv2t1")
+theme_override_font_sizes/normal_font_size = 71
+bbcode_enabled = true
+text = "Area 1:"
+fit_content = true
+
+[node name="TitleDivider2" type="PanelContainer" parent="levelSelectScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l006t")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="levelSelectScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="MissionButton1-1" type="Button" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("5_oo015")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 249.0
+offset_bottom = 280.0
+theme_override_constants/separation = -2
+
+[node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer"]
+layout_mode = 2
+text = "1-1"
+label_settings = SubResource("LabelSettings_3i7vf")
+horizontal_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=red]Level Title[/color]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="linecontainer1" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer/linecontainer1"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dv2t1")
+
+[node name="imageMarginContainer" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer/imageMarginContainer"]
+layout_mode = 2
+texture = ExtResource("7_syq8s")
+expand_mode = 5
+
+[node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer/lineContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3i7vf")
+
+[node name="MarginContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Best Time: 00.00.00s"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="MissionButton1-2" type="Button" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("5_oo015")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 249.0
+offset_bottom = 280.0
+theme_override_constants/separation = -2
+
+[node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2/VBoxContainer"]
+layout_mode = 2
+text = "1-2"
+label_settings = SubResource("LabelSettings_3i7vf")
+horizontal_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=red]Level Title[/color]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="linecontainer1" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2/VBoxContainer/linecontainer1"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dv2t1")
+
+[node name="imageMarginContainer" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2/VBoxContainer/imageMarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_3i7vf")
+expand_mode = 5
+
+[node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2/VBoxContainer/lineContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3i7vf")
+
+[node name="MarginContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-2/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Best Time: 00.00.00s"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="MissionButton1-3" type="Button" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("5_oo015")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 249.0
+offset_bottom = 280.0
+theme_override_constants/separation = -2
+
+[node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3/VBoxContainer"]
+layout_mode = 2
+text = "1-3"
+label_settings = SubResource("LabelSettings_3i7vf")
+horizontal_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=red]Level Title[/color]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="linecontainer1" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3/VBoxContainer/linecontainer1"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dv2t1")
+
+[node name="imageMarginContainer" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3/VBoxContainer/imageMarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_3i7vf")
+expand_mode = 5
+
+[node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3/VBoxContainer/lineContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3i7vf")
+
+[node name="MarginContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-3/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Best Time: 00.00.00s"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="MissionButton1-4" type="Button" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("5_oo015")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 249.0
+offset_bottom = 280.0
+theme_override_constants/separation = -2
+
+[node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4/VBoxContainer"]
+layout_mode = 2
+text = "1-4"
+label_settings = SubResource("LabelSettings_3i7vf")
+horizontal_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=red]Level Title[/color]"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="linecontainer1" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4/VBoxContainer/linecontainer1"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dv2t1")
+
+[node name="imageMarginContainer" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4/VBoxContainer/imageMarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_3i7vf")
+expand_mode = 5
+
+[node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="whiteLine" type="Panel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4/VBoxContainer/lineContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3i7vf")
+
+[node name="MarginContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-4/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Best Time: 00.00.00s"
+fit_content = true
+horizontal_alignment = 1
+
+[connection signal="pressed" from="MarginContainer/Control/backButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1" to="." method="_on_mission_button_01_pressed"]

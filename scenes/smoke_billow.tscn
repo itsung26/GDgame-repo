@@ -1,6 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://fjs5pxdibfry"]
+[gd_scene load_steps=9 format=3 uid="uid://fjs5pxdibfry"]
 
-[ext_resource type="Texture2D" uid="uid://b4glwkuqx65di" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/smoke_07.png" id="1_u2hhy"]
+[ext_resource type="Texture2D" uid="uid://b4glwkuqx65di" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/smoke_07.png" id="1_u2hhy"]
+
+[sub_resource type="Curve" id="Curve_u2hhy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.327206, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8gi8x"]
+curve = SubResource("Curve_u2hhy")
 
 [sub_resource type="Curve" id="Curve_up2hn"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -18,6 +25,7 @@ initial_velocity_min = 1.76
 initial_velocity_max = 1.76
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_gm66d")
+alpha_curve = SubResource("CurveTexture_8gi8x")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m4viu"]
 transparency = 1
