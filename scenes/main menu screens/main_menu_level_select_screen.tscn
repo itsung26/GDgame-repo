@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://qivlcldyvwb0"]
+[gd_scene load_steps=13 format=3 uid="uid://qivlcldyvwb0"]
 
 [ext_resource type="Theme" uid="uid://br0mo2gk8tmn" path="res://assets/styles/menu styles/main menu level select/main_menu_levelselectscreen.tres" id="1_48vhx"]
 [ext_resource type="Texture2D" uid="uid://7c7fyhjdmk47" path="res://assets/2d assets/ui/redborder2.png" id="2_48vhx"]
 [ext_resource type="Script" uid="uid://cayp8u7cpk65c" path="res://scripts/main_menu_level_select_screen.gd" id="2_l006t"]
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_dv2t1"]
-[ext_resource type="Texture2D" uid="uid://duetcuwcjqmeu" path="res://assets/2d assets/ui/firstLevel.png" id="4_3i7vf"]
+[ext_resource type="Texture2D" uid="uid://c0yopbr4r5juf" path="res://assets/2d assets/ui/firstLevel.png" id="4_3i7vf"]
 [ext_resource type="StyleBox" uid="uid://d36fmeisoppql" path="res://assets/styles/menu styles/main menu level select/mission_button_normal.tres" id="5_oo015"]
+[ext_resource type="Texture2D" uid="uid://de7ixey5sww4c" path="res://assets/styles/menu styles/main menu level select/0-1 texture.tres" id="6_nh6ba"]
 [ext_resource type="Texture2D" uid="uid://dkbewgfjrgmhy" path="res://assets/2d assets/ui/coldLevel.png" id="7_syq8s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l006t"]
@@ -79,10 +80,15 @@ layout_mode = 2
 
 [node name="backButton" type="Button" parent="MarginContainer/Control"]
 layout_mode = 1
-offset_left = 38.0
-offset_top = 26.0
-offset_right = 276.0
-offset_bottom = 77.0
+anchors_preset = -1
+anchor_left = 0.033
+anchor_top = 0.06
+anchor_right = 0.24
+anchor_bottom = 0.139
+offset_left = -0.0159988
+offset_top = 0.119999
+offset_right = -0.480011
+offset_bottom = -0.0720062
 text = "BACK"
 
 [node name="levelSelectScrollContainer" type="ScrollContainer" parent="."]
@@ -107,7 +113,7 @@ layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("3_dv2t1")
 theme_override_font_sizes/normal_font_size = 71
 bbcode_enabled = true
-text = "Area 0:"
+text = "Surface Facility"
 fit_content = true
 
 [node name="TitleDivider" type="PanelContainer" parent="levelSelectScrollContainer/VBoxContainer"]
@@ -140,8 +146,9 @@ horizontal_alignment = 1
 
 [node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
-text = "[color=red]Level Title[/color]"
+text = "[color=red]Maintinence Corridor 12[/color]"
 fit_content = true
 horizontal_alignment = 1
 
@@ -160,7 +167,7 @@ theme_override_constants/margin_bottom = 1
 
 [node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer/imageMarginContainer"]
 layout_mode = 2
-texture = ExtResource("4_3i7vf")
+texture = ExtResource("6_nh6ba")
 expand_mode = 5
 
 [node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1/VBoxContainer"]
@@ -198,14 +205,14 @@ theme_override_constants/separation = -2
 
 [node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer"]
 layout_mode = 2
-text = "0-2"
+text = "0-1"
 label_settings = SubResource("LabelSettings_3i7vf")
 horizontal_alignment = 1
 
 [node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[color=red]Level Title[/color]"
+text = "[color=red]Level Name[/color]"
 fit_content = true
 horizontal_alignment = 1
 
@@ -224,7 +231,7 @@ theme_override_constants/margin_bottom = 1
 
 [node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer/imageMarginContainer"]
 layout_mode = 2
-texture = ExtResource("4_3i7vf")
+texture = ExtResource("6_nh6ba")
 expand_mode = 5
 
 [node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer"]
@@ -262,14 +269,14 @@ theme_override_constants/separation = -2
 
 [node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer"]
 layout_mode = 2
-text = "0-3"
+text = "0-1"
 label_settings = SubResource("LabelSettings_3i7vf")
 horizontal_alignment = 1
 
 [node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[color=red]Level Title[/color]"
+text = "[color=red]Level Name[/color]"
 fit_content = true
 horizontal_alignment = 1
 
@@ -288,7 +295,7 @@ theme_override_constants/margin_bottom = 1
 
 [node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer/imageMarginContainer"]
 layout_mode = 2
-texture = ExtResource("4_3i7vf")
+texture = ExtResource("6_nh6ba")
 expand_mode = 5
 
 [node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer"]
@@ -326,14 +333,14 @@ theme_override_constants/separation = -2
 
 [node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer"]
 layout_mode = 2
-text = "0-4"
+text = "0-1"
 label_settings = SubResource("LabelSettings_3i7vf")
 horizontal_alignment = 1
 
 [node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[color=red]Level Title[/color]"
+text = "[color=red]Level Name[/color]"
 fit_content = true
 horizontal_alignment = 1
 
@@ -352,7 +359,7 @@ theme_override_constants/margin_bottom = 1
 
 [node name="TextureRect" type="TextureRect" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer/imageMarginContainer"]
 layout_mode = 2
-texture = ExtResource("4_3i7vf")
+texture = ExtResource("6_nh6ba")
 expand_mode = 5
 
 [node name="lineContainer2" type="MarginContainer" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer"]
@@ -379,7 +386,7 @@ layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("3_dv2t1")
 theme_override_font_sizes/normal_font_size = 71
 bbcode_enabled = true
-text = "Area 1:"
+text = "Outside"
 fit_content = true
 
 [node name="TitleDivider2" type="PanelContainer" parent="levelSelectScrollContainer/VBoxContainer"]
@@ -413,7 +420,7 @@ horizontal_alignment = 1
 [node name="Label2" type="RichTextLabel" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[color=red]Level Title[/color]"
+text = "[color=red]The Cold Winds[/color]"
 fit_content = true
 horizontal_alignment = 1
 
@@ -648,3 +655,4 @@ horizontal_alignment = 1
 
 [connection signal="pressed" from="MarginContainer/Control/backButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-1" to="." method="_on_mission_button_01_pressed"]
+[connection signal="pressed" from="levelSelectScrollContainer/VBoxContainer/HBoxContainer2/MissionButton1-1" to="." method="_on_mission_button_11_pressed"]

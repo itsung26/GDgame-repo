@@ -31,12 +31,13 @@ var grapple_rope_mesh_gen:ropeMeshGenerator
 const LaserGenerator_SCENE = preload("res://scenes/laser_generator.tscn")
 
 signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_state:weapon_states)
+## WIP
+signal left_floor
 
 @export_category("Input Allowments")
 @export var player_move_input_enabled:bool = true
 @export var player_look_input_enabled:bool = true
 @export var player_fire_input_enabled:bool = true
-@export var player_kinematics_enabled:bool = true
 @export var player_dash_input_enabled:bool = true
 @export var player_grapple_input_enabled:bool = true
 @export var weapon_switch_enabled:bool = true
@@ -46,6 +47,14 @@ signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_stat
 @export var BLL_switch_enabled:bool = true
 @export var player_slide_slam_input_enabled:bool = true
 var stamina_recharging:bool = true
+
+@export_category("Physics Compute")
+## If [code]true[/code], compute physics for velocity on the XZ plane.
+## This can be used to prevent the player from moving, but still alowing the player to fall.
+@export var player_kinematics_enabled_xz:bool = true
+## If [code]true[/code], compute physics for velocity on the Y axis (up and down).
+## This can be useful for freezing the player in the air.
+@export var player_kinematics_enabled_y:bool = true
 
 @export_category("Main Attributes")
 @export var Godmode:bool = false
@@ -513,8 +522,11 @@ func _physics_process(delta: float) -> void:
 	physicsStateLogic()
 
 	# if kinematics are not enabled, kill all velocity before computing physics
-	if not player_kinematics_enabled:
-		velocity = Vector3.ZERO
+	if not player_kinematics_enabled_xz:
+		velocity.x = 0.0
+		velocity.z = 0.0
+	if not player_kinematics_enabled_y:
+		velocity.y = 0.0
 	move_and_slide()
 
 func gunInputs(): # to be called in a method that can "hear" inputs

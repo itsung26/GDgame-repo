@@ -19,6 +19,8 @@ var teleporting_player:bool = false
 @onready var visibility_group:Array[Node] = get_tree().get_nodes_in_group("visibility")
 
 func setEnable(new_enable_state:bool):
+	if not is_inside_tree():
+		await ready
 	enabled = new_enable_state
 	
 	if new_enable_state == false:
@@ -30,6 +32,8 @@ func setEnable(new_enable_state:bool):
 		collider.disabled = false
 
 func setVisualEnable(new_enable_state:bool):
+	if not is_inside_tree():
+		await ready
 	cylinder_visual_enabled = new_enable_state
 	
 	if new_enable_state == true:
@@ -38,14 +42,15 @@ func setVisualEnable(new_enable_state:bool):
 		cylinder_mesh.visible = false
 
 func setParticleVisualEnable(new_enable_state:bool):
+	if not is_inside_tree():
+		await ready
 	particle_visuals_enabled = new_enable_state
 	
-	print_tree()
 	if new_enable_state == true:
-		for particle:GPUParticles3D in get_tree().get_nodes_in_group("visibility"):
+		for particle:GPUParticles3D in visibility_group:
 			particle.visible = true
 	elif new_enable_state == false:
-		for particle:GPUParticles3D in get_tree().get_nodes_in_group("visibility"):
+		for particle:GPUParticles3D in visibility_group:
 			particle.visible = false
 
 func _on_interaction_area_body_entered(player: Player) -> void:

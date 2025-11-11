@@ -537,6 +537,10 @@ z_index = 1
 [node name="onStart" parent="IntroTextAnim" index="0" node_paths=PackedStringArray("player")]
 player = NodePath("../../Player")
 
+[node name="Label10" parent="IntroTextAnim/VBoxContainer/Control" index="0"]
+offset_left = 0.0
+offset_right = 1152.0
+
 [node name="grapple_rope_meshGen" parent="." instance=ExtResource("2_lo83r")]
 
 [node name="LaserGenerator" parent="." instance=ExtResource("3_t18mp")]
@@ -547,13 +551,14 @@ height = 0.05
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -151.269, 67.8928, -0.304985)
 player_move_input_enabled = false
 player_look_input_enabled = false
-player_kinematics_enabled = false
 player_dash_input_enabled = false
 player_grapple_input_enabled = false
 pistol_switch_enabled = false
 shotgun_switch_enabled = false
 BLL_switch_enabled = false
 player_slide_slam_input_enabled = false
+player_kinematics_enabled_xz = false
+player_kinematics_enabled_y = false
 initial_weapon = 0
 
 [node name="HealthBar" parent="Player/huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
@@ -682,6 +687,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.97416, -1.04695, 0.0589094
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building12/Cube/slideTooltipShow"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.369383, 0.0163698, -0.0431641)
+visible = false
 shape = SubResource("BoxShape3D_gm66d")
 debug_color = Color(1, 1, 0, 1)
 
@@ -705,10 +711,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.513, 3.92, 0)
 material_overlay = SubResource("StandardMaterial3D_1hc6e")
 
 [node name="pedestalLight" type="SpotLight3D" parent="building12/LastRoom" index="0"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 68.7134, 2.01552, 0.228371)
-light_energy = 3.257
-spot_range = 6.17351
-spot_attenuation = 0.01
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 68.7134, 2.01552, 0.133878)
+light_energy = 7.257
+spot_range = 8.027
+spot_attenuation = 2.0
 spot_angle = 12.8721
 
 [node name="lastRoomLight" type="OmniLight3D" parent="building12/LastRoom" index="1"]
@@ -906,6 +912,7 @@ speed_scale = 0.265
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.25, -0.187, 0)
 light_color = Color(1, 0.647059, 0, 1)
 light_energy = 5.662
+shadow_enabled = true
 shadow_bias = 10.0
 omni_range = 17.07
 
@@ -920,6 +927,7 @@ speed_scale = 0.265
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.345, -0.187, 0)
 light_color = Color(1, 0.647059, 0, 1)
 light_energy = 5.662
+shadow_enabled = true
 shadow_bias = 10.0
 omni_range = 17.07
 
@@ -945,6 +953,7 @@ shape = SubResource("BoxShape3D_jqhbi")
 debug_color = Color(1, 0, 0, 1)
 
 [node name="buildingCollider" type="StaticBody3D" parent="building12"]
+visible = false
 collision_layer = 4
 collision_mask = 519
 
@@ -988,9 +997,11 @@ shape = SubResource("ConcavePolygonShape3D_1b06p")
 
 [node name="DoorSmall" parent="Doors" instance=ExtResource("9_0yxr1")]
 transform = Transform3D(-6.24623e-08, 0, 1.42897, 0, 1.42897, 0, -1.42897, 0, -6.24623e-08, -33.8978, 7.46805, -2.06225)
+visible = false
 
 [node name="DoorSmall2" parent="Doors" instance=ExtResource("9_0yxr1")]
 transform = Transform3D(-6.48936e-08, 0, 1.48459, 0, 1.48459, 0, -1.48459, 0, -6.48936e-08, -41.4968, 7.31531, -2.11996)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Doors/DoorSmall2"]
 transform = Transform3D(1, 0, 0, 0, 0.863219, 0.504829, 0, -0.504829, 0.863219, -1.52917, 3.06326, 0.0650295)

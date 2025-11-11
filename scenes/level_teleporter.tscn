@@ -195,6 +195,7 @@ collider = NodePath("InteractionArea/CollisionShape3D")
 cylinder_mesh = NodePath("cylinder")
 
 [node name="basePlate" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("QuadMesh_p7e8r")
 
 [node name="cylinder" type="MeshInstance3D" parent="."]
