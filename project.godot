@@ -15,7 +15,7 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="icantthinkofaname"
-run/main_scene="uid://8ncpkk70asjb"
+run/main_scene="uid://co052kx8ng1od"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

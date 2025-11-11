@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://co052kx8ng1od"]
+[gd_scene load_steps=12 format=3 uid="uid://co052kx8ng1od"]
 
 [ext_resource type="Theme" uid="uid://br0mo2gk8tmn" path="res://assets/styles/menu styles/main menu level select/main_menu_levelselectscreen.tres" id="1_273lj"]
 [ext_resource type="Script" uid="uid://cjlb520eien2j" path="res://scripts/main_menu_mainscreen.gd" id="2_273lj"]
 [ext_resource type="Texture2D" uid="uid://7c7fyhjdmk47" path="res://assets/2d assets/ui/redborder2.png" id="3_c7tef"]
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="4_o0k7o"]
+[ext_resource type="Texture2D" uid="uid://djo8hu6042eub" path="res://assets/2d assets/ui/icons generic/hand_outline.png" id="5_o0k7o"]
+[ext_resource type="Texture2D" uid="uid://63pq8i0x4ors" path="res://assets/2d assets/ui/icons generic/Black hole gun outline.png" id="6_7bqeh"]
+[ext_resource type="Texture2D" uid="uid://divrgvxmrkt80" path="res://assets/2d assets/ui/icons generic/pistol outline.png" id="7_bkaau"]
+[ext_resource type="Texture2D" uid="uid://3sbdj42qftg3" path="res://assets/2d assets/ui/icons generic/592687c5-f097-4f0d-9ff1-8eae380a9c4c.png" id="8_7bqeh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6cm7"]
 bg_color = Color(0, 0, 0, 1)
@@ -63,6 +67,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="gameName"]
 layout_mode = 2
@@ -147,6 +152,42 @@ text = "CREDITS"
 [node name="quitButton" type="Button" parent="LeftButtons/VBoxContainer"]
 layout_mode = 2
 text = "QUIT"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.378
+anchor_top = 0.253
+anchor_right = 0.912
+anchor_bottom = 0.722
+offset_left = -0.456024
+offset_top = 0.0559845
+offset_right = 0.375977
+offset_bottom = 0.143951
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+position = Vector2(172.469, 138.883)
+scale = Vector2(0.214355, 0.214355)
+texture = ExtResource("5_o0k7o")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Control"]
+position = Vector2(43.469, 152.414)
+rotation = 1.5708
+scale = Vector2(0.314585, 0.314585)
+texture = ExtResource("6_7bqeh")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Control"]
+position = Vector2(330.469, 144.883)
+rotation = 1.5708
+scale = Vector2(0.641184, 0.641184)
+texture = ExtResource("7_bkaau")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Control"]
+position = Vector2(509.545, 160)
+rotation = 1.5708
+scale = Vector2(0.180424, 0.180424)
+texture = ExtResource("8_7bqeh")
 
 [connection signal="pressed" from="LeftButtons/VBoxContainer/playButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="LeftButtons/VBoxContainer/optionsButton" to="." method="_on_options_pressed"]

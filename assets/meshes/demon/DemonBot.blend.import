@@ -57,9 +57,21 @@ _subresources={
 "centerSecondary": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/demon/materials/centerSecondary.tres"
+},
+"sniper": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/demon/materials/sniper.tres"
 }
 },
 "meshes": {
+"DemonBot_Cube": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cube.res"
+},
 "DemonBot_Cube_001": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
@@ -99,6 +111,46 @@ _subresources={
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
 "save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder.res"
+},
+"DemonBot_Cylinder_012": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder_012.res"
+},
+"DemonBot_Cylinder_013": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder_013.res"
+},
+"DemonBot_Cylinder_014": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder_014.res"
+},
+"DemonBot_Cylinder_015": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder_015.res"
+},
+"DemonBot_Cylinder_017": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder_017.res"
 }
 }
 }

@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://brmcogte02cs7"]
+
+[ext_resource type="Texture2D" uid="uid://yxufyfnh7cac" path="res://assets/meshes/demon/textures/td-sniper_Base_Color.jpg" id="1_i6ba3"]
+[ext_resource type="Texture2D" uid="uid://bg7ia0c5mcqnh" path="res://assets/meshes/demon/textures/td-sniper_Roughness.jpg" id="2_5cuv4"]
+[ext_resource type="Texture2D" uid="uid://ckok0x7lpdlrq" path="res://assets/meshes/demon/textures/td-sniper_Normal.jpg" id="3_ffp2p"]
+
+[resource]
+resource_name = "sniper"
+cull_mode = 2
+albedo_texture = ExtResource("1_i6ba3")
+metallic = 1.0
+metallic_texture = ExtResource("2_5cuv4")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_5cuv4")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_ffp2p")

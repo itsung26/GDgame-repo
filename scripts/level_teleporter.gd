@@ -3,7 +3,8 @@ class_name levelTeleporter extends Node3D
 
 @export_category("General")
 @export var enabled:bool = true: set = setEnable
-@export var visual_area_enabled:bool = true: set = setVisualEnable
+@export var cylinder_visual_enabled:bool = true: set = setVisualEnable
+@export var particle_visuals_enabled:bool = true: set = setParticleVisualEnable
 var time_before_teleport:float = 3.0
 @export var target_scene:PackedScene
 
@@ -29,30 +30,34 @@ func setEnable(new_enable_state:bool):
 		collider.disabled = false
 
 func setVisualEnable(new_enable_state:bool):
-	visual_area_enabled = new_enable_state
+	cylinder_visual_enabled = new_enable_state
 	
-	if new_enable_state == false:
-		for node:Node3D in visibility_group:
-			node.visible = false
+	if new_enable_state == true:
+		cylinder_mesh.visible = true
+	elif new_enable_state == false:
 		cylinder_mesh.visible = false
 
-	elif new_enable_state == true:
-		cylinder_mesh.visible = true
+func setParticleVisualEnable(new_enable_state:bool):
+	particle_visuals_enabled = new_enable_state
+	
+	print_tree()
+	if new_enable_state == true:
+		for particle:GPUParticles3D in get_tree().get_nodes_in_group("visibility"):
+			particle.visible = true
+	elif new_enable_state == false:
+		for particle:GPUParticles3D in get_tree().get_nodes_in_group("visibility"):
+			particle.visible = false
 
 func _on_interaction_area_body_entered(player: Player) -> void:
 	teleporting_player = true
 	teleport_timer.start(time_before_teleport)
 	animation_player_fade.play("fade_in")
-	for node:Node3D in visibility_group:
-		node.visible = true
 
 func _on_interaction_area_body_exited(player: Player) -> void:
 	teleporting_player = false
 	animation_player_fade.play("go_to_transparent")
 	teleport_timer.stop()
-	for node:Node3D in visibility_group:
-		node.visible = false
 
 
 func _on_teleport_timer_timeout() -> void:
-	get_tree().change_scene_to_packed(target_scene)
+	LoadHandler.loadNewLevel(target_scene.resource_path, true)

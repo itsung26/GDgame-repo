@@ -195,7 +195,6 @@ collider = NodePath("InteractionArea/CollisionShape3D")
 cylinder_mesh = NodePath("cylinder")
 
 [node name="basePlate" type="MeshInstance3D" parent="."]
-visible = false
 mesh = SubResource("QuadMesh_p7e8r")
 
 [node name="cylinder" type="MeshInstance3D" parent="."]
@@ -238,19 +237,16 @@ libraries = {
 }
 
 [node name="ringParticles" type="GPUParticles3D" parent="." groups=["visibility"]]
-visible = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_7fl0r")
 draw_pass_1 = SubResource("QuadMesh_y812d")
 
 [node name="airStreakParticles" type="GPUParticles3D" parent="." groups=["visibility"]]
-visible = false
 amount = 64
 process_material = SubResource("ParticleProcessMaterial_cgkqv")
 draw_pass_1 = SubResource("RibbonTrailMesh_cjgfg")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." groups=["visibility"]]
-visible = false
 trail_lifetime = 2.08
 process_material = SubResource("ParticleProcessMaterial_h2ftr")
 draw_pass_1 = SubResource("QuadMesh_fmeci")
