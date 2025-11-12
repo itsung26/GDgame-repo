@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b50os8somldmy"]
+
+[ext_resource type="Texture2D" uid="uid://duadnjkuan34q" path="res://assets/2d assets/primary textures/Ultra Textures/SpawnRoom/Finalfloorblack.png" id="1_w682p"]
+
+[resource]
+resource_name = "test Metal"
+cull_mode = 2
+albedo_texture = ExtResource("1_w682p")
+roughness = 0.5

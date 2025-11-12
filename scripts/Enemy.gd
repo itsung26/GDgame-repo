@@ -31,12 +31,13 @@ func damageEnemy(damage:float, damage_type:damage_types):
 		HEALTH = new_enemy_health
 		HEALTH = clampf(HEALTH, 0, 100)
 		
-		# spawn a hitmarker on own body
-		var a = DAMAGE_HITMARKER_SCENE.instantiate()
-		a.tracked_camera = player.camera_3d
-		a.tracked_enemy = self
-		add_child(a)
-		a.damage_number_label.text = str(damage)
+		if damage != 0.0:
+			# spawn a hitmarker on own body
+			var a = DAMAGE_HITMARKER_SCENE.instantiate()
+			a.tracked_camera = player.camera_3d
+			a.tracked_enemy = self
+			add_child(a)
+			a.damage_number_label.text = str(damage)
 		
 		if HEALTH == 0:
 			_killEnemy()

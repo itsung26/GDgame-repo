@@ -1,17 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=18 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="1_7r5qs"]
+[ext_resource type="Texture2D" uid="uid://b3t3g6ycr8idx" path="res://assets/2d assets/primary textures/Ultra Textures/Heresy/Skybox/Heresy Sky Revamp.png" id="1_q8du6"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
 [ext_resource type="PackedScene" uid="uid://bpljuobbfpsww" path="res://scenes/laser_generator.tscn" id="2_q8du6"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
+[ext_resource type="Texture2D" uid="uid://db4yea8bgp8y6" path="res://assets/2d assets/primary textures/Ultra Textures/Heresy/marblebig2grid.png" id="5_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://d1gxfhjv8330d" path="res://scenes/entities/stationary_cannon.tscn" id="5_wl3f4"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ir1aj"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_7ksdt"]
+panorama = ExtResource("1_q8du6")
 
 [sub_resource type="Sky" id="Sky_7r5qs"]
-sky_material = SubResource("ProceduralSkyMaterial_ir1aj")
+sky_material = SubResource("PanoramaSkyMaterial_7ksdt")
 
 [sub_resource type="Environment" id="Environment_nptal"]
 background_mode = 2
@@ -19,8 +20,20 @@ sky = SubResource("Sky_7r5qs")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wl3f4"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("5_7ksdt")
+rim_tint = 1.0
+clearcoat_roughness = 0.0
+subsurf_scatter_strength = 0.07
+backlight = Color(1, 1, 1, 1)
+refraction_scale = 1.0
+uv1_scale = Vector3(100, 100, 100)
+texture_filter = 2
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_nptal"]
-material = ExtResource("1_7r5qs")
+material = SubResource("StandardMaterial3D_wl3f4")
 size = Vector2(200, 200)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7r5qs"]
@@ -89,14 +102,12 @@ shape = SubResource("ConcavePolygonShape3D_s3yq3")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -11.5107, 5, 5.87012)
 shape = SubResource("ConcavePolygonShape3D_q8du6")
 
-[node name="StationaryCannon" parent="." instance=ExtResource("5_wl3f4")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.822083, 0.512034)
-
 [node name="StationaryCannon2" parent="." instance=ExtResource("5_wl3f4")]
-transform = Transform3D(0, 1, 0, -0.67907, 0, -0.734074, -0.734074, 0, 0.67907, -11.002, 0.622943, 6.62673)
+transform = Transform3D(0.689342, -3.16661e-08, -0.724437, -0.724437, -3.01321e-08, -0.689342, 0, 1, -4.37114e-08, -6.67928, 3.24435, 2.07344)
+automatic_fire = true
+automatic_fire_interval = 1.0
 
 [node name="StationaryCannon3" parent="." instance=ExtResource("5_wl3f4")]
-transform = Transform3D(0, 1, 0, -0.67907, 0, -0.734074, -0.734074, 0, 0.67907, -11.002, 1.70319, 6.62673)
-
-[node name="StationaryCannon4" parent="." instance=ExtResource("5_wl3f4")]
-transform = Transform3D(0, 1, 0, -0.67907, 0, -0.734074, -0.734074, 0, 0.67907, -11.002, 2.89895, 6.62673)
+transform = Transform3D(0.689342, -3.16661e-08, -0.724437, 0.724437, -5.72907e-08, 0.689342, -6.33323e-08, -1, -1.65528e-08, -3.56804, 3.24435, 10.4154)
+automatic_fire = true
+automatic_fire_interval = 1.0

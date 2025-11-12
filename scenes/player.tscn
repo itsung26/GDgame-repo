@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dp8ehpipke67n" path="res://scripts/player_debug_mesh.gd" id="2_oprun"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://b634drxy8nceb" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_normal000.png" id="3_fjrip"]
-[ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/2d assets/generic/photorealistic/normalmapped dark/blackprototype/texture_01.png" id="3_oprun"]
+[ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/2d assets/primary textures/photorealistic/normalmapped dark/blackprototype/texture_01.png" id="3_oprun"]
 [ext_resource type="Shader" uid="uid://ca72wtvygdko8" path="res://shaders/GDSL shaders/screenRipple.gdshader" id="4_a8ls1"]
 [ext_resource type="PackedScene" uid="uid://csatdjhfoaqcw" path="res://scenes/pistol.tscn" id="4_dqkch"]
 [ext_resource type="AnimationLibrary" uid="uid://df4wluqxdk4ww" path="res://animations/grapple arm animation library.res" id="4_ur7pv"]
@@ -1722,7 +1722,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419368, 0.0912843, 0.434093, -0.896231, -0.463748, 0.180759, -0.112769)
+transform = Transform3D(0.985272, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912845, 0.434092, -0.896231, -0.463748, 0.180758, -0.112769)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1746,16 +1746,17 @@ mesh = SubResource("ArrayMesh_a04ym")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
 transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.0035401, 0.0153806, -0.182922)
 shape = SubResource("SphereShape3D_ur7pv")
-debug_color = Color(0, 1, 0, 0)
+debug_fill = false
 
 [node name="WorldCollideBox" type="Area3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
 collision_layer = 512
 collision_mask = 6
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox"]
+[node name="grapple hook smaller collider" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox"]
+unique_name_in_owner = true
 transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.00509053, 0.00901985, 0.402443)
 shape = SubResource("BoxShape3D_ur7pv")
-debug_color = Color(0, 0.595, 0.7, 0)
+disabled = true
 
 [node name="TailMarker" type="Marker3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
@@ -1870,6 +1871,7 @@ one_shot = true
 [connection signal="entered_weapon_state" from="." to="huds/HUD/HideHandler" method="_on_player_entered_weapon_state"]
 [connection signal="body_entered" from="GrappleEnemyCeaseArea" to="." method="_on_grapple_enemy_cease_area_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
+[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_world_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_exited"]
 [connection signal="timeout" from="CamShakeTimer" to="." method="_on_cam_shake_timer_timeout"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
