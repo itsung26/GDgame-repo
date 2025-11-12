@@ -609,6 +609,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Current player velocity magnitude (XZ plane): "
 
+[node name="CurrentParryTarget" type="Label" parent="DebugContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Current parry taget: "
+
 [node name="fpsCounter" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -638,6 +643,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="TopRightArea" type="Control" parent="."]
 visible = false

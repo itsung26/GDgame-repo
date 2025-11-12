@@ -160,7 +160,7 @@ func beginBiteChain():
 
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$"debug state text".mesh.text = str(enemy_states.keys()[enemy_state])
 
 func _physics_process(delta: float) -> void:
@@ -177,13 +177,13 @@ func _physics_process(delta: float) -> void:
 
 
 
-func _on_ready_bite_box_body_entered(body: Player) -> void:
+func _on_ready_bite_box_body_entered(_body: Player) -> void:
 	if enemy_state != enemy_states.FALLING:
 		player_in_bite_box = true
 		beginBiteChain()
 
 
-func _on_ready_bite_box_body_exited(body: Player) -> void:
+func _on_ready_bite_box_body_exited(_body: Player) -> void:
 	player_in_bite_box = false
 
 

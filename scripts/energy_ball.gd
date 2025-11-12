@@ -1,10 +1,6 @@
-class_name EnergyBall extends RigidBody3D
+class_name EnergyBall extends EnemyProjectile
+@onready var deletion_animator: AnimationPlayer = $deletionAnimator
 
-@export var damage_to_player:float
-@export var damage_to_enemies:float
-@export var travel_speed:float = 16
-@export var initial_direction:Vector3
-@export var initial_spawn_position:Vector3
 
 func _ready() -> void:
 	global_position = initial_spawn_position
@@ -14,9 +10,9 @@ func _ready() -> void:
 		linear_velocity = -global_transform.basis.z * travel_speed
 
 ## Dismantles the projectile, freeing it when done.
-# WIP: replace with particle destruction effect
 func destroySelf():
-	queue_free()
+	disable_mode
+	deletion_animator.play()
 
 # continually look in the direction of linear velocity travel
 func _process(delta: float) -> void:
@@ -28,6 +24,7 @@ func _process(delta: float) -> void:
 		look_at(global_position + dir, up)
 
 func _on_body_entered(body: Node) -> void:
+	print(body)
 	
 	if body is Player:
 		#print("enemy projectile collided with player")

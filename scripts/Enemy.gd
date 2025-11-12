@@ -24,10 +24,12 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @onready var player:CharacterBody3D = get_tree().current_scene.find_child("Player")
 ## How quickly the enemy is slowed when in the air on the xz plane
 @export var slowInAirFactor:float = 10.0
-
+## Whether the enemy recieves damage. Taking damage will still call [code]damageEnemy[/code], but interior logic will be skipped.
 @export var damage_enabled:bool = true
-
+## The position of this node will be the point that the grapple hook "snaps" to when it hits the enemy.
 @export var grapple_origin:Marker3D
+## Whether the enemy is parriable. Shared with [code]EnemyProjectile[/code].
+@export var parriable:bool = true
 
 func damageEnemy(damage:float, damage_type:damage_types):
 	if damage_enabled:

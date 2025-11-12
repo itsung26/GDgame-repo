@@ -27,6 +27,11 @@ class_name Player extends CharacterBody3D
 @onready var stamina_charge_delay_timer: Timer = $StaminaChargeDelayTimer
 @onready var tail_marker: Marker3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/TailMarker
 @onready var grapple_hook_smaller_collider: CollisionShape3D = %"grapple hook smaller collider"
+@onready var parry_arm: Node3D = $Pivot/Camera3D/ParryArm
+@onready var parry_arm_animator: AnimationPlayer = $ParryArmAnimator
+@onready var hitstop_timer: Timer = $HitstopTimer
+@onready var parry_target_get_ray_cast: RayCast3D = $Pivot/Camera3D/ParryArm/ParryTargetGetRayCast
+
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
 var grapple_rope_mesh_gen:ropeMeshGenerator
 const LaserGenerator_SCENE = preload("res://scenes/laser_generator.tscn")
@@ -40,7 +45,7 @@ signal left_floor
 @export var player_look_input_enabled:bool = true
 @export var player_fire_input_enabled:bool = true
 @export var player_dash_input_enabled:bool = true
-@export var player_grapple_input_enabled:bool = true
+@export var player_arm_action_enabled:bool = true
 @export var weapon_switch_enabled:bool = true
 @export var melee_switch_enabled:bool = true
 @export var pistol_switch_enabled:bool = true
@@ -113,6 +118,12 @@ var BLL_AMMO := BLL_MAGSIZE
 ## How violently entities are pulled to the center of the black hole in m/s.
 @export var BLL_pull_speed := 10
 
+@export_category("Parrying")
+@export var parry_target:Node3D
+@export var hitstop_duration:float = 0.25
+## The factor that projectile's speed is multiplied with after being parried.
+@export var parry_projectile_speed_boost:float = 1.0
+
 @export_category("Extras")
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
 @export var free_slide_enabled := false
@@ -122,6 +133,8 @@ var BLL_AMMO := BLL_MAGSIZE
 enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING, DASHING, SLAMMING}
 ## Weapon states. These states serve as the weapons that the player is allowed to use.
 enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
+## Arm states. These states affect which arm is currently active
+enum arm_states{GRAPPLEARM, PARRYARM}
 ## Action states. These states affect the special actions that the player can take. This includes any special mechanics such as grappling or parrying.
 enum action_states{IDLE, GRAPPLING, PARRYING, REELINGFROM}
 
@@ -132,6 +145,8 @@ enum action_states{IDLE, GRAPPLING, PARRYING, REELINGFROM}
 	set = set_weapon_state
 @export var action_state:action_states = action_states.IDLE:
 	set = set_action_state
+@export var arm_state:arm_states = arm_states.GRAPPLEARM:
+	set = set_arm_state
 
 var storagevar = JUMP_VELOCITY
 var mouse_delta2 : Vector2
@@ -337,6 +352,29 @@ func set_action_state(new_action_state:int):
 	if new_action_state == action_states.REELINGFROM:
 		print("reeling to player")
 
+func set_arm_state(new_arm_state:int):
+	# init vars
+	var previous_arm_state := arm_state
+	arm_state = new_arm_state
+	
+	# GRAPPLEARM to and from
+	if new_arm_state == arm_states.GRAPPLEARM:
+		grapple_arm.visible = true
+	if previous_arm_state == arm_states.GRAPPLEARM:
+		grapple_arm.visible = false
+		# on leaving the grapple arm state, grapple go back to idle if currently busy
+		if action_state == action_states.GRAPPLING:
+			set_action_state(action_states.IDLE)
+		elif action_state == action_states.REELINGFROM:
+			set_action_state(action_states.IDLE)
+	
+	# PARRYARM to and from
+	if new_arm_state == arm_states.PARRYARM:
+		parry_arm.visible = true
+	if previous_arm_state == arm_states.PARRYARM:
+		parry_arm.visible = false
+	
+
 # checks for mesh generators and adds them to the scene if they are not already found
 func checkForMeshGens():
 	if Helper.getFirstInScene("grapple_rope_meshGen") == null:
@@ -352,15 +390,26 @@ func checkForMeshGens():
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
 	
+	if Input.is_action_just_pressed("switch arm"):
+		if arm_state == arm_states.GRAPPLEARM:
+			set_arm_state(arm_states.PARRYARM)
+		elif arm_state == arm_states.PARRYARM:
+			set_arm_state(arm_states.GRAPPLEARM)
+	
 	# handle grapple activation
-	if Input.is_action_just_pressed("grapple") and player_grapple_input_enabled:
-		if not grapple_rope_mesh_gen == null:
-			if action_state != action_states.GRAPPLING:
-				action_state = action_states.GRAPPLING
-			elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
-				action_state = action_states.IDLE
-		else:
-			print("Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
+	if Input.is_action_just_pressed("arm action") and player_arm_action_enabled:
+		
+		if arm_state == arm_states.GRAPPLEARM:
+			if not grapple_rope_mesh_gen == null:
+				if action_state != action_states.GRAPPLING:
+					action_state = action_states.GRAPPLING
+				elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
+					action_state = action_states.IDLE
+			else:
+				print("Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
+		
+		elif arm_state == arm_states.PARRYARM:
+			parry_arm_animator.play("parry")
 			
 	# on slide | slam pressed
 	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor() and player_slide_slam_input_enabled:
@@ -633,6 +682,24 @@ func processTargetPull(delta=get_process_delta_time()):
 	else:
 		pass
 
+func parryTargetInBox():
+	if parry_target != null and parry_target.parriable == true:
+		var raycast_target_location:Vector3 = parry_target_get_ray_cast.get_collision_point()
+		var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")
+		for node:Node in parry_visuals:
+			node.visible = true
+		hitStop()
+		if parry_target is EnemyProjectile:
+			if parry_target is EnergyBall:
+				parry_target.linear_velocity = Vector3.ZERO
+				parry_target.look_at(raycast_target_location)
+				parry_target.linear_velocity = (raycast_target_location - parry_target.global_position).normalized() * (parry_target.travel_speed * parry_projectile_speed_boost)
+			# else if parry target is tracking energy ball: untrack player
+
+func hitStop():
+	Engine.time_scale = 0.0
+	hitstop_timer.start(hitstop_duration)
+
 var a = true
 # Called every frame. Main thread frames fluctuate around a target fps of 60.
 # Kinematic-related operations should only be run in _physics_process, while logic and other operations
@@ -791,3 +858,19 @@ func _on_grapple_enemy_cease_area_body_entered(hooked_target) -> void:
 			player.velocity.x = 0
 			player.velocity.z = 0
 			player.velocity.y = 0 + grapple_hop
+
+
+func _on_parry_hitbox_body_entered(body: Node3D) -> void:
+	if body is EnergyBall:
+		parry_target = body
+
+
+func _on_parry_hitbox_body_exited(body: Node3D) -> void:
+	if body == parry_target:
+		parry_target = null
+
+
+func _on_hitstop_timer_timeout() -> void:
+	for node:Node in get_tree().get_nodes_in_group("parry visuals"):
+		node.visible = false
+	Engine.time_scale = 1.0

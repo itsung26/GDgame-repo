@@ -441,7 +441,7 @@ navigation_mesh = SubResource("NavigationMesh_enyme")
 transform = Transform3D(1.45365, -0.783217, -3.50297, -0.182401, 3.75831, -0.916006, 3.58482, 0.508824, 1.37385, -92.7734, 13.19, 19.0092)
 
 [node name="Crane Tower rope link" parent="the cold winds map/cold_winds/Crane Tower/Crane Tower rope hanging" index="0"]
-transform = Transform3D(0.99988, -0.0150793, 0.00356213, 0.0152035, 0.999166, -0.0378753, -0.00298803, 0.0379249, 0.999276, 0.0259121, -2.48365, 0.68)
+transform = Transform3D(0.99988, -0.0150793, 0.00356214, 0.0152035, 0.999166, -0.0378752, -0.00298804, 0.0379248, 0.999276, 0.0259121, -2.48365, 0.68)
 
 [node name="Crane Tower rope link 2" parent="the cold winds map/cold_winds/Crane Tower/Crane Tower rope hanging/Crane Tower rope link" index="0"]
 transform = Transform3D(0.999788, 0.0170929, -0.0113789, -0.0165298, 0.998717, 0.0478654, 0.0121824, -0.0476672, 0.998789, 0.00669962, -0.199393, 0.0563548)
