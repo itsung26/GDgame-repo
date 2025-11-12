@@ -1,0 +1,50 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://j0krjkm357jt"]
+
+[ext_resource type="Texture2D" uid="uid://c74jkcb0lylpv" path="res://assets/meshes/stationary gun/textures/cableOverlayBaseColor.png" id="1_h1nws"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_rjbwg"]
+texture = ExtResource("1_h1nws")
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_h1nws"]
+parameter_name = "ColorParameter"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_rjbwg"]
+operator = 2
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform vec4 ColorParameter : source_color;
+uniform sampler2D tex_frg_2;
+
+
+
+void fragment() {
+// ColorParameter:3
+	vec4 n_out3p0 = ColorParameter;
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+
+
+// VectorOp:4
+	vec3 n_out4p0 = vec3(n_out3p0.xyz) * vec3(n_out2p0.xyz);
+
+
+// Output:0
+	ALBEDO = n_out4p0;
+	ALPHA = n_out2p0.x;
+
+
+}
+"
+nodes/fragment/0/position = Vector2(600, 160)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_rjbwg")
+nodes/fragment/2/position = Vector2(-160, 120)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorParameter_h1nws")
+nodes/fragment/3/position = Vector2(0, -120)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_rjbwg")
+nodes/fragment/4/position = Vector2(360, 20)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 1, 3, 0, 4, 0, 2, 0, 4, 1, 4, 0, 0, 0)

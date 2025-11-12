@@ -205,7 +205,7 @@ theme_override_constants/separation = -2
 
 [node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-2/VBoxContainer"]
 layout_mode = 2
-text = "0-1"
+text = "0-2"
 label_settings = SubResource("LabelSettings_3i7vf")
 horizontal_alignment = 1
 
@@ -269,7 +269,7 @@ theme_override_constants/separation = -2
 
 [node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-3/VBoxContainer"]
 layout_mode = 2
-text = "0-1"
+text = "0-3"
 label_settings = SubResource("LabelSettings_3i7vf")
 horizontal_alignment = 1
 
@@ -333,7 +333,7 @@ theme_override_constants/separation = -2
 
 [node name="Label" type="Label" parent="levelSelectScrollContainer/VBoxContainer/HBoxContainer/MissionButton0-4/VBoxContainer"]
 layout_mode = 2
-text = "0-1"
+text = "0-4"
 label_settings = SubResource("LabelSettings_3i7vf")
 horizontal_alignment = 1
 

@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://pkye0yiqpboi"]
+
+[resource]
+resource_name = "buttonSquare"
+cull_mode = 2
+albedo_color = Color(0.517184, 0.517185, 0.517184, 1)
+roughness = 0.5

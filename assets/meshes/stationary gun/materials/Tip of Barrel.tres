@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cng1bpcdkmbrp"]
+
+[resource]
+resource_name = "Tip of Barrel"
+cull_mode = 2
+albedo_color = Color(1, 0.647059, 0, 1)
+roughness = 0.5
+emission_enabled = true
+emission = Color(1, 0.647059, 0, 1)
+emission_energy_multiplier = 16.0

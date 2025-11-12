@@ -1,0 +1,102 @@
+[gd_scene load_steps=15 format=3 uid="uid://ctkkc4v7jqox5"]
+
+[ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="1_7r5qs"]
+[ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
+[ext_resource type="PackedScene" uid="uid://bpljuobbfpsww" path="res://scenes/laser_generator.tscn" id="2_q8du6"]
+[ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
+[ext_resource type="PackedScene" uid="uid://d1gxfhjv8330d" path="res://scenes/entities/stationary_cannon.tscn" id="5_wl3f4"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ir1aj"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_7r5qs"]
+sky_material = SubResource("ProceduralSkyMaterial_ir1aj")
+
+[sub_resource type="Environment" id="Environment_nptal"]
+background_mode = 2
+sky = SubResource("Sky_7r5qs")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nptal"]
+material = ExtResource("1_7r5qs")
+size = Vector2(200, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7r5qs"]
+material = ExtResource("1_7r5qs")
+size = Vector3(25, 10, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_uvlxo"]
+data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100, -100, 0, -100, 100, 0, -100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_nptal"]
+data = PackedVector3Array(-12.5, 5, 0.5, 12.5, 5, 0.5, -12.5, -5, 0.5, 12.5, 5, 0.5, 12.5, -5, 0.5, -12.5, -5, 0.5, 12.5, 5, -0.5, -12.5, 5, -0.5, 12.5, -5, -0.5, -12.5, 5, -0.5, -12.5, -5, -0.5, 12.5, -5, -0.5, 12.5, 5, 0.5, 12.5, 5, -0.5, 12.5, -5, 0.5, 12.5, 5, -0.5, 12.5, -5, -0.5, 12.5, -5, 0.5, -12.5, 5, -0.5, -12.5, 5, 0.5, -12.5, -5, -0.5, -12.5, 5, 0.5, -12.5, -5, 0.5, -12.5, -5, -0.5, 12.5, 5, 0.5, -12.5, 5, 0.5, 12.5, 5, -0.5, -12.5, 5, 0.5, -12.5, 5, -0.5, 12.5, 5, -0.5, -12.5, -5, 0.5, 12.5, -5, 0.5, -12.5, -5, -0.5, 12.5, -5, 0.5, 12.5, -5, -0.5, -12.5, -5, -0.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_s3yq3"]
+data = PackedVector3Array(-12.5, 5, 0.5, 12.5, 5, 0.5, -12.5, -5, 0.5, 12.5, 5, 0.5, 12.5, -5, 0.5, -12.5, -5, 0.5, 12.5, 5, -0.5, -12.5, 5, -0.5, 12.5, -5, -0.5, -12.5, 5, -0.5, -12.5, -5, -0.5, 12.5, -5, -0.5, 12.5, 5, 0.5, 12.5, 5, -0.5, 12.5, -5, 0.5, 12.5, 5, -0.5, 12.5, -5, -0.5, 12.5, -5, 0.5, -12.5, 5, -0.5, -12.5, 5, 0.5, -12.5, -5, -0.5, -12.5, 5, 0.5, -12.5, -5, 0.5, -12.5, -5, -0.5, 12.5, 5, 0.5, -12.5, 5, 0.5, 12.5, 5, -0.5, -12.5, 5, 0.5, -12.5, 5, -0.5, 12.5, 5, -0.5, -12.5, -5, 0.5, 12.5, -5, 0.5, -12.5, -5, -0.5, 12.5, -5, 0.5, 12.5, -5, -0.5, -12.5, -5, -0.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_q8du6"]
+data = PackedVector3Array(-12.5, 5, 0.5, 12.5, 5, 0.5, -12.5, -5, 0.5, 12.5, 5, 0.5, 12.5, -5, 0.5, -12.5, -5, 0.5, 12.5, 5, -0.5, -12.5, 5, -0.5, 12.5, -5, -0.5, -12.5, 5, -0.5, -12.5, -5, -0.5, 12.5, -5, -0.5, 12.5, 5, 0.5, 12.5, 5, -0.5, 12.5, -5, 0.5, 12.5, 5, -0.5, 12.5, -5, -0.5, 12.5, -5, 0.5, -12.5, 5, -0.5, -12.5, 5, 0.5, -12.5, -5, -0.5, -12.5, 5, 0.5, -12.5, -5, 0.5, -12.5, -5, -0.5, 12.5, 5, 0.5, -12.5, 5, 0.5, 12.5, 5, -0.5, -12.5, 5, 0.5, -12.5, 5, -0.5, 12.5, 5, -0.5, -12.5, -5, 0.5, 12.5, -5, 0.5, -12.5, -5, -0.5, 12.5, -5, 0.5, 12.5, -5, -0.5, -12.5, -5, -0.5)
+
+[node name="ProjectileTesting" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nptal")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="grapple_rope_meshGen" parent="." instance=ExtResource("1_s3yq3")]
+
+[node name="LaserGenerator" parent="." instance=ExtResource("2_q8du6")]
+
+[node name="Player" parent="." instance=ExtResource("3_7ksdt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.23607, 0, 6.59139)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_nptal")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+mesh = SubResource("BoxMesh_7r5qs")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 12.3804)
+mesh = SubResource("BoxMesh_7r5qs")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -11.5107, 5, 5.87012)
+mesh = SubResource("BoxMesh_7r5qs")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 519
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_uvlxo")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+shape = SubResource("ConcavePolygonShape3D_nptal")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 12.3804)
+shape = SubResource("ConcavePolygonShape3D_s3yq3")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -11.5107, 5, 5.87012)
+shape = SubResource("ConcavePolygonShape3D_q8du6")
+
+[node name="StationaryCannon" parent="." instance=ExtResource("5_wl3f4")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.822083, 0.512034)
+
+[node name="StationaryCannon2" parent="." instance=ExtResource("5_wl3f4")]
+transform = Transform3D(0, 1, 0, -0.67907, 0, -0.734074, -0.734074, 0, 0.67907, -11.002, 0.622943, 6.62673)
+
+[node name="StationaryCannon3" parent="." instance=ExtResource("5_wl3f4")]
+transform = Transform3D(0, 1, 0, -0.67907, 0, -0.734074, -0.734074, 0, 0.67907, -11.002, 1.70319, 6.62673)
+
+[node name="StationaryCannon4" parent="." instance=ExtResource("5_wl3f4")]
+transform = Transform3D(0, 1, 0, -0.67907, 0, -0.734074, -0.734074, 0, 0.67907, -11.002, 2.89895, 6.62673)

@@ -1,0 +1,245 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://fnhxvu1jdeq6"]
+
+[ext_resource type="Texture2D" uid="uid://daga072pqamb2" path="res://assets/meshes/stationary gun/textures/metal51_diffuse.jpg" id="1_ij33j"]
+[ext_resource type="Texture2D" uid="uid://u6plb5ksic3i" path="res://assets/meshes/stationary gun/textures/metal51_roughness.jpg" id="2_f4tcj"]
+[ext_resource type="Texture2D" uid="uid://busfopkc4i4ob" path="res://assets/meshes/stationary gun/textures/metal51_normal.jpg" id="3_bkvnd"]
+
+[resource]
+resource_name = "Scratched metal"
+cull_mode = 2
+albedo_texture = ExtResource("1_ij33j")
+metallic = 1.0
+metallic_texture = ExtResource("2_f4tcj")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_f4tcj")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_bkvnd")
+metadata/extras = {
+"asset_data": {
+"addonVersion": "3.14.0",
+"assetBaseId": "40089ce0-e1b6-4dab-9fd9-412ab32db78e",
+"assetType": "material",
+"author": {
+"aboutMe": "Passionate 3D artist.
+I love creating models in Blender. Blender is my hobby, not full time job.",
+"aboutMeUrl": "",
+"avatar128": "/avatar-redirect/ac731900-5dc5-4a69-9a4f-ab897cc007ba/128/",
+"firstName": "ydd",
+"fullName": "ydd 3D",
+"gravatarHash": "d53d719bf329b8bc9a0370a905d13613",
+"id": "298039",
+"lastName": "3D"
+},
+"available_resolutions": [512.0, 1024.0, 2048.0, 4096.0],
+"canDownload": true,
+"canDownloadError": true,
+"category": "metal",
+"created": "2025-03-10T11:22:38.142051+01:00",
+"description": "Simple scratched black metal for your interior or exterior scenes",
+"dictParameters": {
+"addons": true,
+"condition": "new",
+"engine": "cycles",
+"joinBlenderkitDiscounts": true,
+"materialStyle": "realistic",
+"megapixels": 80.0,
+"nodeCount": 14.0,
+"pbrType": "metallic",
+"procedural": false,
+"purePbr": true,
+"sexualizedContent": false,
+"shaders": ["[principled]"],
+"textureCount": 5.0,
+"textureResolutionMax": 4096.0,
+"textureResolutionMin": 4096.0,
+"textureSizeMeters": 1.0,
+"uv": false
+},
+"displayName": "Scratched metal",
+"downloaded": 0.0,
+"files": [{
+"created": "2025-03-10T11:23:02.153562+01:00",
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/604945/",
+"fileThumbnail": "",
+"fileThumbnailLarge": "",
+"fileType": "blend",
+"fileUploadSize": 3.34136e+07,
+"filename": "assets/fe34a481ed4246009166556584328d1b/files/blend_8f4f411a-5d47-411f-a88a-0377d47c3dfe.blend",
+"modified": "2025-03-10T11:23:02.153579+01:00",
+"resolution": 0.0,
+"thumbnailMiddleUrl": "",
+"thumbnailSmallUrl": "",
+"url": ""
+}, {
+"created": "2025-03-11T06:27:31.254200+01:00",
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/606014/",
+"fileThumbnail": "",
+"fileThumbnailLarge": "",
+"fileType": "resolution_0_5K",
+"fileUploadSize": 253869.0,
+"filename": "assets/fe34a481ed4246009166556584328d1b/files/resolution_0_5K_cb3e1f17-c0f6-4508-90d1-8b10e2ea3752.blend",
+"modified": "2025-03-11T06:27:31.254219+01:00",
+"resolution": 0.0,
+"thumbnailMiddleUrl": "",
+"thumbnailSmallUrl": "",
+"url": ""
+}, {
+"created": "2025-03-11T06:27:30.342190+01:00",
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/606013/",
+"fileThumbnail": "",
+"fileThumbnailLarge": "",
+"fileType": "resolution_1K",
+"fileUploadSize": 899685.0,
+"filename": "assets/fe34a481ed4246009166556584328d1b/files/resolution_1K_250f74ae-91a4-4e4a-94ba-b7498773ff01.blend",
+"modified": "2025-03-11T06:27:30.342205+01:00",
+"resolution": 0.0,
+"thumbnailMiddleUrl": "",
+"thumbnailSmallUrl": "",
+"url": ""
+}, {
+"created": "2025-03-11T06:27:29.319632+01:00",
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/606012/",
+"fileThumbnail": "",
+"fileThumbnailLarge": "",
+"fileType": "resolution_2K",
+"fileUploadSize": 3.47416e+06,
+"file_name": "C:\\Users\\iat20\\OneDrive\\Documents\\shoot-game-(3d)\\assets\\meshes\\stationary gun\\assets\\materials\\scratched-metal_fe34a481-ed42-4600-9166-556584328d1b\\scratched-metal_2K_57f09026-41cd-45fa-915d-34064105eed7.blend",
+"filename": "assets/fe34a481ed4246009166556584328d1b/files/resolution_2K_57f09026-41cd-45fa-915d-34064105eed7.blend",
+"modified": "2025-03-11T06:27:29.319647+01:00",
+"resolution": 0.0,
+"thumbnailMiddleUrl": "",
+"thumbnailSmallUrl": "",
+"url": "https://assets.blenderkit.com/assets/fe34a481ed4246009166556584328d1b/files/resolution_2K_57f09026-41cd-45fa-915d-34064105eed7.blend?verify=1762874967-Y4kiF6qwqfqytiHmOu%2FWIVoR8P5gBlNnbDnXoCuqs6I%3D"
+}, {
+"created": "2025-03-11T06:27:28.586793+01:00",
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/606011/",
+"fileThumbnail": "",
+"fileThumbnailLarge": "",
+"fileType": "resolution_4K",
+"fileUploadSize": 1.25727e+07,
+"filename": "assets/fe34a481ed4246009166556584328d1b/files/resolution_4K_f452c867-2474-4e74-b863-3c697bd949b1.blend",
+"modified": "2025-03-11T06:27:28.586807+01:00",
+"resolution": 0.0,
+"thumbnailMiddleUrl": "",
+"thumbnailSmallUrl": "",
+"url": ""
+}, {
+"created": "2025-03-10T11:23:22.646728+01:00",
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/604947/",
+"fileThumbnail": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.96x96_q85_crop-%2C.png",
+"fileThumbnailLarge": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.1024x1024_q85_crop-%2C.png",
+"fileType": "thumbnail",
+"fileUploadSize": 3.2001e+06,
+"filename": "assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png",
+"modified": "2025-03-10T11:23:22.646739+01:00",
+"resolution": 0.0,
+"thumbnailMiddleUrl": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.512x512_q85_crop-%2C.png",
+"thumbnailSmallUrl": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.256x256_q85_crop-%2C.png",
+"url": ""
+}],
+"filesSize": 52552.0,
+"id": "fe34a481-ed42-4600-9166-556584328d1b",
+"isFree": true,
+"isPrivate": false,
+"lastBlendUpload": "2025-03-10T10:23:02.153562+00:00",
+"lastGltfUpload": "",
+"lastPhotoThumbnailUpload": "",
+"lastResolutionUpload": "2025-03-11T05:27:31.254200+00:00",
+"lastThumbnailUpload": "2025-03-10T10:23:22.646728+00:00",
+"lastUserInteraction": "2025-03-10T11:23:02.704391+01:00",
+"lastVideoUpload": "",
+"lastZipFileUpload": "",
+"license": "royalty_free",
+"max_resolution": 4096.0,
+"name": "Scratched metal",
+"pk": 135215.0,
+"ratingsAverage": {
+"bookmarks": 0.97807,
+"quality": 9.8,
+"virtualPrice": null,
+"workingHours": 5.0
+},
+"ratingsCount": {
+"bookmarks": 228.0,
+"quality": 5.0,
+"virtualPrice": 0.0,
+"workingHours": 6.0
+},
+"ratingsMedian": {
+"bookmarks": 1.0,
+"quality": 10.0,
+"virtualPrice": null,
+"workingHours": 5.0
+},
+"ratingsSum": {
+"bookmarks": 223.0,
+"quality": 49.0,
+"score": 490.0,
+"virtualPrice": null,
+"workingHours": 24.0
+},
+"resolution": "resolution_2K",
+"score": 490.0,
+"showMarketingLabels": true,
+"sourceAppName": "blender",
+"sourceAppVersion": "4.2.4",
+"tags": ["metal", "metalic", "scratched", "black", "used", "damaged"],
+"texture_size_meters": 1.0,
+"thumbnail": "thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.512x512_q85_crop-%2C.png.webp",
+"thumbnailLargeUrl": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.1024x1024_q85_crop-%2C.png",
+"thumbnailLargeUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.1024x1024_q85.png",
+"thumbnailLargeUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.1024x1024_q85.png.webp?webp_generated=1741671072",
+"thumbnailLargeUrlWebp": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.1024x1024_q85_crop-%2C.png.webp?webp_generated=1741671072",
+"thumbnailMiddleUrl": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.512x512_q85_crop-%2C.png",
+"thumbnailMiddleUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.512x512_q85.png",
+"thumbnailMiddleUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.512x512_q85.png.webp?webp_generated=1741671072",
+"thumbnailMiddleUrlWebp": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.512x512_q85_crop-%2C.png.webp?webp_generated=1741671072",
+"thumbnailSmallUrl": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.256x256_q85_crop-%2C.png",
+"thumbnailSmallUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.256x256_q85.png",
+"thumbnailSmallUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.256x256_q85.png.webp?webp_generated=1741671072",
+"thumbnailSmallUrlWebp": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.256x256_q85_crop-%2C.png.webp?webp_generated=1741671072",
+"thumbnailXlargeUrl": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.2048x2048_q85_crop-%2C.png",
+"thumbnailXlargeUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.2048x2048_q85.png",
+"thumbnailXlargeUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.2048x2048_q85.png.webp?webp_generated=1741671072",
+"thumbnailXlargeUrlWebp": "https://public.blenderkit.com/thumbnails/assets/fe34a481ed4246009166556584328d1b/files/thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.2048x2048_q85_crop-%2C.png.webp?webp_generated=1741671072",
+"thumbnail_small": "thumbnail_5865ce3a-5cab-4369-9bd7-4f40b59961d7.png.256x256_q85_crop-%2C.png.webp",
+"tooltip_data": {
+"aname": "Scratched metal",
+"author_text": "by ydd 3D",
+"quality": "10"
+},
+"url": "https://www.blenderkit.com/api/v1/assets/fe34a481-ed42-4600-9166-556584328d1b/",
+"verificationStatus": "validated",
+"versionNumber": 1.0,
+"webpGeneratedTimestamp": 1.74167e+09
+},
+"blenderkit": {
+"asset_base_id": "40089ce0-e1b6-4dab-9fd9-412ab32db78e",
+"category": 19.0,
+"description": "Simple scratched black metal for your interior or exterior scenes",
+"has_thumbnail": 1.0,
+"id": "fe34a481-ed42-4600-9166-556584328d1b",
+"is_generating_thumbnail": 0.0,
+"is_procedural": 0.0,
+"name": "Scratched metal",
+"name_changed": 1.0,
+"name_old": "Scratched metal",
+"node_count": 14.0,
+"pbr": 1.0,
+"report": "",
+"shaders": "principled, ",
+"tags": "metal, metalic, scratched, black, used, damaged",
+"texture_count": 5.0,
+"texture_resolution_max": 4096.0,
+"texture_resolution_min": 4096.0,
+"thumbnail": "//scratched-metal.png",
+"thumbnail_generating_state": "",
+"thumbnail_generator_type": 1.0,
+"thumbnail_resolution": 3.0,
+"thumbnail_samples": 350.0,
+"total_megapixels": 80.0,
+"upload_state": "Upload successful!",
+"uploading": 0.0
+}
+}

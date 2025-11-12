@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bb2da8e3mew7y"
+path="res://.godot/imported/scratchedsss.jpg-4749776af2d666bee7006604563325d4.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/meshes/stationary gun/assets/materials/scratched-metal_6409e003-3bb9-41e6-bdc1-2dc6f9dec444/textures/scratchedsss.jpg"
+dest_files=["res://.godot/imported/scratchedsss.jpg-4749776af2d666bee7006604563325d4.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1

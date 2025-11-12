@@ -1,0 +1,107 @@
+[gd_scene load_steps=16 format=3 uid="uid://d1gxfhjv8330d"]
+
+[ext_resource type="PackedScene" uid="uid://cd06f1si4nx75" path="res://assets/meshes/stationary gun/stationary gun.blend" id="1_3aruk"]
+[ext_resource type="Script" uid="uid://8emg1033iwyd" path="res://scripts/stationary_cannon.gd" id="1_hryvt"]
+[ext_resource type="Shader" uid="uid://c5o624airpgs8" path="res://assets/meshes/stationary gun/materials/barrel_vfx_shader.tres" id="2_a5ruv"]
+[ext_resource type="Shader" uid="uid://dcd6cmrqplwrq" path="res://assets/meshes/stationary gun/materials/cableInner.tres" id="2_gjtlq"]
+[ext_resource type="Texture2D" uid="uid://bd0n2pi7vuln8" path="res://assets/2d assets/noise/noise 512x512/Milky/Milky_01-512x512.png" id="3_6o1op"]
+[ext_resource type="Shader" uid="uid://j0krjkm357jt" path="res://assets/meshes/stationary gun/materials/cableOverlayShader.tres" id="4_6o1op"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yp42l"]
+render_priority = 0
+shader = ExtResource("2_a5ruv")
+shader_parameter/ColorParameter = Color(1, 0.647059, 0, 1)
+shader_parameter/emission = 4.285
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a5ruv"]
+render_priority = 0
+shader = ExtResource("2_gjtlq")
+shader_parameter/ColorParameter = Color(0, 0.945098, 1, 1)
+shader_parameter/scale = Vector2(5, 1.63)
+shader_parameter/Texture2DParameter = ExtResource("3_6o1op")
+shader_parameter/emission = 0.979
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hryvt"]
+render_priority = 0
+shader = ExtResource("4_6o1op")
+shader_parameter/ColorParameter = Color(0.381703, 0.381703, 0.381703, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hryvt"]
+points = PackedVector3Array(-0.0480588, -0.218157, -0.36428, 0.0337509, -0.206508, 0.361872, -0.0363942, -0.206371, 0.361568, -0.0726176, 0.338055, -0.239144, 0.367465, -0.423137, -0.084468, -0.371146, -0.424325, 0.0701629, 0.0342503, 0.337679, 0.248134, 0.224911, 0.338525, -0.108408, 0.272676, -0.423817, 0.260745, -0.238133, 0.336437, 0.0815006, -0.310151, -0.422684, -0.215059, 0.152764, -0.421798, -0.34489, 0.223356, 0.335906, 0.116913, -0.202549, -0.421392, 0.318282, -0.236092, 0.321403, -0.0952175, 0.363307, -0.230661, 0.0809287, 0.208102, -0.21708, -0.303787, -0.245579, -0.228681, 0.277855, 0.081569, 0.336421, -0.238123, -0.366037, -0.230801, -0.0717775, -0.258082, -0.205948, -0.258153, 0.231386, -0.228727, 0.289505, -0.1549, 0.335553, 0.199483, -0.145152, -0.426209, -0.348959, 0.082095, -0.423927, 0.368158, 0.338526, -0.229985, -0.153647, -0.340024, -0.22945, 0.15048, 0.0693011, -0.230945, -0.366316, 0.248078, 0.337484, -0.0368337, 0.140443, 0.33549, 0.21128, 0.314884, -0.229884, 0.197808, 0.271481, -0.422153, -0.262203)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yp42l"]
+points = PackedVector3Array(0.0394738, 0.322392, 0.210692, -0.0394738, 0.315808, -0.210692, -0.065831, 0.315808, -0.204092, -0.0394738, 0.322392, -0.210692, 0.210692, 0.315808, -0.0394738, -0.190935, 0.315808, 0.0987464, -0.210692, 0.322392, -0.0394738, 0.190935, 0.322392, -0.0987464, 0.138262, 0.315808, 0.164577, 0.197493, 0.322392, 0.0855885, -0.164577, 0.322392, 0.138262, -0.065831, 0.315808, 0.204092, 0.0987464, 0.315808, -0.190935, -0.190935, 0.315808, -0.0987464, -0.138262, 0.322392, -0.164577, 0.0855885, 0.322392, -0.197493, 0.197493, 0.315808, 0.0855885, -0.0855885, 0.322392, 0.197493, 0.0394738, 0.315808, 0.210692, 0.0987464, 0.322392, 0.190935, 0.164577, 0.315808, -0.138262, -0.210692, 0.315808, 0.0394738, -0.204092, 0.322392, 0.065831, -0.138262, 0.315808, 0.164577, 0.210692, 0.322392, 0.0394738, -0.138262, 0.315808, -0.164577, 0.0394738, 0.315808, -0.210692, 0.138262, 0.322392, -0.164577, 0.164577, 0.322392, 0.138262, -0.190935, 0.322392, -0.0987464, -0.0394738, 0.322392, 0.210692, -0.210692, 0.315808, -0.0394738)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yfmkt"]
+points = PackedVector3Array(0.0400951, 0.0349013, 0.428464, -0.0755027, -0.082, -0.402997, -0.0818685, 0.0224343, -0.436974, 0.436968, 0.0224336, -0.0818673, -0.264378, -0.082, 0.314792, 0.365206, -0.082, 0.188796, -0.428494, 0.0349054, -0.0400979, 0.264457, -0.082, -0.314792, -0.37775, -0.082, -0.163708, 0.187237, 0.0348522, -0.387969, 0.360016, 0.0346634, 0.239955, 0.125838, -0.082, 0.390373, -0.306027, 0.0345296, 0.306027, -0.306027, 0.0345296, -0.306027, -0.390373, -0.082, 0.125917, 0.402997, -0.082, -0.0755027, -0.0818675, 0.0224337, 0.436969, 0.285089, 0.0221569, 0.339351, 0.360016, 0.0346633, -0.239955, -0.264378, -0.082, -0.314792, -0.407894, 0.0222355, 0.176771, 0.0755027, -0.082, -0.402997, 0.436961, 0.0224328, 0.081866, -0.0755027, -0.082, 0.402997, -0.43697, 0.0224338, -0.0818677, 0.176701, 0.0222396, -0.40793, 0.0818659, 0.0224328, 0.43696, 0.365206, -0.082, -0.188796, 0.264457, -0.082, 0.314792, -0.176701, 0.0222396, 0.40793, -0.203597, 0.0221537, -0.393671, -0.339389, 0.0221623, -0.285036)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cxf0q"]
+points = PackedVector3Array(0.109205, 0.216651, 0.0129603, -0.100191, -0.114466, -0.00207942, -0.0994174, -0.113886, 0.00529341, 0.0184159, -0.279468, -0.0182121, 0.0263446, -0.239742, 0.0531963, 0.14535, 0.157021, -0.0499582, -0.0669867, 0.0527174, -0.0375224, 0.0184159, 0.14116, 0.0531963, 0.14535, 0.172882, 0.0531963, 0.0263446, -0.247697, -0.0499582, -0.0728086, 0.0165374, 0.040215, -0.0108577, 0.150267, -0.0240111, -0.0450389, -0.184205, 0.0531963, 0.14535, 0.1252, 0.0135137, -0.0687955, -0.178144, -0.0310824, -0.0840008, 0.0622899, 0.0052686, 0.14535, 0.228468, -0.0182121, -0.0485655, -0.233922, 0.00533182, -0.0643022, 0.00201331, -0.0431866, 0.0610741, 0.159425, -0.044606, 0.011009, 0.174641, 0.00531669, 0.0263446, -0.255653, 0.0452597, -0.081444, -0.103946, -0.0376146, -0.0993659, 0.00388777, -0.0020537, -0.0546935, 0.106086, 0.0198935, 0.0422021, -0.208021, -0.0420216, -0.0990368, -0.0768884, 0.0199689, 0.14535, 0.228468, 0.0214502, 0.0184159, -0.271513, 0.0373232, -0.0774505, -0.180395, 0.0200502, -0.0409861, -0.233506, -0.0243751, 0.0481169, 0.190037, -0.0243853)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xlwhq"]
+points = PackedVector3Array(0.539416, 1.36234, -0.112897, -0.551721, -0.633136, -0.0808472, -0.538639, -0.609881, 0.222475, 0.5576, -0.623696, 0.0728003, -0.550009, 1.31406, 0.320477, -0.541484, -0.285936, -0.404591, 0.553284, 1.30062, 0.315489, 0.548351, -0.577034, -0.381253, -0.526885, 1.3039, -0.285842, 0.552673, 0.904273, -0.340106, 0.545524, -0.60223, 0.220442, -0.54302, -0.587121, -0.384996, 0.541727, 1.36669, -0.27101, 0.552673, -0.285936, -0.404591, -0.551841, 1.34826, 0.0119427, 0.500597, 0.823229, 0.300378, 0.535278, -0.639449, -0.11229, -0.316027, 0.795908, -0.341428, 0.556859, 1.33767, -0.264209, 0.535467, 1.35471, 0.0434034, -0.521202, 0.854734, 0.302072, -0.524377, 1.3549, 0.043418, -0.524169, -0.639599, -0.112301, 0.501187, -0.254597, 0.242426, 0.557494, 0.143016, -0.325658, 0.5576, 1.33899, -0.111075, 0.540928, 0.981959, 0.307594, -0.519174, -0.254597, 0.242426, 0.551914, 0.114956, 0.253799, 0.502501, 1.29267, -0.282859)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hryvt"]
+
+[node name="StationaryCannon" type="CharacterBody3D" node_paths=PackedStringArray("bullet_spawn_marker", "grapple_origin") groups=["enemy"]]
+collision_layer = 2
+collision_mask = 527
+script = ExtResource("1_hryvt")
+bullet_spawn_marker = NodePath("Bullet Spawn Position")
+gravity_enabled = false
+SPEED = 0
+weight = 3
+slowInAirFactor = 1000.0
+grapple_origin = NodePath("GrappleOrigin")
+
+[node name="stationary gun2" parent="." instance=ExtResource("1_3aruk")]
+
+[node name="barrel_vfx" parent="stationary gun2/stationary cannon" index="2"]
+material_override = SubResource("ShaderMaterial_yp42l")
+
+[node name="cable" parent="stationary gun2/stationary cannon" index="4"]
+material_override = SubResource("ShaderMaterial_a5ruv")
+material_overlay = SubResource("ShaderMaterial_hryvt")
+
+[node name="GrappleOrigin" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.455155, 0)
+gizmo_extents = 0.49
+
+[node name="Bullet Spawn Position" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32157, 0)
+
+[node name="BulletLookPosition" type="Marker3D" parent="Bullet Spawn Position"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.424859, 0)
+shape = SubResource("ConvexPolygonShape3D_hryvt")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.424859, 0)
+shape = SubResource("ConvexPolygonShape3D_yp42l")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0642722, 0)
+shape = SubResource("ConvexPolygonShape3D_yfmkt")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.377039, 0.462323, 0)
+shape = SubResource("ConvexPolygonShape3D_cxf0q")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.130579, 0, 0, 0, 0.125522, -0.0359861, 0, 0.0359861, 0.125522, 0, 0.274273, -0.34277)
+shape = SubResource("ConvexPolygonShape3D_xlwhq")
+
+[node name="playerSizeComparison" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.779)
+visible = false
+mesh = SubResource("CapsuleMesh_hryvt")
+
+[node name="BulletFireInterval" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="BulletFireInterval" to="." method="_on_bullet_fire_interval_timeout"]
+
+[editable path="stationary gun2"]

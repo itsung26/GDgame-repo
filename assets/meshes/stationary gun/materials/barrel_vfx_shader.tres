@@ -1,0 +1,78 @@
+[gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://c5o624airpgs8"]
+
+[sub_resource type="Gradient" id="Gradient_twys7"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i738h"]
+gradient = SubResource("Gradient_twys7")
+width = 2048
+height = 2048
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0.444444)
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_up4sb"]
+texture = SubResource("GradientTexture2D_i738h")
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_wohag"]
+parameter_name = "ColorParameter"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_oramq"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_twys7"]
+parameter_name = "emission"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_i738h"]
+operator = 2
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_2;
+uniform vec4 ColorParameter : source_color;
+uniform float emission;
+
+
+
+void fragment() {
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+
+
+// ColorParameter:3
+	vec4 n_out3p0 = ColorParameter;
+
+
+// VectorOp:4
+	vec3 n_out4p0 = vec3(n_out2p0.xyz) * vec3(n_out3p0.xyz);
+
+
+// FloatParameter:5
+	float n_out5p0 = emission;
+
+
+// VectorOp:6
+	vec3 n_out6p0 = n_out4p0 * vec3(n_out5p0);
+
+
+// Output:0
+	ALBEDO = n_out4p0;
+	ALPHA = n_out2p0.x;
+	EMISSION = n_out6p0;
+
+
+}
+"
+modes/cull = 2
+nodes/fragment/0/position = Vector2(840, 180)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_up4sb")
+nodes/fragment/2/position = Vector2(-80, 120)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorParameter_wohag")
+nodes/fragment/3/position = Vector2(60, -120)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_oramq")
+nodes/fragment/4/position = Vector2(320, 80)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_twys7")
+nodes/fragment/5/position = Vector2(180, 440)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorOp_i738h")
+nodes/fragment/6/position = Vector2(540, 340)
+nodes/fragment/connections = PackedInt32Array(2, 0, 4, 0, 3, 0, 4, 1, 4, 0, 0, 0, 2, 0, 0, 1, 4, 0, 6, 0, 5, 0, 6, 1, 6, 0, 0, 5)
