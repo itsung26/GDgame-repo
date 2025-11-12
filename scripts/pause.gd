@@ -188,4 +188,6 @@ func _on_confirm_button_pressed() -> void:
 func _on_restart_pressed() -> void:
 	if get_tree().paused == true:
 		get_tree().paused = false
+	if Engine.time_scale != 1.0:
+		Engine.time_scale = 1.0
 	get_tree().reload_current_scene()

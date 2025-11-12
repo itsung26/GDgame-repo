@@ -1,4 +1,10 @@
+## Base class for all enemies, ranged and melee. Handles health, damage, and death behavior.
 class_name Enemy extends CharacterBody3D
+
+signal left_floor
+signal hit_floor
+
+var _was_on_floor: bool = false
 
 # states and constants
 enum damage_types{NORMAL, LASER, DARK}
@@ -31,12 +37,13 @@ func damageEnemy(damage:float, damage_type:damage_types):
 		HEALTH = new_enemy_health
 		HEALTH = clampf(HEALTH, 0, 100)
 		
-		# spawn a hitmarker on own body
-		var a = DAMAGE_HITMARKER_SCENE.instantiate()
-		a.tracked_camera = player.camera_3d
-		a.tracked_enemy = self
-		add_child(a)
-		a.damage_number_label.text = str(damage)
+		if damage != 0.0:
+			# spawn a hitmarker on own body
+			var a = DAMAGE_HITMARKER_SCENE.instantiate()
+			a.tracked_camera = player.camera_3d
+			a.tracked_enemy = self
+			add_child(a)
+			a.damage_number_label.text = str(damage)
 		
 		if HEALTH == 0:
 			_killEnemy()
@@ -67,4 +74,22 @@ func getVec3LookingAtTarget(target_pos:Vector3) -> Vector3:
 	# set rotation back to previous
 	rotation = prev_rot
 	return rot
-	
+
+func _ready() -> void:
+	_was_on_floor = is_on_floor()
+	if get_tree():
+		get_tree().connect("physics_frame", Callable(self, "_on_physics_frame"))
+
+func _exit_tree() -> void:
+	if get_tree():
+		var cb := Callable(self, "_on_physics_frame")
+		if get_tree().is_connected("physics_frame", cb):
+			get_tree().disconnect("physics_frame", cb)
+
+func _on_physics_frame() -> void:
+	var now := is_on_floor()
+	if _was_on_floor and not now:
+		emit_signal("left_floor")
+	elif (not _was_on_floor) and now:
+		emit_signal("hit_floor")
+	_was_on_floor = now

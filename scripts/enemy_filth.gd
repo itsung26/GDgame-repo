@@ -33,6 +33,7 @@ var enemy_box_state:enemy_box_states = enemy_box_states.RUNNING:
 var player_in_bite_box:bool = false
 
 func _ready() -> void:
+	super._ready() # ensure Enemy._ready runs (physics_frame hookup)
 	if filth_animator == null:
 		print("ERROR: filth animation player not found")
 	if player == null:

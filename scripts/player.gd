@@ -26,6 +26,7 @@ class_name Player extends CharacterBody3D
 @onready var dash_length_timer: Timer = $DashLengthTimer
 @onready var stamina_charge_delay_timer: Timer = $StaminaChargeDelayTimer
 @onready var tail_marker: Marker3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/TailMarker
+@onready var grapple_hook_smaller_collider: CollisionShape3D = %"grapple hook smaller collider"
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
 var grapple_rope_mesh_gen:ropeMeshGenerator
 const LaserGenerator_SCENE = preload("res://scenes/laser_generator.tscn")
@@ -306,10 +307,8 @@ func set_action_state(new_action_state:int):
 	
 	# grappling to and from
 	if new_action_state == action_states.GRAPPLING and Grapple_Enabled:
-		player.velocity.x = 0.0
-		player.velocity.z = 0.0
 		grapple_rope_mesh_gen.visible = true
-		grapple_hook.reparent(get_tree().root) # reparent and face direction raycast is looking
+		grapple_hook.reparent(get_tree().current_scene) # reparent and face direction raycast is looking
 		grapple_hook.rotation = Vector3.ZERO
 		var grapple_dir = grapple_direction_getter.global_rotation
 		grapple_hook.rotation = grapple_dir
@@ -326,6 +325,13 @@ func set_action_state(new_action_state:int):
 		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
 		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
+		
+	# IDLE to and from
+	if new_action_state == action_states.IDLE:
+		grapple_hook_smaller_collider.disabled = true
+	if previous_action_state == action_states.IDLE:
+		grapple_hook_smaller_collider.disabled = false
+
 		
 	# reelingfrom (pulling) to and from
 	if new_action_state == action_states.REELINGFROM:
@@ -632,6 +638,8 @@ var a = true
 # Kinematic-related operations should only be run in _physics_process, while logic and other operations
 # should be run in _process
 func _process(delta) -> void:
+	print(grapple_hook_smaller_collider.disabled)
+	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	charge_stamina()
 	
@@ -718,23 +726,10 @@ func _on_cam_shake_timer_timeout() -> void:
 
 # when the grapple hook's smaller collider hits the world, go back to idle
 # when it hits enemies, pull them towards player
-func _on_world_collide_box_body_entered(body: Node3D) -> void:
+func _on_world_collide_box_body_entered(body: Enemy) -> void:
 	hooked_target = body
-	
 	if hooked_target:
-		# if hit body was not in either group, it was part of the world
-		if not body.is_in_group("grapple_cubes") and not body.is_in_group("enemy"):
-			print("body was world, going back to idle")
-			hooked_target = null
-			var impact_particles = impact_particles_scene.instantiate()
-			var impact_pos = grapple_hook.global_position
-			var particle_look_marker = impact_particles.get_node("Marker")
-			get_tree().root.add_child(impact_particles)
-			impact_particles.global_position = impact_pos
-			particle_look_marker.global_position = camera_3d.global_position
-			action_state = action_states.IDLE
-
-		elif hooked_target.is_in_group("enemy"):
+		if hooked_target.is_in_group("enemy"):
 			var enemy_hooked:Enemy = hooked_target
 			hooked_target_pull_origin = enemy_hooked.grapple_origin
 			
@@ -746,6 +741,18 @@ func _on_world_collide_box_body_entered(body: Node3D) -> void:
 				grapple_hook.freeze = true
 				grapple_hook.global_position = hooked_target_pull_origin.global_position
 				grapple_hook.look_at(tail_marker.global_position, Vector3.UP)
+
+## When it hits an area 3d that is not an enemy, it was world so go back to idle
+func _on_world_collide_box_world_entered(body:Node):
+	if not body is Enemy:
+		print("hook hit world, going back to idle")
+		var impact_particles = impact_particles_scene.instantiate()
+		var impact_pos = grapple_hook.global_position
+		var particle_look_marker = impact_particles.get_node("Marker")
+		get_tree().root.add_child(impact_particles)
+		impact_particles.global_position = impact_pos
+		particle_look_marker.global_position = camera_3d.global_position
+		action_state = action_states.IDLE
 
 # when the hook's actual collider stops colliding with whatever it is colliding with
 func _on_world_collide_box_body_exited(body: Node3D) -> void:

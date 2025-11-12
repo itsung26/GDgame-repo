@@ -1,10 +1,10 @@
 ## An autoload singleton to call methods when input keys are pressed.
 extends Node
 
+
+
 func _input(event: InputEvent) -> void:
-	if Input.is_key_pressed(KEY_P):
-		print("reloading scene")
-		get_tree().reload_current_scene()
+	pass
 		
 	if Input.is_key_pressed(KEY_QUOTELEFT): # (`) key
 		print("debugforcequit")

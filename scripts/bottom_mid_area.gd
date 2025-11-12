@@ -4,7 +4,6 @@ extends Control
 @export_category("Showable tooltips")
 @export var tooltip_array: Array[Label]
 @onready var tool_tip_dissapear_timer: Timer = $Tooltip/ToolTipDissapearTimer
-@onready var player = Helper.getFirstInScene("player")
 
 # hides the tooltip on ui load
 func _ready() -> void:

@@ -3,7 +3,11 @@ extends Node
 
 ## Gets the first node with a string name matching node_pattern.
 func getFirstInScene(node_pattern:String):
-	return get_tree().current_scene.find_child(node_pattern)
+	var x:Node = get_tree().current_scene.find_child(node_pattern)
+	if x == null:
+		assert(false, "ERROR: node with name " + node_pattern + " not found in scene.")
+	else:
+		return x
 
 ## Gets the first node in the scene named "checkpoint"
 func getCheckPoint():
