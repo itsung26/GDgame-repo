@@ -256,7 +256,7 @@ _limits = [0.0, 1.0, 0.0, 0.1]
 _data = [Vector2(0, 1), 0.0, -22.8261, 0, 1, Vector2(0.0438095, 0), -22.8261, 17.243, 1, 1]
 point_count = 2
 
-[node name="EnergyBall" type="RigidBody3D" groups=["enemy projectiles"]]
+[node name="EnergyBall" type="RigidBody3D" node_paths=PackedStringArray("despawn_timer") groups=["enemy projectiles"]]
 collision_layer = 8
 collision_mask = 0
 mass = 0.001
@@ -265,6 +265,7 @@ continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 5
 script = ExtResource("1_qg56h")
+despawn_timer = NodePath("DespawnTimer")
 damage_to_player = 12.0
 damage_to_enemies = 12.0
 travel_speed = 41.0

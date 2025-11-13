@@ -12,3 +12,6 @@ func getFirstInScene(node_pattern:String):
 ## Gets the first node in the scene named "checkpoint"
 func getCheckPoint():
 	return getFirstInScene("checkpoint")
+
+func addBullet(pos:Vector3, dir:Vector3):
+	print("adding bullet")

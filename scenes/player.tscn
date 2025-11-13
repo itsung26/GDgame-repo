@@ -1278,7 +1278,7 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mh8"]
-radius = 0.10338
+radius = 0.2397
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
 size = Vector3(0.752441, 0.138672, 0.796112)
@@ -1483,7 +1483,7 @@ margin = 0.0
 size = Vector3(0.275297, 0.62793, 2.11493)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qfm1y"]
-size = Vector3(1.4673, 0.988576, 3.25121)
+size = Vector3(1.99298, 1.59285, 3.25121)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4r5pv"]
 transparency = 1
@@ -1871,7 +1871,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338215, 0.181378, -0.147857)
+transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.89623, -0.419367, 0.0912844, 0.434093, -0.896231, -0.00338209, 0.181378, -0.147857)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1922,7 +1922,7 @@ libraries = {
 collision_mask = 10
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/ParryArm/ParryHitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0177118, -0.130912, -1.53758)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022134, -0.272965, -1.53758)
 shape = SubResource("BoxShape3D_qfm1y")
 debug_color = Color(1, 1, 0, 0.419608)
 
@@ -2069,8 +2069,8 @@ ignore_time_scale = true
 
 [connection signal="entered_weapon_state" from="." to="huds/HUD/HideHandler" method="_on_player_entered_weapon_state"]
 [connection signal="body_entered" from="GrappleEnemyCeaseArea" to="." method="_on_grapple_enemy_cease_area_body_entered"]
-[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_world_entered"]
+[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]

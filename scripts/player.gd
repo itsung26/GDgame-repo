@@ -860,7 +860,9 @@ func _on_grapple_enemy_cease_area_body_entered(hooked_target) -> void:
 
 
 func _on_parry_hitbox_body_entered(body: Node3D) -> void:
-	if body is EnemyProjectile and body.parriable:
+	if body is EnemyProjectile and body.parriable and parry_target == null:
+		parry_target = body
+	elif body is Enemy and parry_target == null:
 		parry_target = body
 
 
