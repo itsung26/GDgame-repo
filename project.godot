@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="icantthinkofaname"
+config/name="project"
 config/tags=PackedStringArray("alpha", "main")
 run/main_scene="uid://ctkkc4v7jqox5"
 config/features=PackedStringArray("4.4", "Forward Plus")
@@ -45,6 +45,7 @@ players=""
 weaponBlocks=""
 "weak enemy"=""
 grapple_cubes=""
+"enemy projectiles"=""
 
 [input]
 

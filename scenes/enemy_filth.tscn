@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://fyr1gxk7lvr1"]
+[gd_scene load_steps=43 format=4 uid="uid://fyr1gxk7lvr1"]
 
 [ext_resource type="Script" uid="uid://x7wtow671t3i" path="res://scripts/enemy_filth.gd" id="1_8551a"]
 [ext_resource type="Texture2D" uid="uid://dja4bjd6eau7h" path="res://assets/meshes/filth/textures/Filth_Mouth_Open_baseColor.png" id="2_qw0xx"]
@@ -932,9 +932,6 @@ bind/20/pose = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qw0xx"]
 radius = 0.292323
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_i5vck"]
-size = Vector3(0.386597, 0.001, 0.436752)
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_00tiq"]
 radius = 0.124
 height = 2.33782
@@ -1338,11 +1335,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0301
 [node name="bodyCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, -0.154)
 shape = SubResource("CapsuleShape3D_qw0xx")
-
-[node name="bodyCollider2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.86984)
-shape = SubResource("BoxShape3D_i5vck")
-disabled = true
 
 [node name="deadbodyCollider3" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1, -8.74228e-08, 0, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 2.21313e-08, 0.083776, -0.225206)

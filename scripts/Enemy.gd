@@ -30,6 +30,8 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @export var grapple_origin:Marker3D
 ## Whether the enemy is parriable. Shared with [code]EnemyProjectile[/code].
 @export var parriable:bool = true
+## Whether the enemy has been parried in it's lifetime.
+@export var has_been_parried:bool = false
 
 func damageEnemy(damage:float, damage_type:damage_types):
 	if damage_enabled:

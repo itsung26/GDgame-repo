@@ -684,17 +684,17 @@ func processTargetPull(delta=get_process_delta_time()):
 
 func parryTargetInBox():
 	if parry_target != null and parry_target.parriable == true:
+		var raycast_target_body:Node = parry_target_get_ray_cast.get_collider()
 		var raycast_target_location:Vector3 = parry_target_get_ray_cast.get_collision_point()
 		var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")
 		for node:Node in parry_visuals:
 			node.visible = true
 		hitStop()
 		if parry_target is EnemyProjectile:
+			parry_target.has_been_parried = true
 			if parry_target is EnergyBall:
 				parry_target.linear_velocity = Vector3.ZERO
-				parry_target.look_at(raycast_target_location)
 				parry_target.linear_velocity = (raycast_target_location - parry_target.global_position).normalized() * (parry_target.travel_speed * parry_projectile_speed_boost)
-			# else if parry target is tracking energy ball: untrack player
 
 func hitStop():
 	Engine.time_scale = 0.0
@@ -705,7 +705,6 @@ var a = true
 # Kinematic-related operations should only be run in _physics_process, while logic and other operations
 # should be run in _process
 func _process(delta) -> void:
-	print(grapple_hook_smaller_collider.disabled)
 	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	charge_stamina()
@@ -861,7 +860,7 @@ func _on_grapple_enemy_cease_area_body_entered(hooked_target) -> void:
 
 
 func _on_parry_hitbox_body_entered(body: Node3D) -> void:
-	if body is EnergyBall:
+	if body is EnemyProjectile and body.parriable:
 		parry_target = body
 
 
