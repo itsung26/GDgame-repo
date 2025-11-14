@@ -25,8 +25,8 @@ size = Vector2(1, 0.25)
 orientation = 0
 
 [sub_resource type="Curve" id="Curve_yj8wl"]
-_data = [Vector2(0, 0), 0.0, 0.35, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(0.246711, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0109401, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Animation" id="Animation_yj8wl"]
 resource_name = "despawn"
@@ -55,6 +55,7 @@ _data = {
 mesh = SubResource("QuadMesh_3krn5")
 script = ExtResource("1_yj8wl")
 shrink_curve = SubResource("Curve_yj8wl")
+shrink_duration = 0.5
 
 [node name="TrailDespawnTimer" type="Timer" parent="."]
 

@@ -3,16 +3,14 @@ extends Node3D
 
 @onready var origin: Marker3D = $origin
 @onready var target: Marker3D = $target
+@onready var camera_3d: Camera3D = $Camera3D
 
 @export_tool_button("spawn bullet trail") var a = spawnBulletTrail
 @export_tool_button(("delete bullet trails")) var b = clearBulletTrails
 const bullet_trail_scene:PackedScene = preload("res://scenes/bullet_trail.tscn")
 
 func _process(delta: float) -> void:
-	if Input.is_key_pressed(KEY_P):
-		spawnBulletTrail()
-	if Input.is_key_pressed(KEY_O):
-		clearBulletTrails()
+	pass
 
 func spawnBulletTrail():
 	var bullet_trail_instance:BulletTrail = bullet_trail_scene.instantiate()
