@@ -3,9 +3,7 @@ extends Node
 
 func _input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_P):
-		var a = get_tree().get_nodes_in_group("enemy projectiles")
-		for node:EnergyBall in a:
-			node.destroySelf()
+		pass
 		
 		
 	if Input.is_key_pressed(KEY_QUOTELEFT): # (`) key

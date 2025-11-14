@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func fire():
 	var bullet:EnergyBall = bullet_scene.instantiate()
-	bullet._setup(bullet_spawn_marker.global_position, bullet_travel_direction_marker.global_position)
+	bullet._setup(bullet_spawn_marker.global_position, bullet_travel_direction_marker.global_position - bullet_spawn_marker.global_position)
 	get_tree().current_scene.add_child(bullet)
 
 func _on_bullet_fire_interval_timeout() -> void:

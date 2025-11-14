@@ -1,5 +1,5 @@
 @tool
-class_name hudGui extends Control
+class_name HudGui extends Control
 @onready var ammo_counter: Label = %ammoCounter
 @onready var anim_debug: Label = %AnimDebug
 @onready var fps_counter: Label = %fpsCounter
@@ -34,6 +34,8 @@ var current_frames_per_second = "null"
 @onready var pistol_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Pistol outline"
 @onready var hand_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Hand outline"
 @onready var pistol = Helper.getFirstInScene("Pistol")
+@onready var arm_panel: Panel = $BottomLeftArea/AmmoPanel/SubViewport/ArmPanel
+@onready var arm_panel_2: Panel = $BottomLeftArea/AmmoPanel/SubViewport/ArmPanel2
 
 
 @export_category("Crosshair Properties")

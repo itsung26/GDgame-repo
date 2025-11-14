@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d1gxfhjv8330d"]
+[gd_scene load_steps=25 format=3 uid="uid://d1gxfhjv8330d"]
 
 [ext_resource type="PackedScene" uid="uid://cd06f1si4nx75" path="res://assets/meshes/stationary gun/stationary gun.blend" id="1_3aruk"]
 [ext_resource type="Script" uid="uid://8emg1033iwyd" path="res://scripts/stationary_cannon.gd" id="1_hryvt"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cvok6gdaw5cip" path="res://scenes/energy_ball.tscn" id="2_yp42l"]
 [ext_resource type="Texture2D" uid="uid://bd0n2pi7vuln8" path="res://assets/2d assets/noise/noise 512x512/Milky/Milky_01-512x512.png" id="3_6o1op"]
 [ext_resource type="Shader" uid="uid://j0krjkm357jt" path="res://assets/meshes/stationary gun/materials/cableOverlayShader.tres" id="4_6o1op"]
+[ext_resource type="Shader" uid="uid://civ514brwxgvl" path="res://shaders/visual shaders/cable overlay shader 2.tres" id="8_cxf0q"]
 [ext_resource type="Texture2D" uid="uid://jnydbkvb58ti" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/circle_03.png" id="8_yfmkt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yp42l"]
@@ -30,6 +31,11 @@ resource_local_to_scene = true
 render_priority = 1
 shader = ExtResource("4_6o1op")
 shader_parameter/ColorParameter = Color(0.344076, 0.344076, 0.344076, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xlwhq"]
+render_priority = 0
+shader = ExtResource("8_cxf0q")
+shader_parameter/ColorParameter = Color(0.489622, 0.489622, 0.489622, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yp42l"]
 resource_local_to_scene = true
@@ -181,6 +187,10 @@ material_override = SubResource("ShaderMaterial_yp42l")
 [node name="cable" parent="stationary gun2/stationary cannon" index="4"]
 material_override = SubResource("ShaderMaterial_a5ruv")
 material_overlay = SubResource("ShaderMaterial_hryvt")
+
+[node name="cable 2" parent="stationary gun2/stationary cannon" index="5"]
+material_override = SubResource("ShaderMaterial_a5ruv")
+material_overlay = SubResource("ShaderMaterial_xlwhq")
 
 [node name="GrappleOrigin" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.455155, 0)

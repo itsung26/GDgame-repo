@@ -6,9 +6,12 @@ class_name EnergyBall extends EnemyProjectile
 
 func _setup(pos:Vector3, dir:Vector3) -> void:
 	super._setup(pos, dir)
+
+func _ready() -> void:
 	# start the clock for bullet despawn
 	if can_despawn: # begin the countdown on load to despawning
 		despawn_timer.start(despawn_time)
+		print(despawn_timer.time_left)
 	else: # otherwise, timer is not needed
 		despawn_timer.queue_free()
 
@@ -22,15 +25,6 @@ func _destroySelf():
 
 func deleteBodyCollider():
 	rigidbody_collider.queue_free()
-
-# continually look in the direction of linear velocity travel
-func _process(delta: float) -> void:
-	if linear_velocity.length() > 0.01:
-		var dir := linear_velocity.normalized()
-		var up := Vector3.UP
-		if abs(dir.dot(up)) > 0.98:
-			up = Vector3.FORWARD
-		look_at(global_position + dir, up)
 
 func _on_body_entered(body: Node) -> void:
 	if body is Player:
@@ -46,9 +40,10 @@ func _on_body_entered(body: Node) -> void:
 		_destroySelf()
 	
 	else:
-		#print("enemy projectile collided with world")
+		print("enemy projectile collided with world")
 		_destroySelf()
 
 
 func _on_despawn_timer_timeout() -> void:
+	print("test")
 	_destroySelf()

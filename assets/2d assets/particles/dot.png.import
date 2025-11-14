@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcbkmi4kqq3yq"
-path.s3tc="res://.godot/imported/bonewall.png-748bed542b227a953ebd132b982b4ace.s3tc.ctex"
+uid="uid://bsxlyvq6hevfx"
+path.s3tc="res://.godot/imported/dot.png-1f6e9e8fe7bd233a8074309a026084fa.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/2d assets/primary textures/Ultra Textures/Heresy/bonewall.png"
-dest_files=["res://.godot/imported/bonewall.png-748bed542b227a953ebd132b982b4ace.s3tc.ctex"]
+source_file="res://assets/2d assets/particles/dot.png"
+dest_files=["res://.godot/imported/dot.png-1f6e9e8fe7bd233a8074309a026084fa.s3tc.ctex"]
 
 [params]
 

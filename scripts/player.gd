@@ -1,3 +1,28 @@
+## The player. Creation of a new level that the player may be active in requires that a [code]Player[/code]
+## scene, a [code]GrappleMeshGenerator[/code] scene, and a [code]LaserGenerator[/code] scene be present in the level.
+##
+## [u][b]Core Logic[/b][/u]
+## [br]
+## The player primarily works on the basis of a finite-state machine system. This involves a set
+## of constants in the form of an enumeration, with a type-restricted variable "occupuying"
+## one of the constants' state. [code]Player[/code] currently makes use of four seperate state machines:
+## [br]
+## [br] 
+## [code]player_states[/code]: primarily handles changes to [code]velocity[/code] core attribute. (see enums and [code]set_player_state()[/code])
+## [br]
+## [code]weapon_states[/code]: handles what inputs are allowed based on which weapon the player has. This essentially functions as an inventory system. (see enums and [code]set_weapon_state()[/code])
+## [br]
+## [code]arm_states[/code]: handles which arm is currently equipped and which action occurs on pressing the arm action button. (see enums and [code]set_arm_state()[/code])
+## [br]
+## [code]action_states[/code]: Handles which action is currently occuring. (see enums) [color=lightblue]Note: this currently only handles grapple hook state logic and may be depreciated in the future.[/color]
+## [br]
+## [br]
+## [u][b]Camera[/b][/u]
+## [br]The camera movement logic is computed when [code]cameraFX()[/code] is called (excluding mouse look,
+## as this needs to be computed on input in [code]_input()[/code]). It does not make use of a state
+## machine, so any changes to it's position/rotation have to be procedural and account for
+## the camera being in any given state.
+ 
 class_name Player extends CharacterBody3D
 
 @onready var player: CharacterBody3D = $"."
@@ -12,7 +37,7 @@ class_name Player extends CharacterBody3D
 @onready var bll_animator: AnimationPlayer = $BLLAnimator
 @onready var arm_pivot_pistol: Node3D = $Pivot/Camera3D/ArmPivotPistol
 @onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
-@onready var hud: Control = $"../HUD"
+@onready var hud: HudGui = $"../HUD"
 @onready var grapple_target: Node3D = $"../GrappleTarget"
 @onready var grapple_arm: Node3D = $Pivot/Camera3D/GrappleArm
 @onready var grapple_direction_getter: RayCast3D = $Pivot/Camera3D/GrappleDirectionGetter
@@ -36,9 +61,6 @@ const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.t
 var grapple_rope_mesh_gen:ropeMeshGenerator
 const LaserGenerator_SCENE = preload("res://scenes/laser_generator.tscn")
 
-signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_state:weapon_states)
-## WIP
-signal left_floor
 
 @export_category("Input Allowments")
 @export var player_move_input_enabled:bool = true
@@ -71,11 +93,12 @@ var stamina_recharging:bool = true
 ## Speed at which the stamina charges.
 @export var stamina_charge_speed:float = 100.0
 @export var initial_weapon:weapon_states = weapon_states.PISTOL
+@export var inital_arm:arm_states = arm_states.GRAPPLEARM
 
 @export_category("Camera")
 @export var camera_roll_enabled:bool = true
-@export var max_camera_roll: float = 7.5 # degrees, adjust as desired
-@export var camera_roll_speed: float = 6.5 # how quickly the camera rolls
+@export var max_camera_roll: float = 3.25 # degrees, adjust as desired
+@export var camera_roll_speed: float = 20.0 # how quickly the camera rolls
 
 @export_category("Movement")
 @export var SPEED = 12.0
@@ -128,7 +151,7 @@ var BLL_AMMO := BLL_MAGSIZE
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
 @export var free_slide_enabled := false
 
-# 3 seperate FSMs (finite state machines) to replace conditional trees
+## 4 seperate FSMs (finite state machines) to replace conditional trees
 ## Player states. These states affect the player's kinematics.
 enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING, DASHING, SLAMMING}
 ## Weapon states. These states serve as the weapons that the player is allowed to use.
@@ -137,6 +160,13 @@ enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
 enum arm_states{GRAPPLEARM, PARRYARM}
 ## Action states. These states affect the special actions that the player can take. This includes any special mechanics such as grappling or parrying.
 enum action_states{IDLE, GRAPPLING, PARRYING, REELINGFROM}
+
+# Signals for corresponding FSMs.
+## Emitted when the [code]player_state[/code] changes.
+signal entered_player_state(new_player_state:player_states, previous_player_state:player_states)
+signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_state:weapon_states)
+signal entered_arm_state(new_arm_state:arm_states, previous_arm_state:arm_states)
+
 
 @export_category("State Machine")
 @export var player_state:player_states = player_states.GROUNDED:
@@ -204,7 +234,11 @@ func _ready() -> void:
 	
 	# switch to the initial weapon
 	if weapon_state != initial_weapon:
-		weapon_state = initial_weapon
+		set_weapon_state(initial_weapon)
+		
+	# Switch to the initial arm
+	if arm_state != inital_arm:
+		set_arm_state(initial_weapon)
 
 
 func set_player_state(new_player_state:int):

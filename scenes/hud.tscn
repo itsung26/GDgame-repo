@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://cp1mmygsp63vr"]
+[gd_scene load_steps=73 format=3 uid="uid://cp1mmygsp63vr"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://cb01ujc6n6psl" path="res://assets/2d assets/ui/kenney_ui-pack/Vector/Grey/icon_circle.svg" id="2_iypfu"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://dv28tr2kvmsjf" path="res://assets/2d assets/ui/icons generic/WhiplashHUDNew.webp" id="15_qkknv"]
 [ext_resource type="Texture2D" uid="uid://djo8hu6042eub" path="res://assets/2d assets/ui/icons generic/hand_outline.png" id="20_084dp"]
 [ext_resource type="Script" uid="uid://cm1aavjlbf0wc" path="res://scripts/bottom_mid_area.gd" id="21_48y67"]
+[ext_resource type="Texture2D" uid="uid://y3yvm7d8871i" path="res://assets/2d assets/ui/icons generic/p_ui_1.png" id="21_084dp"]
 
 [sub_resource type="Theme" id="Theme_eld54"]
 Label/fonts/font = ExtResource("3_5n1hp")
@@ -133,9 +134,27 @@ shader = ExtResource("3_0m4u7")
 shader_parameter/cull_backface = false
 shader_parameter/use_front = true
 shader_parameter/fov = 90.0
-shader_parameter/rot_y_deg = 18.0
+shader_parameter/rot_y_deg = 0.0
 shader_parameter/rot_x_deg = 0.0
 shader_parameter/inset = 0.0
+
+[sub_resource type="GDScript" id="GDScript_48y67"]
+resource_name = "Editor functions"
+script/source = "@tool
+extends SubViewportContainer
+
+@export_tool_button(\"set rotate\") var a = setRot
+@export_tool_button(\"unset rotate\") var b = unsetRot
+
+
+func setRot():
+	var shader:ShaderMaterial = material
+	shader.set_shader_parameter(\"rot_y_deg\", 18.0)
+	
+func unsetRot():
+	var shader:ShaderMaterial = material
+	shader.set_shader_parameter(\"rot_y_deg\", 0)
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m4u7"]
 bg_color = Color(0, 0, 0, 1)
@@ -846,6 +865,7 @@ offset_right = 569.0
 offset_bottom = -23.0
 grow_vertical = 0
 stretch = true
+script = SubResource("GDScript_48y67")
 
 [node name="SubViewport" type="SubViewport" parent="BottomLeftArea/AmmoPanel"]
 transparent_bg = true
@@ -988,6 +1008,34 @@ offset_bottom = 79.0
 texture = ExtResource("15_qkknv")
 expand_mode = 1
 
+[node name="ArmPanel2" type="Panel" parent="BottomLeftArea/AmmoPanel/SubViewport"]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 423.0
+offset_top = -119.0
+offset_right = 508.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_iypfu")
+
+[node name="TextureRect" type="TextureRect" parent="BottomLeftArea/AmmoPanel/SubViewport/ArmPanel2"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 75.0
+offset_bottom = 114.0
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="BottomLeftArea/AmmoPanel/SubViewport/ArmPanel2"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 17.0
+offset_right = 42.0
+offset_bottom = 84.0
+texture = ExtResource("21_084dp")
+expand_mode = 1
+
 [node name="WavePanel" type="Panel" parent="BottomLeftArea/AmmoPanel/SubViewport"]
 offset_left = 423.0
 offset_right = 508.0
@@ -1021,6 +1069,7 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("21_48y67")
 tooltip_array = [NodePath("tooltipMargin/HBoxContainer/KEY"), NodePath("tooltipMargin/HBoxContainer/ACTION")]
+metadata/_edit_lock_ = true
 
 [node name="tooltipMargin" type="MarginContainer" parent="BottomMidArea"]
 layout_mode = 1
