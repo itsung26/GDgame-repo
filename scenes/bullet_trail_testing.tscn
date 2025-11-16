@@ -22,12 +22,13 @@ size = Vector2(50, 50)
 
 [node name="bullet trail testing" type="Node3D"]
 script = ExtResource("1_kaeyt")
+trail_color = Color(1, 0, 0, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_m5rlg")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, -3.57672, 5.16192e-08, -2.06504)
 shadow_enabled = true
 
 [node name="floor" type="MeshInstance3D" parent="."]
@@ -36,12 +37,13 @@ visible = false
 mesh = SubResource("PlaneMesh_m5rlg")
 
 [node name="origin" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.36433)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.856, 0, 0)
 gizmo_extents = 3.09
 
 [node name="target" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.29122, 2.40361, -6.66022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.865932, 1.2088, 0)
 gizmo_extents = 2.38
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.221668, -0.395093, 0.891496, -1.77107e-08, 0.91424, 0.405173, -0.975122, -0.0898139, 0.202658, 3.74312, 1.36019, 0.299406)
+[node name="Camera3D_fake_billboard" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.870202, 0.895939, 1.53555)
+fov = 48.3218

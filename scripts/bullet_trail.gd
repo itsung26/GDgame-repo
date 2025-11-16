@@ -17,6 +17,7 @@ func _ready() -> void:
 
 # Called every frame.
 func _process(delta: float) -> void:
+	print(rotation_degrees.x)
 	billboardToCameraX()
 	if not shrinking_y:
 		return
@@ -34,12 +35,16 @@ func _process(delta: float) -> void:
 	
 	if t >= 1.0:
 		shrinking_y = false
+	
+	# When the quad shrinks to nothing (y size of 0), free
+	if q.size.y == 0.0:
+		queue_free()
 
 ## Serves as a constructor, called after being added as a child to scene.
-func setup(origin_pos:Vector3, target_pos:Vector3, color:Color = Color.WHITE):
+func setup(origin_pos:Vector3, target_pos:Vector3, color:Color = Color.GOLD):
 	global_position = (origin_pos + target_pos) / 2.0
 	look_at(target_pos, Vector3.UP)
-	shrinking_y = true
+	#shrinking_y = true
 	_elapsed = 0.0
 	var q: QuadMesh = mesh as QuadMesh
 	if q:
@@ -47,16 +52,16 @@ func setup(origin_pos:Vector3, target_pos:Vector3, color:Color = Color.WHITE):
 		_base_height = sz.y
 		sz.x = origin_pos.distance_to(target_pos)
 		q.size = sz
+		var q_mat:StandardMaterial3D = q.material
+		if q_mat:
+			q_mat.albedo_color = color
 
-## Rotate on Z axis so the X+ axis (quad front face) faces the currently active camera.
+## Rotate around WORLD Z so the X+ axis (mesh front) faces the active camera (computed in global space).
 func billboardToCameraX() -> void:
 	var cam: Camera3D = get_viewport().get_camera_3d()
-	if cam == null:
-		return
-	# Camera position in this node's local space
-	var cam_local: Vector3 = to_local(cam.global_position)
-	# Rotate only around the Z axis so X+ faces the camera direction
-	var desired_pitch := atan2(cam_local.y, cam_local.x) # X+ is forward
-	var r := rotation
-	r.z = desired_pitch
-	rotation = r
+	var x = rotation.x
+	var y = rotation.y
+	if cam:
+		look_at(cam.global_position)
+	rotation.y = y
+	# rotation.x = x

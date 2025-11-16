@@ -51,7 +51,7 @@ data = PackedVector3Array(-0.5, 3.285, 4.55, 0.5, 3.285, 4.55, -0.5, -3.285, 4.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rj2dv"]
 albedo_texture = ExtResource("7_7ksdt")
-uv1_scale = Vector3(5.005, 5.005, 5.005)
+uv1_scale = Vector3(4.355, 2.872, 3.081)
 uv1_triplanar_sharpness = 0.100855
 texture_filter = 0
 

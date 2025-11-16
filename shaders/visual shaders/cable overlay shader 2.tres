@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://civ514brwxgvl"]
 
-[ext_resource type="Texture2D" uid="uid://c0vbcwhiwr208" path="res://assets/meshes/stationary gun/textures/cable 2.png" id="1_ufidr"]
+[ext_resource type="Texture2D" uid="uid://bvo08g2sapsov" path="res://assets/2d assets/primary textures/Ultra Textures/Heresy/rubble.png" id="1_ufidr"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3eevu"]
 texture = ExtResource("1_ufidr")

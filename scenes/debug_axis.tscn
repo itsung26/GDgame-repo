@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dx87drah817da"]
+
+[node name="DebugAxis" type="Node3D"]
+
+[node name="RayCastX+" type="RayCast3D" parent="."]
+target_position = Vector3(1, 0, 0)
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="RayCastZ+" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 1)
+debug_shape_custom_color = Color(0, 0, 1, 1)
+
+[node name="RayCastY+" type="RayCast3D" parent="."]
+target_position = Vector3(0, 1, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
