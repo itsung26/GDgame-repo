@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dggw1prykxba"]
+
+[ext_resource type="Texture2D" uid="uid://tqaep337usyv" path="res://assets/meshes/parry arm/textures/T_Feedbacker.png" id="1_tjpjc"]
+
+[resource]
+resource_name = "FeedbackerLit"
+cull_mode = 2
+albedo_texture = ExtResource("1_tjpjc")
+metallic = 1.0
+roughness = 0.552786

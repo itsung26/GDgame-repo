@@ -33,6 +33,20 @@ animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
+"materials": {
+"FeedbackerLit": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/parry arm/materials/FeedbackerLit.tres"
+},
+"blue metal": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/parry arm/materials/blue metal.tres"
+},
+"gray metal": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/parry arm/materials/gray metal.tres"
+}
+},
 "meshes": {
 "parry arm_Cube_001": {
 "generate/lightmap_uv": 0,
@@ -49,6 +63,38 @@ _subresources={
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
 "save_to_file/path": "res://assets/meshes/parry arm/mesh assets/parry arm_Cube_002.res"
+},
+"parry arm_Cube_003": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/parry arm/mesh assets/parry arm_Cube_003.res"
+},
+"parry arm_Cube_004": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/parry arm/mesh assets/parry arm_Cube_004.res"
+},
+"parry arm_Feedbacker": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/parry arm/mesh assets/parry arm_Feedbacker.res"
+},
+"parry arm_Feedbacker_001": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/parry arm/mesh assets/parry arm_Feedbacker_001.res"
 }
 }
 }

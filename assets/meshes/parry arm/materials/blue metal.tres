@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bnb835bgr3y83"]
+
+[resource]
+resource_name = "blue metal"
+cull_mode = 2
+albedo_color = Color(0.329848, 0.408513, 0.616668, 1)
+roughness = 0.5
