@@ -37,11 +37,12 @@ visible = false
 mesh = SubResource("PlaneMesh_m5rlg")
 
 [node name="origin" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.856, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.14867, 0, 0)
 gizmo_extents = 3.09
 
 [node name="target" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75327, 2.29896, -2.82298)
 gizmo_extents = 2.38
 
 [node name="Camera3D_fake_billboard" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283, 0.594, 0.96)
+transform = Transform3D(-0.683592, -0.274451, 0.676298, 1.49012e-08, 0.926607, 0.37603, -0.729864, 0.257051, -0.633422, 2.29661, 2.24259, -1.24341)

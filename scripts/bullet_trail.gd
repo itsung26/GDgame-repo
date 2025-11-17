@@ -17,7 +17,6 @@ func _ready() -> void:
 
 # Called every frame.
 func _process(delta: float) -> void:
-	print(rotation_degrees.x)
 	billboardToCameraX()
 	if not shrinking_y:
 		return
@@ -56,12 +55,14 @@ func setup(origin_pos:Vector3, target_pos:Vector3, color:Color = Color.GOLD):
 		if q_mat:
 			q_mat.albedo_color = color
 
-## Rotate around WORLD Z so the X+ axis (mesh front) faces the active camera (computed in global space).
+## Rotate around WORLD Z so the X+ axis
 func billboardToCameraX() -> void:
+	var local_rotation:Vector3 = to_local(rotation)
+	var local_rotation_degrees:Vector3 = Vector3(rad_to_deg(local_rotation.x), rad_to_deg(local_rotation.y), rad_to_deg(local_rotation.z))
 	var cam: Camera3D = get_viewport().get_camera_3d()
-	var x = rotation.x
-	var y = rotation.y
-	if cam:
-		look_at(cam.global_position)
-	rotation.y = y
-	# rotation.x = x
+	if cam == null:
+		return
+	#look_at(cam.global_position)
+	#rotation_degrees.y = 0.0
+	#rotation_degrees.x = 0.0
+	

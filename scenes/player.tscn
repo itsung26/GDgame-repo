@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=77 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/visual shaders/pixelated.tres" id="2_f1ej7"]
@@ -1154,33 +1154,6 @@ _data = {
 &"BLL_put_down": SubResource("Animation_jej6c")
 }
 
-[sub_resource type="Animation" id="Animation_fulsm"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_qfm1y"]
-resource_name = "parry"
-length = 0.2062
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.105141),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"parryTargetInBox"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4r5pv"]
-_data = {
-&"RESET": SubResource("Animation_fulsm"),
-&"parry": SubResource("Animation_qfm1y")
-}
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mh8"]
 radius = 0.2397
 
@@ -1559,11 +1532,6 @@ libraries = {
 autoplay = "Black Hole Launcher/BLL_pulse"
 speed_scale = 5.0
 
-[node name="ParryArmAnimator" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_4r5pv")
-}
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
@@ -1829,13 +1797,7 @@ shape = SubResource("BoxShape3D_qfm1y")
 debug_color = Color(1, 1, 0, 0.419608)
 
 [node name="parry arm" parent="Pivot/Camera3D/ParryArm" instance=ExtResource("12_qfm1y")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.161417, -0.0127578, 0.0941619)
-
-[node name="arm" parent="Pivot/Camera3D/ParryArm/parry arm" index="0"]
-transform = Transform3D(-1.64203e-15, -4.37114e-08, -1, -1, -4.37114e-08, 3.55271e-15, -4.37114e-08, 1, -4.37114e-08, 0.0208461, -0.0116848, 1.39986)
-
-[node name="Skeleton3D" parent="Pivot/Camera3D/ParryArm/parry arm/feebacker arm armature" index="0"]
-bones/1/scale = Vector3(1, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115876, -0.0787442, 0.106673)
 
 [node name="ParryFlash" type="MeshInstance3D" parent="Pivot/Camera3D/ParryArm" groups=["parry visuals"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.354004, -0.432234)
