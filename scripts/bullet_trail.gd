@@ -39,11 +39,11 @@ func _process(delta: float) -> void:
 	if q.size.y == 0.0:
 		queue_free()
 
-## Serves as a constructor, called after being added as a child to scene.
+# Serves as a constructor, called after being added as a child to scene.
 func setup(origin_pos:Vector3, target_pos:Vector3, color:Color = Color.GOLD):
 	global_position = (origin_pos + target_pos) / 2.0
 	look_at(target_pos, Vector3.UP)
-	#shrinking_y = true
+	shrinking_y = true
 	_elapsed = 0.0
 	var q: QuadMesh = mesh as QuadMesh
 	if q:
@@ -55,14 +55,25 @@ func setup(origin_pos:Vector3, target_pos:Vector3, color:Color = Color.GOLD):
 		if q_mat:
 			q_mat.albedo_color = color
 
-## Rotate around WORLD Z so the X+ axis
+## Make local +X face the camera by rotating ONLY around local Z, computed in parent space to avoid jitter.
 func billboardToCameraX() -> void:
-	var local_rotation:Vector3 = to_local(rotation)
-	var local_rotation_degrees:Vector3 = Vector3(rad_to_deg(local_rotation.x), rad_to_deg(local_rotation.y), rad_to_deg(local_rotation.z))
 	var cam: Camera3D = get_viewport().get_camera_3d()
-	if cam == null:
+	var parent := get_parent()
+	if cam == null or parent == null:
 		return
-	#look_at(cam.global_position)
-	#rotation_degrees.y = 0.0
-	#rotation_degrees.x = 0.0
-	
+
+	# Camera and self in PARENT space (stable; does not depend on this node's current rotation)
+	var cam_parent: Vector3 = parent.to_local(cam.global_position)
+	var to_cam_parent: Vector3 = cam_parent - position
+	# Constrain to local XY plane (so we rotate around local Z only)
+	to_cam_parent.z = 0.0
+	if to_cam_parent.length_squared() < 1e-10:
+		return
+
+	var desired_z: float = atan2(to_cam_parent.y, to_cam_parent.x)
+
+	# Optional smoothing to further reduce visual jitter:
+	# rotation.z = lerp_angle(rotation.z, desired_z, 0.25)
+	var r := rotation
+	r.z = desired_z
+	rotation = r

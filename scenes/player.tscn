@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=78 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/visual shaders/pixelated.tres" id="2_f1ej7"]
@@ -16,8 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="11_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://d6b4gnbdcx45" path="res://scenes/black_hole_launcher.tscn" id="11_d2wvv"]
 [ext_resource type="PackedScene" uid="uid://imchkmka60lw" path="res://assets/meshes/parry arm/parry arm.blend" id="12_qfm1y"]
+[ext_resource type="Animation" uid="uid://3atkceswsf0e" path="res://assets/meshes/parry arm/animations/swing arm initial.res" id="13_60mlk"]
 [ext_resource type="Texture2D" uid="uid://clio45cdgnanq" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_07.png" id="13_fulsm"]
+[ext_resource type="Animation" uid="uid://cnhkkcfwtl5vx" path="res://assets/meshes/parry arm/animations/swing arm miss.res" id="14_i4ail"]
+[ext_resource type="Animation" uid="uid://c6a32v1x3a8qx" path="res://assets/meshes/parry arm/animations/swing arm parry.res" id="15_i4ail"]
 [ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="16_a8ls1"]
+[ext_resource type="PackedScene" uid="uid://vcb1a0yxsq2y" path="res://scenes/melee.tscn" id="19_a38lo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qfm1y"]
 shader = ExtResource("2_f1ej7")
@@ -253,212 +257,86 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("Pivot/Camera3D/Guns/Pistol/pistolPart/magazine:position")
+tracks/16/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:position")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, -1.08348, -0.896698)]
+"values": [Vector3(0.0818599, 1.21195, -0.397836)]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("Pivot/Camera3D/Guns/Pistol/pistolPart/magazine:rotation")
+tracks/17/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:position")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(1.5708, 0, 0)]
+"values": [Vector3(0.546436, 1.34883, -0.0393332)]
 }
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("Pivot/Camera3D/Guns/Pistol/pistolPart/bolt:position")
+tracks/18/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:rotation")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0.725)]
+"values": [Vector3(0.918043, -3.28995, -2.56389)]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashV:visible")
+tracks/19/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:rotation")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector3(1.38329, 2.60279, 2.22306)]
 }
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashH:visible")
+tracks/20/path = NodePath("Pivot/Camera3D/ArmPivotBLL:position")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector3(0, -1.5, 0)]
 }
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashV:modulate")
+tracks/21/path = NodePath("Pivot/Camera3D/ArmPivotBLL:rotation")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 1, 1, 1)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/MuzzleFlashH:modulate")
+tracks/22/path = NodePath("huds/HUD:crosshair_spread")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 1, 1, 1)]
-}
-tracks/23/type = "value"
-tracks/23/imported = false
-tracks/23/enabled = true
-tracks/23/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:position")
-tracks/23/interp = 1
-tracks/23/loop_wrap = true
-tracks/23/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.0818599, 1.21195, -0.397836)]
-}
-tracks/24/type = "value"
-tracks/24/imported = false
-tracks/24/enabled = true
-tracks/24/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:position")
-tracks/24/interp = 1
-tracks/24/loop_wrap = true
-tracks/24/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.546436, 1.34883, -0.0393332)]
-}
-tracks/25/type = "value"
-tracks/25/imported = false
-tracks/25/enabled = true
-tracks/25/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmL:rotation")
-tracks/25/interp = 1
-tracks/25/loop_wrap = true
-tracks/25/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.918043, -3.28995, -2.56389)]
-}
-tracks/26/type = "value"
-tracks/26/imported = false
-tracks/26/enabled = true
-tracks/26/path = NodePath("Pivot/Camera3D/ArmPivotBLL/ArmR:rotation")
-tracks/26/interp = 1
-tracks/26/loop_wrap = true
-tracks/26/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.38329, 2.60279, 2.22306)]
-}
-tracks/27/type = "value"
-tracks/27/imported = false
-tracks/27/enabled = true
-tracks/27/path = NodePath("Pivot/Camera3D/ArmPivotBLL:position")
-tracks/27/interp = 1
-tracks/27/loop_wrap = true
-tracks/27/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -1.5, 0)]
-}
-tracks/28/type = "value"
-tracks/28/imported = false
-tracks/28/enabled = true
-tracks/28/path = NodePath("Pivot/Camera3D/ArmPivotBLL:rotation")
-tracks/28/interp = 1
-tracks/28/loop_wrap = true
-tracks/28/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/29/type = "value"
-tracks/29/imported = false
-tracks/29/enabled = true
-tracks/29/path = NodePath("Pivot/Camera3D/Guns/Pistol/VFX/muzzle/OmniLight3D:visible")
-tracks/29/interp = 1
-tracks/29/loop_wrap = true
-tracks/29/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/30/type = "value"
-tracks/30/imported = false
-tracks/30/enabled = true
-tracks/30/path = NodePath("huds/HUD:crosshair_spread")
-tracks/30/interp = 1
-tracks/30/loop_wrap = true
-tracks/30/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
 "values": [8.03]
-}
-
-[sub_resource type="Animation" id="Animation_fjrip"]
-resource_name = "camera_overclock_zoom_in"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/Camera3D:fov")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [90.0, 75.0]
-}
-
-[sub_resource type="Animation" id="Animation_tuyoq"]
-resource_name = "camera_overclock_zoom_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/Camera3D:fov")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [75.0, 90.0]
 }
 
 [sub_resource type="Animation" id="Animation_f1ej7"]
@@ -527,7 +405,7 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"fire"
+"method": &"_fire"
 }]
 }
 tracks/3/type = "value"
@@ -603,10 +481,6 @@ tracks/8/keys = {
 "values": [8.03, 22.36, 8.03]
 }
 
-[sub_resource type="Animation" id="Animation_qlg0r"]
-resource_name = "inspect"
-length = 3.0
-
 [sub_resource type="Animation" id="Animation_dqkch"]
 resource_name = "reload_pistol"
 length = 3.5
@@ -681,7 +555,7 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"reload"
+"method": &"_reload"
 }]
 }
 tracks/6/type = "value"
@@ -709,24 +583,12 @@ tracks/7/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_y4r1p"]
-resource_name = "shotgun_inspect"
-length = 3.0
-
-[sub_resource type="Animation" id="Animation_smehm"]
-resource_name = "silence_particles"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o7tup"]
 _data = {
 &"RESET": SubResource("Animation_g2els"),
-&"camera_overclock_zoom_in": SubResource("Animation_fjrip"),
-&"camera_overclock_zoom_out": SubResource("Animation_tuyoq"),
 &"equip_pistol": SubResource("Animation_f1ej7"),
 &"fire": SubResource("Animation_3vyb7"),
-&"inspect": SubResource("Animation_qlg0r"),
-&"reload_pistol": SubResource("Animation_dqkch"),
-&"shotgun_inspect": SubResource("Animation_y4r1p"),
-&"silence_particles": SubResource("Animation_smehm")
+&"reload_pistol": SubResource("Animation_dqkch")
 }
 
 [sub_resource type="Animation" id="Animation_3v2ag"]
@@ -1156,6 +1018,7 @@ _data = {
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mh8"]
 radius = 0.2397
+height = 1.69436
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
 size = Vector3(0.752441, 0.138672, 0.796112)
@@ -1202,6 +1065,8 @@ material = SubResource("StandardMaterial3D_y4r1p")
 inner_radius = 0.49
 outer_radius = 0.651
 rings = 12
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_i4ail"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_y4r1p"]
 radius = 0.09
@@ -1362,6 +1227,13 @@ size = Vector3(0.275297, 0.62793, 2.11493)
 [sub_resource type="BoxShape3D" id="BoxShape3D_qfm1y"]
 size = Vector3(1.99298, 1.59285, 3.25121)
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a38lo"]
+_data = {
+&"swing arm initial": ExtResource("13_60mlk"),
+&"swing arm miss": ExtResource("14_i4ail"),
+&"swing arm parry": ExtResource("15_i4ail")
+}
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4r5pv"]
 transparency = 1
 shading_mode = 0
@@ -1433,15 +1305,45 @@ outer_radius = 0.715
 [node name="Player" type="CharacterBody3D" groups=["players"]]
 collision_mask = 263
 script = ExtResource("1_qhqgy")
+player_move_input_enabled = null
+player_look_input_enabled = null
+player_fire_input_enabled = null
+player_dash_input_enabled = null
+player_arm_action_enabled = null
+weapon_switch_enabled = null
+player_slide_slam_input_enabled = null
+player_kinematics_enabled_xz = null
+player_kinematics_enabled_y = null
+Godmode = null
+HEALTH = null
+STAMINA = null
 stamina_charge_delay = 0.1
+stamina_charge_speed = null
+inital_arm = 1
+camera_roll_enabled = null
+max_camera_roll = null
+camera_roll_speed = null
+SPEED = null
+JUMP_VELOCITY = null
 look_sensitivity = 0.2
+gravity_enabled = null
+Aerial_Slowdown = null
+AIR_ACCELERATION = null
 slide_speed_multiplier = 1.5
 dash_velocity_increase = 35.0
 dash_time_length = 0.175
+slam_velocity = null
+Grapple_Enabled = null
 GRAPPLE_SPEED_MAX = 120
 grapple_pull_speed = 1500.0
 grapple_hop = 5.0
+BLL_MAGSIZE = null
+black_hole_damage_per_frame = null
+BLL_projectile_travel_speed = null
+BLL_pull_speed = null
+hitstop_duration = null
 parry_projectile_speed_boost = 2.0
+free_slide_enabled = null
 
 [node name="timeControllerAgent" type="Node" parent="."]
 
@@ -1485,19 +1387,13 @@ script = ExtResource("2_oprun")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_a8ls1")
-skeleton = NodePath("../../CollisionShape3D")
+skeleton = NodePath("../../CollisionShapeMain")
 
 [node name="debugFloor" type="MeshInstance3D" parent="debugVisuals"]
 transform = Transform3D(6.02424, 0, 0, 0, 6.02424, 0, 0, 0, 6.02424, 0, 0, 0)
 visible = false
 mesh = SubResource("PlaneMesh_qfm1y")
 skeleton = NodePath("../..")
-
-[node name="GunAnimator" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_o7tup")
-}
-speed_scale = 1.5
 
 [node name="CameraAnimator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1532,8 +1428,8 @@ libraries = {
 autoplay = "Black Hole Launcher/BLL_pulse"
 speed_scale = 5.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="CollisionShapeMain" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.847, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
 
 [node name="footCollider" type="CollisionShape3D" parent="."]
@@ -1566,13 +1462,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
+attributes = SubResource("CameraAttributesPractical_i4ail")
 
 [node name="GrappleDirectionGetter" type="RayCast3D" parent="Pivot/Camera3D"]
 visible = false
 target_position = Vector3(0, 0, -1)
 
 [node name="BulletRayCast" type="RayCast3D" parent="Pivot/Camera3D"]
-transform = Transform3D(1, 8.74228e-08, 8.74228e-08, 8.74228e-08, -1, 0, 8.74228e-08, 7.64274e-15, -1, 0.00434119, -0.0047704, -0.40687)
+transform = Transform3D(1, 8.74228e-08, 8.74228e-08, 8.74228e-08, -1, 0, 8.74228e-08, 7.64274e-15, -1, 0, 0, 0)
 visible = false
 target_position = Vector3(0, 0, 900)
 collision_mask = 6
@@ -1741,7 +1638,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.89623, -0.00338209, 0.181376, -0.147857)
+transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338215, 0.181378, -0.147857)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1794,10 +1691,37 @@ collision_mask = 10
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/ParryArm/ParryHitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022134, -0.272965, -1.53758)
 shape = SubResource("BoxShape3D_qfm1y")
-debug_color = Color(1, 1, 0, 0.419608)
+debug_color = Color(1, 1, 0, 0)
 
 [node name="parry arm" parent="Pivot/Camera3D/ParryArm" instance=ExtResource("12_qfm1y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115876, -0.0787442, 0.106673)
+
+[node name="Skeleton3D" parent="Pivot/Camera3D/ParryArm/parry arm/feedbacker" index="0"]
+bones/0/rotation = Quaternion(-0.565045, 0.00809026, 0.57958, 0.58715)
+bones/1/rotation = Quaternion(-0.755637, -0.0121037, -0.263937, 0.599336)
+bones/2/rotation = Quaternion(-0.117489, 0.643557, -0.224493, 0.722242)
+bones/3/rotation = Quaternion(-0.426861, -0.0132569, -0.00604143, 0.9042)
+bones/4/rotation = Quaternion(-0.752218, 0.0913684, 0.0570066, 0.650054)
+bones/5/rotation = Quaternion(-0.387332, 0.038369, 0.0562436, 0.919423)
+bones/7/rotation = Quaternion(-0.424103, -0.0117608, 0.0314114, 0.904993)
+bones/8/rotation = Quaternion(-0.743838, 0.102419, 0.0736778, 0.656344)
+bones/9/rotation = Quaternion(-0.3914, 0.0505203, 0.064707, 0.916552)
+bones/11/rotation = Quaternion(-0.423124, -0.0109912, 0.0403304, 0.905107)
+bones/12/rotation = Quaternion(-0.741603, 0.104003, 0.078245, 0.658093)
+bones/13/rotation = Quaternion(-0.392332, 0.0544913, 0.0672439, 0.915743)
+bones/14/rotation = Quaternion(-1.84548e-07, 4.80296e-07, -1.0794e-07, 1)
+bones/15/rotation = Quaternion(-0.42518, -0.0124975, 0.0200426, 0.904801)
+bones/16/rotation = Quaternion(-0.746454, 0.0991917, 0.0688725, 0.654388)
+bones/17/rotation = Quaternion(-0.390204, 0.046949, 0.062119, 0.91743)
+bones/19/rotation = Quaternion(-0.0624821, -0.124149, -0.54325, 0.827987)
+bones/20/rotation = Quaternion(0.079542, -0.0684054, 0.517673, 0.849122)
+bones/21/rotation = Quaternion(0.0857301, -0.0171929, 0.459783, 0.883716)
+
+[node name="AnimationPlayer" parent="Pivot/Camera3D/ParryArm/parry arm" index="1"]
+callback_mode_method = 1
+libraries = {
+&"": SubResource("AnimationLibrary_a38lo")
+}
 
 [node name="ParryFlash" type="MeshInstance3D" parent="Pivot/Camera3D/ParryArm" groups=["parry visuals"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.354004, -0.432234)
@@ -1848,13 +1772,7 @@ transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8
 [node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
 transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, -0.44, 0.28, 0.535)
 
-[node name="magazine" parent="Pivot/Camera3D/Guns/Pistol/pistolPart" index="1"]
-transform = Transform3D(0.116955, 0, 0, 0, -4.23376e-07, -0.116955, 0, 0.116955, -4.23376e-07, 0, -1.08348, -0.896698)
-
-[node name="bolt" parent="Pivot/Camera3D/Guns/Pistol/pistolPart" index="2"]
-transform = Transform3D(0.116955, 0, 0, 0, -5.11227e-09, -0.116955, 0, 0.116955, -5.11227e-09, 0, 0, 0.725)
-
-[node name="OmniLight3D" parent="Pivot/Camera3D/Guns/Pistol/VFX/muzzle" index="2"]
+[node name="Melee" parent="Pivot/Camera3D/Guns" instance=ExtResource("19_a38lo")]
 visible = false
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
@@ -1889,6 +1807,9 @@ local_coords = true
 process_material = SubResource("ParticleProcessMaterial_y4r1p")
 draw_pass_1 = SubResource("TorusMesh_3v2ag")
 
+[node name="distantMarker" type="Marker3D" parent="Pivot/Camera3D"]
+transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, 0, 0, -5000)
+
 [node name="SlideParticles" parent="." instance=ExtResource("8_smehm")]
 script = ExtResource("9_ur7pv")
 
@@ -1918,9 +1839,6 @@ wait_time = 0.5
 one_shot = true
 ignore_time_scale = true
 
-[node name="CamShakeTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="DashLengthTimer" type="Timer" parent="."]
 one_shot = true
 
@@ -1931,14 +1849,13 @@ one_shot = true
 one_shot = true
 ignore_time_scale = true
 
-[connection signal="entered_weapon_state" from="." to="huds/HUD/HideHandler" method="_on_player_entered_weapon_state"]
+[connection signal="entered_arm_state" from="." to="huds/HUD" method="_on_player_entered_arm_state"]
 [connection signal="body_entered" from="GrappleEnemyCeaseArea" to="." method="_on_grapple_enemy_cease_area_body_entered"]
-[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_world_entered"]
+[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
-[connection signal="timeout" from="CamShakeTimer" to="." method="_on_cam_shake_timer_timeout"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
 [connection signal="timeout" from="StaminaChargeDelayTimer" to="." method="_on_stamina_charge_delay_timer_timeout"]
 [connection signal="timeout" from="HitstopTimer" to="." method="_on_hitstop_timer_timeout"]

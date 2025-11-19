@@ -30,18 +30,14 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 1, Vector2(0.246711, 1), 0.0, 0.0, 0, 0, Ve
 point_count = 3
 
 [node name="BulletTrailMeshInstance" type="MeshInstance3D" groups=["bullet trails"]]
-transform = Transform3D(-4.37109e-08, -0.455247, -0.890355, 0, 0.890361, -0.455244, 0.999989, -1.98995e-08, -3.89186e-08, 0, 0, 0)
 mesh = SubResource("QuadMesh_3krn5")
 script = ExtResource("1_yj8wl")
 shrink_curve = SubResource("Curve_yj8wl")
 shrink_duration = 0.5
 
 [node name="DebugAxis" parent="." instance=ExtResource("2_3krn5")]
+visible = false
 
 [node name="Forward" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 gizmo_extents = 0.49
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.796, 0.407, 0)
-top_level = true

@@ -1136,6 +1136,7 @@ time_untill_process_disable_timer = NodePath("timeUntillDisable")
 HEALTH = 20.0
 SPEED = 750
 grapple_origin = NodePath("Marker3D")
+parriable = false
 
 [node name="debug state text" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.32256, 0)

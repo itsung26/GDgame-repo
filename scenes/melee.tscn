@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://vcb1a0yxsq2y"]
+
+[ext_resource type="Script" uid="uid://bca5sh5poajvj" path="res://scripts/melee.gd" id="1_v46oj"]
+[ext_resource type="PackedScene" uid="uid://cbp81maqi1kff" path="res://assets/meshes/player body/player body.blend" id="2_y1qc5"]
+
+[node name="Melee" type="Node3D" groups=["weapons"]]
+script = ExtResource("1_v46oj")
+
+[node name="player body" parent="." instance=ExtResource("2_y1qc5")]

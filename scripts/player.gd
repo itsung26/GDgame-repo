@@ -1,3 +1,7 @@
+@icon("res://assets/2d assets/ui/icons generic/plr.png")
+class_name Player
+extends CharacterBody3D
+
 ## The player. Creation of a new level that the player may be active in requires that a [code]Player[/code]
 ## scene, a [code]GrappleMeshGenerator[/code] scene, and a [code]LaserGenerator[/code] scene be present in the level.
 ##
@@ -22,8 +26,6 @@
 ## as this needs to be computed on input in [code]_input()[/code]). It does not make use of a state
 ## machine, so any changes to it's position/rotation have to be procedural and account for
 ## the camera being in any given state.
- 
-class_name Player extends CharacterBody3D
 
 @onready var player: CharacterBody3D = $"."
 @onready var camera_3d: Camera3D = %Camera3D
@@ -53,9 +55,10 @@ class_name Player extends CharacterBody3D
 @onready var tail_marker: Marker3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/TailMarker
 @onready var grapple_hook_smaller_collider: CollisionShape3D = %"grapple hook smaller collider"
 @onready var parry_arm: Node3D = $Pivot/Camera3D/ParryArm
-@onready var parry_arm_animator: AnimationPlayer = $ParryArmAnimator
+@onready var parry_arm_animator: AnimationPlayer = $"Pivot/Camera3D/ParryArm/parry arm/AnimationPlayer"
 @onready var hitstop_timer: Timer = $HitstopTimer
 @onready var parry_target_get_ray_cast: RayCast3D = $Pivot/Camera3D/ParryArm/ParryTargetGetRayCast
+@onready var distant_marker: Marker3D = $Pivot/Camera3D/distantMarker
 
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
 var grapple_rope_mesh_gen:ropeMeshGenerator
@@ -69,10 +72,6 @@ const LaserGenerator_SCENE = preload("res://scenes/laser_generator.tscn")
 @export var player_dash_input_enabled:bool = true
 @export var player_arm_action_enabled:bool = true
 @export var weapon_switch_enabled:bool = true
-@export var melee_switch_enabled:bool = true
-@export var pistol_switch_enabled:bool = true
-@export var shotgun_switch_enabled:bool = true
-@export var BLL_switch_enabled:bool = true
 @export var player_slide_slam_input_enabled:bool = true
 var stamina_recharging:bool = true
 
@@ -92,7 +91,6 @@ var stamina_recharging:bool = true
 @export var stamina_charge_delay:float = 1.0 # seconds
 ## Speed at which the stamina charges.
 @export var stamina_charge_speed:float = 100.0
-@export var initial_weapon:weapon_states = weapon_states.PISTOL
 @export var inital_arm:arm_states = arm_states.GRAPPLEARM
 
 @export_category("Camera")
@@ -125,14 +123,6 @@ var stamina_recharging:bool = true
 ## The amount of upward velocity that is added to the player after beginning to pull the grapple on an enemy
 @export var grapple_hop:float = 1.0
 
-@export_category("Pistol")
-@export var PISTOL_MAGSIZE:= 35
-var PISTOL_AMMO := PISTOL_MAGSIZE
-@export var Pistol_Damage_Range_Min := 12
-@export var Pistol_Damage_Range_Max := 17
-@export var Pistol_Overclock_Damage_Range_Min := 17
-@export var Pistol_OverClock_Damage_Range_Max := 22
-
 @export_category("Black Hole Launcher")
 @export var BLL_MAGSIZE := 3
 var BLL_AMMO := BLL_MAGSIZE
@@ -151,32 +141,52 @@ var BLL_AMMO := BLL_MAGSIZE
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
 @export var free_slide_enabled := false
 
-## 4 seperate FSMs (finite state machines) to replace conditional trees
-## Player states. These states affect the player's kinematics.
+#region State Machine initializers
+## 4 seperate FSMs (finite state machines) to replace conditional trees.
+##
+## Player states. These states affect the player's kinematics. 
+## Associated state variable of type [code]player_states[/code]: [code]player_state[/code]
 enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING, DASHING, SLAMMING}
-## Weapon states. These states serve as the weapons that the player is allowed to use.
-enum weapon_states{MELEE, PISTOL, SHOTGUN, BLL}
-## Arm states. These states affect which arm is currently active
+var player_state:player_states = player_states.GROUNDED:
+	set = set_player_state
+
+@export_category("Weapons")
+## The initial weapon. If none is set, the initial weapon defaults to the first in the
+## weapon_states order.
+@export var initial_weapon:PlayerWeapon
+## Weapon states. These states serve as the weapons that the player is allowed to use. 
+## Associated state variable of type [code]PlayerWeapon[/code]: [code]weapon_state[/code]
+## Important Note: This state machine differs from the others in the way that it is an array,
+## not an enumeration. The array directly contains refrences to the PlayerWeapon objects
+## and the weapon_state directly holds the object itself.
+## For example, checking if the player has the pistol would include: weapon_state == pistol.
+@export var weapon_states:Array[PlayerWeapon]
+@onready var weapon_state:PlayerWeapon:
+	set = set_weapon_state
+
+## Arm states. These states affect which arm is currently active. Associated state variable of type [code]arm_states[/code]: [code]arm_state[/code]
 enum arm_states{GRAPPLEARM, PARRYARM}
-## Action states. These states affect the special actions that the player can take. This includes any special mechanics such as grappling or parrying.
+var arm_state:arm_states = arm_states.GRAPPLEARM:
+	set = set_arm_state
+
+## WIP. Currently only represents the grapple hook's state.
 enum action_states{IDLE, GRAPPLING, PARRYING, REELINGFROM}
+var action_state:action_states = action_states.IDLE:
+	set = set_action_state
+#endregion
+
 
 # Signals for corresponding FSMs.
 ## Emitted when the [code]player_state[/code] changes.
 signal entered_player_state(new_player_state:player_states, previous_player_state:player_states)
-signal entered_weapon_state(new_weapon_state:weapon_states, previous_weapon_state:weapon_states)
 signal entered_arm_state(new_arm_state:arm_states, previous_arm_state:arm_states)
+signal entered_action_state(new_action_state:action_states, previous_action_state:action_states)
 
 
-@export_category("State Machine")
-@export var player_state:player_states = player_states.GROUNDED:
-	set = set_player_state
-@export var weapon_state:weapon_states = weapon_states.PISTOL:
-	set = set_weapon_state
-@export var action_state:action_states = action_states.IDLE:
-	set = set_action_state
-@export var arm_state:arm_states = arm_states.GRAPPLEARM:
-	set = set_arm_state
+
+# Weapon refrences
+@onready var pistol: PlayerPistol = $Pivot/Camera3D/Guns/Pistol
+@onready var melee: Melee = $Pivot/Camera3D/Guns/Melee
 
 var storagevar = JUMP_VELOCITY
 var mouse_delta2 : Vector2
@@ -186,7 +196,6 @@ var cause_of_death
 var black_hole_time_remaining
 var black_hole_cooldown_timer
 var prev_jump_velocity = JUMP_VELOCITY
-var pistol
 var weapon_anim_playing
 var direction
 var input_dir := Vector2.ZERO
@@ -212,7 +221,6 @@ var hooked_target_pull_origin:Object = null
 # Player should be loaded after main enviroment and global lighting, but before 
 # map and everything else.
 func _ready() -> void:
-	checkForMeshGens()
 	
 	# object reference definitions (needs to be moved)
 	pause = get_tree().current_scene.find_child("Pause")
@@ -220,7 +228,6 @@ func _ready() -> void:
 	impact_particles = slide_particles.get_node("ImpactParticles")
 	impact_sparks = slide_particles.get_node("ImpactParticles/SparkTrailsSide/ImpactSparks")
 	impact_sparks_2 = slide_particles.get_node("ImpactParticles/SparkTrailsSide/ImpactSparks2")
-	pistol = get_node("Pivot/Camera3D/Guns/Pistol")
 	skeleton = grapple_arm.get_node("grappleArm/whiplash_ARM/Skeleton3D")
 	rope_origin = skeleton.get_node("rope_origin")
 	black_hole_cooldown_timer = get_tree().current_scene.find_child("BlackHoleCooldownTimer")
@@ -231,20 +238,24 @@ func _ready() -> void:
 	
 	# set the grapple hook's physics process to static so it doesn't fall to the depths of hell
 	grapple_hook.freeze = true
-	
-	# switch to the initial weapon
-	if weapon_state != initial_weapon:
-		set_weapon_state(initial_weapon)
-		
+			
 	# Switch to the initial arm
 	if arm_state != inital_arm:
-		set_arm_state(initial_weapon)
-
+		set_arm_state(inital_arm)
+	
+	# Switch to initial weapon
+	if initial_weapon == null:
+		initial_weapon = weapon_states.front()
+		
+	weapon_state = initial_weapon
 
 func set_player_state(new_player_state:int):
 	# init vars
 	var previous_player_state := player_state
 	player_state = new_player_state
+	
+	# Emit signal
+	entered_player_state.emit(new_player_state, previous_player_state)
 	
 	if previous_player_state == new_player_state:
 		print("WARNING: Player entered a new state matching it's own. This is allowed, but may cause state machine override problems.")
@@ -313,46 +324,25 @@ func set_player_state(new_player_state:int):
 		gravity_enabled = true
 		camera_roll_enabled = true
 	
-func set_weapon_state(new_weapon_state:int):
-	# init vars
-	var previous_weapon_state := weapon_state
+func set_weapon_state(new_weapon_state:PlayerWeapon):
+	var previous_weapon_state:PlayerWeapon = weapon_state
 	weapon_state = new_weapon_state
 	
-	# emit signal
-	entered_weapon_state.emit(weapon_state, previous_weapon_state)
+	# makes the previous weapon invisible and the new weapon visible
+	if previous_weapon_state != null:
+		previous_weapon_state.visible = false
+	new_weapon_state.visible = true
 	
-	# pistol to and from
-	if new_weapon_state == weapon_states.PISTOL:
-		# make visible
-		pistol.visible = true
-		# if gun is not reloading, play equip anim
-		if gun_animator.current_animation == "reload_pistol":
-			pass
-		else:
-			gun_animator.stop()
-			gun_animator.play("equip_pistol")
-	if  previous_weapon_state == weapon_states.PISTOL:
-		pistol.visible = false
-	
-	# black hole launcher to and from
-	if new_weapon_state == weapon_states.BLL:
-		# make visible
-		arm_pivot_bll.visible = true
-		black_hole_launcher.visible = true
-		# if gun is not on cooldown anim, play equip anim
-		if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
-			pass
-		else:
-			bll_animator.stop()
-			bll_animator.play("Black Hole Launcher/BLL_equip")
-	if previous_weapon_state == weapon_states.BLL:
-		arm_pivot_bll.visible = false
-		black_hole_launcher.visible = false
-	
+	# calls the equip logic on the weapon that is being equipped
+	new_weapon_state._onEquip()
+		
 func set_action_state(new_action_state:int):
 	# init vars
 	var previous_action_state := action_state
 	action_state = new_action_state
+	
+	# Emit signal
+	entered_action_state.emit(new_action_state, previous_action_state)
 	
 	# grappling to and from
 	if new_action_state == action_states.GRAPPLING and Grapple_Enabled:
@@ -391,6 +381,8 @@ func set_arm_state(new_arm_state:int):
 	var previous_arm_state := arm_state
 	arm_state = new_arm_state
 	
+	entered_arm_state.emit(new_arm_state, previous_arm_state)
+	
 	# GRAPPLEARM to and from
 	if new_arm_state == arm_states.GRAPPLEARM:
 		grapple_arm.visible = true
@@ -408,17 +400,6 @@ func set_arm_state(new_arm_state:int):
 	if previous_arm_state == arm_states.PARRYARM:
 		parry_arm.visible = false
 	
-
-# checks for mesh generators and adds them to the scene if they are not already found
-func checkForMeshGens():
-	if Helper.getFirstInScene("grapple_rope_meshGen") == null:
-		print("cannot locate grapple mesh generator in scene. proceeding to autoload.")
-		var t = grapple_rope_mesh_gen_SCENE.instantiate()
-		get_tree().current_scene.add_child.call_deferred(t)
-	if Helper.getFirstInScene("LaserGenerator") == null:
-		print("cannot locate laser mesh generator in scene. proceeding to autoload.")
-		var b = LaserGenerator_SCENE.instantiate()
-		get_tree().current_scene.add_child.call_deferred(b)
 			
 
 # camera control by mouse input relative to last frame
@@ -441,9 +422,8 @@ func _input(event) -> void:
 					action_state = action_states.IDLE
 			else:
 				print("Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
-		
 		elif arm_state == arm_states.PARRYARM:
-			parry_arm_animator.play("parry")
+			parry_arm_animator.play("swing arm initial")
 			
 	# on slide | slam pressed
 	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor() and player_slide_slam_input_enabled:
@@ -620,87 +600,30 @@ func _physics_process(delta: float) -> void:
 
 func gunInputs(): # to be called in a method that can "hear" inputs
 	# switch weapon block==================================================================================
-	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states.MELEE and weapon_switch_enabled and melee_switch_enabled:
-		weapon_state = weapon_states.MELEE
+	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states[0] and weapon_switch_enabled:
+		set_weapon_state(weapon_states[0])
 		
-	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states.PISTOL and weapon_switch_enabled and pistol_switch_enabled:
-		weapon_state = weapon_states.PISTOL
-		
-	if Input.is_action_just_pressed("slot3") and weapon_state != weapon_states.SHOTGUN and weapon_switch_enabled and shotgun_switch_enabled:
-		weapon_state = weapon_states.SHOTGUN
-		
-	if Input.is_action_just_pressed("slot4") and weapon_state != weapon_states.BLL and weapon_switch_enabled and BLL_switch_enabled:
-		weapon_state = weapon_states.BLL
+	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states[1] and weapon_switch_enabled:
+		set_weapon_state(weapon_states[1])
+	
 	
 	# automatic fire block===================================================================================
-	if Input.is_action_pressed("fire") and player_fire_input_enabled:
+	if Input.is_action_pressed("fire") and player_fire_input_enabled and weapon_state.automatic:
 		# use seperate animation players for each weapon
-		
-		if weapon_state == weapon_states.PISTOL:
-			if gun_animator.current_animation == "inspect" or gun_animator.current_animation == "equip_pistol":
-				gun_animator.stop()
-			elif gun_animator.current_animation == "reload_pistol":
-				pass
-			else:
-				if PISTOL_AMMO > 0:
-					gun_animator.play("fire")
-				elif PISTOL_AMMO == 0: gun_animator.play("reload_pistol")
-
+		weapon_state._fire()
 	# semi-automatic fire block========================================================================
-	if Input.is_action_just_pressed("fire") and player_fire_input_enabled:
-		
-		if weapon_state == weapon_states.SHOTGUN:
-			print("shotgun fire")
-		
-		elif weapon_state == weapon_states.BLL:
-			if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
-				pass
-			else:
-				if BLL_AMMO > 0:
-					black_hole_launcher.bll_animator.play("Black Hole Launcher/BLL_cooldown")
-
-	
+	if Input.is_action_just_pressed("fire") and player_fire_input_enabled and not weapon_state.automatic:
+		weapon_state._fire()
 	# inspect block=======================================================================================
 	if Input.is_action_just_pressed("inspect weapon"):
-		if weapon_state == weapon_states.PISTOL:
-			if gun_animator.current_animation == "reload_pistol":
-				pass
-			elif gun_animator.current_animation == "equip_pistol":
-					gun_animator.stop()
-					gun_animator.play("inspect")
-			else:
-				gun_animator.play("inspect")
-
-		elif weapon_state == weapon_states.SHOTGUN:
-			print("shotgun inspect")
-		
-		elif weapon_state == weapon_states.BLL:
-			print("black hole inspect")
-		
+		print("weapon inspect currently disabled")
 	# reload block=========================================================================================
 	if Input.is_action_just_pressed("reload"):
-		if weapon_state == weapon_states.PISTOL:
-			if PISTOL_AMMO != PISTOL_MAGSIZE and gun_animator.current_animation != "reload_pistol":
-				gun_animator.stop()
-				gun_animator.play("reload_pistol")
-		
-		elif weapon_state == weapon_states.SHOTGUN:
-			print("shotgun reload")
-	
-		elif weapon_state == weapon_states.BLL:
-			print("the weapon does not reload")
-			
+		weapon_state._reload()
 			
 	# special block=========================================================================================
 	if Input.is_action_just_pressed("right click action") and player_fire_input_enabled:
-		if weapon_state == weapon_states.PISTOL:
-			pistol.special()
-		
-		elif weapon_state == weapon_states.SHOTGUN:
-			print("shotgun special")
-			
-		elif weapon_state == weapon_states.BLL:
-			print("no special attack available")
+		weapon_state._special()
 	# ======================================================================================================
 
 func charge_stamina(delta=get_process_delta_time()):
@@ -716,19 +639,26 @@ func processTargetPull(delta=get_process_delta_time()):
 	else:
 		pass
 
+## Will check if there is a valid parry target and parry it if so.
 func parryTargetInBox():
 	if parry_target != null and parry_target.parriable == true:
+		parry_arm_animator.play("swing arm parry")
 		var raycast_target_body:Node = parry_target_get_ray_cast.get_collider()
 		var raycast_target_location:Vector3 = parry_target_get_ray_cast.get_collision_point()
 		var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")
 		for node:Node in parry_visuals:
 			node.visible = true
+		# If the raycast does not detect a body, set the target location to the distant camera marker
+		if raycast_target_body == null:
+			raycast_target_location = distant_marker.global_position
 		hitStop()
 		if parry_target is EnemyProjectile:
 			parry_target.has_been_parried = true
 			if parry_target is EnergyBall:
 				parry_target.linear_velocity = Vector3.ZERO
 				parry_target.linear_velocity = (raycast_target_location - parry_target.global_position).normalized() * (parry_target.travel_speed * parry_projectile_speed_boost)
+	elif parry_target == null:
+		parry_arm_animator.play("swing arm miss")
 
 func hitStop():
 	Engine.time_scale = 0.0
@@ -739,6 +669,7 @@ var a = true
 # Kinematic-related operations should only be run in _physics_process, while logic and other operations
 # should be run in _process
 func _process(delta) -> void:
+	print(weapon_state)
 	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	charge_stamina()
@@ -773,8 +704,9 @@ func _process(delta) -> void:
 	if HEALTH <= 0:
 		playerDie()
 	
-	# handle all weapon inputs
-	gunInputs()
+	# handle all weapon inputs, if the weapon is not null (it should never be)
+	if weapon_state:
+		gunInputs()
 	# updates string variables with the current state for debug purposes
 	updateStateStrings()
 
@@ -785,10 +717,7 @@ func _process(delta) -> void:
 func updateStateStrings():
 	# update the string name of the weapon state every frame
 	match weapon_state:
-		weapon_states.PISTOL: current_weapon_string_name = "pistol"
-		weapon_states.BLL: current_weapon_string_name = "black hole launcher"
-		weapon_states.SHOTGUN: current_weapon_string_name = "shotgun"
-		weapon_states.MELEE: current_weapon_string_name = "MELEE"
+		pass
 		
 	# update the string name of the player state every frame
 	match player_state:
@@ -799,8 +728,6 @@ func updateStateStrings():
 		player_states.SLIDING: current_player_string_name = "SLIDING"
 		player_states.DASHING: current_player_string_name = "DASHING"
 		player_states.SLAMMING: current_player_string_name = "SLAMMING"
-		
-		
 
 	# update the string name of the action every frame
 	match action_state:
@@ -809,21 +736,11 @@ func updateStateStrings():
 		action_states.PARRYING: current_action_string_name = "PARRYING"
 		action_states.REELINGFROM: current_action_string_name = "REELINGFROM"
 
-# note: zoomOut and zoomIn are reversed. I screwed up.
-func _on_hud_zoom_in_trigger() -> void:
-	zoomOut()
-
-
-func _on_hud_zoom_out_trigger() -> void:
-	zoomIn()
-
 func playerDie():
 	player_state = player_states.DEAD
 	Engine.time_scale = 0.3
 
-func _on_cam_shake_timer_timeout() -> void:
-	doing_shake = false
-
+#region Grapple Hook collision detections
 # when the grapple hook's smaller collider hits the world, go back to idle
 # when it hits enemies, pull them towards player
 func _on_world_collide_box_body_entered(body: Enemy) -> void:
@@ -856,6 +773,7 @@ func _on_world_collide_box_world_entered(body:Node):
 
 # when the hook's actual collider stops colliding with whatever it is colliding with
 func _on_world_collide_box_body_exited(body: Node3D) -> void:
+#endregion
 	hooked_target = null
 
 # when the unstuck button is pressed, reset the player states and go to origin
@@ -875,7 +793,6 @@ func _on_dash_length_timer_timeout() -> void:
 		elif not is_on_floor():
 			player_state = player_states.FALLING
 
-
 func _on_stamina_charge_delay_timer_timeout() -> void:
 	stamina_recharging = true
 
@@ -892,7 +809,7 @@ func _on_grapple_enemy_cease_area_body_entered(hooked_target) -> void:
 			player.velocity.z = 0
 			player.velocity.y = 0 + grapple_hop
 
-
+#region Parry Hitbox entry and exit
 func _on_parry_hitbox_body_entered(body: Node3D) -> void:
 	if body is EnemyProjectile and body.parriable and parry_target == null:
 		parry_target = body
@@ -903,6 +820,7 @@ func _on_parry_hitbox_body_entered(body: Node3D) -> void:
 func _on_parry_hitbox_body_exited(body: Node3D) -> void:
 	if body == parry_target:
 		parry_target = null
+#endregion
 
 
 func _on_hitstop_timer_timeout() -> void:

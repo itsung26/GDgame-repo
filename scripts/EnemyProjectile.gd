@@ -21,6 +21,8 @@ func _setup(_pos:Vector3, _dir:Vector3) -> void:
 
 func _set_has_been_parried(new_has_been_parried:bool):
 	has_been_parried = new_has_been_parried
+	
+	parriable = false
 
 func _destroySelf():
 	queue_free()

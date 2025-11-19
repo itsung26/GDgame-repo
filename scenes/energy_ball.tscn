@@ -161,6 +161,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [false]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("OmniLight3D:light_energy")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [16.0]
+}
 
 [sub_resource type="Animation" id="Animation_lvng8"]
 resource_name = "deletion"
@@ -241,6 +253,18 @@ tracks/5/keys = {
 "method": &"queue_free"
 }]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("OmniLight3D:light_energy")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.0306474, 0.307121),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [16.0, 32.0, 0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_61d6q"]
 _data = {
@@ -273,7 +297,7 @@ script = ExtResource("1_qg56h")
 despawn_timer = NodePath("DespawnTimer")
 damage_to_player = 12.0
 damage_to_enemies = 12.0
-travel_speed = 41.0
+travel_speed = 37.0
 
 [node name="rigidbody_collider" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_lvng8")
@@ -326,6 +350,12 @@ size = 0.394
 
 [node name="DespawnTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0, 0, 1)
+light_energy = 16.0
+omni_range = 2.24498
+omni_attenuation = 2.0
 
 [connection signal="body_entered" from="DamageCollider" to="." method="_on_body_entered"]
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

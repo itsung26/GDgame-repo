@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx7rcmvsm6kv7"]
+
+[ext_resource type="Script" uid="uid://c4v8ixmrijhmi" path="res://scripts/PlayerWeapon.gd" id="1_pgcdb"]
+
+[node name="PlayerWeapon" type="Node3D"]
+script = ExtResource("1_pgcdb")

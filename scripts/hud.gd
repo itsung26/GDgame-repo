@@ -67,29 +67,79 @@ func _ready() -> void:
 	else:
 		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
 	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta) -> void:
+	if Engine.is_editor_hint():
+		updateCrosshair()
+	else:
+		updateAmmoCounter()
+		updateCrosshair()
+		updateHealthBar(delta)
+		updateStaminaBar(delta)
+			
+		# get engine fps
+		current_frames_per_second = Engine.get_frames_per_second()
+		fps_counter.text = "FPS: " + str(current_frames_per_second)
+		
+		# fps counter
+		if current_frames_per_second >= 30:
+			fps_counter.add_theme_color_override("font_color", Color.GREEN)
+		else:
+			fps_counter.add_theme_color_override("font_color", Color.RED)
+			
+#region Debug Text
+		# set debug text-------------------------------------------------------------------------------
+		current_action_state.text = "Current action state: " + player.current_action_string_name
+		hooked_target.text = "grapple target: " + str(player.hooked_target)
+		current_weapon_state.text = "Current weapon state: " + player.current_weapon_string_name
+		current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
+		current_player_pos.text = "Player Global Position: " + str(player.global_position)
+		current_player_health.text = "Player health: " + str(player.HEALTH)
+		current_player_state.text = "Current player state: " + player.current_player_string_name
+		%CurrentVelocity.text = "Player Velocity Vector: " + str(player.velocity)
+		%CurrentMagnitude.text = "Current Velocity Magnitude: " + str(roundi(player.velocity.length()))
+		%CurrentMagnitudeXZ.text = "Current player velocity magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
+		%CurrentParryTarget.text = "Current parry target: " + str(player.parry_target)
+		# ----------------------------------------------------------------------------------------------
+#endregion
+
+## Recieves state machine state change calls from player through a signal
+func _on_player_entered_arm_state(new_arm_state: Player.arm_states, previous_arm_state: Player.arm_states) -> void:
+	if new_arm_state == Player.arm_states.GRAPPLEARM:
+		arm_panel.visible = true
+	if previous_arm_state == Player.arm_states.GRAPPLEARM:
+		arm_panel.visible = false
+	
+	if new_arm_state == Player.arm_states.PARRYARM:
+		arm_panel_2.visible = true
+	if previous_arm_state == Player.arm_states.PARRYARM:
+		arm_panel_2.visible = false
+
+## DEPRECATED: related to control of the pistol charge. To be deprecated in favor of a different special and system.
 func barChargeSetReady():
 	pistol.isCharged = true
-	
+
+## DEPRECATED: related to control of the pistol charge. To be deprecated in favor of a different special and system.
 func barChargeSetNotReady():
 	pistol.isCharged = false
-	
+
+## DEPRECATED: related to control of the pistol charge. To be deprecated in favor of a different special and system.
 func startBarFill():
 	animation_player.play("bar_charge_fill")
 
+## DEPRECATED: related to control of the pistol charge. To be deprecated in favor of a different special and system.
 func setOnState():
 	player.zoomOut()
 	pistol_on_overclock = true
 
+## DEPRECATED: related to control of the pistol charge. To be deprecated in favor of a different special and system.
 func setOffState():
 	player.zoomIn()
 	pistol_on_overclock = false
 
 # updates the ammo counter based on the weapon's ammo and name. To be called every frame.
 func updateAmmoCounter():
-	if player.weapon_state == player.weapon_states.PISTOL:
-		ammo_counter.text = str(player.PISTOL_AMMO) + "/" + str(player.PISTOL_MAGSIZE)
-	elif player.weapon_state == player.weapon_states.BLL:
-		ammo_counter.text = str(player.BLL_AMMO) + "/" + str(player.BLL_MAGSIZE)
+	pass
 
 # updates the crosshair based on editor set properties
 func updateCrosshair(width:float=crosshair_width, color:Color=crosshair_albedo, spread:float=crosshair_spread, length:float=crosshair_length):
@@ -133,39 +183,3 @@ func updateStaminaBar(delta):
 	if staminabar_smooth_react_enabled:
 		stamina_bar.value = lerp(stamina_bar.value, player.STAMINA, staminabar_react_speed * delta)
 	else: stamina_bar.value = player.STAMINA
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta) -> void:
-	if Engine.is_editor_hint():
-		updateCrosshair()
-	else:
-		updateAmmoCounter()
-		updateCrosshair()
-		updateHealthBar(delta)
-		updateStaminaBar(delta)
-			
-		# get engine fps
-		current_frames_per_second = Engine.get_frames_per_second()
-		fps_counter.text = "FPS: " + str(current_frames_per_second)
-		
-		# fps counter
-		if current_frames_per_second >= 30:
-			fps_counter.add_theme_color_override("font_color", Color.GREEN)
-		else:
-			fps_counter.add_theme_color_override("font_color", Color.RED)
-			
-		# set debug text-------------------------------------------------------------------------------
-		current_action_state.text = "Current action state: " + player.current_action_string_name
-		hooked_target.text = "grapple target: " + str(player.hooked_target)
-		current_weapon_state.text = "Current weapon state: " + player.current_weapon_string_name
-		current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
-		current_player_pos.text = "Player Global Position: " + str(player.global_position)
-		current_player_health.text = "Player health: " + str(player.HEALTH)
-		current_player_state.text = "Current player state: " + player.current_player_string_name
-		%CurrentVelocity.text = "Player Velocity Vector: " + str(player.velocity)
-		%CurrentMagnitude.text = "Current Velocity Magnitude: " + str(roundi(player.velocity.length()))
-		%CurrentMagnitudeXZ.text = "Current player velocity magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
-		%CurrentParryTarget.text = "Current parry target: " + str(player.parry_target)
-		# ----------------------------------------------------------------------------------------------
-		
-		

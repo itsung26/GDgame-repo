@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bl7r6a7ijf3n8" path="res://scripts/black_hole_projectile.gd" id="1_rfnx6"]
 [ext_resource type="Shader" uid="uid://bc8elyc8c7dbs" path="res://shaders/visual shaders/BlackHoleShader.tres" id="2_behx8"]
-[ext_resource type="Texture2D" uid="uid://bnrahmvqo7e3" path="res://assets/sprite assets/particles/kenney_particle-pack/PNG (Transparent)/star_04.png" id="2_v6maq"]
+[ext_resource type="Texture2D" uid="uid://bnrahmvqo7e3" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_04.png" id="2_v6maq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrdnh"]
 render_priority = -1
@@ -194,8 +194,8 @@ debug_color = Color(1, 0, 0, 1)
 [node name="light" type="OmniLight3D" parent="."]
 light_color = Color(0.627451, 0.12549, 0.941176, 1)
 light_energy = 50.0
-shadow_enabled = true
 omni_range = 8.21336
+omni_attenuation = 2.0
 
 [node name="BlackHoleLifeTime" type="AnimationPlayer" parent="."]
 libraries = {

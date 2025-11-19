@@ -22,7 +22,7 @@ size = Vector2(50, 50)
 
 [node name="bullet trail testing" type="Node3D"]
 script = ExtResource("1_kaeyt")
-trail_color = Color(1.15514e-06, 0.564201, 0.860278, 1)
+trail_color = Color(0.584271, 0.547662, 5.77569e-07, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_m5rlg")
@@ -37,12 +37,12 @@ visible = false
 mesh = SubResource("PlaneMesh_m5rlg")
 
 [node name="origin" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.14867, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
 gizmo_extents = 3.09
 
 [node name="target" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75327, 2.29896, -2.82298)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 gizmo_extents = 2.38
 
 [node name="Camera3D_fake_billboard" type="Camera3D" parent="."]
-transform = Transform3D(-0.683592, -0.274451, 0.676298, 1.49012e-08, 0.926607, 0.37603, -0.729864, 0.257051, -0.633422, 2.29661, 2.24259, -1.24341)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130676, 0.315425, 0.865621)
