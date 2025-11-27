@@ -1,20 +1,19 @@
-[gd_scene load_steps=21 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=25 format=3 uid="uid://ctkkc4v7jqox5"]
 
-[ext_resource type="Texture2D" uid="uid://b3t3g6ycr8idx" path="res://assets/2d assets/primary textures/Ultra Textures/Heresy/Skybox/Heresy Sky Revamp.png" id="1_q8du6"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
-[ext_resource type="Texture2D" uid="uid://db4yea8bgp8y6" path="res://assets/2d assets/primary textures/Ultra Textures/Heresy/marblebig2grid.png" id="5_7ksdt"]
-[ext_resource type="Texture2D" uid="uid://dcbkmi4kqq3yq" path="res://assets/2d assets/primary textures/Ultra Textures/Heresy/bonewall.png" id="7_7ksdt"]
+[ext_resource type="Material" uid="uid://cbp53aho327vx" path="res://assets/materials/prototype_material.tres" id="3_uvlxo"]
+[ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="4_s3yq3"]
+[ext_resource type="PackedScene" uid="uid://d1gxfhjv8330d" path="res://scenes/entities/stationary_cannon.tscn" id="5_q8du6"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_7ksdt"]
-panorama = ExtResource("1_q8du6")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_61yce"]
 
-[sub_resource type="Sky" id="Sky_7r5qs"]
-sky_material = SubResource("PanoramaSkyMaterial_7ksdt")
+[sub_resource type="Sky" id="Sky_s3yq3"]
+sky_material = SubResource("ProceduralSkyMaterial_61yce")
 
 [sub_resource type="Environment" id="Environment_nptal"]
 background_mode = 2
-sky = SubResource("Sky_7r5qs")
+sky = SubResource("Sky_s3yq3")
 tonemap_mode = 2
 glow_enabled = true
 volumetric_fog_density = 0.0768
@@ -34,23 +33,13 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="Theme" id="Theme_s3yq3"]
+[sub_resource type="Theme" id="Theme_61yce"]
 resource_local_to_scene = true
 ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wl3f4"]
-albedo_texture = ExtResource("5_7ksdt")
-rim_tint = 1.0
-clearcoat_roughness = 0.0
-subsurf_scatter_strength = 0.07
-backlight = Color(1, 1, 1, 1)
-refraction_scale = 1.0
-uv1_scale = Vector3(100, 100, 100)
-texture_filter = 2
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_nptal"]
-material = SubResource("StandardMaterial3D_wl3f4")
+material = ExtResource("3_uvlxo")
 size = Vector2(200, 200)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_rj2dv"]
@@ -66,18 +55,47 @@ size = Vector3(1, 6.60065, 9.18823)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wl3f4"]
 data = PackedVector3Array(-0.5, 3.285, 4.55, 0.5, 3.285, 4.55, -0.5, -3.285, 4.55, 0.5, 3.285, 4.55, 0.5, -3.285, 4.55, -0.5, -3.285, 4.55, 0.5, 3.285, -4.55, -0.5, 3.285, -4.55, 0.5, -3.285, -4.55, -0.5, 3.285, -4.55, -0.5, -3.285, -4.55, 0.5, -3.285, -4.55, 0.5, 3.285, 4.55, 0.5, 3.285, -4.55, 0.5, -3.285, 4.55, 0.5, 3.285, -4.55, 0.5, -3.285, -4.55, 0.5, -3.285, 4.55, -0.5, 3.285, -4.55, -0.5, 3.285, 4.55, -0.5, -3.285, -4.55, -0.5, 3.285, 4.55, -0.5, -3.285, 4.55, -0.5, -3.285, -4.55, 0.5, 3.285, 4.55, -0.5, 3.285, 4.55, 0.5, 3.285, -4.55, -0.5, 3.285, 4.55, -0.5, 3.285, -4.55, 0.5, 3.285, -4.55, -0.5, -3.285, 4.55, 0.5, -3.285, 4.55, -0.5, -3.285, -4.55, 0.5, -3.285, 4.55, 0.5, -3.285, -4.55, -0.5, -3.285, -4.55)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rj2dv"]
-albedo_texture = ExtResource("7_7ksdt")
-uv1_scale = Vector3(4.355, 2.872, 3.081)
-uv1_triplanar_sharpness = 0.100855
-texture_filter = 0
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_61yce"]
+data = PackedVector3Array(3.555, 1.3625, 3.89, 3.555, -1.3625, 3.89, -3.555, -1.3625, 3.89, 3.555, 1.3625, -3.89, -3.555, -1.3625, -3.89, 3.555, -1.3625, -3.89, 3.555, 1.3625, 3.89, 3.555, 1.3625, -3.89, 3.555, -1.3625, 3.89, 3.555, 1.3625, -3.89, 3.555, -1.3625, -3.89, 3.555, -1.3625, 3.89, 3.555, 1.3625, -3.89, 3.555, 1.3625, 3.89, -3.555, -1.3625, -3.89, 3.555, 1.3625, 3.89, -3.555, -1.3625, 3.89, -3.555, -1.3625, -3.89, -3.555, -1.3625, 3.89, 3.555, -1.3625, 3.89, -3.555, -1.3625, -3.89, 3.555, -1.3625, 3.89, 3.555, -1.3625, -3.89, -3.555, -1.3625, -3.89)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_s3yq3"]
+data = PackedVector3Array(3.555, 1.3625, 3.89, 3.555, -1.3625, 3.89, -3.555, -1.3625, 3.89, 3.555, 1.3625, -3.89, -3.555, -1.3625, -3.89, 3.555, -1.3625, -3.89, 3.555, 1.3625, 3.89, 3.555, 1.3625, -3.89, 3.555, -1.3625, 3.89, 3.555, 1.3625, -3.89, 3.555, -1.3625, -3.89, 3.555, -1.3625, 3.89, 3.555, 1.3625, -3.89, 3.555, 1.3625, 3.89, -3.555, -1.3625, -3.89, 3.555, 1.3625, 3.89, -3.555, -1.3625, 3.89, -3.555, -1.3625, -3.89, -3.555, -1.3625, 3.89, 3.555, -1.3625, 3.89, -3.555, -1.3625, -3.89, 3.555, -1.3625, 3.89, 3.555, -1.3625, -3.89, -3.555, -1.3625, -3.89)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q8du6"]
+load_path = "res://.godot/imported/godot-theme-prototype-textures-v0-pev67seeqtac1.png-942373391355a3521e2668a8d8677193.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ksdt"]
+albedo_texture = SubResource("CompressedTexture2D_q8du6")
+rim_tint = 1.0
+clearcoat_roughness = 0.0
+subsurf_scatter_strength = 0.07
+backlight = Color(1, 1, 1, 1)
+refraction_scale = 1.0
+uv1_scale = Vector3(8.88, 8.88, 8.88)
+texture_filter = 2
 
 [sub_resource type="BoxMesh" id="BoxMesh_q8du6"]
-material = SubResource("StandardMaterial3D_rj2dv")
+material = SubResource("StandardMaterial3D_7ksdt")
 size = Vector3(1, 6.57, 9.1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wl3f4"]
+albedo_texture = SubResource("CompressedTexture2D_q8du6")
+rim_tint = 1.0
+clearcoat_roughness = 0.0
+subsurf_scatter_strength = 0.07
+backlight = Color(1, 1, 1, 1)
+refraction_scale = 1.0
+uv1_scale = Vector3(8.88, 8.88, 8.88)
+texture_filter = 2
+
 [sub_resource type="BoxMesh" id="BoxMesh_7ksdt"]
+material = SubResource("StandardMaterial3D_wl3f4")
 size = Vector3(1, 6.57, 9.1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_q8du6"]
+material = ExtResource("3_uvlxo")
+left_to_right = 1.0
+size = Vector3(7.11, 2.725, 7.78)
 
 [node name="ProjectileTesting" type="Node3D"]
 
@@ -91,54 +109,14 @@ shadow_enabled = true
 [node name="grapple_rope_meshGen" parent="." instance=ExtResource("1_s3yq3")]
 
 [node name="Player" parent="." node_paths=PackedStringArray("initial_weapon") instance=ExtResource("3_7ksdt")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.23607, 0, 6.59139)
-Godmode = true
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.611184, 0, 7.50096)
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Pistol")
 
 [node name="HealthBar" parent="Player/huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
-theme = SubResource("Theme_s3yq3")
-
-[node name="ArmR" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="0"]
-transform = Transform3D(0.921616, 0.376129, 0.0956483, 0.148142, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
-
-[node name="ArmL" parent="Player/Pivot/Camera3D/ArmPivotBLL" index="1"]
-transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
-
-[node name="Skeleton3D" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM" index="0"]
-bones/0/rotation = Quaternion(-0.509306, -0.490668, -0.491617, 0.5081)
-bones/1/rotation = Quaternion(-0.482158, -0.466603, 0.46085, 0.580881)
-bones/2/rotation = Quaternion(-0.243494, -0.0413846, 0.0196674, 0.968819)
-bones/3/rotation = Quaternion(-0.0227307, 0.0489716, -0.0332371, 0.997988)
-bones/4/rotation = Quaternion(0.00588774, -0.0175101, 0.0116556, 0.999761)
-bones/5/rotation = Quaternion(0.0210953, -0.046421, 0.100697, 0.99361)
-bones/6/rotation = Quaternion(0.0918091, 0.0182713, -0.00352148, 0.995603)
-bones/7/rotation = Quaternion(0.0130555, -0.0272884, 0.0869477, 0.995754)
-bones/8/rotation = Quaternion(-0.000128749, -0.00115718, 0.000754162, 0.999999)
-bones/9/rotation = Quaternion(0.00424119, -0.00723928, 0.0946462, 0.995476)
-bones/10/rotation = Quaternion(0.0131009, -0.0291353, 0.0881255, 0.995597)
-bones/11/rotation = Quaternion(-0.000140048, -0.00166004, 0.00108778, 0.999998)
-bones/12/rotation = Quaternion(0.00373961, 0.000908251, 0.0889827, 0.996026)
-bones/13/rotation = Quaternion(0.0130548, -0.0272868, 0.0869461, 0.995754)
-bones/14/rotation = Quaternion(-0.000128906, -0.00115852, 0.000755158, 0.999999)
-bones/15/rotation = Quaternion(0.00424343, -0.00724048, 0.0946477, 0.995475)
-bones/16/rotation = Quaternion(-0.000873604, -0.0298618, 0.0856834, 0.995874)
-bones/17/rotation = Quaternion(0.0263633, 0.00421721, 0.000516592, 0.999643)
-bones/18/rotation = Quaternion(-0.00777791, -0.0230112, 0.10497, 0.994179)
+theme = SubResource("Theme_61yce")
 
 [node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00337982, 0.181378, -0.147858)
-
-[node name="BlackHoleLauncher" parent="Player/Pivot/Camera3D/Guns" index="0"]
-transform = Transform3D(-1.00573e-06, 0, -0.277827, 0, 0.277827, 0, 0.277827, 0, -1.00573e-06, -0.34, 0.285, 0.627)
-
-[node name="PanelPivot2" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="2"]
-transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.206563, 0, 0.398)
-
-[node name="PanelPivot3" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/Panels" index="3"]
-transform = Transform3D(1, 0, 0, 0, -3.61999e-06, -1, 0, 1, -3.61999e-06, -0.209735, 0, -0.328399)
-
-[node name="core" parent="Player/Pivot/Camera3D/Guns/BlackHoleLauncher/LoadPart/black hole?????" index="1"]
-transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8.31255e-08, 0.0247345, 1.39009, -0.00136375)
+transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338364, 0.181378, -0.147857)
 
 [node name="floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_nptal")
@@ -162,6 +140,14 @@ shape = SubResource("BoxShape3D_q8du6")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.38335, 3.285, 0.0342804)
 shape = SubResource("ConcavePolygonShape3D_wl3f4")
 
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 1.3625, 17.4)
+shape = SubResource("ConcavePolygonShape3D_61yce")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 11.2, 1.3625, 17.4)
+shape = SubResource("ConcavePolygonShape3D_s3yq3")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4446, 3.285, 7.45757)
 mesh = SubResource("BoxMesh_q8du6")
@@ -170,7 +156,36 @@ mesh = SubResource("BoxMesh_q8du6")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.38335, 3.285, 0.0342804)
 mesh = SubResource("BoxMesh_7ksdt")
 
+[node name="StationaryCannon" parent="." instance=ExtResource("5_q8du6")]
+transform = Transform3D(0, 1, 0, 0.374914, 0, -0.92706, -0.92706, 0, -0.374914, -10.9586, 1.45712, 6.62664)
+automatic_fire = true
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 1.3625, 17.4)
+mesh = SubResource("PrismMesh_q8du6")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 11.2, 1.3625, 17.4)
+mesh = SubResource("PrismMesh_q8du6")
+
+[node name="EnemySpawnHandler" type="Node" parent="."]
+script = ExtResource("4_s3yq3")
+metadata/_custom_type_script = "uid://s0gj2noon5cx"
+
+[node name="Marker3D" type="Marker3D" parent="EnemySpawnHandler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.6, 0, 3.2)
+
+[node name="Marker3D2" type="Marker3D" parent="EnemySpawnHandler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0791, 0, 12.9585)
+
+[node name="Marker3D3" type="Marker3D" parent="EnemySpawnHandler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0612, -1.90735e-06, 26.1628)
+
+[node name="Marker3D4" type="Marker3D" parent="EnemySpawnHandler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.959053, -1.90735e-06, 26.2316)
+
 [editable path="Player"]
+[editable path="Player/player body"]
 [editable path="Player/huds/HUD"]
 [editable path="Player/huds/Pause"]
 [editable path="Player/Pivot/Camera3D/ParryArm/parry arm"]

@@ -1,4 +1,3 @@
-@icon("res://assets/2d assets/ui/icons generic/plr.png")
 class_name Player
 extends CharacterBody3D
 
@@ -57,8 +56,10 @@ extends CharacterBody3D
 @onready var parry_arm: Node3D = $Pivot/Camera3D/ParryArm
 @onready var parry_arm_animator: AnimationPlayer = $"Pivot/Camera3D/ParryArm/parry arm/AnimationPlayer"
 @onready var hitstop_timer: Timer = $HitstopTimer
-@onready var parry_target_get_ray_cast: RayCast3D = $Pivot/Camera3D/ParryArm/ParryTargetGetRayCast
 @onready var distant_marker: Marker3D = $Pivot/Camera3D/distantMarker
+@onready var parry_flash: MeshInstance3D = $Pivot/Camera3D/ParryArm/ParryFlash
+@onready var parry_flash_go_back_marker: Marker3D = $Pivot/Camera3D/parryFlashGoBackMarker
+@onready var punch_raycast: RayCast3D = $Pivot/Camera3D/PunchRaycast
 
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
 var grapple_rope_mesh_gen:ropeMeshGenerator
@@ -132,10 +133,13 @@ var BLL_AMMO := BLL_MAGSIZE
 @export var BLL_pull_speed := 10
 
 @export_category("Parrying")
-@export var parry_target:Node3D
+var parry_target:Node3D
+## The amount of time that time stops for when parrying something.
 @export var hitstop_duration:float = 0.25
 ## The factor that projectile's speed is multiplied with after being parried.
 @export var parry_projectile_speed_boost:float = 1.0
+## Wether the parry arm action in specific is allowed to occur.
+@export var parry_input_allowed:bool = true
 
 @export_category("Extras")
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
@@ -170,7 +174,7 @@ var arm_state:arm_states = arm_states.GRAPPLEARM:
 	set = set_arm_state
 
 ## WIP. Currently only represents the grapple hook's state.
-enum action_states{IDLE, GRAPPLING, PARRYING, REELINGFROM}
+enum action_states{IDLE, GRAPPLING, REELINGFROM}
 var action_state:action_states = action_states.IDLE:
 	set = set_action_state
 #endregion
@@ -221,6 +225,8 @@ var hooked_target_pull_origin:Object = null
 # Player should be loaded after main enviroment and global lighting, but before 
 # map and everything else.
 func _ready() -> void:
+	if weapon_states.is_empty():
+		assert(false, "No weapons! Player should at least have weapon melee equipped.")
 	
 	# object reference definitions (needs to be moved)
 	pause = get_tree().current_scene.find_child("Pause")
@@ -246,8 +252,9 @@ func _ready() -> void:
 	# Switch to initial weapon
 	if initial_weapon == null:
 		initial_weapon = weapon_states.front()
-		
-	weapon_state = initial_weapon
+		set_weapon_state(initial_weapon)
+	else:
+		set_weapon_state(initial_weapon)
 
 func set_player_state(new_player_state:int):
 	# init vars
@@ -310,7 +317,9 @@ func set_player_state(new_player_state:int):
 		else:
 			velocity = direction * dash_velocity_increase
 	if previous_player_state == player_states.DASHING:
+		var prev_velocity = velocity
 		velocity = Vector3.ZERO
+		velocity = prev_velocity / 2
 		gravity_enabled = true
 	
 	# SLAMMING to and from
@@ -421,9 +430,10 @@ func _input(event) -> void:
 				elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
 					action_state = action_states.IDLE
 			else:
-				print("Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
+				assert(false, "Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
 		elif arm_state == arm_states.PARRYARM:
-			parry_arm_animator.play("swing arm initial")
+			if parry_input_allowed:
+				parry_arm_animator.play("swing arm initial")
 			
 	# on slide | slam pressed
 	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor() and player_slide_slam_input_enabled:
@@ -641,35 +651,50 @@ func processTargetPull(delta=get_process_delta_time()):
 
 ## Will check if there is a valid parry target and parry it if so.
 func parryTargetInBox():
+	
+	# If it hits something in the box and it is parriable
 	if parry_target != null and parry_target.parriable == true:
 		parry_arm_animator.play("swing arm parry")
-		var raycast_target_body:Node = parry_target_get_ray_cast.get_collider()
-		var raycast_target_location:Vector3 = parry_target_get_ray_cast.get_collision_point()
+		var raycast_target_body:Node = punch_raycast.get_collider()
+		var raycast_target_location:Vector3 = punch_raycast.get_collision_point()
 		var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")
 		for node:Node in parry_visuals:
-			node.visible = true
+			if node == parry_flash:
+				parry_flash.visible = true
+				parry_flash.top_level = true
+			else:
+				node.visible = true
 		# If the raycast does not detect a body, set the target location to the distant camera marker
+		# This ensures any parried projectiles will fly away from the player and not in a
+		# random direction.
 		if raycast_target_body == null:
 			raycast_target_location = distant_marker.global_position
-		hitStop()
+		# Hitstop regardless of what body was parried.
+		hitStop(hitstop_duration)
+		# Prevent the player from beginning another parry while hitstopped
+		parry_input_allowed = false
+		# Special cases in for different parriable things.
+#region parriable bodies
 		if parry_target is EnemyProjectile:
 			parry_target.has_been_parried = true
 			if parry_target is EnergyBall:
 				parry_target.linear_velocity = Vector3.ZERO
 				parry_target.linear_velocity = (raycast_target_location - parry_target.global_position).normalized() * (parry_target.travel_speed * parry_projectile_speed_boost)
+#endregion
+	
+	# If no valid target was found in the box
 	elif parry_target == null:
 		parry_arm_animator.play("swing arm miss")
 
-func hitStop():
+func hitStop(hitstop_duration_time:float):
 	Engine.time_scale = 0.0
-	hitstop_timer.start(hitstop_duration)
+	hitstop_timer.start(hitstop_duration_time)
 
 var a = true
 # Called every frame. Main thread frames fluctuate around a target fps of 60.
 # Kinematic-related operations should only be run in _physics_process, while logic and other operations
 # should be run in _process
 func _process(delta) -> void:
-	print(weapon_state)
 	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	charge_stamina()
@@ -733,7 +758,6 @@ func updateStateStrings():
 	match action_state:
 		action_states.IDLE: current_action_string_name = "IDLE"
 		action_states.GRAPPLING: current_action_string_name = "GRAPPLING"
-		action_states.PARRYING: current_action_string_name = "PARRYING"
 		action_states.REELINGFROM: current_action_string_name = "REELINGFROM"
 
 func playerDie():
@@ -822,8 +846,15 @@ func _on_parry_hitbox_body_exited(body: Node3D) -> void:
 		parry_target = null
 #endregion
 
-
+## When this timer ends, the hitstop is ended.
 func _on_hitstop_timer_timeout() -> void:
-	for node:Node in get_tree().get_nodes_in_group("parry visuals"):
-		node.visible = false
+	parry_input_allowed = true
+	var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")
+	for node:Node in parry_visuals:
+		if node == parry_flash:
+			parry_flash.visible = false
+			parry_flash.top_level = false
+			parry_flash.global_position = parry_flash_go_back_marker.global_position
+		else:
+			node.visible = false
 	Engine.time_scale = 1.0

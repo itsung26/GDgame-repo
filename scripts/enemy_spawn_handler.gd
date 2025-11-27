@@ -1,9 +1,11 @@
+class_name EnemySpawnHandler
+extends Node
+
 ## Instances assigned enemy scene and spawns instances at positions of marker3d nodes.
 ## Looks for marker3d nodes as children. Note that this class is only capable of spawning one 
 ## type of enemy, but can do so at many different places.
 ## HOW TO USE: position marker3ds at the desired spawn point(s), assign the scene to be spawned at
 ## the marker locations, call spawnEnemies() to spawn an enemy at each marker
-class_name EnemySpawnHandler extends Node
 
 ## If true, calls spawnEnemies() at time of being loaded.
 @export var spawn_enemies_on_ready:bool = false
@@ -17,7 +19,7 @@ class_name EnemySpawnHandler extends Node
 func _ready() -> void:
 	
 	if enemy_to_spawn_SCENE == null:
-		print("ERROR: no enemy scene set for spawner " + name)
+		print("ERROR: no enemy scene set for spawner " + self.to_string())
 	
 	# children type check
 	for spawn_point in spawn_points:

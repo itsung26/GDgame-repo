@@ -11,7 +11,6 @@ func _ready() -> void:
 	# start the clock for bullet despawn
 	if can_despawn: # begin the countdown on load to despawning
 		despawn_timer.start(despawn_time)
-		print(despawn_timer.time_left)
 	else: # otherwise, timer is not needed
 		despawn_timer.queue_free()
 
@@ -45,5 +44,4 @@ func _on_body_entered(body: Node) -> void:
 
 
 func _on_despawn_timer_timeout() -> void:
-	print("test")
 	_destroySelf()

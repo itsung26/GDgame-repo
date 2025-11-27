@@ -1,17 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://csatdjhfoaqcw"]
+[gd_scene load_steps=5 format=3 uid="uid://csatdjhfoaqcw"]
 
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/blaster.gd" id="1_buff3"]
+[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_buff3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_igbvm"]
 size = Vector3(1, 1, 6.56)
 
 [sub_resource type="TextMesh" id="TextMesh_buff3"]
-text = "pistol"
+text = "gun"
+font = ExtResource("2_buff3")
 font_size = 127
 
-[node name="Pistol" type="Node3D" groups=["weapons"]]
+[node name="Pistol" type="Node3D" node_paths=PackedStringArray("muzzle_origin", "bullet_raycast") groups=["weapons"]]
 transform = Transform3D(0.0880492, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, 0, 0, 0)
 script = ExtResource("1_buff3")
+muzzle_origin = NodePath("Marker3D")
+bullet_raycast = NodePath("RayCast3D")
 ammo = 25
 magsize = 25
 damage_min = 1.0
@@ -24,3 +28,11 @@ mesh = SubResource("BoxMesh_igbvm")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.30935, 0)
 mesh = SubResource("TextMesh_buff3")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.32167)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.80525, 1.54459, 4.63377)
+target_position = Vector3(0, 0, -5000)
+collision_mask = 262

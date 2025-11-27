@@ -133,7 +133,7 @@ shader = ExtResource("3_0m4u7")
 shader_parameter/cull_backface = false
 shader_parameter/use_front = true
 shader_parameter/fov = 90.0
-shader_parameter/rot_y_deg = 0.0
+shader_parameter/rot_y_deg = 18.0
 shader_parameter/rot_x_deg = 0.0
 shader_parameter/inset = 0.0
 
@@ -144,6 +144,7 @@ extends SubViewportContainer
 
 @export_tool_button(\"set rotate\") var a = setRot
 @export_tool_button(\"unset rotate\") var b = unsetRot
+
 
 
 func setRot():
@@ -551,13 +552,14 @@ anchor_bottom = 1.0
 offset_top = 465.0
 offset_right = -732.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 script = ExtResource("8_apjy4")
-ammo_panel_lerp_left_target = 30.0
-ammo_panel_lerp_right_target = 57.0
+ammo_panel_lerp_left_target = 12.5
+ammo_panel_lerp_right_target = 25.0
 ammo_panel_scale_lerp_speed = 2.5
-ammo_panel_back_target = 1.11
-ammo_panel_forward_target = 0.89
+ammo_panel_back_target = 0.95
+ammo_panel_forward_target = 1.1
+metadata/_edit_lock_ = true
 
 [node name="AmmoPanel" type="SubViewportContainer" parent="BottomLeftArea"]
 material = SubResource("ShaderMaterial_0m4u7")
@@ -565,10 +567,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 44.0
-offset_top = -206.0
-offset_right = 569.0
-offset_bottom = -23.0
+offset_left = 58.0
+offset_top = -216.0
+offset_right = 583.0
+offset_bottom = -33.0
 grow_vertical = 0
 stretch = true
 script = SubResource("GDScript_48y67")
@@ -687,12 +689,14 @@ texture = ExtResource("20_084dp")
 expand_mode = 1
 
 [node name="ArmPanel" type="Panel" parent="BottomLeftArea/AmmoPanel/SubViewport"]
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = -1
+anchor_left = 0.806
+anchor_top = 0.35
+anchor_right = 0.968
 anchor_bottom = 1.0
-offset_left = 423.0
-offset_top = -119.0
-offset_right = 508.0
+offset_left = -0.150024
+offset_top = -0.0500031
+offset_right = -0.200043
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_iypfu")
 
@@ -762,6 +766,7 @@ text = "00"
 label_settings = SubResource("LabelSettings_084dp")
 
 [node name="BottomMidArea" type="Control" parent="." node_paths=PackedStringArray("tooltip_array")]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

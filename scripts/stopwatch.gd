@@ -11,7 +11,8 @@ func start():
 
 ## Returns time in seconds.
 func getTimeSeconds() -> int:
-	return TIME
+	var time_in_seconds:int = int(TIME)
+	return time_in_seconds
 
 func getTimeMinutes() -> int:
 	var a = TIME / 60

@@ -297,7 +297,7 @@ script = ExtResource("1_qg56h")
 despawn_timer = NodePath("DespawnTimer")
 damage_to_player = 12.0
 damage_to_enemies = 12.0
-travel_speed = 37.0
+travel_speed = 30.0
 
 [node name="rigidbody_collider" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_lvng8")

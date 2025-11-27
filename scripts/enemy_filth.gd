@@ -5,22 +5,19 @@ class_name EnemyFilth extends Enemy
 @onready var filth_animator:AnimationPlayer = $FilthAnimator
 @onready var body_collider: CollisionShape3D = $bodyCollider
 @onready var body_collider_2: CollisionShape3D = $bodyCollider2
-
+@onready var time_untill_process_disable_timer:Timer = $timeUntillDisable
 
 @export_category("General Properties")
 ## The weight that the enemy rotates exponentially with to look at it's target
-@export var lerp_angle_factor:float
+@export var lerp_angle_factor:float = 8.0
 ## The velocity that the enemy launches forwards with when it does the attack.
-@export var bite_velocity:float
+@export var bite_velocity:float = 1500.0
 ## bite damage
-@export var bite_damage:float
+@export var bite_damage:float = 8.0
 ## attack player cause of death
-@export var player_cause_of_death_message:String
+@export var player_cause_of_death_message:String = "Bitten to death"
 ## time after death untill the process_mode disables. When set to 0, the process will never disable.
-@export var time_untill_process_disable:float
-
-@export_category("Object Refrences")
-@export var time_untill_process_disable_timer:Timer
+@export var time_untill_process_disable:float = 4.0
 
 enum enemy_states {STUNNED, FALLING, RUNNING, PREPARINGBITE, BITING, ENDINGBITE, DYING, DEAD, NULL}
 var enemy_state:enemy_states = enemy_states.RUNNING:

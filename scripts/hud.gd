@@ -14,7 +14,6 @@ class_name HudGui extends Control
 @onready var current_look_dir: Label = %CurrentLookDir
 @onready var pivot: Node3D = $"../../Pivot"
 var current_frames_per_second = "null"
-@onready var player: Player = Helper.getFirstInScene("Player")
 @onready var black_hole_2: Sprite2D = $pistolPreviewIcon/BlackHole2
 @onready var pistol_bullet_icon: Sprite2D = $AmmoContainer/pistol_bullet_icon
 @onready var reload_prompt: AnimatedSprite2D = $pistolPreviewIcon/ReloadPrompt
@@ -36,7 +35,7 @@ var current_frames_per_second = "null"
 @onready var pistol = Helper.getFirstInScene("Pistol")
 @onready var arm_panel: Panel = $BottomLeftArea/AmmoPanel/SubViewport/ArmPanel
 @onready var arm_panel_2: Panel = $BottomLeftArea/AmmoPanel/SubViewport/ArmPanel2
-
+@export var player:Player
 
 @export_category("Crosshair Properties")
 ## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.
@@ -62,7 +61,6 @@ var crosshair_lines := []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		print("executing editor startup functions \ninitializing editor startup parameters")
 		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
 	else:
 		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]

@@ -178,6 +178,7 @@ SPEED = 0
 weight = 3
 slowInAirFactor = 1000.0
 grapple_origin = NodePath("GrappleOrigin")
+parriable = false
 
 [node name="stationary gun2" parent="." instance=ExtResource("1_3aruk")]
 

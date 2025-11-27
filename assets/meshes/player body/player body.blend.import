@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cbp81maqi1kff"
+uid="uid://c35cvtsnxwh6o"
 path="res://.godot/imported/player body.blend-095cccbfea92a0313a090a0211259216.scn"
 
 [deps]
@@ -33,7 +33,53 @@ animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
+"materials": {
+"FeedbackerLit": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/player body/materials/FeedbackerLit.tres"
+},
+"OVERRIDE_IN_ENGINE": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/player body/materials/OVERRIDE_IN_ENGINE.tres"
+},
+"blue Scratched metal": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/player body/materials/blue Scratched metal.tres"
+},
+"head accents": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/player body/materials/head accents.tres"
+},
+"head wire": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/player body/materials/head wire.tres"
+}
+},
 "meshes": {
+"player body_BézierCurve": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/player body/mesh resources/player body_BézierCurve.res"
+},
+"player body_BézierCurve_002": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/player body/mesh resources/player body_BézierCurve_002.res"
+},
+"player body_Cube": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/player body/mesh resources/player body_Cube.res"
+},
 "player body_Cube_001": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
@@ -57,6 +103,30 @@ _subresources={
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
 "save_to_file/path": "res://assets/meshes/player body/mesh resources/player body_Cube_003.res"
+},
+"player body_Cube_004": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/player body/mesh resources/player body_Cube_004.res"
+},
+"player body_Cube_005": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/player body/mesh resources/player body_Cube_005.res"
+},
+"player body_Mesh_0": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/player body/mesh resources/player body_Mesh_0.res"
 },
 "player body_gridmodeler_pipe_001": {
 "generate/lightmap_uv": 0,

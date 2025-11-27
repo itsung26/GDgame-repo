@@ -1,8 +1,9 @@
-[gd_scene load_steps=78 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=76 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
+[ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
 [ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/visual shaders/pixelated.tres" id="2_f1ej7"]
-[ext_resource type="Script" uid="uid://dp8ehpipke67n" path="res://scripts/player_debug_mesh.gd" id="2_oprun"]
+[ext_resource type="PackedScene" uid="uid://c35cvtsnxwh6o" path="res://assets/meshes/player body/player body.blend" id="2_i4ail"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://b634drxy8nceb" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_normal000.png" id="3_fjrip"]
 [ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/2d assets/primary textures/photorealistic/normalmapped dark/blackprototype/texture_01.png" id="3_oprun"]
@@ -20,7 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://clio45cdgnanq" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_07.png" id="13_fulsm"]
 [ext_resource type="Animation" uid="uid://cnhkkcfwtl5vx" path="res://assets/meshes/parry arm/animations/swing arm miss.res" id="14_i4ail"]
 [ext_resource type="Animation" uid="uid://c6a32v1x3a8qx" path="res://assets/meshes/parry arm/animations/swing arm parry.res" id="15_i4ail"]
-[ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="16_a8ls1"]
 [ext_resource type="PackedScene" uid="uid://vcb1a0yxsq2y" path="res://scenes/melee.tscn" id="19_a38lo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qfm1y"]
@@ -54,11 +54,6 @@ corner_radius_bottom_left = 15
 resource_local_to_scene = true
 ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_a8ls1"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_qfm1y"]
-material = ExtResource("16_a8ls1")
 
 [sub_resource type="Animation" id="Animation_g2els"]
 length = 0.001
@@ -1066,7 +1061,7 @@ inner_radius = 0.49
 outer_radius = 0.651
 rings = 12
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_i4ail"]
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4ni07"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_y4r1p"]
 radius = 0.09
@@ -1243,7 +1238,7 @@ billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_60mlk"]
 material = SubResource("StandardMaterial3D_4r5pv")
-size = Vector2(2.945, 3.055)
+size = Vector2(1.473, 1.528)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
 emission_shape = 3
@@ -1302,48 +1297,27 @@ material = SubResource("StandardMaterial3D_ur7pv")
 inner_radius = 0.645
 outer_radius = 0.715
 
-[node name="Player" type="CharacterBody3D" groups=["players"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_states") groups=["players"]]
 collision_mask = 263
 script = ExtResource("1_qhqgy")
-player_move_input_enabled = null
-player_look_input_enabled = null
-player_fire_input_enabled = null
-player_dash_input_enabled = null
-player_arm_action_enabled = null
-weapon_switch_enabled = null
-player_slide_slam_input_enabled = null
-player_kinematics_enabled_xz = null
-player_kinematics_enabled_y = null
-Godmode = null
-HEALTH = null
-STAMINA = null
 stamina_charge_delay = 0.1
-stamina_charge_speed = null
 inital_arm = 1
-camera_roll_enabled = null
-max_camera_roll = null
-camera_roll_speed = null
-SPEED = null
-JUMP_VELOCITY = null
-look_sensitivity = 0.2
-gravity_enabled = null
-Aerial_Slowdown = null
-AIR_ACCELERATION = null
+JUMP_VELOCITY = 7.0
 slide_speed_multiplier = 1.5
-dash_velocity_increase = 35.0
-dash_time_length = 0.175
-slam_velocity = null
-Grapple_Enabled = null
-GRAPPLE_SPEED_MAX = 120
-grapple_pull_speed = 1500.0
-grapple_hop = 5.0
-BLL_MAGSIZE = null
-black_hole_damage_per_frame = null
-BLL_projectile_travel_speed = null
-BLL_pull_speed = null
-hitstop_duration = null
+dash_velocity_increase = 25.0
+dash_time_length = 0.2
+GRAPPLE_SPEED_MAX = 200
+hitstop_duration = 0.21
 parry_projectile_speed_boost = 2.0
-free_slide_enabled = null
+weapon_states = [NodePath("Pivot/Camera3D/Guns/Melee"), NodePath("Pivot/Camera3D/Guns/Pistol")]
+
+[node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
+script = ExtResource("2_a38lo")
+nodes_to_hide_on_ready = [NodePath("../player body"), NodePath("../Pivot/Camera3D/ParryArm/ParryHitbox/CollisionShape3D"), NodePath("../Pivot/Camera3D/PunchRaycast")]
+metadata/_custom_type_script = "uid://bcsxapsamvmvq"
+
+[node name="player body" parent="." instance=ExtResource("2_i4ail")]
+transform = Transform3D(0.145265, 0, 0, 0, 0.145265, 0, 0, 0, 0.145265, 0, 1.597, 0.001)
 
 [node name="timeControllerAgent" type="Node" parent="."]
 
@@ -1371,29 +1345,27 @@ texture = ExtResource("3_oprun")
 
 [node name="huds" type="Node" parent="."]
 
-[node name="HUD" parent="huds" instance=ExtResource("10_d2wvv")]
+[node name="HUD" parent="huds" node_paths=PackedStringArray("player") instance=ExtResource("10_d2wvv")]
+player = NodePath("../..")
 crosshair_spread = 8.03
+
+[node name="CrosshairRIGHT" parent="huds/HUD/CrosshairContainer" index="0"]
+points = PackedVector2Array(8.03, 0, 16.715, 0)
+
+[node name="CrosshairLEFT" parent="huds/HUD/CrosshairContainer" index="1"]
+points = PackedVector2Array(-8.03, 0, -16.715, 0)
+
+[node name="CrosshairUP" parent="huds/HUD/CrosshairContainer" index="2"]
+points = PackedVector2Array(0, -8.03, 0, -16.715)
+
+[node name="CrosshairDOWN" parent="huds/HUD/CrosshairContainer" index="3"]
+points = PackedVector2Array(0, 8.03, 0, 16.715)
 
 [node name="HealthBar" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
 theme = SubResource("Theme_f1ej7")
 
 [node name="Pause" parent="huds" instance=ExtResource("11_3v2ag")]
 z_index = 2
-
-[node name="debugVisuals" type="Node3D" parent="."]
-script = ExtResource("2_oprun")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="debugVisuals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
-mesh = SubResource("CapsuleMesh_a8ls1")
-skeleton = NodePath("../../CollisionShapeMain")
-
-[node name="debugFloor" type="MeshInstance3D" parent="debugVisuals"]
-transform = Transform3D(6.02424, 0, 0, 0, 6.02424, 0, 0, 0, 6.02424, 0, 0, 0)
-visible = false
-mesh = SubResource("PlaneMesh_qfm1y")
-skeleton = NodePath("../..")
 
 [node name="CameraAnimator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1462,17 +1434,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
-attributes = SubResource("CameraAttributesPractical_i4ail")
+attributes = SubResource("CameraAttributesPractical_4ni07")
 
 [node name="GrappleDirectionGetter" type="RayCast3D" parent="Pivot/Camera3D"]
 visible = false
 target_position = Vector3(0, 0, -1)
-
-[node name="BulletRayCast" type="RayCast3D" parent="Pivot/Camera3D"]
-transform = Transform3D(1, 8.74228e-08, 8.74228e-08, 8.74228e-08, -1, 0, 8.74228e-08, 7.64274e-15, -1, 0, 0, 0)
-visible = false
-target_position = Vector3(0, 0, 900)
-collision_mask = 6
 
 [node name="ArmPivotBLL" type="Node3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
@@ -1697,25 +1663,25 @@ debug_color = Color(1, 1, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115876, -0.0787442, 0.106673)
 
 [node name="Skeleton3D" parent="Pivot/Camera3D/ParryArm/parry arm/feedbacker" index="0"]
-bones/0/rotation = Quaternion(-0.565045, 0.00809026, 0.57958, 0.58715)
-bones/1/rotation = Quaternion(-0.755637, -0.0121037, -0.263937, 0.599336)
-bones/2/rotation = Quaternion(-0.117489, 0.643557, -0.224493, 0.722242)
-bones/3/rotation = Quaternion(-0.426861, -0.0132569, -0.00604143, 0.9042)
-bones/4/rotation = Quaternion(-0.752218, 0.0913684, 0.0570066, 0.650054)
-bones/5/rotation = Quaternion(-0.387332, 0.038369, 0.0562436, 0.919423)
-bones/7/rotation = Quaternion(-0.424103, -0.0117608, 0.0314114, 0.904993)
-bones/8/rotation = Quaternion(-0.743838, 0.102419, 0.0736778, 0.656344)
-bones/9/rotation = Quaternion(-0.3914, 0.0505203, 0.064707, 0.916552)
-bones/11/rotation = Quaternion(-0.423124, -0.0109912, 0.0403304, 0.905107)
-bones/12/rotation = Quaternion(-0.741603, 0.104003, 0.078245, 0.658093)
-bones/13/rotation = Quaternion(-0.392332, 0.0544913, 0.0672439, 0.915743)
+bones/0/rotation = Quaternion(-0.647135, 0.143511, 0.671665, 0.330889)
+bones/1/rotation = Quaternion(-0.0328876, 0.0258517, -0.660136, 0.749981)
+bones/2/rotation = Quaternion(0.16512, 0.470651, -0.0929521, 0.861733)
+bones/3/rotation = Quaternion(-0.361778, -0.0493242, 0.0411079, 0.930051)
+bones/4/rotation = Quaternion(-0.773088, 0.0208081, 0.0390813, 0.632751)
+bones/5/rotation = Quaternion(-0.516561, 0.0211921, 0.0202603, 0.855748)
+bones/7/rotation = Quaternion(-0.362038, -0.0457132, 0.0746564, 0.928044)
+bones/8/rotation = Quaternion(-0.767971, 0.0312822, 0.0585346, 0.637037)
+bones/9/rotation = Quaternion(-0.520127, 0.0314797, 0.0307439, 0.852955)
+bones/11/rotation = Quaternion(-0.361825, -0.0444038, 0.0826843, 0.92751)
+bones/12/rotation = Quaternion(-0.766523, 0.0328026, 0.0638543, 0.638193)
+bones/13/rotation = Quaternion(-0.520985, 0.034927, 0.0339492, 0.852175)
 bones/14/rotation = Quaternion(-1.84548e-07, 4.80296e-07, -1.0794e-07, 1)
-bones/15/rotation = Quaternion(-0.42518, -0.0124975, 0.0200426, 0.904801)
-bones/16/rotation = Quaternion(-0.746454, 0.0991917, 0.0688725, 0.654388)
-bones/17/rotation = Quaternion(-0.390204, 0.046949, 0.062119, 0.91743)
-bones/19/rotation = Quaternion(-0.0624821, -0.124149, -0.54325, 0.827987)
-bones/20/rotation = Quaternion(0.079542, -0.0684054, 0.517673, 0.849122)
-bones/21/rotation = Quaternion(0.0857301, -0.0171929, 0.459783, 0.883716)
+bones/15/rotation = Quaternion(-0.362181, -0.0471173, 0.0644447, 0.928683)
+bones/16/rotation = Quaternion(-0.7696, 0.0281957, 0.0528472, 0.635711)
+bones/17/rotation = Quaternion(-0.519075, 0.0284651, 0.0275246, 0.853811)
+bones/19/rotation = Quaternion(-0.0599475, -0.117504, -0.478933, 0.867884)
+bones/20/rotation = Quaternion(0.0680577, -0.0708486, 0.385022, 0.917664)
+bones/21/rotation = Quaternion(0.0563525, -0.0193112, 0.305423, 0.950352)
 
 [node name="AnimationPlayer" parent="Pivot/Camera3D/ParryArm/parry arm" index="1"]
 callback_mode_method = 1
@@ -1724,7 +1690,7 @@ libraries = {
 }
 
 [node name="ParryFlash" type="MeshInstance3D" parent="Pivot/Camera3D/ParryArm" groups=["parry visuals"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.354004, -0.432234)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.190507, -0.297261)
 visible = false
 mesh = SubResource("QuadMesh_60mlk")
 skeleton = NodePath("../../../..")
@@ -1745,12 +1711,8 @@ light_energy = 16.0
 omni_range = 1.53652
 omni_attenuation = 2.0
 
-[node name="ParryTargetGetRayCast" type="RayCast3D" parent="Pivot/Camera3D/ParryArm"]
-visible = false
-target_position = Vector3(0, 0, -500)
-collision_mask = 6
-
 [node name="Guns" type="Node3D" parent="Pivot/Camera3D"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.687, -0.416, -0.943)
 
 [node name="BlackHoleLauncher" parent="Pivot/Camera3D/Guns" instance=ExtResource("11_d2wvv")]
@@ -1771,6 +1733,10 @@ transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8
 
 [node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
 transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, -0.44, 0.28, 0.535)
+visible = false
+
+[node name="RayCast3D" parent="Pivot/Camera3D/Guns/Pistol" index="3"]
+debug_shape_custom_color = Color(0, 0, 0, 0)
 
 [node name="Melee" parent="Pivot/Camera3D/Guns" instance=ExtResource("19_a38lo")]
 visible = false
@@ -1809,6 +1775,13 @@ draw_pass_1 = SubResource("TorusMesh_3v2ag")
 
 [node name="distantMarker" type="Marker3D" parent="Pivot/Camera3D"]
 transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, 0, 0, -5000)
+
+[node name="parryFlashGoBackMarker" type="Marker3D" parent="Pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.190507, -0.297261)
+
+[node name="PunchRaycast" type="RayCast3D" parent="Pivot/Camera3D"]
+target_position = Vector3(0, 0, -5000)
+collision_mask = 6
 
 [node name="SlideParticles" parent="." instance=ExtResource("8_smehm")]
 script = ExtResource("9_ur7pv")
@@ -1860,6 +1833,7 @@ ignore_time_scale = true
 [connection signal="timeout" from="StaminaChargeDelayTimer" to="." method="_on_stamina_charge_delay_timer_timeout"]
 [connection signal="timeout" from="HitstopTimer" to="." method="_on_hitstop_timer_timeout"]
 
+[editable path="player body"]
 [editable path="huds/HUD"]
 [editable path="huds/Pause"]
 [editable path="Pivot/Camera3D/ParryArm/parry arm"]

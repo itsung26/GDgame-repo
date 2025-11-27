@@ -1,0 +1,213 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://de6h4ftrlly6y"]
+
+[ext_resource type="Texture2D" uid="uid://s4puc1fv7vnd" path="res://assets/meshes/player body/textures/Diffuse_01.png" id="1_dvqle"]
+[ext_resource type="Texture2D" uid="uid://dbbovtwhl8vyb" path="res://assets/meshes/player body/textures/Roughness_01.jpg" id="2_j1f0m"]
+[ext_resource type="Texture2D" uid="uid://dhpcoqeudbw4b" path="res://assets/meshes/player body/textures/Sci-Fi_Crate_02_normal.jpg" id="3_6b2jd"]
+
+[resource]
+resource_name = "head accents"
+cull_mode = 2
+albedo_texture = ExtResource("1_dvqle")
+metallic = 1.0
+metallic_texture = ExtResource("2_j1f0m")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_j1f0m")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_6b2jd")
+uv1_scale = Vector3(10, 10, 1)
+uv1_offset = Vector3(0, -9, 0)
+metadata/extras = {
+"asset_data": {
+"addonVersion": "3.11.0",
+"assetBaseId": "cec954de-d7b4-4673-9e53-0f7179d25b30",
+"assetType": "material",
+"author": {
+"aboutMe": "Worked for game companies in the past. Currently freelance. Primarily using Blender nowadays.",
+"aboutMeUrl": "https://bilbo20211.artstation.com",
+"avatar128": "/avatar-redirect/1033ba57-c531-4a81-ba98-943b8c11ba85/128/",
+"firstName": "Adam",
+"fullName": "Adam McAnderson",
+"gravatarHash": "f60538b2eca680c408c127197c278106",
+"id": "223420",
+"lastName": "McAnderson"
+},
+"available_resolutions": [512.0, 1024.0],
+"canDownload": true,
+"canDownloadError": true,
+"category": "tech",
+"created": "2024-03-01T00:33:40.144061+01:00",
+"description": "Sci-Fi panel material full of greebles.",
+"dictParameters": {
+"addons": true,
+"animated": false,
+"engine": "cycles",
+"joinBlenderkitDiscounts": true,
+"materialStyle": "realistic",
+"megapixels": 44.0,
+"nodeCount": 10.0,
+"procedural": false,
+"purePbr": false,
+"sexualizedContent": false,
+"shaders": ["principled"],
+"textureCount": 5.0,
+"textureResolutionMax": 4096.0,
+"textureResolutionMin": 2048.0,
+"textureSizeMeters": 1.0,
+"uv": false
+},
+"displayName": "Sci-Fi Panelizer",
+"downloaded": 0.0,
+"files": [{
+"created": "2024-03-01T00:33:55.571586+01:00",
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/335089/",
+"fileThumbnail": "",
+"fileThumbnailLarge": "",
+"fileType": "blend",
+"fileUploadSize": 2.34019e+07,
+"filename": "assets/356c7da449754d94894b4888a2a1f47c/files/blend_4d08d065-292f-4588-9508-e15c0bfafcca.blend",
+"modified": "2024-03-01T00:33:55.571604+01:00",
+"resolution": 0.0,
+"thumbnailMiddleUrl": "",
+"thumbnailSmallUrl": "",
+"url": ""
+}, {
+"created": "2024-03-01T18:53:05.114808+01:00",
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/336086/",
+"fileThumbnail": "",
+"fileThumbnailLarge": "",
+"fileType": "resolution_0_5K",
+"fileUploadSize": 339278.0,
+"filename": "assets/356c7da449754d94894b4888a2a1f47c/files/resolution_0_5K_9d350c30-7e2c-4e75-8f8d-59dd2226fb50.blend",
+"modified": "2024-03-01T18:53:05.114826+01:00",
+"resolution": 0.0,
+"thumbnailMiddleUrl": "",
+"thumbnailSmallUrl": "",
+"url": ""
+}, {
+"created": "2024-03-01T18:53:04.226518+01:00",
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/336085/",
+"fileThumbnail": "",
+"fileThumbnailLarge": "",
+"fileType": "resolution_1K",
+"fileUploadSize": 956629.0,
+"file_name": "C:\\Users\\iat20\\OneDrive\\Documents\\shoot-game-(3d)\\assets\\meshes\\player body\\assets\\materials\\sci-fi-panelizer_356c7da4-4975-4d94-894b-4888a2a1f47c\\sci-fi-panelizer_1K_be9b87c6-e8f9-451c-8cf3-c11dffe080e2.blend",
+"filename": "assets/356c7da449754d94894b4888a2a1f47c/files/resolution_1K_be9b87c6-e8f9-451c-8cf3-c11dffe080e2.blend",
+"modified": "2024-03-01T18:53:04.226538+01:00",
+"resolution": 0.0,
+"thumbnailMiddleUrl": "",
+"thumbnailSmallUrl": "",
+"url": "https://assets.blenderkit.com/assets/356c7da449754d94894b4888a2a1f47c/files/resolution_1K_be9b87c6-e8f9-451c-8cf3-c11dffe080e2.blend?verify=1763647551-WjmSq1e9sxCI%2BQXKNCNGaGeKk8lHd4hpi20DrSHwwIQ%3D"
+}, {
+"created": "2024-03-01T00:33:51.027702+01:00",
+"downloadUrl": "https://www.blenderkit.com/api/v1/downloads/335088/",
+"fileThumbnail": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.96x96_q85_crop-%2C.png",
+"fileThumbnailLarge": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.1024x1024_q85_crop-%2C.png",
+"fileType": "thumbnail",
+"fileUploadSize": 5.94909e+06,
+"filename": "assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png",
+"modified": "2024-03-01T00:33:51.027716+01:00",
+"resolution": 0.0,
+"thumbnailMiddleUrl": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.512x512_q85_crop-%2C.png",
+"thumbnailSmallUrl": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.256x256_q85_crop-%2C.png",
+"url": ""
+}],
+"filesSize": 29928.0,
+"id": "356c7da4-4975-4d94-894b-4888a2a1f47c",
+"isFree": true,
+"isPrivate": false,
+"lastBlendUpload": "2024-02-29T23:33:55.571586+00:00",
+"lastGltfUpload": "",
+"lastPhotoThumbnailUpload": "",
+"lastResolutionUpload": "2024-03-01T17:53:05.114808+00:00",
+"lastThumbnailUpload": "2024-02-29T23:33:51.027702+00:00",
+"lastUserInteraction": "2024-03-01T00:33:56.190643+01:00",
+"lastVideoUpload": "",
+"lastZipFileUpload": "",
+"license": "royalty_free",
+"max_resolution": 1024.0,
+"name": "Sci-Fi Panelizer",
+"pk": 82421.0,
+"ratingsAverage": {
+"bookmarks": 0.995238,
+"quality": 9.0,
+"virtualPrice": null,
+"workingHours": 5.0
+},
+"ratingsCount": {
+"bookmarks": 210.0,
+"quality": 3.0,
+"virtualPrice": 0.0,
+"workingHours": 3.0
+},
+"ratingsMedian": {
+"bookmarks": 1.0,
+"quality": 9.0,
+"virtualPrice": null,
+"workingHours": 5.0
+},
+"ratingsSum": {
+"bookmarks": 209.0,
+"quality": 27.0,
+"score": 450.0,
+"virtualPrice": null,
+"workingHours": 12.5
+},
+"resolution": "resolution_2K",
+"score": 450.0,
+"showMarketingLabels": true,
+"sourceAppName": "blender",
+"sourceAppVersion": "4.0.2",
+"tags": ["Sci-Fi", "Greeble", "Grungy", "Panels", "Tech"],
+"texture_size_meters": 1.0,
+"thumbnail": "thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.512x512_q85_crop-%2C.png.webp",
+"thumbnailLargeUrl": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.1024x1024_q85_crop-%2C.png",
+"thumbnailLargeUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.1024x1024_q85.png",
+"thumbnailLargeUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.1024x1024_q85.png.webp?webp_generated=1709315767",
+"thumbnailLargeUrlWebp": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.1024x1024_q85_crop-%2C.png.webp?webp_generated=1709315767",
+"thumbnailMiddleUrl": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.512x512_q85_crop-%2C.png",
+"thumbnailMiddleUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.512x512_q85.png",
+"thumbnailMiddleUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.512x512_q85.png.webp?webp_generated=1709315767",
+"thumbnailMiddleUrlWebp": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.512x512_q85_crop-%2C.png.webp?webp_generated=1709315767",
+"thumbnailSmallUrl": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.256x256_q85_crop-%2C.png",
+"thumbnailSmallUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.256x256_q85.png",
+"thumbnailSmallUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.256x256_q85.png.webp?webp_generated=1709315767",
+"thumbnailSmallUrlWebp": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.256x256_q85_crop-%2C.png.webp?webp_generated=1709315767",
+"thumbnailXlargeUrl": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.2048x2048_q85_crop-%2C.png",
+"thumbnailXlargeUrlNonsquared": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.2048x2048_q85.png",
+"thumbnailXlargeUrlNonsquaredWebp": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.2048x2048_q85.png.webp?webp_generated=1709315767",
+"thumbnailXlargeUrlWebp": "https://public.blenderkit.com/thumbnails/assets/356c7da449754d94894b4888a2a1f47c/files/thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.2048x2048_q85_crop-%2C.png.webp?webp_generated=1709315767",
+"thumbnail_small": "thumbnail_f5abc56c-5a2e-4476-8b96-3adf81a69f24.png.256x256_q85_crop-%2C.png.webp",
+"tooltip_data": {
+"aname": "Sci-Fi Panelizer",
+"author_text": "by Adam McAnderson",
+"quality": "9"
+},
+"url": "https://www.blenderkit.com/api/v1/assets/356c7da4-4975-4d94-894b-4888a2a1f47c/",
+"verificationStatus": "validated",
+"versionNumber": 1.0,
+"webpGeneratedTimestamp": 1.70932e+09
+},
+"blenderkit": {
+"asset_base_id": "cec954de-d7b4-4673-9e53-0f7179d25b30",
+"category": 33.0,
+"description": "Sci-Fi panel material full of greebles.",
+"has_thumbnail": 1.0,
+"id": "356c7da4-4975-4d94-894b-4888a2a1f47c",
+"is_procedural": 0.0,
+"name": "Sci-Fi Panelizer",
+"name_changed": 1.0,
+"name_old": "Sci-Fi Panelizer",
+"node_count": 10.0,
+"report": "",
+"shaders": "principled, ",
+"tags": "Sci-Fi, Greeble, Grungy, Panels, Tech",
+"texture_count": 5.0,
+"texture_resolution_max": 4096.0,
+"texture_resolution_min": 2048.0,
+"thumbnail": "D:\\Work\\Blender\\Game_Ready_Sci-Fi_Crate\\Renders\\Render_01.png",
+"thumbnail_generating_state": "",
+"total_megapixels": 44.0,
+"uploading": 0.0
+}
+}

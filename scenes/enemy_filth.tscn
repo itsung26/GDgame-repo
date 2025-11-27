@@ -1123,20 +1123,15 @@ emission_energy_multiplier = 0.5
 [sub_resource type="SphereMesh" id="SphereMesh_axemi"]
 material = SubResource("StandardMaterial3D_s6c3y")
 
-[node name="enemy_filth" type="CharacterBody3D" node_paths=PackedStringArray("time_untill_process_disable_timer", "grapple_origin") groups=["enemy"]]
+[node name="enemy_filth" type="CharacterBody3D" node_paths=PackedStringArray("grapple_origin") groups=["enemy"]]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_8551a")
-lerp_angle_factor = 8.0
-bite_velocity = 1500.0
-bite_damage = 8.0
-player_cause_of_death_message = "Bitten to death"
-time_untill_process_disable = 4.0
-time_untill_process_disable_timer = NodePath("timeUntillDisable")
 HEALTH = 20.0
 SPEED = 750
 grapple_origin = NodePath("Marker3D")
 parriable = false
+metadata/_edit_pinned_properties_ = [&"HEALTH"]
 
 [node name="debug state text" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.32256, 0)
