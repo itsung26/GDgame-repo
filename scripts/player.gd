@@ -228,7 +228,7 @@ func _ready() -> void:
 	if weapon_states.is_empty():
 		assert(false, "No weapons! Player should at least have weapon melee equipped.")
 	
-	# object reference definitions (needs to be moved)
+	# object reference definitions (needs to be removed)
 	pause = get_tree().current_scene.find_child("Pause")
 	slide_light = slide_particles.get_node("ImpactParticles/OmniLight3D")
 	impact_particles = slide_particles.get_node("ImpactParticles")
@@ -244,7 +244,7 @@ func _ready() -> void:
 	
 	# set the grapple hook's physics process to static so it doesn't fall to the depths of hell
 	grapple_hook.freeze = true
-			
+	
 	# Switch to the initial arm
 	if arm_state != inital_arm:
 		set_arm_state(inital_arm)
@@ -472,7 +472,7 @@ func damagePlayer(damage:float, death_cause:String = "Unknown"):
 	if not Godmode:
 		HEALTH = new_health
 
-func cameraFX(delta):
+func cameraFX(delta=get_process_delta_time()):
 	if camera_roll_enabled:
 		# Set target roll based on left/right input
 		if input_dir.x > 0:
@@ -508,6 +508,7 @@ func zoomOut():
 
 
 ## This method performs the primary computations for kinematics based on which state player_state is in.
+## Should only be called in [code]_physics_process[/code].
 func physicsStateLogic(delta=get_physics_process_delta_time()):
 	# grounded movement state logic
 	if player_state == player_states.GROUNDED:
@@ -567,8 +568,6 @@ func physicsStateLogic(delta=get_physics_process_delta_time()):
 
 # Called every physics frame. FPS: 120
 func _physics_process(delta: float) -> void:
-	
-	cameraFX(delta) # roll, tilt, clamp
 	
 	# state control
 	if (is_on_floor() and 
@@ -673,17 +672,19 @@ func parryTargetInBox():
 		hitStop(hitstop_duration)
 		# Prevent the player from beginning another parry while hitstopped
 		parry_input_allowed = false
+		
 		# Special cases in for different parriable things.
-#region parriable bodies
 		if parry_target is EnemyProjectile:
 			parry_target.has_been_parried = true
 			if parry_target is EnergyBall:
 				parry_target.linear_velocity = Vector3.ZERO
 				parry_target.linear_velocity = (raycast_target_location - parry_target.global_position).normalized() * (parry_target.travel_speed * parry_projectile_speed_boost)
-#endregion
 	
 	# If no valid target was found in the box
 	elif parry_target == null:
+		parry_arm_animator.play("swing arm miss")
+
+	elif parry_target != null and parry_target.parriable == false:
 		parry_arm_animator.play("swing arm miss")
 
 func hitStop(hitstop_duration_time:float):
@@ -696,7 +697,11 @@ var a = true
 # should be run in _process
 func _process(delta) -> void:
 	
+	cameraFX()
+	
+	# This is old asf. It's gotta go.
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
+	# I hate this
 	charge_stamina()
 	
 	# the main process where the enemy gets drawn to the player on the hook
@@ -711,7 +716,8 @@ func _process(delta) -> void:
 		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
 		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
 	
-	# keeps the rope attatched to the grapple bit
+	# keeps the rope attatched to the grapple bit.
+	# Again, I hate this
 	if grapple_rope_mesh_gen:
 		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
 	
@@ -725,7 +731,8 @@ func _process(delta) -> void:
 		if black_hole_cooldown_timer:
 			black_hole_cooldown_timer.text = time_left
 	
-	# kill the player
+	# kill the player.
+	# WIP: make death check internal in damagePlayer().
 	if HEALTH <= 0:
 		playerDie()
 	

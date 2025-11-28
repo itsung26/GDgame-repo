@@ -11,15 +11,19 @@ const RED_EMISSIVE_MATERIAL = preload("res://assets/materials/emissives/red_emis
 const BULLET_TRAIL_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
 const BULLET_IMPACT_PARTICLE_SCENE_1:PackedScene = null
 const BULLET_IMPACT_PARTICLE_SCENE_2:PackedScene = preload("res://scenes/bullet_impact_particles_2.tscn")
+@onready var gunplaceholderanimator: AnimationPlayer = $gunplaceholderanimator
 
 @export var bullet_trail_color:Color = Color.GOLD
 @export var muzzle_origin:Marker3D
 @export var bullet_raycast:RayCast3D
 
 func _onEquip():
-	pass
+	gunplaceholderanimator.play("onequip")
 
 func _fire():
+	if gunplaceholderanimator.current_animation == "onequip":
+		gunplaceholderanimator.stop()
+	
 	# get information about the thing that got hit (what it is and how the bullet hit it)
 	var origin_pos:Vector3 = muzzle_origin.global_position
 	var hit_pos:Vector3 = bullet_raycast.get_collision_point()
