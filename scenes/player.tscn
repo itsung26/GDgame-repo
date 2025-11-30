@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=75 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://clio45cdgnanq" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_07.png" id="13_fulsm"]
 [ext_resource type="Animation" uid="uid://cnhkkcfwtl5vx" path="res://assets/meshes/parry arm/animations/swing arm miss.res" id="14_i4ail"]
 [ext_resource type="Animation" uid="uid://c6a32v1x3a8qx" path="res://assets/meshes/parry arm/animations/swing arm parry.res" id="15_i4ail"]
+[ext_resource type="Animation" uid="uid://cy6myi3dyfemb" path="res://assets/meshes/parry arm/animations/RESET.res" id="16_4ni07"]
 [ext_resource type="PackedScene" uid="uid://vcb1a0yxsq2y" path="res://scenes/melee.tscn" id="19_a38lo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a38lo"]
@@ -985,6 +986,7 @@ size = Vector3(1.99298, 1.59285, 3.25121)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a38lo"]
 _data = {
+&"RESET": ExtResource("16_4ni07"),
 &"swing arm initial": ExtResource("13_60mlk"),
 &"swing arm miss": ExtResource("14_i4ail"),
 &"swing arm parry": ExtResource("15_i4ail")
@@ -1061,13 +1063,12 @@ outer_radius = 0.715
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_states") groups=["players"]]
 collision_mask = 263
 script = ExtResource("1_qhqgy")
-stamina_charge_delay = 0.1
 inital_arm = 1
 JUMP_VELOCITY = 7.0
 slide_speed_multiplier = 1.5
 dash_velocity_increase = 25.0
 dash_time_length = 0.2
-GRAPPLE_SPEED_MAX = 200
+GRAPPLE_SPEED_MAX = 115
 hitstop_duration = 0.21
 parry_projectile_speed_boost = 2.0
 weapon_states = [NodePath("Pivot/Camera3D/Guns/Melee"), NodePath("Pivot/Camera3D/Guns/Pistol")]
@@ -1427,25 +1428,7 @@ debug_color = Color(1, 1, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115876, -0.0787442, 0.106673)
 
 [node name="Skeleton3D" parent="Pivot/Camera3D/ParryArm/parry arm/feedbacker" index="0"]
-bones/0/rotation = Quaternion(-0.647135, 0.143511, 0.671665, 0.330889)
-bones/1/rotation = Quaternion(-0.0328876, 0.0258517, -0.660136, 0.749981)
-bones/2/rotation = Quaternion(0.16512, 0.470651, -0.0929521, 0.861733)
-bones/3/rotation = Quaternion(-0.361778, -0.0493242, 0.0411079, 0.930051)
-bones/4/rotation = Quaternion(-0.773088, 0.0208081, 0.0390813, 0.632751)
-bones/5/rotation = Quaternion(-0.516561, 0.0211921, 0.0202603, 0.855748)
-bones/7/rotation = Quaternion(-0.362038, -0.0457132, 0.0746564, 0.928044)
-bones/8/rotation = Quaternion(-0.767971, 0.0312822, 0.0585346, 0.637037)
-bones/9/rotation = Quaternion(-0.520127, 0.0314797, 0.0307439, 0.852955)
-bones/11/rotation = Quaternion(-0.361825, -0.0444038, 0.0826843, 0.92751)
-bones/12/rotation = Quaternion(-0.766523, 0.0328026, 0.0638543, 0.638193)
-bones/13/rotation = Quaternion(-0.520985, 0.034927, 0.0339492, 0.852175)
 bones/14/rotation = Quaternion(-1.84548e-07, 4.80296e-07, -1.0794e-07, 1)
-bones/15/rotation = Quaternion(-0.362181, -0.0471173, 0.0644447, 0.928683)
-bones/16/rotation = Quaternion(-0.7696, 0.0281957, 0.0528472, 0.635711)
-bones/17/rotation = Quaternion(-0.519075, 0.0284651, 0.0275246, 0.853811)
-bones/19/rotation = Quaternion(-0.0599475, -0.117504, -0.478933, 0.867884)
-bones/20/rotation = Quaternion(0.0680577, -0.0708486, 0.385022, 0.917664)
-bones/21/rotation = Quaternion(0.0563525, -0.0193112, 0.305423, 0.950352)
 
 [node name="AnimationPlayer" parent="Pivot/Camera3D/ParryArm/parry arm" index="1"]
 callback_mode_method = 1
@@ -1497,9 +1480,7 @@ transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8
 
 [node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
 transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, -0.44, 0.28, 0.535)
-
-[node name="RayCast3D" parent="Pivot/Camera3D/Guns/Pistol" index="2"]
-debug_shape_custom_color = Color(0, 0, 0, 0)
+visible = false
 
 [node name="gunplaceholderanimator" parent="Pivot/Camera3D/Guns/Pistol" index="3"]
 speed_scale = 0.35
@@ -1590,8 +1571,8 @@ ignore_time_scale = true
 
 [connection signal="entered_arm_state" from="." to="huds/HUD" method="_on_player_entered_arm_state"]
 [connection signal="body_entered" from="GrappleEnemyCeaseArea" to="." method="_on_grapple_enemy_cease_area_body_entered"]
-[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_world_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
+[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_world_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
@@ -1605,4 +1586,5 @@ ignore_time_scale = true
 [editable path="Pivot/Camera3D/ParryArm/parry arm"]
 [editable path="Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]
+[editable path="Pivot/Camera3D/Guns/Melee"]
 [editable path="SlideParticles"]

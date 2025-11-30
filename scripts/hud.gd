@@ -36,6 +36,7 @@ var current_frames_per_second = "null"
 @onready var arm_panel: Panel = $BottomLeftArea/AmmoPanel/SubViewport/ArmPanel
 @onready var arm_panel_2: Panel = $BottomLeftArea/AmmoPanel/SubViewport/ArmPanel2
 @export var player:Player
+@onready var debug_container: VBoxContainer = $DebugContainer
 
 @export_category("Crosshair Properties")
 ## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.
@@ -48,6 +49,7 @@ var current_frames_per_second = "null"
 @export var crosshair_length := 5.0
 
 @export_category("UI visual properties")
+@export var debug_panel_enabled:bool = true
 @export var healthbar_smooth_react_enabled:bool = true
 ## The speed at which the healthbar fills and drains in reaction to the player being damaged
 @export var healthbar_react_speed := 1.0
@@ -63,6 +65,10 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
 	else:
+		if debug_panel_enabled:
+			debug_container.visible = true
+		else:
+			debug_container.visible = false
 		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -19,10 +19,12 @@ class_name EnemyFilth extends Enemy
 ## time after death untill the process_mode disables. When set to 0, the process will never disable.
 @export var time_untill_process_disable:float = 4.0
 
+## Main physics states.
 enum enemy_states {STUNNED, FALLING, RUNNING, PREPARINGBITE, BITING, ENDINGBITE, DYING, DEAD, NULL}
 var enemy_state:enemy_states = enemy_states.RUNNING:
 	set = set_enemy_state
 
+## Physics collider states.
 enum enemy_box_states {RUNNING, ATTACKING, DYING}
 var enemy_box_state:enemy_box_states = enemy_box_states.RUNNING:
 	set = set_enemy_box_state

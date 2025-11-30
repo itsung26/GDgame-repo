@@ -65,18 +65,28 @@ const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.t
 var grapple_rope_mesh_gen:ropeMeshGenerator
 const LaserGenerator_SCENE = preload("res://scenes/laser_generator.tscn")
 
-
-@export_category("Input Allowments")
+@export_group("Input Allowments")
 @export var player_move_input_enabled:bool = true
+@export var player_jump_input_enabled:bool = true
 @export var player_look_input_enabled:bool = true
 @export var player_fire_input_enabled:bool = true
 @export var player_dash_input_enabled:bool = true
-@export var player_arm_action_enabled:bool = true
-@export var weapon_switch_enabled:bool = true
+@export var player_arm_action_input_enabled:bool = true
+@export var weapon_switch_input_enabled:bool = true
 @export var player_slide_slam_input_enabled:bool = true
 var stamina_recharging:bool = true
 
-@export_category("Physics Compute")
+@export_category("Main Attributes")
+@export var Godmode:bool = false
+@export var HEALTH:float = 100
+@export var STAMINA:float = 300
+## Delay after dash before stamina before stamina begins to recharge in seconds.
+@export var stamina_charge_delay:float = 0.1 # seconds
+## Speed at which the stamina charges.
+@export var stamina_charge_speed:float = 100.0
+@export var inital_arm:arm_states = arm_states.GRAPPLEARM
+
+@export_group("Physics Compute")
 ## If [code]true[/code], compute physics for velocity on the XZ plane.
 ## This can be used to prevent the player from moving, but still alowing the player to fall.
 @export var player_kinematics_enabled_xz:bool = true
@@ -84,22 +94,13 @@ var stamina_recharging:bool = true
 ## This can be useful for freezing the player in the air.
 @export var player_kinematics_enabled_y:bool = true
 
-@export_category("Main Attributes")
-@export var Godmode:bool = false
-@export var HEALTH:float = 100
-@export var STAMINA:float = 300
-## Delay after dash before stamina before stamina begins to recharge in seconds.
-@export var stamina_charge_delay:float = 1.0 # seconds
-## Speed at which the stamina charges.
-@export var stamina_charge_speed:float = 100.0
-@export var inital_arm:arm_states = arm_states.GRAPPLEARM
 
-@export_category("Camera")
+@export_group("Camera")
 @export var camera_roll_enabled:bool = true
 @export var max_camera_roll: float = 3.25 # degrees, adjust as desired
 @export var camera_roll_speed: float = 20.0 # how quickly the camera rolls
 
-@export_category("Movement")
+@export_group("Movement")
 @export var SPEED = 12.0
 @export var JUMP_VELOCITY = 8.0
 @export var look_sensitivity = 0.1
@@ -117,22 +118,14 @@ var stamina_recharging:bool = true
 ## The velocity applied in the negative y direction. Should remain constant.
 @export var slam_velocity := 35.0
 
-@export_category("Grappling Hook")
+@export_group("Grappling Hook")
 @export var Grapple_Enabled:= true
 @export var GRAPPLE_SPEED_MAX = 20
 @export var grapple_pull_speed:float = 10
 ## The amount of upward velocity that is added to the player after beginning to pull the grapple on an enemy
 @export var grapple_hop:float = 1.0
 
-@export_category("Black Hole Launcher")
-@export var BLL_MAGSIZE := 3
-var BLL_AMMO := BLL_MAGSIZE
-@export var black_hole_damage_per_frame := 1
-@export var BLL_projectile_travel_speed := 300.0
-## How violently entities are pulled to the center of the black hole in m/s.
-@export var BLL_pull_speed := 10
-
-@export_category("Parrying")
+@export_group("Parrying")
 var parry_target:Node3D
 ## The amount of time that time stops for when parrying something.
 @export var hitstop_duration:float = 0.25
@@ -141,7 +134,7 @@ var parry_target:Node3D
 ## Wether the parry arm action in specific is allowed to occur.
 @export var parry_input_allowed:bool = true
 
-@export_category("Extras")
+@export_group("Extras")
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
 @export var free_slide_enabled := false
 
@@ -269,7 +262,13 @@ func set_player_state(new_player_state:int):
 	
 	# death to and from
 	if new_player_state == player_states.DEAD:
-		pass
+		player_move_input_enabled = false
+		player_dash_input_enabled = false
+		player_jump_input_enabled = false
+		player_fire_input_enabled = false
+		player_arm_action_input_enabled = false
+		weapon_switch_input_enabled = false
+		player_look_input_enabled = false
 		
 	# REELINGTO to and from
 	if new_player_state == player_states.REELINGTO:
@@ -421,7 +420,7 @@ func _input(event) -> void:
 			set_arm_state(arm_states.GRAPPLEARM)
 	
 	# handle grapple activation
-	if Input.is_action_just_pressed("arm action") and player_arm_action_enabled:
+	if Input.is_action_just_pressed("arm action") and player_arm_action_input_enabled:
 		
 		if arm_state == arm_states.GRAPPLEARM:
 			if not grapple_rope_mesh_gen == null:
@@ -467,13 +466,26 @@ func damagePlayer(damage:float, death_cause:String = "Unknown"):
 	var previous_health:float = HEALTH
 	var new_health:float = HEALTH - damage
 	
+	if damage == 0.0:
+		push_warning("Player recieved 0 damage? If this is intended, this method should not have been called.")
+	elif damage < 0.0:
+		assert(false, "Player recieved negative damage.")
 	cause_of_death = death_cause
-	
 	if not Godmode:
 		HEALTH = new_health
+		
+func healPlayer(amount:float):
+	var previous_health:float = HEALTH
+	var new_health:float = HEALTH + amount
+	
+	if amount == 0.0:
+		push_warning("Player was healed by 0? If this is intended, this method should not have been called.")
+	elif amount < 0.0:
+		assert(false, "Cannot heal the player by a negative amount.")
+	
 
 func cameraFX(delta=get_process_delta_time()):
-	if camera_roll_enabled:
+	if camera_roll_enabled and player_move_input_enabled:
 		# Set target roll based on left/right input
 		if input_dir.x > 0:
 			camera_target_roll = -max_camera_roll # rolling right (negative z)
@@ -489,23 +501,6 @@ func cameraFX(delta=get_process_delta_time()):
 
 	# clamp the camera view to prevent back breaking
 	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
-
-# called when overclock ends
-func zoomIn():
-	camera_animator.play("camera_overclock_zoom_in")
-	SPEED = SPEED / 2
-	JUMP_VELOCITY = prev_jump_velocity
-	gun_animator.speed_scale = 1.5
-	pistol_damage_increase = false
-
-# called when overclock begins
-func zoomOut():
-	camera_animator.play("camera_overclock_zoom_out")
-	SPEED = SPEED * 2
-	JUMP_VELOCITY = JUMP_VELOCITY * 1.5
-	gun_animator.speed_scale = 3
-	pistol_damage_increase = true
-
 
 ## This method performs the primary computations for kinematics based on which state player_state is in.
 ## Should only be called in [code]_physics_process[/code].
@@ -589,7 +584,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and player_jump_input_enabled:
 		velocity.y += JUMP_VELOCITY
 	
 	# Get the input direction and handle the movement/deceleration.
@@ -609,10 +604,10 @@ func _physics_process(delta: float) -> void:
 
 func gunInputs(): # to be called in a method that can "hear" inputs
 	# switch weapon block==================================================================================
-	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states[0] and weapon_switch_enabled:
+	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states[0] and weapon_switch_input_enabled:
 		set_weapon_state(weapon_states[0])
 		
-	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states[1] and weapon_switch_enabled:
+	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states[1] and weapon_switch_input_enabled:
 		set_weapon_state(weapon_states[1])
 	
 	
@@ -650,9 +645,9 @@ func processTargetPull(delta=get_process_delta_time()):
 
 ## Will check if there is a valid parry target and parry it if so.
 func parryTargetInBox():
-	
 	# If it hits something in the box and it is parriable
 	if parry_target != null and parry_target.parriable == true:
+		1
 		parry_arm_animator.play("swing arm parry")
 		var raycast_target_body:Node = punch_raycast.get_collider()
 		var raycast_target_location:Vector3 = punch_raycast.get_collision_point()
@@ -696,7 +691,7 @@ var a = true
 # Kinematic-related operations should only be run in _physics_process, while logic and other operations
 # should be run in _process
 func _process(delta) -> void:
-	
+	# process camera fx
 	cameraFX()
 	
 	# This is old asf. It's gotta go.
@@ -770,12 +765,19 @@ func updateStateStrings():
 func playerDie():
 	player_state = player_states.DEAD
 	Engine.time_scale = 0.3
+	
+# Note: This needs a massive rewrite.
+#region Grapple Hook main logic
+func setHookedTarget(bodyTarget:Node3D):
+	if hooked_target is Enemy:
+		hooked_target = bodyTarget
 
-#region Grapple Hook collision detections
 # when the grapple hook's smaller collider hits the world, go back to idle
 # when it hits enemies, pull them towards player
-func _on_world_collide_box_body_entered(body: Enemy) -> void:
-	hooked_target = body
+func _on_world_collide_box_body_entered(body:Node3D) -> void:
+	player_jump_input_enabled = false
+	player_move_input_enabled = false
+	setHookedTarget(body)
 	if hooked_target:
 		if hooked_target.is_in_group("enemy"):
 			var enemy_hooked:Enemy = hooked_target
@@ -804,8 +806,11 @@ func _on_world_collide_box_world_entered(body:Node):
 
 # when the hook's actual collider stops colliding with whatever it is colliding with
 func _on_world_collide_box_body_exited(body: Node3D) -> void:
+	player_jump_input_enabled = true
+	player_move_input_enabled = true
+	setHookedTarget(null)
 #endregion
-	hooked_target = null
+
 
 # when the unstuck button is pressed, reset the player states and go to origin
 func _on_unstuck_pressed() -> void:

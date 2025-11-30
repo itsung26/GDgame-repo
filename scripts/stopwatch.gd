@@ -21,6 +21,7 @@ func getTimeMinutes() -> int:
 	return b
 
 func getTimeMs() -> int:
+	@warning_ignore("narrowing_conversion")
 	return TIME * 1000
 
 func reset(stop:bool):

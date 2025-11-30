@@ -549,8 +549,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 465.0
-offset_right = -732.0
+offset_top = 489.0
+offset_right = -787.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_apjy4")
@@ -559,7 +559,6 @@ ammo_panel_lerp_right_target = 25.0
 ammo_panel_scale_lerp_speed = 2.5
 ammo_panel_back_target = 0.95
 ammo_panel_forward_target = 1.1
-metadata/_edit_lock_ = true
 
 [node name="AmmoPanel" type="SubViewportContainer" parent="BottomLeftArea"]
 material = SubResource("ShaderMaterial_0m4u7")

@@ -1133,6 +1133,10 @@ grapple_origin = NodePath("Marker3D")
 parriable = false
 metadata/_edit_pinned_properties_ = [&"HEALTH"]
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+debug_enabled = true
+
 [node name="debug state text" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.32256, 0)
 mesh = SubResource("TextMesh_i5vck")
@@ -1341,9 +1345,6 @@ disabled = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
 visible = false
 target_position = Vector3(0, 0, 1)
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-debug_enabled = true
 
 [node name="readyBiteBox" type="Area3D" parent="."]
 collision_layer = 2

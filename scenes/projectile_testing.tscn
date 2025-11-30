@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=25 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
@@ -20,25 +20,6 @@ tonemap_mode = 2
 glow_enabled = true
 volumetric_fog_density = 0.0768
 volumetric_fog_albedo = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m4u7"]
-bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apjy4"]
-bg_color = Color(1, 0, 0, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="Theme" id="Theme_61yce"]
-resource_local_to_scene = true
-ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_7ksdt"]
 vertices = PackedVector3Array(-12.5, 0.5, 2.5, -10.75, 0.5, 2.25, -9.5, 0.5, 0.75, -9.25, 0.5, -1, -7.25, 0.5, -99.5, -99.5, 0.5, -99.5, -99.5, 0.5, 4.5, -12.5, 0.5, 4.5, -7.25, 0.5, -1, -1.5, 0.5, -1, -1.5, 0.5, -99.5, 0.75, 0.5, 1, 1.75, 0.5, 13, 13.75, 0.5, 13, 0.5, 0.5, -1, 99.5, 0.5, 13.5, 99.5, 0.5, -99.5, 13.75, 0.75, 13.5, -9.25, 0.5, 1.25, -10.25, 0.5, 2.5, -10.5, 0.5, 12.75, 1.5, 0.5, 13.25, -99.5, 0.5, 10.5, -12.5, 0.5, 10.5, 1.5, 0.75, 21, 3.5, 1.5, 21, 3.5, 1.5, 14, 1.5, 0.75, 14, -12.5, 0.5, 12.5, 1.5, 0.5, 22, -99.5, 0.5, 99.5, 3.5, 0.5, 99.5, 3.5, 0.5, 22, 11.75, 1.5, 14, 11.75, 1.5, 21, 13.75, 0.75, 21, 13.75, 0.75, 14, 99.5, 0.5, 21.5, 13.75, 0.75, 21.5, 7.625, 3, 21, 7.625, 3, 14, 5.75, 0.5, 14.25, 5.75, 0.5, 20.75, 7, 0.5, 20.75, 7, 0.5, 14.25, 8.25, 0.5, 14.25, 8.25, 0.5, 20.75, 9.5, 0.5, 20.75, 9.5, 0.5, 14.25, 13.75, 0.5, 22, 11.75, 0.5, 22, 11.75, 0.5, 99.5, 99.5, 0.5, 99.5)
@@ -114,15 +95,8 @@ shadow_enabled = true
 
 [node name="grapple_rope_meshGen" parent="." instance=ExtResource("1_s3yq3")]
 
-[node name="Player" parent="." node_paths=PackedStringArray("initial_weapon") instance=ExtResource("3_7ksdt")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.611184, 0, 7.50096)
-initial_weapon = NodePath("Pivot/Camera3D/Guns/Pistol")
-
-[node name="HealthBar" parent="Player/huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
-theme = SubResource("Theme_61yce")
-
-[node name="rope_origin" parent="Player/Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" index="1"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00337982, 0.181378, -0.147857)
+[node name="Player" parent="." instance=ExtResource("3_7ksdt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.46574)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_7ksdt")
@@ -203,12 +177,3 @@ shape = SubResource("BoxShape3D_rj2dv")
 debug_color = Color(1, 1, 0, 1)
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-
-[editable path="Player"]
-[editable path="Player/player body"]
-[editable path="Player/huds/HUD"]
-[editable path="Player/huds/Pause"]
-[editable path="Player/Pivot/Camera3D/ParryArm/parry arm"]
-[editable path="Player/Pivot/Camera3D/Guns/BlackHoleLauncher"]
-[editable path="Player/Pivot/Camera3D/Guns/Pistol"]
-[editable path="Player/SlideParticles"]
