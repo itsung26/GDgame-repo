@@ -1214,8 +1214,6 @@ _data = {
 
 [node name="GrappleCube" type="Node3D" groups=["grapple_cubes"]]
 script = ExtResource("1_lpllt")
-yank_speed = 25.0
-boost_speed = 10.0
 
 [node name="grapple_cube" type="Node3D" parent="."]
 
@@ -1337,11 +1335,3 @@ libraries = {
 &"": SubResource("AnimationLibrary_kgreb")
 }
 autoplay = "cube_idle"
-
-[node name="YankDelayTimer" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="body_entered" from="SpeedBoostBlock" to="." method="_on_speed_boost_block_body_entered"]
-[connection signal="body_entered" from="GrappleDetectBlock" to="." method="_on_grapple_detect_block_body_entered"]
-[connection signal="body_exited" from="GrappleDetectBlock" to="." method="_on_grapple_detect_block_body_exited"]
-[connection signal="timeout" from="YankDelayTimer" to="." method="_on_yank_delay_timer_timeout"]

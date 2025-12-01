@@ -30,8 +30,6 @@ func _fire():
 	var hit_body:Node3D = bullet_raycast.get_collider()
 	var hit_surface_normal:Vector3 = bullet_raycast.get_collision_normal()
 	
-	print(hit_pos)
-	
 	# add a bullet trail and pass position data into it
 	var bullet_trail:BulletTrail = BULLET_TRAIL_SCENE.instantiate()
 	get_tree().current_scene.add_child(bullet_trail)

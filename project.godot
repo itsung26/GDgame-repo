@@ -47,6 +47,7 @@ weaponBlocks=""
 grapple_cubes=""
 "enemy projectiles"=""
 "bullet trails"=""
+arms=""
 
 [input]
 

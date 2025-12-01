@@ -74,6 +74,10 @@ _subresources={
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/floorPads.tres"
 },
+"last room main floor": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/building1/materials/last room main floor.tres"
+},
 "lava": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/lava.tres"
@@ -89,6 +93,22 @@ _subresources={
 "pipes2": {
 "use_external/enabled": true,
 "use_external/path": "res://assets/meshes/building1/materials/pipes2.tres"
+},
+"tunnel base material": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/building1/materials/tunnel base material.tres"
+},
+"tunnel floor": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/building1/materials/tunnel floor.tres"
+},
+"tunnel walls": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/building1/materials/tunnel walls.tres"
+},
+"tunnel walls secondary": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/map models/building1/materials/tunnel walls secondary.tres"
 },
 "whiteLight": {
 "use_external/enabled": true,

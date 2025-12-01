@@ -133,6 +133,8 @@ var parry_target:Node3D
 @export var parry_projectile_speed_boost:float = 1.0
 ## Wether the parry arm action in specific is allowed to occur.
 @export var parry_input_allowed:bool = true
+## How much health is regained on a successful parry.
+@export var parry_heal_amount:float
 
 @export_group("Extras")
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
@@ -465,23 +467,28 @@ func _input(event) -> void:
 func damagePlayer(damage:float, death_cause:String = "Unknown"):
 	var previous_health:float = HEALTH
 	var new_health:float = HEALTH - damage
+	new_health = clampf(new_health, 0.0, 100.0)
+	cause_of_death = death_cause
 	
 	if damage == 0.0:
 		push_warning("Player recieved 0 damage? If this is intended, this method should not have been called.")
 	elif damage < 0.0:
 		assert(false, "Player recieved negative damage.")
-	cause_of_death = death_cause
-	if not Godmode:
-		HEALTH = new_health
+	else:
+		if not Godmode:
+			HEALTH = new_health
 		
 func healPlayer(amount:float):
 	var previous_health:float = HEALTH
 	var new_health:float = HEALTH + amount
+	new_health = clampf(new_health, 0.0, 100.0)
 	
 	if amount == 0.0:
 		push_warning("Player was healed by 0? If this is intended, this method should not have been called.")
 	elif amount < 0.0:
 		assert(false, "Cannot heal the player by a negative amount.")
+	else:
+		HEALTH = new_health
 	
 
 func cameraFX(delta=get_process_delta_time()):
@@ -634,20 +641,11 @@ func charge_stamina(delta=get_process_delta_time()):
 	if stamina_recharging:
 		STAMINA = move_toward(STAMINA, 300.0, stamina_charge_speed * delta)
 
-func processTargetPull(delta=get_process_delta_time()):
-	if hooked_target:
-		# Get the vector from the hooked target to the player
-		var target_to_player_dir: Vector3 = global_position - hooked_target.global_position
-		grapple_hook.global_position = hooked_target_pull_origin.global_position
-		hooked_target.velocity = target_to_player_dir.normalized() * grapple_pull_speed * delta
-	else:
-		pass
-
 ## Will check if there is a valid parry target and parry it if so.
 func parryTargetInBox():
 	# If it hits something in the box and it is parriable
 	if parry_target != null and parry_target.parriable == true:
-		1
+		healPlayer(parry_heal_amount)
 		parry_arm_animator.play("swing arm parry")
 		var raycast_target_body:Node = punch_raycast.get_collider()
 		var raycast_target_location:Vector3 = punch_raycast.get_collision_point()
@@ -698,21 +696,9 @@ func _process(delta) -> void:
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
 	charge_stamina()
-	
-	# the main process where the enemy gets drawn to the player on the hook
-	if action_state != action_states.IDLE:
-		processTargetPull()
-	# if the hook is idle and in the holder, set it to look right and face right direction
-	elif action_state == action_states.IDLE and grapple_hook.get_parent() == rope_origin:
-		if grapple_rope_mesh_gen:
-			grapple_rope_mesh_gen.visible = false
-		grapple_hook.freeze = true
-		grapple_hook.position = Vector3(-0.069, 0.252, 0.043)
-		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
-		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
-	
+
 	# keeps the rope attatched to the grapple bit.
-	# Again, I hate this
+	# Again, I hate this, but it stays for now.
 	if grapple_rope_mesh_gen:
 		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
 	
@@ -767,7 +753,9 @@ func playerDie():
 	Engine.time_scale = 0.3
 	
 # Note: This needs a massive rewrite.
+# Note 2: REWRITE IN PROGRESS
 #region Grapple Hook main logic
+'''
 func setHookedTarget(bodyTarget:Node3D):
 	if hooked_target is Enemy:
 		hooked_target = bodyTarget
@@ -809,6 +797,7 @@ func _on_world_collide_box_body_exited(body: Node3D) -> void:
 	player_jump_input_enabled = true
 	player_move_input_enabled = true
 	setHookedTarget(null)
+'''
 #endregion
 
 
@@ -833,17 +822,9 @@ func _on_stamina_charge_delay_timer_timeout() -> void:
 	stamina_recharging = true
 
 # when enemy touches player on grapple, kill player velocity and apply hop if on floor
-func _on_grapple_enemy_cease_area_body_entered(hooked_target) -> void:
-	if hooked_target.is_in_group("enemy"):
-		if hooked_target.weight == hooked_target.weight_class.LIGHT and not is_on_floor():
-			# applies the same hop affect to the hooked body
-			hooked_target.velocity.x = 0
-			hooked_target.velocity.z = 0
-			hooked_target.velocity.y = 0 + grapple_hop
-			action_state = action_states.IDLE
-			player.velocity.x = 0
-			player.velocity.z = 0
-			player.velocity.y = 0 + grapple_hop
+func _on_grapple_enemy_cease_area_body_entered(body:Enemy) -> void:
+	if body == grapple_target:
+		pass # set the grapple state to idle
 
 #region Parry Hitbox entry and exit
 func _on_parry_hitbox_body_entered(body: Node3D) -> void:

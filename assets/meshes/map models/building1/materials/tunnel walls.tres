@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c3oxskhb5odc8"]
+
+[ext_resource type="Texture2D" uid="uid://uqx5go41qdj" path="res://assets/2d assets/primary textures/Ultra Textures/SpawnRoom/Finalwallredglow2.png" id="1_g7lpw"]
+
+[resource]
+resource_name = "tunnel walls"
+albedo_texture = ExtResource("1_g7lpw")

@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://dt5qn86wdmwuj"]
+
+[ext_resource type="Texture2D" uid="uid://cbjh0h0dla6wq" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/smoke_01.png" id="1_8bg3r"]
+
+[sub_resource type="Curve" id="Curve_yyrvt"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.113145), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wpbc6"]
+curve = SubResource("Curve_yyrvt")
+
+[sub_resource type="Curve" id="Curve_8bg3r"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yyrvt"]
+curve = SubResource("Curve_8bg3r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_667uh"]
+emission_shape = 3
+emission_box_extents = Vector3(3.5, 0, 3.5)
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 0.42
+initial_velocity_max = 0.42
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_yyrvt")
+alpha_curve = SubResource("CurveTexture_wpbc6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_01a0p"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_8bg3r")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_6lpr3"]
+material = SubResource("StandardMaterial3D_01a0p")
+size = Vector2(5, 5)
+
+[node name="ambient_smoke_rising" type="GPUParticles3D"]
+amount = 47
+lifetime = 4.32
+process_material = SubResource("ParticleProcessMaterial_667uh")
+draw_pass_1 = SubResource("QuadMesh_6lpr3")

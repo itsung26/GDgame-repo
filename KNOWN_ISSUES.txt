@@ -1,0 +1,33 @@
+KNOWN ISSUES==========================================================================================
+
+. the grapple hook works, but under the hood is complete ass 
+	-rewrite in progress
+
+. enemies do not properly collide with the player on attacking 
+	-possible engine limitation
+	-may require low-level communication with the physics server to control collision
+	of specific objects
+
+. the ui panel movement is fucked
+
+. grapple cube particles do not render properly
+	-fix: instantiate new particles, enable them, and garbage collect them when done.
+
+. grapple hook rarely collides with the world when it is in idle state untill it is
+used again, then it fixes
+	-fix: no fucking idea why this even happens in the first place
+
+. player's velocity is brought down when attempting to move while already 
+moving faster than speed limit
+	-fix: absolutely no fucking idea
+
+. if the player is able to remain inside of a hazard area (the damaging kind), they
+will not take any damage
+	-fix: change from area to StaticBody (why would the player ever need to swim in lava?)
+
+
+
+FIXED ISSUES==========================================================================================
+
+. the pistol's special will extremely rarely not go back to normal state
+	-FIXED: Removed pistol special

@@ -1071,11 +1071,12 @@ dash_time_length = 0.2
 GRAPPLE_SPEED_MAX = 115
 hitstop_duration = 0.21
 parry_projectile_speed_boost = 2.0
+parry_heal_amount = 25.0
 weapon_states = [NodePath("Pivot/Camera3D/Guns/Melee"), NodePath("Pivot/Camera3D/Guns/Pistol")]
 
 [node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
 script = ExtResource("2_a38lo")
-nodes_to_hide_on_ready = [NodePath("../player body"), NodePath("../Pivot/Camera3D/ParryArm/ParryHitbox/CollisionShape3D"), NodePath("../Pivot/Camera3D/PunchRaycast")]
+nodes_to_hide_on_ready = [null, NodePath("../Pivot/Camera3D/ParryArm/ParryHitbox/CollisionShape3D"), NodePath("../Pivot/Camera3D/PunchRaycast")]
 metadata/_custom_type_script = "uid://bcsxapsamvmvq"
 
 [node name="player body" parent="." instance=ExtResource("2_i4ail")]
@@ -1083,6 +1084,9 @@ transform = Transform3D(0.145265, 0, 0, 0, 0.145265, 0, 0, 0, 0.145265, 0, 1.597
 
 [node name="eye" parent="player body/head" index="0"]
 material_override = SubResource("StandardMaterial3D_a38lo")
+
+[node name="legs" parent="player body" index="4"]
+visible = false
 
 [node name="timeControllerAgent" type="Node" parent="."]
 
@@ -1221,7 +1225,7 @@ mesh = SubResource("CapsuleMesh_d2wvv")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
-[node name="GrappleArm" type="Node3D" parent="Pivot/Camera3D"]
+[node name="GrappleArm" type="Node3D" parent="Pivot/Camera3D" groups=["arms"]]
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, -0.154, -0.5, 0.0226591)
 
 [node name="grappleArm" type="Node3D" parent="Pivot/Camera3D/GrappleArm"]
@@ -1369,7 +1373,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338215, 0.181378, -0.147857)
+transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.89623, -0.00338209, 0.181376, -0.147857)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1414,7 +1418,7 @@ libraries = {
 &"": ExtResource("4_ur7pv")
 }
 
-[node name="ParryArm" type="Node3D" parent="Pivot/Camera3D"]
+[node name="ParryArm" type="Node3D" parent="Pivot/Camera3D" groups=["arms"]]
 
 [node name="ParryHitbox" type="Area3D" parent="Pivot/Camera3D/ParryArm"]
 collision_mask = 10
@@ -1426,9 +1430,6 @@ debug_color = Color(1, 1, 0, 0)
 
 [node name="parry arm" parent="Pivot/Camera3D/ParryArm" instance=ExtResource("12_qfm1y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115876, -0.0787442, 0.106673)
-
-[node name="Skeleton3D" parent="Pivot/Camera3D/ParryArm/parry arm/feedbacker" index="0"]
-bones/14/rotation = Quaternion(-1.84548e-07, 4.80296e-07, -1.0794e-07, 1)
 
 [node name="AnimationPlayer" parent="Pivot/Camera3D/ParryArm/parry arm" index="1"]
 callback_mode_method = 1
@@ -1571,9 +1572,6 @@ ignore_time_scale = true
 
 [connection signal="entered_arm_state" from="." to="huds/HUD" method="_on_player_entered_arm_state"]
 [connection signal="body_entered" from="GrappleEnemyCeaseArea" to="." method="_on_grapple_enemy_cease_area_body_entered"]
-[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_entered"]
-[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_world_entered"]
-[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="." method="_on_world_collide_box_body_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
