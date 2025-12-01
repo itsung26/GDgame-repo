@@ -25,17 +25,23 @@ func showNodesEditor():
 			
 func hideNodesOnReady():
 	for node:Node in nodes_to_hide_on_ready:
-		if node.visible == null:
-			push_error("ERROR: node did not posses property node.visible")
+		if node:
+			if node.visible == null:
+				push_error("ERROR: node did not posses property node.visible")
+			else:
+				node.visible = false
 		else:
-			node.visible = false
+			push_error("Nodes to hide contained null element.")
 			
 func showNodesOnReady():
 	for node:Node in nodes_to_show_on_ready:
-		if node.visible == null:
-			push_error("ERROR: node did not posses property node.visible")
+		if node:
+			if node.visible == null:
+				push_error("ERROR: node did not posses property node.visible")
+			else:
+				node.visible = true
 		else:
-			node.visible = true
+			push_error("Nodes to show contained null element.")
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():

@@ -37,6 +37,7 @@ var current_frames_per_second = "null"
 @onready var arm_panel_2: Panel = $BottomLeftArea/AmmoPanel/SubViewport/ArmPanel2
 @export var player:Player
 @onready var debug_container: VBoxContainer = $DebugContainer
+@onready var grapple_arm: GrappleArm = $"../../Pivot/Camera3D/GrappleArm"
 
 @export_category("Crosshair Properties")
 ## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.
@@ -93,17 +94,17 @@ func _process(delta) -> void:
 			
 #region Debug Text
 		# set debug text-------------------------------------------------------------------------------
-		current_action_state.text = "Current action state: " + player.current_action_string_name
-		hooked_target.text = "grapple target: " + str(player.hooked_target)
-		current_weapon_state.text = "Current weapon state: " + player.current_weapon_string_name
-		current_look_dir.text = "Currently looking in direction: " + str(pivot.rotation_degrees + player.rotation_degrees)
-		current_player_pos.text = "Player Global Position: " + str(player.global_position)
+		current_action_state.text = "Current action state: " + player.action_states.keys()[player.action_state]
+		hooked_target.text = "grapple target: " + str(grapple_arm.hooked_target)
+		current_weapon_state.text = "Current weapon state: " + player.weapon_state.to_string()
+		current_look_dir.text = "lookDir: " + str(pivot.rotation_degrees + player.rotation_degrees)
+		current_player_pos.text = "GPos: " + str(player.global_position)
 		current_player_health.text = "Player health: " + str(player.HEALTH)
-		current_player_state.text = "Current player state: " + player.current_player_string_name
-		%CurrentVelocity.text = "Player Velocity Vector: " + str(player.velocity)
-		%CurrentMagnitude.text = "Current Velocity Magnitude: " + str(roundi(player.velocity.length()))
-		%CurrentMagnitudeXZ.text = "Current player velocity magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
-		%CurrentParryTarget.text = "Current parry target: " + str(player.parry_target)
+		current_player_state.text = "Player/Phys state: " + player.player_states.keys()[player.player_state]
+		%CurrentVelocity.text = "Net vector: " + str(player.velocity)
+		%CurrentMagnitude.text = "Net vector magnitude: " + str(roundi(player.velocity.length()))
+		%CurrentMagnitudeXZ.text = "Net vector magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
+		%CurrentParryTarget.text = "parry target: " + str(player.parry_target)
 		# ----------------------------------------------------------------------------------------------
 #endregion
 

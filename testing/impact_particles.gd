@@ -2,11 +2,6 @@ extends GPUParticles3D
 @onready var marker: Marker3D = $"../Marker"
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	look_at(marker.global_position)
+func setup(location_pos:Vector3, look_at_pos:Vector3):
+	global_position = location_pos
+	look_at(look_at_pos)

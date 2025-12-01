@@ -937,10 +937,10 @@ radius = 0.124
 height = 2.33782
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xpfnw"]
-size = Vector3(0.039, 1.83215, 1.025)
+size = Vector3(0.319, 1.832, 0.435)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_00tiq"]
-size = Vector3(0.462662, 1.77979, 0.456177)
+size = Vector3(0.462662, 1.88635, 0.456177)
 
 [sub_resource type="Curve" id="Curve_s0kaa"]
 _data = [Vector2(0.207627, 1), 0.0, -13.1111, 0, 1, Vector2(0.283898, 0), -13.1111, 0.0, 1, 0]
@@ -1127,6 +1127,7 @@ material = SubResource("StandardMaterial3D_s6c3y")
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_8551a")
+lerp_angle_factor = 9.0
 HEALTH = 20.0
 SPEED = 750
 grapple_origin = NodePath("Marker3D")
@@ -1350,14 +1351,14 @@ target_position = Vector3(0, 0, 1)
 collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="readyBiteBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.898074, -0.876826)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.898074, -0.581758)
 shape = SubResource("BoxShape3D_xpfnw")
 debug_color = Color(1, 0, 0, 0.54902)
 
 [node name="biteHurtBox" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="biteHurtBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00637054, 1.00968, -0.194997)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00637054, 0.956398, -0.194997)
 shape = SubResource("BoxShape3D_00tiq")
 debug_color = Color(1, 0, 0, 1)
 

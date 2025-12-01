@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1gii5xibo773"]
+[gd_scene load_steps=8 format=3 uid="uid://d1gii5xibo773"]
 
 [ext_resource type="Script" uid="uid://cnlcak6buir1v" path="res://testing/impact_particles.gd" id="1_0e84j"]
 
@@ -13,10 +13,8 @@ initial_velocity_max = 10.0
 gravity = Vector3(0, 0, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0e84j"]
+shading_mode = 0
 albedo_color = Color(1, 0.843137, 0, 1)
-emission_enabled = true
-emission = Color(1, 0.843137, 0, 1)
-emission_energy_multiplier = 1.5
 use_particle_trails = true
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_optlf"]
@@ -81,7 +79,7 @@ tracks/1/keys = {
 tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("..")
+tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -99,15 +97,8 @@ _data = {
 &"active_and_die": SubResource("Animation_optlf")
 }
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_0e84j"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4ffr"]
-albedo_color = Color(0.18359, 0.183591, 0.18359, 1)
-
-[node name="Node3D" type="Node3D"]
-
-[node name="ImpactParticles" type="GPUParticles3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+[node name="ImpactParticles" type="GPUParticles3D"]
+amount = 10
 lifetime = 0.1
 one_shot = true
 explosiveness = 1.0
@@ -117,21 +108,14 @@ process_material = SubResource("ParticleProcessMaterial_optlf")
 draw_pass_1 = SubResource("RibbonTrailMesh_optlf")
 script = ExtResource("1_0e84j")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="ImpactParticles"]
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
 light_color = Color(1, 0.843137, 0, 1)
 light_energy = 8.374
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ImpactParticles"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_method = 1
 libraries = {
 &"": SubResource("AnimationLibrary_j4ffr")
 }
 autoplay = "active_and_die"
-
-[node name="Marker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02543, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.268452, 0)
-visible = false
-mesh = SubResource("PlaneMesh_0e84j")
-surface_material_override/0 = SubResource("StandardMaterial3D_j4ffr")

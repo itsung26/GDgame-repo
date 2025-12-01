@@ -1,6 +1,6 @@
 [gd_scene load_steps=50 format=4 uid="uid://ccl7hn0ddburv"]
 
-[ext_resource type="Script" uid="uid://cc850csi67pvh" path="res://scripts/grapple_cube.gd" id="1_lpllt"]
+[ext_resource type="Script" uid="uid://cc850csi67pvh" path="res://scripts/grapple_cube_boost.gd" id="1_lpllt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lda68"]
 
@@ -375,9 +375,11 @@ vertex_color_use_as_albedo = true
 material = SubResource("StandardMaterial3D_euxnb")
 rings = 5
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lpllt"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_dla8w"]
+size = Vector3(1.44, 1.76, 1.435)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wxfaj"]
+size = Vector3(1.44, 1.76, 1.435)
 
 [sub_resource type="Animation" id="Animation_wxfaj"]
 length = 0.001
@@ -1212,8 +1214,9 @@ _data = {
 &"cube_open": SubResource("Animation_pjrce")
 }
 
-[node name="GrappleCube" type="Node3D" groups=["grapple_cubes"]]
+[node name="GrappleCubeBoost" type="Node3D" groups=["grapple_cubes"]]
 script = ExtResource("1_lpllt")
+speed_boost_factor = 1.5
 
 [node name="grapple_cube" type="Node3D" parent="."]
 
@@ -1313,8 +1316,8 @@ collision_layer = 256
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SpeedBoostBlock"]
 transform = Transform3D(1.50475, 0, 0, 0, 1.50475, 0, 0, 0, 1.50475, 0, 0, 0)
-shape = SubResource("BoxShape3D_lpllt")
-debug_color = Color(1, 0, 0, 1)
+shape = SubResource("BoxShape3D_dla8w")
+debug_color = Color(1, 1, 0, 1)
 
 [node name="GrappleDetectBlock" type="Area3D" parent="."]
 collision_layer = 256
@@ -1323,6 +1326,7 @@ collision_mask = 512
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleDetectBlock"]
 transform = Transform3D(1.71751, 0, 0, 0, 1.71751, 0, 0, 0, 1.71751, 0, 0, 0)
 shape = SubResource("BoxShape3D_wxfaj")
+debug_color = Color(0, 0.75, 1, 0.592157)
 
 [node name="cube_animator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1335,3 +1339,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_kgreb")
 }
 autoplay = "cube_idle"
+
+[connection signal="body_entered" from="SpeedBoostBlock" to="." method="_on_speed_boost_block_body_entered"]

@@ -40,7 +40,7 @@ extends CharacterBody3D
 @onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
 @onready var hud: HudGui = $"../HUD"
 @onready var grapple_target: Node3D = $"../GrappleTarget"
-@onready var grapple_arm: Node3D = $Pivot/Camera3D/GrappleArm
+@onready var grapple_arm: GrappleArm = $Pivot/Camera3D/GrappleArm
 @onready var grapple_direction_getter: RayCast3D = $Pivot/Camera3D/GrappleDirectionGetter
 @onready var grapple_hook: RigidBody3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook
 @onready var grapple_timer: Timer = $GrappleTimer
@@ -52,7 +52,7 @@ extends CharacterBody3D
 @onready var dash_length_timer: Timer = $DashLengthTimer
 @onready var stamina_charge_delay_timer: Timer = $StaminaChargeDelayTimer
 @onready var tail_marker: Marker3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/TailMarker
-@onready var grapple_hook_smaller_collider: CollisionShape3D = %"grapple hook smaller collider"
+@onready var world_collide_box: Area3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox
 @onready var parry_arm: Node3D = $Pivot/Camera3D/ParryArm
 @onready var parry_arm_animator: AnimationPlayer = $"Pivot/Camera3D/ParryArm/parry arm/AnimationPlayer"
 @onready var hitstop_timer: Timer = $HitstopTimer
@@ -95,10 +95,6 @@ var stamina_recharging:bool = true
 @export var player_kinematics_enabled_y:bool = true
 
 
-@export_group("Camera")
-@export var camera_roll_enabled:bool = true
-@export var max_camera_roll: float = 3.25 # degrees, adjust as desired
-@export var camera_roll_speed: float = 20.0 # how quickly the camera rolls
 
 @export_group("Movement")
 @export var SPEED = 12.0
@@ -145,7 +141,15 @@ var parry_target:Node3D
 ##
 ## Player states. These states affect the player's kinematics. 
 ## Associated state variable of type [code]player_states[/code]: [code]player_state[/code]
-enum player_states{GROUNDED, DEAD, FALLING, REELINGTO, SLIDING, DASHING, SLAMMING}
+enum player_states{
+	GROUNDED,
+	DEAD,
+	FALLING,
+	REELINGTO,
+	SLIDING,
+	DASHING,
+	SLAMMING
+	}
 var player_state:player_states = player_states.GROUNDED:
 	set = set_player_state
 
@@ -169,7 +173,7 @@ var arm_state:arm_states = arm_states.GRAPPLEARM:
 	set = set_arm_state
 
 ## WIP. Currently only represents the grapple hook's state.
-enum action_states{IDLE, GRAPPLING, REELINGFROM}
+enum action_states{IDLE, GRAPPLING}
 var action_state:action_states = action_states.IDLE:
 	set = set_action_state
 #endregion
@@ -198,23 +202,16 @@ var prev_jump_velocity = JUMP_VELOCITY
 var weapon_anim_playing
 var direction
 var input_dir := Vector2.ZERO
-var camera_target_roll: float = 0.0
-var current_weapon_string_name:String = "null state"
-var current_player_string_name:String = "null state"
-var current_action_string_name:String = "null state"
 var rope_origin
 var skeleton
 var impact_particles_scene = preload("res://scenes/impact_particles.tscn")
 var doing_shake = false
-var reel_vector:Vector3
 var impact_particles:GPUParticles3D
 var impact_sparks:GPUParticles3D
 var impact_sparks_2:GPUParticles3D
 var slide_light:OmniLight3D
 var pause:Control
 var dash_dir:Vector3
-var hooked_target:Object = null
-var hooked_target_pull_origin:Object = null
 
 # called when the player is loaded into the scene.
 # Player should be loaded after main enviroment and global lighting, but before 
@@ -256,11 +253,15 @@ func set_player_state(new_player_state:int):
 	var previous_player_state := player_state
 	player_state = new_player_state
 	
+	# prevent switching to the same state
+	if previous_player_state == new_player_state:
+		return
+	
 	# Emit signal
 	entered_player_state.emit(new_player_state, previous_player_state)
 	
-	if previous_player_state == new_player_state:
-		print("WARNING: Player entered a new state matching it's own. This is allowed, but may cause state machine override problems.")
+	#if previous_player_state == new_player_state:
+		#print("WARNING: Player entered a new state matching it's own. This is allowed, but may cause state machine override problems.")
 	
 	# death to and from
 	if new_player_state == player_states.DEAD:
@@ -271,12 +272,6 @@ func set_player_state(new_player_state:int):
 		player_arm_action_input_enabled = false
 		weapon_switch_input_enabled = false
 		player_look_input_enabled = false
-		
-	# REELINGTO to and from
-	if new_player_state == player_states.REELINGTO:
-		camera_animator.play("camera_overclock_zoom_out")
-	if previous_player_state == player_states.REELINGTO:
-		camera_animator.play("camera_overclock_zoom_in")
 		
 	# SLIDING to and from
 	if new_player_state == player_states.SLIDING:
@@ -303,9 +298,7 @@ func set_player_state(new_player_state:int):
 		STAMINA -= 100
 		# cancels grapple if it is active
 		if action_state == action_states.GRAPPLING:
-			action_state = action_states.IDLE
-		# disables gravity
-		gravity_enabled = false
+			set_action_state(action_states.IDLE)
 		# starts the timer and zeroes velocity
 		dash_length_timer.start(dash_time_length)
 		velocity = Vector3.ZERO
@@ -321,22 +314,25 @@ func set_player_state(new_player_state:int):
 		var prev_velocity = velocity
 		velocity = Vector3.ZERO
 		velocity = prev_velocity / 2
-		gravity_enabled = true
 	
 	# SLAMMING to and from
 	if new_player_state == player_states.SLAMMING:
+		player_move_input_enabled = false
 		action_state = action_states.IDLE
 		gravity_enabled = false
 		velocity = Vector3.ZERO # kill velocity
 		velocity.y = -slam_velocity # slam down
-		camera_roll_enabled = false
 	if previous_player_state == player_states.SLAMMING:
+		player_move_input_enabled = true
 		gravity_enabled = true
-		camera_roll_enabled = true
 	
 func set_weapon_state(new_weapon_state:PlayerWeapon):
 	var previous_weapon_state:PlayerWeapon = weapon_state
 	weapon_state = new_weapon_state
+	
+	# prevent switching to the same state
+	if previous_weapon_state == new_weapon_state:
+		return
 	
 	# makes the previous weapon invisible and the new weapon visible
 	if previous_weapon_state != null:
@@ -350,6 +346,9 @@ func set_action_state(new_action_state:int):
 	# init vars
 	var previous_action_state := action_state
 	action_state = new_action_state
+	
+	if previous_action_state == new_action_state:
+		return
 	
 	# Emit signal
 	entered_action_state.emit(new_action_state, previous_action_state)
@@ -377,19 +376,19 @@ func set_action_state(new_action_state:int):
 		
 	# IDLE to and from
 	if new_action_state == action_states.IDLE:
-		grapple_hook_smaller_collider.disabled = true
+		world_collide_box.monitoring = false
 	if previous_action_state == action_states.IDLE:
-		grapple_hook_smaller_collider.disabled = false
-
-		
-	# reelingfrom (pulling) to and from
-	if new_action_state == action_states.REELINGFROM:
-		print("reeling to player")
+		world_collide_box.monitoring = true
+		print(world_collide_box.monitoring)
 
 func set_arm_state(new_arm_state:int):
 	# init vars
 	var previous_arm_state := arm_state
 	arm_state = new_arm_state
+	
+	# prevent switching to the same state
+	if previous_arm_state == new_arm_state:
+		return
 	
 	entered_arm_state.emit(new_arm_state, previous_arm_state)
 	
@@ -400,8 +399,6 @@ func set_arm_state(new_arm_state:int):
 		grapple_arm.visible = false
 		# on leaving the grapple arm state, grapple go back to idle if currently busy
 		if action_state == action_states.GRAPPLING:
-			set_action_state(action_states.IDLE)
-		elif action_state == action_states.REELINGFROM:
 			set_action_state(action_states.IDLE)
 	
 	# PARRYARM to and from
@@ -423,7 +420,6 @@ func _input(event) -> void:
 	
 	# handle grapple activation
 	if Input.is_action_just_pressed("arm action") and player_arm_action_input_enabled:
-		
 		if arm_state == arm_states.GRAPPLEARM:
 			if not grapple_rope_mesh_gen == null:
 				if action_state != action_states.GRAPPLING:
@@ -432,6 +428,7 @@ func _input(event) -> void:
 					action_state = action_states.IDLE
 			else:
 				assert(false, "Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
+		
 		elif arm_state == arm_states.PARRYARM:
 			if parry_input_allowed:
 				parry_arm_animator.play("swing arm initial")
@@ -454,7 +451,6 @@ func _input(event) -> void:
 		if not player_state == player_states.DASHING: # if player is not already dashing
 			player_state = player_states.DASHING
 	
-	
 	# handle mouselook
 	if event is InputEventMouseMotion and player_look_input_enabled:
 		mouse_delta2 = event.relative
@@ -463,6 +459,7 @@ func _input(event) -> void:
 		var pitch = -mouse_delta.y
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
+		pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
 		
 func damagePlayer(damage:float, death_cause:String = "Unknown"):
 	var previous_health:float = HEALTH
@@ -477,7 +474,7 @@ func damagePlayer(damage:float, death_cause:String = "Unknown"):
 	else:
 		if not Godmode:
 			HEALTH = new_health
-		
+
 func healPlayer(amount:float):
 	var previous_health:float = HEALTH
 	var new_health:float = HEALTH + amount
@@ -489,25 +486,8 @@ func healPlayer(amount:float):
 		assert(false, "Cannot heal the player by a negative amount.")
 	else:
 		HEALTH = new_health
-	
 
-func cameraFX(delta=get_process_delta_time()):
-	if camera_roll_enabled and player_move_input_enabled:
-		# Set target roll based on left/right input
-		if input_dir.x > 0:
-			camera_target_roll = -max_camera_roll # rolling right (negative z)
-		elif input_dir.x < 0:
-			camera_target_roll = max_camera_roll  # rolling left (positive z)
-		else:
-			camera_target_roll = 0.0
-	else:
-		camera_target_roll = 0.0
 
-	# Smoothly interpolate the camera roll
-	camera_3d.rotation.z = lerp_angle(camera_3d.rotation.z, deg_to_rad(camera_target_roll), camera_roll_speed * delta)
-
-	# clamp the camera view to prevent back breaking
-	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
 
 ## This method performs the primary computations for kinematics based on which state player_state is in.
 ## Should only be called in [code]_physics_process[/code].
@@ -534,7 +514,9 @@ func physicsStateLogic(delta=get_physics_process_delta_time()):
 			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
 	# reeling state logic
 	elif player_state == player_states.REELINGTO:
-		velocity = reel_vector
+		# Continually set the player's velocity to move towards the grapple target
+		var dir:Vector3 = (grapple_arm.hooked_target.global_position - camera_3d.global_position).normalized()
+		velocity = dir * grapple_pull_speed
 	# sliding state logic
 	elif player_state == player_states.SLIDING:
 		# allows free control of slide direction
@@ -562,7 +544,8 @@ func physicsStateLogic(delta=get_physics_process_delta_time()):
 				velocity = direction * SPEED * slide_speed_multiplier
 	# dashing state logic
 	elif player_state == player_states.DASHING:
-		pass # see set_player_state()
+		# keeps the player from falling or rising mid dash
+		global_position.y = global_position.y
 	# slamming state logic
 	elif player_state == player_states.SLAMMING:
 		# velocity was set from beginning, so no changes are made
@@ -689,9 +672,6 @@ var a = true
 # Kinematic-related operations should only be run in _physics_process, while logic and other operations
 # should be run in _process
 func _process(delta) -> void:
-	# process camera fx
-	cameraFX()
-	
 	# This is old asf. It's gotta go.
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
@@ -720,41 +700,13 @@ func _process(delta) -> void:
 	# handle all weapon inputs, if the weapon is not null (it should never be)
 	if weapon_state:
 		gunInputs()
-	# updates string variables with the current state for debug purposes
-	updateStateStrings()
-
-	
-	
-	
-# updates the string variables that contain the names of the state based on the active state
-func updateStateStrings():
-	# update the string name of the weapon state every frame
-	match weapon_state:
-		pass
-		
-	# update the string name of the player state every frame
-	match player_state:
-		player_states.GROUNDED: current_player_string_name = "GROUNDED"
-		player_states.DEAD: current_player_string_name = "DEAD"
-		player_states.FALLING: current_player_string_name = "FALLING"
-		player_states.REELINGTO: current_player_string_name = "REELINGTO"
-		player_states.SLIDING: current_player_string_name = "SLIDING"
-		player_states.DASHING: current_player_string_name = "DASHING"
-		player_states.SLAMMING: current_player_string_name = "SLAMMING"
-
-	# update the string name of the action every frame
-	match action_state:
-		action_states.IDLE: current_action_string_name = "IDLE"
-		action_states.GRAPPLING: current_action_string_name = "GRAPPLING"
-		action_states.REELINGFROM: current_action_string_name = "REELINGFROM"
 
 func playerDie():
 	player_state = player_states.DEAD
 	Engine.time_scale = 0.3
 	
 # Note: This needs a massive rewrite.
-# Note 2: REWRITE IN PROGRESS
-#region Grapple Hook main logic
+# DEPRECATED AND MOVED TO GRAPPLEARM
 '''
 func setHookedTarget(bodyTarget:Node3D):
 	if hooked_target is Enemy:
@@ -798,7 +750,6 @@ func _on_world_collide_box_body_exited(body: Node3D) -> void:
 	player_move_input_enabled = true
 	setHookedTarget(null)
 '''
-#endregion
 
 
 # when the unstuck button is pressed, reset the player states and go to origin
@@ -851,3 +802,13 @@ func _on_hitstop_timer_timeout() -> void:
 		else:
 			node.visible = false
 	Engine.time_scale = 1.0
+
+
+func _on_grapple_arm_new_hooked_target_set(previous_hooked_target: Node3D, new_hooked_target: Node3D) -> void:
+	if new_hooked_target:
+		set_player_state(player_states.REELINGTO)
+	elif new_hooked_target == null:
+		if is_on_floor():
+			set_player_state(player_states.GROUNDED)
+		elif not is_on_floor():
+			set_player_state(player_states.FALLING)

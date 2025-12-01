@@ -4,7 +4,6 @@ class_name EnemyFilth extends Enemy
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var filth_animator:AnimationPlayer = $FilthAnimator
 @onready var body_collider: CollisionShape3D = $bodyCollider
-@onready var body_collider_2: CollisionShape3D = $bodyCollider2
 @onready var time_untill_process_disable_timer:Timer = $timeUntillDisable
 
 @export_category("General Properties")

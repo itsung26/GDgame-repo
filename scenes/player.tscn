@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=76 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -12,6 +12,8 @@
 [ext_resource type="AnimationLibrary" uid="uid://df4wluqxdk4ww" path="res://animations/grapple arm animation library.res" id="4_ur7pv"]
 [ext_resource type="Script" uid="uid://cjhvcb5uyoehj" path="res://scripts/wind_particles.gd" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://bh4w73yqjy2wa" path="res://scenes/slide_particles.tscn" id="8_smehm"]
+[ext_resource type="Script" uid="uid://cmyfxiobhbpum" path="res://scripts/camera_3d.gd" id="9_ke2ow"]
+[ext_resource type="Script" uid="uid://cn6p5ecprftne" path="res://scripts/grapple_arm.gd" id="9_l71n6"]
 [ext_resource type="Script" uid="uid://1g4a60ev1c5u" path="res://scripts/slide_particles.gd" id="9_ur7pv"]
 [ext_resource type="PackedScene" uid="uid://cp1mmygsp63vr" path="res://scenes/hud.tscn" id="10_d2wvv"]
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="11_3v2ag"]
@@ -974,9 +976,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_n30hq")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ur7pv"]
-radius = 0.918926
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_ur7pv"]
 margin = 0.0
 size = Vector3(0.275297, 0.62793, 2.11493)
@@ -1066,9 +1065,10 @@ script = ExtResource("1_qhqgy")
 inital_arm = 1
 JUMP_VELOCITY = 7.0
 slide_speed_multiplier = 1.5
-dash_velocity_increase = 25.0
-dash_time_length = 0.2
-GRAPPLE_SPEED_MAX = 115
+dash_velocity_increase = 37.5
+dash_time_length = 0.1
+GRAPPLE_SPEED_MAX = 90
+grapple_pull_speed = 25.0
 hitstop_duration = 0.21
 parry_projectile_speed_boost = 2.0
 parry_heal_amount = 25.0
@@ -1076,7 +1076,7 @@ weapon_states = [NodePath("Pivot/Camera3D/Guns/Melee"), NodePath("Pivot/Camera3D
 
 [node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
 script = ExtResource("2_a38lo")
-nodes_to_hide_on_ready = [null, NodePath("../Pivot/Camera3D/ParryArm/ParryHitbox/CollisionShape3D"), NodePath("../Pivot/Camera3D/PunchRaycast")]
+nodes_to_hide_on_ready = [NodePath("../Pivot/Camera3D/ParryArm/ParryHitbox/CollisionShape3D"), NodePath("../Pivot/Camera3D/PunchRaycast"), NodePath("../player body")]
 metadata/_custom_type_script = "uid://bcsxapsamvmvq"
 
 [node name="player body" parent="." instance=ExtResource("2_i4ail")]
@@ -1204,6 +1204,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
 attributes = SubResource("CameraAttributesPractical_4ni07")
+script = ExtResource("9_ke2ow")
+max_camera_roll = 2.25
+camera_fov_lerp_speed = 10.0
 
 [node name="GrappleDirectionGetter" type="RayCast3D" parent="Pivot/Camera3D"]
 visible = false
@@ -1227,6 +1230,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
 [node name="GrappleArm" type="Node3D" parent="Pivot/Camera3D" groups=["arms"]]
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, -0.154, -0.5, 0.0226591)
+script = ExtResource("9_l71n6")
 
 [node name="grappleArm" type="Node3D" parent="Pivot/Camera3D/GrappleArm"]
 
@@ -1373,7 +1377,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.89623, -0.00338209, 0.181376, -0.147857)
+transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338215, 0.181378, -0.147857)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1394,24 +1398,24 @@ max_contacts_reported = 1
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_a04ym")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
-transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.0035401, 0.0153806, -0.182922)
-shape = SubResource("SphereShape3D_ur7pv")
-debug_fill = false
-
 [node name="WorldCollideBox" type="Area3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
 collision_layer = 512
-collision_mask = 6
+collision_mask = 262
+monitoring = false
 
 [node name="grapple hook smaller collider" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox"]
 unique_name_in_owner = true
 transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.00509053, 0.00901985, 0.402443)
 shape = SubResource("BoxShape3D_ur7pv")
-disabled = true
 
 [node name="TailMarker" type="Marker3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 gizmo_extents = 0.51
+
+[node name="ImpactSpawnRayCast" type="RayCast3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0116506, 6.33299e-08, 4.21122)
+target_position = Vector3(0, 0, -5.515)
+collision_mask = 4
 
 [node name="grapple_arm_animator" type="AnimationPlayer" parent="Pivot/Camera3D/GrappleArm/grappleArm"]
 libraries = {
@@ -1572,6 +1576,10 @@ ignore_time_scale = true
 
 [connection signal="entered_arm_state" from="." to="huds/HUD" method="_on_player_entered_arm_state"]
 [connection signal="body_entered" from="GrappleEnemyCeaseArea" to="." method="_on_grapple_enemy_cease_area_body_entered"]
+[connection signal="new_hooked_target_set" from="Pivot/Camera3D/GrappleArm" to="." method="_on_grapple_arm_new_hooked_target_set"]
+[connection signal="area_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_entered"]
+[connection signal="area_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_exited"]
+[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
