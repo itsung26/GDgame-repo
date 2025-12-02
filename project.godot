@@ -28,6 +28,7 @@ DebugInputHandler="*res://scripts/debug_input_handler.gd"
 EnemyPopulationHandler="*res://scripts/enemy_population_handler.gd"
 LoadHandler="*res://scripts/LoadHandler.gd"
 Stopwatch="*res://scripts/stopwatch.gd"
+Debug="*res://scripts/debug_helper.gd"
 
 [debug_draw_3d]
 

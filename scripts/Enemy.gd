@@ -34,6 +34,8 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @export var has_been_parried:bool = false
 ## If true, the enemy will remain in stunned state untill this is set false again.
 @export var stunned:bool = false
+## The point that the grapple hook will attatch to. This should be located somewhere near the center of the enemy.
+@export var grapple_offset:Vector3 = Vector3.ZERO
 
 #func setIgnorePlayer(b:bool) -> void:
 	#var previous_ignore_player:bool = _ignore_player

@@ -11,11 +11,16 @@ const IMPACT_PARTICLES_SCENE:PackedScene = preload("res://scenes/impact_particle
 
 signal new_hooked_target_set(previous_hooked_target:Node3D, new_hooked_target:Node3D)
 
-# If a target is hooked, go to it's position and stay
+# If a target is hooked, go to it's position and stay there.
 func _process(delta: float) -> void:
 	if hooked_target:
 		hook.freeze = true
-		hook.global_position = hooked_target.global_position
+		
+		if hooked_target is GrappleCubeBoost:
+			hook.global_position = hooked_target.global_position
+		
+		elif hooked_target is Enemy:
+			hook.global_position = hooked_target.global_position + hooked_target.grapple_offset
 
 # on hook hit world
 func _on_world_collide_box_body_entered(body: StaticBody3D) -> void:
