@@ -29,16 +29,29 @@ func _on_world_collide_box_body_entered(body: StaticBody3D) -> void:
 	player.action_state = player.action_states.IDLE
 
 # Called when the hook enters the hook detection area of the grapple cube
-func _on_grapple_cube_boost_collide_box_area_entered(grapple_cube_boost_detector: Area3D) -> void:
+func _on_grapple_cube_boost_collide_box_area_entered(grapple_cube_hook_detector: GrappleCubeHookDetector) -> void:
 	camera_3d.camera_target_fov += 15.0
-	var grapple_boost_cube:GrappleCubeBoost = grapple_cube_boost_detector.get_parent()
+	var grapple_boost_cube:GrappleCubeBoost = grapple_cube_hook_detector.get_parent()
 	setHookedTarget(grapple_boost_cube)
 	
 # Called when the hook exits the hook detection area of the grapple cube
-func _on_grapple_cube_boost_collide_box_area_exited(grapple_cube_boost_detector: Area3D) -> void:
+func _on_grapple_cube_boost_collide_box_area_exited(grapple_cube_hook_detector: GrappleCubeHookDetector) -> void:
 	camera_3d.camera_target_fov -= 15.0
-	var grapple_boost_cube:GrappleCubeBoost = grapple_cube_boost_detector.get_parent()
+	var grapple_boost_cube:GrappleCubeBoost = grapple_cube_hook_detector.get_parent()
 	if hooked_target == grapple_boost_cube:
+		setHookedTarget(null)
+
+# Called when the hook hits an enemy.
+func _on_world_collide_box_enemy_entered(enemy: Enemy) -> void:
+	setHookedTarget(enemy)
+	if enemy.weight == enemy.weight_class.LIGHT: # player pull enemy to player
+		pass
+	elif enemy.weight == enemy.weight_class.HEAVY: # enemy pull player to enemy
+		pass
+
+# Called when the hook leaves an enemy.
+func _on_world_collide_box_enemy_exited(enemy: Enemy) -> void:
+	if enemy == hooked_target:
 		setHookedTarget(null)
 
 func setHookedTarget(hooked_targ:Node3D):
