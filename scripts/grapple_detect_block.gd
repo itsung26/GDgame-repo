@@ -1,0 +1,2 @@
+class_name GrappleCubeHookDetector
+extends Area3D

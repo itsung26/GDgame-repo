@@ -8,7 +8,7 @@ var _was_on_floor: bool = false
 
 # states and constants
 enum damage_types{NORMAL, LASER, DARK}
-enum weight_class{LIGHT,MEDIUM,HEAVY,FATASS}
+enum weight_class{LIGHT, HEAVY}
 
 var last_hit_damage_type:damage_types
 
@@ -32,6 +32,20 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @export var parriable:bool = true
 ## Whether the enemy has been parried in it's lifetime.
 @export var has_been_parried:bool = false
+## If true, the enemy will remain in stunned state untill this is set false again.
+@export var stunned:bool = false
+
+#func setIgnorePlayer(b:bool) -> void:
+	#var previous_ignore_player:bool = _ignore_player
+	#var new_ignore_player:bool = b
+	#
+	#if previous_ignore_player == new_ignore_player:
+		#return
+	#
+	#_ignore_player = new_ignore_player
+
+func _set(property: StringName, value: Variant) -> bool:
+	return false
 
 func damageEnemy(damage:float, damage_type:damage_types):
 	if damage_enabled:

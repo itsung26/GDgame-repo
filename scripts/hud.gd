@@ -38,6 +38,7 @@ var current_frames_per_second = "null"
 @export var player:Player
 @onready var debug_container: VBoxContainer = $DebugContainer
 @onready var grapple_arm: GrappleArm = $"../../Pivot/Camera3D/GrappleArm"
+@onready var grapple_hook:RigidBody3D = Helper.getFirstInScene("hook")
 
 @export_category("Crosshair Properties")
 ## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.
@@ -105,6 +106,7 @@ func _process(delta) -> void:
 		%CurrentMagnitude.text = "Net vector magnitude: " + str(roundi(player.velocity.length()))
 		%CurrentMagnitudeXZ.text = "Net vector magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
 		%CurrentParryTarget.text = "parry target: " + str(player.parry_target)
+		%CurrentHookGPos.text = "Hook Gpos: " + str(grapple_hook.global_position)
 		# ----------------------------------------------------------------------------------------------
 #endregion
 

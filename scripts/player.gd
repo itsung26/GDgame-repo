@@ -120,6 +120,7 @@ var stamina_recharging:bool = true
 @export var grapple_pull_speed:float = 10
 ## The amount of upward velocity that is added to the player after beginning to pull the grapple on an enemy
 @export var grapple_hop:float = 1.0
+@export var grapple_hook_damage:float = 1.0
 
 @export_group("Parrying")
 var parry_target:Node3D
@@ -355,6 +356,7 @@ func set_action_state(new_action_state:int):
 	
 	# grappling to and from
 	if new_action_state == action_states.GRAPPLING and Grapple_Enabled:
+		world_collide_box.monitoring = true
 		grapple_rope_mesh_gen.visible = true
 		grapple_hook.reparent(get_tree().current_scene) # reparent and face direction raycast is looking
 		grapple_hook.rotation = Vector3.ZERO
@@ -366,6 +368,9 @@ func set_action_state(new_action_state:int):
 		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX # move forwards with a set linear velocity
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
 	if previous_action_state == action_states.GRAPPLING: # run these actions upon moving out of grappling state unless going into reelingfrom state
+		print(world_collide_box.monitoring)
+		world_collide_box.set_deferred("monitoring", false)
+		print(world_collide_box.monitoring)
 		grapple_rope_mesh_gen.visible = false
 		grapple_hook.freeze = true
 		grapple_hook.reparent(rope_origin) # reparent and set it to face how it did before
@@ -376,10 +381,9 @@ func set_action_state(new_action_state:int):
 		
 	# IDLE to and from
 	if new_action_state == action_states.IDLE:
-		world_collide_box.monitoring = false
+		pass
 	if previous_action_state == action_states.IDLE:
-		world_collide_box.monitoring = true
-		print(world_collide_box.monitoring)
+		pass
 
 func set_arm_state(new_arm_state:int):
 	# init vars
@@ -705,52 +709,6 @@ func playerDie():
 	player_state = player_states.DEAD
 	Engine.time_scale = 0.3
 	
-# Note: This needs a massive rewrite.
-# DEPRECATED AND MOVED TO GRAPPLEARM
-'''
-func setHookedTarget(bodyTarget:Node3D):
-	if hooked_target is Enemy:
-		hooked_target = bodyTarget
-
-# when the grapple hook's smaller collider hits the world, go back to idle
-# when it hits enemies, pull them towards player
-func _on_world_collide_box_body_entered(body:Node3D) -> void:
-	player_jump_input_enabled = false
-	player_move_input_enabled = false
-	setHookedTarget(body)
-	if hooked_target:
-		if hooked_target.is_in_group("enemy"):
-			var enemy_hooked:Enemy = hooked_target
-			hooked_target_pull_origin = enemy_hooked.grapple_origin
-			
-			if not is_on_floor():
-				player.velocity.y = 0 + grapple_hop
-			enemy_hooked.last_hit_damage_type = enemy_hooked.damage_types.NORMAL
-			enemy_hooked.damageEnemy(2.0, enemy_hooked.damage_types.NORMAL)
-			if enemy_hooked.weight == enemy_hooked.weight_class.LIGHT:
-				grapple_hook.freeze = true
-				grapple_hook.global_position = hooked_target_pull_origin.global_position
-				grapple_hook.look_at(tail_marker.global_position, Vector3.UP)
-
-## When it hits an area 3d that is not an enemy, it was world so go back to idle
-func _on_world_collide_box_world_entered(body:Node):
-	if not body is Enemy:
-		print("hook hit world, going back to idle")
-		var impact_particles = impact_particles_scene.instantiate()
-		var impact_pos = grapple_hook.global_position
-		var particle_look_marker = impact_particles.get_node("Marker")
-		get_tree().root.add_child(impact_particles)
-		impact_particles.global_position = impact_pos
-		particle_look_marker.global_position = camera_3d.global_position
-		action_state = action_states.IDLE
-
-# when the hook's actual collider stops colliding with whatever it is colliding with
-func _on_world_collide_box_body_exited(body: Node3D) -> void:
-	player_jump_input_enabled = true
-	player_move_input_enabled = true
-	setHookedTarget(null)
-'''
-
 
 # when the unstuck button is pressed, reset the player states and go to origin
 func _on_unstuck_pressed() -> void:

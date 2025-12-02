@@ -6,7 +6,9 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_P):
-		pass
+		var player:Player = Helper.getFirstInScene("Player")
+		var player_camera:PlayerCamera = player.camera_3d
+		player_camera.shakeCamera(0.8, 2.5 / 2)
 		
 		
 	if Input.is_key_pressed(KEY_QUOTELEFT): # (`) key

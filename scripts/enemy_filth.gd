@@ -6,7 +6,6 @@ class_name EnemyFilth extends Enemy
 @onready var body_collider: CollisionShape3D = $bodyCollider
 @onready var time_untill_process_disable_timer:Timer = $timeUntillDisable
 
-@export_category("General Properties")
 ## The weight that the enemy rotates exponentially with to look at it's target
 @export var lerp_angle_factor:float = 8.0
 ## The velocity that the enemy launches forwards with when it does the attack.
@@ -33,13 +32,21 @@ var player_in_bite_box:bool = false
 func _ready() -> void:
 	super._ready() # ensure Enemy._ready runs (physics_frame hookup)
 	if filth_animator == null:
-		print("ERROR: filth animation player not found")
+		assert(false, "Enemy found no animation player.")
 	if player == null:
-		print("ERROR: initial call to PLAYER returned null ensure that the player is loaded before the given object")
+		set_enemy_state(enemy_states.STUNNED)
 
 func set_enemy_state(new_enemy_state:enemy_states):
 	var previous_enemy_state = enemy_state
 	enemy_state = new_enemy_state
+	
+	# prevent same-state setting
+	if previous_enemy_state == new_enemy_state:
+		return
+	# prevent switching out of death states
+	elif previous_enemy_state == enemy_states.DYING or previous_enemy_state == enemy_states.DEAD:
+		return
+
 	
 	# falling to and from
 	if new_enemy_state == enemy_states.FALLING:
@@ -113,6 +120,12 @@ func set_enemy_box_state(new_enemy_box_state:enemy_box_states):
 	
 
 func statePhysicsLogic(delta = get_physics_process_delta_time()): # run every physics frame
+	# checks to see if the enemy is in the air or on the ground and sets the state once accordingly if it is not already in another state
+	if (is_on_floor() and enemy_state == enemy_states.FALLING and enemy_state != enemy_states.STUNNED and player):
+		set_enemy_state(enemy_states.RUNNING)
+	elif not is_on_floor() and enemy_state == enemy_states.RUNNING:
+		set_enemy_state(enemy_states.FALLING)
+	
 	match enemy_state:
 		
 		enemy_states.STUNNED:
@@ -139,27 +152,20 @@ func statePhysicsLogic(delta = get_physics_process_delta_time()): # run every ph
 			velocity.x = lerp(velocity.x, 0.0, slowInAirFactor * delta)
 			velocity.z = lerp(velocity.z, 0.0, slowInAirFactor * delta)
 
+
 func disableProcess():
 	print("disabled process")
 	# set the process thread to disabled
 	process_mode = Node.PROCESS_MODE_DISABLED # disables all interactions with node
-	
-
-## checks to see if the enemy is in the air or on the ground and sets the state once accordingly if it is not already in another state
-func checkForStates():
-	if (is_on_floor() and enemy_state == enemy_states.FALLING):
-		set_enemy_state(enemy_states.RUNNING)
-	elif not is_on_floor() and enemy_state == enemy_states.RUNNING:
-		set_enemy_state(enemy_states.FALLING)
 
 ## Begins the method stack for the bite attack
 func beginBiteChain():
 	set_enemy_state(enemy_states.PREPARINGBITE)
 
-
-
 func _process(_delta: float) -> void:
 	$"debug state text".mesh.text = str(enemy_states.keys()[enemy_state])
+	if stunned and enemy_state != enemy_states.DYING and enemy_state != enemy_states.DEAD and enemy_state != enemy_states.FALLING:
+		set_enemy_state(enemy_states.STUNNED)
 
 func _physics_process(delta: float) -> void:
 	
@@ -169,7 +175,6 @@ func _physics_process(delta: float) -> void:
 
 	# handle allowed physics
 	statePhysicsLogic()
-	checkForStates()
 	move_and_slide()
 
 

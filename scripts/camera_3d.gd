@@ -6,8 +6,8 @@ extends Camera3D
 
 @export_category("Roll")
 @export var camera_roll_enabled:bool = true
-@export var max_camera_roll: float = 3.25 # degrees, adjust as desired
-@export var camera_roll_speed: float = 20.0 # how quickly the camera rolls
+@export var max_camera_roll: float = 3.25
+@export var camera_roll_speed: float = 20.0
 @export var camera_target_roll:float = 0.0
 
 @export_category("Fov Lerp")
@@ -15,35 +15,73 @@ extends Camera3D
 @export var camera_target_fov:float = 75.0
 @export var camera_fov_lerp_speed:float = 0.5
 
-# Camera Shake
-@onready var cam_shaking:bool = false
-@onready var remaining_time:float = 0
-@onready var elapsed_time:float = 0
-#strength controlls the overall magnitude of the shake
-#while smoothness controlls how smooth motion is, kind of "anti-strength"
-@onready var smoothness :float = 0.5 #0-1, higher values smooth out the shake motion more so that it's less jarring
-@onready var current_strength :float = 0
+# Shake state
+var cam_shaking:bool = false
+var remaining_time:float = 0.0
+var elapsed_time:float = 0.0
+var current_strength:float = 0.0
+@export var smoothness:float = 0.5 # 0..1
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Last frame’s applied pivot offset
+var _pivot_last_offset:Vector3 = Vector3.ZERO
+
 func _process(delta: float) -> void:
 	if camera_roll_enabled and player.player_move_input_enabled:
-		# Set target roll based on left/right input
 		if player.input_dir.x > 0:
-			camera_target_roll = -max_camera_roll # rolling right (negative z)
+			camera_target_roll = -max_camera_roll
 		elif player.input_dir.x < 0:
-			camera_target_roll = max_camera_roll  # rolling left (positive z)
+			camera_target_roll = max_camera_roll
 		else:
 			camera_target_roll = 0.0
 	else:
 		camera_target_roll = 0.0
 	
-	# interpolate the z tilt
 	rotation.z = lerp_angle(rotation.z, deg_to_rad(camera_target_roll), camera_roll_speed * delta)
-	# interpolate the FOV
 	fov = lerpf(fov, camera_target_fov, camera_fov_lerp_speed * delta)
 
-## Additive camera shake. 
-## If the camera is already shaking, then reset the elapsed time and remaining time of the shake and
-## boost the strength of the shake, so that shakes have an additive effect.
-func shakeCamera(duration:float, strength:float):
-	pass
+## Translate pivot in local XY for a screen shake (no camera rotation). One call starts full shake.
+func shakeCamera(duration: float, strength: float) -> void:
+	if cam_shaking:
+		remaining_time = max(remaining_time, duration)
+		current_strength += strength
+		return
+	
+	cam_shaking = true
+	current_strength = strength
+	remaining_time = duration
+	elapsed_time = 0.0
+	_pivot_last_offset = Vector3.ZERO
+	
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	while elapsed_time < duration:
+		await get_tree().process_frame
+		var dt: float = get_process_delta_time()
+		elapsed_time += dt
+		remaining_time = max(0.0, duration - elapsed_time)
+		
+		# Remove previous frame offset (keep base pivot position stable)
+		pivot.position -= _pivot_last_offset
+		
+		var fade: float = 1.0 - (elapsed_time / duration) # ease out
+		var raw2D: Vector2 = Vector2(
+			rng.randf_range(-1.0, 1.0),
+			rng.randf_range(-1.0, 1.0)
+		) * current_strength * fade
+		
+		var alpha: float = 1.0 - clamp(smoothness, 0.0, 1.0)
+		var smoothed2D: Vector2 = Vector2(_pivot_last_offset.x, _pivot_last_offset.y).lerp(raw2D, alpha)
+		
+		var new_offset: Vector3 = Vector3(smoothed2D.x, smoothed2D.y, 0.0)
+		pivot.position += new_offset
+		_pivot_last_offset = new_offset
+	
+	# Final cleanup: remove residual offset
+	pivot.position -= _pivot_last_offset
+	_pivot_last_offset = Vector3.ZERO
+	
+	cam_shaking = false
+	current_strength = 0.0
+	remaining_time = 0.0
+	elapsed_time = 0.0

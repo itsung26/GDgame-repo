@@ -1,6 +1,4 @@
 extends GPUParticles3D
-@onready var marker: Marker3D = $"../Marker"
-
 
 func setup(location_pos:Vector3, look_at_pos:Vector3):
 	global_position = location_pos

@@ -340,6 +340,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Current parry taget: "
 
+[node name="CurrentHookGPos" type="Label" parent="DebugContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Hook Gpos: "
+
 [node name="fpsCounter" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2

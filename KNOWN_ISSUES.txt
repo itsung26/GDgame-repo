@@ -8,18 +8,17 @@ KNOWN ISSUES====================================================================
 	-may require low-level communication with the physics server to control collision
 	of specific objects
 
-. the ui panel movement is fucked
+. the ui panel movement is horrible
+	-fix: convert velocity vector to screen space vector
 
 . grapple cube particles do not render properly
 	-fix: instantiate new particles, enable them, and garbage collect them when done.
 
-. grapple hook rarely collides with the world when it is in idle state untill it is
-used again, then it fixes
-	-fix: no fucking idea why this even happens in the first place
+
 
 . player's velocity is brought down when attempting to move while already 
 moving faster than speed limit
-	-fix: absolutely no fucking idea
+	-fix: 🤷
 
 . if the player is able to remain inside of a hazard area (the damaging kind), they
 will not take any damage
@@ -31,3 +30,8 @@ FIXED ISSUES====================================================================
 
 . the pistol's special will extremely rarely not go back to normal state
 	-FIXED: Removed pistol special
+
+. grapple hook rarely collides with the world when it is in idle state untill it is
+used again, then it fixes
+	-FIXED: apparently, when scene heirarchy changes order, methods have to be called deferred or things
+	get broken.

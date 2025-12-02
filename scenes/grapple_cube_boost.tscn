@@ -1,6 +1,7 @@
-[gd_scene load_steps=50 format=4 uid="uid://ccl7hn0ddburv"]
+[gd_scene load_steps=51 format=4 uid="uid://ccl7hn0ddburv"]
 
 [ext_resource type="Script" uid="uid://cc850csi67pvh" path="res://scripts/grapple_cube_boost.gd" id="1_lpllt"]
+[ext_resource type="Script" uid="uid://dco1wh6mmt08p" path="res://scripts/grapple_detect_block.gd" id="2_7umhy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lda68"]
 
@@ -1322,6 +1323,7 @@ debug_color = Color(1, 1, 0, 1)
 [node name="GrappleDetectBlock" type="Area3D" parent="."]
 collision_layer = 256
 collision_mask = 512
+script = ExtResource("2_7umhy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleDetectBlock"]
 transform = Transform3D(1.71751, 0, 0, 0, 1.71751, 0, 0, 0, 1.71751, 0, 0, 0)
