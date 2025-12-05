@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ddb3k03yo78xo"]
+[gd_scene load_steps=8 format=3 uid="uid://ddb3k03yo78xo"]
 
 [ext_resource type="Script" uid="uid://b4u4qftwlojw5" path="res://scripts/explosion_3d.gd" id="1_oiiif"]
 [ext_resource type="ArrayMesh" uid="uid://bifaeexxbi3ci" path="res://assets/meshes/exposion procedural mesh/explosion_mesh_Sphere_002.res" id="2_4bxpp"]
@@ -7,9 +7,6 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_oiiif"]
 radius = 0.973455
-
-[sub_resource type="Animation" id="Animation_p5hya"]
-length = 0.001
 
 [sub_resource type="Animation" id="Animation_nvkk6"]
 resource_name = "on enter"
@@ -31,22 +28,22 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1djo3"]
 _data = {
-&"RESET": SubResource("Animation_p5hya"),
 &"on enter": SubResource("Animation_nvkk6")
 }
 
 [node name="Explosion3D" type="Node3D" groups=["explosions"]]
-transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 script = ExtResource("1_oiiif")
 explosion_scale_curve = ExtResource("2_kvot3")
 alpha_curve = ExtResource("3_nvkk6")
+camera_shake_distance_factor = 15.0
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="BodyInfluencer" type="Area3D" parent="."]
 collision_layer = 32
 collision_mask = 11
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyInfluencer"]
 shape = SubResource("SphereShape3D_oiiif")
+debug_color = Color(0, 0.6, 0.701961, 1)
 
 [node name="Sphere" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_4bxpp")
@@ -57,3 +54,6 @@ callback_mode_method = 1
 libraries = {
 &"": SubResource("AnimationLibrary_1djo3")
 }
+autoplay = "on enter"
+
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]

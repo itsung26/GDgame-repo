@@ -8,7 +8,7 @@ extends Node3D
 ## Called after instancing to scene
 func setup(world_position:Vector3, look_dir:Vector3, despawn_time:float):
 	global_position = world_position
-	look_at(global_position + look_dir)
+	look_at(global_position + look_dir + Vector3(0.0001, 0.0001, 0.0001)) # slight offset to prevent colinearity
 	for particle:GPUParticles3D in particle_group:
 		particle.emitting = true
 	despawn_timer.start(despawn_time)

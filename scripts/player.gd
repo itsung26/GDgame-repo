@@ -471,6 +471,8 @@ func _input(event) -> void:
 
 ## Call to damage player. Requires a [code]damage[/code] parameter. Optionally, additional parameters for screen shake can be passed to the function. Otherwise, screen shake will not occur.
 func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_duration:float = 0.0, screen_shake_strength:float = 0.0):
+	if damage == 0.0:
+		return
 	var previous_health:float = HEALTH
 	var new_health:float = HEALTH - damage
 	new_health = clampf(new_health, 0.0, 100.0)
@@ -481,9 +483,7 @@ func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_dur
 	var hurt_rect:Control = hurt_rect_SCENE.instantiate()
 	get_tree().current_scene.add_child(hurt_rect)
 	
-	if damage == 0.0:
-		push_warning("Player recieved 0 damage? If this is intended, this method should not have been called.")
-	elif damage < 0.0:
+	if damage < 0.0:
 		assert(false, "Player recieved negative damage.")
 	else:
 		if not Godmode:
