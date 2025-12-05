@@ -33,5 +33,6 @@ func setup(spawn_pos:Vector3, explosion_scale_curve:Curve, damage:float, knockba
 		self.knockback_force = knockback_force
 		sphere_material.albedo_color = color
 		sphere_material.emission = color
+		self.explosion_scale_curve = explosion_scale_curve
 		
 		
