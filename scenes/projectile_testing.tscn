@@ -187,5 +187,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0526, 4.03574, 16.2227)
 
 [node name="enemy_filth" parent="." instance=ExtResource("7_wl3f4")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.44939, 0, 1.5683)
+stunned = true
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

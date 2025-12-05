@@ -1425,7 +1425,7 @@ libraries = {
 [node name="ParryArm" type="Node3D" parent="Pivot/Camera3D" groups=["arms"]]
 
 [node name="ParryHitbox" type="Area3D" parent="Pivot/Camera3D/ParryArm"]
-collision_mask = 10
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/ParryArm/ParryHitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022134, -0.272965, -1.53758)
@@ -1485,7 +1485,6 @@ transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8
 
 [node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
 transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, -0.44, 0.28, 0.535)
-visible = false
 
 [node name="gunplaceholderanimator" parent="Pivot/Camera3D/Guns/Pistol" index="3"]
 speed_scale = 0.35

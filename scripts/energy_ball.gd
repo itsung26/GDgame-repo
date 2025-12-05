@@ -25,23 +25,17 @@ func _destroySelf():
 func deleteBodyCollider():
 	rigidbody_collider.queue_free()
 
-func _on_body_entered(body: Node) -> void:
-	if body is Player:
-		#print("enemy projectile collided with player")
-		var player:Player = body
+func _on_hit_player(player: Player) -> void:
 		player.damagePlayer(damage_to_player, "Melted by energy projectile")
-		_destroySelf()
-	
-	elif body is Enemy:
-		#print("enemy projectile collided with enemy")
-		var enemy:Enemy = body
-		enemy.damageEnemy(damage_to_enemies, enemy.damage_types.NORMAL)
-		_destroySelf()
-	
-	else:
-		print("enemy projectile collided with world")
+		player.camera_3d.shakeCamera(cam_shake_duration, cam_shake_strength)
 		_destroySelf()
 
+func _on_hit_enemy(enemy: Enemy) -> void:
+		enemy.damageEnemy(damage_to_enemies, enemy.damage_types.NORMAL)
+		_destroySelf()
+		
+func _on_hit_other(body: Node3D) -> void:
+		_destroySelf()
 
 func _on_despawn_timer_timeout() -> void:
 	_destroySelf()

@@ -27,7 +27,7 @@ extends CharacterBody3D
 ## the camera being in any given state.
 
 @onready var player: CharacterBody3D = $"."
-@onready var camera_3d: Camera3D = %Camera3D
+@onready var camera_3d: PlayerCamera = %Camera3D
 @onready var pivot: Node3D = $Pivot
 @onready var gun_animator: AnimationPlayer = $GunAnimator
 @onready var camera_animator: AnimationPlayer = $CameraAnimator
@@ -61,9 +61,9 @@ extends CharacterBody3D
 @onready var parry_flash_go_back_marker: Marker3D = $Pivot/Camera3D/parryFlashGoBackMarker
 @onready var punch_raycast: RayCast3D = $Pivot/Camera3D/PunchRaycast
 
+const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
 var grapple_rope_mesh_gen:ropeMeshGenerator
-const LaserGenerator_SCENE = preload("res://scenes/laser_generator.tscn")
 
 @export_group("Input Allowments")
 @export var player_move_input_enabled:bool = true
@@ -79,6 +79,7 @@ var stamina_recharging:bool = true
 @export_category("Main Attributes")
 @export var Godmode:bool = false
 @export var HEALTH:float = 100
+@export var can_be_healed:bool = true
 @export var STAMINA:float = 300
 ## Delay after dash before stamina before stamina begins to recharge in seconds.
 @export var stamina_charge_delay:float = 0.1 # seconds
@@ -266,6 +267,7 @@ func set_player_state(new_player_state:int):
 	
 	# death to and from
 	if new_player_state == player_states.DEAD:
+		# disable inputs
 		player_move_input_enabled = false
 		player_dash_input_enabled = false
 		player_jump_input_enabled = false
@@ -273,6 +275,8 @@ func set_player_state(new_player_state:int):
 		player_arm_action_input_enabled = false
 		weapon_switch_input_enabled = false
 		player_look_input_enabled = false
+		# prevent healing the player
+		can_be_healed = false
 		
 	# SLIDING to and from
 	if new_player_state == player_states.SLIDING:
@@ -464,12 +468,18 @@ func _input(event) -> void:
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
 		pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
-		
-func damagePlayer(damage:float, death_cause:String = "Unknown"):
+
+## Call to damage player. Requires a [code]damage[/code] parameter. Optionally, additional parameters for screen shake can be passed to the function. Otherwise, screen shake will not occur.
+func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_duration:float = 0.0, screen_shake_strength:float = 0.0):
 	var previous_health:float = HEALTH
 	var new_health:float = HEALTH - damage
 	new_health = clampf(new_health, 0.0, 100.0)
 	cause_of_death = death_cause
+	# shake camera
+	camera_3d.shakeCamera(screen_shake_duration, screen_shake_strength)
+	# make screen flash red by instancing a VFX scene. It will be automatically freed when done.
+	var hurt_rect:Control = hurt_rect_SCENE.instantiate()
+	get_tree().current_scene.add_child(hurt_rect)
 	
 	if damage == 0.0:
 		push_warning("Player recieved 0 damage? If this is intended, this method should not have been called.")
@@ -478,8 +488,13 @@ func damagePlayer(damage:float, death_cause:String = "Unknown"):
 	else:
 		if not Godmode:
 			HEALTH = new_health
+			if HEALTH == 0.0:
+				playerDie()
 
 func healPlayer(amount:float):
+	if not can_be_healed:
+		return
+
 	var previous_health:float = HEALTH
 	var new_health:float = HEALTH + amount
 	new_health = clampf(new_health, 0.0, 100.0)
@@ -695,11 +710,6 @@ func _process(delta) -> void:
 		var time_left = str(snappedf(black_hole_time_remaining, 0.01)) + "s"
 		if black_hole_cooldown_timer:
 			black_hole_cooldown_timer.text = time_left
-	
-	# kill the player.
-	# WIP: make death check internal in damagePlayer().
-	if HEALTH <= 0:
-		playerDie()
 	
 	# handle all weapon inputs, if the weapon is not null (it should never be)
 	if weapon_state:

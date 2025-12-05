@@ -1131,7 +1131,6 @@ lerp_angle_factor = 9.0
 HEALTH = 20.0
 SPEED = 750
 grapple_origin = NodePath("Marker3D")
-parriable = false
 grapple_offset = Vector3(0, 1.2328, -0.139401)
 metadata/_edit_pinned_properties_ = [&"HEALTH"]
 

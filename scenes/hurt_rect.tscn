@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2mjgjo00q3ka"]
+
+[ext_resource type="Shader" uid="uid://b6hvv5ldi3b87" path="res://shaders/visual shaders/hurt_rect.tres" id="1_2i50f"]
+[ext_resource type="Texture2D" uid="uid://pgohovxt0nqk" path="res://assets/2d assets/noise/square_gradient.png" id="2_41p8y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t7dpw"]
+shader = ExtResource("1_2i50f")
+shader_parameter/ColorParameter = Color(1, 0, 0, 1)
+shader_parameter/Vector2Parameter = Vector2(0.705, 0.815)
+shader_parameter/Texture2DParameter = ExtResource("2_41p8y")
+shader_parameter/Alpha = 1.0
+
+[sub_resource type="Animation" id="Animation_eketk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/Alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_41p8y"]
+resource_name = "action"
+length = 0.7651
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/Alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.393446),
+"transitions": PackedFloat32Array(2, 0.5),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7651),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_custi"]
+_data = {
+&"RESET": SubResource("Animation_eketk"),
+&"action": SubResource("Animation_41p8y")
+}
+
+[node name="HurtRect" type="Control"]
+editor_description = "Instanced when player takes damage (VFX)"
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_t7dpw")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_method = 1
+libraries = {
+&"": SubResource("AnimationLibrary_custi")
+}
+autoplay = "action"

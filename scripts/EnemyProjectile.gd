@@ -7,6 +7,8 @@ class_name EnemyProjectile extends RigidBody3D
 @export var can_despawn:bool = true
 @export var despawn_time:float = 10.0
 @export var has_been_parried:bool = false: set = _set_has_been_parried
+@export var cam_shake_duration:float
+@export var cam_shake_strength:float
 
 ## Goes to [code]global_position[/code] at pos, and travels in the direction of dir at travel_speed
 func _setup(_pos:Vector3, _dir:Vector3) -> void:

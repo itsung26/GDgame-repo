@@ -28,10 +28,6 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @export var damage_enabled:bool = true
 ## The position of this node will be the point that the grapple hook "snaps" to when it hits the enemy.
 @export var grapple_origin:Marker3D
-## Whether the enemy is parriable. Shared with [code]EnemyProjectile[/code].
-@export var parriable:bool = true
-## Whether the enemy has been parried in it's lifetime.
-@export var has_been_parried:bool = false
 ## If true, the enemy will remain in stunned state untill this is set false again.
 @export var stunned:bool = false
 ## The point that the grapple hook will attatch to. This should be located somewhere near the center of the enemy.
