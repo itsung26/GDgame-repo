@@ -1,22 +1,65 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsjx62bojxnjd"]
+[gd_scene load_steps=12 format=3 uid="uid://dsjx62bojxnjd"]
 
 [ext_resource type="Material" uid="uid://cbp53aho327vx" path="res://assets/materials/prototype_material.tres" id="1_1f1jc"]
 [ext_resource type="Script" uid="uid://cukddme24ioxq" path="res://scripts/explosion_test_scene.gd" id="1_nygw8"]
+[ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_e0515"]
+[ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="4_h86ws"]
 
-[sub_resource type="Curve" id="Curve_nygw8"]
-_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(0.117647, 1), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_e0515"]
+_limits = [0.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(0.059, 5), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="Curve" id="Curve_x2soc"]
+_data = [Vector2(0, 1), 0.0, 1.4, 0, 0, Vector2(0.0650155, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e0515"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_h86ws"]
+sky_material = SubResource("ProceduralSkyMaterial_e0515")
+
+[sub_resource type="Environment" id="Environment_ogmfv"]
+background_mode = 2
+sky = SubResource("Sky_h86ws")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_nygw8"]
 material = ExtResource("1_1f1jc")
 size = Vector2(50, 50)
 
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1rt2u"]
+data = PackedVector3Array(25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25)
+
 [node name="ExplosionTestScene" type="Node3D"]
 script = ExtResource("1_nygw8")
-test_explosion_curve = SubResource("Curve_nygw8")
+test_explosion_curve = SubResource("Curve_e0515")
+test_alpha_curve = SubResource("Curve_x2soc")
+test_color = Color(0.695503, 0.695503, 0.695503, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ogmfv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_nygw8")
 
 [node name="explosionSpawnPos" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.589177, 0)
+
+[node name="Player" parent="." instance=ExtResource("3_e0515")]
+
+[node name="grapple_rope_meshGen" parent="." instance=ExtResource("4_h86ws")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 43
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_1rt2u")

@@ -11,37 +11,64 @@ extends Node3D
 @onready var sphere: MeshInstance3D = $Sphere
 @onready var sphere_material:StandardMaterial3D = sphere.get_active_material(0)
 
-@export var explosion_expand_speed:float = 1  # how fast to traverse the curve (0..1 per second)
+@export var explosion_expand_speed:float = 0.25  # how fast to traverse the curve (0..1 per second)
 var exploding:bool = false
 @export var explosion_scale_curve:Curve
 var scale_float:float = scale.length()
-@export var alpha_curve_speed:float
+@export var alpha_curve_speed:float = 0.25
 @export var alpha_curve:Curve
 
 var _elapsed: float = 0.0  # normalized time along the curve [0..1]
+var _alpha_elapsed: float = 0.0
+var _can_apply_scale: bool = false
+
+# Neccessary to prevent editor error spamming
+func _init() -> void:
+	_can_apply_scale = true
+	scale_float = 0.00001
 
 func _process(delta: float) -> void:
-	scale = Vector3(scale_float, scale_float, scale_float)
+	Debug.log(exploding)
+	if _can_apply_scale:
+		# Apply current uniform scale
+		scale = Vector3(scale_float, scale_float, scale_float)
 	
 	if exploding:
-		# Advance normalized time along the curve
+		# Scale over life
 		if explosion_scale_curve != null and explosion_scale_curve.get_point_count() > 0:
 			_elapsed = clamp(_elapsed + delta * explosion_expand_speed, 0.0, 1.0)
-			# Sample the curve (0..1) to drive the visual/collider scale
 			scale_float = explosion_scale_curve.sample_baked(_elapsed)
-			# Stop when finished
 			if _elapsed >= 1.0:
 				exploding = false
 		else:
-			# Fallback: linear growth if no curve assigned
 			scale_float += explosion_expand_speed * delta
+		
+		# Alpha over life (independent curve)
+		if alpha_curve != null and alpha_curve.get_point_count() > 0:
+			_alpha_elapsed = clamp(_alpha_elapsed + delta * max(alpha_curve_speed, 0.0001), 0.0, 1.0)
+			var a: float = alpha_curve.sample_baked(_alpha_elapsed)
+			# Ensure material uses alpha blending
+			sphere_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			# Update color alpha (keep current RGB)
+			var c: Color = sphere_material.albedo_color
+			c.a = a
+			sphere_material.albedo_color = c
+			# Optionally match emission alpha to albedo
+			var e: Color = sphere_material.emission
+			e.a = a
+			sphere_material.emission = e
 
 ## Called after being instanced and added to the scene.
-func setup(spawn_pos:Vector3 = Vector3.ZERO, damage:float = 0.0, knockback_force:float = 5.0, color:Color = Color.GRAY, explosion_scale_curve:Curve = self.explosion_scale_curve) -> void:
+func setup(spawn_pos:Vector3 = Vector3.ZERO, damage:float = 0.0, knockback_force:float = 5.0, color:Color = Color.GRAY, explosion_scale_curve:Curve = self.explosion_scale_curve, alpha_curve:Curve = self.alpha_curve) -> void:
 	exploding = true
 	_elapsed = 0.0
+	_alpha_elapsed = 0.0
 	global_position = spawn_pos
+	# Enable alpha blending so alpha_curve affects visibility
+	sphere_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	sphere_material.albedo_color = color
 	sphere_material.emission = color
 	if explosion_scale_curve != null:
 		self.explosion_scale_curve = explosion_scale_curve
+	if alpha_curve != null:
+		self.alpha_curve = alpha_curve
