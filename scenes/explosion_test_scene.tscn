@@ -6,11 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="4_h86ws"]
 
 [sub_resource type="Curve" id="Curve_e0515"]
-_limits = [0.0, 5.0, 0.0, 1.0]
+_limits = [0.0, 5.0, 0.0, 0.059]
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(0.059, 5), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_x2soc"]
+_limits = [0.0, 1.0, 0.0, 0.0650155]
 _data = [Vector2(0, 1), 0.0, 1.4, 0, 0, Vector2(0.0650155, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
