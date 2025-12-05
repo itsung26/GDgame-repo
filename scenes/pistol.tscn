@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://csatdjhfoaqcw"]
+[gd_scene load_steps=11 format=3 uid="uid://csatdjhfoaqcw"]
 
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/pistol.gd" id="1_buff3"]
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_buff3"]
@@ -24,6 +24,64 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pistol_debug:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1e3ry"]
+resource_name = "fire"
+length = 0.0315
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pistol_debug:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0158, 0.0315),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.13), Vector3(0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0158),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"firePistol"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4hq71"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pistol_debug:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.306474, 0.660757, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.117771, 0.0561114, 0), Vector3(-0.411203, -0.0581969, 0), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -66,36 +124,6 @@ tracks/1/keys = {
 "values": [Vector3(-0.537561, 0, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_1e3ry"]
-resource_name = "fire"
-length = 0.0315
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pistol_debug:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0158, 0.0315),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.13), Vector3(0, 0, 0)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0158),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"firePistol"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_t6oaa"]
 resource_name = "reload"
 tracks/0/type = "value"
@@ -111,34 +139,6 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-2.89049, 1.47425, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_4hq71"]
-resource_name = "idle"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pistol_debug:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.306474, 0.660757, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.117771, 0.0561114, 0), Vector3(-0.411203, -0.0581969, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pistol_debug:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4ni07"]
 _data = {
 &"RESET": SubResource("Animation_buff3"),
@@ -147,47 +147,6 @@ _data = {
 &"onequip": SubResource("Animation_a38lo"),
 &"reload": SubResource("Animation_t6oaa")
 }
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_buff3"]
-animation = &"fire"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1e3ry"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t6oaa"]
-animation = &"onequip"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4hq71"]
-animation = &"reload"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_88qyl"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1r6mc"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kvtwg"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lfdsj"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wvp02"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eun5i"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_b4lmj"]
-states/fire/node = SubResource("AnimationNodeAnimation_buff3")
-states/fire/position = Vector2(639, 4)
-states/idle/node = SubResource("AnimationNodeAnimation_1e3ry")
-states/idle/position = Vector2(532, 100)
-states/onequip/node = SubResource("AnimationNodeAnimation_t6oaa")
-states/onequip/position = Vector2(394, 13)
-states/reload/node = SubResource("AnimationNodeAnimation_4hq71")
-states/reload/position = Vector2(532, -21)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_88qyl"), "idle", "reload", SubResource("AnimationNodeStateMachineTransition_1r6mc"), "idle", "fire", SubResource("AnimationNodeStateMachineTransition_kvtwg"), "fire", "idle", SubResource("AnimationNodeStateMachineTransition_lfdsj"), "idle", "onequip", SubResource("AnimationNodeStateMachineTransition_wvp02"), "onequip", "idle", SubResource("AnimationNodeStateMachineTransition_eun5i")]
-graph_offset = Vector2(2, -49)
 
 [node name="Pistol" type="Node3D" node_paths=PackedStringArray("muzzle_origin", "bullet_raycast") groups=["weapons"]]
 transform = Transform3D(0.0880492, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, 0, 0, 0)
@@ -201,7 +160,6 @@ damage_max = 1.0
 automatic = true
 
 [node name="pistol_debug" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_igbvm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="pistol_debug"]
@@ -225,7 +183,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5000)
 libraries = {
 &"": SubResource("AnimationLibrary_4ni07")
 }
-
-[node name="animationStateMachine" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_b4lmj")
-anim_player = NodePath("../gunplaceholderanimator")

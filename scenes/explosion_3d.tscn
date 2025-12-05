@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddb3k03yo78xo"]
+
+[ext_resource type="Script" uid="uid://b4u4qftwlojw5" path="res://scripts/explosion_3d.gd" id="1_oiiif"]
+[ext_resource type="ArrayMesh" uid="uid://bifaeexxbi3ci" path="res://assets/meshes/exposion procedural mesh/explosion_mesh_Sphere_002.res" id="2_4bxpp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_oiiif"]
+radius = 0.973455
+
+[node name="Explosion3D" type="Node3D" groups=["explosions"]]
+script = ExtResource("1_oiiif")
+knockback_force = null
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 11
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_oiiif")
+
+[node name="Sphere" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_4bxpp")
+skeleton = NodePath("")

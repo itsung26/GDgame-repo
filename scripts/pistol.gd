@@ -14,17 +14,16 @@ const BULLET_IMPACT_PARTICLE_SCENE_2:PackedScene = preload("res://scenes/bullet_
 
 @onready var gunplaceholderanimator: AnimationPlayer = $gunplaceholderanimator
 @onready var pistol_ray_cast_target_pos: Marker3D = $pistolRayCast/pistolRayCastTargetPos
-@onready var animation_state_machine_playback: AnimationNodeStateMachinePlayback = $animationStateMachine.get("parameters/playback")
 
 @export var bullet_trail_color:Color = Color.GOLD
 @export var muzzle_origin:Marker3D
 @export var bullet_raycast:RayCast3D
 
 func _onEquip():
-	animation_state_machine_playback.travel("onequip")
+	gunplaceholderanimator.play("onequip")
 
 func _fire():
-	animation_state_machine_playback.travel("fire")
+	gunplaceholderanimator.play("fire")
 	Debug.log("fired pistol")
 	
 	
@@ -34,7 +33,7 @@ func _special():
 func _reload():
 	if gunplaceholderanimator.current_animation == "fire":
 		await gunplaceholderanimator.animation_changed
-	animation_state_machine_playback.travel("reload")
+		gunplaceholderanimator.play("reload")
 
 ## Does the actual firing, including damage and vfx.
 func firePistol() -> void:
