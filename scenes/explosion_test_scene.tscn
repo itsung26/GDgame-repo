@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsjx62bojxnjd"]
+[gd_scene load_steps=5 format=3 uid="uid://dsjx62bojxnjd"]
 
 [ext_resource type="Material" uid="uid://cbp53aho327vx" path="res://assets/materials/prototype_material.tres" id="1_1f1jc"]
 [ext_resource type="Script" uid="uid://cukddme24ioxq" path="res://scripts/explosion_test_scene.gd" id="1_nygw8"]
+
+[sub_resource type="Curve" id="Curve_nygw8"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(0.117647, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_nygw8"]
 material = ExtResource("1_1f1jc")
@@ -9,8 +13,7 @@ size = Vector2(50, 50)
 
 [node name="ExplosionTestScene" type="Node3D"]
 script = ExtResource("1_nygw8")
-final_explosion_scale = 1.5
-color_of_boom = Color(1, 0.647059, 0, 1)
+test_explosion_curve = SubResource("Curve_nygw8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_nygw8")
