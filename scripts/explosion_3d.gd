@@ -1,4 +1,4 @@
-@tool
+@icon("res://explosionIcon.png")
 class_name Explosion3D
 extends Node3D
 
@@ -20,18 +20,23 @@ var knockback_force:float
 var damage:float
 var screen_shake_duration:float
 var screen_shake_strength:float
-
+var _fading_alpha:bool = false
 var _elapsed: float = 0.0  # normalized time along the curve [0..1]
 var _alpha_elapsed: float = 0.0
 var _can_apply_scale: bool = false
 var _player:Player = Helper.getFirstInScene("Player")
 
-@export var camera_shake_distance_factor:float
+## Camera shake exponential dropoff factor.
+@export var cam_shake_exponential_dropoff:float = 0.5
 
 func _init() -> void:
 	_scale_float = 0.00001
 
 func _process(delta: float) -> void:
+	# queue for deletion if curves have stopped sampling. (corresponds to the explosion having fully ended.)
+	if getCurvesStoppedSampling():
+		queue_free()
+	
 	if not Engine.is_editor_hint():
 		# Apply current uniform scale
 		scale = Vector3(_scale_float, _scale_float, _scale_float)
@@ -39,17 +44,18 @@ func _process(delta: float) -> void:
 	if _exploding:
 		# Scale over life
 		if explosion_scale_curve != null and explosion_scale_curve.get_point_count() > 0:
-			_elapsed = clamp(_elapsed + delta * explosion_expand_speed, 0.0, 1.0)
+			_elapsed = clamp(_elapsed + delta * explosion_expand_speed, 0.0, explosion_scale_curve.max_domain)
 			_scale_float = explosion_scale_curve.sample_baked(_elapsed)
-			if _elapsed >= 1.0:
+			if _elapsed >= explosion_scale_curve.max_domain:
 				_exploding = false
-		else:
-			_scale_float += explosion_expand_speed * delta
-		
+
+	if _fading_alpha:
 		# Alpha over life (independent curve)
 		if alpha_curve != null and alpha_curve.get_point_count() > 0:
-			_alpha_elapsed = clamp(_alpha_elapsed + delta * max(alpha_curve_speed, 0.0001), 0.0, 1.0)
+			_alpha_elapsed = clamp(_alpha_elapsed + delta * max(alpha_curve_speed, 0.0001), 0.0, alpha_curve.max_domain)
 			var a: float = alpha_curve.sample_baked(_alpha_elapsed)
+			if _alpha_elapsed >= alpha_curve.max_domain:
+				_fading_alpha = false
 			# Ensure material uses alpha blending
 			sphere_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 			# Update color alpha (keep current RGB)
@@ -71,8 +77,10 @@ func setup(
 	color:Color = Color.GRAY,
 	emission_strength:float = 0.0,
 	explosion_scale_curve:Curve = self.explosion_scale_curve,
-	alpha_curve:Curve = self.alpha_curve) -> void:
+	alpha_curve:Curve = self.alpha_curve,
+	unshaded:bool = false) -> void:
 		_exploding = true
+		_fading_alpha = true
 		_elapsed = 0.0
 		_alpha_elapsed = 0.0
 		self.knockback_force = knockback_force
@@ -81,24 +89,57 @@ func setup(
 		self.screen_shake_strength = screen_shake_strength
 		global_position = spawn_pos
 		# Enable alpha blending so alpha_curve affects visibility
+		# set a bunch of material parameters
 		sphere_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 		sphere_material.albedo_color = color
 		sphere_material.emission = color
 		sphere_material.emission_energy_multiplier = emission_strength
+		if unshaded:
+			sphere_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		else:
+			pass
 		if explosion_scale_curve != null:
 			self.explosion_scale_curve = explosion_scale_curve
 		if alpha_curve != null:
 			self.alpha_curve = alpha_curve
-		# Shake screen by amount based on distance from explosion
-		var distance_to_player:float = Vector3(_player.camera_3d.global_position - global_position).length()
-		Debug.log("distance to player: " + str(distance_to_player))
-		var shake_strength = 1 / distance_to_player * camera_shake_distance_factor
-		Debug.log(shake_strength)
-		_player.camera_3d.shakeCamera(0.50, shake_strength)
+			
+		# Shake screen by amount based on distance from explosion (if player is not airborne).
+		if _player.is_on_floor():
+			# Create an exponential relationship for camera shake dropoff
+			var distance_to_player:float = (_player.camera_3d.global_position - global_position).length()
+			var strength := screen_shake_strength * exp(-cam_shake_exponential_dropoff * distance_to_player)
+			# Optional clamp to avoid ultra-small shakes:
+			strength = clamp(strength, 0.0, screen_shake_strength)
+			if strength > 0.001:
+				_player.camera_3d.shakeCamera(screen_shake_duration, strength)
 
+## Returns false if at least one curve is actively sampling and true if they both are not.
+func getCurvesStoppedSampling() -> bool:
+	# Scale sampling active?
+	var scale_active := false
+	if _exploding:
+		if explosion_scale_curve != null and explosion_scale_curve.get_point_count() > 0:
+			scale_active = _elapsed < explosion_scale_curve.max_domain
+		else:
+			# No usable curve, treat as not active
+			scale_active = false
+
+	# Alpha sampling active?
+	var alpha_active := false
+	if _fading_alpha:
+		if alpha_curve != null and alpha_curve.get_point_count() > 0:
+			alpha_active = _alpha_elapsed < alpha_curve.max_domain
+		else:
+			alpha_active = false
+
+	# Return true only if both are NOT active
+	return (not scale_active) and (not alpha_active)
+	
 func _on_body_influencer_player_entered(player: Player) -> void:
 	var center_point:Vector3 = global_position
 	var dir_to_player_head:Vector3 = (player.camera_3d.global_position - center_point).normalized()
 	
+	if knockback_force > 0:
+		player.velocity = Vector3.ZERO # kill player velocity. (may be removed in the future)
 	player.velocity += dir_to_player_head * knockback_force # apply a force to the player
 	player.damagePlayer(damage, "explosion", screen_shake_duration, screen_shake_strength)

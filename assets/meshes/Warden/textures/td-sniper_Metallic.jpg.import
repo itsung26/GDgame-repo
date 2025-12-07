@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0yopbr4r5juf"
-path="res://.godot/imported/firstlevel.png-b969eb08c552b15d25b4975dc2f8c3f2.ctex"
+uid="uid://dt7gjemnydfnq"
+path="res://.godot/imported/td-sniper_Metallic.jpg-d2491ece68bd1785c04595a4057c8d80.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d assets/ui/firstlevel.png"
-dest_files=["res://.godot/imported/firstlevel.png-b969eb08c552b15d25b4975dc2f8c3f2.ctex"]
+source_file="res://assets/meshes/Warden/textures/td-sniper_Metallic.jpg"
+dest_files=["res://.godot/imported/td-sniper_Metallic.jpg-d2491ece68bd1785c04595a4057c8d80.ctex"]
 
 [params]
 

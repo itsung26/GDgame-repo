@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0yopbr4r5juf"
-path="res://.godot/imported/firstlevel.png-b969eb08c552b15d25b4975dc2f8c3f2.ctex"
+uid="uid://drtr62qjhjeox"
+path="res://.godot/imported/td-sniper_Height.jpg-76e8f0aa0a1c23d50f481a42c7aa26db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d assets/ui/firstlevel.png"
-dest_files=["res://.godot/imported/firstlevel.png-b969eb08c552b15d25b4975dc2f8c3f2.ctex"]
+source_file="res://assets/meshes/Warden/assets/models/sniper-turret_8cb20645-6d09-40db-8cad-6da34fb34c87/textures/td-sniper_Height.jpg"
+dest_files=["res://.godot/imported/td-sniper_Height.jpg-76e8f0aa0a1c23d50f481a42c7aa26db.ctex"]
 
 [params]
 

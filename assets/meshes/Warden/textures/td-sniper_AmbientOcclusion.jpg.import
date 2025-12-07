@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0yopbr4r5juf"
-path="res://.godot/imported/firstlevel.png-b969eb08c552b15d25b4975dc2f8c3f2.ctex"
+uid="uid://b2cn2l3d851n6"
+path="res://.godot/imported/td-sniper_AmbientOcclusion.jpg-5edef2f89ecf0858f662fb189427abc2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d assets/ui/firstlevel.png"
-dest_files=["res://.godot/imported/firstlevel.png-b969eb08c552b15d25b4975dc2f8c3f2.ctex"]
+source_file="res://assets/meshes/Warden/textures/td-sniper_AmbientOcclusion.jpg"
+dest_files=["res://.godot/imported/td-sniper_AmbientOcclusion.jpg-5edef2f89ecf0858f662fb189427abc2.ctex"]
 
 [params]
 

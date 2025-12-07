@@ -1,27 +1,27 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsjx62bojxnjd"]
+[gd_scene load_steps=21 format=3 uid="uid://dsjx62bojxnjd"]
 
-[ext_resource type="Material" uid="uid://cbp53aho327vx" path="res://assets/materials/prototype_material.tres" id="1_1f1jc"]
 [ext_resource type="Script" uid="uid://cukddme24ioxq" path="res://scripts/explosion_test_scene.gd" id="1_nygw8"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_e0515"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="4_h86ws"]
 
 [sub_resource type="Curve" id="Curve_e0515"]
-_limits = [0.0, 10.0, 0.0, 0.25]
-_data = [Vector2(0, 3.82023), 0.0, 1.4, 0, 0, Vector2(0.0936532, 7.75281), 0.0, 0.0, 0, 0]
-point_count = 2
+_limits = [0.0, 10.0, 0.0, 0.26]
+_data = [Vector2(0, 0), 0.0, 53.8462, 0, 0, Vector2(0.115556, 7.85337), 32.6949, 32.6949, 0, 0, Vector2(0.26, 10), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[sub_resource type="Curve" id="Curve_x2soc"]
-_limits = [0.0, 1.0, 0.0, 0.14]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0585139, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="Curve" id="Curve_1rt2u"]
+_limits = [0.0, 1.0, 0.0, 0.26]
+_data = [Vector2(0, 0.8), 53.8462, 0.0, 0, 0, Vector2(0.171, 0.8), 0.0, 0.293862, 0, 0, Vector2(0.26, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Curve" id="Curve_h86ws"]
-_limits = [0.0, 5.0, 0.0, 0.059]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.059, 3.67265), 0.0, 0.0, 0, 0]
-point_count = 2
+_limits = [0.0, 12.0, 0.0, 0.26]
+_data = [Vector2(0, 2), 0.0, 53.8462, 0, 0, Vector2(0.116, 9.853), 32.6949, 32.6949, 0, 0, Vector2(0.26, 12), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Curve" id="Curve_ogmfv"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0959752, 0), 0.0, 0.0, 0, 0]
+_limits = [0.0, 1.0, 0.0, 0.26]
+_data = [Vector2(0, 0.501982), 53.8462, -5.45386, 0, 0, Vector2(0.26, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e0515"]
@@ -37,38 +37,92 @@ sky = SubResource("Sky_h86ws")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x2soc"]
+load_path = "res://.godot/imported/godot-theme-prototype-textures-v0-pev67seeqtac1.png-942373391355a3521e2668a8d8677193.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e0515"]
+albedo_texture = SubResource("CompressedTexture2D_x2soc")
+rim_tint = 1.0
+clearcoat_roughness = 0.0
+subsurf_scatter_strength = 0.07
+backlight = Color(1, 1, 1, 1)
+refraction_scale = 1.0
+uv1_scale = Vector3(15, 15, 15)
+texture_filter = 2
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_nygw8"]
-material = ExtResource("1_1f1jc")
+material = SubResource("StandardMaterial3D_e0515")
 size = Vector2(50, 50)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h86ws"]
+load_path = "res://.godot/imported/godot-theme-prototype-textures-v0-pev67seeqtac1.png-942373391355a3521e2668a8d8677193.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ogmfv"]
+albedo_texture = SubResource("CompressedTexture2D_h86ws")
+rim_tint = 1.0
+clearcoat_roughness = 0.0
+subsurf_scatter_strength = 0.07
+backlight = Color(1, 1, 1, 1)
+refraction_scale = 1.0
+uv1_scale = Vector3(4, 4, 4)
+texture_filter = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_1rt2u"]
+material = SubResource("StandardMaterial3D_ogmfv")
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1rt2u"]
 data = PackedVector3Array(25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25)
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_x2soc"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_e0515"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_h86ws"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
 [node name="ExplosionTestScene" type="Node3D"]
 script = ExtResource("1_nygw8")
 test_explosion_curve = SubResource("Curve_e0515")
-test_alpha_curve = SubResource("Curve_x2soc")
-test_color = Color(0.695503, 0.695503, 0.695503, 1)
-shockwave_knockback = 24.0
-red_explosion_curve = SubResource("Curve_h86ws")
-red_alpha_curve = SubResource("Curve_ogmfv")
-red_color = Color(1, 0.647059, 0, 1)
-red_emission = 5.0
+test_alpha_curve = SubResource("Curve_1rt2u")
+test_color = Color(1, 0, 0, 1)
+test_emission = 16.0
+gray_explosion_curve = SubResource("Curve_h86ws")
+gray_alpha_curve = SubResource("Curve_ogmfv")
+gray_color = Color(0.67069, 0.67069, 0.67069, 1)
+gray_explosion_shockwave_knockback = 18.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ogmfv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.871214, -0.490904, 1.04447e-08, 0.488716, -0.867332, 0.0942994, -0.0462919, 0.082155, 0.995544, 0, 0, 0)
 shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_nygw8")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.800784, 0, -0.598954, 0, 1, 0, 0.598954, 0, 0.800784, 0.0381517, 0.5, -2.65916)
+mesh = SubResource("BoxMesh_1rt2u")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.611196, 0, -0.79148, 0, 1, 0, 0.79148, 0, 0.611196, 0.766796, 0.5, -3.64263)
+mesh = SubResource("BoxMesh_1rt2u")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.765169, 0, -0.64383, 0, 1, 0, 0.64383, 0, 0.765169, 0.4634, 1.5, -3.15748)
+mesh = SubResource("BoxMesh_1rt2u")
+skeleton = NodePath("../MeshInstance3D")
+
 [node name="explosionSpawnPos" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.589177, 0)
 
 [node name="Player" parent="." instance=ExtResource("3_e0515")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.6111)
 Godmode = true
 
 [node name="grapple_rope_meshGen" parent="." instance=ExtResource("4_h86ws")]
@@ -79,3 +133,15 @@ collision_mask = 43
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_1rt2u")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.800784, 0, -0.598954, 0, 1, 0, 0.598954, 0, 0.800784, 0.0381517, 0.5, -2.65916)
+shape = SubResource("ConvexPolygonShape3D_x2soc")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.611196, 0, -0.79148, 0, 1, 0, 0.79148, 0, 0.611196, 0.766796, 0.5, -3.64263)
+shape = SubResource("ConvexPolygonShape3D_e0515")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.765169, 0, -0.64383, 0, 1, 0, 0.64383, 0, 0.765169, 0.4634, 1.5, -3.15748)
+shape = SubResource("ConvexPolygonShape3D_h86ws")

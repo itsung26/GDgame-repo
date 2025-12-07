@@ -445,7 +445,8 @@ func _input(event) -> void:
 	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor() and player_slide_slam_input_enabled:
 		player_state = player_states.SLIDING
 	elif Input.is_action_just_pressed("Slide | Slam") and not is_on_floor() and player_slide_slam_input_enabled:
-		player_state = player_states.SLAMMING
+		#player_state = player_states.SLAMMING
+		Debug.log("Slamming is currently disabled due to being terrible. Replacement is WIP.")
 
 	# on slide | slam released do state check
 	if Input.is_action_just_released("Slide | Slam") and player_state == player_states.SLIDING:

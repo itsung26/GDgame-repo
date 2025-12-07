@@ -1,0 +1,173 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://elxljikn81l8"
+valid=false
+
+[deps]
+
+source_file="res://assets/meshes/Warden/DemonBot.blend"
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+_subresources={
+"materials": {
+"BodyMainBaseLower": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/demon/materials/BodyMainBaseLower.tres"
+},
+"BodyMainBaseUpper": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/demon/materials/BodyMainBaseUpper.tres"
+},
+"LightsShoulderBase": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/demon/materials/LightsShoulderBase.tres"
+},
+"ShoulderBase": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/demon/materials/ShoulderBase.tres"
+},
+"base": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/demon/materials/base.tres"
+},
+"centerSecondary": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/demon/materials/centerSecondary.tres"
+},
+"sniper": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/meshes/demon/materials/sniper.tres"
+}
+},
+"meshes": {
+"DemonBot_Cube": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cube.res"
+},
+"DemonBot_Cube_001": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cube_001.res"
+},
+"DemonBot_Cube_002": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cube_002.res"
+},
+"DemonBot_Cube_003": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cube_003.res"
+},
+"DemonBot_Cube_004": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cube_004.res"
+},
+"DemonBot_Cylinder": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder.res"
+},
+"DemonBot_Cylinder_012": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder_012.res"
+},
+"DemonBot_Cylinder_013": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder_013.res"
+},
+"DemonBot_Cylinder_014": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder_014.res"
+},
+"DemonBot_Cylinder_015": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder_015.res"
+},
+"DemonBot_Cylinder_017": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/demon/mesh assets/DemonBot_Cylinder_017.res"
+}
+}
+}
+blender/nodes/visible=0
+blender/nodes/active_collection_only=false
+blender/nodes/punctual_lights=true
+blender/nodes/cameras=true
+blender/nodes/custom_properties=true
+blender/nodes/modifiers=1
+blender/meshes/colors=false
+blender/meshes/uvs=true
+blender/meshes/normals=true
+blender/meshes/export_geometry_nodes_instances=false
+blender/meshes/tangents=true
+blender/meshes/skins=2
+blender/meshes/export_bones_deforming_mesh_only=false
+blender/materials/unpack_enabled=true
+blender/materials/export_materials=1
+blender/animation/limit_playback=true
+blender/animation/always_sample=true
+blender/animation/group_tracks=true

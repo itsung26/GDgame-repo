@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddb3k03yo78xo"]
+[gd_scene load_steps=6 format=3 uid="uid://ddb3k03yo78xo"]
 
 [ext_resource type="Script" uid="uid://b4u4qftwlojw5" path="res://scripts/explosion_3d.gd" id="1_oiiif"]
 [ext_resource type="ArrayMesh" uid="uid://bifaeexxbi3ci" path="res://assets/meshes/exposion procedural mesh/explosion_mesh_Sphere_002.res" id="2_4bxpp"]
@@ -8,34 +8,11 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_oiiif"]
 radius = 0.973455
 
-[sub_resource type="Animation" id="Animation_nvkk6"]
-resource_name = "on enter"
-length = 0.5
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_1djo3"]
-_data = {
-&"on enter": SubResource("Animation_nvkk6")
-}
-
 [node name="Explosion3D" type="Node3D" groups=["explosions"]]
 script = ExtResource("1_oiiif")
 explosion_scale_curve = ExtResource("2_kvot3")
 alpha_curve = ExtResource("3_nvkk6")
-camera_shake_distance_factor = 15.0
+cam_shake_exponential_dropoff = 0.1
 
 [node name="BodyInfluencer" type="Area3D" parent="."]
 collision_layer = 32
@@ -48,12 +25,5 @@ debug_color = Color(0, 0.6, 0.701961, 1)
 [node name="Sphere" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_4bxpp")
 skeleton = NodePath("")
-
-[node name="explosionAnimator" type="AnimationPlayer" parent="."]
-callback_mode_method = 1
-libraries = {
-&"": SubResource("AnimationLibrary_1djo3")
-}
-autoplay = "on enter"
 
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]

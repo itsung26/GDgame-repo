@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://63ig3vaq5ybr"]
 
 [ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="1_q0mqk"]
-[ext_resource type="PackedScene" uid="uid://elxljikn81l8" path="res://assets/meshes/demon/DemonBot.blend" id="2_i1h13"]
+[ext_resource type="PackedScene" uid="uid://elxljikn81l8" path="res://assets/meshes/Warden/DemonBot.blend" id="2_i1h13"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p0eoy"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)

@@ -978,7 +978,7 @@ shadow_mesh = SubResource("ArrayMesh_n30hq")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ur7pv"]
 margin = 0.0
-size = Vector3(0.275297, 0.62793, 2.11493)
+size = Vector3(0.275297, 0.62793, 3.47629)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qfm1y"]
 size = Vector3(1.99298, 1.59285, 3.25121)
@@ -1189,7 +1189,6 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleEnemyCeaseArea"]
 shape = SubResource("SphereShape3D_y4r1p")
-debug_color = Color(1, 1, 0, 0)
 
 [node name="GroundImpact" type="GPUParticles3D" parent="."]
 visible = false
@@ -1399,16 +1398,19 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 mesh = SubResource("ArrayMesh_a04ym")
 
 [node name="WorldCollideBox" type="Area3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
+editor_description = "This is the collider for the grapple hook."
 collision_layer = 512
 collision_mask = 262
 monitoring = false
 
 [node name="grapple hook smaller collider" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox"]
 unique_name_in_owner = true
-transform = Transform3D(1, -2.98023e-08, -7.45058e-09, 0, 1, 5.96046e-08, -6.70552e-08, 0, 1, 0.00509053, 0.00901985, 0.402443)
+editor_description = "This is the collision shape for the grapple hook's collider. It is super long because the engine physics are terrible and this is the only workaround other than increasing physics FPS (reducing performance)."
+transform = Transform3D(1.00001, 0, -1.56462e-07, -1.38581e-06, 1.00001, 1.51992e-06, 5.1409e-07, -1.63913e-06, 1.00001, 0.00509024, 0.00901937, 1.08312)
 shape = SubResource("BoxShape3D_ur7pv")
 
 [node name="TailMarker" type="Marker3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook"]
+editor_description = "im not sure what this does but im too scared to delete it"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 gizmo_extents = 0.51
 
@@ -1485,6 +1487,7 @@ transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8
 
 [node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
 transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, -0.44, 0.28, 0.535)
+visible = false
 
 [node name="gunplaceholderanimator" parent="Pivot/Camera3D/Guns/Pistol" index="3"]
 speed_scale = 0.35
@@ -1580,8 +1583,8 @@ ignore_time_scale = true
 [connection signal="area_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_entered"]
-[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_exited"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_exited"]
+[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]

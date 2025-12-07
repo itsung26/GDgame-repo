@@ -1,4 +1,4 @@
-@icon("res://assets/2d assets/ui/icons generic/weapon_placeholder.png")
+@icon("res://weapon_placeholder.png")
 class_name PlayerWeapon
 extends Node3D
 
