@@ -3,6 +3,7 @@ class_name Enemy extends CharacterBody3D
 
 signal left_floor
 signal hit_floor
+signal on_grappled
 
 var _was_on_floor: bool = false
 

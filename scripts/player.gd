@@ -771,16 +771,18 @@ func _on_hitstop_timer_timeout() -> void:
 			node.visible = false
 	Engine.time_scale = 1.0
 
-
+## Primary logic for beginning grapple interactions goes here. State machines handle maintaining grapple connection and physics.
 func _on_grapple_arm_new_hooked_target_set(previous_hooked_target: Node3D, new_hooked_target: Node3D) -> void:
 	if new_hooked_target is GrappleCubeBoost:
 		set_player_state(player_states.REELINGTO)
 
 	elif new_hooked_target is Enemy:
+		# Cause the enemy to emit the grappled signal.
+		new_hooked_target.emit_signal("on_grappled")
 		if new_hooked_target.weight == Enemy.weight_class.HEAVY:
 			set_player_state(player_states.REELINGTO)
 		elif new_hooked_target.weight == Enemy.weight_class.LIGHT:
-			Debug.log("Light enemy hooked")
+			Debug.log("Placeholder: Light enemy hooked")
 
 	elif new_hooked_target == null:
 		if is_on_floor():

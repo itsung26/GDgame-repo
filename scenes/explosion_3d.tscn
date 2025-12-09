@@ -51,6 +51,7 @@ script = ExtResource("1_oiiif")
 explosion_scale_curve = ExtResource("2_kvot3")
 alpha_curve = ExtResource("3_nvkk6")
 cam_shake_exponential_dropoff = 0.1
+metadata/_custom_type_script = "uid://b4u4qftwlojw5"
 
 [node name="BodyInfluencer" type="Area3D" parent="."]
 collision_layer = 32
@@ -85,6 +86,6 @@ trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_p5hya")
 draw_pass_1 = SubResource("RibbonTrailMesh_1djo3")
 
-[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_projectile_entered"]
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_enemy_entered"]
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]
