@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bo03tdb8p44bs"]
+
+[resource]
+resource_local_to_scene = true
+transparency = 1
+emission_enabled = true

@@ -1,12 +1,50 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddb3k03yo78xo"]
+[gd_scene load_steps=11 format=3 uid="uid://ddb3k03yo78xo"]
 
 [ext_resource type="Script" uid="uid://b4u4qftwlojw5" path="res://scripts/explosion_3d.gd" id="1_oiiif"]
 [ext_resource type="ArrayMesh" uid="uid://bifaeexxbi3ci" path="res://assets/meshes/exposion procedural mesh/explosion_mesh_Sphere_002.res" id="2_4bxpp"]
 [ext_resource type="Curve" uid="uid://cfch68letirae" path="res://curves/explosion curves/scale.tres" id="2_kvot3"]
 [ext_resource type="Curve" uid="uid://dvtyurmdlge5g" path="res://curves/explosion curves/alpha.tres" id="3_nvkk6"]
+[ext_resource type="ArrayMesh" uid="uid://c4lou15e5yi8d" path="res://assets/meshes/small rock/mesh resources/small rock_Icosphere.res" id="5_nvkk6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_oiiif"]
+resource_local_to_scene = true
 radius = 0.973455
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p5hya"]
+resource_local_to_scene = true
+particle_flag_align_y = true
+direction = Vector3(1, 1, 1)
+spread = 180.0
+initial_velocity_min = 30.0
+initial_velocity_max = 40.0
+radial_velocity_min = 4.99998
+radial_velocity_max = 4.99998
+collision_mode = 1
+collision_friction = 1.0
+collision_bounce = 0.24
+sub_emitter_mode = 4
+sub_emitter_amount_at_start = 6
+sub_emitter_keep_velocity = true
+
+[sub_resource type="Curve" id="Curve_nvkk6"]
+_limits = [0.0, 1.0, 0.0, 1.27208]
+_data = [Vector2(0, 1), 0.0, -0.786111, 0, 1, Vector2(1.27208, 0), -0.786111, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5hya"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.0352941)
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_1djo3"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_p5hya")
+shape = 0
+size = 1.358
+curve = SubResource("Curve_nvkk6")
 
 [node name="Explosion3D" type="Node3D" groups=["explosions"]]
 script = ExtResource("1_oiiif")
@@ -26,4 +64,27 @@ debug_color = Color(0, 0.6, 0.701961, 1)
 mesh = ExtResource("2_4bxpp")
 skeleton = NodePath("")
 
+[node name="Rocks1" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 6
+sub_emitter = NodePath("../Rocks1Trails")
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_p5hya")
+draw_passes = 2
+draw_pass_1 = ExtResource("5_nvkk6")
+draw_pass_2 = null
+
+[node name="Rocks1Trails" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 256
+lifetime = 5.0
+one_shot = true
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_p5hya")
+draw_pass_1 = SubResource("RibbonTrailMesh_1djo3")
+
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_projectile_entered"]
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_enemy_entered"]

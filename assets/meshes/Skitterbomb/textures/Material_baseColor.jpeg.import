@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0yopbr4r5juf"
-path="res://.godot/imported/firstLevel.png-b9768bb05e4aee79af2b8c7565d8a924.ctex"
+uid="uid://pjd0wvy5njq2"
+path="res://.godot/imported/Material_baseColor.jpeg-d5374f183e280230aadabbfa57d7d964.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d assets/ui/firstLevel.png"
-dest_files=["res://.godot/imported/firstLevel.png-b9768bb05e4aee79af2b8c7565d8a924.ctex"]
+source_file="res://assets/meshes/Skitterbomb/textures/Material_baseColor.jpeg"
+dest_files=["res://.godot/imported/Material_baseColor.jpeg-d5374f183e280230aadabbfa57d7d964.ctex"]
 
 [params]
 

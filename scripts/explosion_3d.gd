@@ -9,6 +9,8 @@ extends Node3D
 
 @onready var sphere: MeshInstance3D = $Sphere
 @onready var sphere_material:StandardMaterial3D = sphere.get_active_material(0)
+@onready var rocks_1: GPUParticles3D = $Rocks1
+@onready var rocks_1_trails: GPUParticles3D = $Rocks1Trails
 
 @export var explosion_expand_speed:float = 0.25  # how fast to traverse the curve (0..1 per second)
 var _exploding:bool = false
@@ -94,10 +96,14 @@ func setup(
 		sphere_material.albedo_color = color
 		sphere_material.emission = color
 		sphere_material.emission_energy_multiplier = emission_strength
+		# parent particles to root (to prevent early deletion) and emit
+		rocks_1.reparent(get_tree().current_scene)
+		rocks_1_trails.reparent(get_tree().current_scene)
+		rocks_1.emitting = true
 		if unshaded:
 			sphere_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 		else:
-			pass
+			sphere_material.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
 		if explosion_scale_curve != null:
 			self.explosion_scale_curve = explosion_scale_curve
 		if alpha_curve != null:
@@ -135,11 +141,39 @@ func getCurvesStoppedSampling() -> bool:
 	# Return true only if both are NOT active
 	return (not scale_active) and (not alpha_active)
 	
+## When player hit by explosion
 func _on_body_influencer_player_entered(player: Player) -> void:
-	var center_point:Vector3 = global_position
+	var center_point:Vector3 = global_position # get the center of the sphere
 	var dir_to_player_head:Vector3 = (player.camera_3d.global_position - center_point).normalized()
 	
+	# apply a force to the player
 	if knockback_force > 0:
 		player.velocity = Vector3.ZERO # kill player velocity. (may be removed in the future)
-	player.velocity += dir_to_player_head * knockback_force # apply a force to the player
+		player.global_position.y += 0.1
+		player.velocity += dir_to_player_head * knockback_force # apply a force to the player
+		
 	player.damagePlayer(damage, "explosion", screen_shake_duration, screen_shake_strength)
+
+## When projectile hit by explosion
+func _on_body_influencer_projectile_entered(projectile: EnemyProjectile) -> void:
+	var center_point:Vector3 = global_position # get the center of the sphere
+	var dir_out:Vector3 = (projectile.global_position - center_point).normalized() # get vector to projectile away from center
+	
+	# apply a force to the projectile
+	if knockback_force > 0:
+		projectile.linear_velocity = Vector3.ZERO
+		projectile.linear_velocity = dir_out * knockback_force 
+
+
+func _on_body_influencer_enemy_entered(enemy: Enemy) -> void:
+	var center_point:Vector3 = global_position # get the center of the sphere
+	var vertical_offset:float = 1.0 # so the force isnt applied to the feet of the enemy
+	var dir_to_enemy:Vector3 = ((enemy.global_position + Vector3(0, vertical_offset, 0)) - center_point).normalized()
+	
+	# apply a force to the enemy
+	if knockback_force > 0:
+		enemy.velocity = Vector3.ZERO
+		enemy.global_position.y += 0.1
+		enemy.velocity += dir_to_enemy * knockback_force
+		
+	enemy.damageEnemy(damage, Enemy.damage_types.EXPLOSIVE)

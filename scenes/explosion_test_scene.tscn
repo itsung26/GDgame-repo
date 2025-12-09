@@ -5,23 +5,23 @@
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="4_h86ws"]
 
 [sub_resource type="Curve" id="Curve_e0515"]
-_limits = [0.0, 10.0, 0.0, 0.26]
-_data = [Vector2(0, 0), 0.0, 53.8462, 0, 0, Vector2(0.115556, 7.85337), 32.6949, 32.6949, 0, 0, Vector2(0.26, 10), 0.0, 0.0, 0, 0]
-point_count = 3
+_limits = [0.0, 5.0, 0.0, 0.26]
+_data = [Vector2(0, 0), 0.0, 65.4201, 0, 0, Vector2(0.26, 5), -8.77493e-06, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="Curve" id="Curve_1rt2u"]
+[sub_resource type="Curve" id="Curve_x2soc"]
 _limits = [0.0, 1.0, 0.0, 0.26]
-_data = [Vector2(0, 0.8), 53.8462, 0.0, 0, 0, Vector2(0.171, 0.8), 0.0, 0.293862, 0, 0, Vector2(0.26, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 0.705311), 0.0, -7.03389, 0, 0, Vector2(0.26, 0), -1.09164, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Curve" id="Curve_h86ws"]
-_limits = [0.0, 12.0, 0.0, 0.26]
-_data = [Vector2(0, 2), 0.0, 53.8462, 0, 0, Vector2(0.116, 9.853), 32.6949, 32.6949, 0, 0, Vector2(0.26, 12), 0.0, 0.0, 0, 0]
-point_count = 3
+_limits = [0.0, 4.25, 0.0, 0.26]
+_data = [Vector2(0, 0), 0.0, 50.4355, 0, 0, Vector2(0.26, 4.25), 9.50618e-06, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Curve" id="Curve_ogmfv"]
 _limits = [0.0, 1.0, 0.0, 0.26]
-_data = [Vector2(0, 0.501982), 53.8462, -5.45386, 0, 0, Vector2(0.26, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, -6.62582, 0, 0, Vector2(0.26, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e0515"]
@@ -85,13 +85,14 @@ points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5
 [node name="ExplosionTestScene" type="Node3D"]
 script = ExtResource("1_nygw8")
 test_explosion_curve = SubResource("Curve_e0515")
-test_alpha_curve = SubResource("Curve_1rt2u")
-test_color = Color(1, 0, 0, 1)
-test_emission = 16.0
-gray_explosion_curve = SubResource("Curve_h86ws")
-gray_alpha_curve = SubResource("Curve_ogmfv")
-gray_color = Color(0.67069, 0.67069, 0.67069, 1)
-gray_explosion_shockwave_knockback = 18.0
+test_alpha_curve = SubResource("Curve_x2soc")
+test_color = Color(0.724643, 0.724643, 0.724643, 1)
+shockwave_knockback = 16.0
+damage_explosion_curve = SubResource("Curve_h86ws")
+damage_explosion_alpha_curve = SubResource("Curve_ogmfv")
+damage_explosion_color = Color(1, 0, 0, 1)
+damage_explosion_emission = 1.0
+damage_explosion_damage = 20.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ogmfv")

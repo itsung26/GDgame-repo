@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=27 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d1gxfhjv8330d" path="res://scenes/entities/stationary_cannon.tscn" id="5_q8du6"]
 [ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/enemy_filth.tscn" id="7_wl3f4"]
 [ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube_boost.tscn" id="8_wl3f4"]
+[ext_resource type="CompressedTexture3D" uid="uid://dq7blum4n8utv" path="res://particle collision data/projectile_testing.GPUParticlesCollisionSDF3D_data.exr" id="9_rj2dv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_61yce"]
 
@@ -188,5 +189,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0526, 4.03574, 16.2227)
 [node name="enemy_filth" parent="." instance=ExtResource("7_wl3f4")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.44939, 0, 1.5683)
 stunned = true
+
+[node name="GPUParticlesCollisionSDF3D" type="GPUParticlesCollisionSDF3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.207965, 3.35278, 6.9561)
+size = Vector3(27.0309, 9.69443, 30.7523)
+texture = ExtResource("9_rj2dv")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

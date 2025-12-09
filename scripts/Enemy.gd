@@ -7,7 +7,7 @@ signal hit_floor
 var _was_on_floor: bool = false
 
 # states and constants
-enum damage_types{NORMAL, LASER, DARK}
+enum damage_types{NORMAL, LASER, DARK, EXPLOSIVE}
 enum weight_class{LIGHT, HEAVY}
 
 var last_hit_damage_type:damage_types

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0yopbr4r5juf"
-path="res://.godot/imported/firstLevel.png-b9768bb05e4aee79af2b8c7565d8a924.ctex"
+uid="uid://bpaa004m5gnr7"
+path="res://.godot/imported/rock_29_height.jpg-1f240e15d756f1669001e40270191750.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d assets/ui/firstLevel.png"
-dest_files=["res://.godot/imported/firstLevel.png-b9768bb05e4aee79af2b8c7565d8a924.ctex"]
+source_file="res://assets/meshes/small rock/assets/materials/rock_67cc3df2-72e9-44c0-ab49-1759dd95777b/textures/rock_29_height.jpg"
+dest_files=["res://.godot/imported/rock_29_height.jpg-1f240e15d756f1669001e40270191750.ctex"]
 
 [params]
 
