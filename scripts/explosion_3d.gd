@@ -11,6 +11,7 @@ extends Node3D
 @onready var sphere_material:StandardMaterial3D = sphere.get_active_material(0)
 @onready var rocks_1: GPUParticles3D = $Rocks1
 @onready var rocks_1_trails: GPUParticles3D = $Rocks1Trails
+@onready var collision_shape_3d: CollisionShape3D = $BodyInfluencer/CollisionShape3D
 
 @export var explosion_expand_speed:float = 0.25  # how fast to traverse the curve (0..1 per second)
 var _exploding:bool = false
@@ -37,7 +38,7 @@ func _init() -> void:
 func _process(delta: float) -> void:
 	# queue for deletion if curves have stopped sampling. (corresponds to the explosion having fully ended.)
 	if getCurvesStoppedSampling():
-		queue_free()
+		collision_shape_3d.disabled = true
 	
 	if not Engine.is_editor_hint():
 		# Apply current uniform scale
@@ -96,9 +97,6 @@ func setup(
 		sphere_material.albedo_color = color
 		sphere_material.emission = color
 		sphere_material.emission_energy_multiplier = emission_strength
-		# parent particles to root (to prevent early deletion) and emit
-		rocks_1.reparent(get_tree().current_scene)
-		rocks_1_trails.reparent(get_tree().current_scene)
 		rocks_1.emitting = true
 		if unshaded:
 			sphere_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -177,3 +175,7 @@ func _on_body_influencer_enemy_entered(enemy: Enemy) -> void:
 		enemy.velocity += dir_to_enemy * knockback_force
 		
 	enemy.damageEnemy(damage, Enemy.damage_types.EXPLOSIVE)
+
+# Delete after timer runs out.
+func _on_deletion_timer_timeout() -> void:
+	queue_free()

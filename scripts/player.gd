@@ -573,7 +573,7 @@ func physicsStateLogic(delta=get_physics_process_delta_time()):
 
 # Called every physics frame. FPS: 120
 func _physics_process(delta: float) -> void:
-	
+
 	# state control
 	if (is_on_floor() and 
 	player_state != player_states.REELINGTO and 
@@ -686,6 +686,14 @@ func parryTargetInBox():
 func hitStop(hitstop_duration_time:float):
 	Engine.time_scale = 0.0
 	hitstop_timer.start(hitstop_duration_time)
+
+## Get's the player's predicted position at [code]time[/code] seconds, assuming velocity
+## will remain constant. Cane be used for enemy aim prediction. Returns in the global
+## coordinate system.
+func getPredictedPos(time:float) -> Vector3:
+	var a:Vector3 = velocity * time
+	var r:Vector3 = a + player.global_position
+	return r
 
 var a = true
 # Called every frame. Main thread frames fluctuate around a target fps of 60.

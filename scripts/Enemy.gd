@@ -33,6 +33,10 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @export var stunned:bool = false
 ## The point that the grapple hook will attatch to. This should be located somewhere near the center of the enemy.
 @export var grapple_offset:Vector3 = Vector3.ZERO
+## Wether the behavior is allowed to run for the entity. If set to false, the entity
+## should run in a "loop idle" state.
+@export var behavior_enabled:bool = true:
+	set = _setBehaviorEnabled
 
 func _set(property: StringName, value: Variant) -> bool:
 	return false
@@ -89,6 +93,10 @@ func getVec3LookingAtTarget(target_pos:Vector3) -> Vector3:
 	# set rotation back to previous
 	rotation = prev_rot
 	return rot
+
+func _setBehaviorEnabled(new_behavior_enabled_state:bool):
+	var previous_behavior_enabled_state:bool = behavior_enabled
+	behavior_enabled = new_behavior_enabled_state
 
 func _ready() -> void:
 	_was_on_floor = is_on_floor()
