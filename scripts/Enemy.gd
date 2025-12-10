@@ -34,15 +34,6 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 ## The point that the grapple hook will attatch to. This should be located somewhere near the center of the enemy.
 @export var grapple_offset:Vector3 = Vector3.ZERO
 
-#func setIgnorePlayer(b:bool) -> void:
-	#var previous_ignore_player:bool = _ignore_player
-	#var new_ignore_player:bool = b
-	#
-	#if previous_ignore_player == new_ignore_player:
-		#return
-	#
-	#_ignore_player = new_ignore_player
-
 func _set(property: StringName, value: Variant) -> bool:
 	return false
 
@@ -54,13 +45,20 @@ func damageEnemy(damage:float, damage_type:damage_types):
 		HEALTH = new_enemy_health
 		HEALTH = clampf(HEALTH, 0, 100)
 		
+		'''
 		if damage != 0.0:
+			# Highly likley to be cut from the game in favor of enviromental queues.
+			# Idea is to "show" the player with VFX how much the enemy was hurt 
+			# instead of "telling" them with numbers.
+			
 			# spawn a hitmarker on own body
 			var a = DAMAGE_HITMARKER_SCENE.instantiate()
 			a.tracked_camera = player.camera_3d
 			a.tracked_enemy = self
 			add_child(a)
 			a.damage_number_label.text = str(damage)
+		'''
+			
 		
 		if HEALTH == 0:
 			_killEnemy()

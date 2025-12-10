@@ -24,7 +24,6 @@ func _onEquip():
 
 func _fire():
 	gunplaceholderanimator.play("fire")
-	Debug.log("fired pistol")
 	
 	
 func _special():
@@ -32,7 +31,6 @@ func _special():
 
 func _reload():
 	if gunplaceholderanimator.current_animation == "fire":
-		await gunplaceholderanimator.animation_changed
 		gunplaceholderanimator.play("reload")
 
 ## Does the actual firing, including damage and vfx.

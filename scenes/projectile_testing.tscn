@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=28 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/enemy_filth.tscn" id="7_wl3f4"]
 [ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube_boost.tscn" id="8_wl3f4"]
 [ext_resource type="CompressedTexture3D" uid="uid://dq7blum4n8utv" path="res://particle collision data/projectile_testing.GPUParticlesCollisionSDF3D_data.exr" id="9_rj2dv"]
+[ext_resource type="PackedScene" uid="uid://da0o4xn0tk2l8" path="res://scenes/skitterbomb.tscn" id="10_yvgsm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_61yce"]
 
@@ -194,5 +195,8 @@ stunned = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.207965, 3.35278, 6.9561)
 size = Vector3(27.0309, 9.69443, 30.7523)
 texture = ExtResource("9_rj2dv")
+
+[node name="Skitterbomb" parent="." instance=ExtResource("10_yvgsm")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.09393, 0, 3.15717)
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
