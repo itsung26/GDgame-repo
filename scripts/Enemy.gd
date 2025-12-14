@@ -27,8 +27,6 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @export var slowInAirFactor:float = 10.0
 ## Whether the enemy recieves damage. Taking damage will still call [code]damageEnemy[/code], but interior logic will be skipped.
 @export var damage_enabled:bool = true
-## The position of this node will be the point that the grapple hook "snaps" to when it hits the enemy.
-@export var grapple_origin:Marker3D
 ## If true, the enemy will remain in stunned state untill this is set false again.
 @export var stunned:bool = false
 ## The point that the grapple hook will attatch to. This should be located somewhere near the center of the enemy.
@@ -93,6 +91,14 @@ func getVec3LookingAtTarget(target_pos:Vector3) -> Vector3:
 	# set rotation back to previous
 	rotation = prev_rot
 	return rot
+
+## Get's the enemy's predicted position at [code]time[/code] seconds, assuming velocity
+## will remain constant. Cane be used for trajectory prediction. Returns in the global
+## coordinate system.
+func getPredictedPos(time:float) -> Vector3:
+	var a:Vector3 = velocity * time
+	var r:Vector3 = a + global_position
+	return r
 
 func _setBehaviorEnabled(new_behavior_enabled_state:bool):
 	var previous_behavior_enabled_state:bool = behavior_enabled

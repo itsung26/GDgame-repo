@@ -12,6 +12,7 @@ extends Node3D
 @onready var rocks_1: GPUParticles3D = $Rocks1
 @onready var rocks_1_trails: GPUParticles3D = $Rocks1Trails
 @onready var collision_shape_3d: CollisionShape3D = $BodyInfluencer/CollisionShape3D
+@onready var deletion_timer: Timer = $"deletion timer"
 
 @export var explosion_expand_speed:float = 0.25  # how fast to traverse the curve (0..1 per second)
 var _exploding:bool = false
@@ -28,6 +29,7 @@ var _elapsed: float = 0.0  # normalized time along the curve [0..1]
 var _alpha_elapsed: float = 0.0
 var _can_apply_scale: bool = false
 var _player:Player = Helper.getFirstInScene("Player")
+@export var despawn_time:float = 7.5
 
 ## Camera shake exponential dropoff factor.
 @export var cam_shake_exponential_dropoff:float = 0.5
@@ -106,6 +108,7 @@ func setup(
 			self.explosion_scale_curve = explosion_scale_curve
 		if alpha_curve != null:
 			self.alpha_curve = alpha_curve
+		deletion_timer.start(despawn_time)
 			
 		# Shake screen by amount based on distance from explosion (if player is not airborne).
 		if _player.is_on_floor():

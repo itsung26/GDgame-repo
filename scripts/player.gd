@@ -692,7 +692,7 @@ func hitStop(hitstop_duration_time:float):
 ## coordinate system.
 func getPredictedPos(time:float) -> Vector3:
 	var a:Vector3 = velocity * time
-	var r:Vector3 = a + player.global_position
+	var r:Vector3 = a + global_position
 	return r
 
 var a = true

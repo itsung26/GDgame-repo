@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8q3ng0adancb"]
+
+[ext_resource type="Script" uid="uid://ccc37yrg7vpcc" path="res://scripts/charge_shot_particles.gd" id="1_3w54m"]
+
+[sub_resource type="Curve" id="Curve_7w7ex"]
+_data = [Vector2(0, 0), 0.0, 12.333, 0, 0, Vector2(0.191235, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3w54m"]
+curve = SubResource("Curve_7w7ex")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7w7ex"]
+resource_local_to_scene = true
+particle_flag_align_y = true
+emission_shape_offset = Vector3(0, 0, -0.411)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 0.48
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+angle_min = -191.0
+angle_max = 212.8
+orbit_velocity_min = 2.0
+orbit_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_3w54m")
+collision_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3w54m"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 0.156863, 0.298039)
+
+[sub_resource type="QuadMesh" id="QuadMesh_c1a01"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_3w54m")
+size = Vector2(0.037, 0.098)
+
+[node name="ChargeShotParticles" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+emitting = false
+amount = 28
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.88
+randomness = 0.34
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_7w7ex")
+draw_pass_1 = SubResource("QuadMesh_c1a01")
+script = ExtResource("1_3w54m")
+
+[node name="GPUParticlesAttractorSphere3D" type="GPUParticlesAttractorSphere3D" parent="."]
+strength = 2.27
+attenuation = 1e-05
+directionality = 0.2
+radius = 0.829488
+
+[node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="."]
+radius = 0.208355
