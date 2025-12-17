@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ditsfc3cobwmd"]
+
+[ext_resource type="Texture2D" uid="uid://cfoof0tne2fcf" path="res://assets/meshes/player pistol/textures/HCU cap small base color.png" id="1_drdbp"]
+
+[resource]
+resource_name = "HCU cap small"
+cull_mode = 2
+albedo_texture = ExtResource("1_drdbp")
+metallic = 0.743202
+roughness = 0.321752
+texture_filter = 2

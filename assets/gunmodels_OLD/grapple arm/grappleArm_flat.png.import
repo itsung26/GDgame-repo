@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bq1rekvbewlxi"
-path.s3tc="res://.godot/imported/grappleArm_flat.png-21be38701a94413747d58f7eff0ee7e0.s3tc.ctex"
+path.s3tc="res://.godot/imported/grappleArm_flat.png-83f1f2a5aa1794586aa83d877510d44a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/gunmodels/grapple arm/grappleArm_flat.png"
-dest_files=["res://.godot/imported/grappleArm_flat.png-21be38701a94413747d58f7eff0ee7e0.s3tc.ctex"]
+source_file="res://assets/gunmodels_OLD/grapple arm/grappleArm_flat.png"
+dest_files=["res://.godot/imported/grappleArm_flat.png-83f1f2a5aa1794586aa83d877510d44a.s3tc.ctex"]
 
 [params]
 

@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://c2sycq56gwe4e"
+path="res://.godot/imported/scratch_01_G.exr-5c310898b4a0dd95091f6d7ab9c86288.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/meshes/player pistol/assets/materials/gun-metal-dusty_3cf72ead-79c9-4771-9f46-3c6cf73efc7c/textures/scratch_01_G.exr"
+dest_files=["res://.godot/imported/scratch_01_G.exr-5c310898b4a0dd95091f6d7ab9c86288.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1

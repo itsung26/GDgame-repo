@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://woqeaddoevbo"
-path="res://.godot/imported/blaster-c.fbx-020cdad7c09578afa6885cd097631125.scn"
+path="res://.godot/imported/blaster-c.fbx-d1f34fb69ba250be86c058cb78093291.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/kenney guns/blaster-c.fbx"
-dest_files=["res://.godot/imported/blaster-c.fbx-020cdad7c09578afa6885cd097631125.scn"]
+source_file="res://assets/gunmodels_OLD/kenney guns/blaster-c.fbx"
+dest_files=["res://.godot/imported/blaster-c.fbx-d1f34fb69ba250be86c058cb78093291.scn"]
 
 [params]
 

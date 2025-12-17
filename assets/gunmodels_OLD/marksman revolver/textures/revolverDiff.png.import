@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://df1ll0135d40t"
-path.s3tc="res://.godot/imported/revolverDiff.png-5ba9a45956c08aec59fdb54a97c4daf9.s3tc.ctex"
+path.s3tc="res://.godot/imported/revolverDiff.png-1f3f0946de39b11ed4b48d25e84fe667.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/gunmodels/marksman revolver/textures/revolverDiff.png"
-dest_files=["res://.godot/imported/revolverDiff.png-5ba9a45956c08aec59fdb54a97c4daf9.s3tc.ctex"]
+source_file="res://assets/gunmodels_OLD/marksman revolver/textures/revolverDiff.png"
+dest_files=["res://.godot/imported/revolverDiff.png-1f3f0946de39b11ed4b48d25e84fe667.s3tc.ctex"]
 
 [params]
 

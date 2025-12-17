@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bkcnx1wievefh"]
+
+[ext_resource type="Texture2D" uid="uid://c1o6wy1xrfxmy" path="res://assets/meshes/player pistol/textures/dark metal scratches 2.png" id="1_1x4s1"]
+
+[resource]
+resource_name = "dark metal"
+cull_mode = 2
+albedo_texture = ExtResource("1_1x4s1")
+metallic = 0.758308
+roughness = 0.865559
+texture_filter = 2
+metadata/extras = {
+"blenderkit": {}
+}

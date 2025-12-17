@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dnejtdjno7xjd"
-path="res://.godot/imported/bullet-foam-tip-thick.fbx-adedb087ba5a2bbd6bdabd325a869195.scn"
+path="res://.godot/imported/bullet-foam-tip-thick.fbx-b4a1e03222c81cddcaebccb990acb39c.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/kenney guns/bullet-foam-tip-thick.fbx"
-dest_files=["res://.godot/imported/bullet-foam-tip-thick.fbx-adedb087ba5a2bbd6bdabd325a869195.scn"]
+source_file="res://assets/gunmodels_OLD/kenney guns/bullet-foam-tip-thick.fbx"
+dest_files=["res://.godot/imported/bullet-foam-tip-thick.fbx-b4a1e03222c81cddcaebccb990acb39c.scn"]
 
 [params]
 

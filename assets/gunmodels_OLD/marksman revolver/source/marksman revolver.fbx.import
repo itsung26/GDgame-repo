@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bcihm4vblmh7w"
-path="res://.godot/imported/marksman revolver.fbx-20394eb96f557baca795a692212c6d78.scn"
+path="res://.godot/imported/marksman revolver.fbx-f7c0ca82c9dd3b252f08f9b12f464b0f.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/marksman revolver/source/marksman revolver.fbx"
-dest_files=["res://.godot/imported/marksman revolver.fbx-20394eb96f557baca795a692212c6d78.scn"]
+source_file="res://assets/gunmodels_OLD/marksman revolver/source/marksman revolver.fbx"
+dest_files=["res://.godot/imported/marksman revolver.fbx-f7c0ca82c9dd3b252f08f9b12f464b0f.scn"]
 
 [params]
 

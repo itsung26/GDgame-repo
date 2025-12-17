@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dxjd06k3liahj"
-path="res://.godot/imported/target-fragment-small.fbx-95a6ea19ed7a1c62a69583d7b30b60ef.scn"
+path="res://.godot/imported/target-fragment-small.fbx-45a0a1fb2a4460400286c2bb2efb0a96.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/kenney guns/target-fragment-small.fbx"
-dest_files=["res://.godot/imported/target-fragment-small.fbx-95a6ea19ed7a1c62a69583d7b30b60ef.scn"]
+source_file="res://assets/gunmodels_OLD/kenney guns/target-fragment-small.fbx"
+dest_files=["res://.godot/imported/target-fragment-small.fbx-45a0a1fb2a4460400286c2bb2efb0a96.scn"]
 
 [params]
 

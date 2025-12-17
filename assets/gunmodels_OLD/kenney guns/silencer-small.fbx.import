@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dj3i7b65a4exn"
-path="res://.godot/imported/silencer-small.fbx-34a6307b69e21f9a976c5745155b4663.scn"
+path="res://.godot/imported/silencer-small.fbx-a643b0ea29bef886efb52f8545147adb.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/kenney guns/silencer-small.fbx"
-dest_files=["res://.godot/imported/silencer-small.fbx-34a6307b69e21f9a976c5745155b4663.scn"]
+source_file="res://assets/gunmodels_OLD/kenney guns/silencer-small.fbx"
+dest_files=["res://.godot/imported/silencer-small.fbx-a643b0ea29bef886efb52f8545147adb.scn"]
 
 [params]
 

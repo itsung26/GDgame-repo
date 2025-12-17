@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://13kl4hjfyjmw"
-path="res://.godot/imported/bullet-foam.fbx-d1d3c9a671114bf99790b4092af3cc8d.scn"
+path="res://.godot/imported/bullet-foam.fbx-6e0294ca803e45afc55ec7e28a9af677.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/kenney guns/bullet-foam.fbx"
-dest_files=["res://.godot/imported/bullet-foam.fbx-d1d3c9a671114bf99790b4092af3cc8d.scn"]
+source_file="res://assets/gunmodels_OLD/kenney guns/bullet-foam.fbx"
+dest_files=["res://.godot/imported/bullet-foam.fbx-6e0294ca803e45afc55ec7e28a9af677.scn"]
 
 [params]
 

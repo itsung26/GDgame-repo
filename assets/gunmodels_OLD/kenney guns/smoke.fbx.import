@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://fx27uu8u5egc"
-path="res://.godot/imported/smoke.fbx-6c29d462767364faa438c7908396b2dd.scn"
+path="res://.godot/imported/smoke.fbx-f3e656a3c00d53f6cad2f19c556e0051.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/kenney guns/smoke.fbx"
-dest_files=["res://.godot/imported/smoke.fbx-6c29d462767364faa438c7908396b2dd.scn"]
+source_file="res://assets/gunmodels_OLD/kenney guns/smoke.fbx"
+dest_files=["res://.godot/imported/smoke.fbx-f3e656a3c00d53f6cad2f19c556e0051.scn"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4esipttedluo"
-path.s3tc="res://.godot/imported/grappleArm_whiplashDiff.png-29e176d7127c012be9fff2127053c7d5.s3tc.ctex"
+path.s3tc="res://.godot/imported/grappleArm_whiplashDiff.png-5dcadf0966c298872fe41337fa5ea4ae.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/gunmodels/grapple arm/grappleArm_whiplashDiff.png"
-dest_files=["res://.godot/imported/grappleArm_whiplashDiff.png-29e176d7127c012be9fff2127053c7d5.s3tc.ctex"]
+source_file="res://assets/gunmodels_OLD/grapple arm/grappleArm_whiplashDiff.png"
+dest_files=["res://.godot/imported/grappleArm_whiplashDiff.png-5dcadf0966c298872fe41337fa5ea4ae.s3tc.ctex"]
 
 [params]
 

@@ -1,176 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://csatdjhfoaqcw"]
+[gd_scene load_steps=4 format=3 uid="uid://csatdjhfoaqcw"]
 
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/pistol.gd" id="1_buff3"]
-[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_buff3"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_igbvm"]
-size = Vector3(1, 1, 6.56)
-
-[sub_resource type="TextMesh" id="TextMesh_buff3"]
-text = "placeholder"
-font = ExtResource("2_buff3")
-font_size = 127
-
-[sub_resource type="Animation" id="Animation_buff3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pistol_debug:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pistol_debug:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_1e3ry"]
-resource_name = "fire"
-length = 0.0315
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pistol_debug:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0158, 0.0315),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.13), Vector3(0, 0, 0)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0158),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"firePistol"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("pistol_debug:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_4hq71"]
-resource_name = "idle"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pistol_debug:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.306474, 0.660757, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.117771, 0.0561114, 0), Vector3(-0.411203, -0.0581969, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pistol_debug:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_a38lo"]
-resource_name = "onequip"
-length = 0.5155
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pistol_debug:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5155),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -3.804, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pistol_debug:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5155),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.537561, 0, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_t6oaa"]
-resource_name = "reload"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("pistol_debug:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.484229, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-2.89049, 1.47425, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("pistol_debug:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ni07"]
-_data = {
-&"RESET": SubResource("Animation_buff3"),
-&"fire": SubResource("Animation_1e3ry"),
-&"idle": SubResource("Animation_4hq71"),
-&"onequip": SubResource("Animation_a38lo"),
-&"reload": SubResource("Animation_t6oaa")
-}
+[ext_resource type="PackedScene" uid="uid://cqefufsictn0t" path="res://assets/meshes/player pistol/player pistol.blend" id="2_buff3"]
+[ext_resource type="Material" uid="uid://b2gbqiaqg7ukj" path="res://assets/meshes/player pistol/glow material.tres" id="3_1e3ry"]
 
 [node name="Pistol" type="Node3D" node_paths=PackedStringArray("muzzle_origin", "bullet_raycast") groups=["weapons"]]
 transform = Transform3D(0.0880492, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, 0, 0, 0)
@@ -183,28 +15,36 @@ damage_min = 1.0
 damage_max = 1.0
 automatic = true
 
-[node name="pistol_debug" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_igbvm")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="pistol_debug"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.30935, 0)
-mesh = SubResource("TextMesh_buff3")
-skeleton = NodePath("../..")
-
 [node name="muzzle" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.32167)
 
 [node name="pistolRayCast" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.80525, 1.54459, 4.63377)
-visible = false
 target_position = Vector3(0, 0, -5000)
 collision_mask = 262
 
 [node name="pistolRayCastTargetPos" type="Marker3D" parent="pistolRayCast"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5000)
 
-[node name="gunplaceholderanimator" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_4ni07")
-}
-autoplay = "RESET"
+[node name="player pistol" parent="." instance=ExtResource("2_buff3")]
+
+[node name="back" parent="player pistol/pistol" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20367, -0.952881)
+
+[node name="back small part" parent="player pistol/pistol" index="3"]
+surface_material_override/1 = ExtResource("3_1e3ry")
+
+[node name="front barrel part" parent="player pistol/pistol" index="7"]
+surface_material_override/1 = ExtResource("3_1e3ry")
+
+[node name="HCU cap" parent="player pistol/pistol" index="14"]
+surface_material_override/1 = ExtResource("3_1e3ry")
+
+[node name="HCU emissive indicator" parent="player pistol/pistol" index="16"]
+surface_material_override/0 = ExtResource("3_1e3ry")
+
+[node name="powercell" parent="player pistol/pistol" index="20"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3737, -0.2916)
+surface_material_override/0 = ExtResource("3_1e3ry")
+
+[editable path="player pistol"]

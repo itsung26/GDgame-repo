@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dfhtocjo46wlt"
-path="res://.godot/imported/scope-small.fbx-5107d30d1f18e8052655a6c5ff471f17.scn"
+path="res://.godot/imported/scope-small.fbx-e447a40ebb41c1e1204e05d679455c55.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/kenney guns/scope-small.fbx"
-dest_files=["res://.godot/imported/scope-small.fbx-5107d30d1f18e8052655a6c5ff471f17.scn"]
+source_file="res://assets/gunmodels_OLD/kenney guns/scope-small.fbx"
+dest_files=["res://.godot/imported/scope-small.fbx-e447a40ebb41c1e1204e05d679455c55.scn"]
 
 [params]
 

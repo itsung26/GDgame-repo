@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bighhb7jf0lf3"]
+
+[resource]
+resource_name = "glowing hot gold metal"
+cull_mode = 2
+albedo_color = Color(0.90588, 0.654902, 0, 1)
+metallic = 0.60423
+roughness = 0.531722
+metadata/extras = {
+"blenderkit": {}
+}

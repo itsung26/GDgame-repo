@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cjcjp43syunfr"
-path="res://.godot/imported/grenade-a.fbx-9a14de423afe7f2fdda3bb80deb89c17.scn"
+path="res://.godot/imported/grenade-a.fbx-5f263d75d50ca5e72bd3df579e5f3c6c.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/kenney guns/grenade-a.fbx"
-dest_files=["res://.godot/imported/grenade-a.fbx-9a14de423afe7f2fdda3bb80deb89c17.scn"]
+source_file="res://assets/gunmodels_OLD/kenney guns/grenade-a.fbx"
+dest_files=["res://.godot/imported/grenade-a.fbx-5f263d75d50ca5e72bd3df579e5f3c6c.scn"]
 
 [params]
 

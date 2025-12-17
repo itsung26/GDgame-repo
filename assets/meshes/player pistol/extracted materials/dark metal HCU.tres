@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bx0f6nteewnaq"]
+
+[ext_resource type="Texture2D" uid="uid://bemf7b5h4wq3u" path="res://assets/meshes/player pistol/textures/HCU dark metal base color.png" id="1_3wbjr"]
+
+[resource]
+resource_name = "dark metal HCU"
+cull_mode = 2
+albedo_texture = ExtResource("1_3wbjr")
+metallic = 0.758308
+roughness = 0.865559
+metadata/extras = {
+"blenderkit": {}
+}

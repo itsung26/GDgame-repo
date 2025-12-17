@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bk1t2ndyrmoa1"
-path="res://.godot/imported/grappleArm.glb-da2d48dbc2abeb0190eed941d4cc2b4d.scn"
+path="res://.godot/imported/grappleArm.glb-f9b590bf06cc652b38182c71642d910a.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/grapple arm/grappleArm.glb"
-dest_files=["res://.godot/imported/grappleArm.glb-da2d48dbc2abeb0190eed941d4cc2b4d.scn"]
+source_file="res://assets/gunmodels_OLD/grapple arm/grappleArm.glb"
+dest_files=["res://.godot/imported/grappleArm.glb-f9b590bf06cc652b38182c71642d910a.scn"]
 
 [params]
 

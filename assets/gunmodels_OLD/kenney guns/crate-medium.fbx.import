@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://jab248d0plgg"
-path="res://.godot/imported/crate-medium.fbx-908b0158277ac03ba4548129459340d6.scn"
+path="res://.godot/imported/crate-medium.fbx-8cd6cda381308bf99c525373229bf587.scn"
 
 [deps]
 
-source_file="res://assets/gunmodels/kenney guns/crate-medium.fbx"
-dest_files=["res://.godot/imported/crate-medium.fbx-908b0158277ac03ba4548129459340d6.scn"]
+source_file="res://assets/gunmodels_OLD/kenney guns/crate-medium.fbx"
+dest_files=["res://.godot/imported/crate-medium.fbx-8cd6cda381308bf99c525373229bf587.scn"]
 
 [params]
 
