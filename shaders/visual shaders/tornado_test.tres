@@ -24,17 +24,17 @@ parameter_name = "scissor_threshhold"
 hint = 1
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_07nc6"]
-size = Vector2(1264, 922)
+size = Vector2(1264, 1068)
 title = "UV panning and scaling"
 attached_nodes = PackedInt32Array(4, 2, 12, 3, 5, 10, 13, 9, 11, 8, 7)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_px2d3"]
-size = Vector2(624, 202)
+size = Vector2(624, 347)
 title = "color post processing"
 attached_nodes = PackedInt32Array(18, 19)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_51k3t"]
-size = Vector2(244, 122)
+size = Vector2(325, 338)
 title = "output"
 attached_nodes = PackedInt32Array(0, 14)
 

@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dkvspuecmcvw3"]
+
+[ext_resource type="Shader" uid="uid://120ukitlck88" path="res://assets/meshes/player pistol/_barrel cap heat shader.tres" id="1_wtq6k"]
+
+[sub_resource type="Gradient" id="Gradient_wtq6k"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cml5f"]
+gradient = SubResource("Gradient_wtq6k")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_wtq6k")
+shader_parameter/heat_gradient = SubResource("GradientTexture2D_cml5f")
+shader_parameter/color_of_heat = Color(1, 0.513726, 0, 1)
+shader_parameter/emission_strength = 4.018

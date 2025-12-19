@@ -1,9 +1,0 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dy5s416hixwal"]
-
-[ext_resource type="Texture2D" uid="uid://bwjpo0heoenbs" path="res://assets/meshes/player pistol/textures/cable base color.png" id="1_qbq8o"]
-
-[resource]
-resource_name = "cable material"
-cull_mode = 2
-albedo_texture = ExtResource("1_qbq8o")
-texture_filter = 2

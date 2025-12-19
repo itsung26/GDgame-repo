@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://7kin3vti4ce0"]
+
+[ext_resource type="Shader" uid="uid://c03e0ql7bl46t" path="res://assets/meshes/player pistol/scratched glass shader.tres" id="1_4vjvy"]
+[ext_resource type="Texture2D" uid="uid://bul2d06kwan8w" path="res://assets/meshes/player pistol/textures/scratched glass.png" id="2_3vcoc"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_4vjvy")
+shader_parameter/ColorParameter = Color(0, 0, 0, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/scale = -0.067
+shader_parameter/Texture2DParameter = ExtResource("2_3vcoc")

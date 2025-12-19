@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://vswt7a1tma4k"]
+
+[ext_resource type="FontFile" uid="uid://xo3e8r215r8p" path="res://assets/fonts/numberFont/Ethnocentric Rg.otf" id="1_6pjcd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jsb76"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_jsb76"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_jsb76")
+
+[sub_resource type="LabelSettings" id="LabelSettings_phjk6"]
+font = ExtResource("1_6pjcd")
+font_size = 52
+font_color = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8016m"]
+
+[node name="pistol display screen" type="PanelContainer"]
+offset_right = 500.0
+offset_bottom = 500.0
+theme = SubResource("Theme_jsb76")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+
+[node name="test digits" type="Label" parent="Control"]
+layout_mode = 2
+offset_left = 18.0
+offset_top = 9.0
+offset_right = 90.0
+offset_bottom = 73.0
+text = "12"
+label_settings = SubResource("LabelSettings_phjk6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_8016m")
+layout_mode = 2

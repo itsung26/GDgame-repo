@@ -1,8 +1,84 @@
-[gd_scene load_steps=4 format=3 uid="uid://csatdjhfoaqcw"]
+[gd_scene load_steps=16 format=3 uid="uid://csatdjhfoaqcw"]
 
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/pistol.gd" id="1_buff3"]
-[ext_resource type="PackedScene" uid="uid://cqefufsictn0t" path="res://assets/meshes/player pistol/player pistol.blend" id="2_buff3"]
-[ext_resource type="Material" uid="uid://b2gbqiaqg7ukj" path="res://assets/meshes/player pistol/glow material.tres" id="3_1e3ry"]
+[ext_resource type="PackedScene" uid="uid://q1wl2i8b8vlt" path="res://assets/meshes/player pistol/player pistol.blend" id="2_buff3"]
+[ext_resource type="Material" uid="uid://dkvspuecmcvw3" path="res://assets/meshes/player pistol/barrel cap heat shader.tres" id="3_1e3ry"]
+[ext_resource type="Material" uid="uid://1dl8rlbnb2a6" path="res://assets/meshes/player pistol/heat sink heat.tres" id="3_4hq71"]
+[ext_resource type="Material" uid="uid://cop7fkwoj2g3a" path="res://assets/meshes/player pistol/HCU VFX effect mesh shader.tres" id="4_88qyl"]
+[ext_resource type="Material" uid="uid://cyk62iasrpppl" path="res://assets/meshes/player pistol/power cell shader material.tres" id="6_88qyl"]
+[ext_resource type="Material" uid="uid://7kin3vti4ce0" path="res://assets/meshes/player pistol/scratched glass shader material.tres" id="7_1r6mc"]
+[ext_resource type="PackedScene" uid="uid://vswt7a1tma4k" path="res://scenes/pistol_display_screen.tscn" id="8_4w7x2"]
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_4w7x2"]
+parameter_name = "screen_texture"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_kvtwg"]
+source = 5
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_4w7x2"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_kvtwg"]
+parameter_name = "emission"
+hint = 1
+max = 16.0
+
+[sub_resource type="VisualShader" id="VisualShader_lfdsj"]
+resource_local_to_scene = true
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+
+uniform sampler2D screen_texture;
+uniform float emission : hint_range(0.0, 16.0);
+
+
+
+void fragment() {
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(screen_texture, UV);
+
+
+// FloatParameter:5
+	float n_out5p0 = emission;
+
+
+// VectorOp:4
+	vec3 n_out4p0 = vec3(n_out3p0.xyz) * vec3(n_out5p0);
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+	EMISSION = n_out4p0;
+
+
+}
+"
+graph_offset = Vector2(-303.421, -24.9405)
+flags/unshaded = true
+preview_params/screen_texture = "Object(ViewportTexture,\"resource_local_to_scene\":true,\"resource_name\":\"\",\"viewport_path\":NodePath(\"SubViewport\"),\"script\":null)
+"
+preview_params/emission = "1.0"
+nodes/fragment/0/position = Vector2(600, 100)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_4w7x2")
+nodes/fragment/2/position = Vector2(-320, 60)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_kvtwg")
+nodes/fragment/3/position = Vector2(40, 80)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_4w7x2")
+nodes/fragment/4/position = Vector2(383.88, 301.16)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_kvtwg")
+nodes/fragment/5/position = Vector2(-240, 480)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 3, 0, 0, 0, 3, 0, 4, 0, 4, 0, 0, 5, 5, 0, 4, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wvp02"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eun5i"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("VisualShader_lfdsj")
+shader_parameter/screen_texture = SubResource("ViewportTexture_wvp02")
+shader_parameter/emission = 0.0
 
 [node name="Pistol" type="Node3D" node_paths=PackedStringArray("muzzle_origin", "bullet_raycast") groups=["weapons"]]
 transform = Transform3D(0.0880492, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, 0, 0, 0)
@@ -27,24 +103,34 @@ collision_mask = 262
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5000)
 
 [node name="player pistol" parent="." instance=ExtResource("2_buff3")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 
-[node name="back" parent="player pistol/pistol" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20367, -0.952881)
+[node name="back small part" parent="player pistol" index="17"]
+surface_material_override/1 = ExtResource("6_88qyl")
 
-[node name="back small part" parent="player pistol/pistol" index="3"]
-surface_material_override/1 = ExtResource("3_1e3ry")
+[node name="back" parent="player pistol" index="18"]
+surface_material_override/2 = ExtResource("6_88qyl")
 
-[node name="front barrel part" parent="player pistol/pistol" index="7"]
-surface_material_override/1 = ExtResource("3_1e3ry")
+[node name="back heat sink SHADER" parent="player pistol" index="19"]
+material_override = ExtResource("3_4hq71")
 
-[node name="HCU cap" parent="player pistol/pistol" index="14"]
-surface_material_override/1 = ExtResource("3_1e3ry")
+[node name="back screen SHADER" parent="player pistol" index="20"]
+material_override = SubResource("ShaderMaterial_eun5i")
 
-[node name="HCU emissive indicator" parent="player pistol/pistol" index="16"]
-surface_material_override/0 = ExtResource("3_1e3ry")
+[node name="HCU VFX mesh SHADER" parent="player pistol" index="22"]
+visible = false
+material_override = ExtResource("4_88qyl")
 
-[node name="powercell" parent="player pistol/pistol" index="20"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3737, -0.2916)
-surface_material_override/0 = ExtResource("3_1e3ry")
+[node name="barrel end cap SHADER" parent="player pistol" index="23"]
+material_override = ExtResource("3_1e3ry")
+
+[node name="powercell SHADER" parent="player pistol" index="24"]
+material_override = ExtResource("6_88qyl")
+material_overlay = ExtResource("7_1r6mc")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(512, 256)
+
+[node name="pistol display screen" parent="SubViewport" instance=ExtResource("8_4w7x2")]
 
 [editable path="player pistol"]

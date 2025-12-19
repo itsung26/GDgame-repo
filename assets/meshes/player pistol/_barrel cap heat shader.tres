@@ -1,0 +1,85 @@
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://120ukitlck88"]
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_djj2q"]
+parameter_name = "heat_gradient"
+texture_filter = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_mwu4p"]
+source = 5
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_djj2q"]
+parameter_name = "color_of_heat"
+default_value_enabled = true
+default_value = Color(1, 0.513726, 0, 1)
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_mwu4p"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_ne87d"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_nwtf5"]
+parameter_name = "emission_strength"
+default_value_enabled = true
+default_value = 1.0
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D heat_gradient : filter_nearest;
+uniform vec4 color_of_heat : source_color = vec4(1.000000, 0.513726, 0.000000, 1.000000);
+uniform float emission_strength = 1.0;
+
+
+
+void fragment() {
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(heat_gradient, UV);
+
+
+// ColorParameter:4
+	vec4 n_out4p0 = color_of_heat;
+
+
+// VectorOp:5
+	vec3 n_out5p0 = vec3(n_out3p0.xyz) * vec3(n_out4p0.xyz);
+
+
+// FloatParameter:7
+	float n_out7p0 = emission_strength;
+
+
+// VectorOp:6
+	vec3 n_out6p0 = n_out5p0 * vec3(n_out7p0);
+
+
+// Output:0
+	ALBEDO = n_out5p0;
+	ALPHA = n_out3p0.x;
+	EMISSION = n_out6p0;
+
+
+}
+"
+graph_offset = Vector2(-252.852, -24.8605)
+preview_params/heat_gradient = "Object(GradientTexture2D,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"gradient\":Object(Gradient,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"interpolation_mode\":0,\"interpolation_color_space\":0,\"offsets\":PackedFloat32Array(0, 1),\"colors\":PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1),\"script\":null)
+,\"width\":64,\"height\":64,\"use_hdr\":false,\"fill\":0,\"fill_from\":Vector2(1, 0),\"fill_to\":Vector2(0, 0),\"repeat\":0,\"script\":null)
+"
+preview_params/color_of_heat = "Color(1, 0.513726, 0, 1)"
+preview_params/emission_strength = "0.27"
+nodes/fragment/0/position = Vector2(1380, 100)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_djj2q")
+nodes/fragment/2/position = Vector2(-140, 100)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_mwu4p")
+nodes/fragment/3/position = Vector2(260, 220)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorParameter_djj2q")
+nodes/fragment/4/position = Vector2(280, 0)
+nodes/fragment/5/node = SubResource("VisualShaderNodeVectorOp_mwu4p")
+nodes/fragment/5/position = Vector2(700, 100)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorOp_ne87d")
+nodes/fragment/6/position = Vector2(960, 320)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatParameter_nwtf5")
+nodes/fragment/7/position = Vector2(620, 480)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 3, 0, 5, 0, 5, 0, 0, 0, 4, 0, 5, 1, 3, 0, 0, 1, 7, 0, 6, 1, 5, 0, 6, 0, 6, 0, 0, 5)

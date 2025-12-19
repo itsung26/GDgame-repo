@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://da0o4xn0tk2l8"]
+[gd_scene load_steps=24 format=3 uid="uid://da0o4xn0tk2l8"]
 
 [ext_resource type="Script" uid="uid://1fvkhlatl2xa" path="res://scripts/skitterbomb.gd" id="1_puc1e"]
 [ext_resource type="PackedScene" uid="uid://cuguo3styi87u" path="res://assets/meshes/Skitterbomb/Skitterbomb.blend" id="2_ntgaj"]
@@ -12,79 +12,37 @@ var/can_do_startup/value = true
 var/can_do_startup/hint = 0
 var/can_do_startup/hint_string = ""
 
-[sub_resource type="BTCheckTrigger" id="BTCheckTrigger_i23tl"]
-variable = &"can_do_startup"
-custom_name = "if can_do_startup return SUCCESS"
-
-[sub_resource type="BBNode" id="BBNode_msusu"]
-saved_value = NodePath("Skitterbomb2/AnimationPlayer")
-resource_name = "Skitterbomb2/AnimationPlayer"
-
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_p4vsc"]
-animation_player = SubResource("BBNode_msusu")
-animation_name = &"rear action"
-
-[sub_resource type="BBNode" id="BBNode_5a475"]
-saved_value = NodePath("Skitterbomb2/AnimationPlayer")
-resource_name = "Skitterbomb2/AnimationPlayer"
-
-[sub_resource type="BTAwaitAnimation" id="BTAwaitAnimation_f6tbl"]
-animation_player = SubResource("BBNode_5a475")
-animation_name = &"rear action"
-max_time = 3.0
-
-[sub_resource type="BTSequence" id="BTSequence_i23tl"]
-custom_name = "execute untill failure"
-children = [SubResource("BTCheckTrigger_i23tl"), SubResource("BTPlayAnimation_p4vsc"), SubResource("BTAwaitAnimation_f6tbl")]
-
-[sub_resource type="BBVariant" id="BBVariant_i23tl"]
-type = 1
-saved_value = true
-resource_name = "true"
-
-[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_c526l"]
-property = &"behavior_enabled"
-check_type = 5
-value = SubResource("BBVariant_i23tl")
-custom_name = "fail if behavior enabled"
-
 [sub_resource type="BBNode" id="BBNode_i23tl"]
 saved_value = NodePath("Skitterbomb2/AnimationPlayer")
 resource_name = "Skitterbomb2/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_c526l"]
+await_completion = 3.0
 animation_player = SubResource("BBNode_i23tl")
-animation_name = &"Idle"
+animation_name = &"rear action"
 
-[sub_resource type="BTSequence" id="BTSequence_2s1c1"]
-custom_name = "idle waiting"
-children = [SubResource("BTCheckAgentProperty_c526l"), SubResource("BTPlayAnimation_c526l")]
+[sub_resource type="BTRunLimit" id="BTRunLimit_msusu"]
+children = [SubResource("BTPlayAnimation_c526l")]
 
-[sub_resource type="BBVariant" id="BBVariant_2s1c1"]
-type = 1
-saved_value = true
-resource_name = "true"
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_i23tl"]
+text = "Beep"
 
-[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_msusu"]
-property = &"behavior_enabled"
-value = SubResource("BBVariant_2s1c1")
-custom_name = "succeed if behavior enabled"
+[sub_resource type="BTProbability" id="BTProbability_c526l"]
+children = [SubResource("BTConsolePrint_i23tl")]
 
-[sub_resource type="BBNode" id="BBNode_2s1c1"]
-saved_value = NodePath("Skitterbomb2/AnimationPlayer")
-resource_name = "Skitterbomb2/AnimationPlayer"
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_c526l"]
+text = "boop"
 
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_msusu"]
-animation_player = SubResource("BBNode_2s1c1")
-animation_name = &"Running"
+[sub_resource type="BTSelector" id="BTSelector_2s1c1"]
+custom_name = "print beep or boop"
+children = [SubResource("BTProbability_c526l"), SubResource("BTConsolePrint_c526l")]
 
-[sub_resource type="BTSequence" id="BTSequence_p4vsc"]
-custom_name = "run to player"
-children = [SubResource("BTCheckAgentProperty_msusu"), SubResource("BTPlayAnimation_msusu")]
+[sub_resource type="BTSelector" id="BTSelector_p4vsc"]
+custom_name = "execute untill success"
 
 [sub_resource type="BTSequence" id="BTSequence_5a475"]
 custom_name = "execute untill failure"
-children = [SubResource("BTSequence_i23tl"), SubResource("BTSequence_2s1c1"), SubResource("BTSequence_p4vsc")]
+children = [SubResource("BTRunLimit_msusu"), SubResource("BTSelector_2s1c1"), SubResource("BTSelector_p4vsc")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_f1415"]
 blackboard_plan = SubResource("BlackboardPlan_ntgaj")
