@@ -17,4 +17,4 @@ shader_parameter/ColorParameter = Color(0.963048, 0.343621, 0, 1)
 shader_parameter/scale = Vector2(3, 1)
 shader_parameter/time_speed = 0.1
 shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_y3rj0")
-shader_parameter/emission_intensity = 2.919
+shader_parameter/emission_intensity = 13.297

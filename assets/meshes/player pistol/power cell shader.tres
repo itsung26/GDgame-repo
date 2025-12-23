@@ -107,7 +107,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-1198.59, 412.852)
 preview_params/ColorParameter = "Color(0.815973, 0.286033, 0, 1)"
 preview_params/Texture2DParameter = "Object(GradientTexture2D,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"gradient\":Object(Gradient,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"interpolation_mode\":0,\"interpolation_color_space\":0,\"offsets\":PackedFloat32Array(0, 0.1, 0.458333, 1),\"colors\":PackedColorArray(0.14902, 0.14902, 0.14902, 1, 1, 1, 1, 1, 0.589096, 0.589096, 0.589096, 1, 0.147672, 0.147672, 0.147672, 1),\"script\":null)
 ,\"width\":64,\"height\":64,\"use_hdr\":false,\"fill\":0,\"fill_from\":Vector2(0, 0),\"fill_to\":Vector2(1, 0),\"repeat\":0,\"script\":null)

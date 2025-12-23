@@ -9,6 +9,7 @@ operator = 2
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_tkfv7"]
 parameter_name = "Texture2DParameter"
+texture_filter = 3
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_uxbvv"]
 source = 5
@@ -42,7 +43,7 @@ uniform vec4 ColorParameter : source_color = vec4(1.000000, 1.000000, 1.000000, 
 uniform float alpha : hint_range(0.0, 1.0);
 uniform vec2 offset;
 uniform float scale = 1.0;
-uniform sampler2D Texture2DParameter;
+uniform sampler2D Texture2DParameter : filter_nearest_mipmap;
 
 
 
@@ -89,14 +90,13 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-252.563, -71.6617)
 nodes/fragment/0/position = Vector2(580, 20)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_tkfv7")
 nodes/fragment/2/position = Vector2(-740, 200)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_uxbvv")
 nodes/fragment/3/position = Vector2(-20, -20)
 nodes/fragment/4/node = SubResource("VisualShaderNodeColorParameter_c2gus")
-nodes/fragment/4/position = Vector2(320, -200)
+nodes/fragment/4/position = Vector2(120, -260)
 nodes/fragment/5/node = SubResource("VisualShaderNodeVec2Parameter_jp7fg")
 nodes/fragment/5/position = Vector2(-800, -120)
 nodes/fragment/6/node = SubResource("VisualShaderNodeUVFunc_ao4pq")

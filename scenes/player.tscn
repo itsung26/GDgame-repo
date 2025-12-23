@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=91 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -25,6 +25,8 @@
 [ext_resource type="Animation" uid="uid://c6a32v1x3a8qx" path="res://assets/meshes/parry arm/animations/swing arm parry.res" id="15_i4ail"]
 [ext_resource type="Animation" uid="uid://cy6myi3dyfemb" path="res://assets/meshes/parry arm/animations/RESET.res" id="16_4ni07"]
 [ext_resource type="PackedScene" uid="uid://vcb1a0yxsq2y" path="res://scenes/melee.tscn" id="19_a38lo"]
+[ext_resource type="Shader" uid="uid://dtg0dp7tve25u" path="res://assets/meshes/player pistol/power cell shader.tres" id="22_31cv2"]
+[ext_resource type="Shader" uid="uid://m4s6ghp3mhjq" path="res://assets/meshes/player pistol/_HCU VFX effect mesh shader.tres" id="23_pf23h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a38lo"]
 albedo_color = Color(1, 0, 0, 1)
@@ -1002,6 +1004,108 @@ billboard_mode = 1
 material = SubResource("StandardMaterial3D_4r5pv")
 size = Vector2(1.473, 1.528)
 
+[sub_resource type="Gradient" id="Gradient_lucca"]
+offsets = PackedFloat32Array(0, 0.1, 0.458333, 1)
+colors = PackedColorArray(0.14902, 0.14902, 0.14902, 1, 1, 1, 1, 1, 0.589096, 0.589096, 0.589096, 1, 0.147672, 0.147672, 0.147672, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y3rj0"]
+gradient = SubResource("Gradient_lucca")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dt7fs"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("22_31cv2")
+shader_parameter/ColorParameter = Color(0.963048, 0.343621, 0, 1)
+shader_parameter/scale = Vector2(3, 1)
+shader_parameter/time_speed = 0.1
+shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_y3rj0")
+shader_parameter/emission_intensity = 13.297
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_4w7x2"]
+parameter_name = "screen_texture"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_kvtwg"]
+source = 5
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_4w7x2"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_kvtwg"]
+parameter_name = "emission"
+hint = 1
+max = 16.0
+
+[sub_resource type="VisualShader" id="VisualShader_wqfne"]
+resource_local_to_scene = true
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+
+uniform sampler2D screen_texture;
+uniform float emission : hint_range(0.0, 16.0);
+
+
+
+void fragment() {
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(screen_texture, UV);
+
+
+// FloatParameter:5
+	float n_out5p0 = emission;
+
+
+// VectorOp:4
+	vec3 n_out4p0 = vec3(n_out3p0.xyz) * vec3(n_out5p0);
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+	EMISSION = n_out4p0;
+
+
+}
+"
+flags/unshaded = true
+preview_params/screen_texture = "Object(ViewportTexture,\"resource_local_to_scene\":true,\"resource_name\":\"\",\"viewport_path\":NodePath(\"SubViewport\"),\"script\":null)
+"
+preview_params/emission = "1.0"
+nodes/fragment/0/position = Vector2(600, 100)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_4w7x2")
+nodes/fragment/2/position = Vector2(-320, 60)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_kvtwg")
+nodes/fragment/3/position = Vector2(40, 80)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_4w7x2")
+nodes/fragment/4/position = Vector2(383.88, 301.16)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_kvtwg")
+nodes/fragment/5/position = Vector2(-240, 480)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 3, 0, 0, 0, 3, 0, 4, 0, 4, 0, 0, 5, 5, 0, 4, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wnwbv"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gl8cc"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("VisualShader_wqfne")
+shader_parameter/screen_texture = SubResource("ViewportTexture_wnwbv")
+shader_parameter/emission = 0.0
+
+[sub_resource type="Gradient" id="Gradient_63aiq"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2dxcp"]
+gradient = SubResource("Gradient_63aiq")
+fill_from = Vector2(1, 0.478632)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_487ah"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("23_pf23h")
+shader_parameter/ColorParameter = Color(0.815973, 0.286033, 0, 1)
+shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_2dxcp")
+shader_parameter/alpha_intensity = 1.0
+shader_parameter/emission_intensity = 6.838
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 2)
@@ -1376,7 +1480,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.89623, -0.419367, 0.0912844, 0.434093, -0.896231, -0.00338209, 0.181378, -0.147857)
+transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.896231, -0.419367, 0.0912846, 0.434092, -0.896231, -0.00338215, 0.181378, -0.147857)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -1487,10 +1591,27 @@ transform = Transform3D(1.90169, 0, 0, 0, -8.31255e-08, -1.90169, 0, 1.90169, -8
 
 [node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
 transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, -0.44, 0.28, 0.535)
-visible = false
 
-[node name="gunplaceholderanimator" parent="Pivot/Camera3D/Guns/Pistol" index="3"]
-speed_scale = 0.35
+[node name="muzzle" parent="Pivot/Camera3D/Guns/Pistol" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.03513, -0.881703, -28.2718)
+
+[node name="back small part" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="17"]
+surface_material_override/1 = SubResource("ShaderMaterial_dt7fs")
+
+[node name="back" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="18"]
+surface_material_override/2 = SubResource("ShaderMaterial_dt7fs")
+
+[node name="back screen SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="20"]
+material_override = SubResource("ShaderMaterial_gl8cc")
+
+[node name="HCU VFX mesh SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="22"]
+material_override = SubResource("ShaderMaterial_487ah")
+
+[node name="powercell SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="24"]
+material_override = SubResource("ShaderMaterial_dt7fs")
+
+[node name="power cell sparks" parent="Pivot/Camera3D/Guns/Pistol" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.03515, -2.56446, -9.7264)
 
 [node name="Melee" parent="Pivot/Camera3D/Guns" instance=ExtResource("19_a38lo")]
 visible = false
@@ -1581,8 +1702,8 @@ ignore_time_scale = true
 [connection signal="new_hooked_target_set" from="Pivot/Camera3D/GrappleArm" to="." method="_on_grapple_arm_new_hooked_target_set"]
 [connection signal="area_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_entered"]
 [connection signal="area_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_exited"]
-[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_entered"]
+[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_exited"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
@@ -1597,5 +1718,6 @@ ignore_time_scale = true
 [editable path="Pivot/Camera3D/ParryArm/parry arm"]
 [editable path="Pivot/Camera3D/Guns/BlackHoleLauncher"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]
+[editable path="Pivot/Camera3D/Guns/Pistol/player pistol"]
 [editable path="Pivot/Camera3D/Guns/Melee"]
 [editable path="SlideParticles"]
