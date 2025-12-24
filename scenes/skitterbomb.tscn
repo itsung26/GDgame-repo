@@ -1,6 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://da0o4xn0tk2l8"]
+[gd_scene load_steps=25 format=3 uid="uid://da0o4xn0tk2l8"]
 
 [ext_resource type="Script" uid="uid://1fvkhlatl2xa" path="res://scripts/skitterbomb.gd" id="1_puc1e"]
+[ext_resource type="Script" uid="uid://wy4yv3iadkp3" path="res://ai/tasks/GetFirstInGroup.gd" id="2_c526l"]
 [ext_resource type="PackedScene" uid="uid://cuguo3styi87u" path="res://assets/meshes/Skitterbomb/Skitterbomb.blend" id="2_ntgaj"]
 [ext_resource type="Texture2D" uid="uid://btuh66ked0vkk" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_01.png" id="3_f1415"]
 [ext_resource type="Material" uid="uid://63qriytymt0s" path="res://assets/meshes/Skitterbomb/material resources/glow eye parts red.tres" id="3_i23tl"]
@@ -11,42 +12,44 @@ var/can_do_startup/type = 1
 var/can_do_startup/value = true
 var/can_do_startup/hint = 0
 var/can_do_startup/hint_string = ""
+var/target/name = &"target"
+var/target/type = 24
+var/target/hint = 0
+var/target/hint_string = ""
 
-[sub_resource type="BBNode" id="BBNode_i23tl"]
-saved_value = NodePath("Skitterbomb2/AnimationPlayer")
-resource_name = "Skitterbomb2/AnimationPlayer"
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_2s1c1"]
+text = "probability check succeeded. waiting 2 seconds."
 
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_c526l"]
-await_completion = 3.0
-animation_player = SubResource("BBNode_i23tl")
-animation_name = &"rear action"
+[sub_resource type="BTWait" id="BTWait_msusu"]
+duration = 2.0
 
-[sub_resource type="BTRunLimit" id="BTRunLimit_msusu"]
-children = [SubResource("BTPlayAnimation_c526l")]
-
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_i23tl"]
-text = "Beep"
+[sub_resource type="BTSequence" id="BTSequence_2s1c1"]
+children = [SubResource("BTConsolePrint_2s1c1"), SubResource("BTWait_msusu")]
 
 [sub_resource type="BTProbability" id="BTProbability_c526l"]
-children = [SubResource("BTConsolePrint_i23tl")]
+children = [SubResource("BTSequence_2s1c1")]
+
+[sub_resource type="BTAction" id="BTAction_p4vsc"]
+script = ExtResource("2_c526l")
+group = &"players"
+output_var = &"target"
 
 [sub_resource type="BTConsolePrint" id="BTConsolePrint_c526l"]
-text = "boop"
+text = "probability check failed. waiting 2 seconds."
 
-[sub_resource type="BTSelector" id="BTSelector_2s1c1"]
-custom_name = "print beep or boop"
-children = [SubResource("BTProbability_c526l"), SubResource("BTConsolePrint_c526l")]
+[sub_resource type="BTWait" id="BTWait_c526l"]
+duration = 2.0
 
-[sub_resource type="BTSelector" id="BTSelector_p4vsc"]
+[sub_resource type="BTSequence" id="BTSequence_i23tl"]
+children = [SubResource("BTAction_p4vsc"), SubResource("BTConsolePrint_c526l"), SubResource("BTWait_c526l")]
+
+[sub_resource type="BTSelector" id="BTSelector_i23tl"]
 custom_name = "execute untill success"
-
-[sub_resource type="BTSequence" id="BTSequence_5a475"]
-custom_name = "execute untill failure"
-children = [SubResource("BTRunLimit_msusu"), SubResource("BTSelector_2s1c1"), SubResource("BTSelector_p4vsc")]
+children = [SubResource("BTProbability_c526l"), SubResource("BTSequence_i23tl")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_f1415"]
 blackboard_plan = SubResource("BlackboardPlan_ntgaj")
-root_task = SubResource("BTSequence_5a475")
+root_task = SubResource("BTSelector_i23tl")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_i23tl"]
 

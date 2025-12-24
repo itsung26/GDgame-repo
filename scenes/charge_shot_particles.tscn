@@ -41,7 +41,6 @@ material = SubResource("StandardMaterial3D_3w54m")
 size = Vector2(0.037, 0.098)
 
 [node name="ChargeShotParticles" type="GPUParticles3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 emitting = false
 amount = 28
 lifetime = 1.5

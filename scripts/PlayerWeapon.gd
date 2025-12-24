@@ -16,7 +16,7 @@ signal reloaded
 @export var automatic:bool
 
 func _ready() -> void:
-	print("initialized weapon " + str(self))
+	pass
 
 func _process(delta: float) -> void:
 	pass

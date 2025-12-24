@@ -222,6 +222,13 @@ func _ready() -> void:
 	if weapon_states.is_empty():
 		assert(false, "No weapons! Player should at least have weapon melee equipped.")
 	
+	# hide all weapons except the one the player is using
+	for weapon in weapon_states:
+		if weapon_state != weapon:
+			weapon.visible = false
+		else:
+			weapon.visible = true
+	
 	# object reference definitions (needs to be removed)
 	pause = get_tree().current_scene.find_child("Pause")
 	slide_light = slide_particles.get_node("ImpactParticles/OmniLight3D")
@@ -332,6 +339,10 @@ func set_player_state(new_player_state:int):
 		gravity_enabled = true
 	
 func set_weapon_state(new_weapon_state:PlayerWeapon):
+	# prevent the weapon state from being set to null
+	if new_weapon_state == null:
+		return
+
 	var previous_weapon_state:PlayerWeapon = weapon_state
 	weapon_state = new_weapon_state
 	
@@ -708,16 +719,6 @@ func _process(delta) -> void:
 	# Again, I hate this, but it stays for now.
 	if grapple_rope_mesh_gen:
 		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
-	
-	# retrn the time remaining on the current black hole cooldown animation and save as a time
-	if bll_animator.current_animation == "Black Hole Launcher/BLL_cooldown":
-		black_hole_time_remaining = bll_animator.current_animation_length - bll_animator.current_animation_position
-		black_hole_time_remaining = black_hole_time_remaining
-		if black_hole_time_remaining < 0.50:
-			black_hole_time_remaining = 0.00
-		var time_left = str(snappedf(black_hole_time_remaining, 0.01)) + "s"
-		if black_hole_cooldown_timer:
-			black_hole_cooldown_timer.text = time_left
 	
 	# handle all weapon inputs, if the weapon is not null (it should never be)
 	if weapon_state:

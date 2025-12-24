@@ -1,19 +1,13 @@
 class_name Skitterbomb
 extends Enemy
 
-@onready var bt_player: BTPlayer = $BTPlayer
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 
 func _ready() -> void:
-	# get and set nav agent data
-	if behavior_enabled and player:
-		navigation_agent_3d.target_position = player.global_position
+	pass
 
 func _physics_process(delta: float) -> void:
-	# get and set nav agent data
-	if behavior_enabled and player:
-		navigation_agent_3d.target_position = player.global_position
-	
+	pass
 	
 	# Handle gravity.
 	if not is_on_floor():
@@ -22,6 +16,9 @@ func _physics_process(delta: float) -> void:
 func _setBehaviorEnabled(new_behavior_enabled_state:bool):
 	var previous_behavior_enabled_state:bool = behavior_enabled
 	behavior_enabled = new_behavior_enabled_state
+
+func _killEnemy():
+	Debug.log("enemy is not able to die. Health: " + str(getHealth()))
 
 ## Leap sequence begins when player enters this area.
 func _on_player_detector_body_entered(player: Player) -> void:

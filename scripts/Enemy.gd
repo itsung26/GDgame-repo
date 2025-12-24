@@ -22,7 +22,7 @@ var last_hit_damage_type:damage_types
 ## The base weight class of the enemy. Heavy and up will result in the player being grappled to rather than from.
 @export var weight:weight_class = weight_class.LIGHT
 const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarker.tscn")
-@onready var player:CharacterBody3D = get_tree().current_scene.find_child("Player")
+@onready var player:Player = get_tree().current_scene.find_child("Player")
 ## How quickly the enemy is slowed when in the air on the xz plane
 @export var slowInAirFactor:float = 10.0
 ## Whether the enemy recieves damage. Taking damage will still call [code]damageEnemy[/code], but interior logic will be skipped.
@@ -70,6 +70,7 @@ func damageEnemy(damage:float, damage_type:damage_types):
 ## Called when health reaches zero.
 func _killEnemy():
 	print("no death behavior configured. defaulting to deletion on death.")
+	player.set_action_state(player.action_states.IDLE) # unhook grapple
 	queue_free()
 
 ## heals the enemy
@@ -77,7 +78,7 @@ func healEnemy(health:float):
 	HEALTH += health
 
 ## gets the health of the enemy
-func getHealth():
+func getHealth() -> float:
 	return HEALTH
 
 
