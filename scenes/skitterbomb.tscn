@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://da0o4xn0tk2l8"]
+[gd_scene load_steps=19 format=3 uid="uid://da0o4xn0tk2l8"]
 
 [ext_resource type="Script" uid="uid://1fvkhlatl2xa" path="res://scripts/skitterbomb.gd" id="1_puc1e"]
 [ext_resource type="Script" uid="uid://wy4yv3iadkp3" path="res://ai/tasks/GetFirstInGroup.gd" id="2_c526l"]
@@ -17,35 +17,17 @@ var/target/type = 24
 var/target/hint = 0
 var/target/hint_string = ""
 
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_2s1c1"]
-text = "probability check succeeded. waiting 2 seconds."
-
-[sub_resource type="BTWait" id="BTWait_msusu"]
-duration = 2.0
-
-[sub_resource type="BTSequence" id="BTSequence_2s1c1"]
-children = [SubResource("BTConsolePrint_2s1c1"), SubResource("BTWait_msusu")]
-
-[sub_resource type="BTProbability" id="BTProbability_c526l"]
-children = [SubResource("BTSequence_2s1c1")]
-
-[sub_resource type="BTAction" id="BTAction_p4vsc"]
+[sub_resource type="BTAction" id="BTAction_c526l"]
 script = ExtResource("2_c526l")
 group = &"players"
 output_var = &"target"
 
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_c526l"]
-text = "probability check failed. waiting 2 seconds."
-
-[sub_resource type="BTWait" id="BTWait_c526l"]
-duration = 2.0
-
-[sub_resource type="BTSequence" id="BTSequence_i23tl"]
-children = [SubResource("BTAction_p4vsc"), SubResource("BTConsolePrint_c526l"), SubResource("BTWait_c526l")]
+[sub_resource type="BTSequence" id="BTSequence_c526l"]
+custom_name = "go to target"
 
 [sub_resource type="BTSelector" id="BTSelector_i23tl"]
 custom_name = "execute untill success"
-children = [SubResource("BTProbability_c526l"), SubResource("BTSequence_i23tl")]
+children = [SubResource("BTAction_c526l"), SubResource("BTSequence_c526l")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_f1415"]
 blackboard_plan = SubResource("BlackboardPlan_ntgaj")
