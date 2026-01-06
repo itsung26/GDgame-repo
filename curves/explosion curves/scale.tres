@@ -1,5 +1,6 @@
 [gd_resource type="Curve" format=3 uid="uid://cfch68letirae"]
 
 [resource]
-_data = [Vector2(0, 1), 0.0, 0.515152, 0, 1]
-point_count = 1
+resource_local_to_scene = true
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2

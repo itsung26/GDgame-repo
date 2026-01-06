@@ -41,10 +41,8 @@ material = SubResource("StandardMaterial3D_3w54m")
 size = Vector2(0.037, 0.098)
 
 [node name="ChargeShotParticles" type="GPUParticles3D"]
-emitting = false
 amount = 28
 lifetime = 1.5
-one_shot = true
 explosiveness = 0.88
 randomness = 0.34
 transform_align = 3
@@ -60,3 +58,5 @@ radius = 0.829488
 
 [node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="."]
 radius = 0.208355
+
+[connection signal="finished" from="." to="." method="_on_finished"]

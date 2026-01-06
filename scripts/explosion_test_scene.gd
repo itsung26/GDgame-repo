@@ -21,17 +21,16 @@ const explosion3d_SCENE:PackedScene = preload("res://scenes/explosion_3d.tscn")
 @export var damage_explosion_damage:float
 
 func spawnExplosion():
-	var explosion3d = explosion3d_SCENE.instantiate()
+	var explosion3d:Explosion3D = explosion3d_SCENE.instantiate()
 	add_child(explosion3d)
-	explosion3d.setup(explosion_spawn_pos.global_position, 0.0, shockwave_knockback, 0.66, 2.0,
-	test_color, test_emission, test_explosion_curve, test_alpha_curve, true)
+	explosion3d.setup(explosion_spawn_pos.global_position, 0.0, 5.0, 0.66, 2.0, Color.GRAY, 0.0,)
 	
-func spawnDamageExplosion():
-	var explosion3d = explosion3d_SCENE.instantiate()
-	add_child(explosion3d)
-	explosion3d.setup(explosion_spawn_pos.global_position, damage_explosion_damage, damage_explosion_knockback,
-	0.0, 0.0, damage_explosion_color, damage_explosion_emission, damage_explosion_curve, damage_explosion_alpha_curve,
-	damage_explosion_unshaded)
+#func spawnDamageExplosion():
+	#var explosion3d:Explosion3D = explosion3d_SCENE.instantiate()
+	#add_child(explosion3d)
+	#explosion3d.setup(explosion_spawn_pos.global_position, damage_explosion_damage, damage_explosion_knockback,
+	#0.0, 0.0, damage_explosion_color, damage_explosion_emission, damage_explosion_curve, damage_explosion_alpha_curve,
+	#damage_explosion_unshaded)
 
 func clearExplosions():
 	var explosions = get_tree().get_nodes_in_group("explosions")
@@ -40,5 +39,4 @@ func clearExplosions():
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("debug func"):
-		spawnExplosion()
-		spawnDamageExplosion()
+		spawnExplosion() # test explosion

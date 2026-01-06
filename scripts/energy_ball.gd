@@ -42,15 +42,15 @@ func spawnExplosions() -> void:
 	# instance the first part of the explosion (shockwave)
 	var explosion_3d:Explosion3D = explosion_3d_SCENE.instantiate()
 	get_tree().current_scene.add_child(explosion_3d)
-	explosion_3d.setup(global_position, 0.0, explosion_shockwave_knockback, 0.66, 2.0,
-	explosion_shockwave_color, 0.0, explosion_shockwave_curve, explosion_shockwave_alpha_curve, true)
+	#explosion_3d.setup(global_position, 0.0, explosion_shockwave_knockback, 0.66, 2.0,
+	#explosion_shockwave_color, 0.0, explosion_shockwave_curve, explosion_shockwave_alpha_curve, true)
 	
 	# instance the second part of the explosion (damage)
 	explosion_3d = explosion_3d_SCENE.instantiate()
 	get_tree().current_scene.add_child(explosion_3d)
-	explosion_3d.setup(global_position, explosion_damaging_damage, 0.0,
-	0.0, 0.0, explosion_damaging_color, 1.0, explosion_damaging_curve, explosion_damaging_alpha_curve,
-	false)
+	#explosion_3d.setup(global_position, explosion_damaging_damage, 0.0,
+	#0.0, 0.0, explosion_damaging_color, 1.0, explosion_damaging_curve, explosion_damaging_alpha_curve,
+	#false)
 
 func _on_hit_player(player: Player) -> void:
 		player.damagePlayer(damage_to_player, "Melted by energy projectile")

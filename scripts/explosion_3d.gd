@@ -16,10 +16,10 @@ extends Node3D
 
 @export var explosion_expand_speed:float = 0.25  # how fast to traverse the curve (0..1 per second)
 var _exploding:bool = false
-@export var explosion_scale_curve:Curve
+@export var explosion_scale_curve:Curve = preload("res://curves/explosion curves/scale.tres")
 var _scale_float:float = scale.length()
 @export var alpha_curve_speed:float = 0.25
-@export var alpha_curve:Curve
+@export var alpha_curve:Curve = preload("res://curves/explosion curves/alpha.tres")
 var knockback_force:float
 var damage:float
 var screen_shake_duration:float
@@ -31,8 +31,8 @@ var _can_apply_scale: bool = false
 var _player:Player = Helper.getFirstInScene("Player")
 @export var despawn_time:float = 7.5
 
-## Camera shake exponential dropoff factor.
-@export var cam_shake_exponential_dropoff:float = 0.5
+## Camera shake exponential dropoff factor. 0.1 is medium dropoff
+@export var cam_shake_exponential_dropoff:float = 0.1
 
 func _init() -> void:
 	_scale_float = 0.00001
@@ -73,17 +73,9 @@ func _process(delta: float) -> void:
 			sphere_material.emission = e
 
 ## Called after being instanced and added to the scene.
-func setup(
-	spawn_pos:Vector3 = Vector3.ZERO,
-	damage:float = 0.0,
-	knockback_force:float = 5.0,
-	screen_shake_duration:float = 0.66,
-	screen_shake_strength:float = 2.0,
-	color:Color = Color.GRAY,
-	emission_strength:float = 0.0,
-	explosion_scale_curve:Curve = self.explosion_scale_curve,
-	alpha_curve:Curve = self.alpha_curve,
-	unshaded:bool = false) -> void:
+func setup(spawn_pos:Vector3 = Vector3.ZERO, damage:float = 0.0, knockback_force:float = 5.0,
+screen_shake_duration:float = 0.66, screen_shake_strength:float = 2.0,
+color:Color = Color.GRAY, emission_strength:float = 0.0, unshaded:bool = false) -> void:
 		_exploding = true
 		_fading_alpha = true
 		_elapsed = 0.0
@@ -110,15 +102,14 @@ func setup(
 			self.alpha_curve = alpha_curve
 		deletion_timer.start(despawn_time)
 			
-		# Shake screen by amount based on distance from explosion (if player is not airborne).
-		if _player.is_on_floor():
-			# Create an exponential relationship for camera shake dropoff
-			var distance_to_player:float = (_player.camera_3d.global_position - global_position).length()
-			var strength := screen_shake_strength * exp(-cam_shake_exponential_dropoff * distance_to_player)
-			# Optional clamp to avoid ultra-small shakes:
-			strength = clamp(strength, 0.0, screen_shake_strength)
-			if strength > 0.001:
-				_player.camera_3d.shakeCamera(screen_shake_duration, strength)
+		# Shake screen by amount based on distance from explosion
+		# Create an exponential relationship for camera shake dropoff
+		var distance_to_player:float = (_player.camera_3d.global_position - global_position).length()
+		var strength := screen_shake_strength * exp(-cam_shake_exponential_dropoff * distance_to_player)
+		# Optional clamp to avoid ultra-small shakes:
+		strength = clamp(strength, 0.0, screen_shake_strength)
+		if strength > 0.001:
+			_player.camera_3d.shakeCamera(screen_shake_duration, strength)
 
 ## Returns false if at least one curve is actively sampling and true if they both are not.
 func getCurvesStoppedSampling() -> bool:

@@ -3,12 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c7gld3esdt8ks"
-valid=false
+uid="uid://b58s7e8q342dk"
+path="res://.godot/imported/knife.blend-ccaa2cda3952f23162ea14f473d23279.scn"
 
 [deps]
 
-source_file="res://assets/meshes/drone/buzzard.blend"
+source_file="res://assets/meshes/knife/knife.blend"
+dest_files=["res://.godot/imported/knife.blend-ccaa2cda3952f23162ea14f473d23279.scn"]
 
 [params]
 

@@ -1,9 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddb3k03yo78xo"]
+[gd_scene load_steps=9 format=3 uid="uid://ddb3k03yo78xo"]
 
 [ext_resource type="Script" uid="uid://b4u4qftwlojw5" path="res://scripts/explosion_3d.gd" id="1_oiiif"]
 [ext_resource type="ArrayMesh" uid="uid://bifaeexxbi3ci" path="res://assets/meshes/exposion procedural mesh/explosion_mesh_Sphere_002.res" id="2_4bxpp"]
-[ext_resource type="Curve" uid="uid://cfch68letirae" path="res://curves/explosion curves/scale.tres" id="2_kvot3"]
-[ext_resource type="Curve" uid="uid://dvtyurmdlge5g" path="res://curves/explosion curves/alpha.tres" id="3_nvkk6"]
 [ext_resource type="ArrayMesh" uid="uid://c4lou15e5yi8d" path="res://assets/meshes/small rock/mesh resources/small rock_Icosphere.res" id="5_nvkk6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_oiiif"]
@@ -48,9 +46,6 @@ curve = SubResource("Curve_nvkk6")
 
 [node name="Explosion3D" type="Node3D" groups=["explosions"]]
 script = ExtResource("1_oiiif")
-explosion_scale_curve = ExtResource("2_kvot3")
-alpha_curve = ExtResource("3_nvkk6")
-cam_shake_exponential_dropoff = 0.1
 metadata/_custom_type_script = "uid://b4u4qftwlojw5"
 
 [node name="BodyInfluencer" type="Area3D" parent="."]
@@ -90,7 +85,7 @@ draw_pass_1 = SubResource("RibbonTrailMesh_1djo3")
 wait_time = 7.5
 one_shot = true
 
-[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_projectile_entered"]
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_enemy_entered"]
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_projectile_entered"]
 [connection signal="timeout" from="deletion timer" to="." method="_on_deletion_timer_timeout"]

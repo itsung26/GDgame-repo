@@ -8,6 +8,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# Assume particle emitting is done and delete from memory
-	if emitting == false:
-		queue_free()
+	pass
+
+func _on_finished() -> void:
+	free() # replaces one shot behavior, avoiding the need to call a startup in the particle's constructor
