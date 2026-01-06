@@ -8,6 +8,7 @@ signal equipped
 signal fired
 signal special_triggered
 signal reloaded
+signal special_released
 
 @export var ammo:int
 @export var magsize:int
@@ -32,6 +33,9 @@ func _fire() -> void:
 func _special() -> void:
 	special_triggered.emit()
 	print("non-overidden _special() called.")
+
+func _specialRelease() -> void:
+	special_released.emit()
 
 func _reload() -> void:
 	reloaded.emit()

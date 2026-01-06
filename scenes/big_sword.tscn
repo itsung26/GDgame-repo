@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci5gra1mmm4og"]
+
+[ext_resource type="Script" uid="uid://dkw0bjqgqob8h" path="res://scripts/big_sword.gd" id="1_q3hog"]
+[ext_resource type="PackedScene" uid="uid://cqdtpv0or8rls" path="res://assets/meshes/big blade/big blade.blend" id="1_u3p61"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f11ob"]
+size = Vector3(0.15, 0.39, 1.71284)
+
+[node name="BigSword" type="RigidBody3D"]
+collision_layer = 4
+collision_mask = 4
+freeze = true
+script = ExtResource("1_q3hog")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0835518)
+shape = SubResource("BoxShape3D_f11ob")
+
+[node name="big blade" parent="." instance=ExtResource("1_u3p61")]
+transform = Transform3D(1, 0, 1.67037e-22, 3.34075e-22, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[editable path="big blade"]

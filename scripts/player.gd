@@ -649,6 +649,8 @@ func gunInputs(): # to be called in a method that can "hear" inputs
 	# special block=========================================================================================
 	if Input.is_action_just_pressed("right click action") and player_fire_input_enabled:
 		weapon_state._special()
+	elif Input.is_action_just_released("right click action"):
+		weapon_state._specialRelease()
 	# ======================================================================================================
 
 func charge_stamina(delta=get_process_delta_time()):
