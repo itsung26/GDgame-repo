@@ -236,6 +236,7 @@ surface_material_override/0 = ExtResource("4_lfdsj")
 [node name="muzzle charge particles" type="GPUParticles3D" parent="player pistol/barrel very end upper" index="1" groups=["muzzle charge related"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.295237)
 layers = 2
+emitting = false
 amount = 32
 local_coords = true
 transform_align = 2

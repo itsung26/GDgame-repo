@@ -15,6 +15,8 @@ extends Node3D
 @onready var deletion_timer: Timer = $"deletion timer"
 
 @export var explosion_expand_speed:float = 0.25  # how fast to traverse the curve (0..1 per second)
+@export var explosion_initial_radius:float = 1 # The initial radius of the explosion
+@export var explosion_final_radius:float = 5 # The final radius of the explosion
 var _exploding:bool = false
 @export var explosion_scale_curve:Curve = preload("res://curves/explosion curves/scale.tres")
 var _scale_float:float = scale.length()

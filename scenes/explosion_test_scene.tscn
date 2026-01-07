@@ -1,18 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://dsjx62bojxnjd"]
+[gd_scene load_steps=17 format=3 uid="uid://dsjx62bojxnjd"]
 
 [ext_resource type="Script" uid="uid://cukddme24ioxq" path="res://scripts/explosion_test_scene.gd" id="1_nygw8"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_e0515"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="4_h86ws"]
-
-[sub_resource type="Curve" id="Curve_h86ws"]
-_limits = [0.0, 4.25, 0.0, 0.26]
-_data = [Vector2(0, 0), 0.0, 50.4355, 0, 0, Vector2(0.26, 4.25), 9.50618e-06, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_ogmfv"]
-_limits = [0.0, 1.0, 0.0, 0.26]
-_data = [Vector2(0, 1), 0.0, -6.62582, 0, 0, Vector2(0.26, 0), 0.0, 0.0, 0, 0]
-point_count = 2
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e0515"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -76,11 +66,6 @@ points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5
 script = ExtResource("1_nygw8")
 test_color = Color(0.724643, 0.724643, 0.724643, 1)
 shockwave_knockback = 16.0
-damage_explosion_curve = SubResource("Curve_h86ws")
-damage_explosion_alpha_curve = SubResource("Curve_ogmfv")
-damage_explosion_color = Color(1, 0, 0, 1)
-damage_explosion_emission = 1.0
-damage_explosion_damage = 20.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ogmfv")

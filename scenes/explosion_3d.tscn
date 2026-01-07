@@ -46,6 +46,7 @@ curve = SubResource("Curve_nvkk6")
 
 [node name="Explosion3D" type="Node3D" groups=["explosions"]]
 script = ExtResource("1_oiiif")
+explosion_expand_speed = 0.75
 metadata/_custom_type_script = "uid://b4u4qftwlojw5"
 
 [node name="BodyInfluencer" type="Area3D" parent="."]
@@ -85,7 +86,7 @@ draw_pass_1 = SubResource("RibbonTrailMesh_1djo3")
 wait_time = 7.5
 one_shot = true
 
-[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_projectile_entered"]
-[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_enemy_entered"]
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_projectile_entered"]
 [connection signal="timeout" from="deletion timer" to="." method="_on_deletion_timer_timeout"]
