@@ -21,6 +21,8 @@ var _exploding:bool = false
 @export var explosion_scale_curve:Curve = preload("res://curves/explosion curves/scale.tres")
 var _scale_float:float = scale.length()
 @export var alpha_curve_speed:float = 0.25
+@export var initial_alpha:float = 1.0
+@export var final_alpha:float = 0.0
 @export var alpha_curve:Curve = preload("res://curves/explosion curves/alpha.tres")
 var knockback_force:float
 var damage:float
