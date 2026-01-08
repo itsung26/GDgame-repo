@@ -835,6 +835,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 [node name="player pistol" parent="Pivot/Camera3D/Guns/Pistol" index="1"]
 transform = Transform3D(0.999701, 0, -0.0244322, 0, 1, 0, 0.0244322, 0, 0.999701, -0.009, 0.004, 0.06)
 
+[node name="HCU base" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="2"]
+transform = Transform3D(0.248025, 0, -0.0313636, 0, 0.25, 0, 0.0313636, 0, 0.248025, 0.13192, -0.156501, -0.307973)
+
+[node name="HCU cap" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="3"]
+transform = Transform3D(0.248025, 0, -0.0313636, 0, 0.25, 0, 0.0313636, 0, 0.248025, 0.13192, -0.156501, -0.307973)
+
 [node name="muzzle charge particles" parent="Pivot/Camera3D/Guns/Pistol/player pistol/barrel very end upper" index="1"]
 draw_pass_1 = SubResource("QuadMesh_ujl30")
 
@@ -846,6 +852,9 @@ surface_material_override/2 = SubResource("ShaderMaterial_dt7fs")
 
 [node name="back screen SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="20"]
 material_override = SubResource("ShaderMaterial_gl8cc")
+
+[node name="HCU emissive indicator SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="21"]
+transform = Transform3D(0.248025, 0, -0.0313636, 0, 0.25, 0, 0.0313636, 0, 0.248025, 0.13192, -0.156501, -0.307973)
 
 [node name="powercell SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="23"]
 material_override = SubResource("ShaderMaterial_dt7fs")

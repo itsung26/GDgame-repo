@@ -95,11 +95,10 @@ skeleton = NodePath("../MeshInstance3D")
 [node name="explosionSpawnPos" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.589177, 0)
 
-[node name="Player" parent="." instance=ExtResource("3_e0515")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.6111)
-Godmode = true
-
 [node name="grapple_rope_meshGen" parent="." instance=ExtResource("4_h86ws")]
+
+[node name="Player" parent="." instance=ExtResource("3_e0515")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.2471)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 4

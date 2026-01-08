@@ -17,17 +17,25 @@ const BULLET_IMPACT_PARTICLE_SCENE_2:PackedScene = preload("res://scenes/bullet_
 @onready var muzzle_charge_light: OmniLight3D = $"player pistol/barrel very end upper/muzzle charge light"
 @onready var barrel_end_cap_shader: MeshInstance3D = $"player pistol/barrel end cap SHADER"
 @onready var barrel_heat_shader:ShaderMaterial = barrel_end_cap_shader.material_override
+@onready var muzzle_charge_face_quad: MeshInstance3D = $"player pistol/barrel very end upper/muzzle charge face quad"
+@onready var muzzle_charge_animator: AnimationPlayer = $"player pistol/barrel very end upper/muzzle charge animator"
+@onready var muzzle_charge_animator_2: AnimationPlayer = $"player pistol/barrel very end upper/muzzle charge animator 2"
+@onready var muzzle_charge_animator_3: AnimationPlayer = $"player pistol/barrel very end upper/muzzle charge animator 3"
 
 @export var bullet_trail_color:Color = Color.GOLD
 @export var muzzle_origin:Marker3D
 @export var bullet_raycast:RayCast3D
 var charge_visuals_enabled:bool = false:
 	set = set_charge_visuals
+var special_charge:float = 0.0
+@export var special_charge_speed:float = 1.0
+var barrel_tip_shader_value_min:float = 0.0
+var barrel_tip_shader_value_max:float = 6.473
 
 @export_group("debug")
 @export var muzzle_charge_light_max_energy:float = 8.33
-@export var muzzle_charge_light_increase_speed:float = 0.05
-@export var muzzle_charge_light_decrease_speed:float = 0.1
+@export var muzzle_charge_light_increase_speed:float = 0.075
+@export var muzzle_charge_light_decrease_speed:float = 12.0
 
 enum charging_states{IDLE, CHARGING, CHARGED}
 var charging_state:charging_states = charging_states.IDLE:
@@ -40,11 +48,26 @@ func set_charging_state(new_charging_state:charging_states):
 	# Prevent same-state switching.
 	if previous_charging_state == new_charging_state:
 		return
-		
+	
+	# CHARGING to and from
 	if new_charging_state == charging_states.CHARGING:
 		set_charge_visuals(true)
+		muzzle_charge_animator_2.play("fully charged")
 	if previous_charging_state == charging_states.CHARGING:
 		set_charge_visuals(false)
+		muzzle_charge_animator_2.pause()
+	
+	# CHARGED to and from
+	if new_charging_state == charging_states.CHARGED:
+		muzzle_charge_face_quad.visible = true
+	if previous_charging_state == charging_states.CHARGED:
+		muzzle_charge_face_quad.visible = false
+	
+	# IDLE to and from
+	if new_charging_state == charging_states.IDLE:
+		pass
+	if previous_charging_state == charging_states.IDLE:
+		pass
 
 func set_charge_visuals(new_charge_visuals_enabled_state:bool) -> void:
 	var previous_charge_visuals_enabled_state:bool = charge_visuals_enabled
@@ -56,12 +79,28 @@ func set_charge_visuals(new_charge_visuals_enabled_state:bool) -> void:
 		muzzle_charge_particles.emitting = false
 
 func _process(delta: float) -> void:
-	if charge_visuals_enabled:
-		muzzle_charge_light.light_energy = lerpf(muzzle_charge_light.light_energy, muzzle_charge_light_max_energy, muzzle_charge_light_increase_speed * delta)
-		barrel_heat_shader.set_shader_parameter("emission_strength", lerpf(barrel_heat_shader.get_shader_parameter("emission_strength"), 6.473, 0.01 * delta))
-	elif not charge_visuals_enabled:
-		muzzle_charge_light.light_energy = lerpf(muzzle_charge_light.light_energy, 0.0, muzzle_charge_light_decrease_speed * delta)
-		barrel_heat_shader.set_shader_parameter("emission_strength", lerpf(barrel_heat_shader.get_shader_parameter("emission_strength"), 0, 0.01 * delta))
+	Debug.log("charge: " + str(special_charge))
+	Debug.log("state: " + str(charging_states.keys()[charging_state]))
+	
+	# Key the visual to the charage.
+	barrel_heat_shader.set_shader_parameter("emission_strength", special_charge * .06473)
+	
+	# Check if the CHARGED state should be entered.
+	if special_charge == 100.0:
+		set_charging_state(charging_states.CHARGED)
+	
+	match charging_state:
+		charging_states.CHARGING:
+			special_charge = move_toward(special_charge, 100.0, special_charge_speed * delta)
+			special_charge = clampf(special_charge, 0.0, 100.0)
+		
+		charging_states.IDLE:
+			special_charge = 0.0
+			muzzle_charge_animator_2.stop()
+		
+		charging_states.CHARGED:
+			muzzle_charge_animator_2.play("fully charged")
+
 
 func _onEquip():
 	pass
@@ -76,6 +115,9 @@ func _special():
 
 func _specialRelease():
 	if charging_state == charging_states.CHARGING:
+		set_charging_state(charging_states.IDLE)
+	elif charging_state == charging_states.CHARGED:
+		fireSpecial()
 		set_charging_state(charging_states.IDLE)
 
 func _reload():
@@ -109,3 +151,9 @@ func firePistol() -> void:
 		var bullet_impact_particle_2 = BULLET_IMPACT_PARTICLE_SCENE_2.instantiate()
 		get_tree().current_scene.add_child(bullet_impact_particle_2)
 		bullet_impact_particle_2.setup(hit_pos, hit_surface_normal, 1.5)
+		
+## Does the special fire action (a charge shot)
+func fireSpecial() -> void:
+	Debug.log("ddd")
+		
+		

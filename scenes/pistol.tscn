@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://csatdjhfoaqcw"]
+[gd_scene load_steps=38 format=3 uid="uid://csatdjhfoaqcw"]
 
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/pistol.gd" id="1_buff3"]
 [ext_resource type="PackedScene" uid="uid://q1wl2i8b8vlt" path="res://assets/meshes/player pistol/player pistol.blend" id="2_buff3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://1dl8rlbnb2a6" path="res://assets/meshes/player pistol/heat sink heat.tres" id="3_4hq71"]
 [ext_resource type="Material" uid="uid://50q5j31ai2d3" path="res://assets/meshes/player pistol/glowing red material.tres" id="3_kvtwg"]
 [ext_resource type="Material" uid="uid://ibk18lq25g4d" path="res://assets/meshes/player pistol/simple metallic.tres" id="4_lfdsj"]
+[ext_resource type="Texture2D" uid="uid://bqqadb7cemav6" path="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/34.png" id="5_wvp02"]
 [ext_resource type="Material" uid="uid://cyk62iasrpppl" path="res://assets/meshes/player pistol/power cell shader material.tres" id="6_88qyl"]
 [ext_resource type="Material" uid="uid://7kin3vti4ce0" path="res://assets/meshes/player pistol/scratched glass shader material.tres" id="7_1r6mc"]
 [ext_resource type="PackedScene" uid="uid://vswt7a1tma4k" path="res://scenes/pistol_display_screen.tscn" id="8_4w7x2"]
@@ -33,6 +34,21 @@ albedo_color = Color(1, 1, 0.156863, 0.298039)
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_wvp02")
 size = Vector2(0.053, 0.154)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b4lmj"]
+transparency = 1
+albedo_color = Color(1, 1, 0, 1)
+albedo_texture = ExtResource("5_wvp02")
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 0.35
+texture_filter = 2
+disable_receive_shadows = true
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_b4lmj"]
+material = SubResource("StandardMaterial3D_b4lmj")
+size = Vector2(0.753, 0.378)
 
 [sub_resource type="Animation" id="Animation_wvp02"]
 length = 0.001
@@ -94,21 +110,6 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0)
 }
 
-[sub_resource type="Animation" id="Animation_eun5i"]
-resource_name = "charging"
-length = 1.6395
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../HCU cap:rotation:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 12.566, -0.797967, -12.6154, 0.261591, -1.00083),
-"times": PackedFloat32Array(0, 1.6395)
-}
-
 [sub_resource type="Animation" id="Animation_lfdsj"]
 resource_name = "fully charged flashing"
 length = 0.1649
@@ -141,8 +142,22 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wvp02"]
 _data = {
 &"RESET": SubResource("Animation_wvp02"),
-&"charging": SubResource("Animation_eun5i"),
 &"fully charged flashing": SubResource("Animation_lfdsj")
+}
+
+[sub_resource type="Animation" id="Animation_rfdf8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HCU cap:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.125786, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_b4lmj"]
@@ -162,25 +177,72 @@ tracks/0/keys = {
 "values": [Vector3(0, -0.125786, 0), Vector3(6.28319, -0.125664, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_rfdf8"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jbybm"]
+_data = {
+&"RESET": SubResource("Animation_rfdf8"),
+&"fully charged": SubResource("Animation_b4lmj")
+}
+
+[sub_resource type="Animation" id="Animation_jbybm"]
+resource_name = "face quad actions on charge"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("muzzle charge face quad:mesh:material:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0845868, 0.23292, 0.366543, 0.457259),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.35, 1.0, 0.47, 0.83, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("muzzle charge face quad:mesh:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.093168, 0.152011, 0.242727, 0.334669, 0.429063),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.753, 0.378), Vector2(0.928, 0.378), Vector2(0.688, 0.378), Vector2(1.33, 0.378), Vector2(1.014, 0.378), Vector2(0.99, 0.378)]
+}
+
+[sub_resource type="Animation" id="Animation_7nha5"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../HCU cap:rotation")
+tracks/0/path = NodePath("muzzle charge face quad:mesh:material:emission_energy_multiplier")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, -0.125786, 0)]
+"values": [0.35]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("muzzle charge face quad:mesh:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.753, 0.378)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jbybm"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hci6h"]
 _data = {
-&"RESET": SubResource("Animation_rfdf8"),
-&"fully charged": SubResource("Animation_b4lmj")
+&"RESET": SubResource("Animation_7nha5"),
+&"face quad actions on charge": SubResource("Animation_jbybm")
 }
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_4w7x2"]
@@ -290,8 +352,7 @@ editor_description = "ddd"
 script = ExtResource("1_buff3")
 muzzle_origin = NodePath("player pistol/barrel very end upper/muzzle")
 bullet_raycast = NodePath("pistolRayCast")
-muzzle_charge_light_increase_speed = 0.075
-muzzle_charge_light_decrease_speed = 12.0
+special_charge_speed = 60.0
 ammo = 25
 magsize = 25
 damage_min = 1.0
@@ -315,7 +376,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5000)
 transform = Transform3D(0.248025, 0, -0.0313636, 0, 0.25, 0, 0.0313636, 0, 0.248025, 0.13192, -0.156501, -0.307973)
 
 [node name="HCU cap" parent="player pistol" index="3"]
-transform = Transform3D(0.248025, 0, -0.0313637, 0, 0.25, 0, 0.0313637, 0, 0.248025, 0.13192, -0.156501, -0.307973)
+transform = Transform3D(0.248025, 0, -0.0313636, 0, 0.25, 0, 0.0313636, 0, 0.248025, 0.13192, -0.156501, -0.307973)
 surface_material_override/1 = ExtResource("3_kvtwg")
 
 [node name="front barrel part wire connection" parent="player pistol" index="4"]
@@ -336,33 +397,47 @@ transform_align = 2
 process_material = SubResource("ParticleProcessMaterial_lfdsj")
 draw_pass_1 = SubResource("QuadMesh_eun5i")
 
-[node name="GPUParticlesAttractorSphere3D" type="GPUParticlesAttractorSphere3D" parent="player pistol/barrel very end upper" index="2" groups=["muzzle charge related"]]
+[node name="muzzle charge face quad" type="MeshInstance3D" parent="player pistol/barrel very end upper" index="2" groups=["muzzle charge related"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.96046e-08, 0, -0.133178)
+visible = false
+mesh = SubResource("QuadMesh_b4lmj")
+skeleton = NodePath("")
+
+[node name="GPUParticlesAttractorSphere3D" type="GPUParticlesAttractorSphere3D" parent="player pistol/barrel very end upper" index="3" groups=["muzzle charge related"]]
 layers = 2
 strength = 2.61
 attenuation = 1e-05
+cull_mask = 4294426623
 radius = 0.569305
 
-[node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="player pistol/barrel very end upper" index="3" groups=["muzzle charge related"]]
+[node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="player pistol/barrel very end upper" index="4" groups=["muzzle charge related"]]
 layers = 2
+cull_mask = 4294426623
 radius = 0.124342
 
-[node name="muzzle charge light" type="OmniLight3D" parent="player pistol/barrel very end upper" index="4" groups=["muzzle charge related"]]
+[node name="muzzle charge light" type="OmniLight3D" parent="player pistol/barrel very end upper" index="5" groups=["muzzle charge related"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.23869e-10, 0, -0.0472169)
 light_color = Color(1, 0.870588, 0.14902, 1)
 light_energy = 0.0
 omni_range = 1.7539
 omni_attenuation = 2.0
 
-[node name="muzzle charge animator" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="5" groups=["muzzle charge related"]]
+[node name="muzzle charge animator" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="6" groups=["muzzle charge related"]]
 libraries = {
 &"": SubResource("AnimationLibrary_wvp02")
 }
 
-[node name="muzzle charge animator 2" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="6" groups=["muzzle charge related"]]
+[node name="muzzle charge animator 2" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="7" groups=["muzzle charge related"]]
 libraries = {
 &"": SubResource("AnimationLibrary_jbybm")
 }
 speed_scale = 1.387
+
+[node name="muzzle charge animator 3" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="8" groups=["muzzle charge related"]]
+libraries = {
+&"": SubResource("AnimationLibrary_hci6h")
+}
+autoplay = "face quad actions on charge"
 
 [node name="wire clamps" parent="player pistol" index="14"]
 surface_material_override/0 = ExtResource("4_lfdsj")
