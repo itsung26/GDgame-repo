@@ -57,11 +57,11 @@ func set_charge_visuals(new_charge_visuals_enabled_state:bool) -> void:
 
 func _process(delta: float) -> void:
 	if charge_visuals_enabled:
-		muzzle_charge_light.light_energy = lerpf(muzzle_charge_light.light_energy, muzzle_charge_light_max_energy, muzzle_charge_light_increase_speed)
-		barrel_heat_shader.set_shader_parameter("emission_strength", lerpf(barrel_heat_shader.get_shader_parameter("emission_strength"), 6.473, 0.01))
+		muzzle_charge_light.light_energy = lerpf(muzzle_charge_light.light_energy, muzzle_charge_light_max_energy, muzzle_charge_light_increase_speed * delta)
+		barrel_heat_shader.set_shader_parameter("emission_strength", lerpf(barrel_heat_shader.get_shader_parameter("emission_strength"), 6.473, 0.01 * delta))
 	elif not charge_visuals_enabled:
-		muzzle_charge_light.light_energy = lerpf(muzzle_charge_light.light_energy, 0.0, muzzle_charge_light_decrease_speed)
-		barrel_heat_shader.set_shader_parameter("emission_strength", lerpf(barrel_heat_shader.get_shader_parameter("emission_strength"), 0, 0.01))
+		muzzle_charge_light.light_energy = lerpf(muzzle_charge_light.light_energy, 0.0, muzzle_charge_light_decrease_speed * delta)
+		barrel_heat_shader.set_shader_parameter("emission_strength", lerpf(barrel_heat_shader.get_shader_parameter("emission_strength"), 0, 0.01 * delta))
 
 func _onEquip():
 	pass

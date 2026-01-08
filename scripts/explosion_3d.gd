@@ -11,9 +11,11 @@ extends Node3D
 @onready var sphere_material:StandardMaterial3D = sphere.get_active_material(0)
 @onready var rocks_1: GPUParticles3D = $Rocks1
 @onready var rocks_1_trails: GPUParticles3D = $Rocks1Trails
-@onready var collision_shape_3d: CollisionShape3D = $BodyInfluencer/CollisionShape3D
-@onready var deletion_timer: Timer = $"deletion timer"
+@onready var collision_deactivation_timer: Timer = $CollisionDeactivationTimer
+@onready var queue_free_timer: Timer = $QueueFreeTimer
+@onready var bodyinfluencercollider: CollisionShape3D = $BodyInfluencer/bodyinfluencercollider
 
+@export_category("Explosion Parameters")
 @export var explosion_expand_speed:float = 0.25  # how fast to traverse the curve (0..1 per second)
 @export var explosion_initial_radius:float = 1 # The initial radius of the explosion
 @export var explosion_final_radius:float = 5 # The final radius of the explosion
@@ -35,16 +37,21 @@ var _can_apply_scale: bool = false
 var _player:Player = Helper.getFirstInScene("Player")
 @export var despawn_time:float = 7.5
 
+@export_category("Time parameters")
+@export var time_before_deactivation:float = 1.0 ## How long before the hitbox for damage + force is disabled
+@export var time_before_deletion:float = 5.0 ## How long before the explosion is freed from memory
+
 ## Camera shake exponential dropoff factor. 0.1 is medium dropoff
 @export var cam_shake_exponential_dropoff:float = 0.1
 
 func _init() -> void:
 	_scale_float = 0.00001
 
+func _ready() -> void:
+	collision_deactivation_timer.start(time_before_deactivation)
+	queue_free_timer.start(time_before_deletion)
+
 func _process(delta: float) -> void:
-	# queue for deletion if curves have stopped sampling. (corresponds to the explosion having fully ended.)
-	if getCurvesStoppedSampling():
-		collision_shape_3d.disabled = true
 	
 	if not Engine.is_editor_hint():
 		# Apply current uniform scale
@@ -54,7 +61,9 @@ func _process(delta: float) -> void:
 		# Scale over life
 		if explosion_scale_curve != null and explosion_scale_curve.get_point_count() > 0:
 			_elapsed = clamp(_elapsed + delta * explosion_expand_speed, 0.0, explosion_scale_curve.max_domain)
-			_scale_float = explosion_scale_curve.sample_baked(_elapsed)
+			var curve_value: float = explosion_scale_curve.sample_baked(_elapsed)
+			# Lerp between initial and final radius using normalized curve value
+			_scale_float = lerpf(explosion_initial_radius, explosion_final_radius, curve_value)
 			if _elapsed >= explosion_scale_curve.max_domain:
 				_exploding = false
 
@@ -62,7 +71,9 @@ func _process(delta: float) -> void:
 		# Alpha over life (independent curve)
 		if alpha_curve != null and alpha_curve.get_point_count() > 0:
 			_alpha_elapsed = clamp(_alpha_elapsed + delta * max(alpha_curve_speed, 0.0001), 0.0, alpha_curve.max_domain)
-			var a: float = alpha_curve.sample_baked(_alpha_elapsed)
+			var curve_value: float = alpha_curve.sample_baked(_alpha_elapsed)
+			# Lerp between initial and final alpha using normalized curve value
+			var a: float = lerpf(initial_alpha, final_alpha, curve_value)
 			if _alpha_elapsed >= alpha_curve.max_domain:
 				_fading_alpha = false
 			# Ensure material uses alpha blending
@@ -84,6 +95,8 @@ color:Color = Color.GRAY, emission_strength:float = 0.0, unshaded:bool = false) 
 		_fading_alpha = true
 		_elapsed = 0.0
 		_alpha_elapsed = 0.0
+		# Initialize scale to initial radius
+		_scale_float = explosion_initial_radius
 		self.knockback_force = knockback_force
 		self.damage = damage
 		self.screen_shake_duration = screen_shake_duration
@@ -92,6 +105,8 @@ color:Color = Color.GRAY, emission_strength:float = 0.0, unshaded:bool = false) 
 		# Enable alpha blending so alpha_curve affects visibility
 		# set a bunch of material parameters
 		sphere_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		# Set initial alpha
+		color.a = initial_alpha
 		sphere_material.albedo_color = color
 		sphere_material.emission = color
 		sphere_material.emission_energy_multiplier = emission_strength
@@ -104,8 +119,8 @@ color:Color = Color.GRAY, emission_strength:float = 0.0, unshaded:bool = false) 
 			self.explosion_scale_curve = explosion_scale_curve
 		if alpha_curve != null:
 			self.alpha_curve = alpha_curve
-		deletion_timer.start(despawn_time)
-			
+
+
 		# Shake screen by amount based on distance from explosion
 		# Create an exponential relationship for camera shake dropoff
 		var distance_to_player:float = (_player.camera_3d.global_position - global_position).length()
@@ -174,6 +189,10 @@ func _on_body_influencer_enemy_entered(enemy: Enemy) -> void:
 		
 	enemy.damageEnemy(damage, Enemy.damage_types.EXPLOSIVE)
 
-# Delete after timer runs out.
-func _on_deletion_timer_timeout() -> void:
+
+func _on_collision_deactivation_timer_timeout() -> void:
+	bodyinfluencercollider.disabled = true
+
+
+func _on_queue_free_timer_timeout() -> void:
 	queue_free()

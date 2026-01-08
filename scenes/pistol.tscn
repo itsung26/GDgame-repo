@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://csatdjhfoaqcw"]
+[gd_scene load_steps=33 format=3 uid="uid://csatdjhfoaqcw"]
 
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/pistol.gd" id="1_buff3"]
 [ext_resource type="PackedScene" uid="uid://q1wl2i8b8vlt" path="res://assets/meshes/player pistol/player pistol.blend" id="2_buff3"]
@@ -60,6 +60,54 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 0, 0, 1)]
 }
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../HCU cap:rotation:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../HCU cap:rotation:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-0.125786, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../HCU cap:rotation:z")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_eun5i"]
+resource_name = "charging"
+length = 1.6395
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HCU cap:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 12.566, -0.797967, -12.6154, 0.261591, -1.00083),
+"times": PackedFloat32Array(0, 1.6395)
+}
 
 [sub_resource type="Animation" id="Animation_lfdsj"]
 resource_name = "fully charged flashing"
@@ -93,7 +141,46 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wvp02"]
 _data = {
 &"RESET": SubResource("Animation_wvp02"),
+&"charging": SubResource("Animation_eun5i"),
 &"fully charged flashing": SubResource("Animation_lfdsj")
+}
+
+[sub_resource type="Animation" id="Animation_b4lmj"]
+resource_name = "fully charged"
+length = 0.595
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HCU cap:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.595),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.125786, 0), Vector3(6.28319, -0.125664, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rfdf8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HCU cap:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.125786, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jbybm"]
+_data = {
+&"RESET": SubResource("Animation_rfdf8"),
+&"fully charged": SubResource("Animation_b4lmj")
 }
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_4w7x2"]
@@ -203,6 +290,8 @@ editor_description = "ddd"
 script = ExtResource("1_buff3")
 muzzle_origin = NodePath("player pistol/barrel very end upper/muzzle")
 bullet_raycast = NodePath("pistolRayCast")
+muzzle_charge_light_increase_speed = 0.075
+muzzle_charge_light_decrease_speed = 12.0
 ammo = 25
 magsize = 25
 damage_min = 1.0
@@ -222,7 +311,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5000)
 
 [node name="player pistol" parent="." instance=ExtResource("2_buff3")]
 
+[node name="HCU base" parent="player pistol" index="2"]
+transform = Transform3D(0.248025, 0, -0.0313636, 0, 0.25, 0, 0.0313636, 0, 0.248025, 0.13192, -0.156501, -0.307973)
+
 [node name="HCU cap" parent="player pistol" index="3"]
+transform = Transform3D(0.248025, 0, -0.0313637, 0, 0.25, 0, 0.0313637, 0, 0.248025, 0.13192, -0.156501, -0.307973)
 surface_material_override/1 = ExtResource("3_kvtwg")
 
 [node name="front barrel part wire connection" parent="player pistol" index="4"]
@@ -265,6 +358,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_wvp02")
 }
 
+[node name="muzzle charge animator 2" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="6" groups=["muzzle charge related"]]
+libraries = {
+&"": SubResource("AnimationLibrary_jbybm")
+}
+speed_scale = 1.387
+
 [node name="wire clamps" parent="player pistol" index="14"]
 surface_material_override/0 = ExtResource("4_lfdsj")
 
@@ -284,6 +383,7 @@ material_override = ExtResource("3_4hq71")
 material_override = SubResource("ShaderMaterial_eun5i")
 
 [node name="HCU emissive indicator SHADER" parent="player pistol" index="21"]
+transform = Transform3D(0.248025, 0, -0.0313636, 0, 0.25, 0, 0.0313636, 0, 0.248025, 0.13192, -0.156501, -0.307973)
 surface_material_override/0 = ExtResource("3_kvtwg")
 
 [node name="barrel end cap SHADER" parent="player pistol" index="22"]
