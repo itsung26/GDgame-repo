@@ -189,6 +189,14 @@ func _on_body_influencer_enemy_entered(enemy: Enemy) -> void:
 		
 	enemy.damageEnemy(damage, Enemy.damage_types.EXPLOSIVE)
 
+func _on_body_influencer_rigidbody_entered(rb: RigidBody3D) -> void:
+	var center_point:Vector3 = global_position # get the center of the sphere
+	var dir_out:Vector3 = (rb.global_position - center_point).normalized() # get vector to projectile away from center
+	var force_to_rigidbody:float = 10.0 # to be changed...?
+	
+	if rb.is_in_group("enviroment rigidbodies"):
+		rb.linear_velocity = Vector3.ZERO
+		rb.apply_impulse(dir_out * force_to_rigidbody)
 
 func _on_collision_deactivation_timer_timeout() -> void:
 	bodyinfluencercollider.disabled = true

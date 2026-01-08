@@ -79,8 +79,8 @@ func set_charge_visuals(new_charge_visuals_enabled_state:bool) -> void:
 		muzzle_charge_particles.emitting = false
 
 func _process(delta: float) -> void:
-	Debug.log("charge: " + str(special_charge))
-	Debug.log("state: " + str(charging_states.keys()[charging_state]))
+	#Debug.log("charge: " + str(special_charge))
+	#Debug.log("state: " + str(charging_states.keys()[charging_state]))
 	
 	# Key the visual to the charage.
 	barrel_heat_shader.set_shader_parameter("emission_strength", special_charge * .06473)
@@ -131,11 +131,12 @@ func firePistol() -> void:
 	var hit_body:Node3D = bullet_raycast.get_collider()
 	var hit_surface_normal:Vector3 = bullet_raycast.get_collision_normal()
 	
-	# add a bullet trail and pass position data into it
+	# add a bullet trail and pass position data to it
 	if hit_body == null:
 		var bullet_trail:BulletTrail = BULLET_TRAIL_SCENE.instantiate()
 		get_tree().current_scene.add_child(bullet_trail)
 		bullet_trail.setup(origin_pos, pistol_ray_cast_target_pos.global_position, bullet_trail_color)
+		return
 	else:
 		var bullet_trail:BulletTrail = BULLET_TRAIL_SCENE.instantiate()
 		get_tree().current_scene.add_child(bullet_trail)
@@ -150,7 +151,7 @@ func firePistol() -> void:
 		# go to hit point and look at surface normal
 		var bullet_impact_particle_2 = BULLET_IMPACT_PARTICLE_SCENE_2.instantiate()
 		get_tree().current_scene.add_child(bullet_impact_particle_2)
-		bullet_impact_particle_2.setup(hit_pos, hit_surface_normal, 1.5)
+		bullet_impact_particle_2.setup(hit_pos, hit_surface_normal)
 		
 ## Does the special fire action (a charge shot)
 func fireSpecial() -> void:

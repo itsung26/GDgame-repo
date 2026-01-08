@@ -7,7 +7,8 @@ extends Node
 ## Gets a cleaned-up version of the current stack trace and returns it as a concatenated
 ## string.
 func getStackSlim() -> String:
-	var lesser_stack:Dictionary = get_stack()[1]
+	var stack:Array[Dictionary] = get_stack()
+	var lesser_stack:Dictionary = stack.back()
 	var r:String = "source: " + lesser_stack["source"] + " function: " + lesser_stack["function"] + " line: " + str(lesser_stack["line"])
 	return r
 

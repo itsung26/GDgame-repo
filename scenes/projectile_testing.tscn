@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=28 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
@@ -85,9 +85,6 @@ data = PackedVector3Array(3.555, 1.3625, 3.89, 3.555, -1.3625, 3.89, -3.555, -1.
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rj2dv"]
 size = Vector3(0.942871, 0.998049, 0.733385)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yvgsm"]
-bounce = 0.37
 
 [node name="ProjectileTesting" type="Node3D"]
 script = ExtResource("1_7ksdt")
@@ -300,7 +297,6 @@ transform = Transform3D(-0.178917, 6.45466e-08, -5.05911e-16, -6.45466e-08, -0.1
 
 [node name="BigSword" parent="." instance=ExtResource("10_r4hxy")]
 transform = Transform3D(0.879408, -0.224551, -0.419785, 0.120541, 0.958065, -0.259965, 0.460556, 0.178014, 0.869597, -6.30496, 13.2578, 16.2473)
-physics_material_override = SubResource("PhysicsMaterial_yvgsm")
 freeze = false
 
 [node name="BigSword2" parent="." instance=ExtResource("10_r4hxy")]
