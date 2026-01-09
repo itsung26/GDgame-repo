@@ -2,20 +2,20 @@ class_name Skitterbomb
 extends Enemy
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
+@onready var nav_target_point:Vector3
+@onready var nav_next_point:Vector3
 
 func _ready() -> void:
-	pass
+	navigation_agent_3d.target_position = player.global_position
+	nav_target_point = navigation_agent_3d.target_position
 
 func _physics_process(delta: float) -> void:
-	pass
 	
 	# Handle gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
-func _setBehaviorEnabled(new_behavior_enabled_state:bool):
-	var previous_behavior_enabled_state:bool = behavior_enabled
-	behavior_enabled = new_behavior_enabled_state
+		velocity.x = lerpf(velocity.x, 0.0, slowInAirFactor)
+		velocity.z = lerpf(velocity.z, 0.0, slowInAirFactor)
 
 func _killEnemy():
 	Debug.log("enemy is not able to die. Health: " + str(getHealth()))

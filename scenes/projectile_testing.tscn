@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=27 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://d1gxfhjv8330d" path="res://scenes/entities/stationary_cannon.tscn" id="5_q8du6"]
 [ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/enemy_filth.tscn" id="7_wl3f4"]
 [ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube_boost.tscn" id="8_wl3f4"]
-[ext_resource type="PackedScene" uid="uid://ci5gra1mmm4og" path="res://scenes/big_sword.tscn" id="10_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://da0o4xn0tk2l8" path="res://scenes/skitterbomb.tscn" id="10_yvgsm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_61yce"]
@@ -86,26 +85,6 @@ data = PackedVector3Array(3.555, 1.3625, 3.89, 3.555, -1.3625, 3.89, -3.555, -1.
 [sub_resource type="BoxShape3D" id="BoxShape3D_rj2dv"]
 size = Vector3(0.942871, 0.998049, 0.733385)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yvgsm"]
-resource_local_to_scene = true
-bounce = 0.37
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r4hxy"]
-resource_local_to_scene = true
-bounce = 0.37
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5138l"]
-resource_local_to_scene = true
-bounce = 0.37
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_488l3"]
-resource_local_to_scene = true
-bounce = 0.37
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_p8vjj"]
-resource_local_to_scene = true
-bounce = 0.37
-
 [node name="ProjectileTesting" type="Node3D"]
 script = ExtResource("1_7ksdt")
 
@@ -174,6 +153,7 @@ shape = SubResource("ConcavePolygonShape3D_s3yq3")
 [node name="StationaryCannon" parent="." instance=ExtResource("5_q8du6")]
 transform = Transform3D(0, 1, 0, 0.374914, 0, -0.92706, -0.92706, 0, -0.374914, -10.9586, 1.45712, 6.62664)
 automatic_fire = true
+SPEED = 3.0
 
 [node name="EnemySpawnHandler" type="Node" parent="."]
 script = ExtResource("4_s3yq3")
@@ -208,6 +188,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0526, 4.03574, 16.2227)
 
 [node name="enemy_filth" parent="." instance=ExtResource("7_wl3f4")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.44939, 0, 1.5683)
+SPEED = 3.0
 stunned = true
 
 [node name="Skitterbomb" parent="." instance=ExtResource("10_yvgsm")]
@@ -314,27 +295,6 @@ transform = Transform3D(3.69023e-07, 1, 1.84428e-14, -1, 4.28627e-07, -2.40991e-
 
 [node name="wire connect" parent="Skitterbomb/Skitterbomb2/Armature/Skeleton3D" index="33"]
 transform = Transform3D(-0.178917, 6.45466e-08, -5.05911e-16, -6.45466e-08, -0.178917, -3.08181e-08, -1.66632e-15, -3.08181e-08, 0.178917, 1.82782, -3.73153, 0.289927)
-
-[node name="BigSword" parent="." instance=ExtResource("10_r4hxy")]
-transform = Transform3D(0.879408, -0.224551, -0.419785, 0.120541, 0.958065, -0.259965, 0.460556, 0.178014, 0.869597, -6.30496, 13.2578, 16.2473)
-physics_material_override = SubResource("PhysicsMaterial_yvgsm")
-freeze = false
-
-[node name="BigSword2" parent="." instance=ExtResource("10_r4hxy")]
-transform = Transform3D(0.866583, 0.0544752, 0.49605, -0.488485, 0.295889, 0.820873, -0.102059, -0.953668, 0.283023, -9.92432, 12.5285, 14.1441)
-physics_material_override = SubResource("PhysicsMaterial_r4hxy")
-
-[node name="BigSword3" parent="." instance=ExtResource("10_r4hxy")]
-transform = Transform3D(0.983947, 0.15406, -0.0900792, 0.146646, -0.410321, 0.900073, 0.101704, -0.898834, -0.426326, -7.61679, 14.0739, 15.7643)
-physics_material_override = SubResource("PhysicsMaterial_5138l")
-
-[node name="BigSword4" parent="." instance=ExtResource("10_r4hxy")]
-transform = Transform3D(0.983947, 0.15406, -0.0900792, 0.146646, -0.410321, 0.900073, 0.101704, -0.898834, -0.426326, -6.68162, 14.0586, 13.5771)
-physics_material_override = SubResource("PhysicsMaterial_488l3")
-
-[node name="BigSword5" parent="." instance=ExtResource("10_r4hxy")]
-transform = Transform3D(0.983947, 0.15406, -0.0900792, 0.146646, -0.410321, 0.900073, 0.101704, -0.898834, -0.426326, -6.68162, 11.683, 15.1864)
-physics_material_override = SubResource("PhysicsMaterial_p8vjj")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 

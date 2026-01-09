@@ -468,7 +468,8 @@ material_override = ExtResource("3_1e3ry")
 material_override = ExtResource("6_88qyl")
 material_overlay = ExtResource("7_1r6mc")
 
-[node name="power cell sparks" type="GPUParticles3D" parent="player pistol/powercell SHADER" index="0"]
+[node name="power cell sparks" type="GPUParticles3D" parent="player pistol/powercell SHADER" index="0" groups=["muzzle charge related"]]
+emitting = false
 amount = 16
 lifetime = 0.5
 local_coords = true

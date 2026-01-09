@@ -24,19 +24,15 @@ func _process(delta: float) -> void:
 
 func _onEquip() -> void:
 	equipped.emit()
-	print("non-overidden _onEquipt() called.")
 
 func _fire() -> void:
 	fired.emit()
-	print("non-overidden _fire() called.")
 	
 func _special() -> void:
 	special_triggered.emit()
-	print("non-overidden _special() called.")
 
 func _specialRelease() -> void:
 	special_released.emit()
 
 func _reload() -> void:
 	reloaded.emit()
-	print("non-overidden _reload() called.")

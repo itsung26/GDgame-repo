@@ -13,8 +13,9 @@ config_version=5
 config/name="project"
 config/version="PRE-ALPHA"
 config/tags=PackedStringArray("alpha", "main")
-run/main_scene="uid://dsjx62bojxnjd"
+run/main_scene="uid://ctkkc4v7jqox5"
 config/features=PackedStringArray("4.4", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [audio]
@@ -38,6 +39,7 @@ settings/addon_root_folder="res://addons/debug_draw_3d"
 [display]
 
 window/size/resizable=false
+window/vsync/vsync_mode=0
 
 [global_group]
 

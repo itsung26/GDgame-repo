@@ -16,9 +16,9 @@ var last_hit_damage_type:damage_types
 ## The actual health of the enemy. This is the primary thing modified.
 @export var HEALTH:float = 100.0
 ## If the enemy should expirience gravity or not
-@export var gravity_enabled = true
+@export var gravity_enabled:bool = true
 ## The XZ speed of the enemy
-@export var SPEED = 3
+@export var SPEED:float = 3
 ## The base weight class of the enemy. Heavy and up will result in the player being grappled to rather than from.
 @export var weight:weight_class = weight_class.LIGHT
 const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarker.tscn")
@@ -33,8 +33,7 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @export var grapple_offset:Vector3 = Vector3.ZERO
 ## Wether the behavior is allowed to run for the entity. If set to false, the entity
 ## should run in a "loop idle" state.
-@export var behavior_enabled:bool = true:
-	set = _setBehaviorEnabled
+@export var behavior_enabled:bool = true
 
 func _set(property: StringName, value: Variant) -> bool:
 	return false
@@ -100,10 +99,6 @@ func getPredictedPos(time:float) -> Vector3:
 	var a:Vector3 = velocity * time
 	var r:Vector3 = a + global_position
 	return r
-
-func _setBehaviorEnabled(new_behavior_enabled_state:bool):
-	var previous_behavior_enabled_state:bool = behavior_enabled
-	behavior_enabled = new_behavior_enabled_state
 
 func _ready() -> void:
 	_was_on_floor = is_on_floor()

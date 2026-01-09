@@ -626,10 +626,12 @@ func _physics_process(delta: float) -> void:
 func gunInputs(): # to be called in a method that can "hear" inputs
 	# switch weapon block==================================================================================
 	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states[0] and weapon_switch_input_enabled:
-		set_weapon_state(weapon_states[0])
+		if weapon_states[0] != null:
+			set_weapon_state(weapon_states[0]) # slot 1
 		
 	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states[1] and weapon_switch_input_enabled:
-		set_weapon_state(weapon_states[1])
+		if weapon_states[1] != null:
+			set_weapon_state(weapon_states[1]) # slot 2
 	
 	
 	# automatic fire block===================================================================================

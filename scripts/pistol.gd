@@ -21,6 +21,7 @@ const BULLET_IMPACT_PARTICLE_SCENE_2:PackedScene = preload("res://scenes/bullet_
 @onready var muzzle_charge_animator: AnimationPlayer = $"player pistol/barrel very end upper/muzzle charge animator"
 @onready var muzzle_charge_animator_2: AnimationPlayer = $"player pistol/barrel very end upper/muzzle charge animator 2"
 @onready var muzzle_charge_animator_3: AnimationPlayer = $"player pistol/barrel very end upper/muzzle charge animator 3"
+@onready var power_cell_sparks: GPUParticles3D = $"player pistol/powercell SHADER/power cell sparks"
 
 @export var bullet_trail_color:Color = Color.GOLD
 @export var muzzle_origin:Marker3D
@@ -60,8 +61,10 @@ func set_charging_state(new_charging_state:charging_states):
 	# CHARGED to and from
 	if new_charging_state == charging_states.CHARGED:
 		muzzle_charge_face_quad.visible = true
+		power_cell_sparks.emitting = true
 	if previous_charging_state == charging_states.CHARGED:
 		muzzle_charge_face_quad.visible = false
+		power_cell_sparks.emitting = false
 	
 	# IDLE to and from
 	if new_charging_state == charging_states.IDLE:
@@ -79,8 +82,8 @@ func set_charge_visuals(new_charge_visuals_enabled_state:bool) -> void:
 		muzzle_charge_particles.emitting = false
 
 func _process(delta: float) -> void:
-	Debug.log("charge: " + str(special_charge))
-	Debug.log("state: " + str(charging_states.keys()[charging_state]))
+	#Debug.log("charge: " + str(special_charge))
+	#Debug.log("state: " + str(charging_states.keys()[charging_state]))
 	
 	# Key the visual to the charage.
 	barrel_heat_shader.set_shader_parameter("emission_strength", special_charge * .06473)
@@ -103,17 +106,22 @@ func _process(delta: float) -> void:
 
 
 func _onEquip():
-	pass
+	super._onEquip()
 
 func _fire():
+	super._fire()
 	if charging_state == charging_states.IDLE:
 		firePistol()
+	elif charging_state == charging_states.CHARGED:
+		set_charging_state(charging_states.IDLE)
 	
 func _special():
+	super._special()
 	if charging_state == charging_states.IDLE:
 		set_charging_state(charging_states.CHARGING)
 
 func _specialRelease():
+	super._specialRelease()
 	if charging_state == charging_states.CHARGING:
 		set_charging_state(charging_states.IDLE)
 	elif charging_state == charging_states.CHARGED:
@@ -121,6 +129,7 @@ func _specialRelease():
 		set_charging_state(charging_states.IDLE)
 
 func _reload():
+	super._reload()
 	pass
 
 ## Does the actual firing, including damage and vfx.
