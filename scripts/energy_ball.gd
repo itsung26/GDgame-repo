@@ -40,17 +40,14 @@ func deleteBodyCollider() -> void:
 
 func spawnExplosions() -> void:
 	# instance the first part of the explosion (shockwave)
-	var explosion_3d:Explosion3D = explosion_3d_SCENE.instantiate()
-	get_tree().current_scene.add_child(explosion_3d)
-	#explosion_3d.setup(global_position, 0.0, explosion_shockwave_knockback, 0.66, 2.0,
-	#explosion_shockwave_color, 0.0, explosion_shockwave_curve, explosion_shockwave_alpha_curve, true)
+	var shockwave_explosion:Explosion3D = explosion_3d_SCENE.instantiate()
+	get_tree().current_scene.add_child(shockwave_explosion)
+	shockwave_explosion.setup_preset(global_position, shockwave_explosion.explosion_presets.SHOCKWAVE_SMALL)
 	
 	# instance the second part of the explosion (damage)
-	explosion_3d = explosion_3d_SCENE.instantiate()
-	get_tree().current_scene.add_child(explosion_3d)
-	#explosion_3d.setup(global_position, explosion_damaging_damage, 0.0,
-	#0.0, 0.0, explosion_damaging_color, 1.0, explosion_damaging_curve, explosion_damaging_alpha_curve,
-	#false)
+	var explosion_yellow:Explosion3D = explosion_3d_SCENE.instantiate()
+	get_tree().current_scene.add_child(explosion_yellow)
+	explosion_yellow.setup_preset(global_position, explosion_yellow.explosion_presets.YELLOW_SMALL)
 
 func _on_hit_player(player: Player) -> void:
 		player.damagePlayer(damage_to_player, "Melted by energy projectile")

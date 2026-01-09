@@ -79,8 +79,8 @@ func set_charge_visuals(new_charge_visuals_enabled_state:bool) -> void:
 		muzzle_charge_particles.emitting = false
 
 func _process(delta: float) -> void:
-	#Debug.log("charge: " + str(special_charge))
-	#Debug.log("state: " + str(charging_states.keys()[charging_state]))
+	Debug.log("charge: " + str(special_charge))
+	Debug.log("state: " + str(charging_states.keys()[charging_state]))
 	
 	# Key the visual to the charage.
 	barrel_heat_shader.set_shader_parameter("emission_strength", special_charge * .06473)
@@ -106,8 +106,8 @@ func _onEquip():
 	pass
 
 func _fire():
-	firePistol()
-	
+	if charging_state == charging_states.IDLE:
+		firePistol()
 	
 func _special():
 	if charging_state == charging_states.IDLE:

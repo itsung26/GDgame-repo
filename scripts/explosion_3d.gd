@@ -15,6 +15,11 @@ extends Node3D
 @onready var queue_free_timer: Timer = $QueueFreeTimer
 @onready var bodyinfluencercollider: CollisionShape3D = $BodyInfluencer/bodyinfluencercollider
 
+enum explosion_presets {
+	SHOCKWAVE_SMALL, YELLOW_SMALL, RED_SMALL,
+	SHOCKWAVE_MEDIUM, YELLOW_MEDIUM, RED_MEDIUM
+}
+
 @export_category("Explosion Parameters")
 @export var explosion_expand_speed:float = 0.25  # how fast to traverse the curve (0..1 per second)
 @export var explosion_initial_radius:float = 1 # The initial radius of the explosion
@@ -36,6 +41,11 @@ var _alpha_elapsed: float = 0.0
 var _can_apply_scale: bool = false
 var _player:Player = Helper.getFirstInScene("Player")
 @export var despawn_time:float = 7.5
+
+@export_category("Explosion preset parameters")
+@export var yellow_explosion_damage:float = 24.0
+@export var shockwave_explosion_knockback:float = 15.0
+@export var shockwave_explosion_small_final_size:float = 4.5
 
 @export_category("Time parameters")
 @export var time_before_deactivation:float = 1.0 ## How long before the hitbox for damage + force is disabled
@@ -90,45 +100,58 @@ func _process(delta: float) -> void:
 ## Called after being instanced and added to the scene.
 func setup(spawn_pos:Vector3 = Vector3.ZERO, damage:float = 0.0, knockback_force:float = 5.0,
 screen_shake_duration:float = 0.66, screen_shake_strength:float = 2.0,
-color:Color = Color.GRAY, emission_strength:float = 0.0, unshaded:bool = false) -> void:
-		_exploding = true
-		_fading_alpha = true
-		_elapsed = 0.0
-		_alpha_elapsed = 0.0
-		# Initialize scale to initial radius
-		_scale_float = explosion_initial_radius
-		self.knockback_force = knockback_force
-		self.damage = damage
-		self.screen_shake_duration = screen_shake_duration
-		self.screen_shake_strength = screen_shake_strength
-		global_position = spawn_pos
-		# Enable alpha blending so alpha_curve affects visibility
-		# set a bunch of material parameters
-		sphere_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		# Set initial alpha
-		color.a = initial_alpha
-		sphere_material.albedo_color = color
-		sphere_material.emission = color
-		sphere_material.emission_energy_multiplier = emission_strength
-		rocks_1.emitting = true
-		if unshaded:
-			sphere_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		else:
-			sphere_material.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
-		if explosion_scale_curve != null:
-			self.explosion_scale_curve = explosion_scale_curve
-		if alpha_curve != null:
-			self.alpha_curve = alpha_curve
+color:Color = Color.GRAY, emission_strength:float = 0.0, unshaded:bool = false, explosion_final_radius:float = 1.0) -> void:
+	self.explosion_final_radius = explosion_final_radius
+	_exploding = true
+	_fading_alpha = true
+	_elapsed = 0.0
+	_alpha_elapsed = 0.0
+	# Initialize scale to initial radius
+	_scale_float = explosion_initial_radius
+	self.knockback_force = knockback_force
+	self.damage = damage
+	self.screen_shake_duration = screen_shake_duration
+	self.screen_shake_strength = screen_shake_strength
+	global_position = spawn_pos
+	# Enable alpha blending so alpha_curve affects visibility
+	# set a bunch of material parameters
+	sphere_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	# Set initial alpha
+	color.a = initial_alpha
+	sphere_material.albedo_color = color
+	sphere_material.emission = color
+	sphere_material.emission_energy_multiplier = emission_strength
+	rocks_1.emitting = true
+	if unshaded:
+		sphere_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	else:
+		sphere_material.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
+	if explosion_scale_curve != null:
+		self.explosion_scale_curve = explosion_scale_curve
+	if alpha_curve != null:
+		self.alpha_curve = alpha_curve
 
 
-		# Shake screen by amount based on distance from explosion
-		# Create an exponential relationship for camera shake dropoff
-		var distance_to_player:float = (_player.camera_3d.global_position - global_position).length()
-		var strength := screen_shake_strength * exp(-cam_shake_exponential_dropoff * distance_to_player)
-		# Optional clamp to avoid ultra-small shakes:
-		strength = clamp(strength, 0.0, screen_shake_strength)
-		if strength > 0.001:
-			_player.camera_3d.shakeCamera(screen_shake_duration, strength)
+	# Shake screen by amount based on distance from explosion
+	# Create an exponential relationship for camera shake dropoff
+	var distance_to_player:float = (_player.camera_3d.global_position - global_position).length()
+	var strength := screen_shake_strength * exp(-cam_shake_exponential_dropoff * distance_to_player)
+	# Optional clamp to avoid ultra-small shakes:
+	strength = clamp(strength, 0.0, screen_shake_strength)
+	if strength > 0.001:
+		_player.camera_3d.shakeCamera(screen_shake_duration, strength)
+
+## Call for quicker setup from a list of preset explosions. Shockwaves do not do damage. Yellow explosions
+## do moderate damage. Red and cyan explosions deal the most damage, with red dealing double as much
+## damage as yellow, and cyan dealing 3 times as much damage. Damaging explosions have a knockback of
+## 0 as a shockwave is meant to be spawned in addition.
+func setup_preset(spawn_pos:Vector3, explosion_preset:explosion_presets):
+	if explosion_preset == explosion_presets.SHOCKWAVE_SMALL:
+		setup(spawn_pos, 0.0, shockwave_explosion_knockback, 0.66, 2.0, Color.GRAY, 0.0, false, shockwave_explosion_small_final_size)
+	elif explosion_preset == explosion_presets.YELLOW_SMALL:
+		setup(spawn_pos, yellow_explosion_damage, 0.0, 0.66, 2.0, Color.YELLOW, 1.0, false, 4.0)
+	else:
+		assert(false, "Invalid explosion preset.")
 
 ## Returns false if at least one curve is actively sampling and true if they both are not.
 func getCurvesStoppedSampling() -> bool:
@@ -175,7 +198,7 @@ func _on_body_influencer_projectile_entered(projectile: EnemyProjectile) -> void
 		projectile.linear_velocity = Vector3.ZERO
 		projectile.linear_velocity = dir_out * knockback_force 
 
-
+## When an enemy is hit by an explosion.
 func _on_body_influencer_enemy_entered(enemy: Enemy) -> void:
 	var center_point:Vector3 = global_position # get the center of the sphere
 	var vertical_offset:float = 1.0 # so the force isnt applied to the feet of the enemy
@@ -189,6 +212,7 @@ func _on_body_influencer_enemy_entered(enemy: Enemy) -> void:
 		
 	enemy.damageEnemy(damage, Enemy.damage_types.EXPLOSIVE)
 
+## When a rigidbody in a valid group is hit by an explosion.
 func _on_body_influencer_rigidbody_entered(rb: RigidBody3D) -> void:
 	var center_point:Vector3 = global_position # get the center of the sphere
 	var dir_out:Vector3 = (rb.global_position - center_point).normalized() # get vector to projectile away from center

@@ -183,6 +183,33 @@ _data = {
 &"fully charged": SubResource("Animation_b4lmj")
 }
 
+[sub_resource type="Animation" id="Animation_7nha5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("muzzle charge face quad:mesh:material:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.35]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("muzzle charge face quad:mesh:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.753, 0.378)]
+}
+
 [sub_resource type="Animation" id="Animation_jbybm"]
 resource_name = "face quad actions on charge"
 length = 0.5
@@ -210,33 +237,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0.753, 0.378), Vector2(0.928, 0.378), Vector2(0.688, 0.378), Vector2(1.33, 0.378), Vector2(1.014, 0.378), Vector2(0.99, 0.378)]
-}
-
-[sub_resource type="Animation" id="Animation_7nha5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("muzzle charge face quad:mesh:material:emission_energy_multiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.35]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("muzzle charge face quad:mesh:size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.753, 0.378)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hci6h"]
@@ -376,7 +376,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5000)
 transform = Transform3D(0.248025, 0, -0.0313636, 0, 0.25, 0, 0.0313636, 0, 0.248025, 0.13192, -0.156501, -0.307973)
 
 [node name="HCU cap" parent="player pistol" index="3"]
-transform = Transform3D(0.248025, 0, -0.0313636, 0, 0.25, 0, 0.0313636, 0, 0.248025, 0.13192, -0.156501, -0.307973)
+transform = Transform3D(0.248025, 0, -0.0313637, 0, 0.25, 0, 0.0313637, 0, 0.248025, 0.13192, -0.156501, -0.307973)
 surface_material_override/1 = ExtResource("3_kvtwg")
 
 [node name="front barrel part wire connection" parent="player pistol" index="4"]

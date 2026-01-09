@@ -386,6 +386,6 @@ omni_range = 2.24498
 omni_attenuation = 2.0
 
 [connection signal="body_entered" from="DamageCollider" to="." method="_on_hit_enemy"]
-[connection signal="body_entered" from="DamageCollider" to="." method="_on_hit_other"]
 [connection signal="body_entered" from="DamageCollider" to="." method="_on_hit_player"]
+[connection signal="body_entered" from="DamageCollider" to="." method="_on_hit_other"]
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
