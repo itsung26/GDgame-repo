@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://bssuqx6gkhq56"]
+
+[ext_resource type="Texture2D" uid="uid://67gpi4p2x2j" path="res://assets/meshes/player pistol/textures/pistol part/pistol part_BaseColor.png" id="1_onsfh"]
+[ext_resource type="Texture2D" uid="uid://c2tcvtuw1gofu" path="res://assets/meshes/player pistol/textures/pistol part/pistol part_Emission.png" id="2_onsfh"]
+[ext_resource type="Texture2D" uid="uid://dv6hof5o5cgpn" path="res://assets/meshes/player pistol/textures/pistol part/pistol part_Metallic.png" id="3_ggcuc"]
+[ext_resource type="Texture2D" uid="uid://c4hulsko56vku" path="res://assets/meshes/player pistol/textures/pistol part/pistol part_Roughness.png" id="3_yonny"]
+[ext_resource type="Texture2D" uid="uid://dhrxrt7lwh7q5" path="res://assets/meshes/player pistol/textures/pistol part/pistol part_Normal.png" id="4_ggcuc"]
+
+[resource]
+resource_name = "pistol part"
+albedo_texture = ExtResource("1_onsfh")
+metallic = 1.0
+metallic_texture = ExtResource("3_ggcuc")
+roughness_texture = ExtResource("3_yonny")
+emission_enabled = true
+emission_energy_multiplier = 6.68
+emission_texture = ExtResource("2_onsfh")
+normal_enabled = true
+normal_texture = ExtResource("4_ggcuc")

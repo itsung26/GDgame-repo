@@ -735,7 +735,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.89623, -0.419367, 0.0912844, 0.434093, -0.896231, -0.00338209, 0.181378, -0.147857)
+transform = Transform3D(0.985274, 0.0912836, 0.144568, 0.144567, -0.896231, -0.419367, 0.0912851, 0.434092, -0.89623, -0.00338525, 0.181376, -0.147856)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -786,7 +786,7 @@ libraries = {
 [node name="ParryArm" type="Node3D" parent="Pivot/Camera3D" groups=["arms"]]
 
 [node name="ParryHitbox" type="Area3D" parent="Pivot/Camera3D/ParryArm" groups=["player collision detectors"]]
-collision_mask = 8
+collision_mask = 14
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/ParryArm/ParryHitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022134, -0.272965, -1.53758)
@@ -834,9 +834,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="player pistol" parent="Pivot/Camera3D/Guns/Pistol" index="1"]
 transform = Transform3D(0.999701, 0, -0.0244322, 0, 1, 0, 0.0244322, 0, 0.999701, -0.009, 0.004, 0.06)
-
-[node name="HCU cap" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="3"]
-transform = Transform3D(0.248025, 0, -0.0313637, 0, 0.25, 0, 0.0313637, 0, 0.248025, 0.13192, -0.156501, -0.307973)
 
 [node name="muzzle charge particles" parent="Pivot/Camera3D/Guns/Pistol/player pistol/barrel very end upper" index="1"]
 draw_pass_1 = SubResource("QuadMesh_ujl30")
@@ -946,8 +943,8 @@ ignore_time_scale = true
 [connection signal="area_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_entered"]
-[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_exited"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_exited"]
+[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]

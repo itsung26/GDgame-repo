@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://cmwkvap3fweyj"]
+
+[ext_resource type="Texture2D" uid="uid://c5ldatw7rk3oi" path="res://assets/meshes/player pistol/textures/pistol part/glass cover_BaseColor.png" id="1_6lmdu"]
+[ext_resource type="Texture2D" uid="uid://ic06f4mek7ls" path="res://assets/meshes/player pistol/textures/pistol part/glass cover_Emission.png" id="2_m2vd2"]
+[ext_resource type="Texture2D" uid="uid://cf1rn60jl80tv" path="res://assets/meshes/player pistol/textures/pistol part/glass cover_Roughness.png" id="3_ecjhw"]
+[ext_resource type="Texture2D" uid="uid://2cfgmjd4hj6i" path="res://assets/meshes/player pistol/textures/pistol part/glass cover_Metallic.png" id="3_m2vd2"]
+
+[resource]
+resource_name = "glass cover"
+transparency = 1
+albedo_texture = ExtResource("1_6lmdu")
+metallic = 1.0
+metallic_texture = ExtResource("3_m2vd2")
+roughness_texture = ExtResource("3_ecjhw")
+roughness_texture_channel = 1
+emission_texture = ExtResource("2_m2vd2")

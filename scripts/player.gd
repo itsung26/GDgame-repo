@@ -64,6 +64,7 @@ extends CharacterBody3D
 const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
 var grapple_rope_mesh_gen:ropeMeshGenerator
+const bullet_trail_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
 
 @export_group("Input Allowments")
 @export var player_move_input_enabled:bool = true
@@ -470,7 +471,10 @@ func _input(event) -> void:
 		dash_dir = Vector3(velocity.x, 0, velocity.z).normalized()
 		if not player_state == player_states.DASHING: # if player is not already dashing
 			player_state = player_states.DASHING
-	
+			
+	if Input.is_action_just_released("debug func"):
+		pass
+		
 	# handle mouselook
 	if event is InputEventMouseMotion and player_look_input_enabled:
 		mouse_delta2 = event.relative
@@ -518,7 +522,15 @@ func healPlayer(amount:float):
 	else:
 		HEALTH = new_health
 
+## Disables firing for all weapons possesed by the player.
+func deactivateWeapons() -> void:
+	for weapon_state:PlayerWeapon in weapon_states:
+		weapon_state.can_fire = false
 
+## Enables firing for all weapons possesed by the player.
+func activateWeapons() -> void:
+	for weapon_state:PlayerWeapon in weapon_states:
+		weapon_state.can_fire = true
 
 ## This method performs the primary computations for kinematics based on which state player_state is in.
 ## Should only be called in [code]_physics_process[/code].
@@ -635,11 +647,11 @@ func gunInputs(): # to be called in a method that can "hear" inputs
 	
 	
 	# automatic fire block===================================================================================
-	if Input.is_action_pressed("fire") and player_fire_input_enabled and weapon_state.automatic:
+	if Input.is_action_pressed("fire") and player_fire_input_enabled and weapon_state.automatic and weapon_state.can_fire:
 		# use seperate animation players for each weapon
 		weapon_state._fire()
 	# semi-automatic fire block========================================================================
-	if Input.is_action_just_pressed("fire") and player_fire_input_enabled and not weapon_state.automatic:
+	if Input.is_action_just_pressed("fire") and player_fire_input_enabled and not weapon_state.automatic and weapon_state.can_fire:
 		weapon_state._fire()
 	# inspect block=======================================================================================
 	if Input.is_action_just_pressed("inspect weapon"):
@@ -663,7 +675,6 @@ func charge_stamina(delta=get_process_delta_time()):
 func parryTargetInBox():
 	# If it hits something in the box and it is parriable
 	if parry_target != null and parry_target.parriable == true:
-		healPlayer(parry_heal_amount)
 		parry_arm_animator.play("swing arm parry")
 		var raycast_target_body:Node = punch_raycast.get_collider()
 		var raycast_target_location:Vector3 = punch_raycast.get_collision_point()
@@ -686,11 +697,26 @@ func parryTargetInBox():
 		
 		# Special cases in for different parriable things.
 		if parry_target is EnemyProjectile:
+			healPlayer(parry_heal_amount)
 			parry_target.has_been_parried = true
 			if parry_target is EnergyBall:
 				parry_target.linear_velocity = Vector3.ZERO
 				parry_target.linear_velocity = (raycast_target_location - parry_target.global_position).normalized() * (parry_target.travel_speed * parry_projectile_speed_boost)
-	
+		
+		elif parry_target is PistolBomb:
+			parry_target.on_being_parried.emit()
+			if punch_raycast.get_collider() != null:
+				var pistolbomb_trail:BulletTrail = bullet_trail_SCENE.instantiate()
+				get_tree().current_scene.add_child(pistolbomb_trail)
+				var point:Vector3 = punch_raycast.get_collision_point()
+				pistolbomb_trail.setup(parry_target.global_position, point, Color.RED)
+				parry_target.global_position = point # pistol bomb teleport to raycast point
+				var hit_body = punch_raycast.get_collider()
+				if hit_body is Enemy:
+					parry_target.reparent(hit_body)
+			else:
+				parry_target.queue_free()
+		
 	# If no valid target was found in the box
 	elif parry_target == null:
 		parry_arm_animator.play("swing arm miss")
@@ -698,7 +724,19 @@ func parryTargetInBox():
 	elif parry_target != null and parry_target.parriable == false:
 		parry_arm_animator.play("swing arm miss")
 
+func getFacingRot() -> Vector3:
+	var cam_global_rot_x:float = camera_3d.global_rotation.x
+	var player_global_rot_y:float = global_rotation.y
+	var combined_global_rot = Vector3(cam_global_rot_x, player_global_rot_y, 0.0)
+	return combined_global_rot
+
+func getFacingRotInverted() -> Vector3:
+	var combined_global_rot:Vector3 = getFacingRot()
+	combined_global_rot = combined_global_rot.inverse()
+	return combined_global_rot
+
 func hitStop(hitstop_duration_time:float):
+	deactivateWeapons()
 	Engine.time_scale = 0.0
 	hitstop_timer.start(hitstop_duration_time)
 
@@ -764,6 +802,8 @@ func _on_parry_hitbox_body_entered(body: Node3D) -> void:
 		parry_target = body
 	elif body is Enemy and parry_target == null:
 		parry_target = body
+	elif body is PistolBomb and body.parriable and parry_target == null and not body.has_been_parried:
+		parry_target = body
 
 
 func _on_parry_hitbox_body_exited(body: Node3D) -> void:
@@ -773,6 +813,7 @@ func _on_parry_hitbox_body_exited(body: Node3D) -> void:
 
 ## When this timer ends, the hitstop is ended.
 func _on_hitstop_timer_timeout() -> void:
+	activateWeapons()
 	parry_input_allowed = true
 	var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")
 	for node:Node in parry_visuals:

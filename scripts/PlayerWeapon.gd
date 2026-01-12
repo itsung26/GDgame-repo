@@ -15,6 +15,7 @@ signal special_released
 @export var damage_min:float
 @export var damage_max:float
 @export var automatic:bool
+var can_fire:bool = true
 
 func _ready() -> void:
 	pass

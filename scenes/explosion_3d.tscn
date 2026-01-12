@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://ddb3k03yo78xo"]
+[gd_scene load_steps=15 format=3 uid="uid://ddb3k03yo78xo"]
 
 [ext_resource type="Script" uid="uid://b4u4qftwlojw5" path="res://scripts/explosion_3d.gd" id="1_oiiif"]
 [ext_resource type="ArrayMesh" uid="uid://bifaeexxbi3ci" path="res://assets/meshes/exposion procedural mesh/explosion_mesh_Sphere_002.res" id="2_4bxpp"]
+[ext_resource type="Texture2D" uid="uid://co4ucmaa1pf22" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/circle_02.png" id="4_kvot3"]
 [ext_resource type="ArrayMesh" uid="uid://c4lou15e5yi8d" path="res://assets/meshes/small rock/mesh resources/small rock_Icosphere.res" id="5_nvkk6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_oiiif"]
@@ -44,7 +45,83 @@ shape = 0
 size = 1.358
 curve = SubResource("Curve_nvkk6")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nvkk6"]
+resource_local_to_scene = true
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0)
+albedo_texture = ExtResource("4_kvot3")
+
+[sub_resource type="QuadMesh" id="QuadMesh_p5hya"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_nvkk6")
+size = Vector2(3.55, 3.55)
+orientation = 1
+
+[sub_resource type="Animation" id="Animation_kvot3"]
+resource_name = "small shockwave"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosion ring:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(2.38326, 2.38326, 2.38326)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("explosion ring:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nvkk6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("explosion ring:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(3.01502, 3.01502, 3.01502)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("explosion ring:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p5hya"]
+_data = {
+&"RESET": SubResource("Animation_nvkk6"),
+&"small shockwave": SubResource("Animation_kvot3")
+}
+
 [node name="Explosion3D" type="Node3D" groups=["explosions"]]
+transform = Transform3D(2.46105, 0, 0, 0, 2.46105, 0, 0, 0, 2.46105, 0, 0, 0)
 script = ExtResource("1_oiiif")
 explosion_expand_speed = 4.0
 explosion_initial_radius = 0.0
@@ -52,7 +129,7 @@ explosion_final_radius = 9.0
 alpha_curve_speed = 2.0
 shockwave_explosion_small_final_size = 5.3
 time_before_deactivation = 0.4
-time_before_deletion = 7.0
+time_before_deletion = 0.5
 metadata/_custom_type_script = "uid://b4u4qftwlojw5"
 
 [node name="BodyInfluencer" type="Area3D" parent="."]
@@ -94,9 +171,19 @@ one_shot = true
 [node name="QueueFreeTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="explosion ring" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.01502, 0, 0, 0, 3.01502, 0, 0, 0, 3.01502, 0, 0, 0)
+mesh = SubResource("QuadMesh_p5hya")
+
+[node name="manual exploder" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_p5hya")
+}
+autoplay = "small shockwave"
+
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_projectile_entered"]
-[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_enemy_entered"]
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_rigidbody_entered"]
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_enemy_entered"]
 [connection signal="timeout" from="CollisionDeactivationTimer" to="." method="_on_collision_deactivation_timer_timeout"]
 [connection signal="timeout" from="QueueFreeTimer" to="." method="_on_queue_free_timer_timeout"]

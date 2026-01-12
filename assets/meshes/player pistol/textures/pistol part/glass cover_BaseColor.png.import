@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4u445aa6rec7"
-path.s3tc="res://.godot/imported/37.png-8f06789ae946e01dc5071940b0ec0226.s3tc.ctex"
+uid="uid://c5ldatw7rk3oi"
+path.s3tc="res://.godot/imported/glass cover_BaseColor.png-320abf3e9cb4965a99070c1158b30cf7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/37.png"
-dest_files=["res://.godot/imported/37.png-8f06789ae946e01dc5071940b0ec0226.s3tc.ctex"]
+source_file="res://assets/meshes/player pistol/textures/pistol part/glass cover_BaseColor.png"
+dest_files=["res://.godot/imported/glass cover_BaseColor.png-320abf3e9cb4965a99070c1158b30cf7.s3tc.ctex"]
 
 [params]
 

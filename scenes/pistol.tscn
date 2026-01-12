@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://csatdjhfoaqcw"]
+[gd_scene load_steps=48 format=3 uid="uid://csatdjhfoaqcw"]
 
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/pistol.gd" id="1_buff3"]
 [ext_resource type="PackedScene" uid="uid://q1wl2i8b8vlt" path="res://assets/meshes/player pistol/player pistol.blend" id="2_buff3"]
@@ -8,7 +8,9 @@
 [ext_resource type="Material" uid="uid://ibk18lq25g4d" path="res://assets/meshes/player pistol/simple metallic.tres" id="4_lfdsj"]
 [ext_resource type="Texture2D" uid="uid://bqqadb7cemav6" path="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/34.png" id="5_wvp02"]
 [ext_resource type="Material" uid="uid://cyk62iasrpppl" path="res://assets/meshes/player pistol/power cell shader material.tres" id="6_88qyl"]
+[ext_resource type="Texture2D" uid="uid://dqyadocxcghfm" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/smoke_02.png" id="6_eun5i"]
 [ext_resource type="Material" uid="uid://7kin3vti4ce0" path="res://assets/meshes/player pistol/scratched glass shader material.tres" id="7_1r6mc"]
+[ext_resource type="Texture2D" uid="uid://bb3i67ilvm43d" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_06.png" id="7_b4lmj"]
 [ext_resource type="PackedScene" uid="uid://vswt7a1tma4k" path="res://scenes/pistol_display_screen.tscn" id="8_4w7x2"]
 [ext_resource type="Texture2D" uid="uid://k8rym1icjjw7" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/spark_05.png" id="10_lfdsj"]
 
@@ -49,6 +51,43 @@ billboard_mode = 1
 [sub_resource type="QuadMesh" id="QuadMesh_b4lmj"]
 material = SubResource("StandardMaterial3D_b4lmj")
 size = Vector2(0.753, 0.378)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b4lmj"]
+emission_shape = 3
+emission_box_extents = Vector3(0.12, 0.363, 0.309)
+angle_min = -1440.0
+angle_max = 1440.0
+direction = Vector3(-1, 0, 0)
+spread = 9.64
+flatness = 1.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+attractor_interaction_enabled = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rfdf8"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("6_eun5i")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_jbybm"]
+material = SubResource("StandardMaterial3D_rfdf8")
+size = Vector2(0.25, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jbybm"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+albedo_texture = ExtResource("7_b4lmj")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_7nha5"]
+material = SubResource("StandardMaterial3D_jbybm")
+size = Vector2(1.5, 1.5)
 
 [sub_resource type="Animation" id="Animation_wvp02"]
 length = 0.001
@@ -245,6 +284,43 @@ _data = {
 &"face quad actions on charge": SubResource("Animation_jbybm")
 }
 
+[sub_resource type="Animation" id="Animation_hci6h"]
+resource_name = "barrelmesh action"
+length = 0.1195
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("barrelmesh:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1195),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_wytfu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("barrelmesh:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p6fy1"]
+_data = {
+&"RESET": SubResource("Animation_wytfu"),
+&"barrelmesh action": SubResource("Animation_hci6h")
+}
+
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_4w7x2"]
 parameter_name = "screen_texture"
 
@@ -352,7 +428,8 @@ editor_description = "ddd"
 script = ExtResource("1_buff3")
 muzzle_origin = NodePath("player pistol/barrel very end upper/muzzle")
 bullet_raycast = NodePath("pistolRayCast")
-special_charge_speed = 60.0
+special_charge_speed = 80.0
+cam_shake_strength = 1.0
 ammo = 25
 magsize = 25
 damage_min = 1.0
@@ -422,22 +499,40 @@ light_energy = 0.0
 omni_range = 1.7539
 omni_attenuation = 2.0
 
-[node name="muzzle charge animator" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="6" groups=["muzzle charge related"]]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="player pistol/barrel very end upper" index="6" groups=["muzzle charge related"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33878e-08, -0.149, 0.329021)
+visible = false
+lifetime = 2.0
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_b4lmj")
+draw_pass_1 = SubResource("QuadMesh_jbybm")
+
+[node name="barrelmesh" type="MeshInstance3D" parent="player pistol/barrel very end upper" index="7" groups=["muzzle charge related"]]
+visible = false
+mesh = SubResource("QuadMesh_7nha5")
+
+[node name="muzzle charge animator" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="8" groups=["muzzle charge related"]]
 libraries = {
 &"": SubResource("AnimationLibrary_wvp02")
 }
 
-[node name="muzzle charge animator 2" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="7" groups=["muzzle charge related"]]
+[node name="muzzle charge animator 2" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="9" groups=["muzzle charge related"]]
 libraries = {
 &"": SubResource("AnimationLibrary_jbybm")
 }
 speed_scale = 1.387
 
-[node name="muzzle charge animator 3" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="8" groups=["muzzle charge related"]]
+[node name="muzzle charge animator 3" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="10" groups=["muzzle charge related"]]
 libraries = {
 &"": SubResource("AnimationLibrary_hci6h")
 }
 autoplay = "face quad actions on charge"
+
+[node name="muzzle charge animator 4" type="AnimationPlayer" parent="player pistol/barrel very end upper" index="11" groups=["muzzle charge related"]]
+libraries = {
+&"": SubResource("AnimationLibrary_p6fy1")
+}
 
 [node name="wire clamps" parent="player pistol" index="14"]
 surface_material_override/0 = ExtResource("4_lfdsj")

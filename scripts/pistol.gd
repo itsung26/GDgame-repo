@@ -11,6 +11,7 @@ const RED_EMISSIVE_MATERIAL:StandardMaterial3D = preload("res://assets/materials
 const BULLET_TRAIL_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
 const BULLET_IMPACT_PARTICLE_SCENE_1:PackedScene = null
 const BULLET_IMPACT_PARTICLE_SCENE_2:PackedScene = preload("res://scenes/bullet_impact_particles_2.tscn")
+const pistol_bomb_SCENE:PackedScene = preload("res://scenes/pistol_bomb.tscn")
 
 @onready var pistol_ray_cast_target_pos: Marker3D = $pistolRayCast/pistolRayCastTargetPos
 @onready var muzzle_charge_particles: GPUParticles3D = $"player pistol/barrel very end upper/muzzle charge particles"
@@ -22,6 +23,7 @@ const BULLET_IMPACT_PARTICLE_SCENE_2:PackedScene = preload("res://scenes/bullet_
 @onready var muzzle_charge_animator_2: AnimationPlayer = $"player pistol/barrel very end upper/muzzle charge animator 2"
 @onready var muzzle_charge_animator_3: AnimationPlayer = $"player pistol/barrel very end upper/muzzle charge animator 3"
 @onready var power_cell_sparks: GPUParticles3D = $"player pistol/powercell SHADER/power cell sparks"
+@onready var muzzle_charge_animator_4: AnimationPlayer = $"player pistol/barrel very end upper/muzzle charge animator 4"
 
 @export var bullet_trail_color:Color = Color.GOLD
 @export var muzzle_origin:Marker3D
@@ -32,6 +34,7 @@ var special_charge:float = 0.0
 @export var special_charge_speed:float = 1.0
 var barrel_tip_shader_value_min:float = 0.0
 var barrel_tip_shader_value_max:float = 6.473
+@export var cam_shake_strength:float = 3.0
 
 @export_group("debug")
 @export var muzzle_charge_light_max_energy:float = 8.33
@@ -60,9 +63,12 @@ func set_charging_state(new_charging_state:charging_states):
 	
 	# CHARGED to and from
 	if new_charging_state == charging_states.CHARGED:
+		muzzle_charge_animator.play("fully charged flashing")
 		muzzle_charge_face_quad.visible = true
 		power_cell_sparks.emitting = true
+		muzzle_charge_animator_4.play("barrelmesh action")
 	if previous_charging_state == charging_states.CHARGED:
+		muzzle_charge_animator.stop()
 		muzzle_charge_face_quad.visible = false
 		power_cell_sparks.emitting = false
 	
@@ -113,7 +119,11 @@ func _fire():
 	if charging_state == charging_states.IDLE:
 		firePistol()
 	elif charging_state == charging_states.CHARGED:
+		fireSpecial()
 		set_charging_state(charging_states.IDLE)
+	elif charging_state == charging_states.CHARGING:
+		set_charging_state(charging_states.IDLE)
+		firePistol()
 	
 func _special():
 	super._special()
@@ -155,6 +165,16 @@ func firePistol() -> void:
 	# cases for each thing that could be hit
 	if hit_body is Enemy:
 		hit_body.damageEnemy(randf_range(damage_max, damage_max), Enemy.damage_types.NORMAL)
+	elif hit_body is PistolBomb:
+		var player:Player = get_tree().get_first_node_in_group("players")
+		player.hitStop(hit_body.hitstop_duration_on_being_shot)
+		var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")
+		for parry_visual in parry_visuals:
+			if parry_visual.name == "ParryFlash":
+				pass
+			else:
+				parry_visual.visible = true
+		hit_body.explode()
 	else:
 		# add an impact particle to the scene where the bullet hit
 		# go to hit point and look at surface normal
@@ -162,8 +182,12 @@ func firePistol() -> void:
 		get_tree().current_scene.add_child(bullet_impact_particle_2)
 		bullet_impact_particle_2.setup(hit_pos, hit_surface_normal)
 		
-## Does the special fire action (a charge shot)
+## Does the special fire action
 func fireSpecial() -> void:
-	Debug.log("ddd")
-		
-		
+	special_charge = 0.0
+	var pistol_bomb:PistolBomb = pistol_bomb_SCENE.instantiate()
+	get_tree().current_scene.add_child(pistol_bomb)
+	pistol_bomb.setup(muzzle_origin.global_position)
+	var player:Player = get_tree().get_first_node_in_group("players")
+	player.punch_raycast.add_exception(pistol_bomb)
+	player.camera_3d.shakeCamera(0.66, cam_shake_strength)

@@ -14,6 +14,8 @@ extends Node3D
 @onready var collision_deactivation_timer: Timer = $CollisionDeactivationTimer
 @onready var queue_free_timer: Timer = $QueueFreeTimer
 @onready var bodyinfluencercollider: CollisionShape3D = $BodyInfluencer/bodyinfluencercollider
+@onready var explosion_ring: MeshInstance3D = $"explosion ring"
+@onready var explosion_ring_material:StandardMaterial3D = explosion_ring.get_active_material(0)
 
 enum explosion_presets {
 	SHOCKWAVE_SMALL, YELLOW_SMALL, RED_SMALL,
@@ -40,10 +42,11 @@ var _elapsed: float = 0.0  # normalized time along the curve [0..1]
 var _alpha_elapsed: float = 0.0
 var _can_apply_scale: bool = false
 var _player:Player = Helper.getFirstInScene("Player")
-@export var despawn_time:float = 7.5
 
-@export_category("Explosion preset parameters")
+@export_group("Explosion preset parameters")
+@export_category("Yellow Explosion")
 @export var yellow_explosion_damage:float = 24.0
+@export_category("Shockwave Explosion")
 @export var shockwave_explosion_knockback:float = 15.0
 @export var shockwave_explosion_small_final_size:float = 4.5
 
@@ -193,10 +196,10 @@ func _on_body_influencer_projectile_entered(projectile: EnemyProjectile) -> void
 	var center_point:Vector3 = global_position # get the center of the sphere
 	var dir_out:Vector3 = (projectile.global_position - center_point).normalized() # get vector to projectile away from center
 	
-	# apply a force to the projectile
+	# knock any projectiles back out and boost their speed
 	if knockback_force > 0:
 		projectile.linear_velocity = Vector3.ZERO
-		projectile.linear_velocity = dir_out * knockback_force 
+		projectile.linear_velocity = dir_out * knockback_force * 4.0
 
 ## When an enemy is hit by an explosion.
 func _on_body_influencer_enemy_entered(enemy: Enemy) -> void:

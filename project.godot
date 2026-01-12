@@ -54,6 +54,7 @@ grapple_cubes=""
 arms=""
 explosions=""
 "enviroment rigidbodies"=""
+"parry visuals"=""
 
 [input]
 

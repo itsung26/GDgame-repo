@@ -1,0 +1,272 @@
+[gd_scene load_steps=23 format=3 uid="uid://61okbfgjpx7l"]
+
+[ext_resource type="PackedScene" uid="uid://c7uvepbagwqyr" path="res://assets/meshes/player pistol/pistol part.blend" id="1_15tcn"]
+[ext_resource type="Script" uid="uid://5jjx5ed25yge" path="res://scripts/pistol_bomb.gd" id="1_ujw1o"]
+[ext_resource type="Shader" uid="uid://cqm7jo4447377" path="res://assets/meshes/player pistol/materials/glass cover shader.res" id="2_7lji3"]
+[ext_resource type="Texture2D" uid="uid://bqqadb7cemav6" path="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/34.png" id="4_daat3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ujw1o"]
+render_priority = 0
+shader = ExtResource("2_7lji3")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7lji3"]
+radius = 0.3393
+
+[sub_resource type="Animation" id="Animation_64q8a"]
+resource_name = "red flash"
+length = 0.097
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.097),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_me2sb"]
+_data = {
+&"red flash": SubResource("Animation_64q8a")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o7mbg"]
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = ExtResource("4_daat3")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_ljgf2"]
+material = SubResource("StandardMaterial3D_o7mbg")
+size = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_daat3"]
+resource_name = "detonate"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D2:mesh:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.3, 1.3), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D3:mesh:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.335546, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.3, 1.3), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D4:mesh:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.512424, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.3, 1.3), Vector2(0, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"explode"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_27nqp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D2:mesh:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D3:mesh:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D4:mesh:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_64q8a"]
+_data = {
+&"RESET": SubResource("Animation_27nqp"),
+&"detonate": SubResource("Animation_daat3")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_daat3"]
+load_path = "res://.godot/imported/46.png-01a4fbbabaa40fcdf46456a50b7d8559.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_64q8a"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.356863, 0, 1)
+albedo_texture = SubResource("CompressedTexture2D_daat3")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_27nqp"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_64q8a")
+size = Vector2(0, 0)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_me2sb"]
+load_path = "res://.godot/imported/46.png-01a4fbbabaa40fcdf46456a50b7d8559.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ljgf2"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.356863, 0, 1)
+albedo_texture = SubResource("CompressedTexture2D_me2sb")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_6cth4"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_ljgf2")
+size = Vector2(0, 0)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2m5s7"]
+load_path = "res://.godot/imported/46.png-01a4fbbabaa40fcdf46456a50b7d8559.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w1dxe"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.356863, 0, 1)
+albedo_texture = SubResource("CompressedTexture2D_2m5s7")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_mygd3"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_w1dxe")
+size = Vector2(0, 0)
+
+[node name="PistolBomb" type="RigidBody3D"]
+collision_layer = 4
+collision_mask = 7
+mass = 0.25
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 3
+script = ExtResource("1_ujw1o")
+timer_time = 0.1
+spin_speed = 16.667
+projectile_speed = 12.5
+hitstop_duration_on_being_shot = 0.45
+
+[node name="pistol part" parent="." instance=ExtResource("1_15tcn")]
+transform = Transform3D(0.130988, 0, 0, 0, 0.130988, 0, 0, 0, 0.130988, 0, 0, 0)
+
+[node name="glass cover" parent="pistol part" index="1"]
+surface_material_override/0 = SubResource("ShaderMaterial_ujw1o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_7lji3")
+
+[node name="facing" type="RayCast3D" parent="."]
+visible = false
+target_position = Vector3(0, 0, -1.43)
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="time before can hit player" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
+
+[node name="pistol bomb player" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_me2sb")
+}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_ljgf2")
+
+[node name="detonation timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="detonation animator" type="AnimationPlayer" parent="."]
+callback_mode_method = 1
+libraries = {
+&"": SubResource("AnimationLibrary_64q8a")
+}
+speed_scale = 2.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_27nqp")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_6cth4")
+skeleton = NodePath("../MeshInstance3D2")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_mygd3")
+skeleton = NodePath("../MeshInstance3D3")
+
+[connection signal="body_entered" from="." to="." method="_on_world_entered"]
+[connection signal="body_entered" from="." to="." method="_on_enemy_entered"]
+[connection signal="body_entered" from="." to="." method="_on_player_entered"]
+[connection signal="on_being_parried" from="." to="." method="_on_on_being_parried"]
+[connection signal="timeout" from="time before can hit player" to="." method="_on_time_before_can_hit_player_timeout"]
+[connection signal="timeout" from="detonation timer" to="." method="_on_detonation_timer_timeout"]
+
+[editable path="pistol part"]
