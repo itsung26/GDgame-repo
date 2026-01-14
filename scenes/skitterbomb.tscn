@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://da0o4xn0tk2l8"]
+[gd_scene load_steps=22 format=3 uid="uid://da0o4xn0tk2l8"]
 
 [ext_resource type="Script" uid="uid://1fvkhlatl2xa" path="res://scripts/skitterbomb.gd" id="1_puc1e"]
+[ext_resource type="Script" uid="uid://cv6ic5a4lkddb" path="res://ai/tasks/arrive.gd" id="2_c526l"]
 [ext_resource type="PackedScene" uid="uid://cuguo3styi87u" path="res://assets/meshes/Skitterbomb/Skitterbomb.blend" id="2_ntgaj"]
 [ext_resource type="Texture2D" uid="uid://btuh66ked0vkk" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_01.png" id="3_f1415"]
 [ext_resource type="Material" uid="uid://63qriytymt0s" path="res://assets/meshes/Skitterbomb/material resources/glow eye parts red.tres" id="3_i23tl"]
@@ -11,17 +12,28 @@ var/target_pos/type = 9
 var/target_pos/value = Vector3(0, 0, 0)
 var/target_pos/hint = 0
 var/target_pos/hint_string = ""
-var/movespeed/name = &"movespeed"
-var/movespeed/type = 3
-var/movespeed/value = 0.0
-var/movespeed/hint = 0
-var/movespeed/hint_string = ""
-var/target_body/name = &"target_body"
-var/target_body/type = 24
-var/target_body/hint = 0
-var/target_body/hint_string = ""
+
+[sub_resource type="BBVariant" id="BBVariant_c526l"]
+type = 9
+saved_value = Vector3(25, 0, 0)
+resource_name = "(25.0, 0.0, 0.0)"
+
+[sub_resource type="BTSetVar" id="BTSetVar_2s1c1"]
+variable = &"target_pos"
+value = SubResource("BBVariant_c526l")
+
+[sub_resource type="BBNode" id="BBNode_msusu"]
+saved_value = NodePath("NavigationAgent3D")
+resource_name = "NavigationAgent3D"
+
+[sub_resource type="BTAction" id="BTAction_msusu"]
+script = ExtResource("2_c526l")
+target_position_var = &"target_pos"
+nav_agent = SubResource("BBNode_msusu")
+tolerance = 1.0
 
 [sub_resource type="BTSequence" id="BTSequence_i23tl"]
+children = [SubResource("BTSetVar_2s1c1"), SubResource("BTAction_msusu")]
 
 [sub_resource type="BTSelector" id="BTSelector_i23tl"]
 custom_name = "execute untill success"
@@ -32,10 +44,10 @@ blackboard_plan = SubResource("BlackboardPlan_ntgaj")
 root_task = SubResource("BTSelector_i23tl")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_i23tl"]
-binding/movespeed = NodePath("..:SPEED")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ntgaj"]
-radius = 0.36784
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c526l"]
+radius = 0.368
+height = 1.5393
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c526l"]
 radius = 4.0677
@@ -164,8 +176,9 @@ _data = {
 
 [node name="Skitterbomb" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 557
+collision_mask = 559
 script = ExtResource("1_puc1e")
+SPEED = 100.0
 grapple_offset = Vector3(0, 0.51, 0)
 metadata/_custom_type_script = "uid://1fvkhlatl2xa"
 
@@ -174,10 +187,11 @@ behavior_tree = SubResource("BehaviorTree_f1415")
 blackboard_plan = SubResource("BlackboardPlan_i23tl")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
 
 [node name="Physics Collider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.367856, 0)
-shape = SubResource("SphereShape3D_ntgaj")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.77, 0)
+shape = SubResource("CapsuleShape3D_c526l")
 
 [node name="player detector" type="Area3D" parent="."]
 collision_layer = 2

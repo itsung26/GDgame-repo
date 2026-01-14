@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://coep80y2hjoka"]
+
+[ext_resource type="PackedScene" uid="uid://riysk11sv856" path="res://assets/meshes/map models/1-2/1-2.blend" id="1_n8lmc"]
+
+[node name="1-2" type="Node3D"]
+
+[node name="1-2" parent="." instance=ExtResource("1_n8lmc")]
+
+[editable path="1-2"]

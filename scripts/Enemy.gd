@@ -34,6 +34,8 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 ## Wether the behavior is allowed to run for the entity. If set to false, the entity
 ## should run in a "loop idle" state.
 @export var behavior_enabled:bool = true
+## Whether the enemy can currently be parried.
+@export var parriable:bool = false
 
 func _set(property: StringName, value: Variant) -> bool:
 	return false

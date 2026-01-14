@@ -1123,14 +1123,13 @@ emission_energy_multiplier = 0.5
 [sub_resource type="SphereMesh" id="SphereMesh_axemi"]
 material = SubResource("StandardMaterial3D_s6c3y")
 
-[node name="enemy_filth" type="CharacterBody3D" node_paths=PackedStringArray("grapple_origin") groups=["enemy"]]
+[node name="enemy_filth" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_8551a")
 lerp_angle_factor = 9.0
 HEALTH = 20.0
 SPEED = 750
-grapple_origin = NodePath("Marker3D")
 grapple_offset = Vector3(0, 1.2328, -0.139401)
 metadata/_edit_pinned_properties_ = [&"HEALTH"]
 
