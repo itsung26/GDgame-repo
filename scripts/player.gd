@@ -135,6 +135,9 @@ var parry_target:Node3D
 ## How much health is regained on a successful parry.
 @export var parry_heal_amount:float
 
+@export_group("Respawning")
+@export var checkpoint:checkPoint
+
 @export_group("Extras")
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
 @export var free_slide_enabled := false
@@ -215,11 +218,15 @@ var impact_sparks_2:GPUParticles3D
 var slide_light:OmniLight3D
 var pause:Control
 var dash_dir:Vector3
+var initial_player_rotation:Vector3
+var initial_camera_rotation:Vector3
 
 # called when the player is loaded into the scene.
 # Player should be loaded after main enviroment and global lighting, but before 
 # map and everything else.
 func _ready() -> void:
+	initial_player_rotation = player.rotation
+	initial_camera_rotation = camera_3d.rotation
 	if weapon_states.is_empty():
 		assert(false, "No weapons! Player should at least have weapon melee equipped.")
 	
@@ -485,6 +492,25 @@ func _input(event) -> void:
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
 		pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
 
+func getCheckPoint() -> checkPoint:
+	return checkpoint
+
+func setCheckPoint(new_checkpoint:checkPoint):
+	var previous_check_point:checkPoint = checkpoint
+	checkpoint = new_checkpoint
+
+## When the player dies in a combat area, they are to respawn with full health at
+## the last checkpoint. Enemy waves are reset and the player's camera look direction
+## and body rotation should be set according to properties in the checkPoint object.
+## All other properties, such as the world time and objects present should not be affected.
+func respawnCheckPoint() -> void:
+	healPlayer(9999.0)
+	set_player_state(player_states.GROUNDED)
+	player.velocity = Vector3.ZERO
+	player.global_position = checkpoint.respawn_player_position
+	player.rotation = initial_player_rotation
+	camera_3d.rotation = initial_camera_rotation
+
 ## Call to damage player. Requires a [code]damage[/code] parameter. Optionally, additional parameters for screen shake can be passed to the function. Otherwise, screen shake will not occur.
 func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_duration:float = 0.0, screen_shake_strength:float = 0.0):
 	if damage == 0.0:
@@ -747,6 +773,10 @@ func getPredictedPos(time:float) -> Vector3:
 	var a:Vector3 = velocity * time
 	var r:Vector3 = a + global_position
 	return r
+
+## Returns global coords.
+func getGlobalPos() -> Vector3:
+	return global_position
 
 var a = true
 # Called every frame. Main thread frames fluctuate around a target fps of 60.

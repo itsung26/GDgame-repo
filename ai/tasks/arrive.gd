@@ -16,6 +16,8 @@ func _tick(delta: float) -> Status:
 	var current_pos: Vector3 = agent.global_position
 	var distance_xz: float = Vector2(target_pos.x, target_pos.z).distance_to(Vector2(current_pos.x, current_pos.z))
 	if distance_xz < tolerance:
+		# stop enemy from moving
+		agent.velocity = Vector3(0.0, agent.velocity.y, 0.0)
 		return SUCCESS
 	
 	if nav_agent:

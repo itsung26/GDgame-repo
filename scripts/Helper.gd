@@ -12,3 +12,8 @@ func getFirstInScene(node_pattern:String):
 ## Gets the first node in the scene named "checkpoint"
 func getCheckPoint():
 	return getFirstInScene("checkpoint")
+
+## Gets a refrence to the player by using a group's refrence. More safe than getting
+## a referance to the player by name.
+func getPlayerFromTree() -> Player:
+	return get_tree().get_first_node_in_group("players")

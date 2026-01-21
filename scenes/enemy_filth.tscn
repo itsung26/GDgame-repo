@@ -1129,7 +1129,6 @@ collision_mask = 15
 script = ExtResource("1_8551a")
 lerp_angle_factor = 9.0
 HEALTH = 20.0
-SPEED = 750
 grapple_offset = Vector3(0, 1.2328, -0.139401)
 metadata/_edit_pinned_properties_ = [&"HEALTH"]
 

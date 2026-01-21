@@ -1,8 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://da0o4xn0tk2l8"]
+[gd_scene load_steps=35 format=3 uid="uid://da0o4xn0tk2l8"]
 
 [ext_resource type="Script" uid="uid://1fvkhlatl2xa" path="res://scripts/skitterbomb.gd" id="1_puc1e"]
 [ext_resource type="Script" uid="uid://cv6ic5a4lkddb" path="res://ai/tasks/arrive.gd" id="2_c526l"]
+[ext_resource type="Script" uid="uid://qsppblnbrhld" path="res://ai/tasks/IsOnFloor.gd" id="2_msusu"]
 [ext_resource type="PackedScene" uid="uid://cuguo3styi87u" path="res://assets/meshes/Skitterbomb/Skitterbomb.blend" id="2_ntgaj"]
+[ext_resource type="Script" uid="uid://b5lypnqqw0rws" path="res://ai/tasks/InRange.gd" id="3_2s1c1"]
 [ext_resource type="Texture2D" uid="uid://btuh66ked0vkk" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_01.png" id="3_f1415"]
 [ext_resource type="Material" uid="uid://63qriytymt0s" path="res://assets/meshes/Skitterbomb/material resources/glow eye parts red.tres" id="3_i23tl"]
 
@@ -12,15 +14,36 @@ var/target_pos/type = 9
 var/target_pos/value = Vector3(0, 0, 0)
 var/target_pos/hint = 0
 var/target_pos/hint_string = ""
+var/player/name = &"player"
+var/player/type = 24
+var/player/hint = 0
+var/player/hint_string = ""
 
-[sub_resource type="BBVariant" id="BBVariant_c526l"]
-type = 9
-saved_value = Vector3(25, 0, 0)
-resource_name = "(25.0, 0.0, 0.0)"
+[sub_resource type="BTCondition" id="BTCondition_p4vsc"]
+script = ExtResource("2_msusu")
 
-[sub_resource type="BTSetVar" id="BTSetVar_2s1c1"]
-variable = &"target_pos"
-value = SubResource("BBVariant_c526l")
+[sub_resource type="BTCondition" id="BTCondition_2s1c1"]
+script = ExtResource("3_2s1c1")
+target_var = &"target_pos"
+distance = 5.0
+
+[sub_resource type="BTInvert" id="BTInvert_msusu"]
+children = [SubResource("BTCondition_2s1c1")]
+
+[sub_resource type="BBVariant" id="BBVariant_2s1c1"]
+type = 2
+saved_value = 0
+resource_name = "<null>"
+
+[sub_resource type="BBNode" id="BBNode_5a475"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_f6tbl"]
+node = SubResource("BBNode_5a475")
+method = &"setEnemyState"
+args = Array[BBVariant]([SubResource("BBVariant_2s1c1")])
+custom_name = "set state following"
 
 [sub_resource type="BBNode" id="BBNode_msusu"]
 saved_value = NodePath("NavigationAgent3D")
@@ -30,14 +53,37 @@ resource_name = "NavigationAgent3D"
 script = ExtResource("2_c526l")
 target_position_var = &"target_pos"
 nav_agent = SubResource("BBNode_msusu")
-tolerance = 1.0
+tolerance = 5.0
 
-[sub_resource type="BTSequence" id="BTSequence_i23tl"]
-children = [SubResource("BTSetVar_2s1c1"), SubResource("BTAction_msusu")]
+[sub_resource type="BTSequence" id="BTSequence_2s1c1"]
+custom_name = "goto target pos"
+children = [SubResource("BTCondition_p4vsc"), SubResource("BTInvert_msusu"), SubResource("BTCallMethod_f6tbl"), SubResource("BTAction_msusu")]
+
+[sub_resource type="BTCondition" id="BTCondition_5a475"]
+script = ExtResource("2_msusu")
+
+[sub_resource type="BBVariant" id="BBVariant_msusu"]
+type = 2
+saved_value = 1
+resource_name = "1"
+
+[sub_resource type="BBNode" id="BBNode_f6tbl"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_ahbdg"]
+node = SubResource("BBNode_f6tbl")
+method = &"setEnemyState"
+args = Array[BBVariant]([SubResource("BBVariant_msusu")])
+custom_name = "set state idle"
+
+[sub_resource type="BTSequence" id="BTSequence_f6tbl"]
+custom_name = "idle sequence"
+children = [SubResource("BTCondition_5a475"), SubResource("BTCallMethod_ahbdg")]
 
 [sub_resource type="BTSelector" id="BTSelector_i23tl"]
 custom_name = "execute untill success"
-children = [SubResource("BTSequence_i23tl")]
+children = [SubResource("BTSequence_2s1c1"), SubResource("BTSequence_f6tbl")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_f1415"]
 blackboard_plan = SubResource("BlackboardPlan_ntgaj")
@@ -46,8 +92,8 @@ root_task = SubResource("BTSelector_i23tl")
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_i23tl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c526l"]
-radius = 0.368
-height = 1.5393
+radius = 0.357994
+height = 1.01344
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c526l"]
 radius = 4.0677
@@ -174,11 +220,18 @@ _data = {
 &"flash slow": SubResource("Animation_f1415")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2s1c1"]
+billboard_mode = 1
+
+[sub_resource type="TextMesh" id="TextMesh_msusu"]
+material = SubResource("StandardMaterial3D_2s1c1")
+text = "state: null"
+
 [node name="Skitterbomb" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 559
 script = ExtResource("1_puc1e")
-SPEED = 100.0
+SPEED = 350.0
 grapple_offset = Vector3(0, 0.51, 0)
 metadata/_custom_type_script = "uid://1fvkhlatl2xa"
 
@@ -190,17 +243,18 @@ blackboard_plan = SubResource("BlackboardPlan_i23tl")
 debug_enabled = true
 
 [node name="Physics Collider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.77, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.507, 0)
 shape = SubResource("CapsuleShape3D_c526l")
 
 [node name="player detector" type="Area3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="player detector"]
 shape = SubResource("SphereShape3D_c526l")
 
 [node name="Skitterbomb2" parent="." instance=ExtResource("2_ntgaj")]
-transform = Transform3D(0.0562674, 0, 0, 0, 0.0562674, 0, 0, 0, 0.0562674, 0, 0, 0)
+transform = Transform3D(-2.45953e-09, 0, 0.0562674, 0, 0.0562674, 0, -0.0562674, 0, -2.45953e-09, 0, 0, 0)
 
 [node name="glow eye parts" parent="Skitterbomb2/Armature/Skeleton3D" index="0"]
 transform = Transform3D(0.164861, 0.985818, 0.0313726, -0.981612, 0.160888, 0.102727, 0.0962224, -0.0477313, 0.994215, 1.57214, -0.27636, -1.89437)
@@ -327,6 +381,15 @@ transform = Transform3D(3.69023e-07, 1, 1.84428e-14, -1, 4.28627e-07, -2.40991e-
 [node name="wire connect" parent="Skitterbomb2/Armature/Skeleton3D" index="33"]
 transform = Transform3D(-0.178917, 6.45466e-08, -5.05911e-16, -6.45466e-08, -0.178917, -3.08181e-08, -1.66632e-15, -3.08181e-08, 0.178917, 1.82782, -3.73153, 0.289927)
 
+[node name="text mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.878093, 0)
+mesh = SubResource("TextMesh_msusu")
+
+[node name="prepare leap delay" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="player detector" to="." method="_on_player_detector_body_exited"]
+[connection signal="timeout" from="prepare leap delay" to="." method="_on_prepare_leap_delay_timeout"]
 
 [editable path="Skitterbomb2"]

@@ -32,7 +32,185 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"meshes": {
+"1-2_Cube": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube.res"
+},
+"1-2_Cube_001": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_001.res"
+},
+"1-2_Cube_002": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_002.res"
+},
+"1-2_Cube_003": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_003.res"
+},
+"1-2_Cube_004": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_004.res"
+},
+"1-2_Cube_005": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_005.res"
+},
+"1-2_Cube_006": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_006.res"
+},
+"1-2_Cube_007": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_007.res"
+},
+"1-2_Cube_009": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_009.res"
+},
+"1-2_Cube_010": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_010.res"
+},
+"1-2_Cube_011": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_011.res"
+},
+"1-2_Cylinder": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cylinder.res"
+},
+"1-2_Cylinder_001": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cylinder_001.res"
+},
+"1-2_Cylinder_002": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cylinder_002.res"
+},
+"1-2_Cylinder_005": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cylinder_005.res"
+},
+"1-2_Cylinder_007": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cylinder_007.res"
+},
+"1-2_Plane": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Plane.res"
+},
+"1-2_Plane_001": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Plane_001.res"
+},
+"1-2_Plane_002": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Plane_002.res"
+},
+"1-2_Plane_003": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Plane_003.res"
+}
+},
+"nodes": {
+"PATH:Ring": {
+"import/skip_import": true
+},
+"PATH:door cutout": {
+"import/skip_import": true
+},
+"PATH:door cutout bounds": {
+"import/skip_import": true
+},
+"PATH:door cutout_001": {
+"import/skip_import": true
+},
+"PATH:door cutout_002": {
+"import/skip_import": true
+},
+"PATH:grinder": {
+"import/skip_import": true
+},
+"PATH:player": {
+"import/skip_import": true
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true
