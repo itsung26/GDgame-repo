@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://coep80y2hjoka"]
+[gd_scene load_steps=35 format=3 uid="uid://coep80y2hjoka"]
 
 [ext_resource type="Script" uid="uid://cx5nc0vahgavw" path="res://scripts/1_2.gd" id="1_e7ay0"]
 [ext_resource type="PackedScene" uid="uid://riysk11sv856" path="res://assets/meshes/map models/1-2/1-2.blend" id="1_n8lmc"]
@@ -12,18 +12,18 @@
 [ext_resource type="PackedScene" uid="uid://jjs1h5uyhbsf" path="res://scenes/ring.tscn" id="8_30v2v"]
 [ext_resource type="PackedScene" uid="uid://dkcmqlhhhkcqd" path="res://scenes/door_small.tscn" id="9_wped7"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wped7"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1vq1x"]
 sky_top_color = Color(0.585062, 0.585062, 0.585062, 1)
 sky_horizon_color = Color(0.633768, 0.633768, 0.633768, 1)
 ground_bottom_color = Color(0, 0, 0, 1)
 ground_horizon_color = Color(0.633768, 0.633768, 0.633768, 1)
 
-[sub_resource type="Sky" id="Sky_it201"]
-sky_material = SubResource("ProceduralSkyMaterial_wped7")
+[sub_resource type="Sky" id="Sky_emdgr"]
+sky_material = SubResource("ProceduralSkyMaterial_1vq1x")
 
-[sub_resource type="Environment" id="Environment_1vq1x"]
+[sub_resource type="Environment" id="Environment_5s5oy"]
 background_mode = 2
-sky = SubResource("Sky_it201")
+sky = SubResource("Sky_emdgr")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -85,27 +85,50 @@ metadata/extras = {
 }
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1vq1x"]
-frequency = 0.0277
+frequency = 0.0415
 fractal_type = 2
 fractal_octaves = 1
 domain_warp_enabled = true
+domain_warp_frequency = 0.123
+domain_warp_fractal_octaves = 1
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_emdgr"]
+seamless = true
 noise = SubResource("FastNoiseLite_1vq1x")
+
+[sub_resource type="Gradient" id="Gradient_1vq1x"]
+offsets = PackedFloat32Array(0.461538, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.74978, 0.74978, 0.74978, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_emdgr"]
+noise_type = 5
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5s5oy"]
+seamless = true
+color_ramp = SubResource("Gradient_1vq1x")
+noise = SubResource("FastNoiseLite_emdgr")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_emdgr"]
 render_priority = 0
 shader = ExtResource("8_1vq1x")
-shader_parameter/Texture2DParameter = SubResource("NoiseTexture2D_emdgr")
-shader_parameter/noise_layer_transpareny = 0.0
-shader_parameter/color = Color(1, 0.647059, 0, 1)
-shader_parameter/emission_intensity = 0.0
+shader_parameter/lowest_color = Color(1, 0.647059, 0, 1)
+shader_parameter/layer_1_color = Color(1, 0.25098, 0, 1)
+shader_parameter/layer_1_scroll_speed = -0.058
+shader_parameter/layer_1_mask_texture = SubResource("NoiseTexture2D_emdgr")
+shader_parameter/top_layer_brightness = 0.234
+shader_parameter/burn_dark_color_factor = 0.062
+shader_parameter/layer_2_color = Color(0.789864, 0.374423, 0, 1)
+shader_parameter/layer_2_mask_texture = SubResource("NoiseTexture2D_5s5oy")
+shader_parameter/lowest_color_emission_intensity = 0.9
+shader_parameter/layer_1_emission_intensity = 2.09
+shader_parameter/layer_2_emission_intensity = 0.0
 
 [node name="1-2" type="Node3D"]
 script = ExtResource("1_e7ay0")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_1vq1x")
+environment = SubResource("Environment_5s5oy")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.437732, 0.241641, 0, 0.483282, 0.875464, -0.5, 0.758174, -0.418535, 0, 0, 0)
@@ -175,9 +198,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_e7ay0")
 
 [node name="wall part" parent="1-2" index="8"]
 surface_material_override/0 = SubResource("StandardMaterial3D_1vq1x")
-
-[node name="room 3" parent="1-2" index="12"]
-visible = false
 
 [node name="Cylinder" parent="1-2" index="18"]
 material_override = SubResource("ShaderMaterial_emdgr")

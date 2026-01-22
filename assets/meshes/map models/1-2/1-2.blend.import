@@ -34,6 +34,14 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "meshes": {
+"1-2_BézierCurve": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_BézierCurve.res"
+},
 "1-2_Cube": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
@@ -98,6 +106,10 @@ _subresources={
 "save_to_file/enabled": true,
 "save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_007.res"
 },
+"1-2_Cube_008": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_008.res"
+},
 "1-2_Cube_009": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
@@ -122,6 +134,34 @@ _subresources={
 "save_to_file/enabled": true,
 "save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_011.res"
 },
+"1-2_Cube_014": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_014.res"
+},
+"1-2_Cube_015": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_015.res"
+},
+"1-2_Cube_017": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_017.res"
+},
+"1-2_Cube_018": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_018.res"
+},
+"1-2_Cube_022": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_022.res"
+},
 "1-2_Cylinder": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
@@ -141,6 +181,14 @@ _subresources={
 "lods/normal_merge_angle": 60.0,
 "save_to_file/enabled": true,
 "save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cylinder_002.res"
+},
+"1-2_Cylinder_003": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cylinder_003.res"
 },
 "1-2_Cylinder_005": {
 "save_to_file/enabled": true,
