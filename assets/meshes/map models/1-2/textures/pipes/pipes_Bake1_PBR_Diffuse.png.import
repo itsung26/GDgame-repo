@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu8s7q00wgdtt"
-path.s3tc="res://.godot/imported/floordecoration9 #211572.png-ad3751f62330c3c0fd9e944fe3cff964.s3tc.ctex"
+uid="uid://12cbhip07ndg"
+path.s3tc="res://.godot/imported/pipes_Bake1_PBR_Diffuse.png-d80b1e2a5ca9b2ccf5fafd15a760347b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/2d assets/primary textures/Ultra Textures/Prelude/floordecoration9 #211572.png"
-dest_files=["res://.godot/imported/floordecoration9 #211572.png-ad3751f62330c3c0fd9e944fe3cff964.s3tc.ctex"]
+source_file="res://assets/meshes/map models/1-2/textures/pipes/pipes_Bake1_PBR_Diffuse.png"
+dest_files=["res://.godot/imported/pipes_Bake1_PBR_Diffuse.png-d80b1e2a5ca9b2ccf5fafd15a760347b.s3tc.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu8s7q00wgdtt"
-path.s3tc="res://.godot/imported/floordecoration9 #211572.png-ad3751f62330c3c0fd9e944fe3cff964.s3tc.ctex"
+uid="uid://dkn21qdvwl2pn"
+path.s3tc="res://.godot/imported/room 1.001_Bake1_PBR StoA_Diffuse.png-0a8fb03b3b26e504342f1757b5d71374.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/2d assets/primary textures/Ultra Textures/Prelude/floordecoration9 #211572.png"
-dest_files=["res://.godot/imported/floordecoration9 #211572.png-ad3751f62330c3c0fd9e944fe3cff964.s3tc.ctex"]
+source_file="res://assets/meshes/map models/1-2/textures/room 1.001/room 1.001_Bake1_PBR StoA_Diffuse.png"
+dest_files=["res://.godot/imported/room 1.001_Bake1_PBR StoA_Diffuse.png-0a8fb03b3b26e504342f1757b5d71374.s3tc.ctex"]
 
 [params]
 

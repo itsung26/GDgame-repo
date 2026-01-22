@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://kadh2ax2te03"]
+
+[ext_resource type="PackedScene" uid="uid://dvocbfg7wt2xb" path="res://assets/meshes/vent/vent.fbx" id="1_cp5ku"]
+
+[sub_resource type="Curve" id="Curve_hhoh0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.113145), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_42pey"]
+curve = SubResource("Curve_hhoh0")
+
+[sub_resource type="Curve" id="Curve_oy8i4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ive3w"]
+curve = SubResource("Curve_oy8i4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n7r3n"]
+emission_shape = 3
+emission_box_extents = Vector3(0.63, 0, 0.63)
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 0.42
+initial_velocity_max = 0.42
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_ive3w")
+alpha_curve = SubResource("CurveTexture_42pey")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k2j87"]
+load_path = "res://.godot/imported/smoke_01.png-c6aaab37d0170fb61ed810843ff24088.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4igxd"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("CompressedTexture2D_k2j87")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_rlpy4"]
+material = SubResource("StandardMaterial3D_4igxd")
+size = Vector2(1.87, 1.87)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_cp5ku"]
+data = PackedVector3Array(-0.0049, 0.0049, 0, -0.0049, -0.0049, 0, -0.0049, -0.0049, -0.0007, -0.0049, -0.0049, -0.0007, -0.0049, 0.0049, -0.0007, -0.0049, 0.0049, 0, 0.0049, 0.0049, 0, -0.0049, 0.0049, 0, -0.0049, 0.0049, -0.0007, -0.0049, 0.0049, -0.0007, 0.0049, 0.0049, -0.0007, 0.0049, 0.0049, 0, 0.0049, -0.0049, 0, 0.0049, 0.0049, 0, 0.0049, 0.0049, -0.0007, 0.0049, 0.0049, -0.0007, 0.0049, -0.0049, -0.0007, 0.0049, -0.0049, 0, -0.0049, -0.0049, 0, 0.0049, -0.0049, 0, 0.0049, -0.0049, -0.0007, 0.0049, -0.0049, -0.0007, -0.0049, -0.0049, -0.0007, -0.0049, -0.0049, 0, 0.0049, -0.0049, -0.0007, 0.0049, 0.0049, -0.0007, -0.0049, 0.0049, -0.0007, -0.0049, 0.0049, -0.0007, -0.0049, -0.0049, -0.0007, 0.0049, -0.0049, -0.0007, -0.0049, -0.0049, 0, -0.0049, 0.0049, 0, 0.0049, 0.0049, 0, 0.0049, 0.0049, 0, 0.0049, -0.0049, 0, -0.0049, -0.0049, 0)
+
+[node name="Vent" type="Node3D"]
+
+[node name="vent" parent="." instance=ExtResource("1_cp5ku")]
+
+[node name="ambient_smoke_rising" type="GPUParticles3D" parent="."]
+amount = 16
+lifetime = 4.32
+process_material = SubResource("ParticleProcessMaterial_n7r3n")
+draw_pass_1 = SubResource("QuadMesh_rlpy4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 523
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_cp5ku")
+
+[editable path="vent"]
