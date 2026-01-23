@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TrenchBroomGameConfig" load_steps=7 format=3 uid="uid://d1tp3tofijlug"]
+
+[ext_resource type="Resource" uid="uid://b4xhdj0e16lop" path="res://addons/func_godot/game_config/trenchbroom/tb_face_tag_clip.tres" id="1_fjpya"]
+[ext_resource type="Resource" uid="uid://ca7377sfgj074" path="res://addons/func_godot/game_config/trenchbroom/tb_face_tag_skip.tres" id="2_83c11"]
+[ext_resource type="Resource" uid="uid://bkjxc54mmdhbo" path="res://addons/func_godot/game_config/trenchbroom/tb_face_tag_origin.tres" id="3_g0u7g"]
+[ext_resource type="Resource" uid="uid://bwnaiyfw58j86" path="res://trenchbroom/funcGodotFGDfile.tres" id="4_fjpya"]
+[ext_resource type="Texture2D" uid="uid://decwujsyhj0qy" path="res://addons/func_godot/icon32.png" id="5_84pfa"]
+[ext_resource type="Script" uid="uid://cx44c4vnq8bt5" path="res://addons/func_godot/src/trenchbroom/trenchbroom_game_config.gd" id="6_h0rd0"]
+
+[resource]
+script = ExtResource("6_h0rd0")
+game_name = "project"
+fgd_file = ExtResource("4_fjpya")
+metadata/_custom_type_script = "uid://cx44c4vnq8bt5"

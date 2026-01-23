@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://ddydvm62ppbki"
+path="res://.godot/imported/makkon3_testmap_customdoors.map-d3619864d19059f01ac2ef99e4a56734.tres"
+
+[deps]
+
+source_file="res://trenchbroom/textures/wad texture sets/makkon_tech/makkon_tech documentation/maps/makkon3_testmap_customdoors.map"
+dest_files=["res://.godot/imported/makkon3_testmap_customdoors.map-d3619864d19059f01ac2ef99e4a56734.tres"]
+
+[params]
+

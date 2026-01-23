@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://dsec52883j68m"
+path="res://.godot/imported/makkon3_3_testmap.map-8d45ed6e861a54b8af3c42f46c5de253.tres"
+
+[deps]
+
+source_file="res://trenchbroom/textures/wad texture sets/makkon_tech/makkon_tech documentation/maps/makkon3_3_testmap.map"
+dest_files=["res://.godot/imported/makkon3_3_testmap.map-8d45ed6e861a54b8af3c42f46c5de253.tres"]
+
+[params]
+

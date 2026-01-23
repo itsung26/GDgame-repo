@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://bogi4flpcs8tk"
+path="res://.godot/imported/makkon3_testmap_pyramid1.map-075811db39242845b9ab1acad76f98c6.tres"
+
+[deps]
+
+source_file="res://trenchbroom/textures/wad texture sets/makkon_tech/makkon_tech documentation/maps/makkon3_testmap_pyramid1.map"
+dest_files=["res://.godot/imported/makkon3_testmap_pyramid1.map-075811db39242845b9ab1acad76f98c6.tres"]
+
+[params]
+

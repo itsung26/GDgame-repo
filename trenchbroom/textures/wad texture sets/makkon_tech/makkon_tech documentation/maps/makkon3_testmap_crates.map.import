@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://do3r5xqq2lagu"
+path="res://.godot/imported/makkon3_testmap_crates.map-9a7844c80cfded4e37d319c489139ade.tres"
+
+[deps]
+
+source_file="res://trenchbroom/textures/wad texture sets/makkon_tech/makkon_tech documentation/maps/makkon3_testmap_crates.map"
+dest_files=["res://.godot/imported/makkon3_testmap_crates.map-9a7844c80cfded4e37d319c489139ade.tres"]
+
+[params]
+
