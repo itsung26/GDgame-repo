@@ -1,3 +1,12 @@
-[gd_scene format=3 uid="uid://dgc7mikvj7ucs"]
+[gd_scene load_steps=3 format=3 uid="uid://dgc7mikvj7ucs"]
+
+[ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_ndmhy"]
+[ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="2_bi8v2"]
 
 [node name="TrenchBroom test" type="Node3D"]
+
+[node name="FuncGodotMap" type="Node3D" parent="."]
+script = ExtResource("1_ndmhy")
+local_map_file = "uid://c6f52fjhjs2mw"
+map_settings = ExtResource("2_bi8v2")
+metadata/_custom_type_script = "uid://cwu5cf7a0awcd"

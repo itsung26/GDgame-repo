@@ -7,3 +7,5 @@
 
 [resource]
 script = ExtResource("1_dlf23")
+base_texture_dir = "res://trenchbroom/textures"
+base_material_dir = "res://trenchbroom/materials"

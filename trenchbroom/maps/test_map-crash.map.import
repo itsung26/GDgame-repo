@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://cjfl3mchljulx"
+path="res://.godot/imported/test_map-crash.map-a44eda78d625bfa7fc5ae5c10c3ac233.tres"
+
+[deps]
+
+source_file="res://trenchbroom/maps/test_map-crash.map"
+dest_files=["res://.godot/imported/test_map-crash.map-a44eda78d625bfa7fc5ae5c10c3ac233.tres"]
+
+[params]
+
