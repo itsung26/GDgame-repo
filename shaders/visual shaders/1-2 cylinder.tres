@@ -154,7 +154,7 @@ source = 5
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec4 lowest_color : source_color;
 uniform vec4 layer_1_color : source_color;
@@ -292,7 +292,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-2238.99, -472.841)
 preview_params/top_layer_brightness = "0.234"
 preview_params/burn_dark_color_factor = "0.062"
 preview_params/layer_1_color = "Color(1, 0.25098, 0, 1)"
@@ -301,12 +300,12 @@ preview_params/lowest_color_emission_intensity = "0.9"
 preview_params/layer_1_emission_intensity = "2.09"
 preview_params/layer_1_scroll_speed = "-0.058"
 preview_params/layer_2_color = "Color(0.789864, 0.374423, 0, 1)"
-preview_params/layer_1_mask_texture = "Object(NoiseTexture2D,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"width\":512,\"height\":512,\"invert\":false,\"in_3d_space\":false,\"generate_mipmaps\":true,\"seamless\":true,\"seamless_blend_skirt\":0.1,\"as_normal_map\":false,\"bump_strength\":8.0,\"normalize\":true,\"color_ramp\":null,\"noise\":Object(FastNoiseLite,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"noise_type\":1,\"seed\":0,\"frequency\":0.0415,\"offset\":Vector3(0, 0, 0),\"fractal_type\":2,\"fractal_octaves\":1,\"fractal_lacunarity\":2.0,\"fractal_gain\":0.5,\"fractal_weighted_strength\":0.0,\"fractal_ping_pong_strength\":2.0,\"cellular_distance_function\":0,\"cellular_jitter\":1.0,\"cellular_return_type\":1,\"domain_warp_enabled\":true,\"domain_warp_type\":0,\"domain_warp_amplitude\":30.0,\"domain_warp_frequency\":0.123,\"domain_warp_fractal_type\":1,\"domain_warp_fractal_octaves\":1,\"domain_warp_fractal_lacunarity\":6.0,\"domain_warp_fractal_gain\":0.5,\"script\":null)
-,\"script\":null)
+preview_params/layer_1_mask_texture = "Object(NoiseTexture2D,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"width\":512,\"height\":512,\"generate_mipmaps\":true,\"noise\":Object(FastNoiseLite,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"noise_type\":1,\"seed\":0,\"frequency\":0.0415,\"offset\":Vector3(0, 0, 0),\"fractal_type\":2,\"fractal_octaves\":1,\"fractal_lacunarity\":2.0,\"fractal_gain\":0.5,\"fractal_weighted_strength\":0.0,\"fractal_ping_pong_strength\":2.0,\"cellular_distance_function\":0,\"cellular_jitter\":1.0,\"cellular_return_type\":1,\"domain_warp_enabled\":true,\"domain_warp_type\":0,\"domain_warp_amplitude\":30.0,\"domain_warp_frequency\":0.123,\"domain_warp_fractal_type\":1,\"domain_warp_fractal_octaves\":1,\"domain_warp_fractal_lacunarity\":6.0,\"domain_warp_fractal_gain\":0.5,\"script\":null)
+,\"color_ramp\":null,\"seamless\":true,\"invert\":false,\"in_3d_space\":false,\"as_normal_map\":false,\"normalize\":true,\"seamless_blend_skirt\":0.1,\"bump_strength\":8.0,\"script\":null)
 "
-preview_params/layer_2_mask_texture = "Object(NoiseTexture2D,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"width\":512,\"height\":512,\"invert\":false,\"in_3d_space\":false,\"generate_mipmaps\":true,\"seamless\":true,\"seamless_blend_skirt\":0.1,\"as_normal_map\":false,\"bump_strength\":8.0,\"normalize\":true,\"color_ramp\":Object(Gradient,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"interpolation_mode\":0,\"interpolation_color_space\":0,\"offsets\":PackedFloat32Array(0.461538, 1),\"colors\":PackedColorArray(0, 0, 0, 1, 0.74978, 0.74978, 0.74978, 1),\"script\":null)
-,\"noise\":Object(FastNoiseLite,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"noise_type\":5,\"seed\":0,\"frequency\":1.0,\"offset\":Vector3(0, 0, 0),\"fractal_type\":1,\"fractal_octaves\":5,\"fractal_lacunarity\":2.0,\"fractal_gain\":0.5,\"fractal_weighted_strength\":0.0,\"fractal_ping_pong_strength\":2.0,\"cellular_distance_function\":0,\"cellular_jitter\":1.0,\"cellular_return_type\":1,\"domain_warp_enabled\":false,\"domain_warp_type\":0,\"domain_warp_amplitude\":30.0,\"domain_warp_frequency\":0.05,\"domain_warp_fractal_type\":1,\"domain_warp_fractal_octaves\":5,\"domain_warp_fractal_lacunarity\":6.0,\"domain_warp_fractal_gain\":0.5,\"script\":null)
-,\"script\":null)
+preview_params/layer_2_mask_texture = "Object(NoiseTexture2D,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"width\":512,\"height\":512,\"generate_mipmaps\":true,\"noise\":Object(FastNoiseLite,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"noise_type\":5,\"seed\":0,\"frequency\":1.0,\"offset\":Vector3(0, 0, 0),\"fractal_type\":1,\"fractal_octaves\":5,\"fractal_lacunarity\":2.0,\"fractal_gain\":0.5,\"fractal_weighted_strength\":0.0,\"fractal_ping_pong_strength\":2.0,\"cellular_distance_function\":0,\"cellular_jitter\":1.0,\"cellular_return_type\":1,\"domain_warp_enabled\":false,\"domain_warp_type\":0,\"domain_warp_amplitude\":30.0,\"domain_warp_frequency\":0.05,\"domain_warp_fractal_type\":1,\"domain_warp_fractal_octaves\":5,\"domain_warp_fractal_lacunarity\":6.0,\"domain_warp_fractal_gain\":0.5,\"script\":null)
+,\"color_ramp\":Object(Gradient,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"interpolation_mode\":0,\"interpolation_color_space\":0,\"offsets\":PackedFloat32Array(0.461538, 1),\"colors\":PackedColorArray(0, 0, 0, 1, 0.74978, 0.74978, 0.74978, 1),\"script\":null)
+,\"seamless\":true,\"invert\":false,\"in_3d_space\":false,\"as_normal_map\":false,\"normalize\":true,\"seamless_blend_skirt\":0.1,\"bump_strength\":8.0,\"script\":null)
 "
 preview_params/layer_2_emission_intensity = "0.0"
 nodes/fragment/0/position = Vector2(2000, 160)

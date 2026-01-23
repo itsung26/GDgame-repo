@@ -48,15 +48,6 @@ _subresources={
 "save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_BézierCurve.res",
 "save_to_file/path": "uid://caehk5xxgrjcg"
 },
-"1-2_Cube": {
-"generate/lightmap_uv": 0,
-"generate/lods": 0,
-"generate/shadow_meshes": 0,
-"lods/normal_merge_angle": 60.0,
-"save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube.res",
-"save_to_file/path": "uid://ci4pmnoqbxx2k"
-},
 "1-2_Cube_001": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
@@ -152,6 +143,24 @@ _subresources={
 "save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_011.res",
 "save_to_file/path": "uid://bdbocrgcy8a2u"
 },
+"1-2_Cube_012": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_012.res",
+"save_to_file/path": "uid://b1yeoyfmvt2q7"
+},
+"1-2_Cube_013": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_013.res",
+"save_to_file/path": "uid://exfwh875lrgc"
+},
 "1-2_Cube_014": {
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_014.res",
@@ -161,6 +170,15 @@ _subresources={
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_015.res",
 "save_to_file/path": "uid://ck4u1qpjb2f3y"
+},
+"1-2_Cube_016": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_016.res",
+"save_to_file/path": "uid://b1fdwmepxxefq"
 },
 "1-2_Cube_017": {
 "save_to_file/enabled": true,
@@ -175,6 +193,24 @@ _subresources={
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_018.res",
 "save_to_file/path": "uid://5m0jyffsu4ya"
+},
+"1-2_Cube_019": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_019.res",
+"save_to_file/path": "uid://b1vhr76ii1wjw"
+},
+"1-2_Cube_020": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cube_020.res",
+"save_to_file/path": "uid://yoi6p0u45n55"
 },
 "1-2_Cube_022": {
 "generate/lightmap_uv": 0,
@@ -216,6 +252,15 @@ _subresources={
 "save_to_file/enabled": true,
 "save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cylinder_003.res",
 "save_to_file/path": "uid://bq5cnfpf0wocr"
+},
+"1-2_Cylinder_004": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://assets/meshes/map models/1-2/mesh resources/1-2_Cylinder_004.res",
+"save_to_file/path": "uid://cbxcldglcvgm7"
 },
 "1-2_Cylinder_005": {
 "save_to_file/enabled": true,

@@ -121,8 +121,8 @@ domain_warp_frequency = 0.123
 domain_warp_fractal_octaves = 1
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_emdgr"]
-seamless = true
 noise = SubResource("FastNoiseLite_1vq1x")
+seamless = true
 
 [sub_resource type="Gradient" id="Gradient_1vq1x"]
 offsets = PackedFloat32Array(0.461538, 1)
@@ -133,9 +133,9 @@ noise_type = 5
 frequency = 1.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5s5oy"]
-seamless = true
-color_ramp = SubResource("Gradient_1vq1x")
 noise = SubResource("FastNoiseLite_emdgr")
+color_ramp = SubResource("Gradient_1vq1x")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_emdgr"]
 render_priority = 0
@@ -168,7 +168,6 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.47142, 1.19952)
 
 [node name="1-2 collider" type="StaticBody3D" parent="."]
-visible = false
 collision_layer = 4
 collision_mask = 527
 
@@ -229,19 +228,19 @@ debug_color = Color(1, 1, 0, 1)
 
 [node name="1-2" parent="." instance=ExtResource("1_n8lmc")]
 
-[node name="room 2" parent="1-2" index="2"]
+[node name="room 2" parent="1-2" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_e7ay0")
 
-[node name="wall part" parent="1-2" index="7"]
+[node name="wall part" parent="1-2" index="5"]
 surface_material_override/0 = SubResource("StandardMaterial3D_1vq1x")
 
-[node name="room 5" parent="1-2" index="14"]
+[node name="room 5" parent="1-2" index="12"]
 surface_material_override/3 = SubResource("ShaderMaterial_5s5oy")
 
-[node name="Cylinder" parent="1-2" index="17"]
+[node name="Cylinder" parent="1-2" index="15"]
 material_override = SubResource("ShaderMaterial_emdgr")
 
-[node name="vent" parent="1-2" index="20"]
+[node name="vent" parent="1-2" index="24"]
 visible = false
 
 [node name="Grinder" parent="." instance=ExtResource("2_id7ml")]
