@@ -15,8 +15,6 @@ var has_been_parried:bool = false
 @export var time_before_detonation:float = 1.0
 @export var hitstop_duration_on_being_shot:float = 0.30
 
-signal on_being_parried
-
 func _ready() -> void:
 	add_collision_exception_with(get_tree().get_first_node_in_group("players"))
 	visible = false

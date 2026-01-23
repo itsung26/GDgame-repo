@@ -36,7 +36,7 @@ input_name = "time"
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
 
 uniform vec4 ColorParameter : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
 uniform vec2 scale = vec2(1.000000, 1.000000);
@@ -98,7 +98,7 @@ flags/unshaded = true
 preview_params/ColorParameter = "Color(0.321728, 0.321728, 0.321728, 1)"
 preview_params/scale = "Vector2(5, 5)"
 preview_params/panning = "-1.0"
-preview_params/Texture2DParameter = "Resource(\"res://assets/2d assets/noise/noise 512x512/Streak/Streak_14-512x512.png\")"
+preview_params/Texture2DParameter = "Resource(\"uid://4ekjrsyqhs5h\", \"res://assets/2d assets/noise/noise 512x512/Streak/Streak_14-512x512.png\")"
 nodes/fragment/0/position = Vector2(1160, 2220)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_ts3ea")
 nodes/fragment/2/position = Vector2(-360, 1120)

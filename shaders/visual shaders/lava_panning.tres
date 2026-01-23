@@ -69,7 +69,7 @@ op_type = 0
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec2 uv_scale = vec2(1.000000, 1.000000);
 uniform float scroll_speed;

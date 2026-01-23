@@ -78,7 +78,7 @@ texture = SubResource("GradientTexture1D_en8ro")
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform float radius = 0.30000001192093;
 uniform float softness = 0.10000000149012;

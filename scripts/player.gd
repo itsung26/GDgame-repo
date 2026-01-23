@@ -265,7 +265,7 @@ func _ready() -> void:
 	else:
 		set_weapon_state(initial_weapon)
 
-func set_player_state(new_player_state:int):
+func set_player_state(new_player_state:player_states):
 	# init vars
 	var previous_player_state := player_state
 	player_state = new_player_state
@@ -366,7 +366,7 @@ func set_weapon_state(new_weapon_state:PlayerWeapon):
 	# calls the equip logic on the weapon that is being equipped
 	new_weapon_state._onEquip()
 		
-func set_action_state(new_action_state:int):
+func set_action_state(new_action_state:action_states):
 	# init vars
 	var previous_action_state := action_state
 	action_state = new_action_state
@@ -408,7 +408,7 @@ func set_action_state(new_action_state:int):
 	if previous_action_state == action_states.IDLE:
 		pass
 
-func set_arm_state(new_arm_state:int):
+func set_arm_state(new_arm_state:arm_states):
 	# init vars
 	var previous_arm_state := arm_state
 	arm_state = new_arm_state

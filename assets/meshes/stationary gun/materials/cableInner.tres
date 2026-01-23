@@ -40,7 +40,7 @@ operator = 2
 [resource]
 resource_local_to_scene = true
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec4 ColorParameter : source_color;
 uniform vec2 scale = vec2(1.000000, 1.000000);

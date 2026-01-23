@@ -104,7 +104,7 @@ op_type = 4
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
 
 uniform sampler2D tex_frg_22;
 uniform float pan_speed;
@@ -196,7 +196,7 @@ void fragment() {
 modes/cull = 2
 flags/unshaded = true
 preview_params/pan_speed = "0.0"
-preview_params/Texture2DParameter = "Resource(\"res://assets/2d assets/noise/noise 512x512/Manifold/Manifold_03-512x512.png\")"
+preview_params/Texture2DParameter = "Resource(\"uid://cmv5ct41ul8wu\", \"res://assets/2d assets/noise/noise 512x512/Manifold/Manifold_03-512x512.png\")"
 preview_params/FloatParameter2 = "0.87"
 nodes/fragment/0/position = Vector2(4240, 640)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_5peo5")
