@@ -1,3 +1,117 @@
-[gd_scene format=3 uid="uid://beel1it7ts0f2"]
+[gd_scene load_steps=14 format=3 uid="uid://beel1it7ts0f2"]
+
+[ext_resource type="PackedScene" uid="uid://ddaq3ition3a1" path="res://assets/meshes/fan industrial/fan.fbx" id="1_7ssjj"]
+
+[sub_resource type="Animation" id="Animation_7ssjj"]
+resource_name = "fan spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fan/fan blades:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.5707964, 0, 0), Vector3(-1.5707964, 0, 6.2831855)]
+}
+
+[sub_resource type="Animation" id="Animation_rmlvq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fan/fan blades:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5707964, 0, 6.2831855)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t5f16"]
+_data = {
+&"RESET": SubResource("Animation_rmlvq"),
+&"fan spin": SubResource("Animation_7ssjj")
+}
+
+[sub_resource type="Curve" id="Curve_7ssjj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.113145), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_rmlvq"]
+curve = SubResource("Curve_7ssjj")
+
+[sub_resource type="Curve" id="Curve_t5f16"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4jpkh"]
+curve = SubResource("Curve_t5f16")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8522k"]
+emission_shape = 3
+emission_box_extents = Vector3(1.12, 0, 1.12)
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 0.42
+initial_velocity_max = 0.42
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_4jpkh")
+alpha_curve = SubResource("CurveTexture_rmlvq")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5d8cu"]
+load_path = "res://.godot/imported/smoke_01.png-c6aaab37d0170fb61ed810843ff24088.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ejpjw"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("CompressedTexture2D_5d8cu")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_evejs"]
+material = SubResource("StandardMaterial3D_ejpjw")
+size = Vector2(1.87, 1.87)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7ssjj"]
+points = PackedVector3Array(0.0075457394, 0.012703896, -0.002385723, 0.00892357, 0.008923566, 0.0013251181, 0.012703899, 0.0075457357, -0.002385723, 0.0075457394, 0.012703896, -0.0031335095, -0.007548225, 0.012703896, -0.002385723, 0, 0.012619335, 0.0013251181, 0.004499091, 0.011410626, 0.0011612473, 0.0048870724, 0.011248967, 0.0011612473, 0.008630097, 0.008630093, 0.001640152, 0.01124897, 0.0048870686, 0.0011612473, 0.011410629, 0.004499087, 0.0011612473, 0.012619339, -2.7939677e-09, 0.0013251181, 0.012703899, -0.0075482274, -0.002385723, 0.012703899, 0.0075457357, -0.0031335095, -0.007548225, 0.012703896, -0.0031335095, -0.012703899, 0.0075457357, -0.002385723, -0.008926056, 0.008923566, 0.0013251181, -0.004889559, 0.011248967, 0.0011612473, -0.0045015775, 0.011410626, 0.0011612473, 0, 0.012203997, 0.001640152, 0.012204001, -2.7939677e-09, 0.001640152, 0.00023378339, 0.00056455936, 0.0036995749, 0.00043274835, 0.00043274555, 0.0036995749, 0.0005645631, 0.00023378059, 0.0036995749, 0.011410629, -0.0045015803, 0.0011612473, 0.012703899, -0.0075482274, -0.0031335095, 0.01124897, -0.004889561, 0.0011612473, 0.00892357, -0.008926058, 0.0013251181, 0.0075457394, -0.012703901, -0.002385723, -0.012703899, 0.0075457357, -0.0031335095, -0.012703899, -0.0075482274, -0.002385723, -0.0126218265, -2.4894252e-06, 0.0013251181, -0.011413115, 0.004499087, 0.0011612473, -0.011251457, 0.0048870686, 0.0011612473, -0.008632584, 0.008630093, 0.001640152, -0.00023627002, 0.00056455936, 0.0036995749, 0, 0.00061181374, 0.0036995749, 0.008630097, -0.008632585, 0.001640152, 0.00061181653, -2.7939677e-09, 0.0036995749, 0.0005645631, -0.00023627374, 0.0036995749, 0.0075457394, -0.012703901, -0.0031335095, 0.0048870724, -0.011251459, 0.0011612473, 0.004499091, -0.011413118, 0.0011612473, 0, -0.012621828, 0.0013251181, -0.007548225, -0.012703901, -0.002385723, -0.012703899, -0.0075482274, -0.0031335095, -0.008926056, -0.008926058, 0.0013251181, -0.011251457, -0.004889561, 0.0011612473, -0.011413115, -0.0045015803, 0.0011612473, -0.012206487, -2.4894252e-06, 0.001640152, -0.0005670497, 0.00023378059, 0.0036995749, -0.00043523498, 0.00043274555, 0.0036995749, 0.00043274835, -0.00043523777, 0.0036995749, 0.00023378339, -0.0005670525, 0.0036995749, 0, -0.012206489, 0.001640152, -0.007548225, -0.012703901, -0.0031335095, -0.0045015775, -0.011413118, 0.0011612473, -0.004889559, -0.011251459, 0.0011612473, -0.008632584, -0.008632585, 0.001640152, -0.0005670497, -0.00023627374, 0.0036995749, -0.00061430316, -2.7939677e-09, 0.0036995749, 0, -0.0006143069, 0.0036995749, -0.00023627002, -0.0005670525, 0.0036995749, -0.00043523498, -0.00043523777, 0.0036995749)
 
 [node name="Fan Industrial" type="Node3D"]
+
+[node name="fan" parent="." instance=ExtResource("1_7ssjj")]
+
+[node name="fan blades" parent="fan" index="1"]
+transform = Transform3D(100, -1.7484554e-05, 0, -7.6427417e-13, -4.3711384e-06, 99.99999, -1.7484555e-05, -99.99999, -4.3711384e-06, 0, 0, 1.1368684e-13)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_t5f16")
+}
+autoplay = "fan spin"
+speed_scale = -0.5
+
+[node name="ambient_smoke_rising" type="GPUParticles3D" parent="."]
+amount = 32
+lifetime = 4.32
+process_material = SubResource("ParticleProcessMaterial_8522k")
+draw_pass_1 = SubResource("QuadMesh_evejs")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 527
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 1.1368684e-13)
+shape = SubResource("ConvexPolygonShape3D_7ssjj")
+
+[editable path="fan"]

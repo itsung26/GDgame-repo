@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://22j2g70jpolk"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_qdcg8"]
+
+[resource]
+albedo_texture = SubResource("ImageTexture_qdcg8")
+metallic_specular = 0.0
+texture_filter = 2
