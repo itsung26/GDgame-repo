@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jjpgbbe7igff"
-path="res://.godot/imported/Plane_low_Bake1_PBR StoA_Normal.png-29bc240cd32e17aeda2481bcee75d6bc.ctex"
+uid="uid://cik28y5dqqeje"
+path="res://.godot/imported/stone_ground_05_color.jpg-82a2f1048f1c6fe2d23343fa8055aa35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/meshes/normal map decals/Plane_low_Bake1_PBR StoA_Normal.png"
-dest_files=["res://.godot/imported/Plane_low_Bake1_PBR StoA_Normal.png-29bc240cd32e17aeda2481bcee75d6bc.ctex"]
+source_file="res://assets/meshes/normal map decals/assets/materials/stone-ground_4ed90394-0ebc-4aec-ada7-c1302699b21f/textures/stone_ground_05_color.jpg"
+dest_files=["res://.godot/imported/stone_ground_05_color.jpg-82a2f1048f1c6fe2d23343fa8055aa35.ctex"]
 
 [params]
 

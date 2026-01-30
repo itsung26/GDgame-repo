@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwa158sy5fj7y"]
+
+[ext_resource type="Script" uid="uid://cf751aylrswjc" path="res://scripts/bullet_turret.gd" id="1_i8fi7"]
+[ext_resource type="PackedScene" uid="uid://dh23s7ciceub8" path="res://assets/meshes/bullet turret/bullet turret.blend" id="2_ac5sn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ac5sn"]
+radius = 12.278869
+
+[node name="BulletTurret" type="Node3D"]
+script = ExtResource("1_i8fi7")
+
+[node name="bullet turret" parent="." instance=ExtResource("2_ac5sn")]
+
+[node name="HeadLookMod" type="LookAtModifier3D" parent="bullet turret/Armature/Skeleton3D" index="1"]
+bone_name = "Head"
+bone = 1
+forward_axis = 2
+primary_rotation_axis = 2
+duration = 0.5
+ease_type = 2
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.7657496
+primary_damp_threshold = 1.0
+secondary_limit_angle = 6.2831855
+secondary_damp_threshold = 1.0
+
+[node name="GunLookMod_L" type="LookAtModifier3D" parent="bullet turret/Armature/Skeleton3D" index="2"]
+bone_name = "Gun.L"
+bone = 3
+forward_axis = 2
+primary_rotation_axis = 0
+use_secondary_rotation = false
+duration = 0.5
+ease_type = 2
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.7657496
+primary_damp_threshold = 1.0
+
+[node name="GunLookMod_R" type="LookAtModifier3D" parent="bullet turret/Armature/Skeleton3D" index="3"]
+bone_name = "Gun.R"
+bone = 2
+forward_axis = 2
+primary_rotation_axis = 0
+use_secondary_rotation = false
+duration = 0.5
+ease_type = 2
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 1.7657496
+primary_damp_threshold = 1.0
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51248115, -0.8373282, 3.3926125)
+
+[node name="Marker3D2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.056679964, 0.57192767, -1.1543229)
+
+[node name="PlayerDetection" type="Area3D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetection"]
+shape = SubResource("SphereShape3D_ac5sn")
+debug_color = Color(0, 0.5950001, 0.7, 1)
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+
+[editable path="bullet turret"]

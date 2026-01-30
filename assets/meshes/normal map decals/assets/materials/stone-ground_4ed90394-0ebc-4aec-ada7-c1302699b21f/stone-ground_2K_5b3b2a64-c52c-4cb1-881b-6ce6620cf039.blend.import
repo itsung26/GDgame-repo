@@ -3,13 +3,12 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dqi7e0minh6dv"
-path="res://.godot/imported/normal map decals.blend-51f0b40d4dc92f2de9eef537e4a36077.scn"
+uid="uid://c5dseth2iixb0"
+valid=false
 
 [deps]
 
-source_file="res://assets/meshes/normal map decals/normal map decals.blend"
-dest_files=["res://.godot/imported/normal map decals.blend-51f0b40d4dc92f2de9eef537e4a36077.scn"]
+source_file="res://assets/meshes/normal map decals/assets/materials/stone-ground_4ed90394-0ebc-4aec-ada7-c1302699b21f/stone-ground_2K_5b3b2a64-c52c-4cb1-881b-6ce6620cf039.blend"
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://diwd2xbt3kyvu"
-path.s3tc="res://.godot/imported/Violence Background2.png-1197a85d986c8ac3ad7f67146f698416.s3tc.ctex"
+uid="uid://ugc4p3bqmd1h"
+path.s3tc="res://.godot/imported/stone_ground_05_normal.jpg-6399a8ea4e8b0eb6a29ff1673e3ec4fe.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/2d assets/primary textures/Ultra Textures/Violence/Skybox/Violence Background2.png"
-dest_files=["res://.godot/imported/Violence Background2.png-1197a85d986c8ac3ad7f67146f698416.s3tc.ctex"]
+source_file="res://assets/meshes/normal map decals/textures/stone_ground_05_normal.jpg"
+dest_files=["res://.godot/imported/stone_ground_05_normal.jpg-6399a8ea4e8b0eb6a29ff1673e3ec4fe.s3tc.ctex"]
 
 [params]
 
@@ -22,12 +22,12 @@ compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://assets/meshes/normal map decals/textures/stone_ground_05_normal.jpg"
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

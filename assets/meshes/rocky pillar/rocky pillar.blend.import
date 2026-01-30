@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dqi7e0minh6dv"
-path="res://.godot/imported/normal map decals.blend-51f0b40d4dc92f2de9eef537e4a36077.scn"
+uid="uid://ch8fcq6cg5ku6"
+path="res://.godot/imported/rocky pillar.blend-a9609a37fce8eb3c78261bee9fed89f6.scn"
 
 [deps]
 
-source_file="res://assets/meshes/normal map decals/normal map decals.blend"
-dest_files=["res://.godot/imported/normal map decals.blend-51f0b40d4dc92f2de9eef537e4a36077.scn"]
+source_file="res://assets/meshes/rocky pillar/rocky pillar.blend"
+dest_files=["res://.godot/imported/rocky pillar.blend-a9609a37fce8eb3c78261bee9fed89f6.scn"]
 
 [params]
 
@@ -37,7 +37,28 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"meshes": {
+"rocky pillar_Plane": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://assets/meshes/rocky pillar/mesh assets/rocky pillar_Plane.res",
+"save_to_file/path": "uid://d0ktom443ycs6"
+},
+"rocky pillar_Plane_002": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 20.0,
+"save_to_file/enabled": true,
+"save_to_file/fallback_path": "res://assets/meshes/rocky pillar/mesh assets/rocky pillar_Plane_002.res",
+"save_to_file/path": "uid://bc46w8nhbdea3"
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

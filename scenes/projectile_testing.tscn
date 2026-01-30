@@ -2,23 +2,24 @@
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
+[ext_resource type="Texture2D" uid="uid://dxfy48ufdhipf" path="res://assets/2d assets/primary textures/Ultra Textures/Heresy/Skybox/ULTRAKILL 2025-04-12 20-41-00.png" id="2_yvgsm"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
 [ext_resource type="Material" uid="uid://cbp53aho327vx" path="res://assets/materials/prototype_material.tres" id="3_uvlxo"]
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="4_s3yq3"]
-[ext_resource type="PackedScene" uid="uid://d1gxfhjv8330d" path="res://scenes/entities/stationary_cannon.tscn" id="5_q8du6"]
 [ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/enemy_filth.tscn" id="7_wl3f4"]
 [ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube_boost.tscn" id="8_wl3f4"]
+[ext_resource type="PackedScene" uid="uid://bwa158sy5fj7y" path="res://scenes/bullet_turret.tscn" id="10_5138l"]
 [ext_resource type="PackedScene" uid="uid://chjuj625vfhiy" path="res://scenes/checkPoint.tscn" id="10_r4hxy"]
-[ext_resource type="PackedScene" uid="uid://da0o4xn0tk2l8" path="res://scenes/skitterbomb.tscn" id="10_yvgsm"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_61yce"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_488l3"]
+panorama = ExtResource("2_yvgsm")
 
-[sub_resource type="Sky" id="Sky_s3yq3"]
-sky_material = SubResource("ProceduralSkyMaterial_61yce")
+[sub_resource type="Sky" id="Sky_p8vjj"]
+sky_material = SubResource("PanoramaSkyMaterial_488l3")
 
 [sub_resource type="Environment" id="Environment_nptal"]
 background_mode = 2
-sky = SubResource("Sky_s3yq3")
+sky = SubResource("Sky_p8vjj")
 tonemap_mode = 2
 glow_enabled = true
 volumetric_fog_density = 0.0768
@@ -151,12 +152,6 @@ shape = SubResource("ConcavePolygonShape3D_s3yq3")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.38335, 3.285, -15.7878)
 shape = SubResource("ConvexPolygonShape3D_rj2dv")
 
-[node name="StationaryCannon" parent="." instance=ExtResource("5_q8du6")]
-process_mode = 4
-transform = Transform3D(0, 1, 0, 0.374914, 0, -0.92706, -0.92706, 0, -0.374914, -10.9586, 1.45712, 6.62664)
-automatic_fire = true
-SPEED = 3.0
-
 [node name="EnemySpawnHandler" type="Node" parent="."]
 script = ExtResource("4_s3yq3")
 enemy_to_spawn_SCENE = ExtResource("7_wl3f4")
@@ -188,13 +183,6 @@ text = "spawn enemies"
 [node name="GrappleCube" parent="." instance=ExtResource("8_wl3f4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0526, 4.03574, 16.2227)
 
-[node name="enemy_filth" parent="." instance=ExtResource("7_wl3f4")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.44939, 0, 1.5683)
-stunned = true
-
-[node name="Skitterbomb" parent="." instance=ExtResource("10_yvgsm")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16.8734, 0, -6.62125)
-
 [node name="CheckPoint" parent="." instance=ExtResource("10_r4hxy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.186, 0.848577, -7.22804)
 
@@ -209,5 +197,8 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.0915
 
 [node name="CheckPoint5" parent="." instance=ExtResource("10_r4hxy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.316534, 0.848577, -7.22804)
+
+[node name="BulletTurret" parent="." instance=ExtResource("10_5138l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1934514, 3.2420573, -0.08562398)
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

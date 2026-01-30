@@ -37,9 +37,6 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 ## Whether the enemy can currently be parried.
 @export var parriable:bool = false
 
-func _set(property: StringName, value: Variant) -> bool:
-	return false
-
 func damageEnemy(damage:float, damage_type:damage_types):
 	if damage_enabled:
 		var previous_enemy_health = HEALTH

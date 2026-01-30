@@ -1,0 +1,107 @@
+[gd_scene load_steps=8 format=3 uid="uid://7x2a85byix1t"]
+
+[ext_resource type="PackedScene" uid="uid://ch8fcq6cg5ku6" path="res://assets/meshes/rocky pillar/rocky pillar.blend" id="1_clj7c"]
+[ext_resource type="Shader" uid="uid://dcu2v4v1is3l8" path="res://shaders/GDSL shaders/holographic.gdshader" id="2_g8ihv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4wrac"]
+render_priority = 0
+shader = ExtResource("2_g8ihv")
+shader_parameter/albedo_alpha = 1.0
+shader_parameter/tint_color = Color(1, 0, 0, 1)
+shader_parameter/edge_color = Color(1, 0, 0, 1)
+shader_parameter/edge_power = 0.5
+shader_parameter/edge_size = 1.0
+shader_parameter/edge_intensity = 0.8
+shader_parameter/scanline_tint = Color(1, 0.5, 0, 1)
+shader_parameter/scanline_intensity = 0.0
+shader_parameter/scanline_density = 2.8670001361825
+shader_parameter/scanline_thickness = 3.0
+shader_parameter/scanline_spacing = 0.9020000190949999
+shader_parameter/scanline_angle = 0.0
+shader_parameter/scanline_speed = 2.3
+shader_parameter/enable_glitch = true
+shader_parameter/glitch_intensity = 0.5
+shader_parameter/shake_power = 0.038000001805
+shader_parameter/shake_rate = 0.5
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.5
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g8ihv"]
+points = PackedVector3Array(-1.0481808, -2.044062, -1.0481808, -1.0481808, -2.044062, 1.0481808, -1.0481808, -1.7020292, -1.0481808, 1.0481808, -2.044062, -1.0481808, -0.7393491, -2.6597211, -0.7393491, -0.7393491, -2.6597211, 0.73914397, 1.0481808, -2.044062, 1.0481808, -1.0481808, -1.7020292, 1.0481808, -0.19904768, 2.5572684, -0.19904768, 1.0481808, -1.7020292, -1.0481808, 0.73914397, -2.6597211, -0.7393491, -0.50172323, -2.932782, -0.50172323, -0.50172323, -2.932782, 0.501518, 0.73914397, -2.6597211, 0.73914397, 1.0481808, -1.7020292, 1.0481808, -0.19904768, 2.5572684, 0.1988424, -0.1729868, 2.620587, -0.1729868, 0.1988424, 2.5572684, -0.19904768, 0.501518, -2.932782, -0.50172323, 0.501518, -2.932782, 0.501518, 0.1988424, 2.5572684, 0.1988424, -0.1729868, 2.620587, 0.17278159, -0.025445223, 2.842767, -0.025445223, 0.17278159, 2.620587, -0.1729868, 0.17278159, 2.620587, 0.17278159, -0.025445223, 2.842767, 0.025240064, 0.025240064, 2.842767, -0.025445223, 0.025240064, 2.842767, 0.025240064)
+
+[sub_resource type="Animation" id="Animation_g8ihv"]
+resource_name = "hover"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("rocky pillar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.78069675, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.374, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4wrac"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("rocky pillar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uhr6m"]
+_data = {
+&"RESET": SubResource("Animation_4wrac"),
+&"hover": SubResource("Animation_g8ihv")
+}
+
+[node name="Floating Pillar" type="Node3D"]
+
+[node name="rocky pillar" parent="." instance=ExtResource("1_clj7c")]
+
+[node name="SHADER" parent="rocky pillar" index="1"]
+material_override = SubResource("ShaderMaterial_4wrac")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="rocky pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3461103, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 8.321
+omni_range = 1.9617954
+omni_attenuation = 2.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="rocky pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7995558, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 8.321
+omni_range = 1.9617954
+omni_attenuation = 2.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="rocky pillar"]
+collision_layer = 4
+collision_mask = 527
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rocky pillar/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.701879, 0)
+shape = SubResource("ConvexPolygonShape3D_g8ihv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_uhr6m")
+}
+autoplay = "hover"
+speed_scale = 0.5
+
+[editable path="rocky pillar"]
