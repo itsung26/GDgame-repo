@@ -730,7 +730,6 @@ func parryTargetInBox():
 				parry_target.linear_velocity = (raycast_target_location - parry_target.global_position).normalized() * (parry_target.travel_speed * parry_projectile_speed_boost)
 		
 		elif parry_target is PistolBomb:
-			parry_target.on_being_parried.emit()
 			if punch_raycast.get_collider() != null:
 				var pistolbomb_trail:BulletTrail = bullet_trail_SCENE.instantiate()
 				get_tree().current_scene.add_child(pistolbomb_trail)

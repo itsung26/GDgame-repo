@@ -80,15 +80,15 @@ func getHealth() -> float:
 	return HEALTH
 
 
-## gets the vector rotation looking at the target (returns in radians)
+## gets the vector rotation looking at the target (returns globally and in radians)
 func getVec3LookingAtTarget(target_pos:Vector3) -> Vector3:
 	# store the rotation
-	var prev_rot = rotation
+	var prev_rot = global_rotation
 	look_at(target_pos, Vector3.UP)
 	# get the rotation looking at the player
-	var rot = rotation
+	var rot = global_rotation
 	# set rotation back to previous
-	rotation = prev_rot
+	global_rotation = prev_rot
 	return rot
 
 ## Get's the enemy's predicted position at [code]time[/code] seconds, assuming velocity

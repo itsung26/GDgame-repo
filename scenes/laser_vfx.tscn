@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://do6tv316gum03"]
+
+[ext_resource type="Shader" uid="uid://d2xe4eilxge4" path="res://shaders/visual shaders/laserVFX.tres" id="1_3bq8l"]
+
+[sub_resource type="Gradient" id="Gradient_3bq8l"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nqvsu"]
+gradient = SubResource("Gradient_3bq8l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nqvsu"]
+render_priority = 0
+shader = ExtResource("1_3bq8l")
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/color2 = Color(0, 0, 0, 1)
+shader_parameter/noise_texture_1 = SubResource("GradientTexture1D_nqvsu")
+shader_parameter/contrast_midlevel = 0.5
+shader_parameter/contrast_level = -0.005
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kqdrd"]
+top_radius = 0.025
+bottom_radius = 0.025
+height = 4.222
+cap_top = false
+cap_bottom = false
+
+[node name="laserVFX" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_nqvsu")
+mesh = SubResource("CylinderMesh_kqdrd")

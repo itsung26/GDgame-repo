@@ -1,17 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwa158sy5fj7y"]
+[gd_scene load_steps=5 format=3 uid="uid://bwa158sy5fj7y"]
 
 [ext_resource type="Script" uid="uid://cf751aylrswjc" path="res://scripts/bullet_turret.gd" id="1_i8fi7"]
 [ext_resource type="PackedScene" uid="uid://dh23s7ciceub8" path="res://assets/meshes/bullet turret/bullet turret.blend" id="2_ac5sn"]
+[ext_resource type="PackedScene" uid="uid://do6tv316gum03" path="res://scenes/laser_vfx.tscn" id="3_6wt2j"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ac5sn"]
 radius = 12.278869
 
-[node name="BulletTurret" type="Node3D"]
+[node name="BulletTurret" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 559
 script = ExtResource("1_i8fi7")
+turning_speed = 3.0
+SPEED = 0.0
+weight = 1
+metadata/_custom_type_script = "uid://cf751aylrswjc"
 
 [node name="bullet turret" parent="." instance=ExtResource("2_ac5sn")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="HeadLookMod" type="LookAtModifier3D" parent="bullet turret/Armature/Skeleton3D" index="1"]
+target_node = NodePath("../../../../Marker3D2")
 bone_name = "Head"
 bone = 1
 forward_axis = 2
@@ -26,8 +35,9 @@ secondary_limit_angle = 6.2831855
 secondary_damp_threshold = 1.0
 
 [node name="GunLookMod_L" type="LookAtModifier3D" parent="bullet turret/Armature/Skeleton3D" index="2"]
+target_node = NodePath("../../../../Marker3D2")
 bone_name = "Gun.L"
-bone = 3
+bone = 5
 forward_axis = 2
 primary_rotation_axis = 0
 use_secondary_rotation = false
@@ -39,8 +49,9 @@ primary_limit_angle = 1.7657496
 primary_damp_threshold = 1.0
 
 [node name="GunLookMod_R" type="LookAtModifier3D" parent="bullet turret/Armature/Skeleton3D" index="3"]
+target_node = NodePath("../../../../Marker3D2")
 bone_name = "Gun.R"
-bone = 2
+bone = 3
 forward_axis = 2
 primary_rotation_axis = 0
 use_secondary_rotation = false
@@ -51,11 +62,20 @@ symmetry_limitation = true
 primary_limit_angle = 1.7657496
 primary_damp_threshold = 1.0
 
-[node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51248115, -0.8373282, 3.3926125)
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="bullet turret/Armature/Skeleton3D" index="4"]
+transform = Transform3D(-0.6349329, -0.6873383, 0.35274112, -0.74610376, 0.66401625, -0.049106643, -0.20047298, -0.29436094, -0.93443143, -0.35654402, 0.84337413, -0.06747739)
+bone_name = "Head Tip"
+bone_idx = 2
+
+[node name="laserVFX" parent="bullet turret/Armature/Skeleton3D/BoneAttachment3D" instance=ExtResource("3_6wt2j")]
+transform = Transform3D(1, 0, 0, 0, -0.99999994, 0, 0, 0, -0.99999994, -1.5099033e-14, 2.07275, 1.5099031e-14)
+skeleton = NodePath("../../../../..")
+
+[node name="OfflineLookTarget" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0404818, -0.7801985)
 
 [node name="Marker3D2" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.056679964, 0.57192767, -1.1543229)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3971674, 0.2879914, -1.8709002)
 
 [node name="PlayerDetection" type="Area3D" parent="."]
 collision_layer = 2
@@ -63,6 +83,9 @@ collision_layer = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetection"]
 shape = SubResource("SphereShape3D_ac5sn")
 debug_color = Color(0, 0.5950001, 0.7, 1)
+
+[node name="TimeBeforeOffline" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]

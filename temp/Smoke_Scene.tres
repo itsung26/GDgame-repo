@@ -23,8 +23,8 @@ noise_type = 2
 fractal_type = 0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b66gd"]
-color_ramp = SubResource("Gradient_xye4h")
 noise = SubResource("FastNoiseLite_omdq4")
+color_ramp = SubResource("Gradient_xye4h")
 
 [resource]
 render_priority = 0

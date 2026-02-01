@@ -1,15 +1,15 @@
-[gd_scene load_steps=92 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=97 format=4 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Script" uid="uid://dc04b3pq7nowl" path="res://scripts/shader_playground.gd" id="1_573pc"]
-[ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/generic/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
-[ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/2d assets/generic/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_j4xor"]
-[ext_resource type="Texture2D" uid="uid://dbgxiygc2iyd4" path="res://assets/2d assets/generic/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Roughness.jpg" id="4_mso3s"]
+[ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
+[ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_j4xor"]
+[ext_resource type="Texture2D" uid="uid://dbgxiygc2iyd4" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Roughness.jpg" id="4_mso3s"]
 [ext_resource type="Shader" uid="uid://80erornecaqj" path="res://shaders/visual shaders/shader_test.tres" id="5_pgckd"]
-[ext_resource type="Texture2D" uid="uid://c1kb1fcd5cn25" path="res://assets/2d assets/generic/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_Color.jpg" id="6_6cuth"]
-[ext_resource type="Texture2D" uid="uid://bciu85jymsrhx" path="res://assets/2d assets/generic/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_AmbientOcclusion.jpg" id="7_lqk2t"]
-[ext_resource type="Texture2D" uid="uid://cexw6ybc3ytwq" path="res://assets/2d assets/generic/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_NormalGL.jpg" id="8_7b3fo"]
-[ext_resource type="Texture2D" uid="uid://7jdkfa1b8ul2" path="res://assets/2d assets/generic/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_Roughness.jpg" id="9_6eyvu"]
-[ext_resource type="Texture2D" uid="uid://b1iiyfhdsfc4c" path="res://icon.svg" id="10_wvfjj"]
+[ext_resource type="Texture2D" uid="uid://c1kb1fcd5cn25" path="res://assets/2d assets/primary textures/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_Color.jpg" id="6_6cuth"]
+[ext_resource type="Texture2D" uid="uid://bciu85jymsrhx" path="res://assets/2d assets/primary textures/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_AmbientOcclusion.jpg" id="7_lqk2t"]
+[ext_resource type="Texture2D" uid="uid://cexw6ybc3ytwq" path="res://assets/2d assets/primary textures/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_NormalGL.jpg" id="8_7b3fo"]
+[ext_resource type="Texture2D" uid="uid://7jdkfa1b8ul2" path="res://assets/2d assets/primary textures/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_Roughness.jpg" id="9_6eyvu"]
+[ext_resource type="Texture2D" uid="uid://ctlmwveknqfsr" path="res://icon.svg" id="10_wvfjj"]
 [ext_resource type="Shader" uid="uid://cwqvoe2yiuisl" path="res://shaders/GDSL shaders/holographic_shader.gdshader" id="11_aagwi"]
 [ext_resource type="Shader" uid="uid://bc8elyc8c7dbs" path="res://shaders/visual shaders/BlackHoleShader.tres" id="12_hl1cy"]
 [ext_resource type="Shader" uid="uid://dcu2v4v1is3l8" path="res://shaders/GDSL shaders/holographic.gdshader" id="13_7c073"]
@@ -30,6 +30,7 @@
 [ext_resource type="Material" uid="uid://bdvoaw53pccjw" path="res://assets/meshes/map models/the cold winds/materials/Material.010.tres" id="28_oa0ei"]
 [ext_resource type="CompressedTexture3D" uid="uid://c2ge34ufiwnmh" path="res://particle collision data/shader testing.GPUParticlesCollisionSDF3D_data.exr" id="29_pbs2u"]
 [ext_resource type="Material" uid="uid://dy838fq5cq2mj" path="res://shaders/shader materials/shader testing.tres" id="30_pbs2u"]
+[ext_resource type="Shader" uid="uid://c2ii60bgdp8us" path="res://shaders/visual shaders/worldspace fragcoord.tres" id="31_lps8w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0f2g"]
 albedo_texture = ExtResource("2_7c073")
@@ -170,8 +171,8 @@ noise_type = 2
 fractal_type = 0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7b3fo"]
-color_ramp = SubResource("Gradient_hl1cy")
 noise = SubResource("FastNoiseLite_uiwt3")
+color_ramp = SubResource("Gradient_hl1cy")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o40ls"]
 render_priority = 0
@@ -242,8 +243,8 @@ noise_type = 2
 fractal_type = 0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6v4jl"]
-color_ramp = SubResource("Gradient_pbs2u")
 noise = SubResource("FastNoiseLite_lps8w")
+color_ramp = SubResource("Gradient_pbs2u")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m3148"]
 render_priority = 0
@@ -524,6 +525,41 @@ size = Vector3(25, 65.555, 25)
 
 [sub_resource type="SphereMesh" id="SphereMesh_m3148"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rahya"]
+render_priority = 0
+shader = ExtResource("31_lps8w")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/Vector3Parameter = Vector3(0, 0, -19.55)
+shader_parameter/fade_radius = 0.104
+shader_parameter/fade_power = 20.286
+
+[sub_resource type="BoxMesh" id="BoxMesh_1yu5o"]
+size = Vector3(25, 25, 25)
+
+[sub_resource type="GDScript" id="GDScript_lps8w"]
+resource_name = "shader passes"
+script/source = "@tool
+extends MeshInstance3D
+
+@export var fade_object:Node3D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var shader_mat:ShaderMaterial = material_override
+	if fade_object:
+		shader_mat.set_shader_parameter(\"Vector_3_Parameter\", fade_object.global_position)
+		Debug.log(shader_mat.get_shader_parameter(\"Vector_3_Parameter\"))
+"
+
+[sub_resource type="SphereMesh" id="SphereMesh_lps8w"]
+radius = 6.428
+height = 12.856
+
 [node name="ShaderTest" type="Node3D"]
 script = ExtResource("1_573pc")
 
@@ -560,6 +596,7 @@ mesh = SubResource("QuadMesh_dflox")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
 transform = Transform3D(10.4065, 0, 0, 0, 10.4065, 0, 0, 0, 10.4065, -12, 0, 0)
+visible = false
 mesh = SubResource("SphereMesh_a0f2g")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D5"]
@@ -665,3 +702,14 @@ texture = ExtResource("29_pbs2u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83966, 0, -15.2557)
 material_override = ExtResource("30_pbs2u")
 mesh = SubResource("SphereMesh_m3148")
+
+[node name="world space fragcoord" type="MeshInstance3D" parent="." node_paths=PackedStringArray("fade_object")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.2962933)
+material_override = SubResource("ShaderMaterial_rahya")
+mesh = SubResource("BoxMesh_1yu5o")
+script = SubResource("GDScript_lps8w")
+fade_object = NodePath("../fade sphere")
+
+[node name="fade sphere" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34.325)
+mesh = SubResource("SphereMesh_lps8w")

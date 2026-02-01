@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=27 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
@@ -84,9 +84,6 @@ data = PackedVector3Array(3.555, 1.3625, 3.89, 3.555, -1.3625, 3.89, -3.555, -1.
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rj2dv"]
 points = PackedVector3Array(-0.5, -3.285, -4.55, 0.5, -3.285, -4.55, -0.5, -3.285, 4.55, -0.5, 3.285, -4.55, 0.5, 3.285, -4.55, 0.5, -3.285, 4.55, -0.5, 3.285, 4.55, 0.5, 3.285, 4.55)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rj2dv"]
-size = Vector3(0.942871, 0.998049, 0.733385)
-
 [node name="ProjectileTesting" type="Node3D"]
 script = ExtResource("1_7ksdt")
 
@@ -100,7 +97,7 @@ shadow_enabled = true
 [node name="grapple_rope_meshGen" parent="." instance=ExtResource("1_s3yq3")]
 
 [node name="Player" parent="." instance=ExtResource("3_7ksdt")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 23.4819, 0.000179171, -4.7644)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15.574638, 0.000179171, 3.8735824)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_7ksdt")
@@ -169,17 +166,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0612, -1.90735e-06, 26.162
 [node name="Marker3D4" type="Marker3D" parent="EnemySpawnHandler"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.959053, -1.90735e-06, 26.2316)
 
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.11849, 0.499024, 2.36782)
-shape = SubResource("BoxShape3D_rj2dv")
-debug_color = Color(1, 1, 0, 1)
-
-[node name="Label3D" type="Label3D" parent="Area3D/CollisionShape3D"]
-transform = Transform3D(0.702078, 0, 0.7121, 0, 1, 0, -0.7121, 0, 0.702078, 0, 1.2385, 0)
-text = "spawn enemies"
-
 [node name="GrappleCube" parent="." instance=ExtResource("8_wl3f4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0526, 4.03574, 16.2227)
 
@@ -200,5 +186,3 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.316
 
 [node name="BulletTurret" parent="." instance=ExtResource("10_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1934514, 3.2420573, -0.08562398)
-
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -16,10 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://dt5qn86wdmwuj" path="res://scenes/ambient_smoke_rising.tscn" id="14_a8c4v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1vq1x"]
-sky_top_color = Color(0.585062, 0.585062, 0.585062, 1)
-sky_horizon_color = Color(0.633768, 0.633768, 0.633768, 1)
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
 ground_bottom_color = Color(0, 0, 0, 1)
-ground_horizon_color = Color(0.633768, 0.633768, 0.633768, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Sky" id="Sky_emdgr"]
 sky_material = SubResource("ProceduralSkyMaterial_1vq1x")
@@ -334,6 +334,21 @@ transform = Transform3D(0.515739, 0, 0, 0, 0.515739, 0, 0, 0, 0.515739, -3.53357
 
 [node name="bullet turret" parent="." instance=ExtResource("14_56kth")]
 transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 3.8660514, -12.993861, 8.717958)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="bullet turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8517005, 0, -4.407919)
+omni_range = 7.0604115
+omni_attenuation = -0.176
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="bullet turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8516998, 0, -10.638648)
+omni_range = 7.0604115
+omni_attenuation = -0.176
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="bullet turret"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8517022, 0, 4.353877)
+omni_range = 10.02544
+omni_attenuation = -0.176
 
 [connection signal="body_entered" from="entering room 5" to="." method="_on_entering_room_5_body_entered" flags=6]
 [connection signal="timeout" from="delay before lights" to="." method="_on_delay_before_lights_timeout"]

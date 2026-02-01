@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e2n48qm8imfn"
-path.s3tc="res://.godot/imported/Part_low_Bake1_PBR_Diffuse.png-762d322da15d332ffe06716850497cba.s3tc.ctex"
+uid="uid://toux6216o1vh"
+path.s3tc="res://.godot/imported/pillar TrimTex.001_Bake1_PBR StoA_Diffuse.png-926e0635705c37f7e9ef7310a6cd2ac2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/meshes/bullet turret/textures/Part_low_Bake1_PBR_Diffuse.png"
-dest_files=["res://.godot/imported/Part_low_Bake1_PBR_Diffuse.png-762d322da15d332ffe06716850497cba.s3tc.ctex"]
+source_file="res://assets/meshes/rocky pillar/textures/pillar TrimTex.001_Bake1_PBR StoA_Diffuse.png"
+dest_files=["res://.godot/imported/pillar TrimTex.001_Bake1_PBR StoA_Diffuse.png-926e0635705c37f7e9ef7310a6cd2ac2.s3tc.ctex"]
 
 [params]
 

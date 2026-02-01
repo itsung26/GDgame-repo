@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://q1s5b58cclp"
-path="res://.godot/imported/Part_low_Bake1_PBR_Metalness.png-6014a93df867bfcb6cce58556862d841.ctex"
+uid="uid://d4knoij8qxpul"
+path="res://.godot/imported/Material_Displacement.png-caf41a88023f8c657aaacdafcc646df9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/meshes/bullet turret/textures/Part_low_Bake1_PBR_Metalness.png"
-dest_files=["res://.godot/imported/Part_low_Bake1_PBR_Metalness.png-6014a93df867bfcb6cce58556862d841.ctex"]
+source_file="res://assets/meshes/bullet turret/textures/Material_Displacement.png"
+dest_files=["res://.godot/imported/Material_Displacement.png-caf41a88023f8c657aaacdafcc646df9.ctex"]
 
 [params]
 
