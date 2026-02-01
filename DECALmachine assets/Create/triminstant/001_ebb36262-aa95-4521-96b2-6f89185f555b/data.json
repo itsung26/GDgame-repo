@@ -1,0 +1,94 @@
+{
+    "name": "tillable_blk1",
+    "uuid": "ebb36262-aa95-4521-96b2-6f89185f555b",
+    "resolution": [
+        512,
+        512
+    ],
+    "isatlas": false,
+    "maps": {
+        "COLOR": {
+            "texture": "tch_c1_blk1.png",
+            "resolution": [
+                512,
+                512
+            ]
+        },
+        "METALLIC": {
+            "texture": "0.0 512p.png",
+            "resolution": [
+                512,
+                512
+            ]
+        },
+        "ROUGHNESS": {
+            "texture": "1.0 512p.png",
+            "resolution": [
+                512,
+                512
+            ]
+        },
+        "ALPHA": {
+            "texture": "tch_c1_blk1.png",
+            "resolution": [
+                512,
+                512
+            ],
+            "connect_alpha": false
+        }
+    },
+    "trims": [
+        {
+            "name": "Trim 1",
+            "uuid": "5a055346-115f-41ca-8c1e-2e0098ee27e8",
+            "location": [
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0
+            ],
+            "isactive": true,
+            "isempty": false,
+            "ispanel": true,
+            "hide": false,
+            "hide_select": false,
+            "coords": [
+                0,
+                0
+            ],
+            "dimensions": [
+                512,
+                512
+            ],
+            "repetitions": 1
+        },
+        {
+            "name": "Trim 2",
+            "uuid": "48c855fc-80c3-4967-8656-1fa1d0236882",
+            "location": [
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0
+            ],
+            "isactive": false,
+            "isempty": true,
+            "ispanel": true,
+            "hide": false,
+            "hide_select": false,
+            "coords": [
+                0,
+                0
+            ],
+            "dimensions": [
+                512,
+                512
+            ],
+            "repetitions": 1
+        }
+    ]
+}
