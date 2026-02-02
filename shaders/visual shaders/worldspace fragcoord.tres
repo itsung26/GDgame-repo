@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=19 format=3 uid="uid://c2ii60bgdp8us"]
+[gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://c2ii60bgdp8us"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_rgp7h"]
 parameter_name = "ColorParameter"
@@ -33,26 +33,6 @@ default_value = Vector3(0, 0, -5)
 
 [sub_resource type="VisualShaderNodeVectorDistance" id="VisualShaderNodeVectorDistance_aq8xb"]
 
-[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_p5imk"]
-default_input_values = [0, 0.0, 1, 0.0, 2, 0.0, 3, 1.0]
-op_type = 2
-
-[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_bvaw7"]
-
-[sub_resource type="VisualShaderNodeVaryingSetter" id="VisualShaderNodeVaryingSetter_aq8xb"]
-varying_name = "v_world_position"
-varying_type = 4
-
-[sub_resource type="VisualShaderNodeTransformOp" id="VisualShaderNodeTransformOp_f7n1a"]
-
-[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_vk4nl"]
-input_name = "vertex"
-
-[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_7aua3"]
-input_name = "modelview_matrix"
-
-[sub_resource type="VisualShaderNodeTransformVecMult" id="VisualShaderNodeTransformVecMult_syj70"]
-
 [resource]
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
@@ -69,33 +49,7 @@ uniform float fade_power;
 
 
 void vertex() {
-// Input:7
-	mat4 n_out7p0 = MODELVIEW_MATRIX;
-
-
-// Input:6
-	vec3 n_out6p0 = VERTEX;
-
-
-// VectorDecompose:11
-	float n_out11p0 = n_out6p0.x;
-	float n_out11p1 = n_out6p0.y;
-	float n_out11p2 = n_out6p0.z;
-
-
-// VectorCompose:10
-	float n_in10p3 = 1.00000;
-	vec4 n_out10p0 = vec4(n_out11p0, n_out11p1, n_out11p2, n_in10p3);
-
-
-// TransformVectorMult:9
-	vec3 n_out9p0 = (n_out7p0 * vec4(vec3(n_out10p0.xyz), 1.0)).xyz;
-
-
-// VaryingSetter:3
-	var_v_world_position = n_out9p0;
-
-
+	var_v_world_position = vec3(0.0);
 }
 
 void fragment() {
@@ -153,21 +107,7 @@ void fragment() {
 }
 "
 varyings/v_world_position = "0,4"
-nodes/vertex/3/node = SubResource("VisualShaderNodeVaryingSetter_aq8xb")
-nodes/vertex/3/position = Vector2(380, 660)
-nodes/vertex/5/node = SubResource("VisualShaderNodeTransformOp_f7n1a")
-nodes/vertex/5/position = Vector2(380, 320)
-nodes/vertex/6/node = SubResource("VisualShaderNodeInput_vk4nl")
-nodes/vertex/6/position = Vector2(-840, 540)
-nodes/vertex/7/node = SubResource("VisualShaderNodeInput_7aua3")
-nodes/vertex/7/position = Vector2(-440, 420)
-nodes/vertex/9/node = SubResource("VisualShaderNodeTransformVecMult_syj70")
-nodes/vertex/9/position = Vector2(-13.123295, 452.4131)
-nodes/vertex/10/node = SubResource("VisualShaderNodeVectorCompose_p5imk")
-nodes/vertex/10/position = Vector2(-260, 540)
-nodes/vertex/11/node = SubResource("VisualShaderNodeVectorDecompose_bvaw7")
-nodes/vertex/11/position = Vector2(-500, 540)
-nodes/vertex/connections = PackedInt32Array(7, 0, 9, 0, 10, 0, 9, 1, 6, 0, 11, 0, 11, 0, 10, 0, 11, 1, 10, 1, 11, 2, 10, 2, 9, 0, 3, 0)
+nodes/vertex/0/position = Vector2(60, 120)
 nodes/fragment/0/position = Vector2(1760, 280)
 nodes/fragment/4/node = SubResource("VisualShaderNodeInput_p5imk")
 nodes/fragment/4/position = Vector2(-36.94989, 197.8367)

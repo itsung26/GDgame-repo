@@ -1,0 +1,68 @@
+{
+    "name": "TrimSheet",
+    "uuid": "b08f8b99-ee84-4e5d-834f-8a578cb470eb",
+    "resolution": [
+        512,
+        512
+    ],
+    "isatlas": false,
+    "maps": {
+        "COLOR": {
+            "texture": "tch_f1_blk1.png",
+            "resolution": [
+                512,
+                512
+            ]
+        },
+        "METALLIC": {
+            "texture": "0.0 512p.png",
+            "resolution": [
+                512,
+                512
+            ]
+        },
+        "ROUGHNESS": {
+            "texture": "1.0 512p.png",
+            "resolution": [
+                512,
+                512
+            ]
+        },
+        "ALPHA": {
+            "texture": "tch_f1_blk1.png",
+            "resolution": [
+                512,
+                512
+            ],
+            "connect_alpha": false
+        }
+    },
+    "trims": [
+        {
+            "name": "Trim 1",
+            "uuid": "315e97cf-a0d9-4810-bf32-5d2888b51697",
+            "location": [
+                0.0,
+                0.0
+            ],
+            "scale": [
+                1.0,
+                1.0
+            ],
+            "isactive": true,
+            "isempty": false,
+            "ispanel": true,
+            "hide": false,
+            "hide_select": false,
+            "coords": [
+                0,
+                0
+            ],
+            "dimensions": [
+                512,
+                512
+            ],
+            "repetitions": 1
+        }
+    ]
+}

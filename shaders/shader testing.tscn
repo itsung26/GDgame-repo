@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=96 format=4 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Script" uid="uid://dc04b3pq7nowl" path="res://scripts/shader_playground.gd" id="1_573pc"]
 [ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
@@ -529,32 +529,12 @@ size = Vector3(25, 65.555, 25)
 render_priority = 0
 shader = ExtResource("31_lps8w")
 shader_parameter/ColorParameter = Color(1, 1, 1, 1)
-shader_parameter/Vector3Parameter = Vector3(0, 0, -19.55)
-shader_parameter/fade_radius = 0.104
-shader_parameter/fade_power = 20.286
+shader_parameter/Vector3Parameter = Vector3(11.35, 9.47, -18.439)
+shader_parameter/fade_radius = -0.112
+shader_parameter/fade_power = 7.499
 
 [sub_resource type="BoxMesh" id="BoxMesh_1yu5o"]
 size = Vector3(25, 25, 25)
-
-[sub_resource type="GDScript" id="GDScript_lps8w"]
-resource_name = "shader passes"
-script/source = "@tool
-extends MeshInstance3D
-
-@export var fade_object:Node3D
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	var shader_mat:ShaderMaterial = material_override
-	if fade_object:
-		shader_mat.set_shader_parameter(\"Vector_3_Parameter\", fade_object.global_position)
-		Debug.log(shader_mat.get_shader_parameter(\"Vector_3_Parameter\"))
-"
 
 [sub_resource type="SphereMesh" id="SphereMesh_lps8w"]
 radius = 6.428
@@ -703,12 +683,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83966, 0, -15.2557)
 material_override = ExtResource("30_pbs2u")
 mesh = SubResource("SphereMesh_m3148")
 
-[node name="world space fragcoord" type="MeshInstance3D" parent="." node_paths=PackedStringArray("fade_object")]
+[node name="world space fragcoord" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.2962933)
 material_override = SubResource("ShaderMaterial_rahya")
 mesh = SubResource("BoxMesh_1yu5o")
-script = SubResource("GDScript_lps8w")
-fade_object = NodePath("../fade sphere")
 
 [node name="fade sphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34.325)
