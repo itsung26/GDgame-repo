@@ -4,6 +4,9 @@ class_name Enemy extends CharacterBody3D
 signal left_floor
 signal hit_floor
 signal on_grappled
+## Called [color=green]AFTER[/color] damage is applied but [color=red]BEFORE[/color]
+## the deatch check. Use with caution.
+signal on_hurt(damage:float)
 
 var _was_on_floor: bool = false
 
@@ -45,6 +48,8 @@ func damageEnemy(damage:float, damage_type:damage_types):
 		HEALTH = new_enemy_health
 		HEALTH = clampf(HEALTH, 0, 100)
 		
+		on_hurt.emit(damage)
+		
 		'''
 		if damage != 0.0:
 			# Highly likley to be cut from the game in favor of enviromental queues.
@@ -58,17 +63,20 @@ func damageEnemy(damage:float, damage_type:damage_types):
 			add_child(a)
 			a.damage_number_label.text = str(damage)
 		'''
-			
 		
 		if HEALTH == 0:
 			_killEnemy()
 	else:
 		pass
 
-## Called when health reaches zero.
+## Called when health reaches zero. Override to provide the death behavior of the enemy.
+## Note that the grapple should be unhooked if the current hooked enemy is the one
+## that died.
 func _killEnemy():
 	print("no death behavior configured. defaulting to deletion on death.")
-	player.set_action_state(player.action_states.IDLE) # unhook grapple
+	if player.getHookedTarget() == self:
+		# unhook grapple if the hooked enemy is self
+		player.set_action_state(player.action_states.IDLE) 
 	queue_free()
 
 ## heals the enemy

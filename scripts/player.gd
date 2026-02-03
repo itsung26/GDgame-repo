@@ -872,3 +872,6 @@ func _on_grapple_arm_new_hooked_target_set(previous_hooked_target: Node3D, new_h
 			set_player_state(player_states.GROUNDED)
 		elif not is_on_floor():
 			set_player_state(player_states.FALLING)
+
+func getHookedTarget() -> Node3D:
+	return grapple_arm.hooked_target

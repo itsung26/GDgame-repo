@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
-[ext_resource type="Texture2D" uid="uid://dxfy48ufdhipf" path="res://assets/2d assets/primary textures/Ultra Textures/Heresy/Skybox/ULTRAKILL 2025-04-12 20-41-00.png" id="2_yvgsm"]
+[ext_resource type="Texture2D" uid="uid://dklf4m0jikagu" path="res://assets/2d assets/primary textures/Ultra Textures/Lust/Skybox/skyboxtest.png" id="2_yvgsm"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
 [ext_resource type="Material" uid="uid://cbp53aho327vx" path="res://assets/materials/prototype_material.tres" id="3_uvlxo"]
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="4_s3yq3"]

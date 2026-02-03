@@ -1,4 +1,3 @@
-@tool
 class_name HudGui extends Control
 @onready var ammo_counter: Label = %ammoCounter
 @onready var anim_debug: Label = %AnimDebug
@@ -109,6 +108,13 @@ func _process(delta) -> void:
 		%CurrentHookGPos.text = "Hook Gpos: " + str(grapple_hook.global_position)
 		# ----------------------------------------------------------------------------------------------
 #endregion
+
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("debug func 2"):
+		if visible == true:
+			visible = false
+		elif visible == false:
+			visible = true
 
 ## Recieves state machine state change calls from player through a signal
 func _on_player_entered_arm_state(new_arm_state: Player.arm_states, previous_arm_state: Player.arm_states) -> void:

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd0g3ubf6s0oa"
-path.s3tc="res://.godot/imported/ULTRAKILL 2025-04-11 05-46-22.png-af6ea75d98981eac36b0c8d871bad40b.s3tc.ctex"
+uid="uid://bbcg1mm21y3t4"
+path.s3tc="res://.godot/imported/Bullet Turret_Bake1_PBR_Roughness.png-fa316f48f7b9505b7daee5b5b9c29031.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/2d assets/primary textures/Ultra Textures/Lust/Skybox/ULTRAKILL 2025-04-11 05-46-22.png"
-dest_files=["res://.godot/imported/ULTRAKILL 2025-04-11 05-46-22.png-af6ea75d98981eac36b0c8d871bad40b.s3tc.ctex"]
+source_file="res://assets/meshes/bullet turret/textures/baked final/Bullet Turret_Bake1_PBR_Roughness.png"
+dest_files=["res://.godot/imported/Bullet Turret_Bake1_PBR_Roughness.png-fa316f48f7b9505b7daee5b5b9c29031.s3tc.ctex"]
 
 [params]
 

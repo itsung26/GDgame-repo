@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd0g3ubf6s0oa"
-path.s3tc="res://.godot/imported/ULTRAKILL 2025-04-11 05-46-22.png-af6ea75d98981eac36b0c8d871bad40b.s3tc.ctex"
+uid="uid://dtm6srstobn6i"
+path="res://.godot/imported/Bullet Turret_Bake1_PBR_Metalness.png-1daf053c8b3fa0a6e8900a1c7b521de6.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/2d assets/primary textures/Ultra Textures/Lust/Skybox/ULTRAKILL 2025-04-11 05-46-22.png"
-dest_files=["res://.godot/imported/ULTRAKILL 2025-04-11 05-46-22.png-af6ea75d98981eac36b0c8d871bad40b.s3tc.ctex"]
+source_file="res://assets/meshes/bullet turret/textures/baked final/Bullet Turret_Bake1_PBR_Metalness.png"
+dest_files=["res://.godot/imported/Bullet Turret_Bake1_PBR_Metalness.png-1daf053c8b3fa0a6e8900a1c7b521de6.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -24,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -38,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://ivvfgls6i66n"]
+
+[ext_resource type="Shader" uid="uid://ca72wtvygdko8" path="res://shaders/GDSL shaders/screenRipple.gdshader" id="1_mc5rg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gne6x"]
+shader = ExtResource("1_mc5rg")
+shader_parameter/strength = 0.08
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/radius = 0.25
+shader_parameter/aberration = 0.425
+shader_parameter/width = 0.04
+shader_parameter/feather = 0.135
+
+[node name="ScreenSpaceShaders" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Ripple" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_gne6x")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
