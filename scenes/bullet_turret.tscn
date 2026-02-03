@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwa158sy5fj7y"]
+[gd_scene load_steps=6 format=3 uid="uid://bwa158sy5fj7y"]
 
 [ext_resource type="Script" uid="uid://cf751aylrswjc" path="res://scripts/bullet_turret.gd" id="1_i8fi7"]
 [ext_resource type="PackedScene" uid="uid://dh23s7ciceub8" path="res://assets/meshes/bullet turret/bullet turret.blend" id="2_ac5sn"]
 [ext_resource type="PackedScene" uid="uid://do6tv316gum03" path="res://scenes/laser_vfx.tscn" id="3_6wt2j"]
+[ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="4_bgkqf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ac5sn"]
 radius = 12.278869
@@ -25,8 +26,7 @@ bone_name = "Head"
 bone = 1
 forward_axis = 2
 primary_rotation_axis = 2
-duration = 0.5
-ease_type = 2
+duration = 0.25
 use_angle_limitation = true
 symmetry_limitation = true
 primary_limit_angle = 1.7657496
@@ -42,7 +42,6 @@ forward_axis = 2
 primary_rotation_axis = 0
 use_secondary_rotation = false
 duration = 0.5
-ease_type = 2
 use_angle_limitation = true
 symmetry_limitation = true
 primary_limit_angle = 1.7657496
@@ -56,7 +55,6 @@ forward_axis = 2
 primary_rotation_axis = 0
 use_secondary_rotation = false
 duration = 0.5
-ease_type = 2
 use_angle_limitation = true
 symmetry_limitation = true
 primary_limit_angle = 1.7657496
@@ -86,6 +84,11 @@ debug_color = Color(0, 0.5950001, 0.7, 1)
 
 [node name="SeekingTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
+script = ExtResource("4_bgkqf")
+nodes_to_hide_on_ready = [NodePath("../bullet turret/Armature/Skeleton3D/Laser/laser")]
+metadata/_custom_type_script = "uid://bcsxapsamvmvq"
 
 [connection signal="on_hurt" from="." to="." method="_on_hurt"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]

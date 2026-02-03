@@ -1,13 +1,10 @@
-[gd_scene load_steps=81 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=76 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
-[ext_resource type="Shader" uid="uid://dcbhmrto8x52i" path="res://shaders/visual shaders/pixelated.tres" id="2_f1ej7"]
 [ext_resource type="PackedScene" uid="uid://c35cvtsnxwh6o" path="res://assets/meshes/player body/player body.blend" id="2_i4ail"]
 [ext_resource type="Texture2D" uid="uid://ccw4stpjwf0wy" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_albedo000.png" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://b634drxy8nceb" path="res://assets/worldmodels/grappletip/Untitled_Whiplash_normal000.png" id="3_fjrip"]
-[ext_resource type="Texture2D" uid="uid://cktnmvscnsspf" path="res://assets/2d assets/primary textures/photorealistic/normalmapped dark/blackprototype/texture_01.png" id="3_oprun"]
-[ext_resource type="Shader" uid="uid://ca72wtvygdko8" path="res://shaders/GDSL shaders/screenRipple.gdshader" id="4_a8ls1"]
 [ext_resource type="PackedScene" uid="uid://csatdjhfoaqcw" path="res://scenes/pistol.tscn" id="4_dqkch"]
 [ext_resource type="AnimationLibrary" uid="uid://df4wluqxdk4ww" path="res://animations/grapple arm animation library.res" id="4_ur7pv"]
 [ext_resource type="Script" uid="uid://cjhvcb5uyoehj" path="res://scripts/wind_particles.gd" id="7_fjrip"]
@@ -33,19 +30,6 @@ roughness = 0.0
 emission_enabled = true
 emission = Color(1, 0, 0, 1)
 emission_energy_multiplier = 16.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qfm1y"]
-shader = ExtResource("2_f1ej7")
-shader_parameter/Pixelated = 50.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fulsm"]
-shader = ExtResource("4_a8ls1")
-shader_parameter/strength = 0.08
-shader_parameter/center = Vector2(0.5, 0.5)
-shader_parameter/radius = 0.25
-shader_parameter/aberration = 0.425
-shader_parameter/width = 0.04
-shader_parameter/feather = 0.135
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m4u7"]
 bg_color = Color(0, 0, 0, 1)
@@ -340,7 +324,7 @@ max = 16.0
 [sub_resource type="VisualShader" id="VisualShader_wqfne"]
 resource_local_to_scene = true
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
 
 uniform sampler2D screen_texture;
 uniform float emission : hint_range(0.0, 16.0);
@@ -454,15 +438,6 @@ outer_radius = 0.715
 collision_mask = 263
 script = ExtResource("1_qhqgy")
 inital_arm = 1
-JUMP_VELOCITY = 7.0
-slide_speed_multiplier = 1.5
-dash_velocity_increase = 37.5
-dash_time_length = 0.1
-GRAPPLE_SPEED_MAX = 90
-grapple_pull_speed = 25.0
-hitstop_duration = 0.21
-parry_projectile_speed_boost = 2.0
-parry_heal_amount = 25.0
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
 weapon_states = [NodePath("Pivot/Camera3D/Guns/Melee"), NodePath("Pivot/Camera3D/Guns/Pistol")]
 
@@ -481,28 +456,6 @@ material_override = SubResource("StandardMaterial3D_a38lo")
 visible = false
 
 [node name="timeControllerAgent" type="Node" parent="."]
-
-[node name="FullScreenShaders" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PixelShader" type="Sprite2D" parent="FullScreenShaders"]
-visible = false
-material = SubResource("ShaderMaterial_qfm1y")
-position = Vector2(576, 324)
-scale = Vector2(1.125, 0.632812)
-texture = ExtResource("3_oprun")
-
-[node name="RippleShader" type="Sprite2D" parent="FullScreenShaders"]
-visible = false
-material = SubResource("ShaderMaterial_fulsm")
-position = Vector2(576, 324)
-scale = Vector2(1.125, 0.632812)
-texture = ExtResource("3_oprun")
 
 [node name="huds" type="Node" parent="."]
 
@@ -527,6 +480,9 @@ theme = SubResource("Theme_f1ej7")
 
 [node name="Pause" parent="huds" instance=ExtResource("11_3v2ag")]
 z_index = 2
+
+[node name="Back" parent="huds/Pause/OptionsMenu" index="1"]
+layout_mode = 0
 
 [node name="CollisionShapeMain" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.847, 0)
@@ -600,28 +556,28 @@ bones/0/parent = -1
 bones/0/rest = Transform3D(0.0351161, 0.999381, 0.00215055, 0.000219792, -0.0021596, 0.999998, 0.999383, -0.0351155, -0.000295493, -0.645405, 2.76579, -0.520804)
 bones/0/enabled = true
 bones/0/position = Vector3(-0.645405, 2.76579, -0.520804)
-bones/0/rotation = Quaternion(-0.509306, -0.490668, -0.491617, 0.5081)
+bones/0/rotation = Quaternion(-0.5093059, -0.4906679, -0.4916169, 0.50809985)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "bip_upperarm_L"
 bones/1/parent = 0
 bones/1/rest = Transform3D(0.139799, -0.0854455, -0.986486, 0.98535, 0.110281, 0.130086, 0.0976759, -0.99022, 0.099611, -0.0189005, 0.461312, 0.00161639)
 bones/1/enabled = true
 bones/1/position = Vector3(-0.0189005, 0.461312, 0.00161639)
-bones/1/rotation = Quaternion(-0.482158, -0.466603, 0.46085, 0.580881)
+bones/1/rotation = Quaternion(-0.48215804, -0.46660295, 0.46085003, 0.580881)
 bones/1/scale = Vector3(0.999999, 0.999999, 1)
 bones/2/name = "bip_lowerarm_L"
 bones/2/parent = 1
 bones/2/rest = Transform3D(0.995801, -0.0179546, -0.0897663, 0.0582622, 0.880648, 0.470175, 0.0706107, -0.473431, 0.877996, 3.39933e-06, 1.34715, -1.45435e-05)
 bones/2/enabled = true
 bones/2/position = Vector3(3.39933e-06, 1.34715, -1.45435e-05)
-bones/2/rotation = Quaternion(-0.243494, -0.0413846, 0.0196674, 0.968819)
+bones/2/rotation = Quaternion(-0.24349388, -0.041384578, 0.01966739, 0.9688195)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "bip_hand_L"
 bones/3/parent = 2
 bones/3/rest = Transform3D(0.992994, 0.0641141, 0.0992572, -0.0685667, 0.996757, 0.0421144, -0.0962352, -0.0486251, 0.99417, -2.11596e-06, 1.35814, 3.07336e-06)
 bones/3/enabled = true
 bones/3/position = Vector3(-2.11596e-06, 1.35814, 3.07336e-06)
-bones/3/rotation = Quaternion(-0.0227307, 0.0489716, -0.0332371, 0.997988)
+bones/3/rotation = Quaternion(-0.022730703, 0.048971612, -0.033237103, 0.99798816)
 bones/3/scale = Vector3(1, 1, 1)
 bones/3/bone_meta/pos = Vector3(0, 0, 0)
 bones/4/name = "prp_hook"
@@ -629,105 +585,105 @@ bones/4/parent = 3
 bones/4/rest = Transform3D(0.999115, -0.0235119, -0.0348745, 0.0230995, 0.999659, -0.0121809, 0.035149, 0.0113645, 0.999317, -0.0519902, -0.0479269, 0.0310608)
 bones/4/enabled = true
 bones/4/position = Vector3(-0.0519902, -0.0479269, 0.0310608)
-bones/4/rotation = Quaternion(0.00588774, -0.0175101, 0.0116556, 0.999761)
+bones/4/rotation = Quaternion(0.0058877426, -0.017510107, 0.011655605, 0.99976146)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "bip_thumb_0_L"
 bones/5/parent = 3
 bones/5/rest = Transform3D(0.97541, -0.202066, -0.0880003, 0.198149, 0.97883, -0.05127, 0.0964973, 0.0325721, 0.9948, -0.103626, 0.272747, -0.280369)
 bones/5/enabled = true
 bones/5/position = Vector3(-0.103626, 0.272747, -0.280369)
-bones/5/rotation = Quaternion(0.0210953, -0.046421, 0.100697, 0.99361)
+bones/5/rotation = Quaternion(0.02109529, -0.04642098, 0.100696966, 0.99360967)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "bip_thumb_1_L"
 bones/6/parent = 5
 bones/6/rest = Transform3D(0.999308, 0.010367, 0.0357354, -0.00365705, 0.983118, -0.18294, -0.0370286, 0.182682, 0.982475, 3.57628e-07, 0.187308, -7.45058e-07)
 bones/6/enabled = true
 bones/6/position = Vector3(3.57628e-07, 0.187308, -7.45058e-07)
-bones/6/rotation = Quaternion(0.0918091, 0.0182713, -0.00352148, 0.995603)
+bones/6/rotation = Quaternion(0.09180908, 0.018271293, -0.0035214794, 0.9956028)
 bones/6/scale = Vector3(1, 1, 1)
 bones/7/name = "bip_index_0_L"
 bones/7/parent = 3
 bones/7/rest = Transform3D(0.983391, -0.173869, -0.0520747, 0.172444, 0.984539, -0.0307452, 0.0566153, 0.0212545, 0.99817, 0.0356591, 0.462087, -0.112099)
 bones/7/enabled = true
 bones/7/position = Vector3(0.0356591, 0.462087, -0.112099)
-bones/7/rotation = Quaternion(0.0130555, -0.0272884, 0.0869477, 0.995754)
+bones/7/rotation = Quaternion(0.013055494, -0.027288385, 0.08694766, 0.9957535)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/name = "bip_index_1_L"
 bones/8/parent = 7
 bones/8/rest = Transform3D(0.999996, -0.00150803, -0.00231456, 0.00150863, 0.999999, 0.000255751, 0.00231417, -0.000259242, 0.999997, 2.23517e-08, 0.145916, 4.84288e-07)
 bones/8/enabled = true
 bones/8/position = Vector3(2.23517e-08, 0.145916, 4.84288e-07)
-bones/8/rotation = Quaternion(-0.000128749, -0.00115718, 0.000754162, 0.999999)
+bones/8/rotation = Quaternion(-0.00012874902, -0.0011571802, 0.00075416215, 0.9999991)
 bones/8/scale = Vector3(1, 1, 1)
 bones/9/name = "bip_index_2_L"
 bones/9/parent = 8
 bones/9/rest = Transform3D(0.98198, -0.188497, -0.0136102, 0.188375, 0.982048, -0.00981432, 0.0152159, 0.00707364, 0.999859, 1.86265e-08, 0.18898, -6.92904e-07)
 bones/9/enabled = true
 bones/9/position = Vector3(1.86265e-08, 0.18898, -6.92904e-07)
-bones/9/rotation = Quaternion(0.00424119, -0.00723928, 0.0946462, 0.995476)
+bones/9/rotation = Quaternion(0.0042411885, -0.0072392775, 0.09464618, 0.9954757)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/name = "bip_middle_0_L"
 bones/10/parent = 3
 bones/10/rest = Transform3D(0.98277, -0.176238, -0.055705, 0.174712, 0.984124, -0.0312215, 0.0603231, 0.0209512, 0.997959, 0.050103, 0.474876, -0.00128058)
 bones/10/enabled = true
 bones/10/position = Vector3(0.050103, 0.474876, -0.00128058)
-bones/10/rotation = Quaternion(0.0131009, -0.0291353, 0.0881255, 0.995597)
+bones/10/rotation = Quaternion(0.013100901, -0.0291353, 0.0881255, 0.995597)
 bones/10/scale = Vector3(1, 0.999999, 1)
 bones/11/name = "bip_middle_1_L"
 bones/11/parent = 10
 bones/11/rest = Transform3D(0.999992, -0.00217509, -0.00332038, 0.00217602, 0.999998, 0.000276392, 0.00331977, -0.000283615, 0.999994, -3.42727e-07, 0.157137, -4.47035e-07)
 bones/11/enabled = true
 bones/11/position = Vector3(-3.42727e-07, 0.157137, -4.47035e-07)
-bones/11/rotation = Quaternion(-0.000140048, -0.00166004, 0.00108778, 0.999998)
+bones/11/rotation = Quaternion(-0.000140048, -0.0016600402, 0.0010877801, 0.9999981)
 bones/11/scale = Vector3(1, 1, 1)
 bones/12/name = "bip_middle_2_L"
 bones/12/parent = 11
 bones/12/rest = Transform3D(0.984162, -0.177251, 0.00247477, 0.177265, 0.984136, -0.00728769, -0.00114376, 0.00761096, 0.99997, -3.72529e-08, 0.20889, -2.38419e-07)
 bones/12/enabled = true
 bones/12/position = Vector3(-3.72529e-08, 0.20889, -2.38419e-07)
-bones/12/rotation = Quaternion(0.00373961, 0.000908251, 0.0889827, 0.996026)
+bones/12/rotation = Quaternion(0.0037396092, 0.0009082508, 0.08898268, 0.99602574)
 bones/12/scale = Vector3(0.999999, 1, 1)
 bones/13/name = "bip_ring_0_L"
 bones/13/parent = 3
 bones/13/rest = Transform3D(0.983392, -0.173866, -0.0520719, 0.172441, 0.98454, -0.0307436, 0.0566121, 0.0212537, 0.99817, 0.0587468, 0.474315, 0.109341)
 bones/13/enabled = true
 bones/13/position = Vector3(0.0587468, 0.474315, 0.109341)
-bones/13/rotation = Quaternion(0.0130548, -0.0272868, 0.0869461, 0.995754)
+bones/13/rotation = Quaternion(0.013054797, -0.02728679, 0.08694607, 0.9957537)
 bones/13/scale = Vector3(1, 1, 1)
 bones/14/name = "bip_ring_1_L"
 bones/14/parent = 13
 bones/14/rest = Transform3D(0.999996, -0.00151002, -0.00231723, 0.00151062, 0.999999, 0.00025603, 0.00231684, -0.00025953, 0.999997, -1.11759e-07, 0.145913, -1.11759e-07)
 bones/14/enabled = true
 bones/14/position = Vector3(-1.11759e-07, 0.145913, -1.11759e-07)
-bones/14/rotation = Quaternion(-0.000128906, -0.00115852, 0.000755158, 0.999999)
+bones/14/rotation = Quaternion(-0.00012890602, -0.0011585201, 0.0007551581, 0.99999905)
 bones/14/scale = Vector3(1, 1, 1)
 bones/15/name = "bip_ring_2_L"
 bones/15/parent = 14
 bones/15/rest = Transform3D(0.981979, -0.1885, -0.0136122, 0.188377, 0.982048, -0.00981908, 0.0152187, 0.0070779, 0.999859, 0, 0.188979, 3.7998e-07)
 bones/15/enabled = true
 bones/15/position = Vector3(0, 0.188979, 3.7998e-07)
-bones/15/rotation = Quaternion(0.00424343, -0.00724048, 0.0946477, 0.995475)
+bones/15/rotation = Quaternion(0.0042434316, -0.007240483, 0.09464774, 0.9954755)
 bones/15/scale = Vector3(1, 1, 1)
 bones/16/name = "bip_pinky_0_L"
 bones/16/parent = 3
 bones/16/rest = Transform3D(0.983533, -0.170608, -0.0596268, 0.170712, 0.985315, -0.0033773, 0.0593274, -0.00685733, 0.998215, 0.0665548, 0.468296, 0.207635)
 bones/16/enabled = true
 bones/16/position = Vector3(0.0665548, 0.468296, 0.207635)
-bones/16/rotation = Quaternion(-0.000873604, -0.0298618, 0.0856834, 0.995874)
+bones/16/rotation = Quaternion(-0.00087360444, -0.029861815, 0.085683435, 0.99587446)
 bones/16/scale = Vector3(1, 1, 1)
 bones/17/name = "bip_pinky_1_L"
 bones/17/parent = 16
 bones/17/rest = Transform3D(0.999964, -0.000810461, 0.00845866, 0.00125518, 0.998609, -0.0527034, -0.00840418, 0.0527121, 0.998574, 9.20147e-07, 0.123773, -2.5332e-07)
 bones/17/enabled = true
 bones/17/position = Vector3(9.20147e-07, 0.123773, -2.5332e-07)
-bones/17/rotation = Quaternion(0.0263633, 0.00421721, 0.000516592, 0.999643)
+bones/17/rotation = Quaternion(0.026363285, 0.0042172074, 0.00051659165, 0.9996434)
 bones/17/scale = Vector3(1, 1, 1)
 bones/18/name = "bip_pinky_2_L"
 bones/18/parent = 17
 bones/18/rest = Transform3D(0.976904, -0.20836, -0.0473874, 0.209076, 0.977842, 0.0106343, 0.0441216, -0.0202962, 0.99882, -3.241e-07, 0.161602, -5.88596e-07)
 bones/18/enabled = true
 bones/18/position = Vector3(-3.241e-07, 0.161602, -5.88596e-07)
-bones/18/rotation = Quaternion(-0.00777791, -0.0230112, 0.10497, 0.994179)
+bones/18/rotation = Quaternion(-0.0077779074, -0.023011195, 0.10496997, 0.9941787)
 bones/18/scale = Vector3(1, 1, 1)
 
 [node name="whiplash_smd" type="MeshInstance3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
@@ -735,7 +691,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.985274, 0.091285, 0.144568, 0.144568, -0.89623, -0.419367, 0.0912844, 0.434093, -0.896231, -0.00338209, 0.181378, -0.147857)
+transform = Transform3D(0.985274, 0.09128495, 0.1445682, 0.14456822, -0.8962307, -0.41936678, 0.09128458, 0.43409243, -0.8962314, -0.0033821464, 0.18137789, -0.14785697)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -834,9 +790,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="player pistol" parent="Pivot/Camera3D/Guns/Pistol" index="1"]
 transform = Transform3D(0.999701, 0, -0.0244322, 0, 1, 0, 0.0244322, 0, 0.999701, -0.009, 0.004, 0.06)
-
-[node name="HCU cap" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="3"]
-transform = Transform3D(0.248025, 0, -0.0313637, 0, 0.25, 0, 0.0313637, 0, 0.248025, 0.13192, -0.156501, -0.307973)
 
 [node name="muzzle charge particles" parent="Pivot/Camera3D/Guns/Pistol/player pistol/barrel very end upper" index="1"]
 draw_pass_1 = SubResource("QuadMesh_ujl30")
@@ -944,10 +897,10 @@ ignore_time_scale = true
 [connection signal="new_hooked_target_set" from="Pivot/Camera3D/GrappleArm" to="." method="_on_grapple_arm_new_hooked_target_set"]
 [connection signal="area_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_entered"]
 [connection signal="area_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_exited"]
-[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_entered"]
-[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_exited"]
+[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_exited"]
+[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]

@@ -112,9 +112,9 @@ func _process(delta) -> void:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("debug func 2"):
 		if visible == true:
-			visible = false
+			debug_container.visible = false
 		elif visible == false:
-			visible = true
+			debug_container.visible = true
 
 ## Recieves state machine state change calls from player through a signal
 func _on_player_entered_arm_state(new_arm_state: Player.arm_states, previous_arm_state: Player.arm_states) -> void:

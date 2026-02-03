@@ -225,6 +225,7 @@ staminabar_react_speed = 5.0
 metadata/_edit_lock_ = true
 
 [node name="HideHandler" type="Node" parent="."]
+editor_description = "Hides weapon icons in the hud based on the player's states"
 script = ExtResource("2_y2nlu")
 
 [node name="CrosshairContainer" type="CenterContainer" parent="."]

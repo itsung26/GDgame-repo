@@ -100,7 +100,7 @@ var stamina_recharging:bool = true
 
 @export_group("Movement")
 @export var SPEED = 12.0
-@export var JUMP_VELOCITY = 8.0
+@export var JUMP_VELOCITY = 7.0
 @export var look_sensitivity = 0.1
 @export var gravity_enabled = true
 ## How much the player is slowed down passively in the air when not moving.
@@ -108,18 +108,18 @@ var stamina_recharging:bool = true
 ## How quickly the player is able to accelerate/deccelerate in the air.
 @export var AIR_ACCELERATION := 6.0
 ## The amount that base speed is multiplied with for the slide speed.
-@export var slide_speed_multiplier := 2.0
+@export var slide_speed_multiplier := 1.5
 ## How much velocity the dash applies.
-@export var dash_velocity_increase := 5.0
+@export var dash_velocity_increase := 37.5
 ## Amount of time that the dash velocity is applied for
-@export var dash_time_length := 0.5
+@export var dash_time_length := 0.1
 ## The velocity applied in the negative y direction. Should remain constant.
 @export var slam_velocity := 35.0
 
 @export_group("Grappling Hook")
 @export var Grapple_Enabled:= true
-@export var GRAPPLE_SPEED_MAX = 20
-@export var grapple_pull_speed:float = 10
+@export var GRAPPLE_SPEED_MAX = 90
+@export var grapple_pull_speed:float = 25.0
 ## The amount of upward velocity that is added to the player after beginning to pull the grapple on an enemy
 @export var grapple_hop:float = 1.0
 @export var grapple_hook_damage:float = 1.0
@@ -127,13 +127,13 @@ var stamina_recharging:bool = true
 @export_group("Parrying")
 var parry_target:Node3D
 ## The amount of time that time stops for when parrying something.
-@export var hitstop_duration:float = 0.25
+@export var hitstop_duration:float = 0.21
 ## The factor that projectile's speed is multiplied with after being parried.
-@export var parry_projectile_speed_boost:float = 1.0
+@export var parry_projectile_speed_boost:float = 2.0
 ## Wether the parry arm action in specific is allowed to occur.
 @export var parry_input_allowed:bool = true
 ## How much health is regained on a successful parry.
-@export var parry_heal_amount:float
+@export var parry_heal_amount:float = 25.0
 
 @export_group("Respawning")
 @export var checkpoint:checkPoint
