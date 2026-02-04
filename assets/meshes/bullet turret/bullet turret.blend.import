@@ -48,6 +48,11 @@ _subresources={
 "save_to_file/fallback_path": "res://assets/meshes/bullet turret/mesh resources/bullet turret_Cube_001.res",
 "save_to_file/path": "uid://v6tml22fsxyb"
 }
+},
+"nodes": {
+"PATH:Armature/Skeleton3D/Bullet Turret": {
+"physics/shape_type": 1
+}
 }
 }
 blender/nodes/visible=1
