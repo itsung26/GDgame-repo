@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dctdckc0awxi0"]
+
+[ext_resource type="Script" uid="uid://dfkorcgmlipsp" path="res://scripts/state_debug_text.gd" id="1_5xv7e"]
+[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_3jlph"]
+
+[node name="StateDebugText" type="Node3D"]
+script = ExtResource("1_5xv7e")
+
+[node name="StateReadout" type="Label3D" parent="."]
+billboard = 1
+no_depth_test = true
+text = "Unknown State"
+font = ExtResource("2_3jlph")
+outline_size = 0

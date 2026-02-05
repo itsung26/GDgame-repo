@@ -11,7 +11,7 @@ class_name EnemyProjectile extends RigidBody3D
 @export var cam_shake_strength:float
 
 ## Goes to [code]global_position[/code] at pos, and travels in the direction of dir at travel_speed
-func _setup(_pos:Vector3, _dir:Vector3) -> void:
+func _setup(_pos:Vector3, _dir:Vector3, owner:Enemy, time_before_owner_collide_re_enabled:float = 0.25) -> void:
 	if not _dir.is_normalized():
 		_dir = _dir.normalized()
 	global_position = _pos

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bwa158sy5fj7y"]
+[gd_scene load_steps=20 format=3 uid="uid://bwa158sy5fj7y"]
 
 [ext_resource type="Script" uid="uid://cf751aylrswjc" path="res://scripts/bullet_turret.gd" id="1_i8fi7"]
 [ext_resource type="PackedScene" uid="uid://dh23s7ciceub8" path="res://assets/meshes/bullet turret/bullet turret.blend" id="2_ac5sn"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bw38nw05w7wsj" path="res://scripts/fire_dir_randomizer.gd" id="3_h8v86"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="4_bgkqf"]
 [ext_resource type="Shader" uid="uid://dvmp1lm8kaxdc" path="res://shaders/visual shaders/bullet_turret_eye_glow.tres" id="4_ngyu3"]
+[ext_resource type="PackedScene" uid="uid://dctdckc0awxi0" path="res://scenes/state_debug_text.tscn" id="7_o4vap"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ngyu3"]
 points = PackedVector3Array(-0.30699784, -0.21426275, -0.6244874, -0.30699784, 0.298988, -0.6244874, -0.15507567, -0.30168977, -0.6244874, -0.6811457, -0.16512924, -0.567102, -0.68671066, -0.16041619, -0.567102, -0.6913481, -0.15487838, -0.567102, -0.6948725, -0.14839792, -0.567102, -0.696913, -0.14144617, -0.567102, -0.69765496, -0.13414097, -0.567102, -0.28881913, 0.31701544, -0.6244874, -0.69765496, 0.14722791, -0.567102, -0.696913, 0.15453312, -0.567102, -0.6948725, 0.16148487, -0.567102, -0.6913481, 0.16784748, -0.567102, -0.68671066, 0.17350313, -0.567102, -0.18679565, -0.37863025, -0.5892341, 0.15489024, -0.30168977, -0.6244874, -0.7534896, -0.47666162, -0.4270374, -0.89112854, -0.2657528, -0.4270374, -0.9475197, -0.17915055, -0.4270374, -0.6811457, 0.17809835, -0.567102, -0.34112936, 0.38158414, -0.5892341, 0.28863364, 0.31701544, -0.6244874, -0.9475197, 0.179041, -0.4270374, -0.89112854, 0.2656432, -0.4270374, -0.7534896, 0.47655204, -0.4270374, 0.18661016, -0.37863025, -0.5892341, -0.18679565, -0.42705682, -0.5438633, 0.30681235, -0.21426275, -0.6244874, 0.68096024, -0.16512924, -0.567102, -0.65925705, -0.47984293, -0.4270374, -0.7534896, -0.47666162, 0.4269458, -0.83325344, -0.35447592, -0.33313403, -0.9248891, -0.2140271, -0.23496231, -0.9475197, -0.17915055, 0.4269458, -0.3598646, 0.42694727, -0.5438633, 0, 0.65246654, -0.34641328, 0.34094387, 0.38158414, -0.5892341, 0.68096024, 0.17809835, -0.567102, 0.68652517, 0.17350313, -0.567102, 0.30681235, 0.298988, -0.6244874, -0.9475197, 0.179041, 0.4269458, -0.9248891, 0.21391752, -0.23496231, -0.83325344, 0.35436633, -0.33313403, -0.7534896, 0.47655204, 0.4269458, -0.34650874, 0.65246654, -4.5835972e-05, -0.32016814, 0.65246654, -0.13268036, -0.24504179, 0.65246654, -0.24507985, -0.13263047, 0.65246654, -0.32017094, 0.18661016, -0.42705682, -0.5438633, 0.7533042, -0.47666162, -0.4270374, 0.69746953, -0.13414097, -0.567102, 0.6967276, -0.14144617, -0.567102, 0.69468707, -0.14839792, -0.567102, 0.69116265, -0.15487838, -0.567102, 0.68652517, -0.16041619, -0.567102, -0.65925705, -0.47984293, 0.4269458, 0.6590716, -0.47984293, -0.4270374, -0.60453534, -0.48161033, -0.37724015, -0.89112854, -0.2657528, 0.4269458, -0.83325344, -0.35447592, 0.3395239, -0.21443474, -0.2917924, 0.96206844, -0.31349027, -0.1928184, 0.9622266, -0.9248891, -0.2140271, 0.24119413, -0.2843672, -0.18080014, 0.99052405, 0.11259681, 0.72092354, 0.058288097, 0.12020224, 0.7215127, 0.061133623, 0.13244504, 0.65246654, -0.32017094, 0.7533042, 0.47655204, -0.4270374, 0.35967904, 0.42694727, -0.5438633, 0.69116265, 0.16784748, -0.567102, 0.69468707, 0.16148487, -0.567102, 0.6967276, 0.15453312, -0.567102, 0.69746953, 0.14722791, -0.567102, -0.9248891, 0.21391752, 0.24119413, -0.2843672, 0.052849144, 0.99052405, -0.31349027, 0.07853529, 0.9623847, -0.89112854, 0.2656432, 0.4269458, -0.83325344, 0.35436633, 0.3395239, -0.26322055, 0.13520965, 0.9623847, 0, 0.65246654, 0.34632164, -0.13263047, 0.65246654, 0.3199212, -0.24504179, 0.65246654, 0.24483013, -0.32016814, 0.65246654, 0.13243067, 0.017065763, 0.717271, 0.11804479, -0.10944337, 0.6925274, 0.009281278, 0.110741794, 0.7215127, 0.06303066, 0.9475197, -0.17915055, -0.4270374, 0.83306795, -0.35447592, -0.33313403, 0.7533042, -0.47666162, 0.4269458, -0.60453534, -0.48161033, 0.3771485, 0.6590716, -0.47984293, 0.4269458, 0.6043499, -0.48161033, -0.37724015, -0.20256293, -0.26280713, 0.99052405, 0.21424931, -0.2917924, 0.96206844, 0.12780756, 0.72080576, 0.06397921, 0.2448563, 0.65246654, -0.24507985, 0.11853272, 0.7221018, 0.065876245, 0.7533042, 0.47655204, 0.4269458, 0.83306795, 0.35436633, -0.33313403, 0.9475197, 0.179041, -0.4270374, 0.3199827, 0.65246654, -0.13268036, 0.3463233, 0.65246654, -4.5835972e-05, -0.25005025, 0.09149614, 0.99052405, 0.263035, 0.13520965, 0.9623847, 0.13244504, 0.65246654, 0.3199212, 0.12613815, 0.7213949, 0.06872183, 0.9475197, -0.17915055, 0.4269458, 0.83306795, -0.35447592, 0.3395239, 0.31330484, -0.1928184, 0.9622266, 0.6043499, -0.48161033, 0.3771485, 0.2023775, -0.26280713, 0.99052405, 0.13504201, 0.71892047, 0.06666666, 0.9475197, 0.179041, 0.4269458, 0.83306795, 0.35436633, 0.3395239, 0.3199827, 0.65246654, 0.13243067, 0.13337249, 0.7195096, 0.07156736, 0.2448563, 0.65246654, 0.24483013, 0.31330484, 0.07853529, 0.9623847, 0.24986476, 0.09149614, 0.99052405, 0.28418177, 0.052849144, 0.99052405, 0.28418177, -0.18080014, 0.99052405)
@@ -32,8 +33,66 @@ bottom_radius = 0.051
 height = 0.201
 cap_top = false
 
+[sub_resource type="GDScript" id="GDScript_o4vap"]
+script/source = "@tool
+extends RayCast3D
+
+@onready var targ_l_global: Marker3D = $TargLGlobal
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	targ_l_global.position = target_position
+	targ_l_global.global_rotation = Vector3.ZERO
+
+func getDir() -> Vector3:
+	var ret:Vector3 = (targ_l_global.global_position - global_position).normalized()
+	return ret
+"
+
+[sub_resource type="GDScript" id="GDScript_lqrsi"]
+script/source = "@tool
+extends RayCast3D
+
+@onready var targ_r_global: Marker3D = $TargRGlobal
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	targ_r_global.position = target_position
+	targ_r_global.global_rotation = Vector3.ZERO
+
+func getDir() -> Vector3:
+	var ret:Vector3 = (targ_r_global.global_position - global_position).normalized()
+	return ret
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o4vap"]
+radius = 0.053423755
+height = 0.53423756
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lqrsi"]
+radius = 0.04720395
+height = 0.47203952
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yl67w"]
+radius = 0.042079326
+height = 0.42079327
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6qji7"]
+radius = 0.042079326
+height = 0.42079327
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_ac5sn"]
-radius = 12.278869
+radius = 35.644657
 
 [node name="BulletTurret" type="CharacterBody3D"]
 collision_layer = 2
@@ -43,6 +102,8 @@ turning_speed = 3.0
 time_before_stop_seeking = 2.5
 seeking_max_angle_range = 25.0
 seeking_oscillation_speed = 0.25
+burst_duration_time = 1.0
+bullet_delay = 0.21
 SPEED = 0.0
 weight = 1
 metadata/_custom_type_script = "uid://cf751aylrswjc"
@@ -59,13 +120,10 @@ metadata/_custom_type_script = "uid://bcsxapsamvmvq"
 [node name="FireDirRandomizer" type="Node" parent="."]
 editor_description = "randomizes the rotation of the direction raycasts every frame to add spray to the burst fire."
 script = ExtResource("3_h8v86")
-random_rot_min = 5.407
-random_rot_max = 6.898
-delay = 0.049
-
-[node name="TimeBetweenDirShuffles" type="Timer" parent="FireDirRandomizer"]
-wait_time = 0.049
-one_shot = true
+random_rot_min = -8.0
+random_rot_max = 8.0
+delay = 0.032
+shuffling = true
 
 [node name="bullet turret" parent="." instance=ExtResource("2_ac5sn")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -131,8 +189,12 @@ bone_idx = 6
 gizmo_extents = 0.73
 
 [node name="FireDirL" type="RayCast3D" parent="bullet turret/Armature/Skeleton3D/GunLAttatchment"]
-transform = Transform3D(0.94089305, 0.33870378, 8.956046e-16, -0.33870378, 0.94089305, 0, -8.4266813e-16, -3.0334465e-16, 1, 0, 0, 0)
+transform = Transform3D(0.99999803, -0.0019354942, 0, 0.0019306125, 0.9974758, 0.07097987, -0.00013738114, -0.07097973, 0.99747777, 0, 0, 0)
 target_position = Vector3(0, 3, 0)
+script = SubResource("GDScript_o4vap")
+
+[node name="TargLGlobal" type="Marker3D" parent="bullet turret/Armature/Skeleton3D/GunLAttatchment/FireDirL"]
+transform = Transform3D(0.9998438, -0.00013726958, -0.0019291408, -0.0019352767, -0.07096725, -0.99667025, -9.339428e-08, 0.99730396, -0.070922524, -5.9604645e-08, 2.9999998, -1.8626451e-08)
 
 [node name="GunRAttatchment" type="BoneAttachment3D" parent="bullet turret/Armature/Skeleton3D" index="6"]
 transform = Transform3D(-1, -1.4821477e-14, 8.742269e-08, 1.7341684e-13, 1.0000005, -1.2572855e-07, -8.7422734e-08, -1.0244548e-08, -1.0000001, 0.66042155, 0.3917889, -0.006590802)
@@ -143,8 +205,87 @@ bone_idx = 4
 gizmo_extents = 0.73
 
 [node name="FireDirR" type="RayCast3D" parent="bullet turret/Armature/Skeleton3D/GunRAttatchment"]
-transform = Transform3D(1, 0, 3.2193164e-15, 0, 1, 0, -8.956088e-16, 0, 1, 0, 0, 0)
+transform = Transform3D(0.9967008, 0.08116354, 0, -0.0810371, 0.9951479, 0.055799976, 0.004528924, -0.05561588, 0.998442, 0, 0, 0)
 target_position = Vector3(0, 3, 0)
+script = SubResource("GDScript_lqrsi")
+
+[node name="TargRGlobal" type="Marker3D" parent="bullet turret/Armature/Skeleton3D/GunRAttatchment/FireDirR"]
+transform = Transform3D(0.9965449, 0.00452826, 0.08095348, 0.08115076, -0.055606652, -0.9941223, -9.172087e-08, 0.9982787, -0.055742458, 0, 2.9999998, 0)
+
+[node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="bullet turret/Armature/Skeleton3D" index="7"]
+active = false
+
+[node name="Physical Bone Root" type="PhysicalBone3D" parent="bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["physics bones"]]
+transform = Transform3D(-0.999998, -2.580679e-05, -0.0020274369, 0.002027601, -0.012727721, -0.999917, -2.6301546e-24, -0.999919, 0.012727747, -0.0005435281, 0.26755723, -0.044344924)
+collision_layer = 4
+collision_mask = 36
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.958455e-06, 6.9849193e-10, 0.26711878)
+body_offset = Transform3D(-0.999998, -2.580679e-05, -0.0020274369, -4.662383e-34, 0.999919, -0.012727747, 0.002027601, -0.012727721, -0.999917, 0.000539608, 0.0033998191, 0.26709658)
+mass = 0.03
+bounce = 1.0
+gravity_scale = 0.8
+bone_name = "Root"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Root"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_o4vap")
+
+[node name="Physical Bone Head" type="PhysicalBone3D" parent="bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["physics bones"]]
+transform = Transform3D(-1, -1.4220618e-07, -6.7396755e-09, -3.0392155e-08, 0.25948927, -0.96574605, 1.3908391e-07, -0.96574605, -0.25948927, -1.9083402e-09, 0.762589, 0.013499863)
+collision_layer = 4
+collision_mask = 36
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3940588e-10, 1.3234583e-08, 0.23601973)
+body_offset = Transform3D(1, 2.0428104e-14, -3.5527137e-15, 3.5527137e-15, -2.9802322e-08, -1.0000002, -1.5987212e-14, 1, -1.1920929e-07, 2.3940672e-10, 0.23601979, 1.4901161e-08)
+mass = 0.03
+bounce = 1.0
+gravity_scale = 0.8
+bone_name = "Head"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Head"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_lqrsi")
+
+[node name="Physical Bone Gun_R" type="PhysicalBone3D" parent="bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["physics bones"]]
+transform = Transform3D(-1, -8.966533e-08, 3.785987e-07, -3.7811998e-07, -0.005280137, -0.9999861, 9.1663125e-08, -0.9999861, 0.005280137, 0.65841335, 0.18158442, -0.005488529)
+collision_layer = 4
+collision_mask = 36
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00200829, -7.6001006e-06, 0.21058613)
+body_offset = Transform3D(1, -3.574918e-14, -1.366634e-07, -1.3666329e-07, 0, -0.9999995, -1.110223e-16, 0.9999999, -1.1920929e-07, 0.002008319, 0.21058603, 7.6252036e-06)
+mass = 0.03
+bounce = 1.0
+gravity_scale = 0.8
+bone_name = "Gun.R"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Gun_R"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_yl67w")
+
+[node name="Physical Bone Gun_L" type="PhysicalBone3D" parent="bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["physics bones"]]
+transform = Transform3D(-1, 8.979837e-08, -3.7860408e-07, 3.7812464e-07, -0.005280137, -0.9999861, -9.179619e-08, -0.9999861, 0.005280137, -0.6604216, 0.18139507, -0.005479904)
+collision_layer = 4
+collision_mask = 36
+joint_type = 1
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0849975e-08, 2.5081247e-08, 0.21039674)
+body_offset = Transform3D(1, -1.3299939e-10, 1.366688e-07, 1.3666866e-07, 0, -0.9999995, 1.3303803e-10, 0.9999999, -1.1920929e-07, -5.9604645e-08, 0.21039663, 0)
+mass = 0.03
+bounce = 1.0
+gravity_scale = 0.8
+bone_name = "Gun.L"
+joint_constraints/bias = 0.3
+joint_constraints/damping = 1.0
+joint_constraints/impulse_clamp = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Gun_L"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_6qji7")
 
 [node name="OfflineLookTarget" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0404818, -0.7801985)
@@ -160,15 +301,40 @@ shape = SubResource("SphereShape3D_ac5sn")
 debug_color = Color(0, 0.5950001, 0.7, 1)
 
 [node name="SeekingTimer" type="Timer" parent="."]
+editor_description = "defines the amount of time the turret will seek for after losing it's target"
 one_shot = true
 
 [node name="BurstFireTimer" type="Timer" parent="."]
+editor_description = "defines how long the turret will burst fire for"
+one_shot = true
+
+[node name="FireCoolDownTimer" type="Timer" parent="."]
+editor_description = "defines the length of time the turret waits between bursts"
+one_shot = true
+
+[node name="StateDebugText" parent="." instance=ExtResource("7_o4vap")]
+transform = Transform3D(2.775, 0, 0, 0, 2.775, 0, 0, 0, 2.775, 0, 1.1300464, 0)
+
+[node name="StateReadout" parent="StateDebugText" index="0"]
+texture_filter = 2
+text = "Default"
+
+[node name="StateDebugText2" parent="." instance=ExtResource("7_o4vap")]
+transform = Transform3D(2.61, 0, 0, 0, 2.61, 0, 0, 0, 2.61, 0, 1.7439591, 0)
+
+[node name="StateReadout" parent="StateDebugText2" index="0"]
+texture_filter = 2
+modulate = Color(1, 0, 0, 1)
+text = "Default"
 
 [connection signal="on_hurt" from="." to="." method="_on_hurt"]
-[connection signal="timeout" from="FireDirRandomizer/TimeBetweenDirShuffles" to="FireDirRandomizer" method="_on_time_between_dir_shuffles_timeout"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
 [connection signal="timeout" from="SeekingTimer" to="." method="_on_seeking_timer_timeout"]
+[connection signal="timeout" from="BurstFireTimer" to="." method="_on_burst_fire_timer_timeout"]
+[connection signal="timeout" from="FireCoolDownTimer" to="." method="_on_fire_cool_down_timer_timeout"]
 
 [editable path="bullet turret"]
 [editable path="bullet turret/Armature/Skeleton3D/Laser/laser"]
+[editable path="StateDebugText"]
+[editable path="StateDebugText2"]

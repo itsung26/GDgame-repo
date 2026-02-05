@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ivvfgls6i66n"]
+[gd_scene load_steps=6 format=3 uid="uid://ivvfgls6i66n"]
 
 [ext_resource type="Shader" uid="uid://ca72wtvygdko8" path="res://shaders/GDSL shaders/screenRipple.gdshader" id="1_mc5rg"]
+[ext_resource type="Shader" uid="uid://c6ytuet2m13up" path="res://shaders/GDSL shaders/dither_shader.gdshader" id="2_gne6x"]
+[ext_resource type="Texture2D" uid="uid://1m3qffddyvgd" path="res://trenchbroom/textures/quake1palette.png" id="3_gtild"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gne6x"]
 shader = ExtResource("1_mc5rg")
@@ -11,6 +13,15 @@ shader_parameter/aberration = 0.425
 shader_parameter/width = 0.04
 shader_parameter/feather = 0.135
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gtild"]
+shader = ExtResource("2_gne6x")
+shader_parameter/shader_enabled = true
+shader_parameter/palette = ExtResource("3_gtild")
+shader_parameter/dithering = true
+shader_parameter/dithering_size = 4
+shader_parameter/resolution_scale = 36
+shader_parameter/quantization_level = 16
+
 [node name="ScreenSpaceShaders" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -20,7 +31,18 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Ripple" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_gne6x")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_gtild")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

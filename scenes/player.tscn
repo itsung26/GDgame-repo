@@ -483,6 +483,8 @@ z_index = 2
 
 [node name="Back" parent="huds/Pause/OptionsMenu" index="1"]
 layout_mode = 0
+offset_top = 0.0
+offset_bottom = 65.0
 
 [node name="CollisionShapeMain" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.847, 0)
@@ -513,6 +515,7 @@ process_material = SubResource("ParticleProcessMaterial_ur7pv")
 draw_pass_1 = SubResource("TorusMesh_d2wvv")
 
 [node name="Pivot" type="Node3D" parent="."]
+editor_description = "Change the position of this node for shake and fx, not the camera itself"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Pivot"]

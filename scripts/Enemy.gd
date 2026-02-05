@@ -6,7 +6,7 @@ signal hit_floor
 signal on_grappled
 ## Called [color=green]AFTER[/color] damage is applied but [color=red]BEFORE[/color]
 ## the deatch check. Use with caution.
-signal on_hurt(damage:float)
+signal on_hurt(damage:float, damage_type:damage_types)
 
 var _was_on_floor: bool = false
 
@@ -48,7 +48,7 @@ func damageEnemy(damage:float, damage_type:damage_types):
 		HEALTH = new_enemy_health
 		HEALTH = clampf(HEALTH, 0, 100)
 		
-		on_hurt.emit(damage)
+		on_hurt.emit(damage, damage_type)
 		
 		'''
 		if damage != 0.0:

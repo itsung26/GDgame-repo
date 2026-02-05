@@ -51,7 +51,7 @@ parameter_name = "color2"
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
 
 uniform vec4 color : source_color;
 uniform vec4 color2 : source_color;
@@ -130,6 +130,7 @@ void fragment() {
 
 }
 "
+modes/cull = 2
 flags/unshaded = true
 nodes/fragment/0/position = Vector2(420, 180)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_e21tm")

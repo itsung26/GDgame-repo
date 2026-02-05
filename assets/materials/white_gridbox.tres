@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b1rt4gpft6ljt"]
+
+[ext_resource type="Texture2D" uid="uid://ctufkwjjy161d" path="res://assets/2d assets/primary textures/Ultra Textures/GridBox_Default.png" id="1_dokvt"]
+
+[resource]
+albedo_texture = ExtResource("1_dokvt")
+uv1_triplanar = true
+uv1_triplanar_sharpness = 2.3943538e-05
+texture_filter = 2

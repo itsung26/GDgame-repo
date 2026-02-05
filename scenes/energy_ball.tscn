@@ -1,8 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://cvok6gdaw5cip"]
+[gd_scene load_steps=34 format=3 uid="uid://cvok6gdaw5cip"]
 
 [ext_resource type="Script" uid="uid://jjuatr5tcqcv" path="res://scripts/energy_ball.gd" id="1_qg56h"]
 [ext_resource type="Shader" uid="uid://cqlaqrwaofvdg" path="res://shaders/visual shaders/energy_ball.tres" id="2_7ofcg"]
 [ext_resource type="Texture2D" uid="uid://behkviqw7jlq5" path="res://assets/2d assets/primary textures/Ultra Textures/Glows/SkullScreen.png" id="3_qntuq"]
+[ext_resource type="Shader" uid="uid://jf7ydkp1k3e4" path="res://shaders/visual shaders/projectile.tres" id="4_3buwp"]
 [ext_resource type="Texture2D" uid="uid://c6pjj4qu3g1ii" path="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/46.png" id="4_jiy41"]
 [ext_resource type="Texture2D" uid="uid://cxc03iggwryck" path="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/35.png" id="5_q65h0"]
 [ext_resource type="Texture2D" uid="uid://c2fijg0bpet1c" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/magic_03.png" id="6_o0fbf"]
@@ -55,6 +56,20 @@ resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_5raao")
 radius = 0.36
 height = 0.72
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_61d6q"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_3buwp")
+shader_parameter/ColorParameter = Color(1, 0, 0, 1)
+shader_parameter/Frequency = 5.936
+shader_parameter/amplitude = 2.061
+shader_parameter/Midlevel = 5.662
+
+[sub_resource type="SphereMesh" id="SphereMesh_3uxj8"]
+material = SubResource("ShaderMaterial_61d6q")
+radius = 0.454
+height = 0.908
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o0fbf"]
 resource_local_to_scene = true
@@ -305,7 +320,7 @@ _limits = [0.0, 1.0, 0.0, 0.1]
 _data = [Vector2(0, 1), 0.0, -22.8261, 0, 1, Vector2(0.0438095, 0), -22.8261, 17.243, 1, 1]
 point_count = 2
 
-[node name="EnergyBall" type="RigidBody3D" node_paths=PackedStringArray("despawn_timer") groups=["enemy projectiles"]]
+[node name="EnergyBall" type="RigidBody3D" groups=["enemy projectiles"]]
 collision_layer = 8
 collision_mask = 0
 mass = 0.001
@@ -314,7 +329,6 @@ continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 8
 script = ExtResource("1_qg56h")
-despawn_timer = NodePath("DespawnTimer")
 explosion_shockwave_curve = SubResource("Curve_lvng8")
 explosion_shockwave_alpha_curve = SubResource("Curve_61d6q")
 explosion_shockwave_color = Color(0.72549, 0.72549, 0.72549, 1)
@@ -340,6 +354,9 @@ shape = SubResource("SphereShape3D_3buwp")
 [node name="ball" type="MeshInstance3D" parent="."]
 material_overlay = SubResource("ShaderMaterial_qntuq")
 mesh = SubResource("SphereMesh_5raao")
+
+[node name="ball_outline" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_3uxj8")
 
 [node name="ring2" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_lvng8")
@@ -385,7 +402,11 @@ light_energy = 16.0
 omni_range = 2.24498
 omni_attenuation = 2.0
 
+[node name="OwnerCollisionTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="DamageCollider" to="." method="_on_hit_other"]
 [connection signal="body_entered" from="DamageCollider" to="." method="_on_hit_enemy"]
 [connection signal="body_entered" from="DamageCollider" to="." method="_on_hit_player"]
-[connection signal="body_entered" from="DamageCollider" to="." method="_on_hit_other"]
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
+[connection signal="timeout" from="OwnerCollisionTimer" to="." method="_on_owner_collision_timer_timeout"]
