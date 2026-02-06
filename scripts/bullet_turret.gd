@@ -18,6 +18,7 @@ extends Enemy
 @onready var player_detection: Area3D = $PlayerDetection
 @onready var physical_bone_simulator_3d: PhysicalBoneSimulator3D = $"bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D"
 @onready var phys_collider: CollisionShape3D = $PhysCollider
+@onready var g:Array[Node] = get_tree().get_nodes_in_group(&"physics bones")
 
 # Load the actual bullet.
 const bullet_scene:PackedScene = preload("res://scenes/energy_ball.tscn")
@@ -117,12 +118,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug func"):
-		var g:Array[Node] = get_tree().get_nodes_in_group(&"physics bones")
 		var phys_sim_bones:Array[PhysicalBone3D]
 		phys_sim_bones.append_array(g)
 		for bone:PhysicalBone3D in phys_sim_bones:
-			bone.top_level = true
 			bone.add_collision_exception_with(player)
+			bone.linear_velocity.z += 25.0
 		physical_bone_simulator_3d.physical_bones_start_simulation()
 	
 	# update the state ddebug text labels

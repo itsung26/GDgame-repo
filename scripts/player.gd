@@ -38,14 +38,13 @@ extends CharacterBody3D
 @onready var bll_animator: AnimationPlayer = $BLLAnimator
 @onready var arm_pivot_pistol: Node3D = $Pivot/Camera3D/ArmPivotPistol
 @onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
-@onready var hud: HudGui = $"../HUD"
+@onready var hud: HudGui = %HUD
 @onready var grapple_target: Node3D = $"../GrappleTarget"
 @onready var grapple_arm: GrappleArm = $Pivot/Camera3D/GrappleArm
 @onready var grapple_direction_getter: RayCast3D = $Pivot/Camera3D/GrappleDirectionGetter
 @onready var grapple_hook: RigidBody3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook
 @onready var grapple_timer: Timer = $GrappleTimer
 @onready var cam_shake_timer: Timer = $CamShakeTimer
-@onready var slide_particles: Node3D = $SlideParticles
 @onready var sliding_marker: Marker3D = $CameraMarkerPositions/SlidingMarker
 @onready var head_marker: Marker3D = $CameraMarkerPositions/HeadMarker
 @onready var wind_rings: GPUParticles3D = $Pivot/Camera3D/WindRings
@@ -61,6 +60,12 @@ extends CharacterBody3D
 @onready var parry_flash_go_back_marker: Marker3D = $Pivot/Camera3D/parryFlashGoBackMarker
 @onready var punch_raycast: RayCast3D = $Pivot/Camera3D/PunchRaycast
 @onready var rope_origin: BoneAttachment3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin
+@onready var pause: pauseMenu = %Pause
+@onready var slide_particles: SlideParticles = $SlideParticles
+@onready var slide_light:OmniLight3D = slide_particles.slide_light
+@onready var impact_sparks:GPUParticles3D = slide_particles.impact_sparks
+@onready var impact_sparks_2:GPUParticles3D = slide_particles.impact_sparks_2
+@onready var impact_particles:GPUParticles3D = slide_particles.impact_particles
 
 const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
@@ -185,66 +190,18 @@ var action_state:action_states = action_states.IDLE:
 	set = set_action_state
 #endregion
 
-
 # Signals for corresponding FSMs.
 ## Emitted when the [code]player_state[/code] changes.
 signal entered_player_state(new_player_state:player_states, previous_player_state:player_states)
 signal entered_arm_state(new_arm_state:arm_states, previous_arm_state:arm_states)
 signal entered_action_state(new_action_state:action_states, previous_action_state:action_states)
 
-var cause_of_death
-var direction
+var cause_of_death:String = ""
+var direction:Vector3
 var input_dir := Vector2.ZERO
-var skeleton
-var impact_particles:GPUParticles3D
-var impact_sparks:GPUParticles3D
-var impact_sparks_2:GPUParticles3D
-var slide_light:OmniLight3D
-var pause:Control
 var dash_dir:Vector3
 var initial_player_rotation:Vector3
 var initial_camera_rotation:Vector3
-
-# called when the player is loaded into the scene.
-# Player should be loaded after main enviroment and global lighting, but before 
-# map and everything else.
-func _ready() -> void:
-	initial_player_rotation = player.rotation
-	initial_camera_rotation = camera_3d.rotation
-	if weapon_states.is_empty():
-		assert(false, "No weapons! Player should at least have weapon melee equipped.")
-	
-	# hide all weapons except the one the player is using
-	for weapon in weapon_states:
-		if weapon_state != weapon:
-			weapon.visible = false
-		else:
-			weapon.visible = true
-	
-	# object reference definitions (needs to be removed)
-	pause = get_tree().current_scene.find_child("Pause")
-	slide_light = slide_particles.get_node("ImpactParticles/OmniLight3D")
-	impact_particles = slide_particles.get_node("ImpactParticles")
-	impact_sparks = slide_particles.get_node("ImpactParticles/SparkTrailsSide/ImpactSparks")
-	impact_sparks_2 = slide_particles.get_node("ImpactParticles/SparkTrailsSide/ImpactSparks2")
-	skeleton = grapple_arm.get_node("grappleArm/whiplash_ARM/Skeleton3D")
-
-	# set the mouse to be captured by the gamewindow
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	# set the grapple hook's physics process to static so it doesn't fall to the depths of hell
-	grapple_hook.freeze = true
-	
-	# Switch to the initial arm
-	if arm_state != inital_arm:
-		set_arm_state(inital_arm)
-	
-	# Switch to initial weapon
-	if initial_weapon == null:
-		initial_weapon = weapon_states.front()
-		set_weapon_state(initial_weapon)
-	else:
-		set_weapon_state(initial_weapon)
 
 func set_player_state(new_player_state:player_states):
 	# init vars
@@ -414,6 +371,99 @@ func set_arm_state(new_arm_state:arm_states):
 		parry_arm.visible = true
 	if previous_arm_state == arm_states.PARRYARM:
 		parry_arm.visible = false
+
+# called when the player is loaded into the scene.
+# Player should be loaded after main enviroment and global lighting, but before 
+# map and everything else.
+func _ready() -> void:
+	initial_player_rotation = player.rotation
+	initial_camera_rotation = camera_3d.rotation
+	
+	if weapon_states.is_empty():
+		assert(false, "No weapons! Player should at least have weapon melee equipped.")
+	
+	# hide all weapons except the one the player is using
+	for weapon in weapon_states:
+		if weapon_state != weapon:
+			weapon.visible = false
+		else:
+			weapon.visible = true
+
+	# set the mouse to be captured by the gamewindow
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# set the grapple hook's physics process to static so it doesn't fall to the depths of hell
+	grapple_hook.freeze = true
+	
+	# Switch to the initial arm
+	if arm_state != inital_arm:
+		set_arm_state(inital_arm)
+	
+	# Switch to initial weapon
+	if initial_weapon == null:
+		initial_weapon = weapon_states.front()
+		set_weapon_state(initial_weapon)
+	else:
+		set_weapon_state(initial_weapon)
+
+## Called every frame. Main thread frames fluctuate around a target fps of 60.
+## Kinematic-related operations should only be run in _physics_process, while logic and other operations
+## should be run in the main [color=455aff]process[/color] loop.
+func _process(delta) -> void:
+	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
+	# I hate this
+	charge_stamina()
+
+	# keeps the rope attatched to the grapple bit.
+	# Again, I hate this, but it stays for now.
+	if grapple_rope_mesh_gen:
+		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
+	
+	# handle all weapon inputs, if the weapon is not null (it should never be)
+	if weapon_state:
+		gunInputs()
+
+# Called every physics frame. FPS: 120
+func _physics_process(delta: float) -> void:
+
+	# state control
+	if (is_on_floor() and 
+	player_state != player_states.REELINGTO and 
+	player_state != player_states.SLIDING and 
+	player_state != player_states.DASHING and
+	player_state != player_states.GROUNDED):
+		player_state = player_states.GROUNDED
+
+	elif (not is_on_floor() and 
+	player_state != player_states.REELINGTO and 
+	player_state != player_states.DASHING and 
+	player_state != player_states.SLAMMING and 
+	player_state != player_states.FALLING):
+		player_state = player_states.FALLING
+	
+	# Add the gravity 
+	if not is_on_floor() and gravity_enabled:
+		velocity += get_gravity() * delta
+	
+	# Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor() and player_jump_input_enabled:
+		velocity.y += JUMP_VELOCITY
+	
+	# Get the input direction and handle the movement/deceleration.
+	input_dir = Input.get_vector("left", "right", "forward", "back")
+	direction = Vector3(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	# run all state machine related physics logic every physics frame
+	physicsStateLogic()
+
+	# if kinematics are not enabled, kill all velocity before computing physics
+	if not player_kinematics_enabled_xz:
+		velocity.x = 0.0
+		velocity.z = 0.0
+	if not player_kinematics_enabled_y:
+		velocity.y = 0.0
+	move_and_slide()
+
 	
 			
 
@@ -600,46 +650,6 @@ func physicsStateLogic(delta=get_physics_process_delta_time()):
 		# velocity was set from beginning, so no changes are made
 		pass # see set_player_state()
 
-# Called every physics frame. FPS: 120
-func _physics_process(delta: float) -> void:
-
-	# state control
-	if (is_on_floor() and 
-	player_state != player_states.REELINGTO and 
-	player_state != player_states.SLIDING and 
-	player_state != player_states.DASHING and
-	player_state != player_states.GROUNDED):
-		player_state = player_states.GROUNDED
-
-	elif (not is_on_floor() and 
-	player_state != player_states.REELINGTO and 
-	player_state != player_states.DASHING and 
-	player_state != player_states.SLAMMING and 
-	player_state != player_states.FALLING):
-		player_state = player_states.FALLING
-	
-	# Add the gravity 
-	if not is_on_floor() and gravity_enabled:
-		velocity += get_gravity() * delta
-	
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor() and player_jump_input_enabled:
-		velocity.y += JUMP_VELOCITY
-	
-	# Get the input direction and handle the movement/deceleration.
-	input_dir = Input.get_vector("left", "right", "forward", "back")
-	direction = Vector3(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
-	# run all state machine related physics logic every physics frame
-	physicsStateLogic()
-
-	# if kinematics are not enabled, kill all velocity before computing physics
-	if not player_kinematics_enabled_xz:
-		velocity.x = 0.0
-		velocity.z = 0.0
-	if not player_kinematics_enabled_y:
-		velocity.y = 0.0
-	move_and_slide()
 
 func gunInputs(): # to be called in a method that can "hear" inputs
 	# switch weapon block==================================================================================
@@ -756,22 +766,6 @@ func getPredictedPos(time:float) -> Vector3:
 ## Returns global coords.
 func getGlobalPos() -> Vector3:
 	return global_position
-# Called every frame. Main thread frames fluctuate around a target fps of 60.
-# Kinematic-related operations should only be run in _physics_process, while logic and other operations
-# should be run in _process
-func _process(delta) -> void:
-	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
-	# I hate this
-	charge_stamina()
-
-	# keeps the rope attatched to the grapple bit.
-	# Again, I hate this, but it stays for now.
-	if grapple_rope_mesh_gen:
-		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
-	
-	# handle all weapon inputs, if the weapon is not null (it should never be)
-	if weapon_state:
-		gunInputs()
 
 func playerDie():
 	player_state = player_states.DEAD

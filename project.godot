@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="project"
-config/version="PRE-ALPHA"
+config/version="PRE-PRE-ALPHA"
 config/tags=PackedStringArray("alpha", "main")
 run/main_scene="uid://ctkkc4v7jqox5"
 config/features=PackedStringArray("4.5", "Forward Plus")
@@ -29,8 +29,8 @@ Helper="*res://scripts/Helper.gd"
 DebugInputHandler="*res://scripts/debug_input_handler.gd"
 EnemyPopulationHandler="*res://scripts/enemy_population_handler.gd"
 LoadHandler="*res://scripts/LoadHandler.gd"
-Stopwatch="*res://scripts/stopwatch.gd"
 Debug="*res://scripts/Debug.gd"
+MemoryCleaner="*res://scripts/MemoryCleaner.gd"
 
 [debug_draw_3d]
 
@@ -215,4 +215,11 @@ bbcode_edit/editor/open_current_file_documentation={
 3d/run_on_separate_thread=true
 common/physics_ticks_per_second=120
 3d/physics_engine="Jolt Physics"
+jolt_physics_3d/simulation/speculative_contact_distance=0.16
+jolt_physics_3d/collisions/collision_margin_fraction=0.16
 jolt_physics_3d/simulation/areas_detect_static_bodies=true
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=3
+textures/decals/filter=2

@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bh4w73yqjy2wa"]
+[gd_scene load_steps=14 format=3 uid="uid://bh4w73yqjy2wa"]
 
 [ext_resource type="Texture2D" uid="uid://b6gofasc8y31r" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/flare_01.png" id="1_fqo70"]
+[ext_resource type="Script" uid="uid://1g4a60ev1c5u" path="res://scripts/slide_particles.gd" id="1_lojhx"]
 [ext_resource type="Material" uid="uid://cvri68hibnwbp" path="res://assets/materials/black_prototype.tres" id="1_mjc1v"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fqo70"]
@@ -31,7 +32,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("OmniLight3D:light_energy")
+tracks/0/path = NodePath("SlideLight:light_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -48,7 +49,7 @@ loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("OmniLight3D:light_energy")
+tracks/0/path = NodePath("SlideLight:light_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -90,7 +91,7 @@ size = Vector2(0.5, 0.5)
 material = ExtResource("1_mjc1v")
 
 [node name="SlideParticles" type="Node3D"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+script = ExtResource("1_lojhx")
 
 [node name="ImpactParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, -3.7529e-08, 0.90317, -0.429282, -7.89577e-08, -0.429282, -0.90317, 0, 0, -0.379057)
@@ -101,7 +102,7 @@ trail_lifetime = 0.7
 process_material = SubResource("ParticleProcessMaterial_fqo70")
 draw_pass_1 = SubResource("RibbonTrailMesh_ieo72")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="ImpactParticles"]
+[node name="SlideLight" type="OmniLight3D" parent="ImpactParticles"]
 transform = Transform3D(0.333333, -1.86517e-14, 1.42109e-14, 0, 0.333333, -1.49012e-08, 3.55271e-15, 1.49012e-08, 0.333333, -5.19995e-10, -0.00282714, -0.00594804)
 light_color = Color(1, 0.843137, 0, 1)
 light_energy = 8.374

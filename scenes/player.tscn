@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=75 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bh4w73yqjy2wa" path="res://scenes/slide_particles.tscn" id="8_smehm"]
 [ext_resource type="Script" uid="uid://cmyfxiobhbpum" path="res://scripts/camera_3d.gd" id="9_ke2ow"]
 [ext_resource type="Script" uid="uid://cn6p5ecprftne" path="res://scripts/grapple_arm.gd" id="9_l71n6"]
-[ext_resource type="Script" uid="uid://1g4a60ev1c5u" path="res://scripts/slide_particles.gd" id="9_ur7pv"]
 [ext_resource type="PackedScene" uid="uid://cp1mmygsp63vr" path="res://scenes/hud.tscn" id="10_d2wvv"]
 [ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="11_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://imchkmka60lw" path="res://assets/meshes/parry arm/parry arm.blend" id="12_qfm1y"]
@@ -460,6 +459,7 @@ visible = false
 [node name="huds" type="Node" parent="."]
 
 [node name="HUD" parent="huds" node_paths=PackedStringArray("player") instance=ExtResource("10_d2wvv")]
+unique_name_in_owner = true
 player = NodePath("../..")
 crosshair_spread = 8.03
 
@@ -479,6 +479,7 @@ points = PackedVector2Array(0, 8.03, 0, 16.715)
 theme = SubResource("Theme_f1ej7")
 
 [node name="Pause" parent="huds" instance=ExtResource("11_3v2ag")]
+unique_name_in_owner = true
 z_index = 2
 
 [node name="Back" parent="huds/Pause/OptionsMenu" index="1"]
@@ -857,12 +858,12 @@ target_position = Vector3(0, 0, -5000)
 collision_mask = 6
 
 [node name="SlideParticles" parent="." instance=ExtResource("8_smehm")]
-script = ExtResource("9_ur7pv")
 
 [node name="ImpactParticles" parent="SlideParticles" index="0"]
 emitting = false
 
-[node name="OmniLight3D" parent="SlideParticles/ImpactParticles" index="0"]
+[node name="SlideLight" parent="SlideParticles/ImpactParticles" index="0"]
+transform = Transform3D(1, -4.764578e-22, -1.0658142e-14, 0, 1, -4.4703647e-08, 1.0658142e-14, 4.4703647e-08, 1, -5.19995e-10, -0.00282714, -0.00594804)
 visible = false
 
 [node name="ImpactSparks" parent="SlideParticles/ImpactParticles/SparkTrailsSide" index="0"]

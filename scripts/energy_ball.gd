@@ -23,7 +23,6 @@ class_name EnergyBall extends EnemyProjectile
 var collision_with_owner_enabled:bool = false
 ## The enemy that fired this bullet.
 var owner_enemy:Enemy = null
-var _called_destroy_self:bool = false
 
 const explosion_3d_SCENE:PackedScene = preload("res://scenes/explosion_3d.tscn")
 
@@ -43,23 +42,15 @@ func _ready() -> void:
 		despawn_timer.queue_free()
 
 ## Dismantles the projectile, freeing it when done.
-func _destroySelf():
-	if _called_destroy_self == true:
-		assert(false, "ERROR: called destroySelf twice")
-	else:
-		_called_destroy_self = true
-		rigidbody_collider.disabled = true
-		damage_collider.monitorable = false
-		damage_collider.monitoring = false
-		linear_velocity = Vector3.ZERO
-		axis_lock_linear_x = true
-		axis_lock_linear_y = true
-		axis_lock_linear_z = true
-		ball_outline.queue_free()
-		deletion_animator.play("deletion")
-
-func deleteBodyCollider() -> void:
-	rigidbody_collider.queue_free()
+func _destroySelf() -> void:
+	disconnectAllSignals()
+	rigidbody_collider.disabled = true
+	linear_velocity = Vector3.ZERO
+	axis_lock_linear_x = true
+	axis_lock_linear_y = true
+	axis_lock_linear_z = true
+	ball_outline.visible = false
+	deletion_animator.play("deletion")
 
 func spawnExplosions() -> void:
 	# instance the first part of the explosion (shockwave)
@@ -71,6 +62,21 @@ func spawnExplosions() -> void:
 	var explosion_yellow:Explosion3D = explosion_3d_SCENE.instantiate()
 	get_tree().current_scene.add_child(explosion_yellow)
 	explosion_yellow.setup_preset(global_position, explosion_yellow.explosion_presets.YELLOW_SMALL)
+
+func disconnectAllSignals() -> void:
+	# Disconnect DamageCollider body_entered signals
+	if damage_collider and damage_collider.body_entered.is_connected(Callable(self, "_on_hit_other")):
+		damage_collider.body_entered.disconnect(Callable(self, "_on_hit_other"))
+	if damage_collider and damage_collider.body_entered.is_connected(Callable(self, "_on_hit_enemy")):
+		damage_collider.body_entered.disconnect(Callable(self, "_on_hit_enemy"))
+	if damage_collider and damage_collider.body_entered.is_connected(Callable(self, "_on_hit_player")):
+		damage_collider.body_entered.disconnect(Callable(self, "_on_hit_player"))
+	
+	# Disconnect timer timeout signals
+	if despawn_timer and despawn_timer.timeout.is_connected(Callable(self, "_on_despawn_timer_timeout")):
+		despawn_timer.timeout.disconnect(Callable(self, "_on_despawn_timer_timeout"))
+	if owner_collision_timer and owner_collision_timer.timeout.is_connected(Callable(self, "_on_owner_collision_timer_timeout")):
+		owner_collision_timer.timeout.disconnect(Callable(self, "_on_owner_collision_timer_timeout"))
 
 func _on_hit_player(player: Player) -> void:
 		player.damagePlayer(damage_to_player, "Melted by energy projectile")
