@@ -197,9 +197,7 @@ signal entered_action_state(new_action_state:action_states, previous_action_stat
 @onready var pistol: PlayerPistol = $Pivot/Camera3D/Guns/Pistol
 @onready var melee: Melee = $Pivot/Camera3D/Guns/Melee
 
-var storagevar = JUMP_VELOCITY
 var mouse_delta2 : Vector2
-var pistol_damage_increase:bool = false
 var death_animator
 var cause_of_death
 var black_hole_time_remaining
