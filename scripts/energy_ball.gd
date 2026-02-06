@@ -23,6 +23,7 @@ class_name EnergyBall extends EnemyProjectile
 var collision_with_owner_enabled:bool = false
 ## The enemy that fired this bullet.
 var owner_enemy:Enemy = null
+var _called_destroy_self:bool = false
 
 const explosion_3d_SCENE:PackedScene = preload("res://scenes/explosion_3d.tscn")
 
@@ -43,12 +44,19 @@ func _ready() -> void:
 
 ## Dismantles the projectile, freeing it when done.
 func _destroySelf():
-	linear_velocity = Vector3.ZERO
-	axis_lock_linear_x = true
-	axis_lock_linear_y = true
-	axis_lock_linear_z = true
-	ball_outline.queue_free()
-	deletion_animator.play("deletion")
+	if _called_destroy_self == true:
+		assert(false, "ERROR: called destroySelf twice")
+	else:
+		_called_destroy_self = true
+		rigidbody_collider.disabled = true
+		damage_collider.monitorable = false
+		damage_collider.monitoring = false
+		linear_velocity = Vector3.ZERO
+		axis_lock_linear_x = true
+		axis_lock_linear_y = true
+		axis_lock_linear_z = true
+		ball_outline.queue_free()
+		deletion_animator.play("deletion")
 
 func deleteBodyCollider() -> void:
 	rigidbody_collider.queue_free()
@@ -72,9 +80,6 @@ func _on_hit_player(player: Player) -> void:
 		_destroySelf()
 
 func _on_hit_enemy(enemy: Enemy) -> void:
-	#Debug.log(owner_enemy)
-	#Debug.log(enemy)
-	#Debug.log(collision_with_owner_enabled)
 	if enemy == owner_enemy:
 		if collision_with_owner_enabled:
 			enemy.damageEnemy(damage_to_enemies, enemy.damage_types.NORMAL)
@@ -89,7 +94,7 @@ func _on_hit_enemy(enemy: Enemy) -> void:
 
 ## When a world wall is hit. (Not an enemy)
 func _on_hit_other(body: Node3D) -> void:
-	if not body is Enemy:
+	if not body is Enemy and not body is Player:
 		if has_been_parried:
 			spawnExplosions()
 		_destroySelf()

@@ -1,9 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=23 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
-[ext_resource type="Material" uid="uid://cbp53aho327vx" path="res://assets/materials/prototype_material.tres" id="3_uvlxo"]
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="4_s3yq3"]
 [ext_resource type="Texture2D" uid="uid://ctufkwjjy161d" path="res://assets/2d assets/primary textures/Ultra Textures/GridBox_Default.png" id="5_yvgsm"]
 [ext_resource type="Material" uid="uid://b1rt4gpft6ljt" path="res://assets/materials/white_gridbox.tres" id="6_r4hxy"]
@@ -50,7 +49,7 @@ material = SubResource("StandardMaterial3D_yvgsm")
 size = Vector2(200, 200)
 
 [sub_resource type="PrismMesh" id="PrismMesh_q8du6"]
-material = ExtResource("3_uvlxo")
+material = ExtResource("6_r4hxy")
 left_to_right = 1.0
 size = Vector3(7.11, 2.725, 7.78)
 
@@ -112,6 +111,14 @@ collision_mask = 527
 size = Vector3(5, 5.352749, 5)
 material = ExtResource("6_r4hxy")
 
+[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8201275, 6.64901, 22.050404)
+use_collision = true
+collision_layer = 4
+collision_mask = 527
+size = Vector3(5, 13.702811, 5)
+material = ExtResource("6_r4hxy")
+
 [node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.705872, 1.8012295, 4.3500614)
 use_collision = true
@@ -165,7 +172,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0612, -1.90735e-06, 26.162
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.959053, -1.90735e-06, 26.2316)
 
 [node name="GrappleCube" parent="." instance=ExtResource("8_wl3f4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0526, 4.03574, 16.2227)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6109357, 19.648426, 22.280678)
 
 [node name="CheckPoint" parent="." instance=ExtResource("10_r4hxy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.186, 0.848577, -7.22804)
