@@ -60,6 +60,7 @@ extends CharacterBody3D
 @onready var parry_flash: MeshInstance3D = $Pivot/Camera3D/ParryArm/ParryFlash
 @onready var parry_flash_go_back_marker: Marker3D = $Pivot/Camera3D/parryFlashGoBackMarker
 @onready var punch_raycast: RayCast3D = $Pivot/Camera3D/PunchRaycast
+@onready var rope_origin: BoneAttachment3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin
 
 const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
@@ -191,25 +192,10 @@ signal entered_player_state(new_player_state:player_states, previous_player_stat
 signal entered_arm_state(new_arm_state:arm_states, previous_arm_state:arm_states)
 signal entered_action_state(new_action_state:action_states, previous_action_state:action_states)
 
-
-
-# Weapon refrences
-@onready var pistol: PlayerPistol = $Pivot/Camera3D/Guns/Pistol
-@onready var melee: Melee = $Pivot/Camera3D/Guns/Melee
-
-var mouse_delta2 : Vector2
-var death_animator
 var cause_of_death
-var black_hole_time_remaining
-var black_hole_cooldown_timer
-var prev_jump_velocity = JUMP_VELOCITY
-var weapon_anim_playing
 var direction
 var input_dir := Vector2.ZERO
-var rope_origin
 var skeleton
-var impact_particles_scene = preload("res://scenes/impact_particles.tscn")
-var doing_shake = false
 var impact_particles:GPUParticles3D
 var impact_sparks:GPUParticles3D
 var impact_sparks_2:GPUParticles3D
@@ -242,9 +228,6 @@ func _ready() -> void:
 	impact_sparks = slide_particles.get_node("ImpactParticles/SparkTrailsSide/ImpactSparks")
 	impact_sparks_2 = slide_particles.get_node("ImpactParticles/SparkTrailsSide/ImpactSparks2")
 	skeleton = grapple_arm.get_node("grappleArm/whiplash_ARM/Skeleton3D")
-	rope_origin = skeleton.get_node("rope_origin")
-	black_hole_cooldown_timer = get_tree().current_scene.find_child("BlackHoleCooldownTimer")
-	death_animator = get_node("../DeathScreen/DeathAnimator")
 
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -482,7 +465,6 @@ func _input(event) -> void:
 		
 	# handle mouselook
 	if event is InputEventMouseMotion and player_look_input_enabled:
-		mouse_delta2 = event.relative
 		var mouse_delta = event.relative
 		var yaw = -mouse_delta.x
 		var pitch = -mouse_delta.y
@@ -774,8 +756,6 @@ func getPredictedPos(time:float) -> Vector3:
 ## Returns global coords.
 func getGlobalPos() -> Vector3:
 	return global_position
-
-var a = true
 # Called every frame. Main thread frames fluctuate around a target fps of 60.
 # Kinematic-related operations should only be run in _physics_process, while logic and other operations
 # should be run in _process

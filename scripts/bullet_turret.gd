@@ -13,7 +13,6 @@ extends Enemy
 @onready var fire_origin_r: Marker3D = $"bullet turret/Armature/Skeleton3D/GunRAttatchment/FireOriginR"
 @onready var fire_dir_l: RayCast3D = $"bullet turret/Armature/Skeleton3D/GunLAttatchment/FireDirL"
 @onready var fire_dir_r: RayCast3D = $"bullet turret/Armature/Skeleton3D/GunRAttatchment/FireDirR"
-@onready var bullet_physics_timer: Timer = $BulletPhysicsTimer
 @onready var state_debug_text: StateDebugText = $StateDebugText
 @onready var state_debug_text_2: StateDebugText = $StateDebugText2
 @onready var player_detection: Area3D = $PlayerDetection
@@ -42,7 +41,6 @@ var last_known_player_pos:Vector3 = Vector3.ZERO
 @export var seeking_oscillation_speed:float = 1.0
 var last_y_rotation:float = global_rotation.y
 var seeking_oscillation_time:float = 0.0
-var target_aquired:bool = false
 @export var cooldown_between_bursts:float = 1.0
 @export var burst_duration_time:float = 2.0
 @export var bullet_delay:float = 0.5

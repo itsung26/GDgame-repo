@@ -1,9 +1,6 @@
 @tool
 extends Node
 
-@onready var fire_dir_l: RayCast3D = $"../bullet turret/Armature/Skeleton3D/GunLAttatchment/FireDirL"
-@onready var fire_dir_r: RayCast3D = $"../bullet turret/Armature/Skeleton3D/GunRAttatchment/FireDirR"
-
 @export var random_rot_min_x: float = -360 # degrees
 @export var random_rot_max_x: float = 360 # degrees
 @export var random_rot_min_z: float = -360 # degrees
@@ -11,6 +8,9 @@ extends Node
 @export var delay:float = 0.1 # seconds
 @export var shuffling:bool = false
 @export_tool_button("Reset rotations (Editor)") var a = euggggh
+
+@onready var fire_dir_l: RayCast3D = $"../bullet turret/Armature/Skeleton3D/GunLAttatchment/FireDirL"
+@onready var fire_dir_r: RayCast3D = $"../bullet turret/Armature/Skeleton3D/GunRAttatchment/FireDirR"
 
 var _elapsed_time: float = 0.0
 
