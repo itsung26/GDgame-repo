@@ -10,16 +10,9 @@ class_name EnemyProjectile extends RigidBody3D
 @export var cam_shake_duration:float
 @export var cam_shake_strength:float
 
-## Goes to [code]global_position[/code] at pos, and travels in the direction of dir at travel_speed
-func _setup(_pos:Vector3, _dir:Vector3, owner:Enemy, time_before_owner_collide_re_enabled:float = 0.25) -> void:
-	if not _dir.is_normalized():
-		_dir = _dir.normalized()
-	global_position = _pos
-	# if initial direction is set, go towards that dir, if not, go direction facing
-	if _dir != Vector3.ZERO:
-		linear_velocity = _dir * travel_speed
-	else:
-		linear_velocity = -global_transform.basis.z * travel_speed
+## Call this method when a child class' [code]setup()[/code] method is called.
+func registerSetup() -> void:
+	MemoryCleaner.projectiles_drawn.append(self)
 
 func _set_has_been_parried(new_has_been_parried:bool):
 	has_been_parried = new_has_been_parried

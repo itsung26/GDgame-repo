@@ -5,6 +5,7 @@ class_name EnemyFilth extends Enemy
 @onready var filth_animator:AnimationPlayer = $FilthAnimator
 @onready var body_collider: CollisionShape3D = $bodyCollider
 @onready var time_untill_process_disable_timer:Timer = $timeUntillDisable
+@onready var state_debug_text: StateDebugText = $StateDebugText
 
 ## The weight that the enemy rotates exponentially with to look at it's target
 @export var lerp_angle_factor:float = 8.0
@@ -22,19 +23,7 @@ enum enemy_states {STUNNED, FALLING, RUNNING, PREPARINGBITE, BITING, ENDINGBITE,
 var enemy_state:enemy_states = enemy_states.RUNNING:
 	set = set_enemy_state
 
-## Physics collider states.
-enum enemy_box_states {RUNNING, ATTACKING, DYING}
-var enemy_box_state:enemy_box_states = enemy_box_states.RUNNING:
-	set = set_enemy_box_state
-
 var player_in_bite_box:bool = false
-
-func _ready() -> void:
-	super._ready() # ensure Enemy._ready runs (physics_frame hookup)
-	if filth_animator == null:
-		assert(false, "Enemy found no animation player.")
-	if player == null:
-		set_enemy_state(enemy_states.STUNNED)
 
 func set_enemy_state(new_enemy_state:enemy_states):
 	var previous_enemy_state = enemy_state
@@ -46,7 +35,6 @@ func set_enemy_state(new_enemy_state:enemy_states):
 	# prevent switching out of death states
 	elif previous_enemy_state == enemy_states.DYING or previous_enemy_state == enemy_states.DEAD:
 		return
-
 	
 	# falling to and from
 	if new_enemy_state == enemy_states.FALLING:
@@ -64,7 +52,6 @@ func set_enemy_state(new_enemy_state:enemy_states):
 	if new_enemy_state == enemy_states.PREPARINGBITE:
 		velocity = Vector3.ZERO
 		filth_animator.play("Bite_0")
-	
 	if previous_enemy_state == enemy_states.ENDINGBITE:
 		# on ending the bite, check if the player is still in the bite box and and begin another attack chain
 		if player_in_bite_box:
@@ -75,6 +62,9 @@ func set_enemy_state(new_enemy_state:enemy_states):
 		# initiate velocity change
 		var dir:Vector3 = -transform.basis.z
 		velocity = dir * bite_velocity * get_physics_process_delta_time()
+		disableCollider()
+	if previous_enemy_state == enemy_states.BITING:
+		enableCollider()
 	
 	# end of bite to and from
 	if new_enemy_state == enemy_states.ENDINGBITE:
@@ -82,7 +72,6 @@ func set_enemy_state(new_enemy_state:enemy_states):
 		
 	# DYING to and from
 	if new_enemy_state == enemy_states.DYING:
-		set_enemy_box_state(enemy_box_states.DYING)
 		damage_enabled = false
 		filth_animator.play("ChestExplosion")
 		
@@ -93,31 +82,36 @@ func set_enemy_state(new_enemy_state:enemy_states):
 		if time_untill_process_disable != 0:
 			time_untill_process_disable_timer.start(time_untill_process_disable)
 		else: pass
+
+func _ready() -> void:
+	super._ready() # ensure Enemy._ready runs (physics_frame hookup)
+	if filth_animator == null:
+		assert(false, "Enemy found no animation player.")
+	if player == null:
+		set_enemy_state(enemy_states.STUNNED)
+
+func _process(_delta: float) -> void:
+	Debug.log(velocity)
+	state_debug_text.updateStateReadout(enemy_state, enemy_states)
+	if stunned and enemy_state != enemy_states.DYING and enemy_state != enemy_states.DEAD and enemy_state != enemy_states.FALLING:
+		set_enemy_state(enemy_states.STUNNED)
+
+func _physics_process(delta: float) -> void:
+	
+	if not is_on_floor() and gravity_enabled:
+		# handle gravity
+		velocity += get_gravity() * delta
+
+	# handle allowed physics
+	statePhysicsLogic()
+	move_and_slide()
+
+
+	
 		
 
 func _killEnemy():
 	set_enemy_state(enemy_states.DYING)
-
-func set_enemy_box_state(new_enemy_box_state:enemy_box_states):
-	var previous_enemy_box_state = enemy_box_state
-	enemy_box_state = new_enemy_box_state
-	
-	if new_enemy_box_state == enemy_box_states.ATTACKING:
-		set_collision_mask_value(1, false)  # disable collision with player
-		#body_collider_2.disabled = false
-		#body_collider.disabled = true
-	if previous_enemy_box_state == enemy_box_states.ATTACKING:
-		set_collision_mask_value(1, true)  # enable collision with player
-	
-	# death box state to and from
-	if new_enemy_box_state == enemy_box_states.DYING:
-		$deadbodyCollider3.disabled = false
-		$bodyCollider.disabled = true
-		$biteHurtBox/CollisionShape3D.disabled = true
-		$readyBiteBox/CollisionShape3D.disabled = true
-	if previous_enemy_box_state == enemy_box_states.DYING:
-		print("ERROR: enemy left death box state")
-	
 
 func statePhysicsLogic(delta = get_physics_process_delta_time()): # run every physics frame
 	# checks to see if the enemy is in the air or on the ground and sets the state once accordingly if it is not already in another state
@@ -162,23 +156,11 @@ func disableProcess():
 func beginBiteChain():
 	set_enemy_state(enemy_states.PREPARINGBITE)
 
-func _process(_delta: float) -> void:
-	$"debug state text".mesh.text = str(enemy_states.keys()[enemy_state])
-	if stunned and enemy_state != enemy_states.DYING and enemy_state != enemy_states.DEAD and enemy_state != enemy_states.FALLING:
-		set_enemy_state(enemy_states.STUNNED)
+func disableCollider() -> void:
+	add_collision_exception_with(player)
 
-func _physics_process(delta: float) -> void:
-	
-	if not is_on_floor() and gravity_enabled:
-		# handle gravity
-		velocity += get_gravity() * delta
-
-	# handle allowed physics
-	statePhysicsLogic()
-	move_and_slide()
-
-
-
+func enableCollider() -> void:
+	remove_collision_exception_with(player)
 
 func _on_ready_bite_box_body_entered(_body: Player) -> void:
 	if enemy_state != enemy_states.FALLING:

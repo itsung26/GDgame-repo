@@ -133,6 +133,7 @@ time_before_deletion = 0.5
 metadata/_custom_type_script = "uid://b4u4qftwlojw5"
 
 [node name="BodyInfluencer" type="Area3D" parent="."]
+editor_description = "the boom hitbox"
 collision_layer = 32
 collision_mask = 15
 
@@ -181,9 +182,10 @@ libraries = {
 }
 autoplay = "small shockwave"
 
-[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]
-[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_projectile_entered"]
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_rigidbody_entered"]
 [connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_enemy_entered"]
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_projectile_entered"]
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_player_entered"]
+[connection signal="body_entered" from="BodyInfluencer" to="." method="_on_body_influencer_phys_bone_entered"]
 [connection signal="timeout" from="CollisionDeactivationTimer" to="." method="_on_collision_deactivation_timer_timeout"]
 [connection signal="timeout" from="QueueFreeTimer" to="." method="_on_queue_free_timer_timeout"]

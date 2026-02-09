@@ -58,6 +58,45 @@ billboard_mode = 1
 material = SubResource("StandardMaterial3D_o7mbg")
 size = Vector2(2, 2)
 
+[sub_resource type="Animation" id="Animation_27nqp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D2:mesh:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D3:mesh:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D4:mesh:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_daat3"]
 resource_name = "detonate"
 tracks/0/type = "value"
@@ -109,45 +148,6 @@ tracks/3/keys = {
 "args": [],
 "method": &"explode"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_27nqp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D2:mesh:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D3:mesh:size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("MeshInstance3D4:mesh:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_64q8a"]
@@ -262,10 +262,10 @@ skeleton = NodePath("../MeshInstance3D2")
 mesh = SubResource("QuadMesh_mygd3")
 skeleton = NodePath("../MeshInstance3D3")
 
-[connection signal="body_entered" from="." to="." method="_on_world_entered"]
 [connection signal="body_entered" from="." to="." method="_on_enemy_entered"]
 [connection signal="body_entered" from="." to="." method="_on_player_entered"]
-[connection signal="on_being_parried" from="." to="." method="_on_on_being_parried"]
+[connection signal="body_entered" from="." to="." method="_on_world_entered"]
+[connection signal="parried" from="." to="." method="_on_parried"]
 [connection signal="timeout" from="time before can hit player" to="." method="_on_time_before_can_hit_player_timeout"]
 [connection signal="timeout" from="detonation timer" to="." method="_on_detonation_timer_timeout"]
 

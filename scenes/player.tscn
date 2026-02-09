@@ -860,11 +860,11 @@ collision_mask = 6
 [node name="SlideParticles" parent="." instance=ExtResource("8_smehm")]
 
 [node name="ImpactParticles" parent="SlideParticles" index="0"]
+transform = Transform3D(-1.555, 3.618066e-08, 2.1206301e-07, -5.8357593e-08, 1.4044299, -0.6675338, -2.0706076e-07, -0.6675338, -1.4044299, 0, 0, -0.379057)
 emitting = false
 
 [node name="SlideLight" parent="SlideParticles/ImpactParticles" index="0"]
-transform = Transform3D(1, -4.764578e-22, -1.0658142e-14, 0, 1, -4.4703647e-08, 1.0658142e-14, 4.4703647e-08, 1, -5.19995e-10, -0.00282714, -0.00594804)
-visible = false
+transform = Transform3D(0.333333, -1.5881911e-22, -3.5527103e-15, 0, 0.333333, -1.49012e-08, 3.5527103e-15, 1.49012e-08, 0.333333, -5.19995e-10, -0.00282714, -0.00594804)
 
 [node name="ImpactSparks" parent="SlideParticles/ImpactParticles/SparkTrailsSide" index="0"]
 emitting = false

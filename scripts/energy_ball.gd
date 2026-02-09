@@ -19,6 +19,9 @@ class_name EnergyBall extends EnemyProjectile
 @export var explosion_damaging_damage:float = 20.0
 @export var explosion_damaging_color:Color
 
+## The projectile will disable it's collision for this duration upon [code]setup[/code] being called. This is in order to prevent self collison with the owner of the bullet.
+@export var time_before_owner_collide_re_enabled = 0.25
+
 ## Wether collision with the owner enemy is enabled.
 var collision_with_owner_enabled:bool = false
 ## The enemy that fired this bullet.
@@ -26,8 +29,16 @@ var owner_enemy:Enemy = null
 
 const explosion_3d_SCENE:PackedScene = preload("res://scenes/explosion_3d.tscn")
 
-func _setup(pos:Vector3, dir:Vector3, owner:Enemy, time_before_owner_collide_re_enabled:float = 0.25) -> void:
-	super._setup(pos, dir, owner)
+func setup(pos:Vector3, dir:Vector3, owner:Enemy) -> void:
+	registerSetup()
+	if not dir.is_normalized():
+		dir = dir.normalized()
+	global_position = pos
+	# if initial direction is set, go towards that dir, if not, go direction facing
+	if dir != Vector3.ZERO:
+		linear_velocity = dir * travel_speed
+	else:
+		linear_velocity = -global_transform.basis.z * travel_speed
 	# Set the owner enemy and temporarily disable collision with them.
 	owner_enemy = owner
 	add_collision_exception_with(owner)

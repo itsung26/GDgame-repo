@@ -210,7 +210,7 @@ func _on_body_influencer_enemy_entered(enemy: Enemy) -> void:
 	# apply a force to the enemy
 	if knockback_force > 0:
 		enemy.velocity = Vector3.ZERO
-		enemy.global_position.y += 0.1
+		enemy.global_position.y += 0.001
 		enemy.velocity += dir_to_enemy * knockback_force
 		
 	enemy.damageEnemy(damage, Enemy.damage_types.EXPLOSIVE)
@@ -224,6 +224,16 @@ func _on_body_influencer_rigidbody_entered(rb: RigidBody3D) -> void:
 	if rb.is_in_group("enviroment rigidbodies"):
 		rb.linear_velocity = Vector3.ZERO
 		rb.apply_impulse(dir_out * force_to_rigidbody)
+
+## When a gibbed limb enteres the area of influence.
+func _on_body_influencer_phys_bone_entered(bone: PhysicalBone3D) -> void:
+	var center_point:Vector3 = global_position # get the center of the sphere
+	var dir_out:Vector3 = (bone.global_position - center_point).normalized() # get vector to projectile away from center
+	var force_to_bone:float = 10.0
+	
+	if bone.is_in_group("gib limb"):
+		bone.linear_velocity = Vector3.ZERO
+		bone.apply_impulse(dir_out * force_to_bone)
 
 func _on_collision_deactivation_timer_timeout() -> void:
 	bodyinfluencercollider.disabled = true

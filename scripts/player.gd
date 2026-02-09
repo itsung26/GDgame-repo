@@ -62,10 +62,10 @@ extends CharacterBody3D
 @onready var rope_origin: BoneAttachment3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin
 @onready var pause: pauseMenu = %Pause
 @onready var slide_particles: SlideParticles = $SlideParticles
-@onready var slide_light:OmniLight3D = slide_particles.slide_light
-@onready var impact_sparks:GPUParticles3D = slide_particles.impact_sparks
-@onready var impact_sparks_2:GPUParticles3D = slide_particles.impact_sparks_2
-@onready var impact_particles:GPUParticles3D = slide_particles.impact_particles
+@onready var slide_light:OmniLight3D = $SlideParticles/ImpactParticles/SlideLight
+@onready var impact_sparks:GPUParticles3D = $SlideParticles/ImpactParticles/SparkTrailsSide/ImpactSparks
+@onready var impact_sparks_2:GPUParticles3D = $SlideParticles/ImpactParticles/SparkTrailsSide/ImpactSparks2
+@onready var impact_particles:GPUParticles3D = $SlideParticles/ImpactParticles
 
 const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
@@ -251,6 +251,7 @@ func set_player_state(new_player_state:player_states):
 		
 	# DASHING to and from
 	if new_player_state == player_states.DASHING:
+		Godmode = true
 		stamina_recharging = false
 		stamina_charge_delay_timer.start(stamina_charge_delay)
 		STAMINA -= 100
@@ -269,6 +270,7 @@ func set_player_state(new_player_state:player_states):
 		else:
 			velocity = direction * dash_velocity_increase
 	if previous_player_state == player_states.DASHING:
+		Godmode = false
 		var prev_velocity = velocity
 		velocity = Vector3.ZERO
 		velocity = prev_velocity / 2
@@ -412,7 +414,7 @@ func _ready() -> void:
 func _process(delta) -> void:
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
-	charge_stamina()
+	chargeStamina()
 
 	# keeps the rope attatched to the grapple bit.
 	# Again, I hate this, but it stays for now.
@@ -534,6 +536,8 @@ func setCheckPoint(new_checkpoint:checkPoint):
 ## and body rotation should be set according to properties in the checkPoint object.
 ## All other properties, such as the world time and objects present should not be affected.
 func respawnCheckPoint() -> void:
+	if not player.checkpoint:
+		return
 	healPlayer(9999.0)
 	set_player_state(player_states.GROUNDED)
 	player.velocity = Vector3.ZERO
@@ -683,7 +687,7 @@ func gunInputs(): # to be called in a method that can "hear" inputs
 		weapon_state._specialRelease()
 	# ======================================================================================================
 
-func charge_stamina(delta=get_process_delta_time()):
+func chargeStamina(delta=get_process_delta_time()):
 	if stamina_recharging:
 		STAMINA = move_toward(STAMINA, 300.0, stamina_charge_speed * delta)
 
@@ -720,6 +724,8 @@ func parryTargetInBox():
 				parry_target.linear_velocity = (raycast_target_location - parry_target.global_position).normalized() * (parry_target.travel_speed * parry_projectile_speed_boost)
 		
 		elif parry_target is PistolBomb:
+			parry_target.parried.emit()
+			# If it hits something
 			if punch_raycast.get_collider() != null:
 				var pistolbomb_trail:BulletTrail = bullet_trail_SCENE.instantiate()
 				get_tree().current_scene.add_child(pistolbomb_trail)
@@ -727,8 +733,11 @@ func parryTargetInBox():
 				pistolbomb_trail.setup(parry_target.global_position, point, Color.RED)
 				parry_target.global_position = point # pistol bomb teleport to raycast point
 				var hit_body = punch_raycast.get_collider()
+				
+				# If that something is an enemy
 				if hit_body is Enemy:
 					parry_target.reparent(hit_body)
+			# if it misses (the ray cast body returns null)
 			else:
 				parry_target.queue_free()
 		
@@ -770,7 +779,9 @@ func getGlobalPos() -> Vector3:
 func playerDie():
 	player_state = player_states.DEAD
 	Engine.time_scale = 0.3
-	
+
+func getHookedTarget() -> Node3D:
+	return grapple_arm.hooked_target
 
 # when the unstuck button is pressed, reset the player states and go to origin
 func _on_unstuck_pressed() -> void:
@@ -844,6 +855,3 @@ func _on_grapple_arm_new_hooked_target_set(previous_hooked_target: Node3D, new_h
 			set_player_state(player_states.GROUNDED)
 		elif not is_on_floor():
 			set_player_state(player_states.FALLING)
-
-func getHookedTarget() -> Node3D:
-	return grapple_arm.hooked_target

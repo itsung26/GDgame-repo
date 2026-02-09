@@ -4,4 +4,5 @@ extends Node
 ## It is capable of attempting cleanups and garbage collection, but in general scenes
 ## should handle their own cleanup in order to keep their memory dependencies internal.
 
-var projectiles_drawn:Array[EnemyProjectile] = []
+static var projectiles_drawn:Array[EnemyProjectile] = []
+static var gib_limbs_drawn:Array[Node3D] = []

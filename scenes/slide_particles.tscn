@@ -104,6 +104,7 @@ draw_pass_1 = SubResource("RibbonTrailMesh_ieo72")
 
 [node name="SlideLight" type="OmniLight3D" parent="ImpactParticles"]
 transform = Transform3D(0.333333, -1.86517e-14, 1.42109e-14, 0, 0.333333, -1.49012e-08, 3.55271e-15, 1.49012e-08, 0.333333, -5.19995e-10, -0.00282714, -0.00594804)
+visible = false
 light_color = Color(1, 0.843137, 0, 1)
 light_energy = 8.374
 omni_range = 2.741

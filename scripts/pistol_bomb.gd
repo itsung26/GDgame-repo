@@ -1,6 +1,8 @@
 class_name PistolBomb
 extends RigidBody3D
 
+signal parried
+
 const explosion_scene:PackedScene = preload("res://scenes/explosion_3d.tscn")
 @onready var pistol_bomb_player: AnimationPlayer = $"pistol bomb player"
 @onready var detonation_timer: Timer = $"detonation timer"
@@ -39,12 +41,31 @@ func explode() -> void:
 	var explosion_shockwave:Explosion3D = explosion_scene.instantiate()
 	get_tree().current_scene.add_child(explosion_shockwave)
 	explosion_shockwave.setup_preset(global_position, explosion_shockwave.explosion_presets.SHOCKWAVE_SMALL)
-	
+
 	var explosion_damage:Explosion3D = explosion_scene.instantiate()
 	get_tree().current_scene.add_child(explosion_damage)
 	explosion_damage.setup_preset(global_position, explosion_damage.explosion_presets.YELLOW_SMALL)
-	
+
 	queue_free()
+
+func disconnectAllSignals() -> void:
+	# Disconnect body_entered signals on this RigidBody3D
+	if body_entered.is_connected(Callable(self, "_on_world_entered")):
+		body_entered.disconnect(Callable(self, "_on_world_entered"))
+	if body_entered.is_connected(Callable(self, "_on_player_entered")):
+		body_entered.disconnect(Callable(self, "_on_player_entered"))
+	if body_entered.is_connected(Callable(self, "_on_enemy_entered")):
+		body_entered.disconnect(Callable(self, "_on_enemy_entered"))
+
+	# Disconnect custom parried signal from self
+	if parried.is_connected(Callable(self, "_on_parried")):
+		parried.disconnect(Callable(self, "_on_parried"))
+
+	# Disconnect timer timeout signals
+	if time_before_can_hit_player and time_before_can_hit_player.timeout.is_connected(Callable(self, "_on_time_before_can_hit_player_timeout")):
+		time_before_can_hit_player.timeout.disconnect(Callable(self, "_on_time_before_can_hit_player_timeout"))
+	if detonation_timer and detonation_timer.timeout.is_connected(Callable(self, "_on_detonation_timer_timeout")):
+		detonation_timer.timeout.disconnect(Callable(self, "_on_detonation_timer_timeout"))
 
 ## On collide with world.
 func _on_world_entered(body: Node) -> void:
@@ -62,13 +83,14 @@ func _on_enemy_entered(enemy:Enemy) -> void:
 
 func _on_time_before_can_hit_player_timeout() -> void:
 	remove_collision_exception_with(get_tree().get_first_node_in_group("players"))
-
-func _on_on_being_parried() -> void:
-	has_been_parried = true
-	freeze = true
-	contact_monitor = 0
-	detonation_timer.start(time_before_detonation)
-	
 	
 func _on_detonation_timer_timeout() -> void:
 	detonation_animator.play("detonate")
+
+
+func _on_parried() -> void:
+	has_been_parried = true
+	parriable = false
+	contact_monitor = false
+	freeze = true
+	detonation_timer.start(time_before_detonation)

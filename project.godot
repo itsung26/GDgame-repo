@@ -51,7 +51,6 @@ enemy="contains all enemies"
 weapons="Contains all weapons"
 players=""
 weaponBlocks=""
-"weak enemy"=""
 grapple_cubes=""
 "enemy projectiles"=""
 "bullet trails"=""
@@ -59,6 +58,8 @@ arms=""
 explosions=""
 "enviroment rigidbodies"=""
 "parry visuals"=""
+"gib limb"="any enemy dismembered limbs"
+"weak enemy"=""
 
 [input]
 

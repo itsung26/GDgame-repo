@@ -1,22 +1,10 @@
-[gd_scene load_steps=43 format=4 uid="uid://fyr1gxk7lvr1"]
+[gd_scene load_steps=41 format=4 uid="uid://fyr1gxk7lvr1"]
 
 [ext_resource type="Script" uid="uid://x7wtow671t3i" path="res://scripts/enemy_filth.gd" id="1_8551a"]
 [ext_resource type="Texture2D" uid="uid://dja4bjd6eau7h" path="res://assets/meshes/filth/textures/Filth_Mouth_Open_baseColor.png" id="2_qw0xx"]
-[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_xpfnw"]
 [ext_resource type="Script" uid="uid://b3eyw6tagvntj" path="res://scripts/spawn_intro_particles.gd" id="4_00tiq"]
+[ext_resource type="PackedScene" uid="uid://dctdckc0awxi0" path="res://scenes/state_debug_text.tscn" id="5_00tiq"]
 [ext_resource type="PlaneMesh" uid="uid://cfhhmqbewj66t" path="res://assets/meshes/example_floor.tres" id="5_o4bbs"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xpfnw"]
-resource_local_to_scene = true
-billboard_mode = 1
-
-[sub_resource type="TextMesh" id="TextMesh_i5vck"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_xpfnw")
-text = "null state"
-font = ExtResource("3_xpfnw")
-font_size = 61
-depth = 0.0
 
 [sub_resource type="Animation" id="Animation_qw0xx"]
 resource_name = "Bite_0"
@@ -1129,16 +1117,13 @@ collision_mask = 15
 script = ExtResource("1_8551a")
 lerp_angle_factor = 9.0
 HEALTH = 20.0
+SPEED = 900.0
 grapple_offset = Vector3(0, 1.2328, -0.139401)
 metadata/_edit_pinned_properties_ = [&"HEALTH"]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 debug_enabled = true
-
-[node name="debug state text" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.32256, 0)
-mesh = SubResource("TextMesh_i5vck")
 
 [node name="FilthAnimator" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Filth/Sketchfab_Scene")
@@ -1407,7 +1392,12 @@ one_shot = true
 [node name="Marker3D2" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2328, -0.139401)
 
+[node name="StateDebugText" parent="." instance=ExtResource("5_00tiq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2146952, 0)
+
 [connection signal="body_entered" from="readyBiteBox" to="." method="_on_ready_bite_box_body_entered"]
 [connection signal="body_exited" from="readyBiteBox" to="." method="_on_ready_bite_box_body_exited"]
 [connection signal="body_entered" from="biteHurtBox" to="." method="_on_bite_hurt_box_body_entered"]
 [connection signal="timeout" from="timeUntillDisable" to="." method="_on_time_untill_disable_timeout"]
+
+[editable path="StateDebugText"]
