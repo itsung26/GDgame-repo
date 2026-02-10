@@ -201,9 +201,11 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.316
 
 [node name="BulletTurret" parent="." instance=ExtResource("10_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1934514, 3.2420573, -0.08562398)
+behavior_enabled = false
 
 [node name="BulletTurret2" parent="." instance=ExtResource("10_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8275657, 3.2420573, -0.08562398)
+behavior_enabled = false
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.133022, 0)
@@ -244,8 +246,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9776268, 1.9449463, -8.3708
 shape = SubResource("BoxShape3D_yvgsm")
 
 [node name="enemy_filth" parent="." instance=ExtResource("7_wl3f4")]
+behavior_enabled = false
 
 [node name="Skitterbomb" parent="." instance=ExtResource("11_r4hxy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8346786, 0, 0)
+lerp_angle_factor = 12.5
+path_update_threshold = 1.25
+SPEED = 450.0
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

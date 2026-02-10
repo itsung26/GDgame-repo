@@ -6,3 +6,9 @@ extends Node
 
 static var projectiles_drawn:Array[EnemyProjectile] = []
 static var gib_limbs_drawn:Array[Node3D] = []
+
+func registerProjectile(projectile:EnemyProjectile) -> void:
+	projectiles_drawn.append(projectile)
+
+func registerGibLimb(gibbed_limb:PhysicalBone3D) -> void:
+	gib_limbs_drawn.append(gibbed_limb)

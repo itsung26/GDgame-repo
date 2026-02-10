@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://da0o4xn0tk2l8"]
+[gd_scene load_steps=13 format=3 uid="uid://da0o4xn0tk2l8"]
 
 [ext_resource type="Script" uid="uid://1fvkhlatl2xa" path="res://scripts/skitterbomb.gd" id="1_puc1e"]
 [ext_resource type="PackedScene" uid="uid://cuguo3styi87u" path="res://assets/meshes/Skitterbomb/Skitterbomb.blend" id="2_ntgaj"]
 [ext_resource type="Texture2D" uid="uid://btuh66ked0vkk" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_01.png" id="3_f1415"]
 [ext_resource type="Material" uid="uid://63qriytymt0s" path="res://assets/meshes/Skitterbomb/material resources/glow eye parts red.tres" id="3_i23tl"]
+[ext_resource type="PackedScene" uid="uid://dctdckc0awxi0" path="res://scenes/state_debug_text.tscn" id="5_ogiig"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c526l"]
 radius = 0.357994
@@ -134,17 +135,11 @@ _data = {
 &"flash slow": SubResource("Animation_f1415")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2s1c1"]
-billboard_mode = 1
-
-[sub_resource type="TextMesh" id="TextMesh_msusu"]
-material = SubResource("StandardMaterial3D_2s1c1")
-text = "state: null"
-
 [node name="Skitterbomb" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 559
 script = ExtResource("1_puc1e")
+initial_state = 3
 metadata/_custom_type_script = "uid://1fvkhlatl2xa"
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
@@ -289,11 +284,10 @@ transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-
 [node name="wire connect" parent="Skitterbomb2/Armature/Skeleton3D" index="33"]
 transform = Transform3D(-0.17891668, 6.4546626e-08, -5.059106e-16, -6.454662e-08, -0.1789167, -3.0818065e-08, -1.6663192e-15, -3.0818065e-08, 0.17891668, 1.827824, -3.7315269, 0.28992736)
 
-[node name="text mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.878093, 0)
-mesh = SubResource("TextMesh_msusu")
-
 [node name="prepare leap delay" type="Timer" parent="."]
 one_shot = true
+
+[node name="StateDebugText" parent="." instance=ExtResource("5_ogiig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9012779, 0)
 
 [editable path="Skitterbomb2"]

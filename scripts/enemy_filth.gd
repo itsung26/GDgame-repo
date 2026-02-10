@@ -23,7 +23,7 @@ class_name EnemyFilth extends Enemy
 @export var path_update_interval:float = 0.2
 
 ## Main physics states.
-enum enemy_states {STUNNED, FALLING, RUNNING, PREPARINGBITE, BITING, ENDINGBITE, DYING, DEAD, NULL}
+enum enemy_states {IDLE, FALLING, RUNNING, PREPARINGBITE, BITING, ENDINGBITE, DYING, DEAD}
 var enemy_state:enemy_states = enemy_states.RUNNING:
 	set = set_enemy_state
 
@@ -47,8 +47,8 @@ func set_enemy_state(new_enemy_state:enemy_states):
 	if new_enemy_state == enemy_states.FALLING:
 		filth_animator.play("Falling_4")
 	
-	# STUNNED to and from
-	if new_enemy_state == enemy_states.STUNNED:
+	# IDLE to and from
+	if new_enemy_state == enemy_states.IDLE:
 		filth_animator.play("Idle_8")
 		
 	# running to and from
@@ -95,7 +95,7 @@ func _ready() -> void:
 	if filth_animator == null:
 		assert(false, "Enemy found no animation player.")
 	if player == null:
-		set_enemy_state(enemy_states.STUNNED)
+		set_enemy_state(enemy_states.IDLE)
 	else:
 		last_player_position = player.global_position
 		# Initialize navigation agent settings for better performance
@@ -103,10 +103,10 @@ func _ready() -> void:
 		navigation_agent_3d.target_desired_distance = 0.5
 
 func _process(_delta: float) -> void:
-	# Debug.log(velocity) # Commented out for performance - enable only when debugging
 	state_debug_text.updateStateReadout(enemy_state, enemy_states)
-	if stunned and enemy_state != enemy_states.DYING and enemy_state != enemy_states.DEAD and enemy_state != enemy_states.FALLING:
-		set_enemy_state(enemy_states.STUNNED)
+	
+	if not behavior_enabled:
+		set_enemy_state(enemy_states.IDLE)
 
 func _physics_process(delta: float) -> void:
 	
@@ -115,26 +115,15 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# handle allowed physics
-	statePhysicsLogic()
-	move_and_slide()
-
-
-	
-		
-
-func _killEnemy():
-	set_enemy_state(enemy_states.DYING)
-
-func statePhysicsLogic(delta = get_physics_process_delta_time()): # run every physics frame
 	# checks to see if the enemy is in the air or on the ground and sets the state once accordingly if it is not already in another state
-	if (is_on_floor() and enemy_state == enemy_states.FALLING and enemy_state != enemy_states.STUNNED and player):
+	if (is_on_floor() and enemy_state == enemy_states.FALLING and enemy_state != enemy_states.IDLE and player):
 		set_enemy_state(enemy_states.RUNNING)
 	elif not is_on_floor() and enemy_state == enemy_states.RUNNING:
 		set_enemy_state(enemy_states.FALLING)
 	
 	match enemy_state:
 		
-		enemy_states.STUNNED:
+		enemy_states.IDLE:
 			if is_on_floor():
 				velocity = lerp(velocity, Vector3.ZERO, 5 * delta) # prevent sliding on floor
 				
@@ -176,7 +165,14 @@ func statePhysicsLogic(delta = get_physics_process_delta_time()): # run every ph
 		enemy_states.DYING:
 			velocity.x = lerp(velocity.x, 0.0, slowInAirFactor * delta)
 			velocity.z = lerp(velocity.z, 0.0, slowInAirFactor * delta)
+	move_and_slide()
 
+
+	
+		
+
+func _killEnemy():
+	set_enemy_state(enemy_states.DYING)
 
 func disableProcess():
 	print("disabled process")

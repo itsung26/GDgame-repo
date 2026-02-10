@@ -30,8 +30,6 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @export var slowInAirFactor:float = 10.0
 ## Whether the enemy recieves damage. Taking damage will still call [code]damageEnemy[/code], but interior logic will be skipped.
 @export var damage_enabled:bool = true
-## If true, the enemy will remain in stunned state untill this is set false again.
-@export var stunned:bool = false
 ## The point that the grapple hook will attatch to. This should be located somewhere near the center of the enemy.
 @export var grapple_offset:Vector3 = Vector3.ZERO
 ## Wether the behavior is allowed to run for the entity. If set to false, the entity
@@ -39,6 +37,8 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @export var behavior_enabled:bool = true
 ## Whether the enemy can currently be parried.
 @export var parriable:bool = false
+## Set this to true if the enemy should not be moveable, excluding during death gibbing.
+@export var stationary:bool = false
 
 func damageEnemy(damage:float, damage_type:damage_types):
 	if damage_enabled:
@@ -50,19 +50,6 @@ func damageEnemy(damage:float, damage_type:damage_types):
 		
 		on_hurt.emit(damage, damage_type)
 		
-		'''
-		if damage != 0.0:
-			# Highly likley to be cut from the game in favor of enviromental queues.
-			# Idea is to "show" the player with VFX how much the enemy was hurt 
-			# instead of "telling" them with numbers.
-			
-			# spawn a hitmarker on own body
-			var a = DAMAGE_HITMARKER_SCENE.instantiate()
-			a.tracked_camera = player.camera_3d
-			a.tracked_enemy = self
-			add_child(a)
-			a.damage_number_label.text = str(damage)
-		'''
 		
 		if HEALTH == 0:
 			_killEnemy()
