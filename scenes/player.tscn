@@ -550,6 +550,12 @@ script = ExtResource("9_ke2ow")
 max_camera_roll = 2.25
 camera_fov_lerp_speed = 10.0
 
+[node name="LongPointGetter" type="RayCast3D" parent="Pivot/Camera3D"]
+editor_description = "see getFacingPoint()"
+visible = false
+target_position = Vector3(0, 0, -5000)
+collision_mask = 4
+
 [node name="GrappleDirectionGetter" type="RayCast3D" parent="Pivot/Camera3D"]
 visible = false
 target_position = Vector3(0, 0, -1)

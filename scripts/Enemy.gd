@@ -7,6 +7,7 @@ signal on_grappled
 ## Called [color=green]AFTER[/color] damage is applied but [color=red]BEFORE[/color]
 ## the deatch check. Use with caution.
 signal on_hurt(damage:float, damage_type:damage_types)
+signal parried
 
 var _was_on_floor: bool = false
 

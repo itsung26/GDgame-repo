@@ -741,6 +741,9 @@ func parryTargetInBox():
 			else:
 				parry_target.queue_free()
 		
+		elif parry_target is Enemy:
+			parry_target.parried.emit()
+		
 	# If no valid target was found in the box
 	elif parry_target == null:
 		parry_arm_animator.play("swing arm miss")
@@ -748,17 +751,30 @@ func parryTargetInBox():
 	elif parry_target != null and parry_target.parriable == false:
 		parry_arm_animator.play("swing arm miss")
 
+## Returns the combined rotation of the player's camera and the player's body. This
+## corresponds to the combined vector of where they are looking.
 func getFacingRot() -> Vector3:
 	var cam_global_rot_x:float = camera_3d.global_rotation.x
 	var player_global_rot_y:float = global_rotation.y
 	var combined_global_rot = Vector3(cam_global_rot_x, player_global_rot_y, 0.0)
 	return combined_global_rot
 
+## Returns the inverse rotation of [code]getFacingRot()[/code]. (180 degrees)
 func getFacingRotInverted() -> Vector3:
 	var combined_global_rot:Vector3 = getFacingRot()
 	combined_global_rot = combined_global_rot.inverse()
 	return combined_global_rot
 
+## Returns the point that a 5000 meter long raycast originating from the player's
+## central camera zone collides with. Raycast only collides with the world.
+func getFacingPoint() -> Vector3:
+	var long_point_getter: RayCast3D = $Pivot/Camera3D/LongPointGetter
+	if long_point_getter.get_collider() != null:
+		var ret:Vector3 = long_point_getter.get_collision_point()
+		return ret
+	return Vector3.ZERO
+
+## Disables the firing of all weapons and sets the timescale to zero for [param hitstop_duration_time]
 func hitStop(hitstop_duration_time:float):
 	deactivateWeapons()
 	Engine.time_scale = 0.0

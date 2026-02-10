@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://da0o4xn0tk2l8"]
+[gd_scene load_steps=13 format=3 uid="uid://da0o4xn0tk2l8"]
 
 [ext_resource type="Script" uid="uid://1fvkhlatl2xa" path="res://scripts/skitterbomb.gd" id="1_puc1e"]
 [ext_resource type="PackedScene" uid="uid://cuguo3styi87u" path="res://assets/meshes/Skitterbomb/Skitterbomb.blend" id="2_ntgaj"]
 [ext_resource type="Texture2D" uid="uid://btuh66ked0vkk" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_01.png" id="3_f1415"]
-[ext_resource type="Material" uid="uid://63qriytymt0s" path="res://assets/meshes/Skitterbomb/material resources/glow eye parts red.tres" id="3_i23tl"]
 [ext_resource type="PackedScene" uid="uid://dctdckc0awxi0" path="res://scenes/state_debug_text.tscn" id="5_ogiig"]
 [ext_resource type="PackedScene" uid="uid://cciw4emper80t" path="res://scenes/goto_cube.tscn" id="6_4qdxy"]
 
@@ -143,9 +142,10 @@ script = ExtResource("1_puc1e")
 lerp_angle_factor = 12.5
 path_update_threshold = 1.25
 initial_state = 3
-prepare_leap_duration = 0.001
+prepare_leap_duration = 0.5
 leap_travel_time = 0.5
 leap_to_player_offset = Vector3(0, 2.5, 0)
+return_to_sender_multiplier = 0.01
 SPEED = 450.0
 metadata/_custom_type_script = "uid://1fvkhlatl2xa"
 
@@ -165,87 +165,85 @@ shape = SubResource("SphereShape3D_c526l")
 debug_color = Color(1, 0, 0, 0.4627451)
 
 [node name="Skitterbomb2" parent="." instance=ExtResource("2_ntgaj")]
-transform = Transform3D(-2.45953e-09, 0, 0.0562674, 0, 0.0562674, 0, -0.0562674, 0, -2.45953e-09, 0, 0, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="glow eye parts" parent="Skitterbomb2/Armature/Skeleton3D" index="0"]
-transform = Transform3D(0.16486059, 0.98581773, 0.031372562, -0.9816118, 0.16088814, 0.102726795, 0.09622239, -0.04773134, 0.99421465, 1.5721375, -0.27636003, -1.8943733)
-
-[node name="glow eye parts" parent="Skitterbomb2/Armature/Skeleton3D/glow eye parts" index="0"]
-surface_material_override/0 = ExtResource("3_i23tl")
+transform = Transform3D(0.16486059, 0.98581773, 0.031372562, -0.9816118, 0.16088814, 0.102726795, 0.09622239, -0.04773134, 0.99421465, 0.0880397, -0.015476167, -0.10608492)
 
 [node name="tube eye" parent="Skitterbomb2/Armature/Skeleton3D" index="1"]
-transform = Transform3D(0.16486059, 0.98581773, 0.031372562, -0.9816118, 0.16088814, 0.102726795, 0.09622239, -0.04773134, 0.99421465, 1.5721375, -0.27636003, -1.8943733)
+transform = Transform3D(0.16486059, 0.98581773, 0.031372562, -0.9816118, 0.16088814, 0.102726795, 0.09622239, -0.04773134, 0.99421465, 0.0880397, -0.015476167, -0.10608492)
 
 [node name="foot_FR" parent="Skitterbomb2/Armature/Skeleton3D" index="2"]
-transform = Transform3D(0.03738924, 0.9993009, 0.00012523987, -0.9993015, 0.037389353, -0.00010287075, -0.000107477674, -0.00012130594, 0.99999976, -4.728002, -10.764204, -1.1747562)
+transform = Transform3D(0.03738924, 0.9993009, 0.00012523987, -0.9993015, 0.037389353, -0.00010287075, -0.000107477674, -0.00012130594, 0.99999976, -0.26476815, -0.6027954, -0.065786354)
 
 [node name="leg lower_FR" parent="Skitterbomb2/Armature/Skeleton3D" index="3"]
-transform = Transform3D(2.9802322e-07, 1.0000002, 0.0001252954, -1.0000007, 2.682209e-07, -0.00010287837, -0.00010286324, -0.00012529978, 0.9999999, -0.9679494, -7.0920544, -1.1760515)
+transform = Transform3D(2.9802322e-07, 1.0000002, 0.0001252954, -1.0000007, 2.682209e-07, -0.00010287837, -0.00010286324, -0.00012529978, 0.9999999, -0.054205183, -0.39715505, -0.06585889)
 
 [node name="knee plate_FR" parent="Skitterbomb2/Armature/Skeleton3D" index="4"]
-transform = Transform3D(0.00016589153, 0.8473837, -1.0169038, -0.00013633672, 1.0169042, 0.8473841, 1.3236884, -1.4172379e-06, 0.0002147402, -1.1470065, -8.097303, -1.1517159)
+transform = Transform3D(0.00016589153, 0.8473837, -1.0169038, -0.00013633672, 1.0169042, 0.8473841, 1.3236884, -1.4172379e-06, 0.0002147402, -0.06423238, -0.453449, -0.0644961)
 
 [node name="leg mid_FR" parent="Skitterbomb2/Armature/Skeleton3D" index="5"]
-transform = Transform3D(0.5652457, 0.82492286, 0.00012523489, -0.82492304, 0.5652457, -0.00010279285, -0.000155602, -4.521187e-05, 0.9999998, -2.9002957, -4.2567267, -1.1773994)
+transform = Transform3D(0.5652457, 0.82492286, 0.00012523489, -0.82492304, 0.5652457, -0.00010279285, -0.000155602, -4.521187e-05, 0.9999998, -0.16241658, -0.23837669, -0.06593437)
 
 [node name="leg mid text_FR" parent="Skitterbomb2/Armature/Skeleton3D" index="6"]
-transform = Transform3D(8.940697e-08, 1.0000001, 0.00012523489, -1.0000002, -2.9802322e-08, -0.00010279285, -0.00010280382, -0.00012524961, 0.9999998, -1.9088875, -5.693289, -2.0799422)
+transform = Transform3D(8.940697e-08, 1.0000001, 0.00012523489, -1.0000002, -2.9802322e-08, -0.00010279285, -0.00010280382, -0.00012524961, 0.9999998, -0.10689771, -0.31882417, -0.116476774)
 
 [node name="leg upper_FR" parent="Skitterbomb2/Armature/Skeleton3D" index="7"]
-transform = Transform3D(-0.68639195, 0.72723204, 0.00012522619, -0.7272323, -0.68639195, -0.00010291141, 1.1048819e-05, -0.0001616856, 0.99999994, -0.5388941, -1.7673849, -1.179321)
+transform = Transform3D(-0.68639195, 0.72723204, 0.00012522619, -0.7272323, -0.68639195, -0.00010291141, 1.1048819e-05, -0.0001616856, 0.99999994, -0.030178074, -0.09897355, -0.066041976)
 
 [node name="foot_FR_001" parent="Skitterbomb2/Armature/Skeleton3D" index="8"]
-transform = Transform3D(0.03738839, 0.99930036, 0.00012526964, -0.99930084, 0.037388444, -0.00010243139, -0.0001070614, -0.00012135307, 0.99999964, -4.7280126, -10.764193, 1.016393)
+transform = Transform3D(0.03738839, 0.99930036, 0.00012526964, -0.99930084, 0.037388444, -0.00010243139, -0.0001070614, -0.00012135307, 0.99999964, -0.2647687, -0.6027948, 0.056918003)
 
 [node name="leg lower_FR_001" parent="Skitterbomb2/Armature/Skeleton3D" index="9"]
-transform = Transform3D(-1.7881393e-07, 0.9999995, 0.00012563351, -1.0000002, -1.4901161e-07, -0.00010313786, -0.0001031165, -0.00012563424, 0.9999995, -0.96796083, -7.0920467, 1.0150956)
+transform = Transform3D(-1.7881393e-07, 0.9999995, 0.00012563351, -1.0000002, -1.4901161e-07, -0.00010313786, -0.0001031165, -0.00012563424, 0.9999995, -0.054205794, -0.39715466, 0.05684535)
 
 [node name="knee plate_FR_001" parent="Skitterbomb2/Armature/Skeleton3D" index="10"]
-transform = Transform3D(0.00016645742, 0.84738356, -1.0169027, -0.00013660129, 1.0169034, 0.8473841, 1.3236878, -1.6403561e-06, 0.00021529492, -1.1470164, -8.097296, 1.0394316)
+transform = Transform3D(0.00016645742, 0.84738356, -1.0169027, -0.00013660129, 1.0169034, 0.8473841, 1.3236878, -1.6403561e-06, 0.00021529492, -0.06423291, -0.45344862, 0.058208168)
 
 [node name="leg mid_FR_001" parent="Skitterbomb2/Armature/Skeleton3D" index="11"]
-transform = Transform3D(0.56524545, 0.82492256, 0.000125549, -0.82492256, 0.5652456, -0.00010256574, -0.00015562048, -4.5629684e-05, 0.9999997, -2.9003034, -4.2567196, 1.0137491)
+transform = Transform3D(0.56524545, 0.82492256, 0.000125549, -0.82492256, 0.5652456, -0.00010256574, -0.00015562048, -4.5629684e-05, 0.9999997, -0.162417, -0.2383763, 0.05676995)
 
 [node name="leg mid text_FR_001" parent="Skitterbomb2/Armature/Skeleton3D" index="12"]
-transform = Transform3D(5.9604645e-08, 0.9999999, 0.000125549, -1, 2.0861626e-07, -0.00010256574, -0.0001025829, -0.00012560474, 0.9999997, -1.961282, -5.644559, 1.9251794)
+transform = Transform3D(5.9604645e-08, 0.9999999, 0.000125549, -1, 2.0861626e-07, -0.00010256574, -0.0001025829, -0.00012560474, 0.9999997, -0.109831795, -0.31609532, 0.10781004)
 
 [node name="leg upper_FR_001" parent="Skitterbomb2/Armature/Skeleton3D" index="13"]
-transform = Transform3D(-0.68639165, 0.72723174, 0.00012528125, -0.72723186, -0.68639165, -0.00010340061, 1.0791799e-05, -0.00016200263, 1, -0.5389032, -1.7673783, 1.0118253)
+transform = Transform3D(-0.68639165, 0.72723174, 0.00012528125, -0.72723186, -0.68639165, -0.00010340061, 1.0791799e-05, -0.00016200263, 1, -0.030178579, -0.0989732, 0.056662217)
 
 [node name="foot_FR_002" parent="Skitterbomb2/Armature/Skeleton3D" index="14"]
-transform = Transform3D(0.03738779, 0.99929863, 0.002232854, 0.99929947, -0.037392065, 0.0018322959, -0.0019145124, -0.0021627897, 0.99999535, -4.72801, 9.373622, 1.0907801)
+transform = Transform3D(0.03738779, 0.99929863, 0.002232854, 0.99929947, -0.037392065, 0.0018322959, -0.0019145124, -0.0021627897, 0.99999535, -0.26476863, 0.52492285, 0.061083704)
 
 [node name="leg lower_FR_002" parent="Skitterbomb2/Armature/Skeleton3D" index="15"]
-transform = Transform3D(-1.4007092e-06, 0.99999917, 0.0015921178, 0.999998, -1.5497208e-06, 0.0018324809, -0.0018324369, -0.0015921051, 0.9999965, -0.9679641, 5.7014794, 1.0903194)
+transform = Transform3D(-1.4007092e-06, 0.99999917, 0.0015921178, 0.999998, -1.5497208e-06, 0.0018324809, -0.0018324369, -0.0015921051, 0.9999965, -0.054206003, 0.31928283, 0.061057895)
 
 [node name="knee plate_FR_002" parent="Skitterbomb2/Armature/Skeleton3D" index="16"]
-transform = Transform3D(0.0021073497, 0.8473842, -1.0169015, 0.0024253184, -1.0169028, -0.8473802, 1.3236839, 0.0005141695, 0.0031714786, -1.1469865, 6.706767, 1.1131781)
+transform = Transform3D(0.0021073497, 0.8473842, -1.0169015, 0.0024253184, -1.0169028, -0.8473802, 1.3236839, 0.0005141695, 0.0031714786, -0.064231254, 0.37557894, 0.062337987)
 
 [node name="leg mid_FR_002" parent="Skitterbomb2/Armature/Skeleton3D" index="17"]
-transform = Transform3D(0.56523925, 0.82491624, 0.0041797203, 0.82491857, -0.5652493, 0.0018326873, -0.0038743399, -0.0024120621, 0.99998915, -2.900301, 2.8661666, 1.1017134)
+transform = Transform3D(0.56523925, 0.82491624, 0.0041797203, 0.82491857, -0.5652493, 0.0018326873, -0.0038743399, -0.0024120621, 0.99998915, -0.16241688, 0.16050534, 0.061695956)
 
 [node name="leg upper_FR_002" parent="Skitterbomb2/Armature/Skeleton3D" index="18"]
-transform = Transform3D(-0.6863923, 0.7272314, 0.0006374894, 0.72723126, 0.68639064, 0.0018318751, -0.0008945884, -0.0017210484, 0.99999815, -0.53889346, 0.37683177, 1.1028873)
+transform = Transform3D(-0.6863923, 0.7272314, 0.0006374894, 0.72723126, 0.68639064, 0.0018318751, -0.0008945884, -0.0017210484, 0.99999815, -0.030178031, 0.021102576, 0.061761692)
 
 [node name="foot_FR_003" parent="Skitterbomb2/Armature/Skeleton3D" index="19"]
-transform = Transform3D(0.03739193, 0.9992972, 0.002231426, 0.9992987, -0.03739576, 0.0018317753, -0.0019138816, -0.0021613685, 0.9999952, -4.7281775, 9.373465, -1.2679887)
+transform = Transform3D(0.03739193, 0.9992972, 0.002231426, 0.9992987, -0.03739576, 0.0018317753, -0.0019138816, -0.0021613685, 0.9999952, -0.26477796, 0.5249141, -0.07100738)
 
 [node name="leg lower_FR_003" parent="Skitterbomb2/Armature/Skeleton3D" index="20"]
-transform = Transform3D(-2.682209e-06, 0.9999977, 0.0015914275, 0.999998, 8.940697e-08, 0.0018320305, -0.0018320124, -0.0015914488, 0.99999654, -0.96811056, 5.7013273, -1.2684497)
+transform = Transform3D(-2.682209e-06, 0.9999977, 0.0015914275, 0.999998, 8.940697e-08, 0.0018320305, -0.0018320124, -0.0015914488, 0.99999654, -0.05421419, 0.31927434, -0.071033195)
 
 [node name="knee plate_FR_003" parent="Skitterbomb2/Armature/Skeleton3D" index="21"]
-transform = Transform3D(0.0021067122, 0.8473844, -1.0168988, 0.0024250378, -1.0169013, -0.84738207, 1.323684, 0.0005143726, 0.003170846, -1.1471341, 6.706616, -1.24559)
+transform = Transform3D(0.0021067122, 0.8473844, -1.0168988, 0.0024250378, -1.0169013, -0.84738207, 1.323684, 0.0005143726, 0.003170846, -0.06423951, 0.3755705, -0.06975305)
 
 [node name="leg mid_FR_003" parent="Skitterbomb2/Armature/Skeleton3D" index="22"]
-transform = Transform3D(0.56524014, 0.8249148, 0.0041806665, 0.8249162, -0.56525064, 0.0018333342, -0.003875493, -0.002412473, 0.9999889, -2.9006405, 2.8660161, -1.2570554)
+transform = Transform3D(0.56524014, 0.8249148, 0.0041806665, 0.8249162, -0.56525064, 0.0018333342, -0.003875493, -0.002412473, 0.9999889, -0.16243587, 0.1604969, -0.070395105)
 
 [node name="leg upper_FR_003" parent="Skitterbomb2/Armature/Skeleton3D" index="23"]
-transform = Transform3D(-0.6863915, 0.7272314, 0.0006372555, 0.7272317, 0.6863894, 0.0018330096, -0.0008956027, -0.0017216292, 0.99999815, -0.53894764, 0.376676, -1.2558832)
+transform = Transform3D(-0.6863915, 0.7272314, 0.0006372555, 0.7272317, 0.6863894, 0.0018330096, -0.0008956027, -0.0017216292, 0.99999815, -0.030181067, 0.021093851, -0.07032946)
 
 [node name="back bomb" parent="Skitterbomb2/Armature/Skeleton3D" index="24"]
-transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, -1.1040889, -0.067821145, 3.637424e-07)
+transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, -0.061828986, -0.0037979856, 2.0369576e-08)
 
 [node name="back bomb red flash" type="Sprite3D" parent="Skitterbomb2/Armature/Skeleton3D/back bomb" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028139584, 0.025948107, 1.70204e-08)
 modulate = Color(1, 0, 0, 1)
 pixel_size = 0.0408
 billboard = 1
@@ -254,9 +252,10 @@ texture_filter = 0
 texture = ExtResource("3_f1415")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Skitterbomb2/Armature/Skeleton3D/back bomb" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.028139584, 0.025948107, 1.70204e-08)
 light_color = Color(1, 0, 0, 1)
 light_energy = 4.897
-omni_range = 1.41412
+omni_range = 3.5144346
 omni_attenuation = 2.0
 
 [node name="red flash animator" type="AnimationPlayer" parent="Skitterbomb2/Armature/Skeleton3D/back bomb" index="3"]
@@ -266,33 +265,36 @@ libraries = {
 }
 
 [node name="back bomb panel" parent="Skitterbomb2/Armature/Skeleton3D" index="25"]
-transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, -0.2572558, 1.2517686, 7.099304e-07)
+transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, -0.014406331, 0.07009904, 3.9756106e-08)
 
 [node name="head plate" parent="Skitterbomb2/Armature/Skeleton3D" index="26"]
-transform = Transform3D(-0.99999994, 3.6076355e-07, -2.827632e-15, -3.6076352e-07, -1, -1.7224811e-07, -9.3133805e-15, -1.7224812e-07, 0.99999994, 2.8240755, -2.2348022, -7.389786e-07)
+transform = Transform3D(-0.99999994, 3.6076355e-07, -2.827632e-15, -3.6076352e-07, -1, -1.7224811e-07, -9.3133805e-15, -1.7224812e-07, 0.99999994, 0.15814821, -0.12514895, -4.13828e-08)
 
 [node name="head plate screws" parent="Skitterbomb2/Armature/Skeleton3D" index="27"]
-transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, 3.0012336, -1.6000966, -2.0588345e-07)
+transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, 0.1680691, -0.08960542, -1.1529473e-08)
 
 [node name="under head block" parent="Skitterbomb2/Armature/Skeleton3D" index="28"]
-transform = Transform3D(4.844062e-08, 0.99999994, -3.094181e-07, -3.4266716e-07, 3.0941808e-07, 1, 0.99999994, -4.844057e-08, 3.426672e-07, -2.5423105e-07, -1.6183368, -1.5918695e-07)
+transform = Transform3D(4.844062e-08, 0.99999994, -3.094181e-07, -3.4266716e-07, 3.0941808e-07, 1, 0.99999994, -4.844057e-08, 3.426672e-07, -1.4236937e-08, -0.090626866, -8.91447e-09)
 
 [node name="underhead part" parent="Skitterbomb2/Armature/Skeleton3D" index="29"]
-transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, 1.7174928, -1.8334202, 0.28992757)
+transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, 0.096179605, -0.102671534, 0.016235946)
 
 [node name="underhead part_001" parent="Skitterbomb2/Armature/Skeleton3D" index="30"]
-transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, 0.29770082, -2.1041746, 0.28992745)
+transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, 0.016671246, -0.11783379, 0.016235938)
 
 [node name="underhead part_002" parent="Skitterbomb2/Armature/Skeleton3D" index="31"]
-transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, 1.7174928, -1.8334202, 0.28992757)
+transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, 0.096179605, -0.102671534, 0.016235946)
 
 [node name="wire" parent="Skitterbomb2/Armature/Skeleton3D" index="32"]
-transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, 3.1158588, -5.954577, -4.352749)
+transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-07, -2.409913e-07, -3.0059596e-07, -5.960462e-08, 0.99999994, 0.1744881, -0.33345634, -0.24375394)
 
 [node name="wire connect" parent="Skitterbomb2/Armature/Skeleton3D" index="33"]
-transform = Transform3D(-0.17891668, 6.4546626e-08, -5.059106e-16, -6.454662e-08, -0.1789167, -3.0818065e-08, -1.6663192e-15, -3.0818065e-08, 0.17891668, 1.827824, -3.7315269, 0.28992736)
+transform = Transform3D(-0.17891668, 6.4546626e-08, -5.059106e-16, -6.454662e-08, -0.1789167, -3.0818065e-08, -1.6663192e-15, -3.0818065e-08, 0.17891668, 0.10235815, -0.20896551, 0.016235933)
 
 [node name="leap delay timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ExplosionTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="StateDebugText" parent="." instance=ExtResource("5_ogiig")]
@@ -303,7 +305,9 @@ owner_node3d = NodePath("..")
 position_variable = &"leap_target_position"
 
 [connection signal="leap_landed" from="." to="." method="_on_leap_landed"]
+[connection signal="parried" from="." to="." method="_on_parried"]
 [connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="timeout" from="leap delay timer" to="." method="_on_prepare_leap_delay_timeout"]
+[connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]
 
 [editable path="Skitterbomb2"]
