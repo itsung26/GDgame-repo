@@ -11,7 +11,7 @@ radius = 0.357994
 height = 1.01344
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c526l"]
-radius = 4.0677
+radius = 6.1714554
 
 [sub_resource type="Animation" id="Animation_i23tl"]
 length = 0.001
@@ -153,8 +153,9 @@ shape = SubResource("CapsuleShape3D_c526l")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 collision_layer = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="player detector"]
+[node name="player detector collider" type="CollisionShape3D" parent="player detector"]
 shape = SubResource("SphereShape3D_c526l")
+debug_color = Color(1, 0, 0, 0.4627451)
 
 [node name="Skitterbomb2" parent="." instance=ExtResource("2_ntgaj")]
 transform = Transform3D(-2.45953e-09, 0, 0.0562674, 0, 0.0562674, 0, -0.0562674, 0, -2.45953e-09, 0, 0, 0)
@@ -284,10 +285,13 @@ transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-
 [node name="wire connect" parent="Skitterbomb2/Armature/Skeleton3D" index="33"]
 transform = Transform3D(-0.17891668, 6.4546626e-08, -5.059106e-16, -6.454662e-08, -0.1789167, -3.0818065e-08, -1.6663192e-15, -3.0818065e-08, 0.17891668, 1.827824, -3.7315269, 0.28992736)
 
-[node name="prepare leap delay" type="Timer" parent="."]
+[node name="leap delay timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="StateDebugText" parent="." instance=ExtResource("5_ogiig")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9012779, 0)
+
+[connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
+[connection signal="timeout" from="leap delay timer" to="." method="_on_prepare_leap_delay_timeout"]
 
 [editable path="Skitterbomb2"]
