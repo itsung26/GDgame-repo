@@ -24,11 +24,15 @@ var enemy_state:enemy_states:
 @export var path_update_interval:float = 0.2
 @export var initial_state:enemy_states
 @export var prepare_leap_duration:float = 1.0
+@export var leap_horizontal_speed:float = 15.0
+@export var leap_vertical_speed:float = 10.0
 
 # regular vars
 var last_player_position:Vector3 = Vector3.ZERO
 var path_update_timer:float = 0.0
 var cached_next_path_position:Vector3 = Vector3.ZERO
+var leap_target_position:Vector3 = Vector3.ZERO
+var leap_has_left_ground:bool = false
 
 func setEnemyState(new_enemy_state:enemy_states):
 	var previous_enemy_state:enemy_states = enemy_state
@@ -49,11 +53,25 @@ func setEnemyState(new_enemy_state:enemy_states):
 		velocity.x = 0.0
 		velocity.z = 0.0
 		var distance_to_player:float = global_position.distance_to(player.global_position)
-		var look_at_point:Vector3 = player.getPredictedPos(prepare_leap_duration)
-		var rotation_looking_at_targ:Vector3 = getVec3LookingAtTarget(look_at_point)
+		leap_target_position = player.getPredictedPos(prepare_leap_duration)
+		var rotation_looking_at_targ:Vector3 = getVec3LookingAtTarget(leap_target_position)
 		rotation.y = rotation_looking_at_targ.y
-		player_detector_collider.disabled = false # change to true on final implementation
+		player_detector_collider.disabled = true # change to true on final implementation
 		leap_delay_timer.start(prepare_leap_duration)
+
+	# LEAPING state
+	if new_enemy_state == enemy_states.LEAPING:
+		leap_has_left_ground = false
+		# Launch toward cached leap target. Keep this separate from FALLING so the leap isn't hijacked.
+		var flat_dir:Vector3 = leap_target_position - global_position
+		flat_dir.y = 0.0
+		if flat_dir.length_squared() > 0.001:
+			flat_dir = flat_dir.normalized()
+		else:
+			flat_dir = -transform.basis.z
+		velocity.x = flat_dir.x * leap_horizontal_speed
+		velocity.z = flat_dir.z * leap_horizontal_speed
+		velocity.y = leap_vertical_speed
 	
 
 func _ready() -> void:
@@ -84,9 +102,11 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor() and gravity_enabled:
 			velocity += get_gravity() * delta
 		
-		# handle FALLING state transitions relative to FOLLOWING
-		if is_on_floor() and enemy_state == enemy_states.FALLING and enemy_state != enemy_states.DEAD:
-			setEnemyState(enemy_states.FOLLOWING)
+		# handle air/ground state transitions
+		# Only FOLLOWING can enter FALLING. LEAPING is handled separately below.
+		if is_on_floor():
+			if enemy_state == enemy_states.FALLING and enemy_state != enemy_states.DEAD:
+				setEnemyState(enemy_states.FOLLOWING)
 		elif not is_on_floor() and enemy_state == enemy_states.FOLLOWING:
 			setEnemyState(enemy_states.FALLING)
 		
@@ -95,6 +115,15 @@ func _physics_process(delta: float) -> void:
 			# In the air: don't follow, just damp XZ velocity
 			velocity.x = lerp(velocity.x, 0.0, slowInAirFactor * delta)
 			velocity.z = lerp(velocity.z, 0.0, slowInAirFactor * delta)
+		elif enemy_state == enemy_states.LEAPING:
+			# Let the initial launch velocity + gravity handle the arc.
+			# Track when we've actually left the ground so we only end the leap after a real airborne phase.
+			if not is_on_floor():
+				leap_has_left_ground = true
+			elif leap_has_left_ground and is_on_floor():
+				# Land from leap -> resume following (or chain into another state later)
+				leap_has_left_ground = false
+				setEnemyState(enemy_states.FOLLOWING)
 		elif enemy_state == enemy_states.FOLLOWING:
 			# Navigation behavior mirroring EnemyFilth.RUNNING
 			if player == null:
