@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=100 format=4 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Script" uid="uid://dc04b3pq7nowl" path="res://scripts/shader_playground.gd" id="1_573pc"]
 [ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
@@ -31,6 +31,8 @@
 [ext_resource type="CompressedTexture3D" uid="uid://c2ge34ufiwnmh" path="res://particle collision data/shader testing.GPUParticlesCollisionSDF3D_data.exr" id="29_pbs2u"]
 [ext_resource type="Material" uid="uid://dy838fq5cq2mj" path="res://shaders/shader materials/shader testing.tres" id="30_pbs2u"]
 [ext_resource type="Shader" uid="uid://c2ii60bgdp8us" path="res://shaders/visual shaders/worldspace fragcoord.tres" id="31_lps8w"]
+[ext_resource type="Shader" uid="uid://cd8g5knmsnoup" path="res://shaders/visual shaders/screen_texture_test.tres" id="32_1cyw6"]
+[ext_resource type="Texture2D" uid="uid://b7yi6qjocjb0k" path="res://concept/Teleport_Pad.webp" id="33_myvun"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0f2g"]
 albedo_texture = ExtResource("2_7c073")
@@ -540,6 +542,19 @@ size = Vector3(25, 25, 25)
 radius = 6.428
 height = 12.856
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_myvun"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("32_1cyw6")
+shader_parameter/red_displacement = Vector2(-0.068, 0)
+shader_parameter/Texture2DParameter = ExtResource("33_myvun")
+shader_parameter/green_displacement = Vector2(-0.034, 0)
+shader_parameter/blue_displacement = Vector2(-0.017, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1cyw6"]
+subdivide_width = 40
+subdivide_depth = 40
+
 [node name="ShaderTest" type="Node3D"]
 script = ExtResource("1_573pc")
 
@@ -576,7 +591,6 @@ mesh = SubResource("QuadMesh_dflox")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
 transform = Transform3D(10.4065, 0, 0, 0, 10.4065, 0, 0, 0, 10.4065, -12, 0, 0)
-visible = false
 mesh = SubResource("SphereMesh_a0f2g")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D5"]
@@ -691,3 +705,8 @@ mesh = SubResource("BoxMesh_1yu5o")
 [node name="fade sphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34.325)
 mesh = SubResource("SphereMesh_lps8w")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_myvun")
+mesh = SubResource("PlaneMesh_1cyw6")

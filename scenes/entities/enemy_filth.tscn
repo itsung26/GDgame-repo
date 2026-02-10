@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://x7wtow671t3i" path="res://scripts/enemy_filth.gd" id="1_8551a"]
 [ext_resource type="Texture2D" uid="uid://dja4bjd6eau7h" path="res://assets/meshes/filth/textures/Filth_Mouth_Open_baseColor.png" id="2_qw0xx"]
+[ext_resource type="Texture2D" uid="uid://c6pjj4qu3g1ii" path="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/46.png" id="3_o4bbs"]
 [ext_resource type="Script" uid="uid://b3eyw6tagvntj" path="res://scripts/spawn_intro_particles.gd" id="4_00tiq"]
 [ext_resource type="PackedScene" uid="uid://dctdckc0awxi0" path="res://scenes/state_debug_text.tscn" id="5_00tiq"]
 [ext_resource type="PlaneMesh" uid="uid://cfhhmqbewj66t" path="res://assets/meshes/example_floor.tres" id="5_o4bbs"]
@@ -955,16 +956,18 @@ color = Color(0.627451, 0.12549, 0.941176, 1)
 alpha_curve = SubResource("CurveTexture_tp4cu")
 emission_curve = SubResource("CurveTexture_uyeqg")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xp76b"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_itjq6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00tiq"]
 transparency = 1
-shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = SubResource("CompressedTexture2D_xp76b")
+albedo_texture = ExtResource("3_o4bbs")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_ayigv"]
-material = SubResource("StandardMaterial3D_itjq6")
+material = SubResource("StandardMaterial3D_00tiq")
 size = Vector2(1.755, 2.475)
 
 [sub_resource type="Animation" id="Animation_tp4cu"]
@@ -1116,6 +1119,7 @@ collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_8551a")
 lerp_angle_factor = 9.0
+path_update_threshold = 1.0
 HEALTH = 20.0
 SPEED = 900.0
 grapple_offset = Vector3(0, 1.2328, -0.139401)
@@ -1346,7 +1350,7 @@ shape = SubResource("BoxShape3D_00tiq")
 debug_color = Color(1, 0, 0, 1)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(-1.44035, 0, 1.25919e-07, 0, 1.44035, 0, -1.25919e-07, 0, -1.44035, 1.47049e-08, 0.900405, -0.168204)
+transform = Transform3D(-1.44035, 0, 1.25919e-07, 0, 1.44035, 0, -1.25919e-07, 0, -1.44035, 0, 0.948283, -0.175233)
 amount = 1
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_vvi4w")

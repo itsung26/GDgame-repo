@@ -26,7 +26,7 @@
 [ext_resource type="Animation" uid="uid://cdwcp5l1nct5w" path="res://assets/meshes/map models/the cold winds/animations/lower arm rope 1_004Action.res" id="17_caw8p"]
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="25_caw8p"]
 [ext_resource type="Script" uid="uid://0eva08dwr83r" path="res://scripts/out_of_bounds_hazard.gd" id="27_c082k"]
-[ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/enemy_filth.tscn" id="27_enyme"]
+[ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/entities/enemy_filth.tscn" id="27_enyme"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pr3lf"]
 sky_top_color = Color(0.380392, 0.847059, 0.901961, 1)

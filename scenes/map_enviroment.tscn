@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cj0vx655hbmtp" path="res://scenes/enemy_spawner.tscn" id="10_idmwj"]
 [ext_resource type="Material" uid="uid://c7kojx37vkg4i" path="res://assets/materials/metal_material.tres" id="10_prwh2"]
 [ext_resource type="Texture2D" uid="uid://dog0uevkajdqv" path="res://assets/2d assets/primary textures/photorealistic/Metal029_1K-JPG/Metal029_1K-JPG_Color.jpg" id="11_he5cq"]
-[ext_resource type="PackedScene" uid="uid://ct8bpldx1y1pa" path="res://scenes/enemy_dummy.tscn" id="11_ihdwp"]
+[ext_resource type="PackedScene" uid="uid://ct8bpldx1y1pa" path="res://scenes/entities/enemy_dummy.tscn" id="11_ihdwp"]
 [ext_resource type="Texture2D" uid="uid://saoujndj0ul2" path="res://assets/2d assets/primary textures/photorealistic/Metal029_1K-JPG/Metal029_1K-JPG_Metalness.jpg" id="12_idmwj"]
 [ext_resource type="Texture2D" uid="uid://2dd245bud88p" path="res://assets/2d assets/primary textures/photorealistic/Metal029_1K-JPG/Metal029_1K-JPG_NormalGL.jpg" id="13_4i6sm"]
 [ext_resource type="PackedScene" uid="uid://cpf81oira8jjb" path="res://scenes/wave_terminal.tscn" id="13_oma2s"]

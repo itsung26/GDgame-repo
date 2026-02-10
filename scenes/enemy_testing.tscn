@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_tl03c"]
 [ext_resource type="PackedScene" uid="uid://bpljuobbfpsww" path="res://scenes/laser_generator.tscn" id="2_s4eqj"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="2_ty5ug"]
-[ext_resource type="PackedScene" uid="uid://ct8bpldx1y1pa" path="res://scenes/enemy_dummy.tscn" id="5_s4eqj"]
-[ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/enemy_filth.tscn" id="6_gw1xc"]
+[ext_resource type="PackedScene" uid="uid://ct8bpldx1y1pa" path="res://scenes/entities/enemy_dummy.tscn" id="5_s4eqj"]
+[ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/entities/enemy_filth.tscn" id="6_gw1xc"]
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="7_j6hpd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j6hpd"]

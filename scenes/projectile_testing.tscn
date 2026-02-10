@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=25 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
@@ -6,10 +6,11 @@
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="4_s3yq3"]
 [ext_resource type="Texture2D" uid="uid://ctufkwjjy161d" path="res://assets/2d assets/primary textures/Ultra Textures/GridBox_Default.png" id="5_yvgsm"]
 [ext_resource type="Material" uid="uid://b1rt4gpft6ljt" path="res://assets/materials/white_gridbox.tres" id="6_r4hxy"]
-[ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/enemy_filth.tscn" id="7_wl3f4"]
+[ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/entities/enemy_filth.tscn" id="7_wl3f4"]
 [ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube_boost.tscn" id="8_wl3f4"]
-[ext_resource type="PackedScene" uid="uid://bwa158sy5fj7y" path="res://scenes/bullet_turret.tscn" id="10_5138l"]
+[ext_resource type="PackedScene" uid="uid://bwa158sy5fj7y" path="res://scenes/entities/bullet_turret.tscn" id="10_5138l"]
 [ext_resource type="PackedScene" uid="uid://chjuj625vfhiy" path="res://scenes/checkPoint.tscn" id="10_r4hxy"]
+[ext_resource type="PackedScene" uid="uid://da0o4xn0tk2l8" path="res://scenes/entities/skitterbomb.tscn" id="11_r4hxy"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_488l3"]
 
@@ -200,11 +201,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.316
 
 [node name="BulletTurret" parent="." instance=ExtResource("10_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1934514, 3.2420573, -0.08562398)
-behavior_enabled = false
 
 [node name="BulletTurret2" parent="." instance=ExtResource("10_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8275657, 3.2420573, -0.08562398)
-behavior_enabled = false
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.133022, 0)
@@ -241,9 +240,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4304724, 0, -16.121069)
 collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 8.700309, 1.9449468, -1.0227356)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9776268, 1.9449463, -8.370869)
 shape = SubResource("BoxShape3D_yvgsm")
 
 [node name="enemy_filth" parent="." instance=ExtResource("7_wl3f4")]
 
-[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[node name="Skitterbomb" parent="." instance=ExtResource("11_r4hxy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8346786, 0, 0)
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

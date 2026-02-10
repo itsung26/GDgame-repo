@@ -18,7 +18,7 @@
 [ext_resource type="Script" uid="uid://bnd8mvqpb1r6f" path="res://scripts/enviromental_hazard.gd" id="9_3cvua"]
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="9_gm66d"]
 [ext_resource type="Texture2D" uid="uid://bstpowjyy85ub" path="res://assets/meshes/map models/building1/textures/bright-volcanic-texture-lava-3d-8825334 (1).png" id="10_m4viu"]
-[ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/enemy_filth.tscn" id="10_tlbyk"]
+[ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/entities/enemy_filth.tscn" id="10_tlbyk"]
 [ext_resource type="PackedScene" uid="uid://dt5qn86wdmwuj" path="res://scenes/ambient_smoke_rising.tscn" id="11_27tps"]
 [ext_resource type="Material" uid="uid://b45r0uk8tkdcp" path="res://assets/meshes/map models/building1/materials/PartMaterial.tres" id="11_jqhbi"]
 [ext_resource type="PackedScene" uid="uid://cob02e1fag71m" path="res://assets/meshes/transitionTunnel/transitionTunnel.blend" id="12_aurki"]
