@@ -1,6 +1,9 @@
 class_name SkitterBomb
 extends Enemy
 
+# signals
+signal leap_landed
+
 # onreadies
 @onready var animation_player: AnimationPlayer = $Skitterbomb2/AnimationPlayer
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
@@ -9,7 +12,7 @@ extends Enemy
 @onready var player_detector_collider: CollisionShape3D = $"player detector/player detector collider"
 
 # constants
-
+const explosion_scene:PackedScene = preload("res://scenes/explosion_3d.tscn")
 
 # state machines
 enum enemy_states {IDLE, STARTUP, FALLING, FOLLOWING, PREPARELEAP, LEAPING, DEAD}
@@ -24,8 +27,10 @@ var enemy_state:enemy_states:
 @export var path_update_interval:float = 0.2
 @export var initial_state:enemy_states
 @export var prepare_leap_duration:float = 1.0
-@export var leap_horizontal_speed:float = 15.0
-@export var leap_vertical_speed:float = 10.0
+## Time (seconds) the leap should take from launch to target
+@export var leap_travel_time:float = 0.75
+## The enemy will leap to the player's predicted position + this offset.
+@export var leap_to_player_offset:Vector3 = Vector3.ZERO
 
 # regular vars
 var last_player_position:Vector3 = Vector3.ZERO
@@ -33,6 +38,8 @@ var path_update_timer:float = 0.0
 var cached_next_path_position:Vector3 = Vector3.ZERO
 var leap_target_position:Vector3 = Vector3.ZERO
 var leap_has_left_ground:bool = false
+var leap_time_in_state:float = 0.0
+var leap_current_travel_time:float = 0.0
 
 func setEnemyState(new_enemy_state:enemy_states):
 	var previous_enemy_state:enemy_states = enemy_state
@@ -53,7 +60,7 @@ func setEnemyState(new_enemy_state:enemy_states):
 		velocity.x = 0.0
 		velocity.z = 0.0
 		var distance_to_player:float = global_position.distance_to(player.global_position)
-		leap_target_position = player.getPredictedPos(prepare_leap_duration)
+		leap_target_position = player.getPredictedPos(prepare_leap_duration) + leap_to_player_offset
 		var rotation_looking_at_targ:Vector3 = getVec3LookingAtTarget(leap_target_position)
 		rotation.y = rotation_looking_at_targ.y
 		player_detector_collider.disabled = true # change to true on final implementation
@@ -62,16 +69,25 @@ func setEnemyState(new_enemy_state:enemy_states):
 	# LEAPING state
 	if new_enemy_state == enemy_states.LEAPING:
 		leap_has_left_ground = false
-		# Launch toward cached leap target. Keep this separate from FALLING so the leap isn't hijacked.
-		var flat_dir:Vector3 = leap_target_position - global_position
-		flat_dir.y = 0.0
-		if flat_dir.length_squared() > 0.001:
-			flat_dir = flat_dir.normalized()
-		else:
-			flat_dir = -transform.basis.z
-		velocity.x = flat_dir.x * leap_horizontal_speed
-		velocity.z = flat_dir.z * leap_horizontal_speed
-		velocity.y = leap_vertical_speed
+		leap_time_in_state = 0.0
+		# Launch with a ballistic velocity so that, when possible, the apex of the jump is at the target.
+		# If the target is above us, choose time so vertical velocity is ~0 at the target (apex there).
+		# Otherwise, fall back to the configured leap_travel_time.
+		var gravity:Vector3 = get_gravity()
+		var displacement:Vector3 = leap_target_position - global_position
+		var travel_time:float = leap_travel_time
+		var g_y:float = gravity.y
+		var dy:float = displacement.y
+		
+		if g_y < -0.001 and dy > 0.01:
+			# Make the target the apex: dy = -0.5 * g_y * T^2  ->  T = sqrt(2*dy / -g_y)
+			travel_time = sqrt(2.0 * dy / -g_y)
+		
+		leap_current_travel_time = max(travel_time, 0.01)
+		
+		# Solve p(t) = p0 + v*t + 0.5*g*t^2  => v = (p(t) - p0 - 0.5*g*t^2) / t
+		var initial_velocity:Vector3 = (displacement - 0.5 * gravity * leap_current_travel_time * leap_current_travel_time) / leap_current_travel_time
+		velocity = initial_velocity
 	
 
 func _ready() -> void:
@@ -117,12 +133,16 @@ func _physics_process(delta: float) -> void:
 			velocity.z = lerp(velocity.z, 0.0, slowInAirFactor * delta)
 		elif enemy_state == enemy_states.LEAPING:
 			# Let the initial launch velocity + gravity handle the arc.
-			# Track when we've actually left the ground so we only end the leap after a real airborne phase.
+			# Track when we've actually left the ground so we only end the leap after a real airborne phase,
+			# and only after roughly the intended travel time has elapsed.
+			leap_time_in_state += delta
 			if not is_on_floor():
 				leap_has_left_ground = true
-			elif leap_has_left_ground and is_on_floor():
-				# Land from leap -> resume following (or chain into another state later)
+			elif leap_has_left_ground and is_on_floor() and leap_time_in_state >= leap_current_travel_time:
+				# Land from leap -> emit signal and resume following (or chain into another state later)
+				leap_landed.emit()
 				leap_has_left_ground = false
+				leap_time_in_state = 0.0
 				setEnemyState(enemy_states.FOLLOWING)
 		elif enemy_state == enemy_states.FOLLOWING:
 			# Navigation behavior mirroring EnemyFilth.RUNNING
@@ -160,9 +180,12 @@ func _physics_process(delta: float) -> void:
 				rotation.y = lerp_angle(rotation.y, target_angle, lerp_angle_factor * delta)
 	move_and_slide()
 
-
 func _on_player_detector_body_entered(player:Player) -> void:
 	setEnemyState(enemy_states.PREPARELEAP)
 
 func _on_prepare_leap_delay_timeout() -> void:
 	setEnemyState(enemy_states.LEAPING)
+
+
+func _on_leap_landed() -> void:
+	player_detector_collider.disabled = false

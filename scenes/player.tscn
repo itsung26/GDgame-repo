@@ -521,6 +521,7 @@ shape = SubResource("CylinderShape3D_oprun")
 disabled = true
 
 [node name="Predicted Position Debug" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("BoxMesh_i4ail")
 script = SubResource("GDScript_i4ail")
 

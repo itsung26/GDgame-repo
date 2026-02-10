@@ -250,10 +250,6 @@ behavior_enabled = false
 
 [node name="Skitterbomb" parent="." instance=ExtResource("11_r4hxy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8346786, 0, 0)
-lerp_angle_factor = 12.5
-path_update_threshold = 1.25
-prepare_leap_duration = 0.25
-SPEED = 450.0
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 

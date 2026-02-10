@@ -772,6 +772,14 @@ func getPredictedPos(time:float) -> Vector3:
 	var r:Vector3 = a + global_position
 	return r
 
+## Get's the player camera's predicted position at [code]time[/code] seconds, assuming velocity
+## will remain constant. Cane be used for enemy aim prediction. Returns in the global
+## coordinate system.
+func getCameraPredictedPos(time:float) -> Vector3:
+	var a:Vector3 = velocity * time
+	var r:Vector3 = a + camera_3d.global_position
+	return r
+
 ## Returns global coords.
 func getGlobalPos() -> Vector3:
 	return global_position

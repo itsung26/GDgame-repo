@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://da0o4xn0tk2l8"]
+[gd_scene load_steps=14 format=3 uid="uid://da0o4xn0tk2l8"]
 
 [ext_resource type="Script" uid="uid://1fvkhlatl2xa" path="res://scripts/skitterbomb.gd" id="1_puc1e"]
 [ext_resource type="PackedScene" uid="uid://cuguo3styi87u" path="res://assets/meshes/Skitterbomb/Skitterbomb.blend" id="2_ntgaj"]
 [ext_resource type="Texture2D" uid="uid://btuh66ked0vkk" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_01.png" id="3_f1415"]
 [ext_resource type="Material" uid="uid://63qriytymt0s" path="res://assets/meshes/Skitterbomb/material resources/glow eye parts red.tres" id="3_i23tl"]
 [ext_resource type="PackedScene" uid="uid://dctdckc0awxi0" path="res://scenes/state_debug_text.tscn" id="5_ogiig"]
+[ext_resource type="PackedScene" uid="uid://cciw4emper80t" path="res://scenes/goto_cube.tscn" id="6_4qdxy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c526l"]
 radius = 0.357994
@@ -139,7 +140,13 @@ _data = {
 collision_layer = 2
 collision_mask = 559
 script = ExtResource("1_puc1e")
+lerp_angle_factor = 12.5
+path_update_threshold = 1.25
 initial_state = 3
+prepare_leap_duration = 0.001
+leap_travel_time = 0.5
+leap_to_player_offset = Vector3(0, 2.5, 0)
+SPEED = 450.0
 metadata/_custom_type_script = "uid://1fvkhlatl2xa"
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
@@ -291,6 +298,11 @@ one_shot = true
 [node name="StateDebugText" parent="." instance=ExtResource("5_ogiig")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9012779, 0)
 
+[node name="GotoCube" parent="." node_paths=PackedStringArray("owner_node3d") instance=ExtResource("6_4qdxy")]
+owner_node3d = NodePath("..")
+position_variable = &"leap_target_position"
+
+[connection signal="leap_landed" from="." to="." method="_on_leap_landed"]
 [connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="timeout" from="leap delay timer" to="." method="_on_prepare_leap_delay_timeout"]
 
