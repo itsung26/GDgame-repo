@@ -44,6 +44,8 @@ var leap_target_position:Vector3 = Vector3.ZERO
 var leap_has_left_ground:bool = false
 var leap_time_in_state:float = 0.0
 var leap_current_travel_time:float = 0.0
+var collisions_last_frame:int = 0
+var can_explode:bool = true
 
 func setEnemyState(new_enemy_state:enemy_states):
 	var previous_enemy_state:enemy_states = enemy_state
@@ -57,7 +59,20 @@ func setEnemyState(new_enemy_state:enemy_states):
 	
 	# STARTUP state
 	if new_enemy_state == enemy_states.STARTUP:
-		animation_player.play("rear action")
+		animation_player.play(&"rear action")
+	
+	# IDLE state
+	if new_enemy_state == enemy_states.IDLE:
+		velocity = Vector3.ZERO
+		animation_player.play(&"Idle")
+	
+	# FOLLOWING state
+	if new_enemy_state == enemy_states.FOLLOWING:
+		animation_player.play(&"forwards")
+	
+	# FALLING state
+	if new_enemy_state == enemy_states.FALLING:
+		animation_player.play(&"Falling")
 	
 	# PREPARELEAP state
 	if new_enemy_state == enemy_states.PREPARELEAP:
@@ -72,6 +87,7 @@ func setEnemyState(new_enemy_state:enemy_states):
 		rotation.y = rotation_looking_at_targ.y
 		player_detector_collider.disabled = true # change to true on final implementation
 		leap_delay_timer.start(prepare_leap_duration)
+		animation_player.play(&"prepare leap")
 
 	# LEAPING state
 	if new_enemy_state == enemy_states.LEAPING:
@@ -86,6 +102,7 @@ func setEnemyState(new_enemy_state:enemy_states):
 		var travel_time:float = leap_travel_time
 		var g_y:float = gravity.y
 		var dy:float = displacement.y
+		animation_player.play(&"leaping")
 		
 		if g_y < -0.001 and dy > 0.01:
 			# Make the target the apex: dy = -0.5 * g_y * T^2  ->  T = sqrt(2*dy / -g_y)
@@ -108,6 +125,7 @@ func setEnemyState(new_enemy_state:enemy_states):
 		var target_point:Vector3 = player.getFacingPoint()
 		var dir:Vector3 = (target_point - global_position).normalized()
 		velocity = dir * SPEED * return_to_sender_multiplier
+		add_collision_exception_with(player)
 
 func _ready() -> void:
 	# Initialize navigation data if we have a player
@@ -119,18 +137,9 @@ func _ready() -> void:
 	setEnemyState(initial_state)
 	
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("debug func"):
-		global_position.y += 10.0
-	if behavior_enabled:
-		if enemy_state == enemy_states.FALLING:
-			animation_player.play("Falling")
-		elif enemy_state == enemy_states.IDLE:
-			animation_player.play("Idle")
-		elif enemy_state == enemy_states.FOLLOWING:
-			animation_player.play("forwards")
-	else:
+	if not behavior_enabled:
 		setEnemyState(enemy_states.IDLE)
-
+	
 func _physics_process(delta: float) -> void:
 	if behavior_enabled:
 		# apply gravity when in the air
@@ -197,7 +206,14 @@ func _physics_process(delta: float) -> void:
 			if direction_to_target.length_squared() > 0.001: # Avoid division by zero
 				var target_angle:float = atan2(direction_to_target.x, direction_to_target.z) + PI
 				rotation.y = lerp_angle(rotation.y, target_angle, lerp_angle_factor * delta)
+				
 	move_and_slide()
+	
+	collisions_last_frame = get_slide_collision_count()
+	if collisions_last_frame > 0 and enemy_state == enemy_states.RETURNTOSENDER:
+		if can_explode:
+			explode()
+			can_explode = false
 
 ## Returns the location in global coordinates that the enemy is currently leaping at.
 ## If the enemy is not leaping at anything, the function will return the last location
@@ -205,6 +221,15 @@ func _physics_process(delta: float) -> void:
 func getJumpingAtTargetPos() -> Vector3:
 	return leap_target_position
 
+func explode() -> void:
+	var explosion:Explosion3D = explosion_SCENE.instantiate()
+	get_tree().current_scene.add_child(explosion)
+	explosion.setup_preset(global_position, Explosion3D.explosion_presets.YELLOW_SMALL)
+	
+	var explosion_2:Explosion3D = explosion_SCENE.instantiate()
+	get_tree().current_scene.add_child(explosion_2)
+	explosion_2.setup_preset(global_position, Explosion3D.explosion_presets.SHOCKWAVE_SMALL)
+	
 func _on_player_detector_body_entered(player:Player) -> void:
 	setEnemyState(enemy_states.PREPARELEAP)
 
@@ -216,13 +241,9 @@ func _on_leap_landed() -> void:
 	player_detector_collider.disabled = false
 
 func _on_explosion_timer_timeout() -> void:
-	var explosion:Explosion3D = explosion_SCENE.instantiate()
-	get_tree().current_scene.add_child(explosion)
-	explosion.setup_preset(global_position, Explosion3D.explosion_presets.YELLOW_SMALL)
-	
-	var explosion_2:Explosion3D = explosion_SCENE.instantiate()
-	get_tree().current_scene.add_child(explosion_2)
-	explosion_2.setup_preset(global_position, Explosion3D.explosion_presets.SHOCKWAVE_SMALL)
+	if can_explode:
+		explode()
+		can_explode = false
 
 func _on_parried() -> void:
 	explosion_timer.stop()

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqtx3d0wrsnu3"]
+
+[ext_resource type="PackedScene" uid="uid://dmxc7d8vwrjs5" path="res://assets/meshes/temp.fbx" id="1_1rp5l"]
+
+[node name="EnviromentTest" type="Node3D"]
+
+[node name="temp" parent="." instance=ExtResource("1_1rp5l")]
+
+[editable path="temp"]
