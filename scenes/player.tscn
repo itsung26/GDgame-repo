@@ -545,6 +545,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Pivot"]
 unique_name_in_owner = true
+process_mode = 1
 attributes = SubResource("CameraAttributesPractical_4ni07")
 script = ExtResource("9_ke2ow")
 max_camera_roll = 2.25

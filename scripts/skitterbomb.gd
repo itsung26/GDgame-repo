@@ -11,6 +11,13 @@ signal leap_landed
 @onready var leap_delay_timer: Timer = $"leap delay timer"
 @onready var player_detector_collider: CollisionShape3D = $"player detector/player detector collider"
 @onready var explosion_timer: Timer = $ExplosionTimer
+@onready var physics_collider: CollisionShape3D = $"Physics Collider"
+@onready var physical_bone_simulator_3d: PhysicalBoneSimulator3D = $Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D
+@onready var _temp_arr:Array[Node] = physical_bone_simulator_3d.get_children()
+@onready var physical_bones:Array[PhysicalBone3D] = []
+@onready var red_flash_animator: AnimationPlayer = $"Skitterbomb2/Armature/Skeleton3D/back bomb/red flash animator"
+@onready var omni_light_3d: OmniLight3D = $"Skitterbomb2/Armature/Skeleton3D/back bomb/OmniLight3D"
+@onready var back_bomb_red_flash: Sprite3D = $"Skitterbomb2/Armature/Skeleton3D/back bomb/back bomb red flash"
 
 # constants
 const explosion_SCENE:PackedScene = preload("res://scenes/explosion_3d.tscn")
@@ -35,6 +42,8 @@ var enemy_state:enemy_states:
 @export var leap_to_player_offset:Vector3 = Vector3.ZERO
 ## The enemy's speed is multiplied by this amount upon being parried while leaping.
 @export var return_to_sender_multiplier:float = 2.0
+# The amount of force that is applied to the gibbed limbs
+@export var gib_fling_force:float
 
 # regular vars
 var last_player_position:Vector3 = Vector3.ZERO
@@ -51,7 +60,11 @@ func setEnemyState(new_enemy_state:enemy_states):
 	var previous_enemy_state:enemy_states = enemy_state
 	enemy_state = new_enemy_state
 	
+	# prevent same state switching
 	if previous_enemy_state == new_enemy_state:
+		return
+	# prevent switching from death state
+	if previous_enemy_state == enemy_states.DEAD:
 		return
 	
 	# update the debug state text
@@ -60,20 +73,23 @@ func setEnemyState(new_enemy_state:enemy_states):
 	# STARTUP state
 	if new_enemy_state == enemy_states.STARTUP:
 		animation_player.play(&"rear action")
-	
+		
 	# IDLE state
 	if new_enemy_state == enemy_states.IDLE:
 		velocity = Vector3.ZERO
 		animation_player.play(&"Idle")
-	
+		
 	# FOLLOWING state
 	if new_enemy_state == enemy_states.FOLLOWING:
+		animation_player.speed_scale = 2.0
 		animation_player.play(&"forwards")
-	
+	if previous_enemy_state == enemy_states.FOLLOWING:
+		animation_player.speed_scale = 1.0
+		
 	# FALLING state
 	if new_enemy_state == enemy_states.FALLING:
 		animation_player.play(&"Falling")
-	
+		
 	# PREPARELEAP state
 	if new_enemy_state == enemy_states.PREPARELEAP:
 		velocity.x = 0.0
@@ -88,7 +104,7 @@ func setEnemyState(new_enemy_state:enemy_states):
 		player_detector_collider.disabled = true # change to true on final implementation
 		leap_delay_timer.start(prepare_leap_duration)
 		animation_player.play(&"prepare leap")
-
+		
 	# LEAPING state
 	if new_enemy_state == enemy_states.LEAPING:
 		leap_has_left_ground = false
@@ -126,6 +142,24 @@ func setEnemyState(new_enemy_state:enemy_states):
 		var dir:Vector3 = (target_point - global_position).normalized()
 		velocity = dir * SPEED * return_to_sender_multiplier
 		add_collision_exception_with(player)
+	
+	# DEAD state
+	if new_enemy_state == enemy_states.DEAD:
+		var ng:Array[Node] = get_tree().get_nodes_in_group("timers")
+		var timers:Array[Timer] = []
+		timers.append_array(ng)
+		velocity = Vector3.ZERO
+		parriable = false
+		physics_collider.disabled = true
+		player_detector_collider.disabled = true
+		can_explode = false
+		omni_light_3d.visible = false
+		back_bomb_red_flash.visible = false
+		animation_player.stop()
+		red_flash_animator.stop()
+		for t:Timer in timers:
+			t.stop()
+		ragdoll(gib_fling_force)
 
 func _ready() -> void:
 	# Initialize navigation data if we have a player
@@ -134,78 +168,88 @@ func _ready() -> void:
 		# Match EnemyFilth's navigation agent tuning
 		navigation_agent_3d.path_desired_distance = 0.5
 		navigation_agent_3d.target_desired_distance = 0.5
+	physical_bones.append_array(_temp_arr)
 	setEnemyState(initial_state)
 	
 func _process(delta: float) -> void:
-	if not behavior_enabled:
+	if behavior_enabled:
+		if enemy_state == enemy_states.DEAD:
+			animation_player.stop()
+			red_flash_animator.stop()
+	else:
 		setEnemyState(enemy_states.IDLE)
 	
 func _physics_process(delta: float) -> void:
-	if behavior_enabled:
-		# apply gravity when in the air
-		if not is_on_floor() and gravity_enabled and enemy_state != enemy_states.RETURNTOSENDER:
-			velocity += get_gravity() * delta
+	# apply gravity when in the air
+	if not is_on_floor() and gravity_enabled and enemy_state != enemy_states.RETURNTOSENDER and enemy_state != enemy_states.DEAD:
+		velocity += get_gravity() * delta
+	
+	# handle air/ground state transitions
+	# Only FOLLOWING can enter FALLING. LEAPING is handled separately below.
+	if is_on_floor():
+		if enemy_state == enemy_states.FALLING and enemy_state != enemy_states.DEAD and enemy_state != enemy_states.RETURNTOSENDER:
+			setEnemyState(enemy_states.FOLLOWING)
+	elif not is_on_floor() and enemy_state == enemy_states.FOLLOWING:
+		setEnemyState(enemy_states.FALLING)
+	
+	#region State behaviour
+	# state-specific physics
+	if enemy_state == enemy_states.FALLING:
+		# In the air: don't follow, just damp XZ velocity
+		velocity.x = lerp(velocity.x, 0.0, slowInAirFactor * delta)
+		velocity.z = lerp(velocity.z, 0.0, slowInAirFactor * delta)
+	elif enemy_state == enemy_states.LEAPING:
+		# Let the initial launch velocity + gravity handle the arc.
+		# Track when we've actually left the ground so we only end the leap after a real airborne phase,
+		# and only after roughly the intended travel time has elapsed.
+		leap_time_in_state += delta
+		if not is_on_floor():
+			leap_has_left_ground = true
+		elif leap_has_left_ground and is_on_floor() and leap_time_in_state >= leap_current_travel_time:
+			# Land from leap -> emit signal and resume following (or chain into another state later)
+			leap_landed.emit()
+			leap_has_left_ground = false
+			leap_time_in_state = 0.0
+			setEnemyState(enemy_states.FOLLOWING)
+	elif enemy_state == enemy_states.FOLLOWING:
+		# Navigation behavior mirroring EnemyFilth.RUNNING
+		if player == null:
+			return
+	
+		# Throttled pathfinding updates - only update if player moved significantly or timer expired
+		path_update_timer += delta
+		var player_moved_distance:float = player.global_position.distance_to(last_player_position)
 		
-		# handle air/ground state transitions
-		# Only FOLLOWING can enter FALLING. LEAPING is handled separately below.
-		if is_on_floor():
-			if enemy_state == enemy_states.FALLING and enemy_state != enemy_states.DEAD and enemy_state != enemy_states.RETURNTOSENDER:
-				setEnemyState(enemy_states.FOLLOWING)
-		elif not is_on_floor() and enemy_state == enemy_states.FOLLOWING:
-			setEnemyState(enemy_states.FALLING)
+		if path_update_timer >= path_update_interval or player_moved_distance >= path_update_threshold:
+			# Only update target if it's been a while or player moved significantly
+			navigation_agent_3d.target_position = player.global_position
+			last_player_position = player.global_position
+			path_update_timer = 0.0
 		
-		# state-specific physics
-		if enemy_state == enemy_states.FALLING:
-			# In the air: don't follow, just damp XZ velocity
-			velocity.x = lerp(velocity.x, 0.0, slowInAirFactor * delta)
-			velocity.z = lerp(velocity.z, 0.0, slowInAirFactor * delta)
-		elif enemy_state == enemy_states.LEAPING:
-			# Let the initial launch velocity + gravity handle the arc.
-			# Track when we've actually left the ground so we only end the leap after a real airborne phase,
-			# and only after roughly the intended travel time has elapsed.
-			leap_time_in_state += delta
-			if not is_on_floor():
-				leap_has_left_ground = true
-			elif leap_has_left_ground and is_on_floor() and leap_time_in_state >= leap_current_travel_time:
-				# Land from leap -> emit signal and resume following (or chain into another state later)
-				leap_landed.emit()
-				leap_has_left_ground = false
-				leap_time_in_state = 0.0
-				setEnemyState(enemy_states.FOLLOWING)
-		elif enemy_state == enemy_states.FOLLOWING:
-			# Navigation behavior mirroring EnemyFilth.RUNNING
-			if player == null:
-				return
-			
-			# Throttled pathfinding updates - only update if player moved significantly or timer expired
-			path_update_timer += delta
-			var player_moved_distance:float = player.global_position.distance_to(last_player_position)
-			
-			if path_update_timer >= path_update_interval or player_moved_distance >= path_update_threshold:
-				# Only update target if it's been a while or player moved significantly
-				navigation_agent_3d.target_position = player.global_position
-				last_player_position = player.global_position
-				path_update_timer = 0.0
-			
-			# Cache the next path position to avoid calling it twice
-			if navigation_agent_3d.is_navigation_finished():
-				# If pathfinding is finished, move directly toward player
-				cached_next_path_position = player.global_position
-			else:
-				cached_next_path_position = navigation_agent_3d.get_next_path_position()
-			
-			# movement
-			var dir = cached_next_path_position - global_position # get the direction to go
-			dir = dir.normalized() # normalize it
-			var target_vector:Vector3 = dir * SPEED * delta
-			velocity.x = target_vector.x
-			velocity.z = target_vector.z
-			
-			# rotation - calculate direction directly instead of using look_at
-			var direction_to_target:Vector3 = cached_next_path_position - global_position
-			if direction_to_target.length_squared() > 0.001: # Avoid division by zero
-				var target_angle:float = atan2(direction_to_target.x, direction_to_target.z) + PI
-				rotation.y = lerp_angle(rotation.y, target_angle, lerp_angle_factor * delta)
+		# Cache the next path position to avoid calling it twice
+		if navigation_agent_3d.is_navigation_finished():
+			# If pathfinding is finished, move directly toward player
+			cached_next_path_position = player.global_position
+		else:
+			cached_next_path_position = navigation_agent_3d.get_next_path_position()
+		
+		# movement
+		var dir = cached_next_path_position - global_position # get the direction to go
+		dir = dir.normalized() # normalize it
+		var target_vector:Vector3 = dir * SPEED * delta
+		velocity.x = target_vector.x
+		velocity.z = target_vector.z
+		
+		# rotation - calculate direction directly instead of using look_at
+		var direction_to_target:Vector3 = cached_next_path_position - global_position
+		if direction_to_target.length_squared() > 0.001: # Avoid division by zero
+			var target_angle:float = atan2(direction_to_target.x, direction_to_target.z) + PI
+			rotation.y = lerp_angle(rotation.y, target_angle, lerp_angle_factor * delta)
+	elif enemy_state == enemy_states.DEAD:
+		velocity = Vector3.ZERO
+		
+		
+	#endregion
 				
 	move_and_slide()
 	
@@ -214,6 +258,12 @@ func _physics_process(delta: float) -> void:
 		if can_explode:
 			explode()
 			can_explode = false
+
+func _killEnemy():
+	if player.getHookedTarget() == self:
+		# unhook grapple if the hooked enemy is self
+		player.set_action_state(player.action_states.IDLE)
+	setEnemyState(enemy_states.DEAD)
 
 ## Returns the location in global coordinates that the enemy is currently leaping at.
 ## If the enemy is not leaping at anything, the function will return the last location
@@ -229,13 +279,27 @@ func explode() -> void:
 	var explosion_2:Explosion3D = explosion_SCENE.instantiate()
 	get_tree().current_scene.add_child(explosion_2)
 	explosion_2.setup_preset(global_position, Explosion3D.explosion_presets.SHOCKWAVE_SMALL)
-	
+
+## Adds a collision exception with [param object] for all physical bones.
+func physBonesMakeException(object:Node):
+	for bone:PhysicalBone3D in physical_bones:
+		bone.add_collision_exception_with(object)
+
+func ragdoll(force_applied:float) -> void:
+	physical_bone_simulator_3d.active = true
+	physical_bone_simulator_3d.physical_bones_start_simulation()
+	physBonesMakeException(player)
+	for bone:PhysicalBone3D in physical_bones:
+		var random_direction:Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+		bone.linear_velocity += random_direction * force_applied
+		MemoryCleaner.gib_limbs_drawn.append(bone)
+
+
 func _on_player_detector_body_entered(player:Player) -> void:
 	setEnemyState(enemy_states.PREPARELEAP)
 
 func _on_prepare_leap_delay_timeout() -> void:
 	setEnemyState(enemy_states.LEAPING)
-
 
 func _on_leap_landed() -> void:
 	player_detector_collider.disabled = false

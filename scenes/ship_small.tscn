@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bugq6nbawnyvw"]
+
+[ext_resource type="PackedScene" uid="uid://ctq0wkfqd5vq" path="res://assets/meshes/rb ship/rb ship.blend" id="1_uacdm"]
+[ext_resource type="PackedScene" uid="uid://dsal1i0nd3xgb" path="res://assets/meshes/player size comparison/player size comparison.fbx" id="2_xb44y"]
+
+[node name="ShipSmall" type="Node3D"]
+
+[node name="rb ship" parent="." instance=ExtResource("1_uacdm")]
+
+[node name="player size comparison" parent="." instance=ExtResource("2_xb44y")]
+
+[editable path="rb ship"]

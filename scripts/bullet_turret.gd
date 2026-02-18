@@ -132,7 +132,6 @@ func _ready() -> void:
 		smoke_particle.emitting = false
 
 func _process(delta: float) -> void:
-	
 	# update the state ddebug text labels
 	state_debug_text.updateStateReadout(enemy_state, enemy_states)
 	state_debug_text_2.updateStateReadout(enemy_attack_state, enemy_attack_states)

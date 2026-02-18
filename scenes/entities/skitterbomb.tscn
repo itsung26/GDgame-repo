@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://da0o4xn0tk2l8"]
+[gd_scene load_steps=15 format=3 uid="uid://da0o4xn0tk2l8"]
 
 [ext_resource type="Script" uid="uid://1fvkhlatl2xa" path="res://scripts/skitterbomb.gd" id="1_puc1e"]
 [ext_resource type="PackedScene" uid="uid://cuguo3styi87u" path="res://assets/meshes/Skitterbomb/Skitterbomb.blend" id="2_ntgaj"]
 [ext_resource type="Texture2D" uid="uid://btuh66ked0vkk" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_01.png" id="3_f1415"]
 [ext_resource type="PackedScene" uid="uid://dctdckc0awxi0" path="res://scenes/state_debug_text.tscn" id="5_ogiig"]
 [ext_resource type="PackedScene" uid="uid://cciw4emper80t" path="res://scenes/goto_cube.tscn" id="6_4qdxy"]
+[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="6_c5kqr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c526l"]
 radius = 0.357994
@@ -22,6 +23,15 @@ size = Vector3(0.38, 0.187, 0.396)
 height = 0.4163208
 radius = 0.060546875
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_yswi4"]
+size = Vector3(0.07114258, 0.3998674, 0.2049276)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4qdxy"]
+size = Vector3(0.07114258, 0.36955795, 0.22791347)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c5kqr"]
+size = Vector3(0.07114258, 0.4289196, 0.22791347)
+
 [node name="Skitterbomb" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 559
@@ -33,7 +43,8 @@ initial_state = 3
 prepare_leap_duration = 0.5
 leap_travel_time = 0.5
 leap_to_player_offset = Vector3(0, 2.5, 0)
-return_to_sender_multiplier = 0.01
+return_to_sender_multiplier = 0.25
+gib_fling_force = 5.0
 HEALTH = 15.0
 SPEED = 450.0
 metadata/_custom_type_script = "uid://1fvkhlatl2xa"
@@ -181,31 +192,89 @@ transform = Transform3D(3.6902276e-07, 0.99999994, 1.8442757e-14, -1, 4.286274e-
 transform = Transform3D(-0.17891668, 6.4546626e-08, -5.059106e-16, -6.454662e-08, -0.1789167, -3.0818065e-08, -1.6663192e-15, -3.0818065e-08, 0.17891668, 0.10235815, -0.20896554, 0.01623593)
 
 [node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="Skitterbomb2/Armature/Skeleton3D" index="34"]
+active = false
 
-[node name="Physical Bone Root" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-1.3654171e-16, 3.0993726e-07, 1, -1.8086752e-07, -1, 3.0993726e-07, 1, -1.8086752e-07, 5.619412e-14, 0.010747075, 0.07903585, 2.7995557e-06)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7867497e-06, -0.00027216974, 1.4128847e-13)
-body_offset = Transform3D(1, 5.1913673e-10, 5.6099958e-14, -5.1913673e-10, 0.99999994, -5.191261e-10, 2.4087923e-17, 5.1911897e-10, 1, 2.78675e-06, 0.0002721697, 0)
+[node name="Physical Bone Root" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
+transform = Transform3D(-4.065758e-20, 3.094183e-07, 1, -1.8138647e-07, -1, 3.094183e-07, 1, -1.8138647e-07, 5.6124332e-14, -2.9802322e-08, 0.07930793, 1.071021e-08)
+collision_layer = 4
+collision_mask = 4
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6517146e-20, -8.940698e-08, 1.4928957e-20)
+body_offset = Transform3D(1, 1.8474111e-13, 5.6124298e-14, -1.8474111e-13, 0.99999994, -1.7408297e-13, 1.2705494e-20, 1.6697754e-13, 1, 0, 8.940697e-08, 0)
+bounce = 0.18
 bone_name = "Root"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Root"]
 transform = Transform3D(1, 4.5536474e-19, 1.9904625e-26, 0, -4.371139e-08, 1, 4.5536474e-19, -1, -4.371139e-08, 0.0006103541, 0.14109996, 0.064513)
 shape = SubResource("BoxShape3D_ogiig")
 
-[node name="PhysicalBone3D" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-8.716978e-08, -0.028724482, 0.99958736, -0.009985874, -0.9995375, -0.028723052, 0.99995023, -0.009981755, -0.00028675192, 0.104362726, 0.13468233, -0.10466134)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.735847e-05, -0.00019594927, 0.00013119147)
-body_offset = Transform3D(1.0000002, 7.151626e-06, 1.6347622e-07, -7.1534887e-06, 1.0000001, -8.393079e-06, -1.6359263e-07, 8.389354e-06, 1, 1.7359853e-05, 0.00019595027, -0.00013118982)
+[node name="Physical Bone Ocular" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
+transform = Transform3D(-1.2903135e-07, -0.028732857, 0.9995871, -0.0099930195, -0.9995372, -0.028731422, 0.9999501, -0.009988897, -0.000286999, 0.093752444, 0.13487445, -0.104676746)
+collision_layer = 4
+collision_mask = 4
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.72529e-08, -1.6391276e-07, 1.8286152e-15)
+body_offset = Transform3D(1.0000001, 6.519258e-09, 2.910383e-11, -8.381903e-09, 1.0000001, -1.4901161e-08, -8.731149e-11, 1.1175871e-08, 1, 3.7252903e-08, 1.6391277e-07, 0)
+bounce = 0.18
 bone_name = "Ocular"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D/PhysicalBone3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Ocular"]
 transform = Transform3D(1.0000038, 5.9604645e-08, -1.4551915e-10, -3.9115548e-08, 1.0000056, -1.1175871e-08, 1.3969839e-09, 2.1792948e-07, 0.9999984, -8.493662e-07, 0.17623281, -3.5762787e-06)
 shape = SubResource("CylinderShape3D_ogiig")
 
-[node name="leap delay timer" type="Timer" parent="."]
+[node name="Physical Bone FR upper" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
+transform = Transform3D(0.00012489622, -0.68821645, 0.7255054, 0.000653689, -0.72550523, -0.6882163, 0.9999998, 0.00056021055, 0.00035926662, -0.03017807, -0.09897362, -0.06604201)
+collision_layer = 4
+collision_mask = 4
+body_offset = Transform3D(1.0000001, 2.9831426e-08, 4.172034e-07, -2.96277e-08, 1.0000001, -4.7683716e-07, -4.172034e-07, 4.172325e-07, 1.0000001, 0, 0, 0)
+bounce = 0.18
+bone_name = "Root.001"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone FR upper"]
+transform = Transform3D(1, 2.1670232e-07, -1.0658062e-08, -2.0861633e-07, 0.9468678, -0.32162303, -5.960468e-08, 0.32162303, 0.9468678, 5.9604645e-08, 0.23401926, 0.10271412)
+shape = SubResource("BoxShape3D_yswi4")
+
+[node name="Physical Bone FL Upper2" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
+transform = Transform3D(0.00012512521, -0.6882168, 0.7255051, 0.0006534048, -0.7255049, -0.6882167, 0.9999998, 0.0005601618, 0.00035890518, -0.030177832, -0.098973304, 0.06135557)
+collision_layer = 4
+collision_mask = 4
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4901158e-07, 3.8743013e-07, 8.940688e-08)
+body_offset = Transform3D(1.0000002, -2.910383e-11, -4.4703484e-08, 1.4551915e-10, 1.0000002, -2.0861626e-07, 4.467438e-08, 1.4901161e-07, 1.0000002, -1.4901161e-07, -3.874302e-07, -8.940697e-08)
+bounce = 0.18
+bone_name = "Root.004"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone FL Upper2"]
+transform = Transform3D(0.9999997, -4.4703484e-07, 4.3213367e-07, -2.682209e-07, 0.99850583, -0.054635435, -7.4505806e-08, 0.054638356, 0.99850696, 1.8332718e-08, 0.35692954, 0.11514917)
+shape = SubResource("BoxShape3D_yswi4")
+
+[node name="Physical Bone BR upper2" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
+transform = Transform3D(0.002232146, -0.68821645, -0.725502, 0.0025885704, 0.72550535, -0.6882116, 0.9999942, -0.000341824, 0.0034009302, -0.0301781, 0.021758337, -0.06563726)
+collision_layer = 4
+collision_mask = 4
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2351744e-08, -2.9802312e-08, -2.9802347e-08)
+body_offset = Transform3D(1.0000001, 2.6798807e-07, -5.9837475e-08, -2.6868656e-07, 0.9999999, 2.9802322e-07, 6.088521e-08, -8.940697e-08, 0.9999993, -2.2351742e-08, 2.9802322e-08, 2.9802322e-08)
+bounce = 0.18
+bone_name = "Root.013"
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone BR upper2"]
+transform = Transform3D(1, -3.5762787e-07, 4.4703484e-08, -1.1920929e-07, 0.99850583, -0.0546363, 0, 0.054638147, 0.9985059, 0.0061989874, 0.35828376, -0.093033075)
+shape = SubResource("BoxShape3D_4qdxy")
+
+[node name="Physical Bone BL Upper" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
+transform = Transform3D(0.0022321453, -0.6882166, -0.72550184, 0.0025889818, 0.7255052, -0.68821186, 0.9999942, -0.00034212213, 0.003401213, -0.03017813, 0.021758359, 0.061760373)
+collision_layer = 4
+collision_mask = 4
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2293455e-07, -5.9604584e-08, -5.960466e-08)
+body_offset = Transform3D(1.0000002, -2.9918738e-08, 1.18045136e-07, 2.9336661e-08, 1.0000001, 9.536743e-07, -1.1839438e-07, -7.1525574e-07, 1.0000002, -1.2293458e-07, 5.9604645e-08, 5.9604645e-08)
+bounce = 0.18
+bone_name = "Root.009"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone BL Upper"]
+transform = Transform3D(1, -2.8312206e-07, -5.9604645e-08, 0, 0.9559522, 0.29352307, 0, -0.2935216, 0.95595163, 0.0061989957, 0.36499092, -0.14952092)
+shape = SubResource("BoxShape3D_c5kqr")
+
+[node name="leap delay timer" type="Timer" parent="." groups=["timers"]]
 one_shot = true
 
-[node name="ExplosionTimer" type="Timer" parent="."]
+[node name="ExplosionTimer" type="Timer" parent="." groups=["timers"]]
 one_shot = true
 
 [node name="StateDebugText" parent="." instance=ExtResource("5_ogiig")]
@@ -214,6 +283,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9012779, 0)
 [node name="GotoCube" parent="." node_paths=PackedStringArray("owner_node3d") instance=ExtResource("6_4qdxy")]
 owner_node3d = NodePath("..")
 position_variable = &"leap_target_position"
+
+[node name="Label3D" type="Label3D" parent="GotoCube"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43638498, 0)
+billboard = 2
+texture_filter = 2
+text = "Leap target"
+font = ExtResource("6_c5kqr")
 
 [connection signal="leap_landed" from="." to="." method="_on_leap_landed"]
 [connection signal="parried" from="." to="." method="_on_parried"]
