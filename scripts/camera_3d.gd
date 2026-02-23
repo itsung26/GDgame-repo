@@ -44,6 +44,10 @@ func _process(delta: float) -> void:
 ## Moves the camera to its slide position.
 func gotoSliding() -> void:
 	camera_sliding = true
+	# If shaking, remove current shake offset before changing position
+	if cam_shaking:
+		pivot.position -= _pivot_last_offset
+		_pivot_last_offset = Vector3.ZERO
 	pivot.position = player.sliding_marker.position
 	# Clamp after moving
 	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
@@ -51,6 +55,10 @@ func gotoSliding() -> void:
 ## Moves the camera back to its normal position from the sliding position.
 func gotoNormal() -> void:
 	camera_sliding = false
+	# If shaking, remove current shake offset before changing position
+	if cam_shaking:
+		pivot.position -= _pivot_last_offset
+		_pivot_last_offset = Vector3.ZERO
 	pivot.position = player.head_marker.position
 	# Clamp after moving
 	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bn6oc86kvsu5j"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bn6oc86kvsu5j"]
 
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="1_tdbgf"]
 
@@ -26,19 +26,44 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdbgf"]
-bg_color = Color(0, 0, 0, 0.45098)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rc7jk"]
+content_margin_left = 15.0
+content_margin_top = 34.0
+content_margin_right = 15.0
+content_margin_bottom = 58.0
+bg_color = Color(0, 0, 0, 0.5568628)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.75, 0.75, 0.75, 0.5568628)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w4yif"]
+content_margin_left = 15.0
+content_margin_top = 34.0
+content_margin_right = 15.0
+content_margin_bottom = 58.0
+bg_color = Color(0, 0, 0, 0.5568628)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.75, 0.75, 0.75, 0.5568628)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [resource]
-Button/font_sizes/font_size = 26
+Button/font_sizes/font_size = 38
 Button/fonts/font = ExtResource("1_tdbgf")
 Button/styles/focus = SubResource("StyleBoxEmpty_tdbgf")
-Button/styles/hover = SubResource("StyleBoxFlat_iybon")
 Button/styles/normal = SubResource("StyleBoxFlat_iybon")
 Button/styles/pressed = SubResource("StyleBoxFlat_ljlb5")
 Label/fonts/font = ExtResource("1_tdbgf")
-Panel/styles/panel = SubResource("StyleBoxFlat_tdbgf")
+Panel/styles/panel = SubResource("StyleBoxFlat_rc7jk")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_w4yif")

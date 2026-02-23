@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://ccwx4hsr3uqux"]
+[gd_scene load_steps=14 format=3 uid="uid://ccwx4hsr3uqux"]
 
 [ext_resource type="FontFile" uid="uid://3svjt1ifyndm" path="res://assets/2d assets/ui/kenney_ui-pack/Font/Kenney Future.ttf" id="1_f1d2v"]
 [ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/pause.gd" id="1_r8yp4"]
 [ext_resource type="PackedScene" uid="uid://co052kx8ng1od" path="res://scenes/main menu screens/main_menu_mainscreen.tscn" id="2_cml1b"]
 [ext_resource type="Theme" uid="uid://bn6oc86kvsu5j" path="res://assets/styles/menu styles/pause_center_buttons.tres" id="2_jn4bt"]
+[ext_resource type="Script" uid="uid://bejfi2ne70q84" path="res://scripts/center_buttons.gd" id="4_cml1b"]
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="4_r1fnm"]
-[ext_resource type="Script" uid="uid://bw05khwxr3227" path="res://scripts/unstuckHandler.gd" id="5_wen6a"]
 [ext_resource type="Texture2D" uid="uid://io1boip5xtqn" path="res://assets/2d assets/ui/icons generic/question-mark-3.png" id="6_r1fnm"]
 [ext_resource type="Theme" uid="uid://c746jwhw0u4xi" path="res://assets/styles/menu styles/options_menu.tres" id="6_wen6a"]
 
@@ -13,7 +13,61 @@
 font = ExtResource("4_r1fnm")
 font_size = 28
 
-[node name="Pause" type="Control"]
+[sub_resource type="Animation" id="Animation_wen6a"]
+resource_name = "open"
+length = 0.1
+
+[sub_resource type="Animation" id="Animation_cml1b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterButtons/CenterContainer/PanelContainerAnimUI:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1xtef"]
+resource_name = "close"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterButtons/CenterContainer/PanelContainer:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterButtons/CenterContainer/PanelContainerAnimUI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1xtef"]
+_data = {
+&"RESET": SubResource("Animation_cml1b"),
+&"close": SubResource("Animation_1xtef"),
+&"open": SubResource("Animation_wen6a")
+}
+
+[node name="PauseMenu" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -27,84 +81,63 @@ main_menu_scene = ExtResource("2_cml1b")
 
 [node name="CenterButtons" type="Control" parent="."]
 layout_mode = 1
-anchor_left = 0.411
-anchor_top = 0.312
-anchor_right = 0.589
-anchor_bottom = 0.719
-offset_left = -473.472
-offset_top = -202.176
-offset_right = 473.472
-offset_bottom = 182.088
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("4_cml1b")
 
-[node name="Panel" type="Panel" parent="CenterButtons"]
+[node name="CenterContainer" type="CenterContainer" parent="CenterButtons"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.411
-anchor_top = 0.312
-anchor_right = 0.589
-anchor_bottom = 0.719
-offset_left = 0.527985
-offset_top = -0.17601
-offset_right = -0.528076
-offset_bottom = 0.0879822
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_lock_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterButtons/Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -102.0
-offset_top = -132.0
-offset_right = 102.0
-offset_bottom = 132.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PausedText" type="Label" parent="CenterButtons/Panel/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="CenterButtons/CenterContainer"]
 layout_mode = 2
+theme = ExtResource("2_jn4bt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterButtons/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="PausedText" type="Label" parent="CenterButtons/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 54
-text = "PAUSED"
+text = "-PAUSED-"
 horizontal_alignment = 1
 
-[node name="Resume" type="Button" parent="CenterButtons/Panel/VBoxContainer"]
+[node name="Resume" type="Button" parent="CenterButtons/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("2_jn4bt")
 text = "Resume"
 
-[node name="Options" type="Button" parent="CenterButtons/Panel/VBoxContainer"]
+[node name="Options" type="Button" parent="CenterButtons/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("2_jn4bt")
 text = "Options"
 
-[node name="MainMenuButton" type="Button" parent="CenterButtons/Panel/VBoxContainer"]
+[node name="Restart" type="Button" parent="CenterButtons/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Main Menu"
-
-[node name="Restart" type="Button" parent="CenterButtons/Panel/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+theme = ExtResource("2_jn4bt")
 text = "Restart"
 
-[node name="Unstuck" type="Button" parent="CenterButtons/Panel/VBoxContainer"]
+[node name="Quit" type="Button" parent="CenterButtons/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Unstuck
+theme = ExtResource("2_jn4bt")
+text = "Quit
 "
-script = ExtResource("5_wen6a")
 
-[node name="Quit" type="Button" parent="CenterButtons/Panel/VBoxContainer"]
+[node name="PanelContainerAnimUI" type="Panel" parent="CenterButtons/CenterContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Quit"
+theme = ExtResource("2_jn4bt")
 
 [node name="ConfirmationPanel" type="Panel" parent="CenterButtons"]
 visible = false
@@ -150,6 +183,12 @@ offset_right = 190.0
 offset_bottom = 62.0
 text = "Yes"
 
+[node name="CenterButtonsAnimator" type="AnimationPlayer" parent="CenterButtons"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_1xtef")
+}
+
 [node name="OptionsMenu" type="Control" parent="."]
 visible = false
 layout_mode = 1
@@ -169,7 +208,7 @@ grow_vertical = 2
 color = Color(0.141176, 0.141176, 0.141176, 0.498039)
 
 [node name="Back" type="Button" parent="OptionsMenu"]
-layout_mode = 2
+layout_mode = 0
 offset_top = 579.0
 offset_right = 174.0
 offset_bottom = 644.0
@@ -266,14 +305,6 @@ theme_override_fonts/font = ExtResource("1_f1d2v")
 theme_override_font_sizes/font_size = 55
 text = "Controls"
 
-[connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/Unstuck" to="CenterButtons/Panel/VBoxContainer/Unstuck" method="_on_pressed"]
-[connection signal="pressed" from="CenterButtons/Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="CenterButtons/ConfirmationPanel/cancelButton" to="." method="_on_cancel_button_pressed"]
-[connection signal="pressed" from="CenterButtons/ConfirmationPanel/confirmButton" to="." method="_on_confirm_button_pressed"]
 [connection signal="pressed" from="OptionsMenu/Back" to="." method="_on_back_pressed"]
 [connection signal="toggled" from="OptionsMenu/HBoxContainer/GraphicsBox/ShaderToggleHolder/ShaderToggle" to="." method="_on_shader_toggle_toggled"]
 [connection signal="toggled" from="OptionsMenu/HBoxContainer/GameplayBox/FreeSlideToggleHolder/FreeSlideToggle" to="." method="_on_free_slide_toggle_toggled"]

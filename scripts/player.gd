@@ -60,12 +60,12 @@ extends CharacterBody3D
 @onready var parry_flash_go_back_marker: Marker3D = $Pivot/Camera3D/parryFlashGoBackMarker
 @onready var punch_raycast: RayCast3D = $Pivot/Camera3D/PunchRaycast
 @onready var rope_origin: BoneAttachment3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin
-@onready var pause: pauseMenu = %Pause
 @onready var slide_particles: SlideParticles = $SlideParticles
 @onready var slide_light:OmniLight3D = $SlideParticles/ImpactParticles/SlideLight
 @onready var impact_sparks:GPUParticles3D = $SlideParticles/ImpactParticles/SparkTrailsSide/ImpactSparks
 @onready var impact_sparks_2:GPUParticles3D = $SlideParticles/ImpactParticles/SparkTrailsSide/ImpactSparks2
 @onready var impact_particles:GPUParticles3D = $SlideParticles/ImpactParticles
+@onready var pause_menu: PauseMenu = %PauseMenu
 
 const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
@@ -101,8 +101,6 @@ var stamina_recharging:bool = true
 ## If [code]true[/code], compute physics for velocity on the Y axis (up and down).
 ## This can be useful for freezing the player in the air.
 @export var player_kinematics_enabled_y:bool = true
-
-
 
 @export_group("Movement")
 @export var SPEED = 12.0
@@ -803,16 +801,6 @@ func playerDie():
 
 func getHookedTarget() -> Node3D:
 	return grapple_arm.hooked_target
-
-# when the unstuck button is pressed, reset the player states and go to origin
-func _on_unstuck_pressed() -> void:
-	player_state = player_states.GROUNDED
-	action_state = action_states.IDLE
-	global_position = Vector3.ZERO
-	velocity = Vector3.ZERO
-	player.rotation = Vector3.ZERO
-	pause.pause_state = pause.pause_states.UNPAUSED
-
 
 func _on_dash_length_timer_timeout() -> void:
 	if player_state != player_states.REELINGTO:

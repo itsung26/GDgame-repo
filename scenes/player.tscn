@@ -497,12 +497,11 @@ points = PackedVector2Array(0, 8.03, 0, 16.715)
 [node name="HealthBar" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
 theme = SubResource("Theme_f1ej7")
 
-[node name="Pause" parent="huds" instance=ExtResource("11_3v2ag")]
+[node name="PauseMenu" parent="huds" instance=ExtResource("11_3v2ag")]
 unique_name_in_owner = true
 z_index = 2
 
-[node name="Back" parent="huds/Pause/OptionsMenu" index="1"]
-layout_mode = 0
+[node name="Back" parent="huds/PauseMenu/OptionsMenu" index="1"]
 offset_top = 0.0
 offset_bottom = 65.0
 
@@ -944,7 +943,7 @@ ignore_time_scale = true
 
 [editable path="player body"]
 [editable path="huds/HUD"]
-[editable path="huds/Pause"]
+[editable path="huds/PauseMenu"]
 [editable path="Pivot/Camera3D/ParryArm/parry arm"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]
 [editable path="Pivot/Camera3D/Guns/Pistol/player pistol"]
