@@ -15,13 +15,15 @@ extends Camera3D
 @export var camera_target_fov:float = 75.0
 @export var camera_fov_lerp_speed:float = 0.5
 
+@export_category("Camera Shake")
+@export var smoothness:float = 0.5 # 0..1
+
 # Shake state
 var cam_shaking:bool = false
 var remaining_time:float = 0.0
 var elapsed_time:float = 0.0
 var current_strength:float = 0.0
-@export var smoothness:float = 0.5 # 0..1
-
+var camera_sliding:bool = false
 # Last frame’s applied pivot offset
 var _pivot_last_offset:Vector3 = Vector3.ZERO
 
@@ -38,6 +40,20 @@ func _process(delta: float) -> void:
 	
 	rotation.z = lerp_angle(rotation.z, deg_to_rad(camera_target_roll), camera_roll_speed * delta)
 	fov = lerpf(fov, camera_target_fov, camera_fov_lerp_speed * delta)
+
+## Moves the camera to its slide position.
+func gotoSliding() -> void:
+	camera_sliding = true
+	pivot.position = player.sliding_marker.position
+	# Clamp after moving
+	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
+
+## Moves the camera back to its normal position from the sliding position.
+func gotoNormal() -> void:
+	camera_sliding = false
+	pivot.position = player.head_marker.position
+	# Clamp after moving
+	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
 
 ## Translate pivot in local XY for a screen shake (no camera rotation). One call starts full shake.
 func shakeCamera(duration: float, strength: float) -> void:

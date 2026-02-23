@@ -103,6 +103,7 @@ func _ready() -> void:
 		navigation_agent_3d.target_desired_distance = 0.5
 
 func _process(_delta: float) -> void:
+	Debug.log(velocity)
 	state_debug_text.updateStateReadout(enemy_state, enemy_states)
 	
 	if not behavior_enabled:

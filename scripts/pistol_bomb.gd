@@ -7,15 +7,20 @@ const explosion_scene:PackedScene = preload("res://scenes/explosion_3d.tscn")
 @onready var pistol_bomb_player: AnimationPlayer = $"pistol bomb player"
 @onready var detonation_timer: Timer = $"detonation timer"
 @onready var detonation_animator: AnimationPlayer = $"detonation animator"
-
 @onready var time_before_can_hit_player: Timer = $"time before can hit player"
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
+
 @export var timer_time:float = 0.35
 @export var spin_speed:float = 50.0
 @export var projectile_speed:float = 10.0
-var parriable:bool = true
-var has_been_parried:bool = false
 @export var time_before_detonation:float = 1.0
 @export var hitstop_duration_on_being_shot:float = 0.30
+
+var attatched_to_surface:bool = false
+var attatched_to_enemy:bool = false
+var attatched_to_world:bool = false
+var parriable:bool = true
+var has_been_parried:bool = false
 
 func _ready() -> void:
 	add_collision_exception_with(get_tree().get_first_node_in_group("players"))
@@ -67,6 +72,22 @@ func disconnectAllSignals() -> void:
 	if detonation_timer and detonation_timer.timeout.is_connected(Callable(self, "_on_detonation_timer_timeout")):
 		detonation_timer.timeout.disconnect(Callable(self, "_on_detonation_timer_timeout"))
 
+func stickTo(target_body:Node3D, target_position:Vector3):
+	if target_body is Enemy:
+		attatched_to_surface = true
+		attatched_to_enemy = true
+	else:
+		attatched_to_surface = true
+		attatched_to_world = false
+	# disable all collisions for saftey
+	collision_shape_3d.disabled = true
+	freeze = true
+	reparent(target_body)
+	global_position = target_position # pistol bomb teleport to raycast point
+	has_been_parried = true
+	parriable = false
+	detonation_timer.start(time_before_detonation)
+
 ## On collide with world.
 func _on_world_entered(body: Node) -> void:
 	if not body.is_in_group("enemy") or body.is_in_group("players"):
@@ -80,17 +101,8 @@ func _on_player_entered(player:Player) -> void:
 func _on_enemy_entered(enemy:Enemy) -> void:
 	explode()
 
-
 func _on_time_before_can_hit_player_timeout() -> void:
 	remove_collision_exception_with(get_tree().get_first_node_in_group("players"))
 	
 func _on_detonation_timer_timeout() -> void:
 	detonation_animator.play("detonate")
-
-
-func _on_parried() -> void:
-	has_been_parried = true
-	parriable = false
-	contact_monitor = false
-	freeze = true
-	detonation_timer.start(time_before_detonation)

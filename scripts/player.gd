@@ -233,17 +233,13 @@ func set_player_state(new_player_state:player_states):
 		
 	# SLIDING to and from
 	if new_player_state == player_states.SLIDING:
-		pivot.position = sliding_marker.position
-		# Clamp after moving
-		pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
+		camera_3d.gotoSliding()
 		impact_particles.emitting = true
 		impact_sparks.emitting = true
 		impact_sparks_2.emitting = true
 		slide_light.visible = true
 	if previous_player_state == player_states.SLIDING:
-		pivot.position = head_marker.position
-		# Clamp after moving
-		pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
+		camera_3d.gotoNormal()
 		impact_particles.emitting = false
 		impact_sparks.emitting = false
 		impact_sparks_2.emitting = false
@@ -729,14 +725,15 @@ func parryTargetInBox():
 			if punch_raycast.get_collider() != null:
 				var pistolbomb_trail:BulletTrail = bullet_trail_SCENE.instantiate()
 				get_tree().current_scene.add_child(pistolbomb_trail)
-				var point:Vector3 = punch_raycast.get_collision_point()
+				var point:Vector3 = punch_raycast.get_collision_point() # the point to stick to
 				pistolbomb_trail.setup(parry_target.global_position, point, Color.RED)
-				parry_target.global_position = point # pistol bomb teleport to raycast point
-				var hit_body = punch_raycast.get_collider()
+				var hit_body = punch_raycast.get_collider() # the body the raycast hit
 				
 				# If that something is an enemy
 				if hit_body is Enemy:
-					parry_target.reparent(hit_body)
+					parry_target.stickTo(hit_body, point)
+				elif not hit_body is Enemy:
+					parry_target.stickTo(hit_body, point)
 			# if it misses (the ray cast body returns null)
 			else:
 				parry_target.queue_free()

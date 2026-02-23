@@ -251,37 +251,4 @@ behavior_enabled = false
 [node name="Skitterbomb" parent="." instance=ExtResource("11_r4hxy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6482625, 0, -15.790521)
 
-[node name="Physical Bone Root" parent="Skitterbomb/Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" index="0"]
-transform = Transform3D(-2.443385e-16, 3.103467e-07, 1, -1.8045807e-07, -1, 3.103467e-07, 1, -1.8045807e-07, 5.62489e-14, 8.940697e-08, 0.07882118, 6.198883e-06)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1988826e-06, -0.00048637396, -1.19208835e-07)
-body_offset = Transform3D(1, 9.285799e-10, 5.608047e-14, -9.285799e-10, 0.99999994, -9.285692e-10, 4.2980993e-17, 9.285621e-10, 1, 6.198883e-06, 0.0004863739, 1.1920929e-07)
-
-[node name="Physical Bone Ocular" parent="Skitterbomb/Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" index="1"]
-transform = Transform3D(-8.716978e-08, -0.028724482, 0.99958736, -0.009985874, -0.9995375, -0.028723052, 0.99995023, -0.009981755, -0.00028675192, 0.0933342, 0.1345005, -0.10465956)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0978141e-05, -0.0003852811, 0.00040734137)
-body_offset = Transform3D(1.0000002, 7.151626e-06, 1.6347622e-07, -7.1534887e-06, 1.0000001, -8.393079e-06, -1.6359263e-07, 8.389354e-06, 1, 2.0980835e-05, 0.00038528442, -0.00040733814)
-
-[node name="Physical Bone FR upper" parent="Skitterbomb/Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" index="2"]
-transform = Transform3D(0.0001251747, -0.68821645, 0.7255054, 0.000653376, -0.72550523, -0.6882163, 0.9999998, 0.0005601751, 0.00035884915, -0.030180752, -0.098973274, -0.06604242)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.768371e-07, -1.9073474e-06, 1.9073493e-06)
-body_offset = Transform3D(1.0000001, -5.646143e-09, -2.0372681e-10, 5.820766e-09, 1.0000001, -5.662441e-07, 2.6193447e-10, 4.4703484e-07, 1.0000001, -4.7683716e-07, 1.9073486e-06, -1.9073486e-06)
-
-[node name="Physical Bone FL Upper2" parent="Skitterbomb/Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" index="3"]
-transform = Transform3D(0.00012513487, -0.68821675, 0.7255051, 0.00065343664, -0.72550493, -0.6882167, 0.9999998, 0.0005601915, 0.00035892002, -0.03017804, -0.098973274, 0.06135559)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-body_offset = Transform3D(1.0000002, 2.9773219e-08, -2.9715011e-08, -2.96277e-08, 1.0000002, -3.874302e-07, 2.9744115e-08, 2.3841858e-07, 1.0000002, 0, 0, 0)
-
-[node name="Physical Bone BR upper2" parent="Skitterbomb/Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" index="4"]
-transform = Transform3D(0.0022321453, -0.6882164, -0.7255021, 0.0025885692, 0.7255054, -0.6882116, 0.9999942, -0.00034182396, 0.003400929, -0.030182838, 0.021757126, -0.06563711)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3457206e-13, -2.8610223e-06, -3.8147004e-06)
-body_offset = Transform3D(1.0000001, 2.6833732e-07, -6.1118044e-08, -2.690358e-07, 0.99999976, 3.2782555e-07, 6.22822e-08, -1.4901161e-07, 0.99999934, 0, 2.861023e-06, 3.8146973e-06)
-
-[node name="Physical Bone BL Upper" parent="Skitterbomb/Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" index="5"]
-transform = Transform3D(0.0022321448, -0.6882167, -0.72550184, 0.002588981, 0.7255052, -0.6882119, 0.9999942, -0.00034212167, 0.0034012124, -0.03017807, 0.02175808, 0.061760426)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-body_offset = Transform3D(1.0000002, -2.9453076e-08, 1.1723023e-07, 2.910383e-08, 1.0000002, 9.23872e-07, -1.1746306e-07, -6.854534e-07, 1.0000002, 0, 0, 0)
-
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-
-[editable path="Skitterbomb"]
-[editable path="Skitterbomb/Skitterbomb2"]

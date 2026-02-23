@@ -15,12 +15,10 @@ class_name pauseMenu extends Control
 @export var main_menu_scene:PackedScene
 
 # objects
-var hud
-var pixel_shader
+var hud:HudGui
 
 
 # variables
-var pixel_shader_enabled := false
 var mouse_in_quit_button
 var mouse_in_play_button
 var mouse_in_confirm_quit_button
@@ -41,7 +39,6 @@ func _ready() -> void:
 	options_menu.visible = false
 	center_buttons.visible = false
 	hud = get_node("../HUD")
-	pixel_shader = find_child("PixelShader")
 
 func set_state(new_state:int):
 	var previous_state = pause_state
@@ -101,12 +98,7 @@ func _input(event: InputEvent) -> void:
 
 
 func shaderOverlayLogic():
-	# checks for the shader's prescence in the scene
-	if pixel_shader:
-		if pixel_shader_enabled:
-			pixel_shader.visible = true
-		else:
-			pixel_shader.visible = false
+	pass
 
 # resumes the game
 func _on_resume_pressed() -> void:
@@ -124,10 +116,6 @@ func _on_quit_pressed() -> void:
 
 func _on_back_pressed() -> void:
 	pause_state = pause_states.MAIN
-
-
-func _on_shader_toggle_toggled(toggled_on: bool) -> void:
-	pixel_shader_enabled = toggled_on
 
 # when mouse enters quit button
 func _on_area_3d_mouse_entered() -> void:

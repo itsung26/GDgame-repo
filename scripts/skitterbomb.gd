@@ -145,6 +145,7 @@ func setEnemyState(new_enemy_state:enemy_states):
 	
 	# DEAD state
 	if new_enemy_state == enemy_states.DEAD:
+		behavior_enabled = true
 		var ng:Array[Node] = get_tree().get_nodes_in_group("timers")
 		var timers:Array[Timer] = []
 		timers.append_array(ng)
@@ -173,10 +174,13 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	if behavior_enabled:
-		if enemy_state == enemy_states.DEAD:
+		if enemy_state != enemy_states.DEAD:
+			player_detector_collider.disabled = false
+		elif enemy_state == enemy_states.DEAD:
 			animation_player.stop()
 			red_flash_animator.stop()
 	else:
+		player_detector_collider.disabled = true
 		setEnemyState(enemy_states.IDLE)
 	
 func _physics_process(delta: float) -> void:

@@ -265,7 +265,6 @@ skeleton = NodePath("../MeshInstance3D3")
 [connection signal="body_entered" from="." to="." method="_on_enemy_entered"]
 [connection signal="body_entered" from="." to="." method="_on_player_entered"]
 [connection signal="body_entered" from="." to="." method="_on_world_entered"]
-[connection signal="parried" from="." to="." method="_on_parried"]
 [connection signal="timeout" from="time before can hit player" to="." method="_on_time_before_can_hit_player_timeout"]
 [connection signal="timeout" from="detonation timer" to="." method="_on_detonation_timer_timeout"]
 
