@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://cmyfxiobhbpum" path="res://scripts/camera_3d.gd" id="9_ke2ow"]
 [ext_resource type="Script" uid="uid://cn6p5ecprftne" path="res://scripts/grapple_arm.gd" id="9_l71n6"]
 [ext_resource type="PackedScene" uid="uid://cp1mmygsp63vr" path="res://scenes/hud.tscn" id="10_d2wvv"]
-[ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/pause.tscn" id="11_3v2ag"]
+[ext_resource type="PackedScene" uid="uid://ccwx4hsr3uqux" path="res://scenes/PauseMenu.tscn" id="11_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://imchkmka60lw" path="res://assets/meshes/parry arm/parry arm.blend" id="12_qfm1y"]
 [ext_resource type="Animation" uid="uid://3atkceswsf0e" path="res://assets/meshes/parry arm/animations/swing arm initial.res" id="13_60mlk"]
 [ext_resource type="Texture2D" uid="uid://clio45cdgnanq" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_07.png" id="13_fulsm"]
@@ -499,11 +499,6 @@ theme = SubResource("Theme_f1ej7")
 
 [node name="PauseMenu" parent="huds" instance=ExtResource("11_3v2ag")]
 unique_name_in_owner = true
-z_index = 2
-
-[node name="Back" parent="huds/PauseMenu/OptionsMenu" index="1"]
-offset_top = 0.0
-offset_bottom = 65.0
 
 [node name="CollisionShapeMain" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.847, 0)
@@ -943,7 +938,6 @@ ignore_time_scale = true
 
 [editable path="player body"]
 [editable path="huds/HUD"]
-[editable path="huds/PauseMenu"]
 [editable path="Pivot/Camera3D/ParryArm/parry arm"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]
 [editable path="Pivot/Camera3D/Guns/Pistol/player pistol"]
