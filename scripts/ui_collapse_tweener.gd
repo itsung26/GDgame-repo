@@ -1,4 +1,3 @@
-@tool
 class_name UICollapseTweener
 extends Control
 
@@ -30,15 +29,13 @@ var _target_position: Vector2 = Vector2.ZERO
 var _anim_duration: float = 0.0
 var _anim_elapsed: float = 0.0
 var _anim_collapsing: bool = false
-var _initial_y_size:float = 0.0
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_READY:
 		process_mode = Node.PROCESS_MODE_ALWAYS
-		# set initial position and calculate the expanded position
-		_initial_pos = position
-		_expanded_pos = _initial_pos + Vector2(0.0, _y_size_expanded / 2.0)
+		_expanded_pos = position
+		_initial_pos = _expanded_pos + Vector2(0.0, _y_size_expanded / 2.0)
 		if initial_state == InitialState.COLLAPSED:
 			instantCollapseVertical()
 		elif initial_state == InitialState.EXPANDED:
@@ -65,6 +62,8 @@ func _process(delta: float) -> void:
 	var step_pos: float = position.distance_to(_target_position) * (delta / remaining)
 	size = size.move_toward(_target_size, step_size)
 	position = position.move_toward(_target_position, step_pos)
+	# Keep vertical center fixed at _initial_pos.y so the item stays centered while animating
+	position.y = _initial_pos.y - size.y / 2.0
 	_anim_elapsed += delta
 
 
@@ -80,17 +79,15 @@ func _process(delta: float) -> void:
 ## Executes a vertical collapse. No-op if already collapsed or if a collapse/expand animation is in progress.
 func collapseVertical():
 	if collapsed and not animating:
-		return
+		instantExpandVertical()
 	if animating:
-		return
+		instantExpandVertical()
 	animating = true
 	_anim_collapsing = true
 	for node in nodes_to_hide:
 		node.visible = false
-	_initial_pos = position
-	var collapsed_pos := position + Vector2(0, _y_size_expanded / 2.0)
 	_target_size = Vector2(size.x, _y_size_collapsed)
-	_target_position = collapsed_pos
+	_target_position = _initial_pos
 	_anim_duration = vertical_collapse_time
 	_anim_elapsed = 0.0
 
@@ -98,15 +95,15 @@ func collapseVertical():
 ## Executes a vertical expansion. No-op if already expanded or if a collapse/expand animation is in progress.
 func expandVertical() -> void:
 	if not collapsed and not animating:
-		return
+		instantCollapseVertical()
 	if animating:
-		return
+		instantCollapseVertical()
 	animating = true
 	_anim_collapsing = false
 	for node in nodes_to_hide:
 		node.visible = false
 	_target_size = Vector2(size.x, _y_size_expanded)
-	_target_position = _initial_pos
+	_target_position = _expanded_pos
 	_anim_duration = vertical_expand_time
 	_anim_elapsed = 0.0
 
