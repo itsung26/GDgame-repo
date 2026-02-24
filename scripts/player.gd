@@ -151,7 +151,7 @@ var parry_target:Node3D
 ##
 ## Player states. These states affect the player's kinematics. 
 ## Associated state variable of type [code]player_states[/code]: [code]player_state[/code]
-enum player_states{
+enum player_states {
 	GROUNDED,
 	DEAD,
 	FALLING,
@@ -159,7 +159,7 @@ enum player_states{
 	SLIDING,
 	DASHING,
 	SLAMMING
-	}
+}
 var player_state:player_states = player_states.GROUNDED:
 	set = set_player_state
 

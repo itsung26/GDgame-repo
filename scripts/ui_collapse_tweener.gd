@@ -9,17 +9,31 @@ enum InitialState {
 	COLLAPSED
 }
 
+enum transitions {
+	EXPAND_VERTICAL,
+	COLLAPSE_VERTICAL
+}
+
+## Emitted when a collapse or expand animation finishes.
 signal finished_transition
 
+## Which state the control is in when the scene loads (expanded or collapsed).
 @export var initial_state: InitialState = InitialState.EXPANDED
+## Duration in seconds for the collapse animation.
 @export var vertical_collapse_time: float = 0.25
+## Duration in seconds for the expand animation.
 @export var vertical_expand_time: float = 0.25
+## Controls whose visibility is hidden during collapse/expand and shown when expanded.
 @export var nodes_to_hide: Array[Control]
 
+## Vertical size when collapsed (typically 0).
 @export var _y_size_collapsed: float = 0.0
+## Vertical size when expanded. Set to match the panel's open height.
 @export var _y_size_expanded: float = 200.0
 
+## True while a collapse or expand animation is running.
 var animating: bool = false
+## True when the control is collapsed, false when expanded.
 var collapsed: bool = false
 var _initial_pos: Vector2 = Vector2.ZERO
 var _expanded_pos: Vector2 = Vector2.ZERO
@@ -31,6 +45,7 @@ var _anim_elapsed: float = 0.0
 var _anim_collapsing: bool = false
 
 
+## Sets process mode, derives expanded/collapsed positions from scene position, and applies initial state.
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_READY:
 		process_mode = Node.PROCESS_MODE_ALWAYS
@@ -42,6 +57,7 @@ func _notification(what: int) -> void:
 			instantExpandVertical()
 
 
+## Advances the collapse/expand animation each frame. Do not override in subclasses without calling super.
 func _process(delta: float) -> void:
 	if not animating:
 		return
@@ -83,12 +99,12 @@ func collapseVertical():
 	_anim_elapsed = 0.0
 
 
-## Executes a vertical expansion. No-op if already expanded or if a collapse/expand animation is in progress.
+## Starts animating the control to its expanded state. No-op if already expanded or if an animation is in progress.
 func expandVertical() -> void:
 	if not collapsed and not animating:
-		instantCollapseVertical()
+		return
 	if animating:
-		instantCollapseVertical()
+		return
 	animating = true
 	_anim_collapsing = false
 	for node in nodes_to_hide:
@@ -99,25 +115,29 @@ func expandVertical() -> void:
 	_anim_elapsed = 0.0
 
 
+## Collapses the control immediately with no animation (size and position set to collapsed state).
 func instantCollapseVertical() -> void:
 	_hide_nodes_to_hide()
 	size.y = _y_size_collapsed
 	position = _initial_pos
 	collapsed = true
 
-	
+
+## Expands the control immediately with no animation (size and position set to expanded state).
 func instantExpandVertical() -> void:
 	_show_nodes_to_hide()
 	size.y = _y_size_expanded
 	position = _expanded_pos
 	collapsed = false
 
-	
+
+## Sets visible to true on every node in [member nodes_to_hide].
 func _show_nodes_to_hide() -> void:
 	for node in nodes_to_hide:
 		node.visible = true
 
 
+## Sets visible to false on every node in [member nodes_to_hide].
 func _hide_nodes_to_hide() -> void:
 	for node in nodes_to_hide:
 		node.visible = false
