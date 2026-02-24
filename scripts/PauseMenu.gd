@@ -9,7 +9,6 @@ signal unpaused
 
 @export var main_menu_scene: PackedScene
 
-var is_in_main:bool = true: set = set_is_in_main
 var menu_panels:Array[Control] =[]
 
 
@@ -23,16 +22,10 @@ func _input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("pause"):
 			if get_pause():
 				unpause()
-				is_in_main = true
 				pause_buttons.expandVertical()
 			else:
-				is_in_main = true
 				pause_buttons.collapseVertical()
 				pause()
-
-
-func set_is_in_main(value: bool) -> void:
-	is_in_main = value
 
 
 ## Pauses the game.
@@ -55,13 +48,13 @@ func unpause() -> void:
 	unpaused.emit()
 
 
+
 ## Returns true if the game is paused, false otherwise.
 func get_pause() -> bool:
 	return get_tree().paused
 
 
 func _on_resume_pressed() -> void:
-	is_in_main = true
 	unpause()
 
 

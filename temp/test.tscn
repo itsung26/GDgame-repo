@@ -40,7 +40,6 @@ script = ExtResource("1_dqcjp")
 vertical_collapse_time = 0.1
 vertical_expand_time = 0.1
 nodes_to_hide = [NodePath("Panel/Button")]
-_y_size_expanded = 592.0
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
 metadata/_edit_use_anchors_ = true
 
