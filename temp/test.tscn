@@ -41,6 +41,7 @@ grow_vertical = 2
 script = ExtResource("1_dqcjp")
 vertical_collapse_time = 0.1
 vertical_expand_time = 0.1
+_y_size_expanded = 648.0
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
 
 [node name="Panel" type="Panel" parent="UICollapseTweener"]

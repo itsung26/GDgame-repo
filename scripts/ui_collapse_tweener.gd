@@ -17,9 +17,11 @@ signal finished_transition
 @export var vertical_expand_time: float = 0.25
 @export var nodes_to_hide: Array[Control]
 
+@export var _y_size_collapsed: float = 0.0
+@export var _y_size_expanded: float = 200.0
+
 var animating: bool = false
 var collapsed: bool = false
-var previous_size: Vector2 = Vector2.ZERO
 var previous_pos: Vector2 = Vector2.ZERO
 
 var _target_size: Vector2 = Vector2.ZERO
@@ -27,13 +29,11 @@ var _target_position: Vector2 = Vector2.ZERO
 var _anim_duration: float = 0.0
 var _anim_elapsed: float = 0.0
 var _anim_collapsing: bool = false
-var _y_size_collapsed:float = 0.0
-var _y_size_expanded:float = 0.0
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_READY:
-		_y_size_expanded = size.y
+		process_mode = Node.PROCESS_MODE_ALWAYS
 		if initial_state == InitialState.COLLAPSED:
 			call_deferred("_apply_initial_state_collapsed")
 
@@ -63,9 +63,8 @@ func _process(delta: float) -> void:
 
 func _apply_initial_state_collapsed() -> void:
 	previous_pos = position
-	previous_size = size
-	size = Vector2(size.x, 0.0)
-	position = position + Vector2(0, previous_size.y / 2.0)
+	size = Vector2(size.x, _y_size_collapsed)
+	position = position + Vector2(0, _y_size_expanded / 2.0)
 	collapsed = true
 	for node in nodes_to_hide:
 		node.visible = false
@@ -82,9 +81,8 @@ func collapseVertical():
 	for node in nodes_to_hide:
 		node.visible = false
 	previous_pos = position
-	previous_size = size
-	var collapsed_pos := position + Vector2(0, size.y / 2.0)
-	_target_size = Vector2(size.x, 0.0)
+	var collapsed_pos := position + Vector2(0, _y_size_expanded / 2.0)
+	_target_size = Vector2(size.x, _y_size_collapsed)
 	_target_position = collapsed_pos
 	_anim_duration = vertical_collapse_time
 	_anim_elapsed = 0.0
@@ -100,7 +98,7 @@ func expandVertical():
 	_anim_collapsing = false
 	for node in nodes_to_hide:
 		node.visible = false
-	_target_size = Vector2(size.x, previous_size.y)
+	_target_size = Vector2(size.x, _y_size_expanded)
 	_target_position = previous_pos
 	_anim_duration = vertical_expand_time
 	_anim_elapsed = 0.0
