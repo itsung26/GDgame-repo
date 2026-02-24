@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccwx4hsr3uqux"]
 
 [ext_resource type="Theme" uid="uid://bn6oc86kvsu5j" path="res://assets/styles/menu styles/pause_center_buttons.tres" id="1_5w6ei"]
-[ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/pause_menu.gd" id="2_jiu6o"]
+[ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/PauseMenu.gd" id="2_jiu6o"]
 [ext_resource type="PackedScene" uid="uid://co052kx8ng1od" path="res://scenes/main menu screens/main_menu_mainscreen.tscn" id="3_40atx"]
-[ext_resource type="Script" uid="uid://rlw84bu2mne6" path="res://scripts/pause_buttons.gd" id="4_5w6ei"]
+[ext_resource type="Script" uid="uid://fq6xu15lfdmt" path="res://scenes/pause_buttons.gd" id="4_5w6ei"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -19,6 +19,7 @@ script = ExtResource("2_jiu6o")
 main_menu_scene = ExtResource("3_40atx")
 
 [node name="CenterButtons" type="Control" parent="."]
+custom_minimum_size = Vector2(276, 404)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,18 +27,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PauseButtons" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide")]
+[node name="PauseButtons" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu panels"]]
 layout_mode = 1
-anchor_left = 0.37586805
-anchor_top = 0.23996913
-anchor_right = 0.6241319
-anchor_bottom = 0.7600312
+anchor_left = 0.37413195
+anchor_top = 0.18595679
+anchor_right = 0.6258681
+anchor_bottom = 0.8140432
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(143, 168.5)
 script = ExtResource("4_5w6ei")
-vertical_collapse_time = 0.0
-vertical_expand_time = 0.053
+initial_state = 1
 nodes_to_hide = [NodePath("Panel/CenterContainer")]
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
 metadata/_edit_use_anchors_ = true
@@ -95,3 +94,7 @@ text = "Quit
 
 [connection signal="paused" from="." to="CenterButtons/PauseButtons" method="_on_pause_menu_paused"]
 [connection signal="unpaused" from="." to="CenterButtons/PauseButtons" method="_on_pause_menu_unpaused"]
+[connection signal="pressed" from="CenterButtons/PauseButtons/Panel/CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CenterButtons/PauseButtons/Panel/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CenterButtons/PauseButtons/Panel/CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CenterButtons/PauseButtons/Panel/CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

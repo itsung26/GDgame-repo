@@ -1,14 +1,29 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bn6oc86kvsu5j"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bn6oc86kvsu5j"]
 
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="1_tdbgf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tdbgf"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_br04i"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.25, 0.25, 0.25, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iybon"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
 bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -16,10 +31,10 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljlb5"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
 bg_color = Color(0.481789, 0.481789, 0.481789, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
@@ -62,8 +77,10 @@ corner_radius_bottom_left = 25
 Button/font_sizes/font_size = 38
 Button/fonts/font = ExtResource("1_tdbgf")
 Button/styles/focus = SubResource("StyleBoxEmpty_tdbgf")
+Button/styles/hover = SubResource("StyleBoxFlat_br04i")
 Button/styles/normal = SubResource("StyleBoxFlat_iybon")
 Button/styles/pressed = SubResource("StyleBoxFlat_ljlb5")
 Label/fonts/font = ExtResource("1_tdbgf")
 Panel/styles/panel = SubResource("StyleBoxFlat_rc7jk")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_w4yif")
+VBoxContainer/constants/separation = 11
