@@ -7,11 +7,13 @@
 script/source = "extends Control
 @onready var ui_collapse_tweener: UICollapseTweener = $\"../UICollapseTweener\"
 
+
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed(\"debug func\"):
 		ui_collapse_tweener.collapseVertical()
 	elif Input.is_action_just_pressed(\"debug func 2\"):
 		ui_collapse_tweener.expandVertical()
+
 
 func _process(delta: float) -> void:
 	Debug.log(\"y size: \" + str(ui_collapse_tweener.size.y))

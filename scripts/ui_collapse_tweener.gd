@@ -65,16 +65,7 @@ func _process(delta: float) -> void:
 	# Keep vertical center fixed at _initial_pos.y so the item stays centered while animating
 	position.y = _initial_pos.y - size.y / 2.0
 	_anim_elapsed += delta
-
-
-#func _apply_initial_state_collapsed() -> void:
-	#_initial_pos = position
-	#size = Vector2(size.x, _y_size_collapsed)
-	#position = position + Vector2(0, _y_size_expanded / 2.0)
-	#collapsed = true
-	#for node in nodes_to_hide:
-		#node.visible = false
-
+	
 
 ## Executes a vertical collapse. No-op if already collapsed or if a collapse/expand animation is in progress.
 func collapseVertical():
