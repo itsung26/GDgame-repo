@@ -14,6 +14,6 @@ func getStackSlim() -> String:
 
 ## Prints the string from of the variant and the stack function and the current line.
 ## Intended to replace default print() behaviour.
-func log(loggable) -> void:
+func log(loggable = "") -> void:
 	var stackslim:String = getStackSlim()
 	print(stackslim + "\n" + str(loggable))

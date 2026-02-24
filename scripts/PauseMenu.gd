@@ -27,6 +27,7 @@ func _input(event: InputEvent) -> void:
 				pause_buttons.expandVertical()
 			else:
 				is_in_main = true
+				pause_buttons.collapseVertical()
 				pause()
 
 
