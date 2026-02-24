@@ -11,6 +11,9 @@ func _input(event: InputEvent) -> void:
 		ui_collapse_tweener.collapseVertical()
 	elif Input.is_action_just_pressed(\"debug func 2\"):
 		ui_collapse_tweener.expandVertical()
+
+func _process(delta: float) -> void:
+	Debug.log(ui_collapse_tweener.animating)
 "
 
 [node name="test" type="Control"]
@@ -36,6 +39,8 @@ offset_bottom = 324.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dqcjp")
+vertical_collapse_time = 0.1
+vertical_expand_time = 0.1
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
 
 [node name="Panel" type="Panel" parent="UICollapseTweener"]
