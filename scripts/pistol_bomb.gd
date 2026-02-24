@@ -7,14 +7,17 @@ const explosion_scene:PackedScene = preload("res://scenes/explosion_3d.tscn")
 @onready var pistol_bomb_player: AnimationPlayer = $"pistol bomb player"
 @onready var detonation_timer: Timer = $"detonation timer"
 @onready var detonation_animator: AnimationPlayer = $"detonation animator"
+## Timer that controls the grace period before the bomb can collide with the player.
 @onready var time_before_can_hit_player: Timer = $"time before can hit player"
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 
-@export var timer_time:float = 0.35
+## Duration (seconds) the bomb ignores the player after being shot. Prevents instant self-damage.
+@export var time_before_player_collide: float = 0.1
 @export var spin_speed:float = 50.0
 @export var projectile_speed:float = 10.0
 @export var time_before_detonation:float = 1.0
 @export var hitstop_duration_on_being_shot:float = 0.30
+@export var can_hit_player:bool = false
 
 var attatched_to_surface:bool = false
 var attatched_to_enemy:bool = false
@@ -35,7 +38,9 @@ func setup(spawn_pos:Vector3) -> void:
 	contact_monitor = true
 	var player:Player = get_tree().get_first_node_in_group("players")
 	global_rotation = player.getFacingRot()
-	time_before_can_hit_player.start(timer_time)
+	# Start grace-period timer so the bomb can hit the player after time_before_player_collide.
+	if can_hit_player:
+		time_before_can_hit_player.start(time_before_player_collide)
 	linear_velocity = -global_transform.basis.z.normalized() * projectile_speed
 	linear_velocity += player.velocity
 	angular_velocity.z = -spin_speed
@@ -101,6 +106,7 @@ func _on_player_entered(player:Player) -> void:
 func _on_enemy_entered(enemy:Enemy) -> void:
 	explode()
 
+## Grace period ended: bomb can now collide with and damage the player.
 func _on_time_before_can_hit_player_timeout() -> void:
 	remove_collision_exception_with(get_tree().get_first_node_in_group("players"))
 	

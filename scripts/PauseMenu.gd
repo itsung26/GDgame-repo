@@ -2,7 +2,9 @@ class_name PauseMenu extends Control
 ## Pause menu UI. Handles pause/unpause input and toggles visibility.
 
 @onready var player: Player = get_tree().get_first_node_in_group("players")
-@onready var pause_buttons: UICollapseTweener = $CenterButtons/PauseButtons
+@onready var main_center_pause: UICollapseTweener = $CenterButtons/MainCenterPause
+
+enum menu_states {MAINPAUSE, RESTARTCONFIRM, QUITCONFIRM, OPTIONS}
 
 signal paused
 signal unpaused
@@ -10,6 +12,15 @@ signal unpaused
 @export var main_menu_scene: PackedScene
 
 var menu_panels:Array[Control] =[]
+var menu_state: menu_states: set = setMenuState
+
+
+func setMenuState(new_menu_state:menu_states):
+	var previous_menu_state:menu_states = menu_state
+	menu_state = new_menu_state
+	
+	if previous_menu_state == new_menu_state:
+		return
 
 
 func _ready() -> void:
@@ -19,13 +30,13 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if Input.is_action_just_pressed("pause"):
-			if get_pause():
+		if Input.is_action_just_pressed("pause"): # WHEN PAUSE KEY PRESSED
+			if get_pause(): # IF ALREADY PAUSED
+				main_center_pause.instantCollapseVertical()
 				unpause()
-				pause_buttons.expandVertical()
-			else:
-				pause_buttons.collapseVertical()
+			else: # IF NOT PAUSED
 				pause()
+				main_center_pause.expandVertical()
 
 
 ## Pauses the game.
@@ -55,6 +66,7 @@ func get_pause() -> bool:
 
 
 func _on_resume_pressed() -> void:
+	main_center_pause.instantCollapseVertical()
 	unpause()
 
 

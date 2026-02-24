@@ -27,7 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="UICollapseTweener" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide")]
+[node name="MainCenterPause" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide")]
 layout_mode = 1
 anchor_left = 0.3706597
 anchor_top = 0.16820988
@@ -41,7 +41,7 @@ nodes_to_hide = [NodePath("Panel/CenterContainer")]
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
 metadata/_edit_use_anchors_ = true
 
-[node name="Panel" type="Panel" parent="CenterButtons/UICollapseTweener"]
+[node name="Panel" type="Panel" parent="CenterButtons/MainCenterPause"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,7 +49,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CenterButtons/UICollapseTweener/Panel"]
+[node name="CenterContainer" type="CenterContainer" parent="CenterButtons/MainCenterPause/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,42 +57,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterButtons/UICollapseTweener/Panel/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterButtons/MainCenterPause/Panel/CenterContainer"]
 layout_mode = 2
 
-[node name="PausedText" type="Label" parent="CenterButtons/UICollapseTweener/Panel/CenterContainer/VBoxContainer"]
+[node name="PausedText" type="Label" parent="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 54
 text = "-PAUSED-"
 horizontal_alignment = 1
 
-[node name="Resume" type="Button" parent="CenterButtons/UICollapseTweener/Panel/CenterContainer/VBoxContainer"]
+[node name="Resume" type="Button" parent="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_5w6ei")
 text = "Resume"
 
-[node name="Options" type="Button" parent="CenterButtons/UICollapseTweener/Panel/CenterContainer/VBoxContainer"]
+[node name="Options" type="Button" parent="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_5w6ei")
 text = "Options"
 
-[node name="Restart" type="Button" parent="CenterButtons/UICollapseTweener/Panel/CenterContainer/VBoxContainer"]
+[node name="Restart" type="Button" parent="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_5w6ei")
 text = "Restart"
 
-[node name="Quit" type="Button" parent="CenterButtons/UICollapseTweener/Panel/CenterContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_5w6ei")
 text = "Quit
 "
 
-[connection signal="pressed" from="CenterButtons/UICollapseTweener/Panel/CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="CenterButtons/UICollapseTweener/Panel/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="CenterButtons/UICollapseTweener/Panel/CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="CenterButtons/UICollapseTweener/Panel/CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
