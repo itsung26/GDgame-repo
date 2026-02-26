@@ -102,10 +102,25 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if Input.is_action_just_pressed("pause"):
 			if get_pause():
-				request_go_back()
+				if not _panel_stack.is_empty() and _panel_stack[-1].is_in_group(CAN_RESUME_FROM_GROUP):
+					_resume_immediately()
+				else:
+					request_go_back()
 			else:
 				pause()
 				open_menu()
+
+
+## Closes the menu and unpauses with no animations. Clears stack and collapses all panels for next open.
+func _resume_immediately() -> void:
+	_pending_show = null
+	_pending_go_back = false
+	_panel_stack.clear()
+	for panel in _get_all_panels():
+		panel.instantCollapseVertical()
+	_update_panel_mouse_filters()
+	player.pause_menu.visible = false
+	unpause()
 
 
 ## Opens the pause menu by showing the root panel (no transition; menu was closed).
@@ -119,6 +134,9 @@ func open_menu() -> void:
 
 ## Name of the group for panels that open on top without collapsing the current panel (e.g. confirm dialogs).
 const OVERLAY_GROUP := "pause menu overlay"
+
+## Panels in this group allow resuming immediately on escape (no collapse animations). E.g. main pause menu.
+const CAN_RESUME_FROM_GROUP := "can resume from panel"
 
 ## Shows a panel. Overlay (in [constant OVERLAY_GROUP]): push and expand on top. Else: collapse current, then expand [param panel].
 ## No-op if [param panel] is already the top. If the menu was closed, opens with root first.
