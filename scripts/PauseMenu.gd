@@ -92,7 +92,9 @@ func _on_panel_finished_transition(transition: UICollapseTweener.transitions, pa
 			player.pause_menu.visible = false
 			unpause()
 		else:
-			_panel_stack[-1].expandVertical()
+			# Only expand if the panel was collapsed (replace flow); overlay panels below stayed expanded.
+			if _panel_stack[-1].collapsed:
+				_panel_stack[-1].expandVertical()
 		_update_panel_mouse_filters()
 
 
