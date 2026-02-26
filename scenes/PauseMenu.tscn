@@ -1,9 +1,41 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccwx4hsr3uqux"]
+[gd_scene load_steps=7 format=3 uid="uid://ccwx4hsr3uqux"]
 
 [ext_resource type="Theme" uid="uid://bn6oc86kvsu5j" path="res://assets/styles/menu styles/pause_center_buttons.tres" id="1_5w6ei"]
 [ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/PauseMenu.gd" id="2_jiu6o"]
 [ext_resource type="PackedScene" uid="uid://co052kx8ng1od" path="res://scenes/main menu screens/main_menu_mainscreen.tscn" id="3_40atx"]
 [ext_resource type="Script" uid="uid://dad2rvg0scop5" path="res://scripts/ui_collapse_tweener.gd" id="4_yx35g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5w6ei"]
+content_margin_left = 15.0
+content_margin_top = 34.0
+content_margin_right = 15.0
+content_margin_bottom = 58.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.75, 0.75, 0.75, 0.5568628)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jiu6o"]
+content_margin_left = 15.0
+content_margin_top = 34.0
+content_margin_right = 15.0
+content_margin_bottom = 58.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.75, 0.75, 0.75, 0.5568628)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -17,6 +49,16 @@ grow_vertical = 2
 theme = ExtResource("1_5w6ei")
 script = ExtResource("2_jiu6o")
 main_menu_scene = ExtResource("3_40atx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13, 0.13, 0.13, 0.5254902)
+metadata/_edit_lock_ = true
 
 [node name="CenterButtons" type="Control" parent="."]
 custom_minimum_size = Vector2(276, 404)
@@ -37,10 +79,10 @@ anchor_bottom = 0.83179015
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_yx35g")
-initial_state = 1
 nodes_to_hide = [NodePath("Panel/CenterContainer")]
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="Panel" type="Panel" parent="CenterButtons/MainCenterPause"]
 layout_mode = 1
@@ -80,6 +122,11 @@ size_flags_horizontal = 4
 theme = ExtResource("1_5w6ei")
 text = "Options"
 
+[node name="MainMenu" type="Button" parent="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Main Menu"
+
 [node name="Restart" type="Button" parent="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -103,9 +150,9 @@ anchor_bottom = 0.6072531
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_yx35g")
-initial_state = 1
 nodes_to_hide = [NodePath("Panel/CenterContainer")]
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
+metadata/_edit_lock_ = true
 
 [node name="Panel" type="Panel" parent="CenterButtons/RestartConfirm"]
 layout_mode = 1
@@ -114,6 +161,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5w6ei")
 
 [node name="CenterContainer" type="CenterContainer" parent="CenterButtons/RestartConfirm/Panel"]
 layout_mode = 1
@@ -145,9 +193,243 @@ text = "Confrim"
 layout_mode = 2
 text = "Cancel"
 
+[node name="QuitConfirm" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide") groups=["can resume from panel", "pause menu overlay", "pause menu panels"]]
+custom_minimum_size = Vector2(365, 139)
+layout_mode = 1
+anchor_left = 0.3420139
+anchor_top = 0.3935185
+anchor_right = 0.6588542
+anchor_bottom = 0.6080247
+offset_bottom = -3.0517578e-05
+script = ExtResource("4_yx35g")
+nodes_to_hide = [NodePath("Panel/CenterContainer")]
+metadata/_custom_type_script = "uid://dad2rvg0scop5"
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Panel" type="Panel" parent="CenterButtons/QuitConfirm"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5w6ei")
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterButtons/QuitConfirm/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterButtons/QuitConfirm/Panel/CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterButtons/QuitConfirm/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="CenterButtons/QuitConfirm/Panel/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 33
+text = "Are you sure?"
+
+[node name="Label2" type="Label" parent="CenterButtons/QuitConfirm/Panel/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+text = "(Current level progress will be lost)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterButtons/QuitConfirm/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Quit Confirm" type="Button" parent="CenterButtons/QuitConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+text = "Confirm"
+
+[node name="Quit Cancel" type="Button" parent="CenterButtons/QuitConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="MainMenuConfirm" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide") groups=["can resume from panel", "pause menu overlay", "pause menu panels"]]
+custom_minimum_size = Vector2(365, 139)
+layout_mode = 1
+anchor_left = 0.3420139
+anchor_top = 0.3935185
+anchor_right = 0.6588542
+anchor_bottom = 0.6080247
+offset_bottom = -3.0517578e-05
+script = ExtResource("4_yx35g")
+nodes_to_hide = [NodePath("Panel/CenterContainer")]
+metadata/_custom_type_script = "uid://dad2rvg0scop5"
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="Panel" type="Panel" parent="CenterButtons/MainMenuConfirm"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5w6ei")
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterButtons/MainMenuConfirm/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterButtons/MainMenuConfirm/Panel/CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterButtons/MainMenuConfirm/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="CenterButtons/MainMenuConfirm/Panel/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 33
+text = "Are you sure?"
+
+[node name="Label2" type="Label" parent="CenterButtons/MainMenuConfirm/Panel/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+text = "(Current level progress will be lost)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterButtons/MainMenuConfirm/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MainMenu Confirm" type="Button" parent="CenterButtons/MainMenuConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+text = "Confirm"
+
+[node name="MainMenu Cancel" type="Button" parent="CenterButtons/MainMenuConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="OptionsMenu" type="Control" parent="."]
+custom_minimum_size = Vector2(1093.3335, 615)
+layout_mode = 1
+anchor_left = 0.025462892
+anchor_top = 0.025462963
+anchor_right = 0.97453713
+anchor_bottom = 0.974537
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MainFrame" type="Control" parent="OptionsMenu"]
+custom_minimum_size = Vector2(1093.3335, 615)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_yx35g")
+metadata/_custom_type_script = "uid://dad2rvg0scop5"
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="OptionsMenu/MainFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jiu6o")
+
+[node name="CenterContainer" type="CenterContainer" parent="OptionsMenu/MainFrame/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsMenu/MainFrame/Panel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 212
+
+[node name="Control" type="Control" parent="OptionsMenu/MainFrame/Panel/CenterContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="UICollapseTweener" type="Control" parent="OptionsMenu/MainFrame/Panel/CenterContainer/HBoxContainer/Control"]
+custom_minimum_size = Vector2(201, 507)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -155.62506
+offset_top = -289.5
+offset_right = 155.62506
+offset_bottom = 289.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_yx35g")
+metadata/_custom_type_script = "uid://dad2rvg0scop5"
+
+[node name="Panel" type="Panel" parent="OptionsMenu/MainFrame/Panel/CenterContainer/HBoxContainer/Control/UICollapseTweener"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="OptionsMenu/MainFrame/Panel/CenterContainer/HBoxContainer/Control/UICollapseTweener/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="OptionsMenu/MainFrame/Panel/CenterContainer/HBoxContainer/Control/UICollapseTweener"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/MainFrame/Panel/CenterContainer/HBoxContainer/Control/UICollapseTweener/PanelContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="OptionsMenu/MainFrame/Panel/CenterContainer/HBoxContainer/Control/UICollapseTweener/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "tab 1"
+
+[node name="Button2" type="Button" parent="OptionsMenu/MainFrame/Panel/CenterContainer/HBoxContainer/Control/UICollapseTweener/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "tab 2"
+
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CenterButtons/RestartConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer/Restart Confirm" to="." method="_on_restart_confirm_pressed"]
 [connection signal="pressed" from="CenterButtons/RestartConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer/Restart Cancel" to="." method="_on_restart_cancel_pressed"]
+[connection signal="pressed" from="CenterButtons/QuitConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer/Quit Confirm" to="." method="_on_quit_confirm_pressed"]
+[connection signal="pressed" from="CenterButtons/QuitConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer/Quit Cancel" to="." method="_on_quit_cancel_pressed"]
+[connection signal="pressed" from="CenterButtons/MainMenuConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer/MainMenu Confirm" to="." method="_on_main_menu_confirm_pressed"]
+[connection signal="pressed" from="CenterButtons/MainMenuConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer/MainMenu Cancel" to="." method="_on_main_menu_cancel_pressed"]

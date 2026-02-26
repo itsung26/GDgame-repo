@@ -8,6 +8,8 @@ extends Control
 @onready var player: Player = get_tree().get_first_node_in_group("players")
 @onready var main_center_pause: UICollapseTweener = $CenterButtons/MainCenterPause
 @onready var restart_confirm: UICollapseTweener = $CenterButtons/RestartConfirm
+@onready var quit_confirm: UICollapseTweener = $CenterButtons/QuitConfirm
+@onready var main_menu_confirm: UICollapseTweener = $CenterButtons/MainMenuConfirm
 
 signal paused
 signal unpaused
@@ -25,6 +27,11 @@ var _pending_show: UICollapseTweener = null
 
 ## If true, after the current top panel finishes collapsing we pop it (and close menu if stack becomes empty).
 var _pending_go_back: bool = false
+
+# temporary. for debugging.
+func _process(delta: float) -> void:
+	return
+	Debug.log(_panel_stack)
 
 
 func _ready() -> void:
@@ -125,6 +132,9 @@ func _resume_immediately() -> void:
 
 ## Opens the pause menu by showing the root panel (no transition; menu was closed).
 func open_menu() -> void:
+	# collapse all panels beforehand to clear any stuck panels
+	for panel:UICollapseTweener in get_tree().get_nodes_in_group("pause menu panels"):
+		panel.instantCollapseVertical()
 	player.pause_menu.visible = true
 	_panel_stack.clear()
 	_panel_stack.append(_root_panel)
@@ -207,7 +217,7 @@ func _on_restart_pressed() -> void:
 
 
 func _on_quit_pressed() -> void:
-	get_tree().quit()
+	request_show_panel(quit_confirm)
 
 
 func _on_restart_confirm_pressed() -> void:
@@ -215,4 +225,24 @@ func _on_restart_confirm_pressed() -> void:
 
 
 func _on_restart_cancel_pressed() -> void:
+	request_go_back()
+
+
+func _on_quit_confirm_pressed() -> void:
+	LoadHandler.quitGame()
+
+
+func _on_quit_cancel_pressed() -> void:
+	request_go_back()
+
+
+func _on_main_menu_pressed() -> void:
+	request_show_panel(main_menu_confirm)
+
+
+func _on_main_menu_confirm_pressed() -> void:
+	LoadHandler.loadNewLevel(main_menu_scene.resource_path, false, 0)
+
+
+func _on_main_menu_cancel_pressed() -> void:
 	request_go_back()

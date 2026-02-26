@@ -5,6 +5,7 @@ const loading_icon_scene_path:String = "res://scenes/main menu screens/loading_l
 var loading_icon_scene_master:PackedScene = preload(loading_icon_scene_path)
 var delay_timer:Timer = Timer.new()
 
+
 ## Loads the new scene at new_scene_path, adds the loading icon the the scene if showLoadingIcon is true after waiting a few frames.
 func loadNewLevel(new_scene_path:String, showLoadingIcon:bool = true, frames_delay:int = 3) -> void:
 	# if the icon is enabled, instance it and add it to the scene
@@ -19,8 +20,14 @@ func loadNewLevel(new_scene_path:String, showLoadingIcon:bool = true, frames_del
 	# change scene (still deferred to be safe)
 	get_tree().call_deferred("change_scene_to_file", new_scene_path)
 
+
 func reloadCurrentLevel() -> void:
 	var plr:Player = get_tree().get_first_node_in_group("players")
 	plr.pause_menu.unpause()
 	Engine.time_scale = 1.0
 	get_tree().reload_current_scene()
+
+
+## Triggers a save state (to be implemented) and then an immidiate application exit.
+func quitGame() -> void:
+	get_tree().quit()

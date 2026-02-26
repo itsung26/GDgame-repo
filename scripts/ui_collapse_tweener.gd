@@ -18,7 +18,7 @@ enum transitions {
 signal finished_transition(transition: transitions)
 
 ## Which state the control is in when the scene loads (expanded or collapsed).
-@export var initial_state: InitialState = InitialState.EXPANDED
+@export var initial_state: InitialState = InitialState.COLLAPSED
 ## Duration in seconds for the collapse animation.
 @export var vertical_collapse_time: float = 0.10
 ## Duration in seconds for the expand animation.
