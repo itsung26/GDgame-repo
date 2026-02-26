@@ -49,6 +49,7 @@ var _anim_collapsing: bool = false
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_READY:
 		process_mode = Node.PROCESS_MODE_ALWAYS
+		custom_minimum_size = Vector2.ZERO
 		_y_size_expanded = size.y # assume expanded y size is the initial y size
 		_expanded_pos = position
 		_initial_pos = _expanded_pos + Vector2(0.0, _y_size_expanded / 2.0)

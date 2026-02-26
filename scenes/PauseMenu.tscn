@@ -26,8 +26,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
-[node name="MainCenterPause" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide")]
+[node name="MainCenterPause" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu panels"]]
 layout_mode = 1
 anchor_left = 0.3706597
 anchor_top = 0.16820988
@@ -92,7 +93,61 @@ theme = ExtResource("1_5w6ei")
 text = "Quit
 "
 
+[node name="RestartConfirm" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu panels"]]
+custom_minimum_size = Vector2(365, 139)
+layout_mode = 1
+anchor_left = 0.34157985
+anchor_top = 0.39274693
+anchor_right = 0.65842015
+anchor_bottom = 0.6072531
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_yx35g")
+initial_state = 1
+nodes_to_hide = [NodePath("Panel/CenterContainer")]
+metadata/_custom_type_script = "uid://dad2rvg0scop5"
+
+[node name="Panel" type="Panel" parent="CenterButtons/RestartConfirm"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterButtons/RestartConfirm/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterButtons/RestartConfirm/Panel/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterButtons/RestartConfirm/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 33
+text = "Are you sure?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterButtons/RestartConfirm/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Restart Confirm" type="Button" parent="CenterButtons/RestartConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+text = "Confrim"
+
+[node name="Restart Cancel" type="Button" parent="CenterButtons/RestartConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CenterButtons/RestartConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer/Restart Confirm" to="." method="_on_restart_confirm_pressed"]
+[connection signal="pressed" from="CenterButtons/RestartConfirm/Panel/CenterContainer/VBoxContainer/HBoxContainer/Restart Cancel" to="." method="_on_restart_cancel_pressed"]

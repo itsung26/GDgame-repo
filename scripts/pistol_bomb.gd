@@ -1,9 +1,13 @@
+## RigidBody3D projectile that can stick to surfaces/enemies and detonate after a delay.
 class_name PistolBomb
 extends RigidBody3D
 
+## Emitted when the bomb is parried (e.g. by an enemy).
 signal parried
 
-const explosion_scene:PackedScene = preload("res://scenes/explosion_3d.tscn")
+## Scene used to spawn shockwave and damage explosions.
+const explosion_scene: PackedScene = preload("res://scenes/explosion_3d.tscn")
+
 @onready var pistol_bomb_player: AnimationPlayer = $"pistol bomb player"
 @onready var detonation_timer: Timer = $"detonation timer"
 @onready var detonation_animator: AnimationPlayer = $"detonation animator"
@@ -13,17 +17,28 @@ const explosion_scene:PackedScene = preload("res://scenes/explosion_3d.tscn")
 
 ## Duration (seconds) the bomb ignores the player after being shot. Prevents instant self-damage.
 @export var time_before_player_collide: float = 0.1
-@export var spin_speed:float = 50.0
-@export var projectile_speed:float = 10.0
-@export var time_before_detonation:float = 1.0
-@export var hitstop_duration_on_being_shot:float = 0.30
-@export var can_hit_player:bool = false
+## Angular speed (rad/s) of the spinning bomb.
+@export var spin_speed: float = 50.0
+## Initial forward speed when fired.
+@export var projectile_speed: float = 10.0
+## Delay (seconds) before the stuck bomb detonates.
+@export var time_before_detonation: float = 1.0
+## Hitstop duration when this bomb is shot by the player.
+@export var hitstop_duration_on_being_shot: float = 0.30
+## If true, grace-period timer runs so the bomb can eventually hit the player; if false, it never collides with the player.
+@export var can_hit_player: bool = false
 
-var attatched_to_surface:bool = false
-var attatched_to_enemy:bool = false
-var attatched_to_world:bool = false
-var parriable:bool = true
-var has_been_parried:bool = false
+## True when the bomb has stuck to a surface (world or enemy).
+var attatched_to_surface: bool = false
+## True when the bomb is stuck to an enemy.
+var attatched_to_enemy: bool = false
+## True when the bomb is stuck to world geometry (not an enemy).
+var attatched_to_world: bool = false
+## Whether the bomb can currently be parried.
+var parriable: bool = true
+## True after the bomb has been parried once.
+var has_been_parried: bool = false
+
 
 func _ready() -> void:
 	add_collision_exception_with(get_tree().get_first_node_in_group("players"))
@@ -31,12 +46,13 @@ func _ready() -> void:
 	freeze = true
 	contact_monitor = false
 
-func setup(spawn_pos:Vector3) -> void:
+
+func setup(spawn_pos: Vector3) -> void:
 	global_position = spawn_pos
 	visible = true
 	freeze = false
 	contact_monitor = true
-	var player:Player = get_tree().get_first_node_in_group("players")
+	var player: Player = get_tree().get_first_node_in_group("players")
 	global_rotation = player.getFacingRot()
 	# Start grace-period timer so the bomb can hit the player after time_before_player_collide.
 	if can_hit_player:
@@ -46,20 +62,22 @@ func setup(spawn_pos:Vector3) -> void:
 	angular_velocity.z = -spin_speed
 	pistol_bomb_player.play("red flash")
 
+
 func explode() -> void:
-	$CollisionShape3D.disabled = true # disable collision to prevent double explosions
-	var explosion_shockwave:Explosion3D = explosion_scene.instantiate()
+	$CollisionShape3D.disabled = true  # Prevent double explosions.
+	var explosion_shockwave: Explosion3D = explosion_scene.instantiate()
 	get_tree().current_scene.add_child(explosion_shockwave)
 	explosion_shockwave.setup_preset(global_position, explosion_shockwave.explosion_presets.SHOCKWAVE_SMALL)
 
-	var explosion_damage:Explosion3D = explosion_scene.instantiate()
+	var explosion_damage: Explosion3D = explosion_scene.instantiate()
 	get_tree().current_scene.add_child(explosion_damage)
 	explosion_damage.setup_preset(global_position, explosion_damage.explosion_presets.YELLOW_SMALL)
 
 	queue_free()
 
+
 func disconnectAllSignals() -> void:
-	# Disconnect body_entered signals on this RigidBody3D
+	# Disconnect body_entered signals on this RigidBody3D.
 	if body_entered.is_connected(Callable(self, "_on_world_entered")):
 		body_entered.disconnect(Callable(self, "_on_world_entered"))
 	if body_entered.is_connected(Callable(self, "_on_player_entered")):
@@ -67,48 +85,55 @@ func disconnectAllSignals() -> void:
 	if body_entered.is_connected(Callable(self, "_on_enemy_entered")):
 		body_entered.disconnect(Callable(self, "_on_enemy_entered"))
 
-	# Disconnect custom parried signal from self
+	# Disconnect custom parried signal from self.
 	if parried.is_connected(Callable(self, "_on_parried")):
 		parried.disconnect(Callable(self, "_on_parried"))
 
-	# Disconnect timer timeout signals
+	# Disconnect timer timeout signals.
 	if time_before_can_hit_player and time_before_can_hit_player.timeout.is_connected(Callable(self, "_on_time_before_can_hit_player_timeout")):
 		time_before_can_hit_player.timeout.disconnect(Callable(self, "_on_time_before_can_hit_player_timeout"))
 	if detonation_timer and detonation_timer.timeout.is_connected(Callable(self, "_on_detonation_timer_timeout")):
 		detonation_timer.timeout.disconnect(Callable(self, "_on_detonation_timer_timeout"))
 
-func stickTo(target_body:Node3D, target_position:Vector3):
+
+func stickTo(target_body: Node3D, target_position: Vector3) -> void:
 	if target_body is Enemy:
 		attatched_to_surface = true
 		attatched_to_enemy = true
 	else:
 		attatched_to_surface = true
 		attatched_to_world = false
-	# disable all collisions for saftey
+	# Disable collisions and freeze while stuck.
 	collision_shape_3d.disabled = true
 	freeze = true
 	reparent(target_body)
-	global_position = target_position # pistol bomb teleport to raycast point
+	global_position = target_position
 	has_been_parried = true
 	parriable = false
 	detonation_timer.start(time_before_detonation)
 
-## On collide with world.
+
+## Called when this body collides with world or player (not enemy). Triggers explosion.
 func _on_world_entered(body: Node) -> void:
 	if not body.is_in_group("enemy") or body.is_in_group("players"):
 		explode()
 
-## On collide with player.
-func _on_player_entered(player:Player) -> void:
+
+## Called when this body collides with the player. Triggers explosion.
+func _on_player_entered(player: Player) -> void:
 	explode()
 
-## On collide with enemy.
-func _on_enemy_entered(enemy:Enemy) -> void:
+
+## Called when this body collides with an enemy. Triggers explosion.
+func _on_enemy_entered(enemy: Enemy) -> void:
 	explode()
+
 
 ## Grace period ended: bomb can now collide with and damage the player.
 func _on_time_before_can_hit_player_timeout() -> void:
 	remove_collision_exception_with(get_tree().get_first_node_in_group("players"))
-	
+
+
+## Detonation timer finished; play detonate animation (stuck bomb).
 func _on_detonation_timer_timeout() -> void:
 	detonation_animator.play("detonate")

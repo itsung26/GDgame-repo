@@ -18,3 +18,9 @@ func loadNewLevel(new_scene_path:String, showLoadingIcon:bool = true, frames_del
 
 	# change scene (still deferred to be safe)
 	get_tree().call_deferred("change_scene_to_file", new_scene_path)
+
+func reloadCurrentLevel() -> void:
+	var plr:Player = get_tree().get_first_node_in_group("players")
+	plr.pause_menu.unpause()
+	Engine.time_scale = 1.0
+	get_tree().reload_current_scene()
