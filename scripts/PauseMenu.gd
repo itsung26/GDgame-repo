@@ -1,8 +1,9 @@
 class_name PauseMenu
 extends Control
 ## Pause menu UI. Handles pause/unpause input and panel visibility.
-## Uses a panel stack and collapse-then-expand sequencing so only one panel is visible
-## at a time and transitions wait for the current panel to collapse before expanding the next.
+## Panels in the "pause menu overlay" group open on top of the current panel (both stay visible).
+## Other panels use replace behavior: the current panel collapses first, then the new one expands.
+## Going back always collapses the top panel and pops it; the new top is expanded if it was collapsed.
 
 @onready var player: Player = get_tree().get_first_node_in_group("players")
 @onready var main_center_pause: UICollapseTweener = $CenterButtons/MainCenterPause
@@ -16,13 +17,13 @@ signal unpaused
 ## Root panel shown when the pause menu first opens (e.g. main pause buttons).
 @onready var _root_panel: UICollapseTweener = main_center_pause
 
-## Stack of panels: bottom is root, top is the one currently visible. Only the top is expanded.
+## Stack of visible panels: bottom = root, top = front. Overlay panels are all expanded; replace panels leave those below collapsed.
 var _panel_stack: Array[UICollapseTweener] = []
 
-## Panel to expand after the current top panel finishes collapsing. Null if no transition pending.
+## Panel to expand after the current top finishes collapsing (replace behavior). Null if none.
 var _pending_show: UICollapseTweener = null
 
-## If true, after the current top panel collapses we go back (pop stack and expand new top, or close menu).
+## If true, after the current top panel finishes collapsing we pop it (and close menu if stack becomes empty).
 var _pending_go_back: bool = false
 
 
@@ -33,6 +34,11 @@ func _ready() -> void:
 	_panel_stack.clear()
 	for panel in _get_all_panels():
 		panel.instantCollapseVertical()
+	_update_panel_mouse_filters()
+
+
+func _process(delta: float) -> void:
+	Debug.log(_panel_stack)
 
 
 func _connect_panel_transition_signals() -> void:
@@ -50,11 +56,26 @@ func _get_all_panels() -> Array[UICollapseTweener]:
 	return panels
 
 
-## When a panel finishes collapsing or expanding, run the next pending action (show another panel or go back).
+## Makes only the topmost panel in the stack receive mouse input; panels below (and all their descendants) get MOUSE_FILTER_IGNORE.
+func _update_panel_mouse_filters() -> void:
+	var top: UICollapseTweener = _panel_stack[-1] if not _panel_stack.is_empty() else null
+	for panel in _get_all_panels():
+		var accept_input: bool = (panel == top)
+		_set_mouse_filter_recursive(panel, Control.MOUSE_FILTER_STOP if accept_input else Control.MOUSE_FILTER_IGNORE)
+
+
+## Sets [param filter] on [param node] and every descendant that is a Control.
+func _set_mouse_filter_recursive(node: Node, filter: Control.MouseFilter) -> void:
+	if node is Control:
+		(node as Control).mouse_filter = filter
+	for child in node.get_children():
+		_set_mouse_filter_recursive(child, filter)
+
+
+## When a panel finishes collapsing, run the pending action: show the next panel (replace) or go back (pop).
 func _on_panel_finished_transition(transition: UICollapseTweener.transitions, panel: UICollapseTweener) -> void:
 	if transition != UICollapseTweener.transitions.COLLAPSE_VERTICAL:
 		return
-	# Only react when the panel that collapsed is the current top (the one we asked to collapse).
 	if _panel_stack.is_empty() or _panel_stack[-1] != panel:
 		return
 
@@ -63,6 +84,7 @@ func _on_panel_finished_transition(transition: UICollapseTweener.transitions, pa
 		_pending_show = null
 		_panel_stack.append(to_show)
 		to_show.expandVertical()
+		_update_panel_mouse_filters()
 		return
 
 	if _pending_go_back:
@@ -73,6 +95,7 @@ func _on_panel_finished_transition(transition: UICollapseTweener.transitions, pa
 			unpause()
 		else:
 			_panel_stack[-1].expandVertical()
+		_update_panel_mouse_filters()
 
 
 func _input(event: InputEvent) -> void:
@@ -91,30 +114,41 @@ func open_menu() -> void:
 	_panel_stack.clear()
 	_panel_stack.append(_root_panel)
 	_root_panel.expandVertical()
+	_update_panel_mouse_filters()
 
 
-## Asks to show a panel: collapses the current top, then expands [param panel] when collapse finishes.
-## No-op if [param panel] is already the top of the stack. If the menu was closed, opens with root first.
+## Name of the group for panels that open on top without collapsing the current panel (e.g. confirm dialogs).
+const OVERLAY_GROUP := "pause menu overlay"
+
+## Shows a panel. Overlay (in [constant OVERLAY_GROUP]): push and expand on top. Else: collapse current, then expand [param panel].
+## No-op if [param panel] is already the top. If the menu was closed, opens with root first.
 func request_show_panel(panel: UICollapseTweener) -> void:
 	if _panel_stack.is_empty():
 		open_menu()
+		_panel_stack.append(panel)
+		panel.expandVertical()
+		_update_panel_mouse_filters()
 		return
 	if _panel_stack[-1] == panel:
 		return
-	_pending_show = panel
-	_panel_stack[-1].collapseVertical()
+	if _is_overlay_panel(panel):
+		_panel_stack.append(panel)
+		panel.expandVertical()
+		_update_panel_mouse_filters()
+	else:
+		_pending_show = panel
+		_panel_stack[-1].collapseVertical()
 
 
-## Collapses the current top panel; when done, pops the stack and expands the new top (or closes menu if stack becomes empty).
+func _is_overlay_panel(panel: Node) -> bool:
+	return panel.is_in_group(OVERLAY_GROUP)
+
+
+## Collapses only the current top panel; when done, pops it (panels below stay visible). Closes menu if stack becomes empty.
 func request_go_back() -> void:
 	if _panel_stack.is_empty():
 		player.pause_menu.visible = false
 		unpause()
-		return
-	if _panel_stack.size() == 1:
-		# Going back from root = close menu and unpause.
-		_pending_go_back = true
-		_panel_stack[-1].collapseVertical()
 		return
 	_pending_go_back = true
 	_panel_stack[-1].collapseVertical()

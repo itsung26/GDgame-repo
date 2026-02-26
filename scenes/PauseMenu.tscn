@@ -93,7 +93,7 @@ theme = ExtResource("1_5w6ei")
 text = "Quit
 "
 
-[node name="RestartConfirm" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu panels"]]
+[node name="RestartConfirm" type="Control" parent="CenterButtons" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
 custom_minimum_size = Vector2(365, 139)
 layout_mode = 1
 anchor_left = 0.34157985
