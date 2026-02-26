@@ -37,10 +37,6 @@ func _ready() -> void:
 	_update_panel_mouse_filters()
 
 
-func _process(delta: float) -> void:
-	Debug.log(_panel_stack)
-
-
 func _connect_panel_transition_signals() -> void:
 	for panel in _get_all_panels():
 		if not panel.finished_transition.is_connected(_on_panel_finished_transition.bind(panel)):
@@ -74,6 +70,8 @@ func _set_mouse_filter_recursive(node: Node, filter: Control.MouseFilter) -> voi
 
 ## When a panel finishes collapsing, run the pending action: show the next panel (replace) or go back (pop).
 func _on_panel_finished_transition(transition: UICollapseTweener.transitions, panel: UICollapseTweener) -> void:
+	var transition_name: String = "expand" if transition == UICollapseTweener.transitions.EXPAND_VERTICAL else "collapse"
+	Debug.log("%s finished: %s" % [panel.name, transition_name])
 	if transition != UICollapseTweener.transitions.COLLAPSE_VERTICAL:
 		return
 	if _panel_stack.is_empty() or _panel_stack[-1] != panel:
