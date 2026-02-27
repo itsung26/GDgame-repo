@@ -29,13 +29,21 @@ var _pending_show: UICollapseTweener = null
 ## If true, after the current top panel finishes collapsing we pop it (and close menu if stack becomes empty).
 var _pending_go_back: bool = false
 
-##
+## Used only by _process debug: was mouse left button pressed last frame.
+var _debug_mouse_was_pressed: bool = false
 
 
 # temporary. for debugging.
 func _process(delta: float) -> void:
-	#Debug.log(_panel_stack)
-	return # print the panel that was clicked on here
+	var mouse_pressed: bool = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	var just_pressed: bool = mouse_pressed and not _debug_mouse_was_pressed
+	_debug_mouse_was_pressed = mouse_pressed
+	if just_pressed and visible:
+		var pos: Vector2 = get_global_mouse_position()
+		for panel in _get_all_panels():
+			if panel.visible and panel.get_global_rect().has_point(pos):
+				Debug.log("Clicked panel: %s" % panel.name)
+				break
 
 
 func _ready() -> void:
