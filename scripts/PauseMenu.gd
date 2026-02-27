@@ -28,6 +28,9 @@ var _pending_show: UICollapseTweener = null
 ## If true, after the current top panel finishes collapsing we pop it (and close menu if stack becomes empty).
 var _pending_go_back: bool = false
 
+##
+
+
 # temporary. for debugging.
 func _process(delta: float) -> void:
 	return
@@ -246,3 +249,7 @@ func _on_main_menu_confirm_pressed() -> void:
 
 func _on_main_menu_cancel_pressed() -> void:
 	request_go_back()
+	
+	
+	
+	
