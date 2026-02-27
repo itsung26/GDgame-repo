@@ -71,10 +71,12 @@ func _process(delta: float) -> void:
 		_anim_elapsed = 0.0
 		if _anim_collapsing:
 			collapsed = true
+			visible = false
 			finished_transition.emit(transitions.COLLAPSE_VERTICAL)
 		else:
 			collapsed = false
 			_show_nodes_to_hide()
+			visible = true
 			finished_transition.emit(transitions.EXPAND_VERTICAL)
 		return
 	var step_size: float = size.distance_to(_target_size) * (delta / remaining)
@@ -108,6 +110,7 @@ func expandVertical() -> void:
 		instantCollapseVertical()
 	if animating:
 		instantCollapseVertical()
+	visible = true
 	animating = true
 	_anim_collapsing = false
 	for node in nodes_to_hide:
@@ -124,11 +127,13 @@ func instantCollapseVertical() -> void:
 	size.y = _y_size_collapsed
 	position = _initial_pos
 	collapsed = true
+	visible = false
 	finished_transition.emit(transitions.COLLAPSE_VERTICAL)
 
 
 ## Expands the control immediately with no animation (size and position set to expanded state).
 func instantExpandVertical() -> void:
+	visible = true
 	_show_nodes_to_hide()
 	size.y = _y_size_expanded
 	position = _expanded_pos

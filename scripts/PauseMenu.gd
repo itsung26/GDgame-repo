@@ -34,8 +34,8 @@ var _pending_go_back: bool = false
 
 # temporary. for debugging.
 func _process(delta: float) -> void:
-	#return
-	Debug.log(_panel_stack)
+	#Debug.log(_panel_stack)
+	return # print the panel that was clicked on here
 
 
 func _ready() -> void:
