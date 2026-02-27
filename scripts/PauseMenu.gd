@@ -10,6 +10,7 @@ extends Control
 @onready var restart_confirm: UICollapseTweener = $CenterButtons/RestartConfirm
 @onready var quit_confirm: UICollapseTweener = $CenterButtons/QuitConfirm
 @onready var main_menu_confirm: UICollapseTweener = $CenterButtons/MainMenuConfirm
+@onready var options_menu_main_frame: UICollapseTweener = %OptionsMenuMainFrame
 
 signal paused
 signal unpaused
@@ -33,7 +34,7 @@ var _pending_go_back: bool = false
 
 # temporary. for debugging.
 func _process(delta: float) -> void:
-	return
+	#return
 	Debug.log(_panel_stack)
 
 
@@ -212,7 +213,7 @@ func _on_resume_pressed() -> void:
 
 
 func _on_options_pressed() -> void:
-	pass
+	request_show_panel(options_menu_main_frame)
 
 
 func _on_restart_pressed() -> void:
