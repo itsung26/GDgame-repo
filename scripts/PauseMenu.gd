@@ -11,6 +11,10 @@ extends Control
 @onready var quit_confirm: UICollapseTweener = $CenterButtons/QuitConfirm
 @onready var main_menu_confirm: UICollapseTweener = $CenterButtons/MainMenuConfirm
 @onready var options_menu_main_frame: UICollapseTweener = %OptionsMenuMainFrame
+@onready var gameplay_tab: Button = $"OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Gameplay"
+@onready var display_tab: Button = $"OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Display"
+@onready var graphics_tab: Button = $"OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Graphics"
+@onready var settings_tabs_box: VBoxContainer = $"OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs"
 
 signal paused
 signal unpaused
@@ -32,9 +36,17 @@ var _pending_go_back: bool = false
 ## Used only by _process debug: was mouse left button pressed last frame.
 var _debug_mouse_was_pressed: bool = false
 
+## The active tab in options. There must always be only one active tab at a time.
+var _active_option_tab:Button
+
+## Contains all of the buttons (tabs) that open different menus in the options
+## such as gameplay, display, etc...
+var _options_tabs:Array[Button] = []
+
 
 # temporary. for debugging.
 func _process(delta: float) -> void:
+	Debug.log(gameplay_tab.mouse_filter)
 	var mouse_pressed: bool = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	var just_pressed: bool = mouse_pressed and not _debug_mouse_was_pressed
 	_debug_mouse_was_pressed = mouse_pressed
@@ -48,6 +60,12 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	visible = false
+	# initialize option tab menu refrences
+	_options_tabs.append_array(settings_tabs_box.get_children())
+	# one tab must always be selected. This will always be the topmost tab, and thus
+	# the frontmost element in  _options_tabs
+	_toggleOptionsTabOn(_options_tabs.front())
+	
 	_connect_panel_transition_signals()
 	# Start with menu closed (no panels on stack).
 	_panel_stack.clear()
@@ -117,6 +135,14 @@ func _on_panel_finished_transition(transition: UICollapseTweener.transitions, pa
 		_update_panel_mouse_filters()
 
 
+## Disables all tab buttons other than [param self_tab], and makes them clickable again.
+func unselectOtherTabs(self_tab:Button) -> void:
+	for tab:Button in _options_tabs:
+		if tab != self_tab:
+			tab.button_pressed = false
+			tab.mouse_filter = Control.MOUSE_FILTER_STOP
+
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if Input.is_action_just_pressed("pause"):
@@ -140,6 +166,15 @@ func _resume_immediately() -> void:
 	_update_panel_mouse_filters()
 	player.pause_menu.visible = false
 	unpause()
+
+
+## Toggles on a tab in the options panel
+func _toggleOptionsTabOn(tab:Button) -> void:
+	_active_option_tab = tab
+	_active_option_tab.button_pressed = true
+	# prevent clicking on the activated tab again
+	_active_option_tab.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	unselectOtherTabs(_active_option_tab)
 
 
 ## Opens the pause menu by showing the root panel (no transition; menu was closed).
@@ -212,8 +247,8 @@ func unpause() -> void:
 
 func get_pause() -> bool:
 	return get_tree().paused
-
-
+	
+	
 func _on_resume_pressed() -> void:
 	request_go_back()
 	# If we were on root, request_go_back() will collapse and then hide + unpause.
@@ -258,7 +293,18 @@ func _on_main_menu_confirm_pressed() -> void:
 
 func _on_main_menu_cancel_pressed() -> void:
 	request_go_back()
-	
-	
-	
-	
+
+
+func _on_gameplay_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		_toggleOptionsTabOn(gameplay_tab)
+
+
+func _on_display_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		_toggleOptionsTabOn(display_tab)
+
+
+func _on_graphics_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		_toggleOptionsTabOn(graphics_tab)
