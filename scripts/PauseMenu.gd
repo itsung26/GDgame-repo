@@ -76,7 +76,7 @@ func _ready() -> void:
 	_options_tabs.append_array(settings_tabs_box.get_children())
 	# one tab must always be selected. This will always be the topmost tab, and thus
 	# the frontmost element in  _options_tabs
-	_toggleOptionsTabOn(_options_tabs.front())
+	_switch_options_submenu_to(_options_tabs.front())
 	
 	_connect_panel_transition_signals()
 	# Start with menu closed (no panels on stack).
@@ -178,10 +178,6 @@ func _on_panel_finished_transition(transition: UICollapseTweener.transitions, pa
 		_update_panel_mouse_filters()
 
 
-func _set_active_options_submenu(options_submenu:UICollapseTweener):
-	_active_options_sub_menu = options_submenu
-
-
 ## Disables all tab buttons other than [param self_tab], and makes them clickable again.
 func unselectOtherTabs(self_tab:Button) -> void:
 	for tab:Button in _options_tabs:
@@ -215,24 +211,6 @@ func _resume_immediately() -> void:
 	_update_panel_mouse_filters()
 	player.pause_menu.visible = false
 	unpause()
-
-
-## Toggles on a tab in the options panel and toggles on its respective options
-## submenu.
-func _toggleOptionsTabOn(tab:Button) -> void:
-	assert(tab) # ensure a tab was selected
-	_active_option_tab = tab
-	unselectOtherTabs(_active_option_tab)
-	_update_options_tab_mouse_filters()
-	
-	# Check which tab was selected and match it to its options submenu.
-	match tab:
-		gameplay_tab:
-			_set_active_options_submenu(game_play_settings)
-		display_tab:
-			_set_active_options_submenu(display_settings)
-		graphics_tab:
-			_set_active_options_submenu(graphics_settings)
 
 
 ## Opens the pause menu by showing the root panel (no transition; menu was closed).
@@ -394,10 +372,24 @@ func _on_graphics_toggled(toggled_on: bool) -> void:
 		_switch_options_submenu_to(graphics_tab)
 
 
-## Switches the options submenu: collapses the current submenu, then when done expands [param new_submenu_tab]'s submenu.
+## Sets the active options tab and its submenu; if the options menu is open, shows that submenu (collapse-then-expand if another submenu was open).
 func _switch_options_submenu_to(new_submenu_tab: Button) -> void:
+	assert(new_submenu_tab)
 	var previous_submenu: UICollapseTweener = _active_options_sub_menu
-	_toggleOptionsTabOn(new_submenu_tab)
+
+	_active_option_tab = new_submenu_tab
+	unselectOtherTabs(_active_option_tab)
+	_update_options_tab_mouse_filters()
+	match new_submenu_tab:
+		gameplay_tab:
+			_active_options_sub_menu = game_play_settings
+		display_tab:
+			_active_options_sub_menu = display_settings
+		graphics_tab:
+			_active_options_sub_menu = graphics_settings
+
+	if not _panel_stack.has(options_menu_main_frame):
+		return
 	if _active_options_sub_menu != null:
 		if previous_submenu != null and _panel_stack.has(previous_submenu) and _panel_stack[-1] == previous_submenu:
 			_pending_options_submenu_switch = _active_options_sub_menu

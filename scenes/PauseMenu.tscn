@@ -384,7 +384,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_yx35g")
-nodes_to_hide = [NodePath("ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs"), NodePath("ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/VBoxContainer")]
+nodes_to_hide = [NodePath("ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs"), NodePath("ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer")]
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
 metadata/_edit_use_anchors_ = true
 
@@ -453,12 +453,13 @@ metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="GamePlaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("4_yx35g")
-nodes_to_hide = [NodePath("GameplaySettingsFrame/VBoxContainer")]
+nodes_to_hide = [NodePath("GameplaySettingsFrame/MarginContainer/VBoxContainer")]
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
 metadata/_edit_use_anchors_ = true
 
@@ -470,29 +471,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 34.0
-offset_right = 706.0
-offset_bottom = 521.0
+[node name="MarginContainer" type="MarginContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.036061026
+anchor_top = 0.058721934
+anchor_right = 0.95423025
+anchor_bottom = 0.94386876
+offset_top = 0.5
+offset_right = 11.0
+offset_bottom = 7.0
+metadata/_edit_use_anchors_ = true
 
-[node name="DifficultySetting" type="VBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="DifficultySetting" type="VBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="SettingsHBox" type="HBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/VBoxContainer/DifficultySetting"]
+[node name="SettingsHBox" type="HBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 theme = ExtResource("1_5w6ei")
 theme_type_variation = &"SettingsHBox"
 script = SubResource("GDScript_5w6ei")
 
-[node name="Label" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/VBoxContainer/DifficultySetting/SettingsHBox"]
+[node name="Label" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting/SettingsHBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 38
 text = "Difficulty"
 
-[node name="DifficultyDropdown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/VBoxContainer/DifficultySetting/SettingsHBox"]
+[node name="DifficultyDropdown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting/SettingsHBox"]
 layout_mode = 2
 theme_type_variation = &"SettingsOptionButton"
 selected = 3
@@ -506,7 +516,7 @@ popup/item_2/id = 2
 popup/item_3/text = "Brutal"
 popup/item_3/id = 3
 
-[node name="EasyTooltip" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/VBoxContainer/DifficultySetting"]
+[node name="EasyTooltip" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "This is easy mode place holder"
@@ -527,7 +537,61 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.036061026
+anchor_top = 0.059585493
+anchor_right = 0.96948683
+anchor_bottom = 0.95595855
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SettingsVBox" type="VBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer"]
+layout_mode = 2
+
+[node name="ResolutionHBox" type="HBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsVBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_5w6ei")
+theme_type_variation = &"SettingsHBox"
+
+[node name="Label" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsVBox/ResolutionHBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "Difficulty"
+
+[node name="ResolutionDropDown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsVBox/ResolutionHBox"]
+layout_mode = 2
+theme_type_variation = &"SettingsOptionButton"
+selected = 3
+item_count = 4
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+popup/item_3/text = "Brutal"
+popup/item_3/id = 3
+
+[node name="VsyncHBox" type="HBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsVBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_5w6ei")
+theme_type_variation = &"SettingsHBox"
+
+[node name="VsyncLabel" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsVBox/VsyncHBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "Vsync Enabled"
+
+[node name="VsyncToggle" type="CheckButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsVBox/VsyncHBox"]
+layout_mode = 2
+
 [node name="GraphicsSettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -575,4 +639,4 @@ text = "this is the graphics menu"
 [connection signal="toggled" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Gameplay" to="." method="_on_gameplay_toggled"]
 [connection signal="toggled" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Display" to="." method="_on_display_toggled"]
 [connection signal="toggled" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Graphics" to="." method="_on_graphics_toggled"]
-[connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/VBoxContainer/DifficultySetting/SettingsHBox/DifficultyDropdown" to="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/VBoxContainer/DifficultySetting/SettingsHBox" method="_on_difficulty_dropdown_item_selected"]
+[connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting/SettingsHBox/DifficultyDropdown" to="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting/SettingsHBox" method="_on_difficulty_dropdown_item_selected"]
