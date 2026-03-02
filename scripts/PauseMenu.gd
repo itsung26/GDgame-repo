@@ -15,6 +15,8 @@ extends Control
 @onready var display_tab: Button = $"OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Display"
 @onready var graphics_tab: Button = $"OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Graphics"
 @onready var settings_tabs_box: VBoxContainer = $"OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs"
+@onready var game_play_settings: UICollapseTweener = $OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings
+@onready var display_settings: UICollapseTweener = $OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings
 
 signal paused
 signal unpaused
@@ -95,6 +97,22 @@ func _update_panel_mouse_filters() -> void:
 	for panel in _get_all_panels():
 		var accept_input: bool = (panel == top)
 		_set_mouse_filter_recursive(panel, Control.MOUSE_FILTER_STOP if accept_input else Control.MOUSE_FILTER_IGNORE)
+	_update_options_tab_mouse_filters()
+
+
+## Ensures the active options tab remains non-clickable and other tabs clickable when the options panel is the top panel.
+func _update_options_tab_mouse_filters() -> void:
+	if _active_option_tab == null:
+		return
+	if _panel_stack.is_empty() or _panel_stack[-1] != options_menu_main_frame:
+		return
+	for tab: Button in _options_tabs:
+		if tab == _active_option_tab:
+			tab.button_pressed = true
+			tab.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		else:
+			tab.button_pressed = false
+			tab.mouse_filter = Control.MOUSE_FILTER_STOP
 
 
 ## Sets [param filter] on [param node] and every descendant that is a Control.
@@ -140,7 +158,6 @@ func unselectOtherTabs(self_tab:Button) -> void:
 	for tab:Button in _options_tabs:
 		if tab != self_tab:
 			tab.button_pressed = false
-			tab.mouse_filter = Control.MOUSE_FILTER_STOP
 
 
 func _input(event: InputEvent) -> void:
@@ -171,10 +188,8 @@ func _resume_immediately() -> void:
 ## Toggles on a tab in the options panel
 func _toggleOptionsTabOn(tab:Button) -> void:
 	_active_option_tab = tab
-	_active_option_tab.button_pressed = true
-	# prevent clicking on the activated tab again
-	_active_option_tab.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	unselectOtherTabs(_active_option_tab)
+	_update_options_tab_mouse_filters()
 
 
 ## Opens the pause menu by showing the root panel (no transition; menu was closed).
@@ -298,11 +313,13 @@ func _on_main_menu_cancel_pressed() -> void:
 func _on_gameplay_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		_toggleOptionsTabOn(gameplay_tab)
+		request_show_panel(game_play_settings)
 
 
 func _on_display_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		_toggleOptionsTabOn(display_tab)
+		request_show_panel(display_settings)
 
 
 func _on_graphics_toggled(toggled_on: bool) -> void:
