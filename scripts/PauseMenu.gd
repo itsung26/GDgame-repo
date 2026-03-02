@@ -396,3 +396,14 @@ func _switch_options_submenu_to(new_submenu_tab: Button) -> void:
 			previous_submenu.collapseVertical()
 		else:
 			request_show_panel(_active_options_sub_menu)
+
+
+func _on_vsync_drop_down_item_selected(index: int) -> void:
+	match index:
+		0: # Disabled
+			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+		1: # Enabled
+			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+		2: # adaptive
+			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ADAPTIVE)
+	
