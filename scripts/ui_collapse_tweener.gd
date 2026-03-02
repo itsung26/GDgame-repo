@@ -1,62 +1,108 @@
+@tool
 class_name UICollapseTweener
 extends Control
 
 ## UI animator capable of collapse and expand transitions.
+## Uses move_toward and delta time instead of tweens.
+
+enum InitialState {
+	EXPANDED,
+	COLLAPSED
+}
 
 signal finished_transition
 
-@export var vertical_collapse_time:float = 0.25
-@export var vertical_expand_time:float = 0.25
-@export var nodes_to_hide:Array[Control]
+@export var initial_state: InitialState = InitialState.EXPANDED
+@export var vertical_collapse_time: float = 0.25
+@export var vertical_expand_time: float = 0.25
+@export var nodes_to_hide: Array[Control]
 
-var animating:bool = false
-var collapsed:bool = false
-var previous_size:Vector2 = Vector2.ZERO
-var previous_pos:Vector2 =  Vector2.ZERO
+@export var _y_size_collapsed: float = 0.0
+@export var _y_size_expanded: float = 200.0
 
-## Executes a vertical collapse. Cannot collapse if already collapsed or currently tweening.
+var animating: bool = false
+var collapsed: bool = false
+var previous_pos: Vector2 = Vector2.ZERO
+
+var _target_size: Vector2 = Vector2.ZERO
+var _target_position: Vector2 = Vector2.ZERO
+var _anim_duration: float = 0.0
+var _anim_elapsed: float = 0.0
+var _anim_collapsing: bool = false
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_READY:
+		process_mode = Node.PROCESS_MODE_ALWAYS
+		if initial_state == InitialState.COLLAPSED:
+			call_deferred("_apply_initial_state_collapsed")
+
+
+func _process(delta: float) -> void:
+	if not animating:
+		return
+	var remaining: float = _anim_duration - _anim_elapsed
+	if remaining <= 0.0 or delta >= remaining:
+		size = _target_size
+		position = _target_position
+		animating = false
+		_anim_elapsed = 0.0
+		if _anim_collapsing:
+			collapsed = true
+		else:
+			collapsed = false
+			_show_nodes_to_hide()
+		finished_transition.emit()
+		return
+	var step_size: float = size.distance_to(_target_size) * (delta / remaining)
+	var step_pos: float = position.distance_to(_target_position) * (delta / remaining)
+	size = size.move_toward(_target_size, step_size)
+	position = position.move_toward(_target_position, step_pos)
+	_anim_elapsed += delta
+
+
+func _apply_initial_state_collapsed() -> void:
+	previous_pos = position
+	size = Vector2(size.x, _y_size_collapsed)
+	position = position + Vector2(0, _y_size_expanded / 2.0)
+	collapsed = true
+	for node in nodes_to_hide:
+		node.visible = false
+
+
+## Executes a vertical collapse. No-op if already collapsed or if a collapse/expand animation is in progress.
 func collapseVertical():
-	if animating or collapsed:
+	if collapsed and not animating:
+		return
+	if animating:
 		return
 	animating = true
+	_anim_collapsing = true
 	for node in nodes_to_hide:
 		node.visible = false
 	previous_pos = position
-	previous_size = size
-	# Move down by half height so the center stays fixed
-	var collapsed_pos := position + Vector2(0, size.y / 2.0)
-	var ui_tweener := create_tween().set_parallel(true)
-	_make_tween_unscaled(ui_tweener)
-	ui_tweener.tween_property(self, "size", Vector2(size.x, 0.0), vertical_collapse_time)
-	ui_tweener.tween_property(self, "position", collapsed_pos, vertical_collapse_time)
-	ui_tweener.tween_callback(func() -> void: animating = false)
-	ui_tweener.tween_callback(func() -> void: collapsed = true)
-	ui_tweener.tween_callback(finished_transition.emit)
+	var collapsed_pos := position + Vector2(0, _y_size_expanded / 2.0)
+	_target_size = Vector2(size.x, _y_size_collapsed)
+	_target_position = collapsed_pos
+	_anim_duration = vertical_collapse_time
+	_anim_elapsed = 0.0
 
-## Executes a vertical expansion. Cannot expand if already expanded or currently tweening.
+
+## Executes a vertical expansion. No-op if already expanded or if a collapse/expand animation is in progress.
 func expandVertical():
-	if animating or not collapsed:
+	if not collapsed and not animating:
+		return
+	if animating:
 		return
 	animating = true
+	_anim_collapsing = false
 	for node in nodes_to_hide:
 		node.visible = false
-	var ui_tweener := create_tween().set_parallel(true)
-	_make_tween_unscaled(ui_tweener)
-	ui_tweener.tween_property(self, "size", Vector2(size.x, previous_size.y), vertical_expand_time)
-	ui_tweener.tween_property(self, "position", previous_pos, vertical_expand_time)
-	ui_tweener.tween_callback(func() -> void: animating = false)
-	ui_tweener.tween_callback(func() -> void: collapsed = false)
-	ui_tweener.tween_callback(_show_nodes_to_hide)
-	ui_tweener.tween_callback(finished_transition.emit)
+	_target_size = Vector2(size.x, _y_size_expanded)
+	_target_position = previous_pos
+	_anim_duration = vertical_expand_time
+	_anim_elapsed = 0.0
 
-## Makes the tween run at real-time speed regardless of Engine.time_scale.
-## Uses set_ignore_time_scale (Godot 4.3+) or compensates via speed_scale on older versions.
-func _make_tween_unscaled(tween: Tween) -> void:
-	if tween.has_method("set_ignore_time_scale"):
-		tween.set_ignore_time_scale(true)
-	else:
-		var ts: float = max(Engine.time_scale, 0.001)
-		tween.set_speed_scale(1.0 / ts)
 
 func _show_nodes_to_hide() -> void:
 	for node in nodes_to_hide:
