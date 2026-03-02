@@ -17,6 +17,7 @@ extends Control
 @onready var settings_tabs_box: VBoxContainer = $"OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs"
 @onready var game_play_settings: UICollapseTweener = $OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings
 @onready var display_settings: UICollapseTweener = $OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings
+@onready var graphics_settings: UICollapseTweener = $OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings
 
 signal paused
 signal unpaused
@@ -35,6 +36,9 @@ var _pending_show: UICollapseTweener = null
 
 ## If true, after the current top panel finishes collapsing we pop it (and close menu if stack becomes empty).
 var _pending_go_back: bool = false
+
+## When switching options tabs: submenu to push and expand after the current submenu finishes collapsing. Null if none.
+var _pending_options_submenu_switch: UICollapseTweener = null
 
 ## Used only by _process debug: was mouse left button pressed last frame.
 var _debug_mouse_was_pressed: bool = false
@@ -141,6 +145,15 @@ func _on_panel_finished_transition(transition: UICollapseTweener.transitions, pa
 	if _panel_stack.is_empty() or _panel_stack[-1] != panel:
 		return
 
+	if _pending_options_submenu_switch != null:
+		var to_show: UICollapseTweener = _pending_options_submenu_switch
+		_pending_options_submenu_switch = null
+		_panel_stack.pop_back()
+		_panel_stack.append(to_show)
+		to_show.expandVertical()
+		_update_panel_mouse_filters()
+		return
+
 	if _pending_show != null:
 		var to_show: UICollapseTweener = _pending_show
 		_pending_show = null
@@ -195,6 +208,7 @@ func _input(event: InputEvent) -> void:
 func _resume_immediately() -> void:
 	_pending_show = null
 	_pending_go_back = false
+	_pending_options_submenu_switch = null
 	_panel_stack.clear()
 	for panel in _get_all_panels():
 		panel.instantCollapseVertical()
@@ -218,7 +232,7 @@ func _toggleOptionsTabOn(tab:Button) -> void:
 		display_tab:
 			_set_active_options_submenu(display_settings)
 		graphics_tab:
-			_set_active_options_submenu(null)
+			_set_active_options_submenu(graphics_settings)
 
 
 ## Opens the pause menu by showing the root panel (no transition; menu was closed).
@@ -367,28 +381,26 @@ func _on_main_menu_cancel_pressed() -> void:
 
 func _on_gameplay_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		_close_current_options_submenu_if_open()
-		_toggleOptionsTabOn(gameplay_tab)
-		if _active_options_sub_menu != null:
-			request_show_panel(_active_options_sub_menu)
+		_switch_options_submenu_to(gameplay_tab)
+
 
 func _on_display_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		_close_current_options_submenu_if_open()
-		_toggleOptionsTabOn(display_tab)
-		if _active_options_sub_menu != null:
-			request_show_panel(_active_options_sub_menu)
+		_switch_options_submenu_to(display_tab)
 
 
 func _on_graphics_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		_close_current_options_submenu_if_open()
-		_toggleOptionsTabOn(graphics_tab)
-		if _active_options_sub_menu != null:
+		_switch_options_submenu_to(graphics_tab)
+
+
+## Switches the options submenu: collapses the current submenu, then when done expands [param new_submenu_tab]'s submenu.
+func _switch_options_submenu_to(new_submenu_tab: Button) -> void:
+	var previous_submenu: UICollapseTweener = _active_options_sub_menu
+	_toggleOptionsTabOn(new_submenu_tab)
+	if _active_options_sub_menu != null:
+		if previous_submenu != null and _panel_stack.has(previous_submenu) and _panel_stack[-1] == previous_submenu:
+			_pending_options_submenu_switch = _active_options_sub_menu
+			previous_submenu.collapseVertical()
+		else:
 			request_show_panel(_active_options_sub_menu)
-
-
-## Removes the current options submenu from the stack so only one submenu is open; keeps options_menu_main_frame.
-func _close_current_options_submenu_if_open() -> void:
-	if _active_options_sub_menu != null and _panel_stack.has(_active_options_sub_menu):
-		close_panel_immediately(_active_options_sub_menu)

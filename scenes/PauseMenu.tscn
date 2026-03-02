@@ -452,7 +452,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="GamePlaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["options submenu", "pause menu overlay", "pause menu panels"]]
+[node name="GamePlaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -511,7 +511,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "This is easy mode place holder"
 
-[node name="DisplaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" groups=["options submenu", "pause menu overlay", "pause menu panels"]]
+[node name="DisplaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" groups=["pause menu overlay", "pause menu panels"]]
 layout_mode = 1
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -526,6 +526,40 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="GraphicsSettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_yx35g")
+nodes_to_hide = [NodePath("GraphicsSettingsFrame/MarginContainer")]
+metadata/_custom_type_script = "uid://dad2rvg0scop5"
+
+[node name="GraphicsSettingsFrame" type="Panel" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "this is the graphics menu"
 
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
