@@ -22,6 +22,7 @@ signal paused
 signal unpaused
 
 @export var main_menu_scene: PackedScene
+@export var log_panel_events:bool = false
 
 ## Root panel shown when the pause menu first opens (e.g. main pause buttons).
 @onready var _root_panel: UICollapseTweener = main_center_pause
@@ -41,6 +42,10 @@ var _debug_mouse_was_pressed: bool = false
 ## The active tab in options. There must always be only one active tab at a time.
 var _active_option_tab:Button
 
+## The active options submenu opened by it's respective _active_option_tab.
+## For example, gameplay_tab opens game_play_settings.
+var _active_options_sub_menu:UICollapseTweener
+
 ## Contains all of the buttons (tabs) that open different menus in the options
 ## such as gameplay, display, etc...
 var _options_tabs:Array[Button] = []
@@ -48,7 +53,7 @@ var _options_tabs:Array[Button] = []
 
 # temporary. for debugging.
 func _process(delta: float) -> void:
-	Debug.log(gameplay_tab.mouse_filter)
+	Debug.log(_panel_stack)
 	var mouse_pressed: bool = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	var just_pressed: bool = mouse_pressed and not _debug_mouse_was_pressed
 	_debug_mouse_was_pressed = mouse_pressed
@@ -56,7 +61,8 @@ func _process(delta: float) -> void:
 		var pos: Vector2 = get_global_mouse_position()
 		for panel in _get_all_panels():
 			if panel.visible and panel.get_global_rect().has_point(pos):
-				Debug.log("Clicked panel: %s" % panel.name)
+				if log_panel_events:
+					Debug.log("Clicked panel: %s" % panel.name)
 				break
 
 
@@ -104,7 +110,9 @@ func _update_panel_mouse_filters() -> void:
 func _update_options_tab_mouse_filters() -> void:
 	if _active_option_tab == null:
 		return
-	if _panel_stack.is_empty() or _panel_stack[-1] != options_menu_main_frame:
+	# Only adjust tabs while the options menu is actually visible; this keeps tab
+	# behavior stable regardless of which options subpanel is currently on top.
+	if not options_menu_main_frame.visible:
 		return
 	for tab: Button in _options_tabs:
 		if tab == _active_option_tab:
@@ -126,7 +134,8 @@ func _set_mouse_filter_recursive(node: Node, filter: Control.MouseFilter) -> voi
 ## When a panel finishes collapsing, run the pending action: show the next panel (replace) or go back (pop).
 func _on_panel_finished_transition(transition: UICollapseTweener.transitions, panel: UICollapseTweener) -> void:
 	var transition_name: String = "expand" if transition == UICollapseTweener.transitions.EXPAND_VERTICAL else "collapse"
-	Debug.log("%s finished: %s" % [panel.name, transition_name])
+	if log_panel_events:
+		Debug.log("%s finished: %s" % [panel.name, transition_name])
 	if transition != UICollapseTweener.transitions.COLLAPSE_VERTICAL:
 		return
 	if _panel_stack.is_empty() or _panel_stack[-1] != panel:
@@ -138,6 +147,9 @@ func _on_panel_finished_transition(transition: UICollapseTweener.transitions, pa
 		_panel_stack.append(to_show)
 		to_show.expandVertical()
 		_update_panel_mouse_filters()
+		# When the options main frame just opened, show the active options submenu so it plays its transition.
+		if to_show == options_menu_main_frame and _active_options_sub_menu != null:
+			request_show_panel(_active_options_sub_menu)
 		return
 
 	if _pending_go_back:
@@ -153,6 +165,10 @@ func _on_panel_finished_transition(transition: UICollapseTweener.transitions, pa
 		_update_panel_mouse_filters()
 
 
+func _set_active_options_submenu(options_submenu:UICollapseTweener):
+	_active_options_sub_menu = options_submenu
+
+
 ## Disables all tab buttons other than [param self_tab], and makes them clickable again.
 func unselectOtherTabs(self_tab:Button) -> void:
 	for tab:Button in _options_tabs:
@@ -166,6 +182,8 @@ func _input(event: InputEvent) -> void:
 			if get_pause():
 				if not _panel_stack.is_empty() and _panel_stack[-1].is_in_group(CAN_RESUME_FROM_GROUP):
 					_resume_immediately()
+				elif _panel_stack.has(options_menu_main_frame):
+					request_go_back_to_main_pause()
 				else:
 					request_go_back()
 			else:
@@ -185,11 +203,22 @@ func _resume_immediately() -> void:
 	unpause()
 
 
-## Toggles on a tab in the options panel
+## Toggles on a tab in the options panel and toggles on its respective options
+## submenu.
 func _toggleOptionsTabOn(tab:Button) -> void:
+	assert(tab) # ensure a tab was selected
 	_active_option_tab = tab
 	unselectOtherTabs(_active_option_tab)
 	_update_options_tab_mouse_filters()
+	
+	# Check which tab was selected and match it to its options submenu.
+	match tab:
+		gameplay_tab:
+			_set_active_options_submenu(game_play_settings)
+		display_tab:
+			_set_active_options_submenu(display_settings)
+		graphics_tab:
+			_set_active_options_submenu(null)
 
 
 ## Opens the pause menu by showing the root panel (no transition; menu was closed).
@@ -234,6 +263,18 @@ func _is_overlay_panel(panel: Node) -> bool:
 	return panel.is_in_group(OVERLAY_GROUP)
 
 
+## If currently in the options menu, closes all panels until only the main pause (root) is left and expands it.
+## Use when unpause is pressed while in options so we return to the main center buttons instead of one panel at a time.
+func request_go_back_to_main_pause() -> void:
+	if _panel_stack.is_empty():
+		return
+	while _panel_stack.size() > 1:
+		close_panel_immediately(_panel_stack[-1])
+	if _panel_stack[0].collapsed:
+		_panel_stack[0].expandVertical()
+	_update_panel_mouse_filters()
+
+
 ## Collapses only the current top panel; when done, pops it (panels below stay visible). Closes menu if stack becomes empty.
 func request_go_back() -> void:
 	if _panel_stack.is_empty():
@@ -242,6 +283,20 @@ func request_go_back() -> void:
 		return
 	_pending_go_back = true
 	_panel_stack[-1].collapseVertical()
+
+
+## Immediately closes [param panel]: collapses it without animation and removes it from the active stack.
+## If the stack becomes empty after removal, the pause menu is hidden and the game is unpaused.
+func close_panel_immediately(panel: UICollapseTweener) -> void:
+	var idx: int = _panel_stack.find(panel)
+	if idx == -1:
+		return
+	_panel_stack.remove_at(idx)
+	panel.instantCollapseVertical()
+	if _panel_stack.is_empty():
+		player.pause_menu.visible = false
+		unpause()
+	_update_panel_mouse_filters()
 
 
 func pause() -> void:
@@ -312,16 +367,28 @@ func _on_main_menu_cancel_pressed() -> void:
 
 func _on_gameplay_toggled(toggled_on: bool) -> void:
 	if toggled_on:
+		_close_current_options_submenu_if_open()
 		_toggleOptionsTabOn(gameplay_tab)
-		request_show_panel(game_play_settings)
-
+		if _active_options_sub_menu != null:
+			request_show_panel(_active_options_sub_menu)
 
 func _on_display_toggled(toggled_on: bool) -> void:
 	if toggled_on:
+		_close_current_options_submenu_if_open()
 		_toggleOptionsTabOn(display_tab)
-		request_show_panel(display_settings)
+		if _active_options_sub_menu != null:
+			request_show_panel(_active_options_sub_menu)
 
 
 func _on_graphics_toggled(toggled_on: bool) -> void:
 	if toggled_on:
+		_close_current_options_submenu_if_open()
 		_toggleOptionsTabOn(graphics_tab)
+		if _active_options_sub_menu != null:
+			request_show_panel(_active_options_sub_menu)
+
+
+## Removes the current options submenu from the stack so only one submenu is open; keeps options_menu_main_frame.
+func _close_current_options_submenu_if_open() -> void:
+	if _active_options_sub_menu != null and _panel_stack.has(_active_options_sub_menu):
+		close_panel_immediately(_active_options_sub_menu)

@@ -452,7 +452,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="GamePlaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
+[node name="GamePlaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["options submenu", "pause menu overlay", "pause menu panels"]]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -511,8 +511,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "This is easy mode place holder"
 
-[node name="DisplaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" groups=["pause menu overlay", "pause menu panels"]]
-visible = false
+[node name="DisplaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" groups=["options submenu", "pause menu overlay", "pause menu panels"]]
 layout_mode = 1
 anchor_right = 1.0
 anchor_bottom = 1.0
