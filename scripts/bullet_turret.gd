@@ -228,7 +228,6 @@ func ragdoll(force_applied:float) -> void:
 		for bone:PhysicalBone3D in phys_sim_bones:
 			var random_direction:Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 			bone.linear_velocity += random_direction * force_applied
-			MemoryCleaner.gib_limbs_drawn.append(bone)
 
 func _on_hurt(damage: float, damage_type: Enemy.damage_types) -> void:
 	if enemy_state == enemy_states.OFFLINE:

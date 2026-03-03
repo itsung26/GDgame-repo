@@ -296,7 +296,6 @@ func ragdoll(force_applied:float) -> void:
 	for bone:PhysicalBone3D in physical_bones:
 		var random_direction:Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 		bone.linear_velocity += random_direction * force_applied
-		MemoryCleaner.gib_limbs_drawn.append(bone)
 
 
 func _on_player_detector_body_entered(player:Player) -> void:

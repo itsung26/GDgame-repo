@@ -30,7 +30,6 @@ var owner_enemy:Enemy = null
 const explosion_3d_SCENE:PackedScene = preload("res://scenes/explosion_3d.tscn")
 
 func setup(pos:Vector3, dir:Vector3, owner:Enemy) -> void:
-	registerSetup()
 	if not dir.is_normalized():
 		dir = dir.normalized()
 	global_position = pos

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccwx4hsr3uqux"]
+[gd_scene load_steps=9 format=3 uid="uid://ccwx4hsr3uqux"]
 
 [ext_resource type="Theme" uid="uid://bn6oc86kvsu5j" path="res://assets/styles/menu styles/pause_center_buttons.tres" id="1_5w6ei"]
 [ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/PauseMenu.gd" id="2_jiu6o"]
 [ext_resource type="PackedScene" uid="uid://co052kx8ng1od" path="res://scenes/main menu screens/main_menu_mainscreen.tscn" id="3_40atx"]
 [ext_resource type="Script" uid="uid://dad2rvg0scop5" path="res://scripts/ui_collapse_tweener.gd" id="4_yx35g"]
+[ext_resource type="Script" uid="uid://bg1xqd18bha76" path="res://scripts/menu_set_on_startup.gd" id="5_jiu6o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5w6ei"]
 content_margin_left = 15.0
@@ -550,7 +551,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="SettingsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 134
+theme_override_constants/separation = 111
 
 [node name="LabelsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox"]
 layout_mode = 2
@@ -583,6 +584,13 @@ theme_override_font_sizes/font_size = 38
 text = "Vsync Mode"
 metadata/_edit_use_anchors_ = true
 
+[node name="WindowModeLabel" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/LabelsBox/BoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 38
+text = "Window Mode"
+metadata/_edit_use_anchors_ = true
+
 [node name="ButtonsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -609,6 +617,23 @@ popup/item_0/id = 0
 popup/item_1/text = "Enabled"
 popup/item_1/id = 1
 popup/item_2/text = "Adaptive"
+popup/item_2/id = 2
+
+[node name="MenuSetOnStartup" type="Node" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox/VsyncDropDown"]
+script = ExtResource("5_jiu6o")
+cfg_section = "display"
+cfg_key = "vsync_mode"
+
+[node name="WindowModeDropDown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox"]
+layout_mode = 2
+theme_type_variation = &"SettingsOptionButton"
+selected = 2
+item_count = 3
+popup/item_0/text = "Fullscreen"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Windowed"
 popup/item_2/id = 2
 
 [node name="GraphicsSettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
@@ -662,3 +687,4 @@ text = "this is the graphics menu"
 [connection signal="toggled" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Graphics" to="." method="_on_graphics_toggled"]
 [connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting/SettingsHBox/DifficultyDropdown" to="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting/SettingsHBox" method="_on_difficulty_dropdown_item_selected"]
 [connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox/VsyncDropDown" to="." method="_on_vsync_drop_down_item_selected"]
+[connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox/WindowModeDropDown" to="." method="_on_window_mode_drop_down_item_selected"]

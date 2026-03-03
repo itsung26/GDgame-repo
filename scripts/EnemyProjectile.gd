@@ -10,9 +10,6 @@ class_name EnemyProjectile extends RigidBody3D
 @export var cam_shake_duration:float
 @export var cam_shake_strength:float
 
-## Call this method when a child class' [code]setup()[/code] method is called.
-func registerSetup() -> void:
-	MemoryCleaner.projectiles_drawn.append(self)
 
 func _set_has_been_parried(new_has_been_parried:bool):
 	has_been_parried = new_has_been_parried

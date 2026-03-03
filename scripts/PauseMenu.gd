@@ -21,7 +21,6 @@ extends Control
 
 signal paused
 signal unpaused
-
 @export var main_menu_scene: PackedScene
 @export var log_panel_events:bool = false
 
@@ -57,7 +56,6 @@ var _options_tabs:Array[Button] = []
 
 # temporary. for debugging.
 func _process(delta: float) -> void:
-	Debug.log(_panel_stack)
 	var mouse_pressed: bool = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 	var just_pressed: bool = mouse_pressed and not _debug_mouse_was_pressed
 	_debug_mouse_was_pressed = mouse_pressed
@@ -400,10 +398,16 @@ func _switch_options_submenu_to(new_submenu_tab: Button) -> void:
 
 func _on_vsync_drop_down_item_selected(index: int) -> void:
 	match index:
-		0: # Disabled
+		0: # disabled
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-		1: # Enabled
+			CfgParser.set_string("display", "vsync_mode", "disabled")
+		1: # enabled
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+			CfgParser.set_string("display", "vsync_mode", "enabled")
 		2: # adaptive
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ADAPTIVE)
-	
+			CfgParser.set_string("display", "vsync_mode", "adaptive")
+
+
+func _on_window_mode_drop_down_item_selected(index: int) -> void:
+	pass # Replace with function body.
