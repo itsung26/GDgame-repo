@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/PauseMenu.gd" id="2_jiu6o"]
 [ext_resource type="PackedScene" uid="uid://co052kx8ng1od" path="res://scenes/main menu screens/main_menu_mainscreen.tscn" id="3_40atx"]
 [ext_resource type="Script" uid="uid://dad2rvg0scop5" path="res://scripts/ui_collapse_tweener.gd" id="4_yx35g"]
-[ext_resource type="Script" uid="uid://bg1xqd18bha76" path="res://scripts/menu_set_on_startup.gd" id="5_jiu6o"]
+[ext_resource type="Script" uid="uid://bhbf0afvs18ey" path="res://scripts/settings_dropdown.gd" id="5_jiu6o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5w6ei"]
 content_margin_left = 15.0
@@ -606,6 +606,8 @@ selected = 0
 item_count = 1
 popup/item_0/text = "1920 x 1080"
 popup/item_0/id = 0
+script = ExtResource("5_jiu6o")
+metadata/_custom_type_script = "uid://bhbf0afvs18ey"
 
 [node name="VsyncDropDown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox"]
 layout_mode = 2
@@ -618,11 +620,7 @@ popup/item_1/text = "Enabled"
 popup/item_1/id = 1
 popup/item_2/text = "Adaptive"
 popup/item_2/id = 2
-
-[node name="MenuSetOnStartup" type="Node" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox/VsyncDropDown"]
-script = ExtResource("5_jiu6o")
-cfg_section = "display"
-cfg_key = "vsync_mode"
+metadata/_custom_type_script = "uid://bhbf0afvs18ey"
 
 [node name="WindowModeDropDown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox"]
 layout_mode = 2
@@ -635,6 +633,7 @@ popup/item_1/text = "Borderless"
 popup/item_1/id = 1
 popup/item_2/text = "Windowed"
 popup/item_2/id = 2
+metadata/_custom_type_script = "uid://bhbf0afvs18ey"
 
 [node name="GraphicsSettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
 visible = false
