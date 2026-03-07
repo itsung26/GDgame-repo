@@ -2,16 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtfc25a2sd7yh"
-path="res://.godot/imported/roughness.png-0c7a7671ec58b95ecf0c6719179b2de9.ctex"
+uid="uid://dtxtlbtkqj0lg"
+path.s3tc="res://.godot/imported/hallways 2 pipes_Bake1_PBR_Diffuse.1001.png-6965381ca950010458d15bd47a207c2c.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://DECALmachine assets/Trims/blk1_tillable/roughness.png"
-dest_files=["res://.godot/imported/roughness.png-0c7a7671ec58b95ecf0c6719179b2de9.ctex"]
+source_file="res://assets/meshes/map models/1-2/textures/hallways 2 pipes/hallways 2 pipes_Bake1_PBR_Diffuse.1001.png"
+dest_files=["res://.godot/imported/hallways 2 pipes_Bake1_PBR_Diffuse.1001.png-6965381ca950010458d15bd47a207c2c.s3tc.ctex"]
 
 [params]
 

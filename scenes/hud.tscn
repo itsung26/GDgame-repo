@@ -268,9 +268,12 @@ expand_mode = 1
 
 [node name="DebugContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-offset_right = 432.0
-offset_bottom = 284.0
+anchors_preset = -1
+anchor_right = 0.375
+anchor_bottom = 0.49691358
+offset_bottom = -38.0
 theme = SubResource("Theme_eld54")
+metadata/_edit_use_anchors_ = true
 
 [node name="DebugTitle" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
@@ -356,14 +359,16 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "============================="
 
 [node name="versionText" type="Label" parent="."]
-layout_mode = 0
-offset_left = 963.0
-offset_top = 628.0
-offset_right = 1152.0
-offset_bottom = 658.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9201389
+anchor_top = 0.9691358
+anchor_right = 0.9939236
+anchor_bottom = 0.99228394
 theme_override_font_sizes/font_size = 21
-text = " 0.14.0-ALPHA"
+text = "PRE-ALPHA"
 label_settings = SubResource("LabelSettings_5357l")
+metadata/_edit_use_anchors_ = true
 
 [node name="MiddleArea" type="Control" parent="."]
 layout_mode = 1
@@ -549,11 +554,9 @@ show_percentage = false
 
 [node name="BottomLeftArea" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchor_top = 0.7546296
+anchor_right = 0.3168403
 anchor_bottom = 1.0
-offset_top = 489.0
-offset_right = -787.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_apjy4")
@@ -562,20 +565,20 @@ ammo_panel_lerp_right_target = 25.0
 ammo_panel_scale_lerp_speed = 2.5
 ammo_panel_back_target = 0.95
 ammo_panel_forward_target = 1.1
+metadata/_edit_use_anchors_ = true
 
 [node name="AmmoPanel" type="SubViewportContainer" parent="BottomLeftArea"]
 material = SubResource("ShaderMaterial_0m4u7")
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 58.0
-offset_top = -216.0
-offset_right = 583.0
-offset_bottom = -33.0
+anchors_preset = -1
+anchor_left = 0.1589041
+anchor_top = -0.35849056
+anchor_right = 1.5972602
+anchor_bottom = 0.7924528
 grow_vertical = 0
 stretch = true
 script = SubResource("GDScript_48y67")
+metadata/_edit_use_anchors_ = true
 
 [node name="SubViewport" type="SubViewport" parent="BottomLeftArea/AmmoPanel"]
 transparent_bg = true
@@ -584,40 +587,41 @@ size = Vector2i(525, 183)
 render_target_update_mode = 4
 
 [node name="BGpanel" type="Panel" parent="BottomLeftArea/AmmoPanel/SubViewport"]
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = -1
+anchor_right = 0.8
 anchor_bottom = 1.0
-offset_top = -183.0
-offset_right = 420.0
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("10_eld54")
+metadata/_edit_use_anchors_ = true
 
 [node name="HealthBar" type="ProgressBar" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel"]
 layout_mode = 0
-offset_left = 217.0
-offset_top = 152.0
-offset_right = 407.0
-offset_bottom = 175.0
+anchor_left = 0.51666665
+anchor_top = 0.8306011
+anchor_right = 0.9690476
+anchor_bottom = 0.95628417
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = SubResource("Theme_5n1hp")
 value = 50.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="StaminaBar" type="ProgressBar" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel"]
 layout_mode = 0
-offset_left = 217.0
-offset_top = 124.0
-offset_right = 407.0
-offset_bottom = 147.0
+anchor_left = 0.51666665
+anchor_top = 0.6775956
+anchor_right = 0.9690476
+anchor_bottom = 0.8032787
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = ExtResource("9_mphia")
 max_value = 300.0
 value = 250.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="AmmoCounterContainer" type="HBoxContainer" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel"]
 layout_mode = 0

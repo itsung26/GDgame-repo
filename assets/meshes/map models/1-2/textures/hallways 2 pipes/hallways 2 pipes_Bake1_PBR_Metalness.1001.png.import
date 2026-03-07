@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtfc25a2sd7yh"
-path="res://.godot/imported/roughness.png-0c7a7671ec58b95ecf0c6719179b2de9.ctex"
+uid="uid://cwteo7hd431tg"
+path="res://.godot/imported/hallways 2 pipes_Bake1_PBR_Metalness.1001.png-75ec9a0403054d016a4b62676690b9fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://DECALmachine assets/Trims/blk1_tillable/roughness.png"
-dest_files=["res://.godot/imported/roughness.png-0c7a7671ec58b95ecf0c6719179b2de9.ctex"]
+source_file="res://assets/meshes/map models/1-2/textures/hallways 2 pipes/hallways 2 pipes_Bake1_PBR_Metalness.1001.png"
+dest_files=["res://.godot/imported/hallways 2 pipes_Bake1_PBR_Metalness.1001.png-75ec9a0403054d016a4b62676690b9fb.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
