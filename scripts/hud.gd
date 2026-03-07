@@ -63,14 +63,16 @@ var crosshair_lines := []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
+	
+	# ready debug panel
+	if debug_panel_enabled:
+		debug_container.visible = true
 	else:
-		if debug_panel_enabled:
-			debug_container.visible = true
-		else:
-			debug_container.visible = false
-		crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
+		debug_container.visible = false
+	crosshair_lines = [crosshair_left, crosshair_right, crosshair_down, crosshair_up]
+	
+	# ready stamina
+	stamina_bar.max_value = player.STAMINA
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta) -> void:

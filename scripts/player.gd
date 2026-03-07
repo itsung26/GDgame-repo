@@ -380,10 +380,13 @@ func _ready() -> void:
 	
 	# hide all weapons except the one the player is using
 	for weapon in weapon_states:
+		# if the active weapon is not the iterated weapon, hide it
 		if weapon_state != weapon:
-			weapon.visible = false
+			if weapon:
+				weapon.visible = false
 		else:
-			weapon.visible = true
+			if weapon:
+				weapon.visible = true
 
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -416,9 +419,6 @@ func _process(delta) -> void:
 	if grapple_rope_mesh_gen:
 		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
 	
-	# handle all weapon inputs, if the weapon is not null (it should never be)
-	if weapon_state:
-		gunInputs()
 
 # Called every physics frame. FPS: 120
 func _physics_process(delta: float) -> void:
@@ -466,6 +466,44 @@ func _physics_process(delta: float) -> void:
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
+	
+	#region Gun Inputs
+	if weapon_state and weapon_switch_input_enabled:
+		# switch weapon block==================================================================================
+		if Input.is_action_just_pressed("slot1"):
+			if weapon_states[0]:
+				set_weapon_state(weapon_states[0]) # slot 1
+			
+		if Input.is_action_just_pressed("slot2"):
+			if weapon_states[1]:
+				set_weapon_state(weapon_states[1]) # slot 2
+		
+		if Input.is_action_just_pressed("slot3"):
+			if weapon_states[2]:
+				set_weapon_state(weapon_states[2])
+		
+		
+		# automatic fire block===================================================================================
+		if Input.is_action_pressed("fire") and player_fire_input_enabled and weapon_state.automatic and weapon_state.can_fire:
+			# use seperate animation players for each weapon
+			weapon_state._fire()
+		# semi-automatic fire block========================================================================
+		if Input.is_action_just_pressed("fire") and player_fire_input_enabled and not weapon_state.automatic and weapon_state.can_fire:
+			weapon_state._fire()
+		# inspect block=======================================================================================
+		if Input.is_action_just_pressed("inspect weapon"):
+			print("weapon inspect currently disabled")
+		# reload block=========================================================================================
+		if Input.is_action_just_pressed("reload"):
+			weapon_state._reload()
+				
+		# special block=========================================================================================
+		if Input.is_action_just_pressed("right click action") and player_fire_input_enabled:
+			weapon_state._special()
+		elif Input.is_action_just_released("right click action"):
+			weapon_state._specialRelease()
+		# ======================================================================================================
+	#endregion
 	
 	if Input.is_action_just_pressed("switch arm"):
 		if arm_state == arm_states.GRAPPLEARM:
@@ -580,12 +618,14 @@ func healPlayer(amount:float):
 ## Disables firing for all weapons possesed by the player.
 func deactivateWeapons() -> void:
 	for weapon_state:PlayerWeapon in weapon_states:
-		weapon_state.can_fire = false
+		if weapon_state:
+			weapon_state.can_fire = false
 
 ## Enables firing for all weapons possesed by the player.
 func activateWeapons() -> void:
 	for weapon_state:PlayerWeapon in weapon_states:
-		weapon_state.can_fire = true
+		if weapon_state:
+			weapon_state.can_fire = true
 
 ## This method performs the primary computations for kinematics based on which state player_state is in.
 ## Should only be called in [code]_physics_process[/code].
@@ -650,41 +690,10 @@ func physicsStateLogic(delta=get_physics_process_delta_time()):
 		pass # see set_player_state()
 
 
-func gunInputs(): # to be called in a method that can "hear" inputs
-	# switch weapon block==================================================================================
-	if Input.is_action_just_pressed("slot1") and weapon_state != weapon_states[0] and weapon_switch_input_enabled:
-		if weapon_states[0] != null:
-			set_weapon_state(weapon_states[0]) # slot 1
-		
-	if Input.is_action_just_pressed("slot2") and weapon_state != weapon_states[1] and weapon_switch_input_enabled:
-		if weapon_states[1] != null:
-			set_weapon_state(weapon_states[1]) # slot 2
-	
-	
-	# automatic fire block===================================================================================
-	if Input.is_action_pressed("fire") and player_fire_input_enabled and weapon_state.automatic and weapon_state.can_fire:
-		# use seperate animation players for each weapon
-		weapon_state._fire()
-	# semi-automatic fire block========================================================================
-	if Input.is_action_just_pressed("fire") and player_fire_input_enabled and not weapon_state.automatic and weapon_state.can_fire:
-		weapon_state._fire()
-	# inspect block=======================================================================================
-	if Input.is_action_just_pressed("inspect weapon"):
-		print("weapon inspect currently disabled")
-	# reload block=========================================================================================
-	if Input.is_action_just_pressed("reload"):
-		weapon_state._reload()
-			
-	# special block=========================================================================================
-	if Input.is_action_just_pressed("right click action") and player_fire_input_enabled:
-		weapon_state._special()
-	elif Input.is_action_just_released("right click action"):
-		weapon_state._specialRelease()
-	# ======================================================================================================
-
 func chargeStamina(delta=get_process_delta_time()):
 	if stamina_recharging:
 		STAMINA = move_toward(STAMINA, 300.0, stamina_charge_speed * delta)
+
 
 ## Will check if there is a valid parry target and parry it if so.
 func parryTargetInBox():

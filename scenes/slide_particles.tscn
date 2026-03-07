@@ -10,11 +10,12 @@ angle_min = -720.0
 angle_max = 720.0
 direction = Vector3(0, 0, -1)
 spread = 39.698
-initial_velocity_min = 10.0
-initial_velocity_max = 10.0
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
 gravity = Vector3(0, 0, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lojhx"]
+cull_mode = 2
 albedo_color = Color(1, 0.843137, 0, 1)
 emission_enabled = true
 emission = Color(1, 0.843137, 0, 1)
@@ -94,8 +95,10 @@ material = ExtResource("1_mjc1v")
 script = ExtResource("1_lojhx")
 
 [node name="ImpactParticles" type="GPUParticles3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, -3.7529e-08, 0.90317, -0.429282, -7.89577e-08, -0.429282, -0.90317, 0, 0, -0.379057)
-lifetime = 0.05
+transform = Transform3D(-1, 2.3267305e-08, 1.3637494e-07, -3.7529e-08, 0.9031704, -0.42928222, -1.3315805e-07, -0.42928222, -0.9031704, 0, 0, -0.379057)
+emitting = false
+amount = 12
+lifetime = 0.04
 local_coords = true
 trail_enabled = true
 trail_lifetime = 0.7
@@ -103,7 +106,7 @@ process_material = SubResource("ParticleProcessMaterial_fqo70")
 draw_pass_1 = SubResource("RibbonTrailMesh_ieo72")
 
 [node name="SlideLight" type="OmniLight3D" parent="ImpactParticles"]
-transform = Transform3D(0.333333, -1.86517e-14, 1.42109e-14, 0, 0.333333, -1.49012e-08, 3.55271e-15, 1.49012e-08, 0.333333, -5.19995e-10, -0.00282714, -0.00594804)
+transform = Transform3D(1, 0, -1.4210855e-14, 3.5527137e-15, 1, -2.9802322e-08, 1.4210855e-14, 2.9802322e-08, 1, -5.1174965e-08, -0.109071866, -0.35926032)
 visible = false
 light_color = Color(1, 0.843137, 0, 1)
 light_energy = 8.374
@@ -119,12 +122,14 @@ transform = Transform3D(1, 0, -7.10543e-15, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="ImpactSparks" type="GPUParticles3D" parent="ImpactParticles/SparkTrailsSide"]
 transform = Transform3D(0.875135, -0.000108915, 0.483878, -0.207779, 0.903028, 0.37599, -0.436997, -0.429582, 0.790249, 0, 0, 0)
+emitting = false
 amount = 24
 process_material = SubResource("ParticleProcessMaterial_lojhx")
 draw_pass_1 = SubResource("QuadMesh_wrw1b")
 
 [node name="ImpactSparks2" type="GPUParticles3D" parent="ImpactParticles/SparkTrailsSide"]
 transform = Transform3D(0.86639, 0.156032, -0.474365, 0.0408947, 0.924571, 0.378808, 0.49769, -0.347595, 0.794659, 0, 0, 0)
+emitting = false
 amount = 24
 process_material = SubResource("ParticleProcessMaterial_lojhx")
 draw_pass_1 = SubResource("QuadMesh_wrw1b")

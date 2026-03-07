@@ -17,23 +17,22 @@ signal special_released
 @export var automatic:bool
 var can_fire:bool = true
 
-func _ready() -> void:
-	pass
-
-func _process(delta: float) -> void:
-	pass
 
 func _onEquip() -> void:
 	equipped.emit()
 
+
 func _fire() -> void:
 	fired.emit()
-	
+
+
 func _special() -> void:
 	special_triggered.emit()
 
+
 func _specialRelease() -> void:
 	special_released.emit()
+
 
 func _reload() -> void:
 	reloaded.emit()

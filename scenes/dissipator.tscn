@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://hc5vuirav3l6"]
+
+[ext_resource type="Script" uid="uid://ddu1yjq3m5njd" path="res://scripts/dissipator.gd" id="1_nc7lg"]
+[ext_resource type="PackedScene" uid="uid://dcpw3x4jtiilc" path="res://assets/meshes/Player Dissipator/Dissipator.blend" id="2_cin2g"]
+
+[node name="Dissipator" type="Node3D"]
+script = ExtResource("1_nc7lg")
+
+[node name="Dissipator2" parent="." instance=ExtResource("2_cin2g")]

@@ -6,11 +6,17 @@ extends Node3D
 @export var enabled:bool = true
 
 func _ready() -> void:
-	if not get_tree().debug_navigation_hint:
+	if not get_tree().debug_collisions_hint:
 		enabled = false
+		visible = false
 
-func updateStateReadout(state_var:int, state_machine:Dictionary):
+## Updates the label with the name of the current state.
+## [param state_var] is the current enum value (int). [param state_enum] is the enum type (e.g. enemy_states) or a Dictionary with .keys().
+func updateStateReadout(state_var: int, state_enum: Variant) -> void:
 	if not enabled:
 		return
-	var state_string:String = state_machine.keys()[state_var]
-	state_readout.text = state_string
+	var keys: Array = state_enum.keys()
+	if state_var < 0 or state_var >= keys.size():
+		state_readout.text = "?"
+		return
+	state_readout.text = keys[state_var]

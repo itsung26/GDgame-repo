@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://bca5sh5poajvj" path="res://scripts/melee.gd" id="1_v46oj"]
 
-[node name="Melee" type="Node3D" groups=["weapons"]]
+[node name="Melee (Do Not Remove From Weapons)" type="Node3D" groups=["weapons"]]
 script = ExtResource("1_v46oj")
