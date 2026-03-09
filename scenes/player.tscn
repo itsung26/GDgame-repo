@@ -456,7 +456,6 @@ outer_radius = 0.715
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("initial_weapon", "weapon_states") groups=["player collision detectors", "players"]]
 collision_mask = 263
 script = ExtResource("1_qhqgy")
-STAMINA = 900000.0
 inital_arm = 1
 dash_time_length = 0.2
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
@@ -546,8 +545,10 @@ process_mode = 1
 attributes = SubResource("CameraAttributesPractical_4ni07")
 script = ExtResource("9_ke2ow")
 max_camera_roll = 2.25
-dash_pitch_amount = 2.0
-dash_pitch_lerp_speed = 50.0
+dash_roll_amount = 4.0
+dash_roll_lerp_speed = 50.0
+dash_pitch_amount = 3.0
+dash_pitch_lerp_speed = 25.0
 camera_fov_lerp_speed = 10.0
 
 [node name="LongPointGetter" type="RayCast3D" parent="Pivot/Camera3D"]

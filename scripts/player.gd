@@ -372,7 +372,6 @@ func set_arm_state(new_arm_state:arm_states):
 # Player should be loaded after main enviroment and global lighting, but before 
 # map and everything else.
 func _ready() -> void:
-	Debug.log(weapon_states)
 	initial_player_rotation = player.rotation
 	initial_camera_rotation = camera_3d.rotation
 	

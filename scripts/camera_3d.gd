@@ -1,52 +1,83 @@
+## Player-facing camera that adds movement/dash-based tilt, FOV easing, shake, and
+## exposes pitch clamp helpers used by the player controller.
 class_name PlayerCamera
 extends Camera3D
 
+## Reference to the owning player character.
 @onready var player: Player = $"../.."
+## Parent node used as the camera's yaw/pitch pivot.
 @onready var pivot: Node3D = $".."
 
 @export_category("Roll")
+## Enables horizontal roll based on player strafing input.
 @export var camera_roll_enabled:bool = true
+## Maximum roll in degrees applied from left/right movement.
 @export var max_camera_roll: float = 3.25
+## How quickly the camera interpolates toward the target roll.
 @export var camera_roll_speed: float = 20.0
+## Target roll in degrees coming from strafing movement.
 @export var camera_target_roll:float = 0.0
 
 @export_category("Dash Roll")
+## Enables extra roll while dashing, additive to movement roll.
 @export var dash_roll_enabled: bool = true
+## Maximum extra roll in degrees contributed by dash direction.
 @export var dash_roll_amount: float = 5.0      # extra degrees of roll at full effect
+## How quickly the dash roll reacts to changes in dash direction.
 @export var dash_roll_lerp_speed: float = 12.0 # how fast dash roll reacts
 
+## Smoothed, currently applied dash roll in degrees.
 var dash_roll_current: float = 0.0  # current extra roll in degrees
+## Immediate dash roll target before smoothing.
 var dash_roll_target: float = 0.0   # desired extra roll in degrees
 
 @export_category("Pitch Clamp")
+## Base minimum pitch that the pivot can rotate to (before dash offsets).
 @export var base_min_pitch_deg: float = -90.0
+## Base maximum pitch that the pivot can rotate to (before dash offsets).
 @export var base_max_pitch_deg: float = 90.0
 
 @export_category("Dash Pitch")
+## Enables pitch tilt while dashing forward/backward.
 @export var dash_pitch_enabled: bool = true
+## Maximum pitch offset in degrees contributed by dash direction.
 @export var dash_pitch_amount: float = 4.0       # extra degrees of pitch at full effect
+## How quickly the dash pitch reacts to changes in dash direction.
 @export var dash_pitch_lerp_speed: float = 10.0  # how fast dash pitch reacts
 
+## Smoothed, currently applied dash pitch in degrees.
 var dash_pitch_current: float = 0.0  # current extra pitch in degrees
+## Immediate dash pitch target before smoothing.
 var dash_pitch_target: float = 0.0   # desired extra pitch in degrees
 
 @export_category("Fov Lerp")
+## Enables smooth interpolation of camera FOV toward a target.
 @export var camera_fov_lerp_enabled:bool = true
+## Target FOV in degrees.
 @export var camera_target_fov:float = 75.0
+## How quickly FOV interpolates toward the target.
 @export var camera_fov_lerp_speed:float = 0.5
 
 @export_category("Camera Shake")
+## Controls smoothing of the 2D shake offset; 0 = raw jitter, 1 = very smooth.
 @export var smoothness:float = 0.5 # 0..1
 
-# Shake state
+## True while a camera shake coroutine is active.
 var cam_shaking:bool = false
+## Remaining shake time in seconds.
 var remaining_time:float = 0.0
+## Elapsed shake time in seconds.
 var elapsed_time:float = 0.0
+## Current shake strength applied to pivot position.
 var current_strength:float = 0.0
+## True while the camera is in its sliding pose.
 var camera_sliding:bool = false
-# Last frame’s applied pivot offset
+## Last frame’s applied pivot offset used to keep base position stable during shake.
 var _pivot_last_offset:Vector3 = Vector3.ZERO
 
+## Per-frame camera update:
+## - computes strafing roll and dash-based roll/pitch,
+## - interpolates FOV toward its target.
 func _process(delta: float) -> void:
 	# Base roll from horizontal movement
 	if camera_roll_enabled and player.player_move_input_enabled:
@@ -95,13 +126,15 @@ func _process(delta: float) -> void:
 	# Apply FOV lerp
 	fov = lerpf(fov, camera_target_fov, camera_fov_lerp_speed * delta)
 
+## Returns the current minimum pitch in degrees, including dash pitch offset.
 func get_min_pitch_deg() -> float:
 	return base_min_pitch_deg + dash_pitch_current
 
+## Returns the current maximum pitch in degrees, including dash pitch offset.
 func get_max_pitch_deg() -> float:
 	return base_max_pitch_deg + dash_pitch_current
 
-## Moves the camera to its slide position.
+## Moves the camera pivot to the sliding marker and reapplies pitch clamping.
 func gotoSliding() -> void:
 	camera_sliding = true
 	# If shaking, remove current shake offset before changing position
@@ -112,7 +145,7 @@ func gotoSliding() -> void:
 	# Clamp after moving
 	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, get_min_pitch_deg(), get_max_pitch_deg())
 
-## Moves the camera back to its normal position from the sliding position.
+## Returns the camera pivot to the head marker and reapplies pitch clamping.
 func gotoNormal() -> void:
 	camera_sliding = false
 	# If shaking, remove current shake offset before changing position
@@ -123,7 +156,8 @@ func gotoNormal() -> void:
 	# Clamp after moving
 	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, get_min_pitch_deg(), get_max_pitch_deg())
 
-## Translate pivot in local XY for a screen shake (no camera rotation). One call starts full shake.
+## Kicks off a camera shake that jitters the pivot in local XY over time without changing rotation.
+## Calling again while shaking extends the duration and increases strength.
 func shakeCamera(duration: float, strength: float) -> void:
 	if cam_shaking:
 		remaining_time = max(remaining_time, duration)
