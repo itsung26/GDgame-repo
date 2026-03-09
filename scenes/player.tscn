@@ -458,7 +458,7 @@ collision_mask = 263
 script = ExtResource("1_qhqgy")
 inital_arm = 1
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
-weapon_states = [NodePath("Pivot/Camera3D/Guns/Melee"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Dissipator"), null, null]
+weapon_states = [NodePath("Pivot/Camera3D/Guns/Melee"), NodePath("Pivot/Camera3D/Guns/Pistol"), null, null, null]
 
 [node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
 script = ExtResource("2_a38lo")
@@ -813,7 +813,11 @@ omni_attenuation = 2.0
 [node name="Guns" type="Node3D" parent="Pivot/Camera3D"]
 unique_name_in_owner = true
 
+[node name="Melee" parent="Pivot/Camera3D/Guns" instance=ExtResource("19_a38lo")]
+visible = false
+
 [node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
+visible = false
 
 [node name="pistolRayCast" parent="Pivot/Camera3D/Guns/Pistol" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -836,10 +840,8 @@ material_override = SubResource("ShaderMaterial_gl8cc")
 [node name="powercell SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="23"]
 material_override = SubResource("ShaderMaterial_dt7fs")
 
-[node name="Melee" parent="Pivot/Camera3D/Guns" instance=ExtResource("19_a38lo")]
-
 [node name="Dissipator" parent="Pivot/Camera3D/Guns" instance=ExtResource("20_a38lo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.89642316)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.075, -0.295)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
@@ -921,8 +923,8 @@ ignore_time_scale = true
 [connection signal="area_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_entered"]
-[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_exited"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_exited"]
+[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
@@ -932,6 +934,8 @@ ignore_time_scale = true
 [editable path="player body"]
 [editable path="huds/HUD"]
 [editable path="Pivot/Camera3D/ParryArm/parry arm"]
+[editable path="Pivot/Camera3D/Guns/Melee"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]
 [editable path="Pivot/Camera3D/Guns/Pistol/player pistol"]
-[editable path="Pivot/Camera3D/Guns/Melee"]
+[editable path="Pivot/Camera3D/Guns/Dissipator"]
+[editable path="Pivot/Camera3D/Guns/Dissipator/Dissipator2"]

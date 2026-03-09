@@ -7,3 +7,5 @@
 script = ExtResource("1_nc7lg")
 
 [node name="Dissipator2" parent="." instance=ExtResource("2_cin2g")]
+
+[editable path="Dissipator2"]
