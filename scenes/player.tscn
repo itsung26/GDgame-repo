@@ -456,6 +456,7 @@ outer_radius = 0.715
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("initial_weapon", "weapon_states") groups=["player collision detectors", "players"]]
 collision_mask = 263
 script = ExtResource("1_qhqgy")
+STAMINA = 900000.0
 inital_arm = 1
 dash_time_length = 0.2
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
@@ -545,6 +546,8 @@ process_mode = 1
 attributes = SubResource("CameraAttributesPractical_4ni07")
 script = ExtResource("9_ke2ow")
 max_camera_roll = 2.25
+dash_pitch_amount = 2.0
+dash_pitch_lerp_speed = 50.0
 camera_fov_lerp_speed = 10.0
 
 [node name="LongPointGetter" type="RayCast3D" parent="Pivot/Camera3D"]
@@ -850,7 +853,7 @@ damage_max = 1.0
 automatic = true
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.038218614, -0.9991937, 0.012307393, 0.01114975, -0.012742029, -0.9998571, 0.9992071, -0.038075898, 0.011627749, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.038218614, -0.9991937, 0.012307392, 0.01114975, -0.012742029, -0.999857, 0.999207, -0.038075898, 0.011627747, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)

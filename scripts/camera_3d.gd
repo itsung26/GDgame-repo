@@ -18,6 +18,18 @@ extends Camera3D
 var dash_roll_current: float = 0.0  # current extra roll in degrees
 var dash_roll_target: float = 0.0   # desired extra roll in degrees
 
+@export_category("Pitch Clamp")
+@export var base_min_pitch_deg: float = -90.0
+@export var base_max_pitch_deg: float = 90.0
+
+@export_category("Dash Pitch")
+@export var dash_pitch_enabled: bool = true
+@export var dash_pitch_amount: float = 4.0       # extra degrees of pitch at full effect
+@export var dash_pitch_lerp_speed: float = 10.0  # how fast dash pitch reacts
+
+var dash_pitch_current: float = 0.0  # current extra pitch in degrees
+var dash_pitch_target: float = 0.0   # desired extra pitch in degrees
+
 @export_category("Fov Lerp")
 @export var camera_fov_lerp_enabled:bool = true
 @export var camera_target_fov:float = 75.0
@@ -60,12 +72,34 @@ func _process(delta: float) -> void:
 
 	dash_roll_current = lerp(dash_roll_current, dash_roll_target, dash_roll_lerp_speed * delta)
 
+	# Additive pitch from dashing forward/back
+	if dash_pitch_enabled and player.player_state == Player.player_states.DASHING:
+		# Player's forward direction in world space
+		var forward: Vector3 = -player.global_transform.basis.z.normalized()
+		# Forward component of dash relative to the player (+1 = forward, -1 = backward)
+		var forward_dot: float = player.dash_dir.dot(forward)
+		# Positive forward_dot should tilt camera slightly down (negative pitch degrees)
+		dash_pitch_target = clamp(-forward_dot * dash_pitch_amount, -dash_pitch_amount, dash_pitch_amount)
+	else:
+		dash_pitch_target = 0.0
+
+	dash_pitch_current = lerp(dash_pitch_current, dash_pitch_target, dash_pitch_lerp_speed * delta)
+
 	# Apply total roll (movement + dash)
 	var total_roll_deg: float = camera_target_roll + dash_roll_current
 	rotation.z = lerp_angle(rotation.z, deg_to_rad(total_roll_deg), camera_roll_speed * delta)
 
+	# Apply dash pitch tilt
+	rotation.x = lerp_angle(rotation.x, deg_to_rad(dash_pitch_current), dash_pitch_lerp_speed * delta)
+
 	# Apply FOV lerp
 	fov = lerpf(fov, camera_target_fov, camera_fov_lerp_speed * delta)
+
+func get_min_pitch_deg() -> float:
+	return base_min_pitch_deg + dash_pitch_current
+
+func get_max_pitch_deg() -> float:
+	return base_max_pitch_deg + dash_pitch_current
 
 ## Moves the camera to its slide position.
 func gotoSliding() -> void:
@@ -76,7 +110,7 @@ func gotoSliding() -> void:
 		_pivot_last_offset = Vector3.ZERO
 	pivot.position = player.sliding_marker.position
 	# Clamp after moving
-	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
+	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, get_min_pitch_deg(), get_max_pitch_deg())
 
 ## Moves the camera back to its normal position from the sliding position.
 func gotoNormal() -> void:
@@ -87,7 +121,7 @@ func gotoNormal() -> void:
 		_pivot_last_offset = Vector3.ZERO
 	pivot.position = player.head_marker.position
 	# Clamp after moving
-	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
+	pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, get_min_pitch_deg(), get_max_pitch_deg())
 
 ## Translate pivot in local XY for a screen shake (no camera rotation). One call starts full shake.
 func shakeCamera(duration: float, strength: float) -> void:

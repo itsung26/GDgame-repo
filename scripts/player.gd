@@ -561,7 +561,11 @@ func _input(event) -> void:
 		var pitch = -mouse_delta.y
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
-		pivot.rotation_degrees.x = clamp(pivot.rotation_degrees.x, -90.0, 90.0)
+		pivot.rotation_degrees.x = clamp(
+			pivot.rotation_degrees.x,
+			camera_3d.get_min_pitch_deg(),
+			camera_3d.get_max_pitch_deg()
+		)
 
 func getCheckPoint() -> checkPoint:
 	return checkpoint
