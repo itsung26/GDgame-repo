@@ -54,6 +54,7 @@ func setup(origin_pos:Vector3, target_pos:Vector3, color:Color = Color.GOLD):
 		var q_mat:StandardMaterial3D = q.material
 		if q_mat:
 			q_mat.albedo_color = color
+			q_mat.emission = color
 
 ## Make local +X face the camera by rotating ONLY around local Z, computed in parent space to avoid jitter.
 func billboardToCameraX() -> void:

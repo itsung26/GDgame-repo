@@ -26,7 +26,7 @@ shader = ExtResource("3_0m4u7")
 shader_parameter/cull_backface = false
 shader_parameter/use_front = true
 shader_parameter/fov = 90.0
-shader_parameter/rot_y_deg = 0.0
+shader_parameter/rot_y_deg = 18.0
 shader_parameter/rot_x_deg = 0.0
 shader_parameter/inset = 0.0
 

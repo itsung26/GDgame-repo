@@ -8,4 +8,49 @@ script = ExtResource("1_nc7lg")
 
 [node name="Dissipator2" parent="." instance=ExtResource("2_cin2g")]
 
+[node name="Skeleton3D" parent="Dissipator2/feedbacker" index="0"]
+bones/0/rotation = Quaternion(0.49785304, -0.5004652, 0.5246791, -0.47580326)
+bones/1/rotation = Quaternion(-0.0023019249, 0.0017154841, 0.029045781, 0.99957407)
+bones/2/rotation = Quaternion(0.0019346465, 0.000357309, -0.012276245, 0.99992275)
+bones/3/rotation = Quaternion(0.009670968, -0.053393915, -0.13669193, 0.9891264)
+bones/4/rotation = Quaternion(-0.49224633, -0.06314756, 0.03581016, 0.86742353)
+bones/5/rotation = Quaternion(-0.7624292, -0.020189287, 0.023824748, 0.64631766)
+bones/6/rotation = Quaternion(-0.33640832, -0.01901579, -0.0494432, 0.9402251)
+bones/7/rotation = Quaternion(-0.26836067, 0.0025295836, 0.006933102, 0.96329033)
+bones/8/rotation = Quaternion(-0.5464388, 0.003732427, 0.0060436777, 0.8374689)
+bones/9/rotation = Quaternion(-0.5947184, 0.004458519, 0.0034797485, 0.8039142)
+bones/10/rotation = Quaternion(-0.1928153, 0.0011574933, 0.0026224467, 0.9812309)
+bones/11/rotation = Quaternion(-0.2881545, -9.5358104e-05, -0.016229607, 0.9574464)
+bones/12/rotation = Quaternion(-0.6166549, -0.0039895982, -0.006807604, 0.7871941)
+bones/13/rotation = Quaternion(-0.5849538, -0.005404647, -0.0033303658, 0.8110417)
+bones/14/rotation = Quaternion(-0.1256235, -0.0014062925, -0.002588073, 0.9920736)
+bones/15/rotation = Quaternion(-0.13913724, -0.023090474, -0.065534644, 0.9878324)
+bones/16/rotation = Quaternion(-0.59072924, -0.027895028, 0.02042356, 0.8061289)
+bones/17/rotation = Quaternion(-0.69083184, -0.012463629, 0.01190999, 0.72281003)
+bones/18/rotation = Quaternion(-0.20790005, -0.01019834, -0.020808624, 0.97787553)
+bones/19/rotation = Quaternion(-0.5770036, -0.36668167, 0.34077287, 0.6453568)
+bones/20/rotation = Quaternion(0.20055379, 0.008147135, -0.38910466, 0.89906037)
+bones/21/rotation = Quaternion(0.18224786, 0.0038770468, -0.36286932, 0.91383624)
+bones/22/rotation = Quaternion(0.101886004, 0.000939129, -0.20350394, 0.9737579)
+bones/23/position = Vector3(-0.022306008, 0.008622229, -0.68771666)
+bones/24/position = Vector3(-0.030392706, 0.017952712, -0.624799)
+bones/24/rotation = Quaternion(0.1306699, -0.6949283, 0.13066994, -0.6949284)
+bones/25/position = Vector3(-0.0505482, 0.0086154835, -0.5947219)
+bones/26/position = Vector3(-0.042099904, -0.046848696, -0.5794451)
+bones/27/position = Vector3(-0.034741014, -0.025394246, -0.6039344)
+bones/28/position = Vector3(-5.0083967e-05, -0.007998466, -0.6351072)
+
+[node name="Hand" parent="Dissipator2/feedbacker/Skeleton3D" index="0"]
+transform = Transform3D(-0.055653304, 0.0019712993, 0.99844784, -0.99836993, -0.012774923, -0.0556237, 0.012645387, -0.9999164, 0.0026790332, 5.626322e-05, -0.006925448, -0.5443571)
+
+[node name="Dissipator" parent="Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
+transform = Transform3D(-0.03822325, -0.9991939, 0.012310017, 0.011152025, -0.012744799, -0.99985707, 0.9992074, -0.038080532, 0.011630179, -0.066578105, 0.15874998, -0.036490835)
+
+[node name="DissipatorHitscan" type="RayCast3D" parent="."]
+editor_description = "The damaging raycast for the Dissipator"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24, 0.103000045, 0.462)
+target_position = Vector3(0, -1, -5000)
+collision_mask = 6
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
 [editable path="Dissipator2"]

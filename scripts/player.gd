@@ -409,10 +409,48 @@ func _ready() -> void:
 ## Kinematic-related operations should only be run in _physics_process, while logic and other operations
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
-	#Debug.log(get_tree().is_debugging_collisions_hint())
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
 	chargeStamina()
+	
+	#region Gun Inputs
+	if weapon_state and weapon_switch_input_enabled:
+		# switch weapon block==================================================================================
+		if Input.is_action_just_pressed("slot1"):
+			Debug.log("foo")
+			if weapon_states[0]:
+				set_weapon_state(weapon_states[0]) # slot 1
+			
+		if Input.is_action_just_pressed("slot2"):
+			if weapon_states[1]:
+				set_weapon_state(weapon_states[1]) # slot 2
+		
+		if Input.is_action_just_pressed("slot3"):
+			if weapon_states[2]:
+				set_weapon_state(weapon_states[2])
+		
+		
+		# automatic fire block===================================================================================
+		if Input.is_action_pressed("fire") and player_fire_input_enabled and weapon_state.automatic and weapon_state.can_fire:
+			# use seperate animation players for each weapon
+			weapon_state._fire()
+		# semi-automatic fire block========================================================================
+		if Input.is_action_just_pressed("fire") and player_fire_input_enabled and not weapon_state.automatic and weapon_state.can_fire:
+			weapon_state._fire()
+		# inspect block=======================================================================================
+		if Input.is_action_just_pressed("inspect weapon"):
+			print("weapon inspect currently disabled")
+		# reload block=========================================================================================
+		if Input.is_action_just_pressed("reload"):
+			weapon_state._reload()
+				
+		# special block=========================================================================================
+		if Input.is_action_just_pressed("right click action") and player_fire_input_enabled:
+			weapon_state._special()
+		elif Input.is_action_just_released("right click action"):
+			weapon_state._specialRelease()
+		# ======================================================================================================
+	#endregion
 
 	# keeps the rope attatched to the grapple bit.
 	# Again, I hate this, but it stays for now.
@@ -467,43 +505,6 @@ func _physics_process(delta: float) -> void:
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
 	
-	#region Gun Inputs
-	if weapon_state and weapon_switch_input_enabled:
-		# switch weapon block==================================================================================
-		if Input.is_action_just_pressed("slot1"):
-			if weapon_states[0]:
-				set_weapon_state(weapon_states[0]) # slot 1
-			
-		if Input.is_action_just_pressed("slot2"):
-			if weapon_states[1]:
-				set_weapon_state(weapon_states[1]) # slot 2
-		
-		if Input.is_action_just_pressed("slot3"):
-			if weapon_states[2]:
-				set_weapon_state(weapon_states[2])
-		
-		
-		# automatic fire block===================================================================================
-		if Input.is_action_pressed("fire") and player_fire_input_enabled and weapon_state.automatic and weapon_state.can_fire:
-			# use seperate animation players for each weapon
-			weapon_state._fire()
-		# semi-automatic fire block========================================================================
-		if Input.is_action_just_pressed("fire") and player_fire_input_enabled and not weapon_state.automatic and weapon_state.can_fire:
-			weapon_state._fire()
-		# inspect block=======================================================================================
-		if Input.is_action_just_pressed("inspect weapon"):
-			print("weapon inspect currently disabled")
-		# reload block=========================================================================================
-		if Input.is_action_just_pressed("reload"):
-			weapon_state._reload()
-				
-		# special block=========================================================================================
-		if Input.is_action_just_pressed("right click action") and player_fire_input_enabled:
-			weapon_state._special()
-		elif Input.is_action_just_released("right click action"):
-			weapon_state._specialRelease()
-		# ======================================================================================================
-	#endregion
 	
 	if Input.is_action_just_pressed("switch arm"):
 		if arm_state == arm_states.GRAPPLEARM:

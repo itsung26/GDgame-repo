@@ -5,7 +5,7 @@
 
 [sub_resource type="Gradient" id="Gradient_yj8wl"]
 offsets = PackedFloat32Array(0, 0.5, 1)
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0)
+colors = PackedColorArray(0.4117647, 0.4117647, 0.4117647, 0.3137255, 1, 1, 1, 1, 0.4117647, 0.4117647, 0.4117647, 0.3137255)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3krn5"]
 gradient = SubResource("Gradient_yj8wl")
@@ -15,8 +15,11 @@ fill_to = Vector2(0, 1)
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
-shading_mode = 0
 albedo_texture = SubResource("GradientTexture2D_3krn5")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = SubResource("GradientTexture2D_3krn5")
 texture_filter = 0
 
 [sub_resource type="QuadMesh" id="QuadMesh_3krn5"]
