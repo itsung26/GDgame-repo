@@ -10,6 +10,14 @@ extends Camera3D
 @export var camera_roll_speed: float = 20.0
 @export var camera_target_roll:float = 0.0
 
+@export_category("Dash Roll")
+@export var dash_roll_enabled: bool = true
+@export var dash_roll_amount: float = 5.0      # extra degrees of roll at full effect
+@export var dash_roll_lerp_speed: float = 12.0 # how fast dash roll reacts
+
+var dash_roll_current: float = 0.0  # current extra roll in degrees
+var dash_roll_target: float = 0.0   # desired extra roll in degrees
+
 @export_category("Fov Lerp")
 @export var camera_fov_lerp_enabled:bool = true
 @export var camera_target_fov:float = 75.0
@@ -28,17 +36,35 @@ var camera_sliding:bool = false
 var _pivot_last_offset:Vector3 = Vector3.ZERO
 
 func _process(delta: float) -> void:
+	# Base roll from horizontal movement
 	if camera_roll_enabled and player.player_move_input_enabled:
-		if player.input_dir.x > 0:
+		if player.input_dir.x > 0.0:
 			camera_target_roll = -max_camera_roll
-		elif player.input_dir.x < 0:
+		elif player.input_dir.x < 0.0:
 			camera_target_roll = max_camera_roll
 		else:
 			camera_target_roll = 0.0
 	else:
 		camera_target_roll = 0.0
-	
-	rotation.z = lerp_angle(rotation.z, deg_to_rad(camera_target_roll), camera_roll_speed * delta)
+
+	# Additive roll from dashing direction
+	if dash_roll_enabled and player.player_state == Player.player_states.DASHING:
+		# Player's right direction in world space
+		var right: Vector3 = player.global_transform.basis.x.normalized()
+		# Sideways component of dash relative to the player (-1 = left, +1 = right)
+		var sideways: float = player.dash_dir.dot(right)
+		# Match existing convention: right (>0) leans camera to the right (negative roll)
+		dash_roll_target = clamp(-sideways * dash_roll_amount, -dash_roll_amount, dash_roll_amount)
+	else:
+		dash_roll_target = 0.0
+
+	dash_roll_current = lerp(dash_roll_current, dash_roll_target, dash_roll_lerp_speed * delta)
+
+	# Apply total roll (movement + dash)
+	var total_roll_deg: float = camera_target_roll + dash_roll_current
+	rotation.z = lerp_angle(rotation.z, deg_to_rad(total_roll_deg), camera_roll_speed * delta)
+
+	# Apply FOV lerp
 	fov = lerpf(fov, camera_target_fov, camera_fov_lerp_speed * delta)
 
 ## Moves the camera to its slide position.

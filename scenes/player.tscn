@@ -459,7 +459,7 @@ script = ExtResource("1_qhqgy")
 inital_arm = 1
 dash_time_length = 0.2
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
-weapon_states = [NodePath("Pivot/Camera3D/Guns/Melee"), NodePath("Pivot/Camera3D/Guns/Pistol"), null, null, null, null]
+weapon_states = [NodePath("Pivot/Camera3D/Guns/Melee"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Dissipator"), null, null, null]
 
 [node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
 script = ExtResource("2_a38lo")
@@ -850,7 +850,7 @@ damage_max = 1.0
 automatic = true
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.038218617, -0.9991937, 0.012307393, 0.011149751, -0.012742029, -0.9998571, 0.99920714, -0.038075898, 0.011627749, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.038218614, -0.9991937, 0.012307393, 0.01114975, -0.012742029, -0.9998571, 0.9992071, -0.038075898, 0.011627749, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)

@@ -24,7 +24,6 @@ func _onEquip() -> void:
 
 func _fire() -> void:
 	super._fire()
-	animation_player.stop()
 	animation_player.play("Fire")
 
 
