@@ -372,10 +372,16 @@ func set_arm_state(new_arm_state:arm_states):
 # Player should be loaded after main enviroment and global lighting, but before 
 # map and everything else.
 func _ready() -> void:
+	Debug.log(weapon_states)
 	initial_player_rotation = player.rotation
 	initial_camera_rotation = camera_3d.rotation
 	
-	if weapon_states.is_empty():
+	var contains_weapon:bool = false
+	for weapon in weapon_states:
+		if weapon != null:
+			contains_weapon = true
+	
+	if weapon_states.is_empty() or not contains_weapon:
 		assert(false, "No weapons! Player should at least have weapon melee equipped.")
 	
 	# hide all weapons except the one the player is using
@@ -417,7 +423,6 @@ func _process(delta) -> void:
 	if weapon_state and weapon_switch_input_enabled:
 		# switch weapon block==================================================================================
 		if Input.is_action_just_pressed("slot1"):
-			Debug.log("foo")
 			if weapon_states[0]:
 				set_weapon_state(weapon_states[0]) # slot 1
 			

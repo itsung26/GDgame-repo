@@ -24,8 +24,8 @@ func _onEquip() -> void:
 
 func _fire() -> void:
 	super._fire()
-	fireBullet()
-	Debug.log("foo")
+	animation_player.stop()
+	animation_player.play("Fire")
 
 
 func _special() -> void:

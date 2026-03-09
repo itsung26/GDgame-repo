@@ -87,7 +87,7 @@ environment = SubResource("Environment_nptal")
 
 [node name="Player" parent="." node_paths=PackedStringArray("weapon_states") instance=ExtResource("3_7ksdt")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15.834608, 0.000179171, -16.121834)
-weapon_states = [null, null, null, null, null]
+weapon_states = [NodePath("Pivot/Camera3D/Guns/Melee"), NodePath("Pivot/Camera3D/Guns/Pistol"), null, null, null, null]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_7ksdt")
@@ -227,73 +227,73 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8275657, 3.2420573, -0.0856
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.950869, 12.83057, -8.596948)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.950869, 12.83057, 9.030652)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.045349, 12.83057, -8.596948)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.045349, 12.83057, 9.030652)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D5" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.190292, 12.83057, -8.596948)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D6" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.190292, 12.83057, 9.030652)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D7" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.992203, 12.83057, -8.596948)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D8" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.992203, 12.83057, 9.030652)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D9" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.404236, 12.83057, -8.596948)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D10" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.404236, 12.83057, 9.030652)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D11" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.27757, 12.83057, -8.596948)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
 [node name="OmniLight3D12" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.27757, 12.83057, 9.030652)
-light_energy = 11.741
+light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
