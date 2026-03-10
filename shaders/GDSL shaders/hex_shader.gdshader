@@ -7,6 +7,11 @@ uniform float hex_scale = 2.0;
 // Thickness of the black border between hexes.
 uniform float border_thickness = 0.08;
 
+// Controls for hexagon UVs (before hex tiling)
+uniform vec2 hex_uv_scale = vec2(1.0, 1.0);
+uniform float hex_uv_rotation = 0.0; // radians
+uniform vec2 hex_uv_offset = vec2(0.0, 0.0);
+
 // Base colors
 uniform vec3 hex_color : source_color = vec3(1.0);
 uniform vec3 border_color : source_color = vec3(0.0);
@@ -30,8 +35,8 @@ uniform vec2 overlay_uv_scale = vec2(1.0, 1.0);
 uniform float overlay_uv_rotation = 0.0; // radians
 uniform vec2 overlay_uv_offset = vec2(0.0, 0.0);
 
-// Emission intensity for the overlay texture (uses its sampled color)
-uniform float overlay_emission = 0.0;
+// Toggles whether overlay blending is active
+uniform bool overlay_enabled = true;
 
 // Signed distance to a regular hex centered at the origin, radius r.
 // Negative inside, 0 at border, positive outside.
@@ -92,8 +97,19 @@ void fragment() {
 	// Use mesh UVs; if your mesh has different UV layout you can adjust here.
 	vec2 uv = UV;
 
+	// Apply scale, rotation (around 0.5,0.5), and offset to hex UVs
+	vec2 hex_uv = uv * hex_uv_scale;
+	float hs = sin(hex_uv_rotation);
+	float hc = cos(hex_uv_rotation);
+	vec2 hex_centered = hex_uv - vec2(0.5);
+	hex_uv = vec2(
+		hc * hex_centered.x - hs * hex_centered.y,
+		hs * hex_centered.x + hc * hex_centered.y
+	) + vec2(0.5);
+	hex_uv += hex_uv_offset;
+
 	// Distance > 0 => inside hex, near 0 => at border, < 0 => outside (in next hex)
-	float dist_to_border = hex_border_distance(uv);
+	float dist_to_border = hex_border_distance(hex_uv);
 
 	// Use smoothstep so borders remain visible even for small thickness values
 	float inside = smoothstep(0.0, border_thickness, dist_to_border);
@@ -106,21 +122,30 @@ void fragment() {
 	float alpha = mix(border_alpha, hex_alpha, inside);
 	float emission_intensity = mix(border_emission, hex_emission, inside);
 
-	// Overlay hex layer on top of the texture; alpha is the blend factor
-	// Apply scale, rotation (around 0.5,0.5), and offset to overlay UVs
-	vec2 overlay_uv = uv * overlay_uv_scale;
-	float s = sin(overlay_uv_rotation);
-	float c = cos(overlay_uv_rotation);
-	vec2 centered = overlay_uv - vec2(0.5);
-	overlay_uv = vec2(
-		c * centered.x - s * centered.y,
-		s * centered.x + c * centered.y
-	) + vec2(0.5);
-	overlay_uv += overlay_uv_offset;
+	// Base outputs from the hex layer (alpha from uniforms controls transparency)
+	vec3 final_albedo = hex_layer_color;
+	float final_alpha = alpha;
+	vec3 final_emission = hex_layer_color * emission_intensity;
 
-	vec3 overlay_rgb = texture(overlay_texture, overlay_uv).rgb;
-	ALBEDO = mix(overlay_rgb, hex_layer_color, alpha);
-	ALPHA = 1.0;
-	EMISSION = hex_layer_color * emission_intensity + overlay_rgb * overlay_emission;
+	if (overlay_enabled) {
+		// Overlay hex layer on top of the texture; alpha is the blend factor
+		// Apply scale, rotation (around 0.5,0.5), and offset to overlay UVs
+		vec2 overlay_uv = uv * overlay_uv_scale;
+		float s = sin(overlay_uv_rotation);
+		float c = cos(overlay_uv_rotation);
+		vec2 centered = overlay_uv - vec2(0.5);
+		overlay_uv = vec2(
+			c * centered.x - s * centered.y,
+			s * centered.x + c * centered.y
+		) + vec2(0.5);
+		overlay_uv += overlay_uv_offset;
+
+		vec3 overlay_rgb = texture(overlay_texture, overlay_uv).rgb;
+		final_albedo = mix(overlay_rgb, hex_layer_color, alpha);
+	}
+
+	ALBEDO = final_albedo;
+	ALPHA = final_alpha;
+	EMISSION = final_emission;
 }
 

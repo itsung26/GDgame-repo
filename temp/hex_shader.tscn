@@ -1,13 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://dayq6clfx4ldd"]
+[gd_scene load_steps=8 format=3 uid="uid://dayq6clfx4ldd"]
 
 [ext_resource type="Material" uid="uid://t6ometpokx3d" path="res://assets/materials/shader materials/hexagons.tres" id="1_7qgxc"]
+[ext_resource type="Shader" uid="uid://d3wvfxuc4d5vk" path="res://shaders/GDSL shaders/hex_shader.gdshader" id="2_mv7lu"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_mv7lu"]
 material = ExtResource("1_7qgxc")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_7qgxc"]
-top_radius = 0.167
-bottom_radius = 0.167
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mv7lu"]
+noise_type = 3
+frequency = 0.0701
+fractal_lacunarity = 5.242
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aw8j8"]
+noise = SubResource("FastNoiseLite_mv7lu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aw8j8"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_mv7lu")
+shader_parameter/hex_scale = 8.755
+shader_parameter/border_thickness = 1.051
+shader_parameter/hex_uv_scale = Vector2(3.173, 1.435)
+shader_parameter/hex_uv_rotation = 0.0
+shader_parameter/hex_uv_offset = Vector2(0, 0)
+shader_parameter/hex_color = Color(1, 0.64705884, 0, 1)
+shader_parameter/border_color = Color(1, 0.5058824, 0, 1)
+shader_parameter/hex_fill_threshold = 0.5
+shader_parameter/hex_alpha = 1.0
+shader_parameter/border_alpha = 0.5
+shader_parameter/hex_emission = 1.0
+shader_parameter/border_emission = 1.0
+shader_parameter/overlay_texture = SubResource("NoiseTexture2D_aw8j8")
+shader_parameter/overlay_uv_scale = Vector2(1, 1)
+shader_parameter/overlay_uv_rotation = 1.0
+shader_parameter/overlay_uv_offset = Vector2(0, 1.58)
+shader_parameter/overlay_emission = 0.0
+shader_parameter/overlay_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_7qgxc"]
+material = SubResource("ShaderMaterial_aw8j8")
+radius = 3.001
+height = 6.002
 
 [node name="HexShader" type="Node3D"]
 
@@ -16,5 +49,5 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.5
 mesh = SubResource("QuadMesh_mv7lu")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -1.5710645, 0.5197188, 0.15300533)
-mesh = SubResource("CylinderMesh_7qgxc")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.869454, 0.5197188, 0.15300533)
+mesh = SubResource("SphereMesh_7qgxc")
