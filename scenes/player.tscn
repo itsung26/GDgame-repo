@@ -854,7 +854,7 @@ damage_max = 1.0
 automatic = true
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.038218614, -0.9991937, 0.012307392, 0.01114975, -0.012742029, -0.999857, 0.999207, -0.038075898, 0.011627747, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.03821861, -0.9991937, 0.012307392, 0.011149749, -0.012742029, -0.999857, 0.99920696, -0.038075898, 0.011627747, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
