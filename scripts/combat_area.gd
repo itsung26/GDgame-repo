@@ -1,6 +1,6 @@
 class_name CombatArea
 extends Area3D
-## When the player enters this area, they are considered in combat. This area will keep track of child enemy spawners and spawn enemies in waves according to a preset order. The matrix holds the waves, and the waves hold enemy spawners.
+## When the player enters this area, they are considered in combat. This area will keep track of child enemy spawners and spawn enemies in waves according to a preset order.
 ## TODO: door control capability after a door logic rewrite
 
 @onready var delay_before_combat: Timer = $DelayBeforeCombat
@@ -20,47 +20,42 @@ signal player_died_in_combat(wave:int)
 @export var enemy_wave_4:Array[EnemySpawnHandler] = []
 @export var enemy_wave_5:Array[EnemySpawnHandler] = []
 
-var enemy_waves_matrix:Array[Array] = []
 ## False when there are waves remaining. True when all waves have been completed.
 var finished:bool = false
 
 func _ready() -> void:
-	enemy_waves_matrix.append_array(enemy_wave_0)
-	enemy_waves_matrix.append_array(enemy_wave_1)
-	enemy_waves_matrix.append_array(enemy_wave_2)
-	enemy_waves_matrix.append_array(enemy_wave_3)
-	enemy_waves_matrix.append_array(enemy_wave_4)
-	enemy_waves_matrix.append_array(enemy_wave_5)
 	# ensure the first wave has enemies in it
 	assert(not enemy_wave_0.is_empty())
 
 
 func advanceWave():
 	current_wave += 1
-	# iterate through waves in the matrix
-	for enemy_wave:Array in enemy_waves_matrix:
-		# if the wave has spawners in it
-		if not enemy_wave.is_empty():
-			# if the wave matches the current wave, spawn enemies for the current wave
-			match current_wave:
-				0:
-					for enemy_spawner:EnemySpawnHandler in enemy_wave_0:
-						enemy_spawner.spawnEnemies()
-				1:
-					for enemy_spawner:EnemySpawnHandler in enemy_wave_1:
-						enemy_spawner.spawnEnemies()
-				2:
-					for enemy_spawner:EnemySpawnHandler in enemy_wave_2:
-						enemy_spawner.spawnEnemies()
-				3:
-					for enemy_spawner:EnemySpawnHandler in enemy_wave_3:
-						enemy_spawner.spawnEnemies()
-				4:
-					for enemy_spawner:EnemySpawnHandler in enemy_wave_4:
-						enemy_spawner.spawnEnemies()
-				5:
-					for enemy_spawner:EnemySpawnHandler in enemy_wave_5:
-						enemy_spawner.spawnEnemies()
+	# spawn enemies for the current wave, if that wave has any spawners
+	match current_wave:
+		0:
+			if not enemy_wave_0.is_empty():
+				for enemy_spawner:EnemySpawnHandler in enemy_wave_0:
+					enemy_spawner.spawnEnemies()
+		1:
+			if not enemy_wave_1.is_empty():
+				for enemy_spawner:EnemySpawnHandler in enemy_wave_1:
+					enemy_spawner.spawnEnemies()
+		2:
+			if not enemy_wave_2.is_empty():
+				for enemy_spawner:EnemySpawnHandler in enemy_wave_2:
+					enemy_spawner.spawnEnemies()
+		3:
+			if not enemy_wave_3.is_empty():
+				for enemy_spawner:EnemySpawnHandler in enemy_wave_3:
+					enemy_spawner.spawnEnemies()
+		4:
+			if not enemy_wave_4.is_empty():
+				for enemy_spawner:EnemySpawnHandler in enemy_wave_4:
+					enemy_spawner.spawnEnemies()
+		5:
+			if not enemy_wave_5.is_empty():
+				for enemy_spawner:EnemySpawnHandler in enemy_wave_5:
+					enemy_spawner.spawnEnemies()
 
 
 func resetWaves():

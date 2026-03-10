@@ -1,59 +1,99 @@
+## A stationary enemy turret that tracks the player and fires burst-based bullet attacks.
+## Uses bone look modifiers for aiming and supports ragdoll/death smoke effects when destroyed.
 class_name BulletTurret
 extends Enemy
 
+## Look-at modifier that controls the turret head aiming.
 @onready var head_look_mod: LookAtModifier3D = $"bullet turret/Armature/Skeleton3D/HeadLookMod"
+## Look-at modifier that controls the left gun aiming.
 @onready var gun_l_look_mod: LookAtModifier3D = $"bullet turret/Armature/Skeleton3D/GunLLookMod"
+## Look-at modifier that controls the right gun aiming.
 @onready var gun_r_look_mod: LookAtModifier3D = $"bullet turret/Armature/Skeleton3D/GunRLookMod"
+## World-space marker the turret looks at while offline/idling.
 @onready var offline_look_target: Marker3D = $OfflineLookTarget
+## Timer that limits how long the turret will keep seeking before going offline.
 @onready var seeking_timer: Timer = $SeekingTimer
+## Laser mesh/beam shown while tracking the player.
 @onready var laser: Node3D = $"bullet turret/Armature/Skeleton3D/Laser/laser"
+## Timer controlling the duration of a burst sequence.
 @onready var burst_fire_timer: Timer = $BurstFireTimer
+## Timer controlling the cooldown period between burst sequences.
 @onready var fire_cool_down_timer: Timer = $FireCoolDownTimer
+## World-space bullet spawn origin for the left gun.
 @onready var fire_origin_l: Marker3D = $"bullet turret/Armature/Skeleton3D/GunLAttatchment/FireOriginL"
+## World-space bullet spawn origin for the right gun.
 @onready var fire_origin_r: Marker3D = $"bullet turret/Armature/Skeleton3D/GunRAttatchment/FireOriginR"
+## Raycast used to determine the firing direction for the left gun.
 @onready var fire_dir_l: RayCast3D = $"bullet turret/Armature/Skeleton3D/GunLAttatchment/FireDirL"
+## Raycast used to determine the firing direction for the right gun.
 @onready var fire_dir_r: RayCast3D = $"bullet turret/Armature/Skeleton3D/GunRAttatchment/FireDirR"
+## Debug label that displays the current enemy state.
 @onready var state_debug_text: StateDebugText = $StateDebugText
+## Debug label that displays the current attack state.
 @onready var state_debug_text_2: StateDebugText = $StateDebugText2
+## Area used to detect when the player enters or exits the turret's engagement range.
 @onready var player_detection: Area3D = $PlayerDetection
+## Simulator that enables physics-based ragdoll behaviour on the skeleton.
 @onready var physical_bone_simulator_3d: PhysicalBoneSimulator3D = $"bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D"
+## Main collision shape used while the turret is alive.
 @onready var phys_collider: CollisionShape3D = $PhysCollider
+## Cached list of all physical bones used for ragdoll.
 @onready var _a := get_tree().get_nodes_in_group(&"physics bones")
 @onready var phys_sim_bones:Array[PhysicalBone3D] = []
+## Cached list of all death smoke particle systems.
 @onready var _b := get_tree().get_nodes_in_group(&"death smoke particles")
 @onready var death_smoke_particles:Array[GPUParticles3D] = []
+## Timer that turns off the death smoke after a delay.
 @onready var death_smoke_timer: Timer = $DeathSmokeTimer
 
-# Load the actual bullet.
+## Packed scene for the projectile this turret fires.
 const bullet_scene:PackedScene = preload("res://scenes/energy_ball.tscn")
 
+## High-level behaviour states for the turret.
 enum enemy_states {OFFLINE, SEEKING, TRACKING, DESTROYED}
+## Current high-level behaviour state.
 var enemy_state:enemy_states:
 	set = setEnemyState
 	
+## Attack sub-state for handling cooldown / bursting / disabled behaviour.
 enum enemy_attack_states {COOLDOWN, BURSTING, DISARMED}
+## Current attack state.
 var enemy_attack_state:enemy_attack_states:
 	set = setEnemyAttackState
 	
+## Rotation speed (rad/s) when turning toward the player or idle direction.
 @export var turning_speed:float = 3.0
+## Time in seconds the turret will continue seeking after losing the player.
 @export var time_before_stop_seeking:float = 7.5
 ## The maximum angle that the turret can oscillate to when seeking.
 @export var seeking_max_angle_range:float = 25.0
 ## The speed of oscillation when seeking (oscillations per second)
 @export var seeking_oscillation_speed:float = 0.25
+## Time in seconds between burst sequences.
 @export var cooldown_between_bursts:float = 1.5
+## Length of time in seconds that a single burst lasts.
 @export var burst_duration_time:float = 1.0
+## Delay between individual bullets while bursting.
 @export var bullet_delay:float = 0.21
+## Scalar force applied to ragdoll bones on death.
 @export var ragdoll_force_applied:float = 6.667
+## Duration in seconds for which death smoke particles remain active.
 @export var death_smoke_duration:float = 3.0
 
+## Initial yaw rotation used as the offline/idle facing direction.
 var initial_rotation:float
+## True while the player is inside the detection area.
 var player_in_detection:bool = false
+## Last known player position (updated while the player is detected).
 var last_known_player_pos:Vector3 = Vector3.ZERO
+## Last stored yaw used as a centre point for seeking oscillation.
 var last_y_rotation:float = global_rotation.y
+## Accumulated time for computing the seeking oscillation phase.
 var seeking_oscillation_time:float = 0.0
+## Accumulated time used to schedule bullet firing during a burst.
 var _elapsed_time:float = 0.0
 
+## Sets the current enemy state and performs any necessary enter/exit side effects.
 func setEnemyState(new_enemy_state:enemy_states):
 	var previous_enemy_state:enemy_states = enemy_state
 	enemy_state = new_enemy_state
@@ -96,6 +136,7 @@ func setEnemyState(new_enemy_state:enemy_states):
 		for smoke_particle:GPUParticles3D in death_smoke_particles:
 			smoke_particle.emitting = true
 	
+## Sets the current enemy attack state and performs enter/exit side effects.
 func setEnemyAttackState(new_enemy_attack_state:enemy_attack_states):
 	var previous_enemy_attack_state:enemy_attack_states = enemy_attack_state
 	enemy_attack_state = new_enemy_attack_state
@@ -119,9 +160,11 @@ func setEnemyAttackState(new_enemy_attack_state:enemy_attack_states):
 	
 	
 
+## Returns the current enemy state as its enum name string.
 func getEnemyStateFormatted() -> String:
 	return enemy_states.keys()[enemy_state]
 
+## Initializes cached node references, default states, and particle visibility.
 func _ready() -> void:
 	phys_sim_bones.append_array(_a)
 	death_smoke_particles.append_array(_b)
@@ -131,6 +174,8 @@ func _ready() -> void:
 	for smoke_particle:GPUParticles3D in death_smoke_particles:
 		smoke_particle.emitting = false
 
+## Per-frame update for driving state/attack behaviour and debug UI.
+## Handles rotation, seeking oscillation, and death smoke billboard behaviour.
 func _process(delta: float) -> void:
 	# update the state debug text labels
 	state_debug_text.updateStateReadout(enemy_state, enemy_states)
@@ -179,6 +224,7 @@ func _process(delta: float) -> void:
 		setEnemyAttackState(enemy_attack_states.DISARMED)
 #endregion
 
+## Kills this enemy, unhooking the player if grappled and triggering the DESTROYED state.
 func _killEnemy():
 	if player.getHookedTarget() == self:
 		# unhook grapple if the hooked enemy is self
@@ -186,16 +232,20 @@ func _killEnemy():
 	
 	setEnemyState(enemy_states.DESTROYED)
 
+## Assigns a look target for the head and gun look modifiers.
 func setBoneLookTargets(target_node:NodePath) -> void:
 	if target_node:
 		head_look_mod.target_node = target_node
 		gun_l_look_mod.target_node = target_node
 		gun_r_look_mod.target_node = target_node
 
+## Returns the current node used as the bone look target.
+## Assumes the target node path is valid in the scene tree.
 func getBoneLookTargets() -> Node3D:
 	var a:NodePath = head_look_mod.target_node
 	return get_node(a)
 
+## Clears any bone look targets so that the modifiers stop aiming at a specific node.
 func clearBoneLookTargets() -> void:
 		head_look_mod.target_node = ""
 		gun_l_look_mod.target_node = ""
@@ -221,6 +271,7 @@ func fireSingleBullet(gun:String) -> void:
 	get_tree().current_scene.add_child(bullet)
 	bullet.setup(bullet_spawn_pos, dir, self)
 
+## Enables ragdoll simulation and applies an outward force to all physics bones.
 func ragdoll(force_applied:float) -> void:
 		for bone:PhysicalBone3D in phys_sim_bones:
 			bone.add_collision_exception_with(player)
@@ -229,11 +280,13 @@ func ragdoll(force_applied:float) -> void:
 			var random_direction:Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 			bone.linear_velocity += random_direction * force_applied
 
+## Hurt callback: wakes the turret and begins seeking if hit while offline.
 func _on_hurt(damage: float, damage_type: Enemy.damage_types) -> void:
 	if enemy_state == enemy_states.OFFLINE:
 		seeking_timer.start(time_before_stop_seeking)
 		setEnemyState(enemy_states.SEEKING)
 
+## Called when the player enters the detection area; starts tracking and attack cooldown.
 func _on_player_detection_body_entered(player:Player) -> void:
 	player_in_detection = true
 	if enemy_state != enemy_states.DESTROYED:
@@ -241,6 +294,7 @@ func _on_player_detection_body_entered(player:Player) -> void:
 		setEnemyAttackState(enemy_attack_states.COOLDOWN)
 
 
+## Called when the player leaves the detection area; switches to seeking and disarms the turret.
 func _on_player_detection_body_exited(player:Player) -> void:
 	player_in_detection = false
 	if enemy_state != enemy_states.DESTROYED:
@@ -248,18 +302,19 @@ func _on_player_detection_body_exited(player:Player) -> void:
 		setEnemyState(enemy_states.SEEKING)
 		setEnemyAttackState(enemy_attack_states.DISARMED)
 
+## Called when the seeking timer finishes; returns the turret to the OFFLINE state if still seeking.
 func _on_seeking_timer_timeout() -> void:
 	if enemy_state == enemy_states.SEEKING:
 		setEnemyState(enemy_states.OFFLINE)
 
-## Called when the cooldown ends.
+## Called when the cooldown ends; transitions COOLDOWN → BURSTING.
 func _on_fire_cool_down_timer_timeout() -> void:
 	if enemy_attack_state == enemy_attack_states.COOLDOWN:
 		setEnemyAttackState(enemy_attack_states.BURSTING)
 	else:
 		assert(false, "ERROR: Illegal state transition!")
 
-## Called when the burst sequence ends.
+## Called when the burst sequence ends; transitions BURSTING → COOLDOWN.
 func _on_burst_fire_timer_timeout() -> void:
 	if enemy_attack_state == enemy_attack_states.BURSTING:
 		setEnemyAttackState(enemy_attack_states.COOLDOWN)
@@ -267,6 +322,7 @@ func _on_burst_fire_timer_timeout() -> void:
 		assert(false, "ERROR: Illegal state transition!")
 
 
+## Called when the death smoke timer ends; disables all death smoke particle emission.
 func _on_death_smoke_timer_timeout() -> void:
 	for smoke_particle:GPUParticles3D in death_smoke_particles:
 		smoke_particle.emitting = false

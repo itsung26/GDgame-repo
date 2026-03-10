@@ -22,7 +22,6 @@ extends Node
 
 
 func _ready() -> void:
-	
 	assert(enemy_to_spawn_SCENE != null)
 	
 	# children type check
@@ -37,12 +36,14 @@ func _ready() -> void:
 	else:
 		print("ERROR: No children detected")
 
-## Instances the scene and spawns an instance at each child marker3d node.
-func spawnEnemies():
-	
+## Instances the scene and spawns an instance at each child marker3d node. Retuns an array of the enemies spawned.
+func spawnEnemies() -> Array[Enemy]:
+	var ret:Array[Enemy] = []
 	for spawn_point:Marker3D in spawn_points:
 		var enemy_to_spawn_INSTANCE:Enemy = enemy_to_spawn_SCENE.instantiate()
 		enemy_to_spawn_INSTANCE.global_position = spawn_point.global_position
 		get_tree().current_scene.add_child.call_deferred(enemy_to_spawn_INSTANCE)
+		ret.append(enemy_to_spawn_INSTANCE)
+	return ret
 		
 		

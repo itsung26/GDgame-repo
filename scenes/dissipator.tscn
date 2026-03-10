@@ -20,6 +20,7 @@ speed_scale = 1.5
 [node name="DissipatorHitscan" type="RayCast3D" parent="."]
 editor_description = "The damaging raycast for the Dissipator"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24, 0.103000045, 0.462)
+visible = false
 target_position = Vector3(0, -1, -5000)
 collision_mask = 6
 debug_shape_custom_color = Color(1, 0, 0, 1)

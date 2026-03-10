@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=30 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://chjuj625vfhiy" path="res://scenes/checkPoint.tscn" id="10_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://da0o4xn0tk2l8" path="res://scenes/entities/skitterbomb.tscn" id="11_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://5s0qavju0eqt" path="res://scenes/combat_area.tscn" id="12_5138l"]
-[ext_resource type="PackedScene" uid="uid://cii8ksvy3p5rs" path="res://scenes/filth.tscn" id="13_488l3"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_488l3"]
 
@@ -320,38 +319,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6482625, 0, -15.790521)
 behavior_enabled = false
 
 [node name="CombatArea" parent="." node_paths=PackedStringArray("enemy_wave_0") instance=ExtResource("12_5138l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.6103, 7.7998047, -11.978118)
 enemy_wave_0 = [NodePath("wave_0_filth"), NodePath("wave_0_turrets")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CombatArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.35657, 7.2998047, -13.118233)
 shape = SubResource("BoxShape3D_5138l")
 debug_color = Color(1, 1, 0, 1)
 
 [node name="wave_0_filth" type="Node" parent="CombatArea"]
 script = ExtResource("4_s3yq3")
-enemy_to_spawn_SCENE = ExtResource("13_488l3")
+enemy_to_spawn_SCENE = ExtResource("7_wl3f4")
 metadata/_custom_type_script = "uid://s0gj2noon5cx"
 
 [node name="Marker3D" type="Marker3D" parent="CombatArea/wave_0_filth"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.37795, 0, -20.237705)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.667847, 0, -20.237705)
 
 [node name="Marker3D2" type="Marker3D" parent="CombatArea/wave_0_filth"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.96748, 0, -16.11101)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.257378, 0, -16.11101)
 
 [node name="Marker3D3" type="Marker3D" parent="CombatArea/wave_0_filth"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.367607, 0, -12.35277)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.657505, 0, -12.35277)
 
 [node name="Marker3D4" type="Marker3D" parent="CombatArea/wave_0_filth"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.704388, 0, -9.331442)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.994286, 0, -9.331442)
 
 [node name="Marker3D5" type="Marker3D" parent="CombatArea/wave_0_filth"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.240913, 0, -7.562859)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.53081, 0, -7.562859)
 
 [node name="Marker3D6" type="Marker3D" parent="CombatArea/wave_0_filth"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.75675, 0, -12.058007)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.046646, 0, -12.058007)
 
 [node name="Marker3D7" type="Marker3D" parent="CombatArea/wave_0_filth"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.06185, 0, -18.911268)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.35175, 0, -18.911268)
 
 [node name="wave_0_turrets" type="Node" parent="CombatArea"]
 script = ExtResource("4_s3yq3")
@@ -359,9 +358,6 @@ enemy_to_spawn_SCENE = ExtResource("10_5138l")
 metadata/_custom_type_script = "uid://s0gj2noon5cx"
 
 [node name="Marker3D8" type="Marker3D" parent="CombatArea/wave_0_turrets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.173077, 4.1948023, -21.210964)
-
-[node name="Marker3D9" type="Marker3D" parent="CombatArea/wave_0_turrets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.173077, 4.1948023, -2.686575)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.838116, 7.3052664, -13.130398)
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
