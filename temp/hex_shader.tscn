@@ -8,4 +8,5 @@ material = ExtResource("1_7qgxc")
 [node name="HexShader" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5098028, 0.5755842, 0)
 mesh = SubResource("QuadMesh_mv7lu")
