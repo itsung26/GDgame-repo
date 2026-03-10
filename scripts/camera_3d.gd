@@ -101,7 +101,9 @@ func _process(delta: float) -> void:
 	else:
 		dash_roll_target = 0.0
 
-	dash_roll_current = lerp(dash_roll_current, dash_roll_target, dash_roll_lerp_speed * delta)
+	# Framerate-independent smoothing toward dash roll target
+	var dash_roll_alpha: float = 1.0 - exp(-dash_roll_lerp_speed * delta)
+	dash_roll_current = lerp(dash_roll_current, dash_roll_target, dash_roll_alpha)
 
 	# Additive pitch from dashing forward/back
 	if dash_pitch_enabled and player.player_state == Player.player_states.DASHING:
@@ -114,7 +116,9 @@ func _process(delta: float) -> void:
 	else:
 		dash_pitch_target = 0.0
 
-	dash_pitch_current = lerp(dash_pitch_current, dash_pitch_target, dash_pitch_lerp_speed * delta)
+	# Framerate-independent smoothing toward dash pitch target
+	var dash_pitch_alpha: float = 1.0 - exp(-dash_pitch_lerp_speed * delta)
+	dash_pitch_current = lerp(dash_pitch_current, dash_pitch_target, dash_pitch_alpha)
 
 	# Apply total roll (movement + dash)
 	var total_roll_deg: float = camera_target_roll + dash_roll_current
