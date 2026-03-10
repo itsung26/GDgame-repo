@@ -253,6 +253,8 @@ text = "Hook Gpos: "
 [node name="CurrentCombatState" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
 text = "In Combat: "
 
 [node name="fpsCounter" type="Label" parent="DebugContainer"]
