@@ -12,9 +12,9 @@ bottom_radius = 0.167
 [node name="HexShader" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5098028, 0.5755842, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.5098028, 0.5755842, 0)
 mesh = SubResource("QuadMesh_mv7lu")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.44372207, 0.5197188, 0.15300533)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -1.5710645, 0.5197188, 0.15300533)
 mesh = SubResource("CylinderMesh_7qgxc")

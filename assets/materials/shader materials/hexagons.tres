@@ -1,16 +1,31 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://t6ometpokx3d"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://t6ometpokx3d"]
 
 [ext_resource type="Shader" uid="uid://d3wvfxuc4d5vk" path="res://shaders/GDSL shaders/hex_shader.gdshader" id="1_kwrmp"]
+
+[sub_resource type="Gradient" id="Gradient_kwrmp"]
+offsets = PackedFloat32Array(0.71359223, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_trpef"]
+gradient = SubResource("Gradient_kwrmp")
+fill_from = Vector2(0, 0.14102565)
+fill_to = Vector2(0, 0)
+repeat = 1
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_kwrmp")
-shader_parameter/hex_scale = 9.96
-shader_parameter/border_thickness = 0.671
+shader_parameter/hex_scale = 10.43
+shader_parameter/border_thickness = 0.981
 shader_parameter/hex_color = Color(1, 0.64705884, 0, 1)
 shader_parameter/border_color = Color(1, 0.5058824, 0, 1)
-shader_parameter/hex_fill_threshold = 0.565
+shader_parameter/hex_fill_threshold = 0.5
 shader_parameter/hex_alpha = 1.0
-shader_parameter/border_alpha = 0.385
-shader_parameter/hex_emission = 1.54
-shader_parameter/border_emission = 1.0
+shader_parameter/border_alpha = 0.5
+shader_parameter/hex_emission = 0.0
+shader_parameter/border_emission = -0.49
+shader_parameter/overlay_texture = SubResource("GradientTexture2D_trpef")
+shader_parameter/overlay_uv_scale = Vector2(1, 1)
+shader_parameter/overlay_uv_rotation = 1.0
+shader_parameter/overlay_uv_offset = Vector2(0, 1.58)
+shader_parameter/overlay_emission = 0.06

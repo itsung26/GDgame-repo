@@ -22,6 +22,17 @@ uniform float border_alpha = 1.0;
 uniform float hex_emission = 0.0;
 uniform float border_emission = 0.0;
 
+// Texture to draw hexagons on top of (hex alpha is the blend factor)
+uniform sampler2D overlay_texture : hint_default_white, filter_linear_mipmap, repeat_enable;
+
+// Controls for overlay texture UVs
+uniform vec2 overlay_uv_scale = vec2(1.0, 1.0);
+uniform float overlay_uv_rotation = 0.0; // radians
+uniform vec2 overlay_uv_offset = vec2(0.0, 0.0);
+
+// Emission intensity for the overlay texture (uses its sampled color)
+uniform float overlay_emission = 0.0;
+
 // Signed distance to a regular hex centered at the origin, radius r.
 // Negative inside, 0 at border, positive outside.
 float sd_hex(vec2 p, float r) {
@@ -91,12 +102,25 @@ void fragment() {
 	inside = inside > hex_fill_threshold ? 1.0 : 0.0;
 
 	// Lerp between border and hex properties using the inside mask
-	vec3 base_color = mix(border_color, hex_color, inside);
+	vec3 hex_layer_color = mix(border_color, hex_color, inside);
 	float alpha = mix(border_alpha, hex_alpha, inside);
 	float emission_intensity = mix(border_emission, hex_emission, inside);
 
-	ALBEDO = base_color;
-	ALPHA = alpha;
-	EMISSION = base_color * emission_intensity;
+	// Overlay hex layer on top of the texture; alpha is the blend factor
+	// Apply scale, rotation (around 0.5,0.5), and offset to overlay UVs
+	vec2 overlay_uv = uv * overlay_uv_scale;
+	float s = sin(overlay_uv_rotation);
+	float c = cos(overlay_uv_rotation);
+	vec2 centered = overlay_uv - vec2(0.5);
+	overlay_uv = vec2(
+		c * centered.x - s * centered.y,
+		s * centered.x + c * centered.y
+	) + vec2(0.5);
+	overlay_uv += overlay_uv_offset;
+
+	vec3 overlay_rgb = texture(overlay_texture, overlay_uv).rgb;
+	ALBEDO = mix(overlay_rgb, hex_layer_color, alpha);
+	ALPHA = 1.0;
+	EMISSION = hex_layer_color * emission_intensity + overlay_rgb * overlay_emission;
 }
 
