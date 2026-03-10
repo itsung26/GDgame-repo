@@ -651,9 +651,14 @@ func physicsStateLogic(delta=get_physics_process_delta_time()):
 	# falling movement state logic
 	elif player_state == player_states.FALLING:
 		if player_move_input_enabled and direction != Vector3.ZERO:
-			var desired = direction * SPEED
 			var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
-			var new_horizontal = horizontal_velocity.lerp(Vector3(desired.x, 0, desired.z), AIR_ACCELERATION * delta)
+			var current_speed = horizontal_velocity.length()
+			var desired_dir = Vector3(direction.x, 0, direction.z).normalized()
+			var desired_horizontal: Vector3 = desired_dir * SPEED
+			# If already moving at or above SPEED in the input direction, preserve speed instead of clamping down
+			if current_speed >= SPEED and horizontal_velocity.dot(desired_horizontal) > 0.0:
+				desired_horizontal = desired_dir * current_speed
+			var new_horizontal = horizontal_velocity.lerp(desired_horizontal, AIR_ACCELERATION * delta)
 			velocity.x = new_horizontal.x
 			velocity.z = new_horizontal.z
 		elif direction == Vector3.ZERO:

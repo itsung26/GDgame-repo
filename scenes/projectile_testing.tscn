@@ -201,7 +201,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 21.8
 gizmo_extents = 1.57
 
 [node name="GrappleCube" parent="." instance=ExtResource("8_wl3f4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6109357, 19.648426, 22.280678)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.96889, 7.16574, -14.665242)
 
 [node name="CheckPoint" parent="." instance=ExtResource("10_r4hxy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.186, 0.848577, -7.22804)
