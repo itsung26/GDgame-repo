@@ -92,7 +92,7 @@ radius = 35.644657
 collision_layer = 2
 collision_mask = 559
 script = ExtResource("1_i8fi7")
-bullet_delay = 0.424
+bullet_delay = 0.212
 death_smoke_duration = 10.0
 HEALTH = 10.0
 SPEED = 0.0
@@ -117,7 +117,6 @@ random_rot_max_x = 4.0
 random_rot_min_z = -4.0
 random_rot_max_z = 4.0
 delay = 0.032
-shuffling = true
 
 [node name="bullet turret" parent="." instance=ExtResource("2_ac5sn")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -183,13 +182,13 @@ bone_idx = 6
 gizmo_extents = 0.73
 
 [node name="FireDirL" type="RayCast3D" parent="bullet turret/Armature/Skeleton3D/GunLAttatchment"]
-transform = Transform3D(0.99920124, 0.039952703, 3.511539e-10, -0.03988021, 0.9973881, 0.060213953, 0.00240571, -0.060165863, 0.99818534, 0, 0, 0)
+transform = Transform3D(0.99999964, 0, 0, 0, 0.9999996, 0, 0, 0, 0.9999998, 0, 0, 0)
 visible = false
 target_position = Vector3(0, 1, 0)
 script = SubResource("GDScript_o4vap")
 
 [node name="TargLGlobal" type="Marker3D" parent="bullet turret/Armature/Skeleton3D/GunLAttatchment/FireDirL"]
-transform = Transform3D(1.0030271, 0.0024147145, 0.039940592, 0.0401056, -0.06038886, -0.9989004, -9.208649e-08, 1.0018866, -0.06030521, 0, 1, 0)
+transform = Transform3D(1.0038656, 8.774957e-08, -8.7559556e-08, -8.7760476e-08, 1.2619833e-07, -1.0015639, -8.7760796e-08, 1.0037367, 1.02605755e-08, 0, 1, 0)
 
 [node name="GunRAttatchment" type="BoneAttachment3D" parent="bullet turret/Armature/Skeleton3D" index="6"]
 transform = Transform3D(-1, -1.4821477e-14, 8.742269e-08, 1.7341684e-13, 1.0000005, -1.2572855e-07, -8.7422734e-08, -1.0244548e-08, -1.0000001, 0.66042155, 0.3917889, -0.006590802)
@@ -200,23 +199,23 @@ bone_idx = 4
 gizmo_extents = 0.73
 
 [node name="FireDirR" type="RayCast3D" parent="bullet turret/Armature/Skeleton3D/GunRAttatchment"]
-transform = Transform3D(0.99941486, -0.03420181, 7.132028e-10, 0.0341944, 0.99919814, -0.02081821, 0.00071201986, 0.020806028, 0.9997832, 0, 0, 0)
+transform = Transform3D(0.99999994, 0, 0, 0, 0.9999998, 0, 0, 0, 0.99999994, 0, 0, 0)
 visible = false
 target_position = Vector3(0, 1, 0)
 script = SubResource("GDScript_lqrsi")
 
 [node name="TargRGlobal" type="Marker3D" parent="bullet turret/Armature/Skeleton3D/GunRAttatchment/FireDirR"]
-transform = Transform3D(0.9992489, 0.0007119899, -0.034081113, -0.034196224, 0.0208026, -0.99588543, -8.491084e-08, 0.99961257, 0.020749195, -5.9604645e-08, 1, 9.313226e-10)
+transform = Transform3D(0.9998691, 8.7406626e-08, -8.713539e-08, -8.741149e-08, 1.2570538e-07, -0.99671245, -8.741129e-08, 0.9998161, 1.0210875e-08, 0, 1, 0)
 
 [node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="bullet turret/Armature/Skeleton3D" index="7"]
 active = false
 
 [node name="Physical Bone Root" type="PhysicalBone3D" parent="bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb", "physics bones"]]
-transform = Transform3D(-0.999998, -2.580679e-05, -0.0020274369, 0.002027601, -0.012727721, -0.999917, -2.6301546e-24, -0.999919, 0.012727747, -0.00055599445, 0.26755762, -0.044344924)
+transform = Transform3D(-0.999998, -2.580679e-05, -0.0020274369, 0.002027601, -0.012727721, -0.999917, -2.6301546e-24, -0.999919, 0.012727747, -0.0005559945, 0.26755762, -0.044344924)
 collision_layer = 4
 collision_mask = 36
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4425488e-05, 5.122274e-09, 0.26711914)
-body_offset = Transform3D(-0.999998, -2.580679e-05, -0.0020274369, -4.662383e-34, 0.999919, -0.012727747, 0.002027601, -0.012727721, -0.999917, 0.0005271417, 0.0033998191, 0.26709697)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4425546e-05, 5.122274e-09, 0.26711914)
+body_offset = Transform3D(-0.999998, -2.580679e-05, -0.0020274369, -4.662383e-34, 0.999919, -0.012727747, 0.002027601, -0.012727721, -0.999917, 0.0005271416, 0.0033998191, 0.26709697)
 bounce = 0.5
 gravity_scale = 1.5
 bone_name = "Root"
@@ -248,12 +247,12 @@ transform = Transform3D(1, 0, 0, 0, 0.9659258, -0.25881904, 0, 0.25881904, 0.965
 emitting = false
 
 [node name="Physical Bone Gun_R" type="PhysicalBone3D" parent="bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb", "physics bones"]]
-transform = Transform3D(-1, -8.966533e-08, 3.785987e-07, -3.7811998e-07, -0.005280137, -0.9999861, 9.1663125e-08, -0.9999861, 0.005280137, 0.65839756, 0.18157895, -0.0054885773)
+transform = Transform3D(-1, -8.966533e-08, 3.785987e-07, -3.7811998e-07, -0.005280137, -0.9999861, 9.1663125e-08, -0.9999861, 0.005280137, 0.6583975, 0.18157895, -0.0054885773)
 collision_layer = 4
 collision_mask = 36
-joint_offset = Transform3D(1, 6.661338e-16, 0, -6.661338e-16, 1, 1.3969839e-08, 9.305782e-24, -1.3969839e-08, 1, -0.0020240853, -7.677401e-06, 0.21058066)
+joint_offset = Transform3D(1, 6.661338e-16, 0, -6.661338e-16, 1, 1.3969839e-08, 9.305782e-24, -1.3969839e-08, 1, -0.0020241449, -7.677401e-06, 0.21058066)
 joint_rotation = Vector3(-1.3969839e-08, 0, -6.661338e-16)
-body_offset = Transform3D(1, -3.574918e-14, -1.366634e-07, -1.3666329e-07, 0, -0.9999995, -1.110223e-16, 0.9999999, -1.1920929e-07, 0.0020241141, 0.21058056, 7.702503e-06)
+body_offset = Transform3D(1, -3.574918e-14, -1.366634e-07, -1.3666329e-07, 0, -0.9999995, -1.110223e-16, 0.9999999, -1.1920929e-07, 0.0020241737, 0.21058056, 7.702503e-06)
 bounce = 0.5
 gravity_scale = 1.5
 bone_name = "Gun.R"
