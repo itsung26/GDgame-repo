@@ -224,6 +224,7 @@ behavior_enabled = false
 
 [node name="BulletTurret2" parent="." instance=ExtResource("10_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8275657, 3.2420573, -0.08562398)
+behavior_enabled = false
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.950869, 12.83057, -8.596948)

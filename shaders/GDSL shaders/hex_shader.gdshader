@@ -35,6 +35,10 @@ uniform vec2 overlay_uv_scale = vec2(1.0, 1.0);
 uniform float overlay_uv_rotation = 0.0; // radians
 uniform vec2 overlay_uv_offset = vec2(0.0, 0.0);
 
+// Color and alpha controls applied to the overlay texture
+uniform vec3 overlay_color : source_color = vec3(1.0);
+uniform float overlay_alpha_mul = 1.0;
+
 // Toggles whether overlay blending is active
 uniform bool overlay_enabled = true;
 
@@ -140,8 +144,18 @@ void fragment() {
 		) + vec2(0.5);
 		overlay_uv += overlay_uv_offset;
 
-		vec3 overlay_rgb = texture(overlay_texture, overlay_uv).rgb;
+		vec4 overlay_rgba = texture(overlay_texture, overlay_uv);
+
+		// Apply user color tint and alpha multiplier to the overlay
+		vec3 overlay_rgb = overlay_rgba.rgb * overlay_color;
+		float overlay_alpha = overlay_rgba.a * overlay_alpha_mul;
+
+		// Mix colors using the hex alpha as blend factor
 		final_albedo = mix(overlay_rgb, hex_layer_color, alpha);
+
+		// Combine overlay and hex alpha so transparency depends on both
+		// (union over black: a = a_hex + a_overlay - a_hex * a_overlay)
+		final_alpha = overlay_alpha + alpha - overlay_alpha * alpha;
 	}
 
 	ALBEDO = final_albedo;
