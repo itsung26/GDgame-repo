@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dayq6clfx4ldd"]
+
+[ext_resource type="Material" uid="uid://t6ometpokx3d" path="res://assets/materials/shader materials/hexagons.tres" id="1_7qgxc"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_mv7lu"]
+material = ExtResource("1_7qgxc")
+
+[node name="HexShader" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_mv7lu")

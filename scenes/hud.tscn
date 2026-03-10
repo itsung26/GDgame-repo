@@ -18,7 +18,8 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3swnk"]
 shader = ExtResource("2_3swnk")
-shader_parameter/pixel_resolution = 338.0
+shader_parameter/pixel_resolution = 229.0
+shader_parameter/dither_strength = 0.999999977648
 
 [sub_resource type="Theme" id="Theme_eld54"]
 Label/fonts/font = ExtResource("3_5n1hp")
@@ -125,7 +126,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0)
 
 [node name="HideHandler" type="Node" parent="."]
 editor_description = "Hides weapon icons in the hud based on the player's states"
