@@ -14,6 +14,14 @@ uniform vec3 border_color : source_color = vec3(0.0);
 // Controls where the interior turns fully "on" (0..1 mask threshold)
 uniform float hex_fill_threshold = 0.5;
 
+// Alpha controls for hex interior and border
+uniform float hex_alpha = 1.0;
+uniform float border_alpha = 1.0;
+
+// Emission intensity for hex interior and border
+uniform float hex_emission = 0.0;
+uniform float border_emission = 0.0;
+
 // Signed distance to a regular hex centered at the origin, radius r.
 // Negative inside, 0 at border, positive outside.
 float sd_hex(vec2 p, float r) {
@@ -82,9 +90,13 @@ void fragment() {
 	// Shape the interior using a simple greater-than comparison
 	inside = inside > hex_fill_threshold ? 1.0 : 0.0;
 
-	vec3 color = mix(border_color, hex_color, inside);
+	// Lerp between border and hex properties using the inside mask
+	vec3 base_color = mix(border_color, hex_color, inside);
+	float alpha = mix(border_alpha, hex_alpha, inside);
+	float emission_intensity = mix(border_emission, hex_emission, inside);
 
-	ALBEDO = color;
-	ALPHA = 1.0;
+	ALBEDO = base_color;
+	ALPHA = alpha;
+	EMISSION = base_color * emission_intensity;
 }
 
