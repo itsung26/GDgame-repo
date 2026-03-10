@@ -2,14 +2,17 @@ shader_type spatial;
 
 // Controls how large each hexagon is in UV space.
 // Larger values = larger hexes.
-uniform float hex_scale : hint_range(0.1, 10.0, 0.01) = 2.0;
+uniform float hex_scale = 2.0;
 
 // Thickness of the black border between hexes.
-uniform float border_thickness : hint_range(0.0, 0.5, 0.005) = 0.08;
+uniform float border_thickness = 0.08;
 
 // Base colors
 uniform vec3 hex_color : source_color = vec3(1.0);
 uniform vec3 border_color : source_color = vec3(0.0);
+
+// Controls where the interior turns fully "on" (0..1 mask threshold)
+uniform float hex_fill_threshold = 0.5;
 
 // Signed distance to a regular hex centered at the origin, radius r.
 // Negative inside, 0 at border, positive outside.
@@ -75,6 +78,9 @@ void fragment() {
 
 	// Use smoothstep so borders remain visible even for small thickness values
 	float inside = smoothstep(0.0, border_thickness, dist_to_border);
+
+	// Shape the interior using a simple greater-than comparison
+	inside = inside > hex_fill_threshold ? 1.0 : 0.0;
 
 	vec3 color = mix(border_color, hex_color, inside);
 

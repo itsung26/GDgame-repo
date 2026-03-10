@@ -5,7 +5,8 @@
 [resource]
 render_priority = 0
 shader = ExtResource("1_kwrmp")
-shader_parameter/hex_scale = 9.99999978020532
-shader_parameter/border_thickness = 0.5
+shader_parameter/hex_scale = 9.96
+shader_parameter/border_thickness = 0.626
 shader_parameter/hex_color = Color(1, 1, 1, 1)
 shader_parameter/border_color = Color(0, 0, 0, 1)
+shader_parameter/hex_fill_threshold = 0.565
