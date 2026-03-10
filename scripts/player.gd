@@ -87,6 +87,7 @@ var stamina_recharging:bool = true
 @export var Godmode:bool = false
 @export var HEALTH:float = 100
 @export var can_be_healed:bool = true
+@export var in_combat:bool = false: set = setInCombat
 @export var STAMINA:float = 300
 ## Delay after dash before stamina before stamina begins to recharge in seconds.
 @export var stamina_charge_delay:float = 0.1 # seconds
@@ -546,7 +547,16 @@ func _input(event) -> void:
 			player_state = player_states.GROUNDED
 	
 	if Input.is_action_just_pressed("dash") and player_dash_input_enabled and STAMINA >= 100:
-		dash_dir = Vector3(velocity.x, 0, velocity.z).normalized()
+		# Determine dash direction for camera effects:
+		# - If there is no horizontal movement, use forward direction (matches default forward dash)
+		# - Otherwise, use current horizontal velocity direction
+		var horizontal_velocity: Vector3 = Vector3(velocity.x, 0.0, velocity.z)
+		if horizontal_velocity.length() <= 0.001:
+			var forward_dir: Vector3 = -transform.basis.z
+			dash_dir = forward_dir.normalized()
+		else:
+			dash_dir = horizontal_velocity.normalized()
+		
 		if not player_state == player_states.DASHING: # if player is not already dashing
 			player_state = player_states.DASHING
 			
@@ -566,8 +576,14 @@ func _input(event) -> void:
 			camera_3d.get_max_pitch_deg()
 		)
 
+
+func setInCombat(new_state:bool):
+	in_combat = new_state
+
+
 func getCheckPoint() -> checkPoint:
 	return checkpoint
+
 
 func setCheckPoint(new_checkpoint:checkPoint):
 	var previous_check_point:checkPoint = checkpoint
@@ -820,7 +836,7 @@ func getGlobalPos() -> Vector3:
 	return global_position
 
 func playerDie():
-	player_state = player_states.DEAD
+	set_player_state(player_states.DEAD)
 	Engine.time_scale = 0.3
 
 func getHookedTarget() -> Node3D:

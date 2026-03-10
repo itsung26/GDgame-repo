@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://5s0qavju0eqt"]
+
+[ext_resource type="Script" uid="uid://igcjh2lo0n1w" path="res://scripts/combat_area.gd" id="1_28awr"]
+
+[node name="CombatArea" type="Area3D"]
+collision_layer = 4
+script = ExtResource("1_28awr")
+
+[node name="DelayBeforeCombat" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DelayBeforeCombat" to="." method="_on_delay_before_combat_timeout"]

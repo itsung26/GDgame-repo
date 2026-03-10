@@ -108,6 +108,7 @@ func _process(delta) -> void:
 		%CurrentMagnitudeXZ.text = "Net vector magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
 		%CurrentParryTarget.text = "parry target: " + str(player.parry_target)
 		%CurrentHookGPos.text = "Hook Gpos: " + str(grapple_hook.global_position)
+		%CurrentCombatState.text = "In Combat: " + str(player.in_combat)
 		# ----------------------------------------------------------------------------------------------
 #endregion
 

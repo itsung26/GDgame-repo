@@ -23,8 +23,7 @@ extends Node
 
 func _ready() -> void:
 	
-	if enemy_to_spawn_SCENE == null:
-		print("ERROR: no enemy scene set for spawner " + self.to_string())
+	assert(enemy_to_spawn_SCENE != null)
 	
 	# children type check
 	for spawn_point in spawn_points:

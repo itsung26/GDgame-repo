@@ -250,6 +250,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Hook Gpos: "
 
+[node name="CurrentCombatState" type="Label" parent="DebugContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "In Combat: "
+
 [node name="fpsCounter" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
