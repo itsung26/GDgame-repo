@@ -26,8 +26,8 @@ shader_parameter/dither_strength = 0.999999977648
 shader = ExtResource("3_qkknv")
 shader_parameter/blur_inner_radius = 0.6
 shader_parameter/blur_outer_radius = 0.95
-shader_parameter/blur_strength = 0.9
-shader_parameter/blur_sample_radius = 2.0
+shader_parameter/blur_strength = 1.0
+shader_parameter/blur_sample_radius = 4.75600020216
 
 [sub_resource type="Theme" id="Theme_eld54"]
 Label/fonts/font = ExtResource("3_5n1hp")

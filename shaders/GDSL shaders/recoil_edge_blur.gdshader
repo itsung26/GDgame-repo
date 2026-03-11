@@ -1,21 +1,19 @@
 shader_type canvas_item;
 
-// Godot 4: declare screen texture explicitly
+// Screen buffer to sample for the blur; bound automatically when used in a full-screen pass (Godot 4).
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 
-// How far from the center the blur starts (0 = full screen blurred, 1 = only very edge blurred).
-// This is an elliptical radius in normalized screen space.
-uniform float blur_inner_radius : hint_range(0.0, 1.0) = 0.6;
+// Elliptical radius (aspect-corrected) where blur begins; inside this radius the image stays sharp.
+uniform float blur_inner_radius = 0.6;
 
-// How far from the center the blur ends (must be >= blur_inner_radius, clamped in shader).
-uniform float blur_outer_radius : hint_range(0.0, 1.5) = 0.95;
+// Elliptical radius where blur reaches full strength; should be >= blur_inner_radius (clamped in shader).
+uniform float blur_outer_radius = 0.95;
 
-// Overall strength of the blur mix (0 = no effect, 1 = full blur in edge region).
-uniform float blur_strength : hint_range(0.0, 1.0) = 0.9;
+// How much to mix in the blurred color in the edge band (0 = no blur, 1 = full blur).
+uniform float blur_strength = 0.9;
 
-// Number of texel-sized samples around the base UV for the blur.
-// Larger values are more expensive but smoother.
-uniform float blur_sample_radius : hint_range(0.5, 5.0) = 2.0;
+// Blur kernel size in texels; higher values give a smoother, heavier blur at higher cost.
+uniform float blur_sample_radius = 2.0;
 
 void fragment() {
 	// Base UV in [0,1].
