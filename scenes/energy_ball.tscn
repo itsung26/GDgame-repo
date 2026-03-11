@@ -333,7 +333,7 @@ explosion_damaging_curve = SubResource("Curve_ywc1y")
 explosion_damaging_alpha_curve = SubResource("Curve_3uxj8")
 explosion_damaging_color = Color(1, 0, 0, 1)
 damage_to_player = 12.0
-travel_speed = 30.0
+travel_speed = 45.0
 cam_shake_duration = 0.66
 cam_shake_strength = 1.0
 

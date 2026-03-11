@@ -1,6 +1,6 @@
 ## Spawns instances of a single enemy scene at the positions of child Marker3D nodes.
 ## Supports optional delays between each individual spawn, measured in seconds and
-## independent of framerate.
+## independent of framerate, which can be toggled on or off.
 class_name EnemySpawnHandler
 extends Node
 
@@ -19,6 +19,8 @@ extends Node
 @export var spawn_enemies_on_ready:bool = false
 ## Scene to instantiate for each spawn point. Intended to be an Enemy-derived scene.
 @export var enemy_to_spawn_SCENE:PackedScene
+## If true, enables the delay between each individual enemy spawn.
+@export var spawn_delay_enabled:bool = true
 ## Optional delay (in seconds) between spawning each individual enemy. 0.0 spawns all at once.
 @export var spawn_delay_between_enemies:float = 0.1
 
@@ -55,7 +57,7 @@ func spawnEnemies() -> Array[Enemy]:
 		ret.append(enemy_to_spawn_INSTANCE)
 		# Optional delay between each spawn, measured in seconds and framerate-independent.
 		# SceneTreeTimer created by create_timer() is one-shot and cleans itself up.
-		if spawn_delay_between_enemies > 0.0 and i < spawn_points.size() - 1:
+		if spawn_delay_enabled and spawn_delay_between_enemies > 0.0 and i < spawn_points.size() - 1:
 			await get_tree().create_timer(spawn_delay_between_enemies).timeout
 	return ret
 		
