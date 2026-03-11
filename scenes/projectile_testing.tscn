@@ -318,9 +318,10 @@ behavior_enabled = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6482625, 0, -15.790521)
 behavior_enabled = false
 
-[node name="CombatArea" parent="." node_paths=PackedStringArray("enemy_wave_0") instance=ExtResource("12_5138l")]
+[node name="CombatArea" parent="." node_paths=PackedStringArray("enemy_wave_0", "enemy_wave_1") instance=ExtResource("12_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.6103, 7.7998047, -11.978118)
 enemy_wave_0 = [NodePath("wave_0_filth"), NodePath("wave_0_turrets")]
+enemy_wave_1 = [NodePath("wave_1_turrets")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CombatArea"]
 shape = SubResource("BoxShape3D_5138l")

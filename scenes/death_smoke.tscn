@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7k1qxguytj1y"]
+[gd_scene load_steps=10 format=3 uid="uid://b7k1qxguytj1y"]
 
 [ext_resource type="Texture2D" uid="uid://dqyadocxcghfm" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/smoke_02.png" id="1_i2s1o"]
 
@@ -44,8 +44,19 @@ use_z_clip_scale = true
 material = SubResource("StandardMaterial3D_4oejd")
 size = Vector2(2, 2)
 
+[sub_resource type="GDScript" id="GDScript_i2s1o"]
+resource_name = "death_smoke"
+script/source = "extends GPUParticles3D
+
+
+func _process(delta: float) -> void:
+	# always look towards global up
+	look_at(global_position + Vector3(0.0, 1.00001, 0.0),)
+"
+
 [node name="DeathSmoke" type="GPUParticles3D"]
 lifetime = 2.0
 visibility_aabb = AABB(-1.1906163, -1.1511683, -1.9997737, 2.3841848, 2.2999797, 2.991629)
 process_material = SubResource("ParticleProcessMaterial_b0fd7")
 draw_pass_1 = SubResource("QuadMesh_i2s1o")
+script = SubResource("GDScript_i2s1o")

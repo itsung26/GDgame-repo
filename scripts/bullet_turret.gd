@@ -37,14 +37,13 @@ extends Enemy
 @onready var physical_bone_simulator_3d: PhysicalBoneSimulator3D = $"bullet turret/Armature/Skeleton3D/PhysicalBoneSimulator3D"
 ## Main collision shape used while the turret is alive.
 @onready var phys_collider: CollisionShape3D = $PhysCollider
-## Cached list of all physical bones used for ragdoll.
-@onready var _a := get_tree().get_nodes_in_group(&"physics bones")
 @onready var phys_sim_bones:Array[PhysicalBone3D] = []
-## Cached list of all death smoke particle systems.
-@onready var _b := get_tree().get_nodes_in_group(&"death smoke particles")
-@onready var death_smoke_particles:Array[GPUParticles3D] = []
 ## Timer that turns off the death smoke after a delay.
 @onready var death_smoke_timer: Timer = $DeathSmokeTimer
+## The armature.
+@onready var skeleton_3d: Skeleton3D = $"bullet turret/Armature/Skeleton3D"
+@onready var gun_l_attatchment: BoneAttachment3D = $"bullet turret/Armature/Skeleton3D/GunLAttatchment"
+@onready var gun_r_attatchment: BoneAttachment3D = $"bullet turret/Armature/Skeleton3D/GunRAttatchment"
 
 ## Packed scene for the projectile this turret fires.
 const bullet_scene:PackedScene = preload("res://scenes/energy_ball.tscn")
@@ -79,6 +78,7 @@ var enemy_attack_state:enemy_attack_states:
 @export var ragdoll_force_applied:float = 6.667
 ## Duration in seconds for which death smoke particles remain active.
 @export var death_smoke_duration:float = 3.0
+@export var death_smoke_particles:Array[GPUParticles3D]
 
 ## Initial yaw rotation used as the offline/idle facing direction.
 var initial_rotation:float
@@ -135,6 +135,8 @@ func setEnemyState(new_enemy_state:enemy_states):
 		death_smoke_timer.start(death_smoke_duration)
 		for smoke_particle:GPUParticles3D in death_smoke_particles:
 			smoke_particle.emitting = true
+		# Hand off ragdoll to the world and free this enemy after starting death effects.
+		finalize_death()
 	
 ## Sets the current enemy attack state and performs enter/exit side effects.
 func setEnemyAttackState(new_enemy_attack_state:enemy_attack_states):
@@ -166,8 +168,7 @@ func getEnemyStateFormatted() -> String:
 
 ## Initializes cached node references, default states, and particle visibility.
 func _ready() -> void:
-	phys_sim_bones.append_array(_a)
-	death_smoke_particles.append_array(_b)
+	phys_sim_bones.append_array(physical_bone_simulator_3d.get_children())
 	initial_rotation = global_rotation.y
 	setEnemyState(enemy_states.OFFLINE)
 	setEnemyAttackState(enemy_attack_states.DISARMED)
@@ -206,7 +207,8 @@ func _process(delta: float) -> void:
 			rotation.y = rotate_toward(rotation.y, target_rotation, turning_speed * delta)
 		elif enemy_state == enemy_states.DESTROYED:
 			for smoke_particle:GPUParticles3D in death_smoke_particles:
-				smoke_particle.look_at(smoke_particle.global_position + Vector3(0.0, 1.0, 0.0) + Vector3(0.0001, 0.0, 0.0))
+				if smoke_particle:
+					smoke_particle.look_at(smoke_particle.global_position + Vector3(0.0, 1.0, 0.0) + Vector3(0.0001, 0.0, 0.0))
 	else:
 		setEnemyState(enemy_states.OFFLINE)
 #endregion
@@ -271,14 +273,44 @@ func fireSingleBullet(gun:String) -> void:
 	get_tree().current_scene.add_child(bullet)
 	bullet.setup(bullet_spawn_pos, dir, self)
 
-## Enables ragdoll simulation and applies an outward force to all physics bones.
+## Enables ragdoll simulation, re-parents the simulator to the world, and applies an outward force
+## to all physics bones.
 func ragdoll(force_applied:float) -> void:
-		for bone:PhysicalBone3D in phys_sim_bones:
-			bone.add_collision_exception_with(player)
-		physical_bone_simulator_3d.physical_bones_start_simulation()
-		for bone:PhysicalBone3D in phys_sim_bones:
-			var random_direction:Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
-			bone.linear_velocity += random_direction * force_applied
+	# Free all unnecessary nodes in this turret's rig only.
+	var nodes_to_free:Array[Node] = []
+	nodes_to_free.append(head_look_mod)
+	nodes_to_free.append(gun_l_look_mod)
+	nodes_to_free.append(gun_r_look_mod)
+	nodes_to_free.append(laser)
+	nodes_to_free.append(gun_l_attatchment)
+	nodes_to_free.append(gun_r_attatchment)
+	
+	for node:Node in nodes_to_free:
+		node.queue_free()
+	
+	# Move the cleaned rig to the main scene so it is not freed with the enemy and
+	# the ragdoll sim will stil work. Preserve the global transform so the pose
+	# doesn't pop when changing parents.
+	var world_root:Node = get_tree().current_scene
+	if world_root and skeleton_3d.get_parent():
+		var old_global:Transform3D = skeleton_3d.global_transform
+		skeleton_3d.get_parent().remove_child(skeleton_3d)
+		world_root.add_child(skeleton_3d)
+		skeleton_3d.global_transform = old_global
+
+	# After reparenting, make bones no-collide with the player and start physics
+	for bone:PhysicalBone3D in phys_sim_bones:
+		bone.add_collision_exception_with(player)
+	physical_bone_simulator_3d.physical_bones_start_simulation()
+	# apply a random force to each bone
+	for bone:PhysicalBone3D in phys_sim_bones:
+		var random_direction:Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+		bone.linear_velocity += random_direction * force_applied
+	
+
+## Frees the enemy node after ragdoll has been set up and re-parented.
+func finalize_death() -> void:
+	call_deferred("queue_free")
 
 ## Hurt callback: wakes the turret and begins seeking if hit while offline.
 func _on_hurt(damage: float, damage_type: Enemy.damage_types) -> void:

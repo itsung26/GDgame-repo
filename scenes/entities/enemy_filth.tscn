@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://fyr1gxk7lvr1"]
+[gd_scene load_steps=40 format=4 uid="uid://fyr1gxk7lvr1"]
 
 [ext_resource type="Script" uid="uid://x7wtow671t3i" path="res://scripts/enemy_filth.gd" id="1_8551a"]
 [ext_resource type="Texture2D" uid="uid://dja4bjd6eau7h" path="res://assets/meshes/filth/textures/Filth_Mouth_Open_baseColor.png" id="2_qw0xx"]
@@ -921,10 +921,6 @@ bind/20/pose = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qw0xx"]
 radius = 0.32296
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_00tiq"]
-radius = 0.124
-height = 2.33782
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_xpfnw"]
 size = Vector3(0.319, 1.832, 0.435)
 
@@ -1324,11 +1320,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0301
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, -0.154)
 shape = SubResource("CapsuleShape3D_qw0xx")
 
-[node name="deadbodyCollider3" type="CollisionShape3D" parent="."]
-transform = Transform3D(-1, -8.74228e-08, 0, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 2.21313e-08, 0.083776, -0.225206)
-shape = SubResource("CapsuleShape3D_00tiq")
-disabled = true
-
 [node name="FacingDir" type="RayCast3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
 visible = false
@@ -1390,9 +1381,6 @@ one_shot = true
 process_material = SubResource("ParticleProcessMaterial_q7pvh")
 draw_pass_1 = SubResource("SphereMesh_axemi")
 
-[node name="timeUntillDisable" type="Timer" parent="."]
-one_shot = true
-
 [node name="Marker3D2" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2328, -0.139401)
 
@@ -1402,6 +1390,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2146952, 0)
 [connection signal="body_entered" from="readyBiteBox" to="." method="_on_ready_bite_box_body_entered"]
 [connection signal="body_exited" from="readyBiteBox" to="." method="_on_ready_bite_box_body_exited"]
 [connection signal="body_entered" from="biteHurtBox" to="." method="_on_bite_hurt_box_body_entered"]
-[connection signal="timeout" from="timeUntillDisable" to="." method="_on_time_untill_disable_timeout"]
 
 [editable path="StateDebugText"]

@@ -4,7 +4,6 @@ class_name EnemyFilth extends Enemy
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var filth_animator:AnimationPlayer = $FilthAnimator
 @onready var body_collider: CollisionShape3D = $bodyCollider
-@onready var time_untill_process_disable_timer:Timer = $timeUntillDisable
 @onready var state_debug_text: StateDebugText = $StateDebugText
 
 ## The weight that the enemy rotates exponentially with to look at it's target
@@ -15,15 +14,13 @@ class_name EnemyFilth extends Enemy
 @export var bite_damage:float = 8.0
 ## attack player cause of death
 @export var player_cause_of_death_message:String = "Bitten to death"
-## time after death untill the process_mode disables. When set to 0, the process will never disable.
-@export var time_untill_process_disable:float = 4.0
 ## Minimum distance the player must move before updating navigation path (reduces pathfinding calls)
 @export var path_update_threshold:float = 2.0
 ## How often to update the navigation path (in seconds). Lower = more frequent updates but more expensive
 @export var path_update_interval:float = 0.2
 
 ## Main physics states.
-enum enemy_states {IDLE, FALLING, RUNNING, PREPARINGBITE, BITING, ENDINGBITE, DYING, DEAD}
+enum enemy_states {IDLE, FALLING, RUNNING, PREPARINGBITE, BITING, ENDINGBITE, DEAD}
 var enemy_state:enemy_states = enemy_states.RUNNING:
 	set = set_enemy_state
 
@@ -40,7 +37,8 @@ func set_enemy_state(new_enemy_state:enemy_states):
 	if previous_enemy_state == new_enemy_state:
 		return
 	# prevent switching out of death states
-	elif previous_enemy_state == enemy_states.DYING or previous_enemy_state == enemy_states.DEAD:
+	elif previous_enemy_state == enemy_states.DEAD:
+		enemy_state = previous_enemy_state
 		return
 	
 	# falling to and from
@@ -69,26 +67,21 @@ func set_enemy_state(new_enemy_state:enemy_states):
 		# initiate velocity change
 		var dir:Vector3 = -transform.basis.z
 		velocity = dir * bite_velocity * get_physics_process_delta_time()
-		disableCollider()
+		disablePhysicalCollider(false)
 	if previous_enemy_state == enemy_states.BITING:
-		enableCollider()
+		enablePhysicalCollider(true)
 	
 	# end of bite to and from
 	if new_enemy_state == enemy_states.ENDINGBITE:
 		velocity = Vector3.ZERO
 		
-	# DYING to and from
-	if new_enemy_state == enemy_states.DYING:
-		damage_enabled = false
-		filth_animator.play("ChestExplosion")
-		
 	# DEAD to and from
 	if new_enemy_state == enemy_states.DEAD:
 		velocity = Vector3.ZERO
-		set_collision_layer_value(2, false)
-		if time_untill_process_disable != 0:
-			time_untill_process_disable_timer.start(time_untill_process_disable)
-		else: pass
+		$readyBiteBox/CollisionShape3D.disabled = true
+		body_collider.disabled = true
+		queue_free()
+		
 
 func _ready() -> void:
 	super._ready() # ensure Enemy._ready runs (physics_frame hookup)
@@ -161,18 +154,17 @@ func _physics_process(delta: float) -> void:
 			if direction_to_target.length_squared() > 0.001: # Avoid division by zero
 				var target_angle:float = atan2(direction_to_target.x, direction_to_target.z) + PI
 				rotation.y = lerp_angle(rotation.y, target_angle, lerp_angle_factor * delta)
-			
-		enemy_states.DYING:
-			velocity.x = lerp(velocity.x, 0.0, slowInAirFactor * delta)
-			velocity.z = lerp(velocity.z, 0.0, slowInAirFactor * delta)
-	move_and_slide()
+	
+	# if the enemy is dead, skip physics calculations
+	if enemy_state != enemy_states.DEAD:
+		move_and_slide()
 
 
 	
 		
 
 func _killEnemy():
-	set_enemy_state(enemy_states.DYING)
+	set_enemy_state(enemy_states.DEAD)
 
 func disableProcess():
 	print("disabled process")
@@ -183,11 +175,30 @@ func disableProcess():
 func beginBiteChain():
 	set_enemy_state(enemy_states.PREPARINGBITE)
 
-func disableCollider() -> void:
-	add_collision_exception_with(player)
 
-func enableCollider() -> void:
+func _disableCollisionAllEnemies():
+	var enemies:Array[Node] = get_tree().get_nodes_in_group("enemy")
+	for enemy:Enemy in enemies:
+		add_collision_exception_with(enemy)
+
+
+func _enableCollisionAllEnemies():
+	var enemies:Array[Node] = get_tree().get_nodes_in_group("enemy")
+	for enemy:Enemy in enemies:
+		remove_collision_exception_with(enemy)
+
+
+func disablePhysicalCollider(with_all:bool) -> void:
+	add_collision_exception_with(player)
+	if with_all:
+		_disableCollisionAllEnemies()
+
+
+func enablePhysicalCollider(with_all:bool) -> void:
 	remove_collision_exception_with(player)
+	if with_all:
+		_enableCollisionAllEnemies()
+
 
 func _on_ready_bite_box_body_entered(_body: Player) -> void:
 	if enemy_state != enemy_states.FALLING:
@@ -205,8 +216,3 @@ func _on_bite_hurt_box_body_entered(body: Player) -> void:
 	if enemy_state == enemy_states.BITING:
 		var plr:Player = body
 		plr.damagePlayer(bite_damage, player_cause_of_death_message)
-
-
-func _on_time_untill_disable_timeout() -> void:
-	print("timeout. disabling enemy process.")
-	disableProcess()
