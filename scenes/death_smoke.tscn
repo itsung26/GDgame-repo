@@ -51,7 +51,7 @@ script/source = "extends GPUParticles3D
 
 func _process(delta: float) -> void:
 	# always look towards global up
-	look_at(global_position + Vector3(0.0, 1.00001, 0.0),)
+	look_at(global_position + Vector3(0.0001, 1.0, 0.0),)
 "
 
 [node name="DeathSmoke" type="GPUParticles3D"]

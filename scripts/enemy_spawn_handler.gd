@@ -50,15 +50,23 @@ func _ready() -> void:
 func spawnEnemies() -> Array[Enemy]:
 	var ret:Array[Enemy] = []
 	for i in spawn_points.size():
+		# After an await the scene may have been reloaded: get_tree() and current_scene can be null.
+		var tree:SceneTree = get_tree()
+		if tree == null:
+			break
+		var parent:Node = tree.current_scene
+		if parent == null:
+			break
 		var spawn_point:Marker3D = spawn_points[i]
 		var enemy_to_spawn_INSTANCE:Enemy = enemy_to_spawn_SCENE.instantiate()
 		enemy_to_spawn_INSTANCE.global_position = spawn_point.global_position
-		get_tree().current_scene.add_child.call_deferred(enemy_to_spawn_INSTANCE)
+		# Add immediately so no deferred call can run after a scene reload; cancel is clean.
+		parent.add_child(enemy_to_spawn_INSTANCE)
 		ret.append(enemy_to_spawn_INSTANCE)
 		# Optional delay between each spawn, measured in seconds and framerate-independent.
-		# SceneTreeTimer created by create_timer() is one-shot and cleans itself up.
+		# process_always = false so the timer respects get_tree().paused and does not spawn while paused.
 		if spawn_delay_enabled and spawn_delay_between_enemies > 0.0 and i < spawn_points.size() - 1:
-			await get_tree().create_timer(spawn_delay_between_enemies).timeout
+			await tree.create_timer(spawn_delay_between_enemies, false).timeout
 	return ret
 		
 		
