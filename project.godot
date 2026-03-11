@@ -58,8 +58,8 @@ arms=""
 explosions=""
 "enviroment rigidbodies"=""
 "parry visuals"=""
-"gib limb"="any enemy dismembered limbs"
 "weak enemy"=""
+"ragdoll simulator"=""
 
 [input]
 
