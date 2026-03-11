@@ -209,7 +209,9 @@ func set_player_state(new_player_state:player_states):
 	
 	# prevent switching to the same state
 	if previous_player_state == new_player_state:
-		return
+		# exception is the DASHING state
+		if new_player_state != player_states.DASHING:
+			return
 	
 	# Emit signal
 	entered_player_state.emit(new_player_state, previous_player_state)
@@ -558,8 +560,7 @@ func _input(event) -> void:
 			var local_dash: Vector3 = Vector3(dash_input.x, 0.0, dash_input.y)
 			dash_dir = (transform.basis * local_dash).normalized()
 		
-		if not player_state == player_states.DASHING: # if player is not already dashing
-			player_state = player_states.DASHING
+		set_player_state(player_states.DASHING)
 			
 	if Input.is_action_just_released("debug func"):
 		pass

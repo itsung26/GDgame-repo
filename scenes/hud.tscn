@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cp1mmygsp63vr"]
+[gd_scene load_steps=31 format=3 uid="uid://cp1mmygsp63vr"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Shader" uid="uid://cvy1uqkckpiw3" path="res://shaders/GDSL shaders/pixelation_shader.gdshader" id="2_3swnk"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://jwbu30ayb0ex" path="res://scripts/hide_handler.gd" id="2_y2nlu"]
 [ext_resource type="Shader" uid="uid://bi2iehpkbu0ux" path="res://shaders/GDSL shaders/fake3dshader.tres" id="3_0m4u7"]
 [ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_5n1hp"]
+[ext_resource type="Shader" uid="uid://dgkgwgoq7p2fp" path="res://shaders/GDSL shaders/recoil_edge_blur.gdshader" id="3_qkknv"]
 [ext_resource type="Texture2D" uid="uid://cesgf4gdxak83" path="res://assets/2d assets/ui/redBorder.png" id="4_5pdws"]
 [ext_resource type="Script" uid="uid://1ueu18jmd682" path="res://scripts/bottom_left_area.gd" id="8_apjy4"]
 [ext_resource type="Theme" uid="uid://87fgt3sr1n4k" path="res://assets/styles/healthbar theme.tres" id="9_mphia"]
@@ -20,6 +21,13 @@
 shader = ExtResource("2_3swnk")
 shader_parameter/pixel_resolution = 229.0
 shader_parameter/dither_strength = 0.999999977648
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uxdf7"]
+shader = ExtResource("3_qkknv")
+shader_parameter/blur_inner_radius = 0.6
+shader_parameter/blur_outer_radius = 0.95
+shader_parameter/blur_strength = 0.9
+shader_parameter/blur_sample_radius = 2.0
 
 [sub_resource type="Theme" id="Theme_eld54"]
 Label/fonts/font = ExtResource("3_5n1hp")
@@ -118,7 +126,7 @@ staminabar_smooth_react_enabled = false
 staminabar_react_speed = 5.0
 metadata/_edit_lock_ = true
 
-[node name="shader test" type="ColorRect" parent="."]
+[node name="PixelateDither" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_3swnk")
 layout_mode = 1
@@ -127,6 +135,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="RecoilEdgeBlur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_uxdf7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="HideHandler" type="Node" parent="."]
 editor_description = "Hides weapon icons in the hud based on the player's states"
