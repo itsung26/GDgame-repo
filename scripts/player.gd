@@ -417,7 +417,6 @@ func _ready() -> void:
 ## Kinematic-related operations should only be run in _physics_process, while logic and other operations
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
-	Debug.log(is_on_wall())
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
 	chargeStamina()
@@ -489,15 +488,84 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor() and player_jump_input_enabled:
-		velocity.y += JUMP_VELOCITY
+	if Input.is_action_just_pressed("jump") and player_jump_input_enabled:
+		if is_on_floor() and not (player_state == player_states.REELINGTO):
+			velocity.y += JUMP_VELOCITY
+		elif not is_on_floor() and player_state == player_states.REELINGTO:
+			set_action_state(action_states.IDLE)
+			velocity = Vector3.ZERO
+			velocity.y += JUMP_VELOCITY
 	
 	# Get the input direction and handle the movement/deceleration.
 	input_dir = Input.get_vector("left", "right", "forward", "back")
 	direction = Vector3(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
+#region Player State Logic
 	# run all state machine related physics logic every physics frame
-	physicsStateLogic()
+	# grounded movement state logic
+	if player_state == player_states.GROUNDED:
+		if direction and player_move_input_enabled:
+			var ground_dir = direction.normalized()
+			velocity.x = ground_dir.x * SPEED
+			velocity.z = ground_dir.z * SPEED
+		elif direction == Vector3.ZERO:
+			velocity.x = move_toward(velocity.x, 0.0, 10.0)
+			velocity.z = move_toward(velocity.z, 0.0, 10.0)
+	# falling movement state logic
+	elif player_state == player_states.FALLING:
+		if player_move_input_enabled and direction != Vector3.ZERO:
+			var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
+			var current_speed = horizontal_velocity.length()
+			var desired_dir = Vector3(direction.x, 0, direction.z).normalized()
+			var desired_horizontal: Vector3 = desired_dir * SPEED
+			# If already moving at or above SPEED in the input direction, preserve speed instead of clamping down
+			if current_speed >= SPEED and horizontal_velocity.dot(desired_horizontal) > 0.0:
+				desired_horizontal = desired_dir * current_speed
+			var new_horizontal = horizontal_velocity.lerp(desired_horizontal, AIR_ACCELERATION * delta)
+			velocity.x = new_horizontal.x
+			velocity.z = new_horizontal.z
+		elif direction == Vector3.ZERO:
+			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
+			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
+	# reeling state logic
+	elif player_state == player_states.REELINGTO:
+		# Continually set the player's velocity to move towards the grapple target
+		var dir:Vector3 = (grapple_arm.hooked_target.global_position - camera_3d.global_position).normalized()
+		velocity = dir * grapple_pull_speed
+	# sliding state logic
+	elif player_state == player_states.SLIDING:
+		# allows free control of slide direction
+		if free_slide_enabled:
+			var input_dir = Input.get_vector("left", "right", "forward", "back")
+			if input_dir == Vector2.ZERO:
+				# No movement keys pressed: slide forward relative to camera
+				var forward = -global_transform.basis.z.normalized()
+				velocity.x = forward.x * SPEED * slide_speed_multiplier
+				velocity.z = forward.z * SPEED * slide_speed_multiplier
+			else:
+				# Movement keys pressed: slide in input direction relative to player
+				var slide_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+				velocity.x = slide_dir.x * SPEED * slide_speed_multiplier
+				velocity.z = slide_dir.z * SPEED * slide_speed_multiplier
+		# only allows direction of slide to be set on activation
+		elif not free_slide_enabled:
+			var forward_direction = -transform.basis.z
+			var horizontal_direction = Vector3(velocity.x, 0, velocity.z)
+			# if player is not moving, slide forwards
+			if horizontal_direction.length() == 0:
+				velocity = forward_direction * SPEED * slide_speed_multiplier
+			else:
+				var direction = velocity.normalized()
+				velocity = direction * SPEED * slide_speed_multiplier
+	# dashing state logic
+	elif player_state == player_states.DASHING:
+		# keeps the player from falling or rising mid dash
+		global_position.y = global_position.y
+	# slamming state logic
+	elif player_state == player_states.SLAMMING:
+		# velocity was set from beginning, so no changes are made
+		pass # see set_player_state()
+#endregion
 
 	# if kinematics are not enabled, kill all velocity before computing physics
 	if not player_kinematics_enabled_xz:
@@ -654,73 +722,6 @@ func activateWeapons() -> void:
 	for weapon_state:PlayerWeapon in weapon_states:
 		if weapon_state:
 			weapon_state.can_fire = true
-
-## This method performs the primary computations for kinematics based on which state player_state is in.
-## Should only be called in [code]_physics_process[/code].
-func physicsStateLogic(delta=get_physics_process_delta_time()):
-	# grounded movement state logic
-	if player_state == player_states.GROUNDED:
-		if direction and player_move_input_enabled:
-			var ground_dir = direction.normalized()
-			velocity.x = ground_dir.x * SPEED
-			velocity.z = ground_dir.z * SPEED
-		elif direction == Vector3.ZERO:
-			velocity.x = move_toward(velocity.x, 0.0, 10.0)
-			velocity.z = move_toward(velocity.z, 0.0, 10.0)
-	# falling movement state logic
-	elif player_state == player_states.FALLING:
-		if player_move_input_enabled and direction != Vector3.ZERO:
-			var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
-			var current_speed = horizontal_velocity.length()
-			var desired_dir = Vector3(direction.x, 0, direction.z).normalized()
-			var desired_horizontal: Vector3 = desired_dir * SPEED
-			# If already moving at or above SPEED in the input direction, preserve speed instead of clamping down
-			if current_speed >= SPEED and horizontal_velocity.dot(desired_horizontal) > 0.0:
-				desired_horizontal = desired_dir * current_speed
-			var new_horizontal = horizontal_velocity.lerp(desired_horizontal, AIR_ACCELERATION * delta)
-			velocity.x = new_horizontal.x
-			velocity.z = new_horizontal.z
-		elif direction == Vector3.ZERO:
-			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
-			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
-	# reeling state logic
-	elif player_state == player_states.REELINGTO:
-		# Continually set the player's velocity to move towards the grapple target
-		var dir:Vector3 = (grapple_arm.hooked_target.global_position - camera_3d.global_position).normalized()
-		velocity = dir * grapple_pull_speed
-	# sliding state logic
-	elif player_state == player_states.SLIDING:
-		# allows free control of slide direction
-		if free_slide_enabled:
-			var input_dir = Input.get_vector("left", "right", "forward", "back")
-			if input_dir == Vector2.ZERO:
-				# No movement keys pressed: slide forward relative to camera
-				var forward = -global_transform.basis.z.normalized()
-				velocity.x = forward.x * SPEED * slide_speed_multiplier
-				velocity.z = forward.z * SPEED * slide_speed_multiplier
-			else:
-				# Movement keys pressed: slide in input direction relative to player
-				var slide_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-				velocity.x = slide_dir.x * SPEED * slide_speed_multiplier
-				velocity.z = slide_dir.z * SPEED * slide_speed_multiplier
-		# only allows direction of slide to be set on activation
-		elif not free_slide_enabled:
-			var forward_direction = -transform.basis.z
-			var horizontal_direction = Vector3(velocity.x, 0, velocity.z)
-			# if player is not moving, slide forwards
-			if horizontal_direction.length() == 0:
-				velocity = forward_direction * SPEED * slide_speed_multiplier
-			else:
-				var direction = velocity.normalized()
-				velocity = direction * SPEED * slide_speed_multiplier
-	# dashing state logic
-	elif player_state == player_states.DASHING:
-		# keeps the player from falling or rising mid dash
-		global_position.y = global_position.y
-	# slamming state logic
-	elif player_state == player_states.SLAMMING:
-		# velocity was set from beginning, so no changes are made
-		pass # see set_player_state()
 
 
 func chargeStamina(delta=get_process_delta_time()):
