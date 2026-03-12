@@ -27,7 +27,7 @@ shader = ExtResource("3_qkknv")
 shader_parameter/blur_inner_radius = 0.6
 shader_parameter/blur_outer_radius = 0.95
 shader_parameter/blur_strength = 1.0
-shader_parameter/blur_sample_radius = 4.75600020216
+shader_parameter/blur_sample_radius = 3.223
 
 [sub_resource type="Theme" id="Theme_eld54"]
 Label/fonts/font = ExtResource("3_5n1hp")
@@ -137,6 +137,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="RecoilEdgeBlur" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_uxdf7")
 layout_mode = 1
 anchors_preset = 15

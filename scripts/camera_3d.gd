@@ -162,7 +162,7 @@ func gotoNormal() -> void:
 
 ## Kicks off a camera shake that jitters the pivot in local XY over time without changing rotation.
 ## Calling again while shaking extends the duration and increases strength.
-func shakeCamera(duration: float, strength: float) -> void:
+func shakeCamera(duration: float = 0.66, strength: float = 1.0) -> void:
 	if cam_shaking:
 		remaining_time = max(remaining_time, duration)
 		current_strength += strength

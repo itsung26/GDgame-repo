@@ -356,7 +356,7 @@ enemy_to_spawn_SCENE = ExtResource("10_5138l")
 metadata/_custom_type_script = "uid://s0gj2noon5cx"
 
 [node name="Marker3D8" type="Marker3D" parent="CombatArea/wave_0_turrets"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.838116, 7.3052664, -13.130398)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.838116, 4.715762, -13.130398)
 
 [node name="wave_1_turrets" type="Node" parent="CombatArea"]
 script = ExtResource("4_s3yq3")

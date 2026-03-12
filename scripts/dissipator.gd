@@ -3,6 +3,7 @@ extends PlayerWeapon
 
 const bullet_trail_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
 const BULLET_IMPACT_PARTICLE_SCENE_2:PackedScene = preload("res://scenes/bullet_impact_particles_2.tscn")
+const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_light.tscn")
 
 @onready var animation_player: AnimationPlayer = $Dissipator2/AnimationPlayer
 @onready var muzzle: Node3D = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator/muzzle
@@ -46,9 +47,17 @@ func fireBullet() -> void:
 	if not hit_body:
 		hit_point = dissipator_hitscan.to_global(dissipator_hitscan.target_position)
 	
+	# Add the bullet trail
 	var bullet_trail:BulletTrail = bullet_trail_SCENE.instantiate()
 	get_tree().current_scene.add_child(bullet_trail)
 	bullet_trail.setup(muzzle.global_position, hit_point, Color.YELLOW)
+	
+	# Add the bullet light - handles self deletion
+	var bullet_light:OmniLight3D = bullet_light_SCENE.instantiate()
+	get_tree().current_scene.add_child(bullet_light)
+	bullet_light.global_position = hit_point
+	var _x:Vector3 = (hit_surface_normal * 0.01) + bullet_light.global_position
+	bullet_light.global_position = _x
 	
 	# Register the actual damage part of the gun
 	# cases for each thing that could be hit

@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://dywnj42fw476f"]
+
+[sub_resource type="Animation" id="Animation_catbh"]
+resource_name = "light"
+length = 0.114
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.058842957, 0.11400825),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.446, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.114),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sdjmr"]
+_data = {
+&"light": SubResource("Animation_catbh")
+}
+
+[node name="DissipatorBulletLight" type="OmniLight3D"]
+light_color = Color(1, 1, 0, 1)
+light_energy = 1.4449444
+omni_range = 1.9083844
+omni_attenuation = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_method = 1
+libraries = {
+&"": SubResource("AnimationLibrary_sdjmr")
+}
+autoplay = "light"

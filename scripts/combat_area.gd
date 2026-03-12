@@ -30,10 +30,6 @@ func _ready() -> void:
 	assert(not enemy_wave_0.is_empty())
 
 
-func _process(delta: float) -> void:
-	Debug.log(active_enemies)
-
-
 func _get_wave_handlers(wave_index:int) -> Array[EnemySpawnHandler]:
 	match wave_index:
 		0:

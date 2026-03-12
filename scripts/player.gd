@@ -417,6 +417,7 @@ func _ready() -> void:
 ## Kinematic-related operations should only be run in _physics_process, while logic and other operations
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
+	Debug.log(is_on_wall())
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
 	chargeStamina()
@@ -606,7 +607,7 @@ func respawnCheckPoint() -> void:
 	camera_3d.rotation = initial_camera_rotation
 
 ## Call to damage player. Requires a [code]damage[/code] parameter. Optionally, additional parameters for screen shake can be passed to the function. Otherwise, screen shake will not occur.
-func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_duration:float = 0.0, screen_shake_strength:float = 0.0):
+func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_duration:float = 0.66, screen_shake_strength:float = 1.0):
 	if damage == 0.0:
 		return
 	var previous_health:float = HEALTH
