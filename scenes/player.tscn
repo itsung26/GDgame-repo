@@ -459,6 +459,7 @@ collision_mask = 263
 script = ExtResource("1_qhqgy")
 inital_arm = 1
 dash_time_length = 0.2
+wall_jump_applied_velocity = 16.0
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
 weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
 

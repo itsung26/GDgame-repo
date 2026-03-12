@@ -120,6 +120,18 @@ var stamina_recharging:bool = true
 @export var dash_time_length := 0.1
 ## The velocity applied in the negative y direction. Should remain constant.
 @export var slam_velocity := 35.0
+## Multiplier for gravity strength while wall sliding.
+@export var wall_slide_gravity_scale:float = 0.3
+## Horizontal velocity applied away from the wall when performing a wall jump.
+@export var wall_jump_applied_velocity:float = 12.0
+## Maximum number of times the player can jump off walls before touching the ground again.
+@export var max_wall_jumps:int = 3
+## Remaining wall jumps available before needing to touch the ground.
+var wall_jumps_left:int = 0
+## True while the player is touching a wall based on slide collisions, even without input.
+var touching_wall:bool = false
+## Approximate normal of the wall the player is currently touching, derived from test_move checks.
+var wall_normal:Vector3 = Vector3.ZERO
 
 @export_group("Grappling Hook")
 @export var Grapple_Enabled:= true
@@ -156,6 +168,7 @@ enum player_states {
 	GROUNDED,
 	DEAD,
 	FALLING,
+	WALL_SLIDING,
 	REELINGTO,
 	SLIDING,
 	DASHING,
@@ -231,6 +244,11 @@ func set_player_state(new_player_state:player_states):
 		player_look_input_enabled = false
 		# prevent healing the player
 		can_be_healed = false
+
+	# GROUNDED to and from
+	if new_player_state == player_states.GROUNDED:
+		# Reset available wall jumps whenever the player lands.
+		wall_jumps_left = max_wall_jumps
 		
 	# SLIDING to and from
 	if new_player_state == player_states.SLIDING:
@@ -417,6 +435,7 @@ func _ready() -> void:
 ## Kinematic-related operations should only be run in _physics_process, while logic and other operations
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
+	Debug.log(velocity)
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
 	chargeStamina()
@@ -468,6 +487,25 @@ func _process(delta) -> void:
 # Called every physics frame. FPS: 120
 func _physics_process(delta: float) -> void:
 
+	# Update touching_wall using test_move so it does not depend on current velocity/input.
+	touching_wall = false
+	wall_normal = Vector3.ZERO
+	var wall_check_distance := 0.1
+	var local_dirs := [
+		Vector3.LEFT,
+		Vector3.RIGHT,
+		Vector3.FORWARD,
+		Vector3.BACK
+	]
+	for local_dir in local_dirs:
+		var world_dir: Vector3 = (transform.basis * local_dir).normalized()
+		if test_move(global_transform, world_dir * wall_check_distance):
+			touching_wall = true
+			# The surface normal points away from the wall; approximate it as the opposite
+			# of the direction we are testing into.
+			wall_normal = -world_dir
+			break
+
 	# state control
 	if (is_on_floor() and 
 	player_state != player_states.REELINGTO and 
@@ -480,21 +518,46 @@ func _physics_process(delta: float) -> void:
 	player_state != player_states.REELINGTO and 
 	player_state != player_states.DASHING and 
 	player_state != player_states.SLAMMING and 
-	player_state != player_states.FALLING):
+	player_state != player_states.FALLING and
+	player_state != player_states.WALL_SLIDING):
 		player_state = player_states.FALLING
 	
 	# Add the gravity 
 	if not is_on_floor() and gravity_enabled:
-		velocity += get_gravity() * delta
+		var gravity: Vector3 = get_gravity()
+		if player_state == player_states.WALL_SLIDING:
+			gravity *= wall_slide_gravity_scale
+		velocity += gravity * delta
+
+	# Enter wall sliding when airborne and touching a wall, primarily while falling.
+	if (not is_on_floor()
+		and touching_wall
+		and player_state == player_states.FALLING
+		and velocity.y < 0.0):
+		player_state = player_states.WALL_SLIDING
 	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and player_jump_input_enabled:
+		# Normal ground jump
 		if is_on_floor() and not (player_state == player_states.REELINGTO):
-			velocity.y += JUMP_VELOCITY
+			velocity.y = JUMP_VELOCITY
+			wall_jumps_left = max_wall_jumps
+		# Wall jump while airborne (limited by wall_jumps_left)
+		elif not is_on_floor() and touching_wall and wall_jumps_left > 0:
+			var push_dir: Vector3 = wall_normal
+			# If we don't have a valid wall normal, do not apply a wall jump.
+			if push_dir != Vector3.ZERO:
+				push_dir = push_dir.normalized()
+				velocity.x = push_dir.x * wall_jump_applied_velocity
+				velocity.z = push_dir.z * wall_jump_applied_velocity
+				velocity.y = JUMP_VELOCITY
+				wall_jumps_left -= 1
+				player_state = player_states.FALLING
+		# Jump-cancel out of reeling grapple while airborne
 		elif not is_on_floor() and player_state == player_states.REELINGTO:
 			set_action_state(action_states.IDLE)
 			velocity = Vector3.ZERO
-			velocity.y += JUMP_VELOCITY
+			velocity.y = JUMP_VELOCITY
 	
 	# Get the input direction and handle the movement/deceleration.
 	input_dir = Input.get_vector("left", "right", "forward", "back")
@@ -519,6 +582,23 @@ func _physics_process(delta: float) -> void:
 			var desired_dir = Vector3(direction.x, 0, direction.z).normalized()
 			var desired_horizontal: Vector3 = desired_dir * SPEED
 			# If already moving at or above SPEED in the input direction, preserve speed instead of clamping down
+			if current_speed >= SPEED and horizontal_velocity.dot(desired_horizontal) > 0.0:
+				desired_horizontal = desired_dir * current_speed
+			var new_horizontal = horizontal_velocity.lerp(desired_horizontal, AIR_ACCELERATION * delta)
+			velocity.x = new_horizontal.x
+			velocity.z = new_horizontal.z
+		elif direction == Vector3.ZERO:
+			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
+			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
+	# wall sliding state logic
+	elif player_state == player_states.WALL_SLIDING:
+		# Horizontal control while wall sliding can reuse falling logic via input,
+		# but the slower gravity (applied above) keeps vertical speed in check.
+		if player_move_input_enabled and direction != Vector3.ZERO:
+			var horizontal_velocity = Vector3(velocity.x, 0, velocity.z)
+			var current_speed = horizontal_velocity.length()
+			var desired_dir = Vector3(direction.x, 0, direction.z).normalized()
+			var desired_horizontal: Vector3 = desired_dir * SPEED
 			if current_speed >= SPEED and horizontal_velocity.dot(desired_horizontal) > 0.0:
 				desired_horizontal = desired_dir * current_speed
 			var new_horizontal = horizontal_velocity.lerp(desired_horizontal, AIR_ACCELERATION * delta)
