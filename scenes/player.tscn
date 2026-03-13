@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=83 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -51,16 +51,45 @@ resource_local_to_scene = true
 ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ni07"]
+resource_local_to_scene = true
+bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l71n6"]
+resource_local_to_scene = true
+bg_color = Color(0, 0.737, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ke2ow"]
+resource_local_to_scene = true
+bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujl30"]
+resource_local_to_scene = true
+bg_color = Color(0, 0.737, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31cv2"]
+resource_local_to_scene = true
+bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf23h"]
+resource_local_to_scene = true
+bg_color = Color(0, 0.737, 1, 1)
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mh8"]
 radius = 0.2397
 height = 1.69436
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_b2mh8"]
-size = Vector3(0.752441, 0.138672, 0.796112)
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_oprun"]
-height = 1.72484
-radius = 0.508789
 
 [sub_resource type="BoxMesh" id="BoxMesh_i4ail"]
 size = Vector3(0.5, 0.5, 0.5)
@@ -465,7 +494,7 @@ weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Cam
 
 [node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
 script = ExtResource("2_a38lo")
-nodes_to_hide_on_ready = [NodePath("../Pivot/Camera3D/ParryArm/ParryHitbox/CollisionShape3D"), NodePath("../Pivot/Camera3D/PunchRaycast"), NodePath("../player body")]
+nodes_to_hide_on_ready = [NodePath("../Pivot/Camera3D/ParryArm/ParryHitbox/CollisionShape3D"), NodePath("../Pivot/Camera3D/PunchRaycast"), NodePath("../player body"), NodePath("../CollisionShapeMain"), NodePath("../GrappleEnemyCeaseArea/CollisionShape3D"), NodePath("../PlayerFloorCast")]
 metadata/_custom_type_script = "uid://bcsxapsamvmvq"
 
 [node name="player body" parent="." instance=ExtResource("2_i4ail")]
@@ -501,22 +530,24 @@ points = PackedVector2Array(0, 8.03, 0, 16.715)
 [node name="HealthBar" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
 theme = SubResource("Theme_f1ej7")
 
+[node name="StaminaBar1" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="0"]
+theme_override_styles/background = SubResource("StyleBoxFlat_4ni07")
+theme_override_styles/fill = SubResource("StyleBoxFlat_l71n6")
+
+[node name="StaminaBar2" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="1"]
+theme_override_styles/background = SubResource("StyleBoxFlat_ke2ow")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ujl30")
+
+[node name="StaminaBar3" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="2"]
+theme_override_styles/background = SubResource("StyleBoxFlat_31cv2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pf23h")
+
 [node name="PauseMenu" parent="huds" instance=ExtResource("11_3v2ag")]
 unique_name_in_owner = true
 
 [node name="CollisionShapeMain" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.847, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
-
-[node name="footCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683594, 0.0694726, 0.00931263)
-shape = SubResource("BoxShape3D_b2mh8")
-disabled = true
-
-[node name="cylinerCollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.862421, 0)
-shape = SubResource("CylinderShape3D_oprun")
-disabled = true
 
 [node name="Predicted Position Debug" type="MeshInstance3D" parent="."]
 visible = false
@@ -534,6 +565,7 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleEnemyCeaseArea"]
 shape = SubResource("SphereShape3D_y4r1p")
+debug_color = Color(0, 1, 0, 0.41960785)
 
 [node name="GroundImpact" type="GPUParticles3D" parent="."]
 visible = false
@@ -861,7 +893,7 @@ damage_max = 1.0
 automatic = true
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.03821859, -0.9991937, 0.012307382, 0.011149743, -0.012742029, -0.9998562, 0.9992064, -0.038075898, 0.011627737, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.038218588, -0.9991937, 0.012307381, 0.011149743, -0.012742029, -0.9998561, 0.99920636, -0.038075898, 0.0116277365, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
@@ -953,6 +985,7 @@ ignore_time_scale = true
 
 [editable path="player body"]
 [editable path="huds/HUD"]
+[editable path="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar"]
 [editable path="Pivot/Camera3D/ParryArm/parry arm"]
 [editable path="Pivot/Camera3D/Guns/Melee"]
 [editable path="Pivot/Camera3D/Guns/Pistol"]

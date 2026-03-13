@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cp1mmygsp63vr"]
+[gd_scene load_steps=39 format=3 uid="uid://cp1mmygsp63vr"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Shader" uid="uid://cvy1uqkckpiw3" path="res://shaders/GDSL shaders/pixelation_shader.gdshader" id="2_3swnk"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://blirnfdidmoky" path="res://assets/2d assets/ui/icons generic/800px-WhiplashRenderFull.webp" id="14_3swnk"]
 [ext_resource type="Texture2D" uid="uid://dv28tr2kvmsjf" path="res://assets/2d assets/ui/icons generic/WhiplashHUDNew.webp" id="15_qkknv"]
 [ext_resource type="Texture2D" uid="uid://da6r21fnpxfr8" path="res://assets/2d assets/ui/icons generic/parry_arm_icon.png" id="16_5357l"]
+[ext_resource type="Script" uid="uid://p06nuebcioe8" path="res://scripts/speed_counter.gd" id="16_uxdf7"]
 [ext_resource type="Script" uid="uid://cm1aavjlbf0wc" path="res://scripts/bottom_mid_area.gd" id="21_48y67"]
 [ext_resource type="Texture2D" uid="uid://y3yvm7d8871i" path="res://assets/2d assets/ui/icons generic/p_ui_1.png" id="21_084dp"]
 
@@ -141,9 +142,9 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[sub_resource type="LabelSettings" id="LabelSettings_084dp"]
+[sub_resource type="LabelSettings" id="LabelSettings_uxdf7"]
 font = ExtResource("3_5n1hp")
-font_size = 64
+font_size = 28
 
 [sub_resource type="LabelSettings" id="LabelSettings_48y67"]
 font = ExtResource("3_5n1hp")
@@ -507,15 +508,16 @@ texture = ExtResource("21_084dp")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="UnusedPanel (tf do I put here?)" type="Panel" parent="BottomLeftArea/AmmoPanel/SubViewport"]
+[node name="SpeedCounter" type="Panel" parent="BottomLeftArea/AmmoPanel/SubViewport"]
 anchors_preset = -1
 anchor_left = 0.8057143
 anchor_right = 0.96761906
 anchor_bottom = 0.33333334
 theme_override_styles/panel = SubResource("StyleBoxFlat_084dp")
+script = ExtResource("16_uxdf7")
 metadata/_edit_use_anchors_ = true
 
-[node name="CenterContainer" type="CenterContainer" parent="BottomLeftArea/AmmoPanel/SubViewport/UnusedPanel (tf do I put here?)"]
+[node name="CenterContainer" type="CenterContainer" parent="BottomLeftArea/AmmoPanel/SubViewport/SpeedCounter"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -523,10 +525,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="BottomLeftArea/AmmoPanel/SubViewport/UnusedPanel (tf do I put here?)/CenterContainer"]
+[node name="Label" type="Label" parent="BottomLeftArea/AmmoPanel/SubViewport/SpeedCounter/CenterContainer"]
 layout_mode = 2
-text = "00"
-label_settings = SubResource("LabelSettings_084dp")
+text = "00.0
+u/s"
+label_settings = SubResource("LabelSettings_uxdf7")
+horizontal_alignment = 1
 
 [node name="BottomMidArea" type="Control" parent="." node_paths=PackedStringArray("tooltip_array")]
 visible = false
