@@ -435,7 +435,6 @@ func _ready() -> void:
 ## Kinematic-related operations should only be run in _physics_process, while logic and other operations
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
-	Debug.log(velocity)
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
 	chargeStamina()
@@ -584,12 +583,16 @@ func _physics_process(delta: float) -> void:
 			# If already moving at or above SPEED in the input direction, preserve speed instead of clamping down
 			if current_speed >= SPEED and horizontal_velocity.dot(desired_horizontal) > 0.0:
 				desired_horizontal = desired_dir * current_speed
-			var new_horizontal = horizontal_velocity.lerp(desired_horizontal, AIR_ACCELERATION * delta)
+			# Constant horizontal acceleration toward desired_horizontal
+			var accel_step: float = AIR_ACCELERATION * delta
+			var new_horizontal = horizontal_velocity.move_toward(desired_horizontal, accel_step)
 			velocity.x = new_horizontal.x
 			velocity.z = new_horizontal.z
 		elif direction == Vector3.ZERO:
-			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
-			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
+			# Constant horizontal deceleration toward zero
+			var decel_step: float = Aerial_Slowdown * delta
+			velocity.x = move_toward(velocity.x, 0.0, decel_step)
+			velocity.z = move_toward(velocity.z, 0.0, decel_step)
 	# wall sliding state logic
 	elif player_state == player_states.WALL_SLIDING:
 		# Horizontal control while wall sliding can reuse falling logic via input,
@@ -601,12 +604,16 @@ func _physics_process(delta: float) -> void:
 			var desired_horizontal: Vector3 = desired_dir * SPEED
 			if current_speed >= SPEED and horizontal_velocity.dot(desired_horizontal) > 0.0:
 				desired_horizontal = desired_dir * current_speed
-			var new_horizontal = horizontal_velocity.lerp(desired_horizontal, AIR_ACCELERATION * delta)
+			# Constant horizontal acceleration toward desired_horizontal while wall sliding
+			var wall_accel_step: float = AIR_ACCELERATION * delta
+			var new_horizontal = horizontal_velocity.move_toward(desired_horizontal, wall_accel_step)
 			velocity.x = new_horizontal.x
 			velocity.z = new_horizontal.z
 		elif direction == Vector3.ZERO:
-			velocity.x = lerp(velocity.x, 0.0, Aerial_Slowdown * delta)
-			velocity.z = lerp(velocity.z, 0.0, Aerial_Slowdown * delta)
+			# Constant horizontal deceleration toward zero while wall sliding
+			var wall_decel_step: float = Aerial_Slowdown * delta
+			velocity.x = move_toward(velocity.x, 0.0, wall_decel_step)
+			velocity.z = move_toward(velocity.z, 0.0, wall_decel_step)
 	# reeling state logic
 	elif player_state == player_states.REELINGTO:
 		# Continually set the player's velocity to move towards the grapple target

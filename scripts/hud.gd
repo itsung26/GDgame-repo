@@ -27,7 +27,6 @@ var current_frames_per_second = "null"
 @onready var crosshair_up: Line2D = $CrosshairContainer/CrosshairUP
 @onready var crosshair_down: Line2D = $CrosshairContainer/CrosshairDOWN
 @onready var health_bar: ProgressBar = get_tree().current_scene.find_child("HealthBar")
-@onready var stamina_bar: ProgressBar = get_tree().current_scene.find_child("StaminaBar")
 @onready var black_hole_gun_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Black hole gun outline"
 @onready var pistol_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Pistol outline"
 @onready var hand_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Hand outline"
@@ -38,6 +37,7 @@ var current_frames_per_second = "null"
 @onready var debug_container: VBoxContainer = $DebugContainer
 @onready var grapple_arm: GrappleArm = $"../../Pivot/Camera3D/GrappleArm"
 @onready var grapple_hook:RigidBody3D = Helper.getFirstInScene("hook")
+@onready var stamina_bar: StaminaBar = $BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar
 
 @export_category("Crosshair Properties")
 ## Determines the width of the crosshair beams. This should probably remain constant throughout runtime, but is capable of changing.
@@ -197,5 +197,5 @@ func updateHealthBar(delta):
 # updates stamina bar
 func updateStaminaBar(delta):
 	if staminabar_smooth_react_enabled:
-		stamina_bar.value = lerp(stamina_bar.value, player.STAMINA, staminabar_react_speed * delta)
-	else: stamina_bar.value = player.STAMINA
+		stamina_bar.progress = lerp(stamina_bar.progress, player.STAMINA, staminabar_react_speed * delta)
+	else: stamina_bar.progress = player.STAMINA

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=29 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
@@ -75,9 +75,6 @@ data = PackedVector3Array(-2.5, -2.003623, 2.5, -2.5, -2.003623, -2.5, -2.5, 2.0
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_exc5x"]
 data = PackedVector3Array(-2.5, -1.1388354, 2.5, -2.5, -1.1388354, -2.5, -2.5, 1.1388354, -2.5, 2.5, -1.1388354, -2.5, -2.5, -1.1388354, -2.5, -2.5, -1.1388354, 2.5, -2.5, 1.1388354, -2.5, -2.5, -1.1388354, -2.5, 2.5, -1.1388354, -2.5, -2.5, 1.1388354, -2.5, -2.5, 1.1388354, 2.5, -2.5, -1.1388354, 2.5, -2.5, -1.1388354, 2.5, -2.5, 1.1388354, 2.5, 2.5, 1.1388354, 2.5, 2.5, 1.1388354, 2.5, -2.5, 1.1388354, 2.5, -2.5, 1.1388354, -2.5, -2.5, -1.1388354, 2.5, 2.5, -1.1388354, 2.5, 2.5, -1.1388354, -2.5, 2.5, 1.1388354, 2.5, 2.5, -1.1388354, 2.5, -2.5, -1.1388354, 2.5, 2.5, -1.1388354, -2.5, 2.5, -1.1388354, 2.5, 2.5, 1.1388354, 2.5, 2.5, -1.1388354, -2.5, 2.5, 1.1388354, -2.5, -2.5, 1.1388354, -2.5, -2.5, 1.1388354, -2.5, 2.5, 1.1388354, -2.5, 2.5, 1.1388354, 2.5, 2.5, 1.1388354, 2.5, 2.5, 1.1388354, -2.5, 2.5, -1.1388354, -2.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_yvgsm"]
-size = Vector3(2.8051758, 3.8898926, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_5138l"]
 size = Vector3(41.612732, 15.599609, 26.74353)
 
@@ -91,6 +88,7 @@ environment = SubResource("Environment_nptal")
 
 [node name="Player" parent="." node_paths=PackedStringArray("weapon_states") instance=ExtResource("3_7ksdt")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15.834608, 0.000179171, -16.121834)
+AIR_ACCELERATION = 50.0
 weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -302,14 +300,6 @@ light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4304724, 0, -16.121069)
-collision_layer = 4
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9776268, 1.9449463, -8.370869)
-shape = SubResource("BoxShape3D_yvgsm")
-
 [node name="enemy_filth" parent="." instance=ExtResource("7_wl3f4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000705719, -1.9073486e-06, -0.04624176)
 behavior_enabled = false
@@ -370,4 +360,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.369335, 4.7039614, -21.89
 [node name="Marker3D3" type="Marker3D" parent="CombatArea/wave_1_turrets"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.390205, 4.7039614, -21.894798)
 
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[node name="Label3D" type="Label3D" parent="CombatArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2390442, 0)
+billboard = 2
+modulate = Color(1, 0, 0, 1)
+text = "Test combat area"
+font_size = 375

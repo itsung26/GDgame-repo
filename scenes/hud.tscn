@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cp1mmygsp63vr"]
+[gd_scene load_steps=38 format=3 uid="uid://cp1mmygsp63vr"]
 
 [ext_resource type="Script" uid="uid://cchgyyhs27ppw" path="res://scripts/hud.gd" id="1_ahhtf"]
 [ext_resource type="Shader" uid="uid://cvy1uqkckpiw3" path="res://shaders/GDSL shaders/pixelation_shader.gdshader" id="2_3swnk"]
@@ -9,13 +9,22 @@
 [ext_resource type="Shader" uid="uid://dgkgwgoq7p2fp" path="res://shaders/GDSL shaders/recoil_edge_blur.gdshader" id="3_qkknv"]
 [ext_resource type="Texture2D" uid="uid://cesgf4gdxak83" path="res://assets/2d assets/ui/redBorder.png" id="4_5pdws"]
 [ext_resource type="Script" uid="uid://1ueu18jmd682" path="res://scripts/bottom_left_area.gd" id="8_apjy4"]
-[ext_resource type="Theme" uid="uid://87fgt3sr1n4k" path="res://assets/styles/healthbar theme.tres" id="9_mphia"]
 [ext_resource type="StyleBox" uid="uid://1t7ewdnol1t4" path="res://assets/styles/bottom left panels.tres" id="10_eld54"]
+[ext_resource type="PackedScene" uid="uid://tx7evxy380c1" path="res://scenes/stamina_bar.tscn" id="11_qkknv"]
 [ext_resource type="Texture2D" uid="uid://blirnfdidmoky" path="res://assets/2d assets/ui/icons generic/800px-WhiplashRenderFull.webp" id="14_3swnk"]
 [ext_resource type="Texture2D" uid="uid://dv28tr2kvmsjf" path="res://assets/2d assets/ui/icons generic/WhiplashHUDNew.webp" id="15_qkknv"]
 [ext_resource type="Texture2D" uid="uid://da6r21fnpxfr8" path="res://assets/2d assets/ui/icons generic/parry_arm_icon.png" id="16_5357l"]
 [ext_resource type="Script" uid="uid://cm1aavjlbf0wc" path="res://scripts/bottom_mid_area.gd" id="21_48y67"]
 [ext_resource type="Texture2D" uid="uid://y3yvm7d8871i" path="res://assets/2d assets/ui/icons generic/p_ui_1.png" id="21_084dp"]
+
+[sub_resource type="GDScript" id="GDScript_qkknv"]
+script/source = "extends Node
+
+@onready var ammo_panel: SubViewportContainer = $\"../BottomLeftArea/AmmoPanel\"
+
+func _ready() -> void:
+	ammo_panel.setRot()
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3swnk"]
 shader = ExtResource("2_3swnk")
@@ -40,7 +49,7 @@ shader = ExtResource("3_0m4u7")
 shader_parameter/cull_backface = false
 shader_parameter/use_front = true
 shader_parameter/fov = 90.0
-shader_parameter/rot_y_deg = 18.0
+shader_parameter/rot_y_deg = 0.0
 shader_parameter/rot_x_deg = 0.0
 shader_parameter/inset = 0.0
 
@@ -81,6 +90,42 @@ corner_radius_bottom_left = 15
 resource_local_to_scene = true
 ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkknv"]
+resource_local_to_scene = true
+bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uxdf7"]
+resource_local_to_scene = true
+bg_color = Color(0, 0.737, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5357l"]
+resource_local_to_scene = true
+bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpprf"]
+resource_local_to_scene = true
+bg_color = Color(0, 0.737, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xg78"]
+resource_local_to_scene = true
+bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48y67"]
+resource_local_to_scene = true
+bg_color = Color(0, 0.737, 1, 1)
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iypfu"]
 bg_color = Color(0, 0, 0, 0.564706)
@@ -125,6 +170,9 @@ healthbar_react_speed = 5.0
 staminabar_smooth_react_enabled = false
 staminabar_react_speed = 5.0
 metadata/_edit_lock_ = true
+
+[node name="PanelsRotateOnReady" type="Node" parent="."]
+script = SubResource("GDScript_qkknv")
 
 [node name="PixelateDither" type="ColorRect" parent="."]
 visible = false
@@ -368,21 +416,36 @@ fill_mode = 3
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
-[node name="StaminaBar" type="ProgressBar" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel"]
+[node name="ReferenceRect" type="ReferenceRect" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel/HealthBar"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.89047617
-anchor_top = 0.087431714
-anchor_right = 0.9452381
-anchor_bottom = 0.91256833
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme = ExtResource("9_mphia")
-max_value = 300.0
-value = 250.0
-fill_mode = 3
-show_percentage = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="StaminaBar" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel" instance=ExtResource("11_qkknv")]
+layout_mode = 1
+anchor_left = 0.9
+anchor_top = 0.08743173
+anchor_right = 0.9690476
+anchor_bottom = 0.9125684
+
+[node name="StaminaBar1" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="0"]
+anchor_top = -0.005600821
+anchor_bottom = 0.2990349
+theme_override_styles/background = SubResource("StyleBoxFlat_qkknv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_uxdf7")
+
+[node name="StaminaBar2" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="1"]
+theme_override_styles/background = SubResource("StyleBoxFlat_5357l")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qpprf")
+
+[node name="StaminaBar3" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="2"]
+anchor_bottom = 1.0272846
+theme_override_styles/background = SubResource("StyleBoxFlat_3xg78")
+theme_override_styles/fill = SubResource("StyleBoxFlat_48y67")
 
 [node name="ArmPanel" type="Panel" parent="BottomLeftArea/AmmoPanel/SubViewport"]
 anchors_preset = -1
@@ -523,3 +586,5 @@ theme_override_styles/panel = ExtResource("10_eld54")
 
 [node name="ToolTipDissapearTimer" type="Timer" parent="BottomMidArea/tooltipMargin/TooltipPanel"]
 one_shot = true
+
+[editable path="BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar"]
