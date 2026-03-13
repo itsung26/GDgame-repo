@@ -1,11 +1,11 @@
 class_name BottomLeftMenu extends Control
-## A HUD element that sways and scales based on player movement input.
+## A HUD element that sways and scales based on player velocity.
 ##
 ## The ammo panel shifts left/right when the player strafes, and scales
 ## up/down when the player moves forward/backward, creating a subtle
-## motion-linked feedback effect.
+## inertia-like feedback effect based on actual movement.
 
-@onready var player: Player = get_tree().current_scene.find_child("Player")
+@onready var player: Player = get_tree().get_first_node_in_group("players")
 @onready var ammo_panel: SubViewportContainer = $AmmoPanel
 
 @export_group("Horizontal Sway")
@@ -36,30 +36,34 @@ func _process(delta: float) -> void:
 	_update_scale(delta)
 
 
-## Shifts the panel left/right based on player horizontal input.
+## Shifts the panel left/right based on player strafe velocity.
 ## The panel sways opposite to movement direction, creating an inertia effect.
 func _update_sway(delta: float) -> void:
-	var input_x: float = player.input_dir.x
-	var target_x: float = _center_x
+	# Convert world velocity to local velocity relative to player facing direction.
+	var local_velocity: Vector3 = player.global_transform.basis.inverse() * player.velocity
+	var strafe_velocity: float = local_velocity.x  # positive = moving right, negative = moving left
 	
-	if input_x < 0.0:
-		target_x = _center_x + sway_amount  # moving left → panel sways right (+x)
-	elif input_x > 0.0:
-		target_x = _center_x - sway_amount  # moving right → panel sways left (-x)
+	# Sway opposite to strafe direction, scaled by velocity magnitude.
+	var normalized_strafe: float = clamp(strafe_velocity / player.SPEED, -1.0, 1.0)
+	var target_x: float = _center_x - (normalized_strafe * sway_amount)
 	
 	ammo_panel.position.x = lerp(ammo_panel.position.x, target_x, sway_speed * delta)
 
 
-## Scales the panel based on player forward/backward input.
+## Scales the panel based on player forward/backward velocity.
 func _update_scale(delta: float) -> void:
-	var input_y: float = player.input_dir.y
+	# Convert world velocity to local velocity relative to player facing direction.
+	var local_velocity: Vector3 = player.global_transform.basis.inverse() * player.velocity
+	var forward_velocity: float = -local_velocity.z  # negative z = forward in Godot, so invert
+	
+	# Determine scale based on forward/backward movement.
+	var normalized_forward: float = clamp(forward_velocity / player.SPEED, -1.0, 1.0)
 	var target_scale: float = 1.0
 	
-	# input_dir.y < 0 means forward, > 0 means backward
-	if input_y < 0.0:
-		target_scale = forward_scale
-	elif input_y > 0.0:
-		target_scale = back_scale
+	if normalized_forward > 0.1:
+		target_scale = lerpf(1.0, forward_scale, normalized_forward)
+	elif normalized_forward < -0.1:
+		target_scale = lerpf(1.0, back_scale, -normalized_forward)
 	
 	var target_vec := Vector2(target_scale, target_scale)
 	ammo_panel.scale = lerp(ammo_panel.scale, target_vec, scale_speed * delta)
