@@ -22,9 +22,11 @@
 script/source = "extends Node
 
 @onready var ammo_panel: SubViewportContainer = $\"../BottomLeftArea/AmmoPanel\"
+@export var enabled:bool = true
 
 func _ready() -> void:
-	ammo_panel.setRot()
+	if enabled:
+		ammo_panel.setRot()
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3swnk"]
