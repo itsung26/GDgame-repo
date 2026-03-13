@@ -6,15 +6,15 @@ class_name BottomLeftMenu extends Control
 # left and right lerp parameters
 @export_category("Smooth Movement L/R")
 @export var ammo_panel_position_lerp_speed:float = 5.0
-@export var ammo_panel_lerp_left_target:float = 24.0
-@export var ammo_panel_lerp_right_target:float = 64.0
+@export var ammo_panel_lerp_left_target:float = 12.5
+@export var ammo_panel_lerp_right_target:float = 25.0
 var ammo_panel_lerp_center_target:float
 
 # foward and back (scale) parameters
 @export_category("Smooth Movement FWD/BACK")
-@export var ammo_panel_scale_lerp_speed:float = 5.0
-@export var ammo_panel_back_target:float = 1.5
-@export var ammo_panel_forward_target:float = 0.5
+@export var ammo_panel_scale_lerp_speed:float = 2.5
+@export var ammo_panel_back_target:float = 0.95
+@export var ammo_panel_forward_target:float = 1.1
 
 func _ready() -> void:
 	ammo_panel_lerp_center_target = ammo_panel.position.x

@@ -63,7 +63,8 @@ func fireBullet() -> void:
 	# cases for each thing that could be hit
 	if hit_body is Enemy:
 		hit_body.damageEnemy(randf_range(damage_max, damage_max), Enemy.damage_types.NORMAL)
-	elif hit_body is PistolBomb:
+	elif hit_body is PistolBombShotCollsionReciever:
+		hit_body = hit_body.getPistolBomb()
 		var player:Player = get_tree().get_first_node_in_group("players")
 		player.hitStop(hit_body.hitstop_duration_on_being_shot)
 		var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")

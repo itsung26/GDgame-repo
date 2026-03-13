@@ -207,6 +207,7 @@ bbcode_edit/editor/open_current_file_documentation={
 3d_physics/layer_4="projectile"
 3d_physics/layer_5="pickup"
 3d_physics/layer_6="explosions"
+3d_physics/layer_7="pistol bomb"
 3d_physics/layer_9="grapple_boxes"
 3d_physics/layer_10="grapple_hook"
 3d_physics/layer_12="miscallaneaous"

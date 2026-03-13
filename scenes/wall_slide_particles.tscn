@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://sb8irsvfcfed"]
+
+[ext_resource type="PackedScene" uid="uid://dsal1i0nd3xgb" path="res://assets/meshes/player size comparison/player size comparison.fbx" id="1_avgog"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n54u6"]
+emission_shape_scale = Vector3(0.321, 0.65, 0)
+emission_shape = 3
+emission_box_extents = Vector3(1.97, 1.93, 0.105)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+flatness = 1.0
+initial_velocity_min = 0.049999997
+initial_velocity_max = 0.55
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_avgog"]
+transparency = 1
+albedo_color = Color(1, 1, 0, 0.21568628)
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_264hk"]
+material = SubResource("StandardMaterial3D_avgog")
+size = Vector2(0.05, 0.16)
+
+[node name="WallSlideParticles" type="GPUParticles3D"]
+amount = 16
+visibility_aabb = AABB(-0.7442198, -1.3617765, -0.16, 1.5231965, 2.9431047, 0.32)
+process_material = SubResource("ParticleProcessMaterial_n54u6")
+draw_pass_1 = SubResource("QuadMesh_264hk")
+
+[node name="player size comparison" parent="." instance=ExtResource("1_avgog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.79853094, -0.43993896)
+visible = false

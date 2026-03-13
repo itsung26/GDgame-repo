@@ -366,11 +366,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_apjy4")
-ammo_panel_lerp_left_target = 12.5
-ammo_panel_lerp_right_target = 25.0
-ammo_panel_scale_lerp_speed = 2.5
-ammo_panel_back_target = 0.95
-ammo_panel_forward_target = 1.1
 metadata/_edit_use_anchors_ = true
 
 [node name="AmmoPanel" type="SubViewportContainer" parent="BottomLeftArea"]
@@ -415,15 +410,6 @@ theme = SubResource("Theme_5n1hp")
 value = 50.0
 fill_mode = 3
 show_percentage = false
-metadata/_edit_use_anchors_ = true
-
-[node name="ReferenceRect" type="ReferenceRect" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel/HealthBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="StaminaBar" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel" instance=ExtResource("11_qkknv")]
