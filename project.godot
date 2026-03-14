@@ -31,6 +31,7 @@ EnemyPopulationHandler="*res://scripts/enemy_population_handler.gd"
 LoadHandler="*res://scripts/LoadHandler.gd"
 Debug="*res://scripts/Debug.gd"
 CfgParser="*res://scripts/cfg_parser.gd"
+HitscanSystem="*res://scripts/hitscan_system.gd"
 
 [debug_draw_3d]
 

@@ -1,10 +1,14 @@
-[gd_scene load_steps=48 format=3 uid="uid://csatdjhfoaqcw"]
+[gd_scene load_steps=53 format=3 uid="uid://csatdjhfoaqcw"]
 
 [ext_resource type="Script" uid="uid://bhnpfhit5k8s5" path="res://scripts/pistol.gd" id="1_buff3"]
 [ext_resource type="PackedScene" uid="uid://q1wl2i8b8vlt" path="res://assets/meshes/player pistol/player pistol.blend" id="2_buff3"]
+[ext_resource type="PackedScene" uid="uid://dywnj42fw476f" path="res://scenes/dissipator_bullet_light.tscn" id="2_hci6h"]
+[ext_resource type="Script" uid="uid://d06qyp8sfm13t" path="res://scripts/hitscan_bullet_config.gd" id="2_jbybm"]
 [ext_resource type="Material" uid="uid://dkvspuecmcvw3" path="res://assets/meshes/player pistol/barrel cap heat shader.tres" id="3_1e3ry"]
 [ext_resource type="Material" uid="uid://1dl8rlbnb2a6" path="res://assets/meshes/player pistol/heat sink heat.tres" id="3_4hq71"]
+[ext_resource type="PackedScene" uid="uid://dso2uc8cxmgub" path="res://scenes/bullet_trail.tscn" id="3_7nha5"]
 [ext_resource type="Material" uid="uid://50q5j31ai2d3" path="res://assets/meshes/player pistol/glowing red material.tres" id="3_kvtwg"]
+[ext_resource type="PackedScene" uid="uid://tpo71rqh0bjm" path="res://scenes/bullet_impact_particles_2.tscn" id="3_wytfu"]
 [ext_resource type="Material" uid="uid://ibk18lq25g4d" path="res://assets/meshes/player pistol/simple metallic.tres" id="4_lfdsj"]
 [ext_resource type="Texture2D" uid="uid://bqqadb7cemav6" path="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/34.png" id="5_wvp02"]
 [ext_resource type="Material" uid="uid://cyk62iasrpppl" path="res://assets/meshes/player pistol/power cell shader material.tres" id="6_88qyl"]
@@ -13,6 +17,19 @@
 [ext_resource type="Texture2D" uid="uid://bb3i67ilvm43d" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_06.png" id="7_b4lmj"]
 [ext_resource type="PackedScene" uid="uid://vswt7a1tma4k" path="res://scenes/pistol_display_screen.tscn" id="8_4w7x2"]
 [ext_resource type="Texture2D" uid="uid://k8rym1icjjw7" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/spark_05.png" id="10_lfdsj"]
+
+[sub_resource type="Resource" id="Resource_hci6h"]
+resource_local_to_scene = true
+script = ExtResource("2_jbybm")
+damage_min = 1.0
+damage_max = 1.0
+trail_scene = ExtResource("3_7nha5")
+trail_color = Color(0, 0, 1, 1)
+impact_particle_scene = ExtResource("3_wytfu")
+impact_light_scene = ExtResource("2_hci6h")
+can_reflect = true
+max_reflections = 10
+reflection_damage_falloff = 0.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lfdsj"]
 emission_shape = 6
@@ -426,6 +443,7 @@ size = Vector2(0.063, 0.063)
 [node name="Pistol" type="Node3D" node_paths=PackedStringArray("muzzle_origin", "bullet_raycast") groups=["weapons"]]
 editor_description = "ddd"
 script = ExtResource("1_buff3")
+bullet_config = SubResource("Resource_hci6h")
 muzzle_origin = NodePath("player pistol/barrel very end upper/muzzle")
 bullet_raycast = NodePath("pistolRayCast")
 special_charge_speed = 80.0

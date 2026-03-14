@@ -8,10 +8,10 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 const BULLET_DECAL_BLUE:PackedScene = preload("res://scenes/bullet_decal.tscn")
 const BLUE_EMISSIVE_MATERIAL:StandardMaterial3D = preload("res://assets/materials/emissives/blue_emissive_material.tres")
 const RED_EMISSIVE_MATERIAL:StandardMaterial3D = preload("res://assets/materials/emissives/red_emissive_material.tres")
-const BULLET_TRAIL_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
-const BULLET_IMPACT_PARTICLE_SCENE_1:PackedScene = null
-const BULLET_IMPACT_PARTICLE_SCENE_2:PackedScene = preload("res://scenes/bullet_impact_particles_2.tscn")
 const pistol_bomb_SCENE:PackedScene = preload("res://scenes/pistol_bomb.tscn")
+
+## Bullet configuration for normal fire mode. Configure damage, visuals, and reflection in this resource.
+@export var bullet_config: HitscanBulletConfig
 
 @onready var pistol_ray_cast_target_pos: Marker3D = $pistolRayCast/pistolRayCastTargetPos
 @onready var muzzle_charge_particles: GPUParticles3D = $"player pistol/barrel very end upper/muzzle charge particles"
@@ -25,7 +25,6 @@ const pistol_bomb_SCENE:PackedScene = preload("res://scenes/pistol_bomb.tscn")
 @onready var power_cell_sparks: GPUParticles3D = $"player pistol/powercell SHADER/power cell sparks"
 @onready var muzzle_charge_animator_4: AnimationPlayer = $"player pistol/barrel very end upper/muzzle charge animator 4"
 
-@export var bullet_trail_color:Color = Color.GOLD
 @export var muzzle_origin:Marker3D
 @export var bullet_raycast:RayCast3D
 var charge_visuals_enabled:bool = false:
@@ -144,43 +143,12 @@ func _reload():
 
 ## Does the actual firing, including damage and vfx.
 func firePistol() -> void:
-	# get information about the thing that got hit (what it is and how the bullet hit it)
-	var origin_pos:Vector3 = muzzle_origin.global_position
-	var hit_pos:Vector3 = bullet_raycast.get_collision_point()
-	var hit_body:Node3D = bullet_raycast.get_collider()
-	var hit_surface_normal:Vector3 = bullet_raycast.get_collision_normal()
-	
-	# add a bullet trail and pass position data to it
-	if hit_body == null:
-		var bullet_trail:BulletTrail = BULLET_TRAIL_SCENE.instantiate()
-		get_tree().current_scene.add_child(bullet_trail)
-		bullet_trail.setup(origin_pos, pistol_ray_cast_target_pos.global_position, bullet_trail_color)
-		return
-	else:
-		var bullet_trail:BulletTrail = BULLET_TRAIL_SCENE.instantiate()
-		get_tree().current_scene.add_child(bullet_trail)
-		bullet_trail.setup(origin_pos, hit_pos, bullet_trail_color)
-	
-	# Register the actual damage part of the gun
-	# cases for each thing that could be hit
-	if hit_body is Enemy:
-		hit_body.damageEnemy(randf_range(damage_max, damage_max), Enemy.damage_types.NORMAL)
-	elif hit_body is PistolBomb:
-		var player:Player = get_tree().get_first_node_in_group("players")
-		player.hitStop(hit_body.hitstop_duration_on_being_shot)
-		var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")
-		for parry_visual in parry_visuals:
-			if parry_visual.name == "ParryFlash":
-				pass
-			else:
-				parry_visual.visible = true
-		hit_body.explode()
-	else:
-		# add an impact particle to the scene where the bullet hit
-		# go to hit point and look at surface normal
-		var bullet_impact_particle_2 = BULLET_IMPACT_PARTICLE_SCENE_2.instantiate()
-		get_tree().current_scene.add_child(bullet_impact_particle_2)
-		bullet_impact_particle_2.setup(hit_pos, hit_surface_normal)
+	HitscanSystem.fire(
+		bullet_config,
+		muzzle_origin.global_position,
+		bullet_raycast,
+		get_tree().current_scene
+	)
 		
 ## Does the special fire action
 func fireSpecial() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=89 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -22,8 +22,12 @@
 [ext_resource type="Animation" uid="uid://cy6myi3dyfemb" path="res://assets/meshes/parry arm/animations/RESET.res" id="16_4ni07"]
 [ext_resource type="PackedScene" uid="uid://vcb1a0yxsq2y" path="res://scenes/melee.tscn" id="19_a38lo"]
 [ext_resource type="PackedScene" uid="uid://hc5vuirav3l6" path="res://scenes/dissipator.tscn" id="20_a38lo"]
+[ext_resource type="PackedScene" uid="uid://dywnj42fw476f" path="res://scenes/dissipator_bullet_light.tscn" id="21_pf23h"]
 [ext_resource type="Shader" uid="uid://dtg0dp7tve25u" path="res://assets/meshes/player pistol/power cell shader.tres" id="22_31cv2"]
+[ext_resource type="PackedScene" uid="uid://tpo71rqh0bjm" path="res://scenes/bullet_impact_particles_2.tscn" id="22_dt7fs"]
+[ext_resource type="Script" uid="uid://d06qyp8sfm13t" path="res://scripts/hitscan_bullet_config.gd" id="23_wqfne"]
 [ext_resource type="PackedScene" uid="uid://sb8irsvfcfed" path="res://scenes/wall_slide_particles.tscn" id="24_l71n6"]
+[ext_resource type="PackedScene" uid="uid://dso2uc8cxmgub" path="res://scenes/bullet_trail.tscn" id="24_wnwbv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a38lo"]
 albedo_color = Color(1, 0, 0, 1)
@@ -326,6 +330,19 @@ billboard_mode = 1
 [sub_resource type="QuadMesh" id="QuadMesh_60mlk"]
 material = SubResource("StandardMaterial3D_4r5pv")
 size = Vector2(1.473, 1.528)
+
+[sub_resource type="Resource" id="Resource_gl8cc"]
+resource_local_to_scene = true
+script = ExtResource("23_wqfne")
+damage_min = 1.0
+damage_max = 1.0
+trail_scene = ExtResource("24_wnwbv")
+trail_color = Color(0, 0, 1, 1)
+impact_particle_scene = ExtResource("22_dt7fs")
+impact_light_scene = ExtResource("21_pf23h")
+can_reflect = true
+max_reflections = 10
+reflection_damage_falloff = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ke2ow"]
 resource_local_to_scene = true
@@ -873,6 +890,7 @@ visible = false
 
 [node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
 visible = false
+bullet_config = SubResource("Resource_gl8cc")
 
 [node name="pistolRayCast" parent="Pivot/Camera3D/Guns/Pistol" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -895,7 +913,7 @@ material_override = SubResource("ShaderMaterial_gl8cc")
 [node name="powercell SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="23"]
 material_override = SubResource("ShaderMaterial_dt7fs")
 
-[node name="Dissipator" parent="Pivot/Camera3D/Guns" instance=ExtResource("20_a38lo")]
+[node name="Dissipator" parent="Pivot/Camera3D/Guns" groups=["weapons"] instance=ExtResource("20_a38lo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, -0.103, -0.462)
 ammo = 999
 magsize = 999
@@ -904,7 +922,7 @@ damage_max = 1.0
 automatic = true
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.038218588, -0.9991937, 0.012307381, 0.011149743, -0.012742029, -0.9998561, 0.99920636, -0.038075898, 0.0116277365, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.03821859, -0.9991937, 0.012307381, 0.011149743, -0.012742029, -0.9998561, 0.9992064, -0.038075898, 0.0116277365, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
