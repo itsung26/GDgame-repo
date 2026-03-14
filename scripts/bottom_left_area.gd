@@ -31,7 +31,6 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	Debug.log(ammo_panel.position)
 	_update_sway(delta)
 	_update_scale(delta)
 

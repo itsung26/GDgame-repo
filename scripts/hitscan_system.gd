@@ -62,7 +62,7 @@ func fire(
 	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0)
 	
 	# Queue reflection if enabled and we hit a non-enemy surface.
-	if config.can_reflect and config.max_reflections > 0 and not (hit_body is Enemy):
+	if config.can_reflect and config.max_reflections > 0 and not _find_enemy(hit_body):
 		var direction: Vector3 = (hit_point - origin).normalized()
 		_queue_reflection({
 			"config": config,
@@ -76,7 +76,8 @@ func fire(
 			"hit_from_inside": raycast.hit_from_inside,
 			"hit_back_faces": raycast.hit_back_faces,
 			"reflections_left": config.max_reflections,
-			"damage_multiplier": config.reflection_damage_falloff
+			"damage_multiplier": 1.0,
+			"hits": [hit_body]
 		})
 
 
@@ -94,6 +95,7 @@ func _process_reflection(request: Dictionary) -> void:
 	var scene_root: Node = request.scene_root
 	var reflections_left: int = request.reflections_left
 	var damage_multiplier: float = request.damage_multiplier
+	var hits: Array = request.get("hits", [])
 	
 	if reflections_left <= 0:
 		return
@@ -112,7 +114,7 @@ func _process_reflection(request: Dictionary) -> void:
 	_reflection_raycast.global_position = ray_origin
 	_reflection_raycast.target_position = reflected_dir * 1000.0
 	_reflection_raycast.collision_mask = request.collision_mask
-	_reflection_raycast.collide_with_areas = request.collide_with_areas
+	_reflection_raycast.collide_with_areas = false
 	_reflection_raycast.collide_with_bodies = request.collide_with_bodies
 	_reflection_raycast.hit_from_inside = request.hit_from_inside
 	_reflection_raycast.hit_back_faces = request.hit_back_faces
@@ -128,6 +130,7 @@ func _process_reflection(request: Dictionary) -> void:
 	if hit_body:
 		hit_point = _reflection_raycast.get_collision_point()
 		hit_normal = _reflection_raycast.get_collision_normal()
+		hits.append(hit_body)
 	else:
 		hit_point = _reflection_raycast.to_global(_reflection_raycast.target_position)
 	
@@ -142,7 +145,7 @@ func _process_reflection(request: Dictionary) -> void:
 	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, damage_multiplier)
 	
 	# Queue another reflection if we hit a non-enemy surface.
-	if not (hit_body is Enemy) and reflections_left > 1:
+	if not _find_enemy(hit_body) and reflections_left > 1:
 		_queue_reflection({
 			"config": config,
 			"origin": hit_point,
@@ -155,7 +158,8 @@ func _process_reflection(request: Dictionary) -> void:
 			"hit_from_inside": request.hit_from_inside,
 			"hit_back_faces": request.hit_back_faces,
 			"reflections_left": reflections_left - 1,
-			"damage_multiplier": damage_multiplier * config.reflection_damage_falloff
+			"damage_multiplier": damage_multiplier * config.reflection_damage_falloff if config.use_damage_falloff else 1.0,
+			"hits": hits
 		})
 
 
@@ -213,11 +217,14 @@ func _handle_hit(
 	scene_root: Node,
 	damage_multiplier: float
 ) -> void:
-	if hit_body is Enemy:
+	# Try to find an Enemy - either hit_body itself or a parent node.
+	var enemy: Enemy = _find_enemy(hit_body)
+	if enemy:
 		var damage: float = config.get_random_damage() * damage_multiplier
-		hit_body.damageEnemy(damage, config.damage_type)
+		enemy.damageEnemy(damage, config.damage_type)
+		return
 	
-	elif hit_body is PistolBomb:
+	if hit_body is PistolBomb:
 		_handle_pistol_bomb_hit(hit_body, scene_root)
 	
 	elif hit_body is PistolBombShotCollsionReciever:
@@ -228,6 +235,17 @@ func _handle_hit(
 		# World geometry hit - spawn impact effects.
 		_spawn_impact_particles(config, hit_point, hit_normal, scene_root)
 		_spawn_impact_light(config, hit_point, hit_normal, scene_root)
+
+
+## Searches for an Enemy by checking the node and its ancestors.
+## Returns the Enemy if found, null otherwise.
+func _find_enemy(node: Node) -> Enemy:
+	var current: Node = node
+	while current:
+		if current is Enemy:
+			return current
+		current = current.get_parent()
+	return null
 
 
 ## Handles the special case of hitting a PistolBomb.

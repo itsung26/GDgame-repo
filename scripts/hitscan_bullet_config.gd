@@ -28,16 +28,10 @@ extends Resource
 @export var can_reflect: bool = false
 ## Maximum number of times the bullet can reflect.
 @export var max_reflections: int = 0
-## Damage multiplier applied per reflection (e.g., 0.5 = 50% damage after first bounce).
+## Whether reflected bullets deal reduced damage with each bounce.
+@export var use_damage_falloff: bool = true
+## Damage multiplier applied per reflection (e.g., 0.5 = 50% damage after first bounce). Only used if use_damage_falloff is enabled.
 @export var reflection_damage_falloff: float = 0.5
-
-@export_group("Camera Effects")
-## Whether to shake the camera on fire.
-@export var camera_shake_on_fire: bool = false
-## Duration of camera shake in seconds.
-@export var camera_shake_duration: float = 0.1
-## Strength of camera shake.
-@export var camera_shake_strength: float = 1.0
 
 
 ## Returns a random damage value within the configured range.
