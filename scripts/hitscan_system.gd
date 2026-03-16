@@ -62,7 +62,7 @@ func fire(
 	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0)
 	
 	# Queue reflection if enabled and we hit a non-enemy surface.
-	if config.can_reflect and config.max_reflections > 0 and not _find_enemy(hit_body):
+	if config.can_reflect and config.max_reflections > 0 and not (hit_body is Enemy):
 		var direction: Vector3 = (hit_point - origin).normalized()
 		_queue_reflection({
 			"config": config,
@@ -145,7 +145,7 @@ func _process_reflection(request: Dictionary) -> void:
 	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, damage_multiplier)
 	
 	# Queue another reflection if we hit a non-enemy surface.
-	if not _find_enemy(hit_body) and reflections_left > 1:
+	if not (hit_body is Enemy) and reflections_left > 1:
 		_queue_reflection({
 			"config": config,
 			"origin": hit_point,
@@ -217,11 +217,14 @@ func _handle_hit(
 	scene_root: Node,
 	damage_multiplier: float
 ) -> void:
-	# Try to find an Enemy - either hit_body itself or a parent node.
-	var enemy: Enemy = _find_enemy(hit_body)
-	if enemy:
+	if hit_body is Enemy:
 		var damage: float = config.get_random_damage() * damage_multiplier
-		enemy.damageEnemy(damage, config.damage_type)
+		hit_body.damageEnemy(damage, config.damage_type)
+		return
+	
+	if hit_body is Player:
+		var damage: float = config.get_random_damage() * damage_multiplier
+		hit_body.damagePlayer(damage, "Hitscan")
 		return
 	
 	if hit_body is PistolBomb:
@@ -235,17 +238,6 @@ func _handle_hit(
 		# World geometry hit - spawn impact effects.
 		_spawn_impact_particles(config, hit_point, hit_normal, scene_root)
 		_spawn_impact_light(config, hit_point, hit_normal, scene_root)
-
-
-## Searches for an Enemy by checking the node and its ancestors.
-## Returns the Enemy if found, null otherwise.
-func _find_enemy(node: Node) -> Enemy:
-	var current: Node = node
-	while current:
-		if current is Enemy:
-			return current
-		current = current.get_parent()
-	return null
 
 
 ## Handles the special case of hitting a PistolBomb.

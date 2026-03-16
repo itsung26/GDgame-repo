@@ -915,14 +915,9 @@ material_override = SubResource("ShaderMaterial_dt7fs")
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns" groups=["weapons"] instance=ExtResource("20_a38lo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, -0.103, -0.462)
-ammo = 999
-magsize = 999
-damage_min = 1.0
-damage_max = 1.0
-automatic = true
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.03821859, -0.9991937, 0.012307381, 0.011149743, -0.012742029, -0.9998561, 0.9992064, -0.038075898, 0.0116277365, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.038218588, -0.9991937, 0.012307379, 0.011149743, -0.012742029, -0.999856, 0.99920636, -0.038075898, 0.011627736, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
