@@ -28,7 +28,7 @@ trail_color = Color(0, 0, 1, 1)
 impact_particle_scene = ExtResource("3_wytfu")
 impact_light_scene = ExtResource("2_hci6h")
 can_reflect = true
-max_reflections = 10
+max_reflections = 2
 reflection_damage_falloff = 0.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lfdsj"]

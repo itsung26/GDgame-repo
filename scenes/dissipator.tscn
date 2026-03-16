@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://hc5vuirav3l6"]
+[gd_scene load_steps=9 format=3 uid="uid://hc5vuirav3l6"]
 
 [ext_resource type="Script" uid="uid://ddu1yjq3m5njd" path="res://scripts/dissipator.gd" id="1_nc7lg"]
 [ext_resource type="Script" uid="uid://d06qyp8sfm13t" path="res://scripts/hitscan_bullet_config.gd" id="2_4larc"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dcpw3x4jtiilc" path="res://assets/meshes/Player Dissipator/Dissipator.blend" id="2_cin2g"]
 [ext_resource type="PackedScene" uid="uid://dso2uc8cxmgub" path="res://scenes/bullet_trail.tscn" id="3_3tpvc"]
 [ext_resource type="PackedScene" uid="uid://tpo71rqh0bjm" path="res://scenes/bullet_impact_particles_2.tscn" id="3_4nle0"]
+[ext_resource type="Script" uid="uid://c4tqukqmdcvec" path="res://scripts/dissipator_piercing_hitscan.gd" id="7_4nle0"]
 
 [sub_resource type="Resource" id="Resource_5hci3"]
+resource_local_to_scene = true
 script = ExtResource("2_4larc")
 damage_min = 1.0
 damage_max = 1.0
@@ -35,7 +37,7 @@ automatic = true
 transform = Transform3D(-2.1533342e-06, -0.0005945936, 0.9999995, -0.9999175, 0.012836559, 5.4634e-06, -0.012836604, -0.99991745, -0.0005946271, -2.5425106e-07, -0.004908182, -0.5440906)
 
 [node name="Dissipator" parent="Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.03821861, -0.99919385, 0.012307393, 0.011149749, -0.0127420295, -0.9998571, 0.99920696, -0.0380759, 0.011627749, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.038218603, -0.99919385, 0.012307393, 0.011149746, -0.0127420295, -0.9998571, 0.9992067, -0.0380759, 0.011627749, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="AnimationPlayer" parent="Dissipator2" index="1"]
 speed_scale = 1.5
@@ -47,5 +49,12 @@ visible = false
 target_position = Vector3(0, -1, -5000)
 collision_mask = 70
 debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="DissipatorPiercingHitscan" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24, 0.103000045, 0.462)
+visible = false
+script = ExtResource("7_4nle0")
+collision_mask = 6
+metadata/_custom_type_script = "uid://c2xmdga52gaga"
 
 [editable path="Dissipator2"]

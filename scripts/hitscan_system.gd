@@ -61,24 +61,31 @@ func fire(
 	# Handle the hit (damage, effects, etc.).
 	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0)
 	
-	# Queue reflection if enabled and we hit a non-enemy surface.
-	if config.can_reflect and config.max_reflections > 0 and not (hit_body is Enemy):
-		var direction: Vector3 = (hit_point - origin).normalized()
-		_queue_reflection({
-			"config": config,
-			"origin": hit_point,
-			"incoming_direction": direction,
-			"surface_normal": hit_normal,
-			"scene_root": scene_root,
-			"collision_mask": raycast.collision_mask,
-			"collide_with_areas": raycast.collide_with_areas,
-			"collide_with_bodies": raycast.collide_with_bodies,
-			"hit_from_inside": raycast.hit_from_inside,
-			"hit_back_faces": raycast.hit_back_faces,
-			"reflections_left": config.max_reflections,
-			"damage_multiplier": 1.0,
-			"hits": [hit_body]
-		})
+	# Queue reflection if enabled and the surface is reflective (world or reflective enemy).
+	if config.can_reflect and config.max_reflections > 0:
+		var can_reflect_from_enemy: bool = false
+		if hit_body is Enemy:
+			can_reflect_from_enemy = (hit_body as Enemy).reflective
+		# Reflect from non-enemy surfaces, but NOT from the pistol bomb collision receiver.
+		var can_reflect_from_other: bool = not (hit_body is Enemy) and not (hit_body is PistolBombShotCollsionReciever)
+		
+		if can_reflect_from_enemy or can_reflect_from_other:
+			var direction: Vector3 = (hit_point - origin).normalized()
+			_queue_reflection({
+				"config": config,
+				"origin": hit_point,
+				"incoming_direction": direction,
+				"surface_normal": hit_normal,
+				"scene_root": scene_root,
+				"collision_mask": raycast.collision_mask,
+				"collide_with_areas": raycast.collide_with_areas,
+				"collide_with_bodies": raycast.collide_with_bodies,
+				"hit_from_inside": raycast.hit_from_inside,
+				"hit_back_faces": raycast.hit_back_faces,
+				"reflections_left": config.max_reflections,
+				"damage_multiplier": 1.0,
+				"hits": []
+			})
 
 
 ## Queues a reflection request to be processed in _physics_process.
@@ -144,8 +151,14 @@ func _process_reflection(request: Dictionary) -> void:
 	# Handle the hit with reduced damage.
 	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, damage_multiplier)
 	
-	# Queue another reflection if we hit a non-enemy surface.
-	if not (hit_body is Enemy) and reflections_left > 1:
+	# Queue another reflection if surface is reflective (world or reflective enemy).
+	var can_reflect_from_enemy: bool = false
+	if hit_body is Enemy:
+		can_reflect_from_enemy = (hit_body as Enemy).reflective
+	# Reflect from non-enemy surfaces, but NOT from the pistol bomb collision receiver.
+	var can_reflect_from_other: bool = not (hit_body is Enemy) and not (hit_body is PistolBombShotCollsionReciever)
+	
+	if reflections_left > 1 and (can_reflect_from_enemy or can_reflect_from_other):
 		_queue_reflection({
 			"config": config,
 			"origin": hit_point,
@@ -218,21 +231,27 @@ func _handle_hit(
 	damage_multiplier: float
 ) -> void:
 	if hit_body is Enemy:
-		var damage: float = config.get_random_damage() * damage_multiplier
-		hit_body.damageEnemy(damage, config.damage_type)
-		return
+		var enemy := hit_body as Enemy
+		# If the enemy is reflective, treat it like a reflective surface:
+		# no damage, but spawn impact visuals so the reflection feels impactful.
+		if enemy.reflective:
+			_spawn_impact_particles(config, hit_point, hit_normal, scene_root)
+			_spawn_impact_light(config, hit_point, hit_normal, scene_root)
+			return
+		else:
+			var damage: float = config.get_random_damage() * damage_multiplier
+			enemy.damageEnemy(damage, config.damage_type)
+			return
 	
 	if hit_body is Player:
 		var damage: float = config.get_random_damage() * damage_multiplier
 		hit_body.damagePlayer(damage, "Hitscan")
 		return
 	
-	if hit_body is PistolBomb:
-		_handle_pistol_bomb_hit(hit_body, scene_root)
-	
 	elif hit_body is PistolBombShotCollsionReciever:
 		var bomb: PistolBomb = hit_body.getPistolBomb()
 		_handle_pistol_bomb_hit(bomb, scene_root)
+		
 	
 	else:
 		# World geometry hit - spawn impact effects.

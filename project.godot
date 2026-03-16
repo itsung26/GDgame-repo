@@ -44,7 +44,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/any_icon.editor/plugin.cfg", "res://addons/bbcode_edit.editor/plugin.cfg", "res://addons/func_godot/plugin.cfg")
+enabled=PackedStringArray("res://addons/any_icon.editor/plugin.cfg", "res://addons/bbcode_edit.editor/plugin.cfg", "res://addons/deep_raycast_3d/plugin.cfg", "res://addons/func_godot/plugin.cfg")
 
 [global_group]
 

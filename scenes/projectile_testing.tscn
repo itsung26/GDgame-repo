@@ -223,6 +223,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.316
 [node name="BulletTurret" parent="." instance=ExtResource("10_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1934514, 3.2420573, -0.08562398)
 behavior_enabled = false
+reflective = true
 
 [node name="BulletTurret2" parent="." instance=ExtResource("10_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8275657, 3.2420573, -0.08562398)
@@ -310,6 +311,7 @@ font_size = 375
 [node name="enemy_filth" parent="." instance=ExtResource("7_wl3f4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000705719, -1.9073486e-06, -0.04624176)
 behavior_enabled = false
+reflective = true
 
 [node name="Skitterbomb" parent="." instance=ExtResource("11_r4hxy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6482625, 0, -15.790521)

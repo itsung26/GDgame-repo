@@ -40,6 +40,8 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @export var parriable:bool = false
 ## Set this to true if the enemy should not be moveable, excluding during death gibbing.
 @export var stationary:bool = false
+## If true, hitscan bullets will reflect off this enemy's surface.
+@export var reflective:bool = false
 
 func damageEnemy(damage:float, damage_type:damage_types):
 	if damage_enabled:
