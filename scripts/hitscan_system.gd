@@ -83,7 +83,10 @@ func fire(
 		# Damage behavior.
 		if config.can_pierce_enemies:
 			# Piercing: always apply hit logic, even for multiple enemies.
-			_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0)
+			# Treat reflective enemies as "normal" for damage/visuals here so
+			# they can be damaged by piercing shots and don't spawn
+			# reflection-only impact effects.
+			_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0, true)
 		else:
 			# Non-piercing: apply hit, but stop after hitting a non-reflective enemy.
 			_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0)
@@ -200,8 +203,9 @@ func _process_reflection(request: Dictionary) -> void:
 	if not hit_body:
 		return
 	
-	# Handle the hit with reduced damage.
-	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, damage_multiplier)
+	# Handle the hit with reduced damage. Reflections should respect the
+	# reflective flag, so we don't ignore it here.
+	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, damage_multiplier, false)
 	
 	# Queue another reflection if surface is reflective (world or reflective enemy).
 	var can_reflect_from_enemy: bool = false
@@ -284,20 +288,23 @@ func _handle_hit(
 	hit_point: Vector3,
 	hit_normal: Vector3,
 	scene_root: Node,
-	damage_multiplier: float
+	damage_multiplier: float,
+	ignore_reflective_flag: bool = false
 ) -> void:
 	if hit_body is Enemy:
 		var enemy := hit_body as Enemy
-		# If the enemy is reflective, treat it like a reflective surface:
-		# no damage, but spawn impact visuals so the reflection feels impactful.
-		if enemy.reflective:
+		# If the enemy is reflective and we're NOT in a context that wants to
+		# ignore that (e.g. non-piercing reflections), treat it like a
+		# reflective surface only: no damage, just visuals.
+		if enemy.reflective and not ignore_reflective_flag:
 			_spawn_impact_particles(config, hit_point, hit_normal, scene_root)
 			_spawn_impact_light(config, hit_point, hit_normal, scene_root)
 			return
-		else:
-			var damage: float = config.get_random_damage() * damage_multiplier
-			enemy.damageEnemy(damage, config.damage_type)
-			return
+		
+		# Otherwise, deal normal damage (piercing or non-piercing).
+		var damage: float = config.get_random_damage() * damage_multiplier
+		enemy.damageEnemy(damage, config.damage_type)
+		return
 	
 	if hit_body is Player:
 		var damage: float = config.get_random_damage() * damage_multiplier
