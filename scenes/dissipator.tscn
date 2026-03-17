@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://hc5vuirav3l6"]
+[gd_scene load_steps=13 format=3 uid="uid://hc5vuirav3l6"]
 
 [ext_resource type="Script" uid="uid://ddu1yjq3m5njd" path="res://scripts/dissipator.gd" id="1_nc7lg"]
 [ext_resource type="Script" uid="uid://d06qyp8sfm13t" path="res://scripts/hitscan_bullet_config.gd" id="2_4larc"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dso2uc8cxmgub" path="res://scenes/bullet_trail.tscn" id="3_3tpvc"]
 [ext_resource type="PackedScene" uid="uid://tpo71rqh0bjm" path="res://scenes/bullet_impact_particles_2.tscn" id="3_4nle0"]
 [ext_resource type="Script" uid="uid://c4tqukqmdcvec" path="res://scripts/dissipator_piercing_hitscan.gd" id="7_4nle0"]
+[ext_resource type="Texture2D" uid="uid://bb3i67ilvm43d" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_06.png" id="7_kbv01"]
 
 [sub_resource type="Resource" id="Resource_5hci3"]
 resource_local_to_scene = true
@@ -22,9 +23,47 @@ max_reflections = 1
 use_damage_falloff = false
 metadata/_custom_type_script = "uid://d06qyp8sfm13t"
 
+[sub_resource type="Resource" id="Resource_4nle0"]
+resource_local_to_scene = true
+script = ExtResource("2_4larc")
+damage_min = 3.0
+damage_max = 3.0
+trail_scene = ExtResource("3_3tpvc")
+trail_color = Color(1, 0, 0, 1)
+impact_particle_scene = ExtResource("3_4nle0")
+impact_light_scene = ExtResource("2_5hci3")
+can_reflect = true
+max_reflections = 1
+use_damage_falloff = false
+can_pierce_enemies = true
+metadata/_custom_type_script = "uid://d06qyp8sfm13t"
+
+[sub_resource type="Animation" id="Animation_kbv01"]
+resource_name = "flashonce"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpecialReadyFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_etd4h"]
+_data = {
+&"flashonce": SubResource("Animation_kbv01")
+}
+
 [node name="Dissipator" type="Node3D"]
 script = ExtResource("1_nc7lg")
 bullet_config = SubResource("Resource_5hci3")
+reflection_bullet_config = SubResource("Resource_4nle0")
+reflection_charge_speed = 150.0
 ammo = 999
 magsize = 999
 damage_min = 1.0
@@ -37,7 +76,21 @@ automatic = true
 transform = Transform3D(-2.1533342e-06, -0.0005945936, 0.9999995, -0.9999175, 0.012836559, 5.4634e-06, -0.012836604, -0.99991745, -0.0005946271, -2.5425106e-07, -0.004908182, -0.5440906)
 
 [node name="Dissipator" parent="Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.038218603, -0.99919385, 0.012307393, 0.011149746, -0.0127420295, -0.9998571, 0.9992067, -0.0380759, 0.011627749, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.0382186, -0.99919385, 0.012307393, 0.011149745, -0.0127420295, -0.9998571, 0.99920666, -0.0380759, 0.011627749, -0.06657806, 0.15875001, -0.036490835)
+
+[node name="SpecialReadyFlash" type="Sprite3D" parent="Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator" index="1"]
+transform = Transform3D(0.9992014, 0.03836213, -0.01124319, -0.03806459, 0.99894774, 0.02557916, 0.012212678, -0.025130788, 0.9996091, 0.00439631, -0.0042397915, -0.07406698)
+visible = false
+modulate = Color(1, 0, 0, 1)
+pixel_size = 0.0012
+billboard = 1
+no_depth_test = true
+texture = ExtResource("7_kbv01")
+
+[node name="FlashAnimator" type="AnimationPlayer" parent="Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator" index="2"]
+libraries = {
+&"": SubResource("AnimationLibrary_etd4h")
+}
 
 [node name="AnimationPlayer" parent="Dissipator2" index="1"]
 speed_scale = 1.5
@@ -52,8 +105,8 @@ debug_shape_custom_color = Color(1, 0, 0, 1)
 
 [node name="DissipatorPiercingHitscan" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24, 0.103000045, 0.462)
-visible = false
 script = ExtResource("7_4nle0")
+forward_distance = 5000.0
 collision_mask = 6
 metadata/_custom_type_script = "uid://c2xmdga52gaga"
 

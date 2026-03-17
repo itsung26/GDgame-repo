@@ -65,7 +65,7 @@ signal cast_collider(results: Array[DeepRaycast3DResult])
 		auto_forward = value
 		update_configuration_warnings()
 ## Distance of the ray when auto_forward is enabled.
-@export_range(0.1, 100.0, 0.1, "suffix:m") var forward_distance: float = 10.0
+@export_range(0.1, 100.0, 0.1, "or_greater", "suffix:m") var forward_distance: float = 10.0
 ## Target node when auto_forward is disabled (manual mode).
 @export var target: PhysicsBody3D:
 	set(value):
@@ -123,7 +123,7 @@ signal cast_collider(results: Array[DeepRaycast3DResult])
 ## The render layers the query will detect (as a bitmask).
 @export_flags_3d_render() var layers = (1 << 0):
 	set(value):
-		layers = value
+		layers = value if value != null else (1 << 0)
 		if is_instance_valid(_mesh_instance):
 			_mesh_instance.layers = layers
 #endregion =========================================================================================
@@ -196,7 +196,7 @@ func _create_line() -> void:
 	_mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_mesh_instance.rotation_degrees.x = -90
 	_mesh_instance.position.z = _distance / -2
-	_mesh_instance.layers = layers
+	_mesh_instance.layers = layers if layers != null else (1 << 0)
 
 	_node_container.add_child(_mesh_instance)
 

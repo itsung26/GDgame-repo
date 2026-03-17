@@ -143,13 +143,9 @@ func _reload():
 
 ## Does the actual firing, including damage and vfx.
 func firePistol() -> void:
-	HitscanSystem.fire(
-		bullet_config,
-		muzzle_origin.global_position,
-		bullet_raycast,
-		get_tree().current_scene
-	)
-		
+	pass
+
+
 ## Does the special fire action
 func fireSpecial() -> void:
 	special_charge = 0.0

@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 			hook.global_position = hooked_target.global_position
 		
 		elif hooked_target is Enemy:
-			hook.global_position = hooked_target.global_position + hooked_target.grapple_offset
+			hook.global_position = hooked_target.global_position + hooked_target.chest_offset
 
 # on hook hit world
 func _on_world_collide_box_body_entered(body: StaticBody3D) -> void:

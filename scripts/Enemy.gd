@@ -32,7 +32,7 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 ## Whether the enemy recieves damage. Taking damage will still call [code]damageEnemy[/code], but interior logic will be skipped.
 @export var damage_enabled:bool = true
 ## The point that the grapple hook will attatch to. This should be located somewhere near the center of the enemy.
-@export var grapple_offset:Vector3 = Vector3.ZERO
+@export var chest_offset:Vector3 = Vector3.ZERO
 ## Wether the behavior is allowed to run for the entity. If set to false, the entity
 ## should run in a "loop idle" state.
 @export var behavior_enabled:bool = true

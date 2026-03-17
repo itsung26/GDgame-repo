@@ -33,6 +33,10 @@ extends Resource
 ## Damage multiplier applied per reflection (e.g., 0.5 = 50% damage after first bounce). Only used if use_damage_falloff is enabled.
 @export var reflection_damage_falloff: float = 0.5
 
+@export_group("Piercing")
+## If true and a DeepRayCast3D is used, the bullet can pierce through multiple enemies/world hits along the ray.
+@export var can_pierce_enemies: bool = false
+
 
 ## Returns a random damage value within the configured range.
 func get_random_damage() -> float:

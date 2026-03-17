@@ -1,0 +1,2 @@
+class_name WorldBody
+extends StaticBody3D

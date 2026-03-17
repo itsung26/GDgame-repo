@@ -32,60 +32,112 @@ func _physics_process(_delta: float) -> void:
 		_process_reflection(request)
 
 
-## Fires a hitscan bullet using the provided raycast and configuration.
+## Fires a hitscan bullet using a DeepRayCast3D and configuration.
 ## [param config]: The bullet configuration resource.
 ## [param origin]: World position where the bullet originates (muzzle).
-## [param raycast]: The RayCast3D used for hit detection (must be force_raycast_update'd or active).
+## [param raycast]: A DeepRayCast3D used for hit detection.
 ## [param scene_root]: The node to add visual effects to (usually current_scene).
+## Returns the global position of the last point hit (or the ray end if nothing was hit).
 func fire(
 	config: HitscanBulletConfig,
 	origin: Vector3,
-	raycast: RayCast3D,
+	raycast: DeepRayCast3D,
 	scene_root: Node
-) -> void:
-	var hit_body: Node3D = raycast.get_collider()
-	var hit_point: Vector3 = raycast.get_collision_point()
-	var hit_normal: Vector3 = raycast.get_collision_normal()
+) -> Vector3:
+	var hit_point: Vector3 = origin
+	var hit_normal: Vector3 = Vector3.ZERO
+	var last_segment_start: Vector3 = origin
+	var hit_count := raycast.get_collider_count()
+	var start_pos: Vector3 = raycast.global_transform.origin
 	
-	# If nothing was hit, use the raycast's target position as the endpoint.
-	if not hit_body:
-		hit_point = raycast.to_global(raycast.target_position)
-	
-	# Spawn bullet trail.
-	_spawn_trail(config, origin, hit_point, scene_root)
-	
-	# If nothing was hit, we're done.
-	if not hit_body:
-		return
-	
-	# Handle the hit (damage, effects, etc.).
-	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0)
-	
-	# Queue reflection if enabled and the surface is reflective (world or reflective enemy).
-	if config.can_reflect and config.max_reflections > 0:
-		var can_reflect_from_enemy: bool = false
-		if hit_body is Enemy:
-			can_reflect_from_enemy = (hit_body as Enemy).reflective
-		# Reflect from non-enemy surfaces, but NOT from the pistol bomb collision receiver.
-		var can_reflect_from_other: bool = not (hit_body is Enemy) and not (hit_body is PistolBombShotCollsionReciever)
+	# If nothing was hit, approximate the endpoint using DeepRayCast3D's forward settings.
+	if hit_count == 0:
+		var dir: Vector3
+		var dist: float
+		if raycast.auto_forward:
+			dir = -raycast.global_transform.basis.z
+			dist = raycast.forward_distance
+		elif raycast.target:
+			dir = start_pos.direction_to(raycast.target.global_position + raycast.target_offset_position)
+			dist = start_pos.distance_to(raycast.target.global_position + raycast.target_offset_position)
+		else:
+			dir = -raycast.global_transform.basis.z
+			dist = raycast.forward_distance
 		
-		if can_reflect_from_enemy or can_reflect_from_other:
-			var direction: Vector3 = (hit_point - origin).normalized()
-			_queue_reflection({
-				"config": config,
-				"origin": hit_point,
-				"incoming_direction": direction,
-				"surface_normal": hit_normal,
-				"scene_root": scene_root,
-				"collision_mask": raycast.collision_mask,
-				"collide_with_areas": raycast.collide_with_areas,
-				"collide_with_bodies": raycast.collide_with_bodies,
-				"hit_from_inside": raycast.hit_from_inside,
-				"hit_back_faces": raycast.hit_back_faces,
-				"reflections_left": config.max_reflections,
-				"damage_multiplier": 1.0,
-				"hits": []
-			})
+		hit_point = start_pos + dir.normalized() * dist
+		_spawn_trail(config, origin, hit_point, scene_root)
+		return hit_point
+	
+	var should_queue_reflection := config.can_reflect and config.max_reflections > 0
+	var reflection_queued := false
+	
+	# Walk through deep hits in order.
+	for i in range(hit_count):
+		var body := raycast.get_collider(i)
+		if not (body is Node3D):
+			continue
+		var hit_body: Node3D = body
+		hit_point = raycast.get_hit_position(i)
+		hit_normal = raycast.get_normal(i)
+		
+		# Damage behavior.
+		if config.can_pierce_enemies:
+			# Piercing: always apply hit logic, even for multiple enemies.
+			_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0)
+		else:
+			# Non-piercing: apply hit, but stop after hitting a non-reflective enemy.
+			_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0)
+			
+			if hit_body is Enemy and not (hit_body as Enemy).reflective:
+				# Stop the original ray when hitting a normal enemy.
+				break
+		
+		# Reflection behavior:
+		# - Non-piercing: can reflect from reflective enemies and world geometry.
+		# - Piercing: can reflect only from world geometry (not from enemies).
+		if should_queue_reflection and not reflection_queued:
+			var is_enemy := hit_body is Enemy
+			var is_reflective_enemy := is_enemy and (hit_body as Enemy).reflective
+			var is_pistol_receiver := hit_body is PistolBombShotCollsionReciever
+			var can_reflect_from_other := not is_enemy and not is_pistol_receiver
+			
+			var can_reflect_here := false
+			if config.can_pierce_enemies:
+				# Piercing ray: only reflect off world / non-enemy geometry.
+				can_reflect_here = can_reflect_from_other
+			else:
+				# Non-piercing ray: reflect off reflective enemies or world geometry.
+				can_reflect_here = is_reflective_enemy or can_reflect_from_other
+			
+			if can_reflect_here:
+				# Compute direction from the previous segment start to this hit.
+				var direction: Vector3 = (hit_point - last_segment_start).normalized()
+				_queue_reflection({
+					"config": config,
+					"origin": hit_point,
+					"incoming_direction": direction,
+					"surface_normal": hit_normal,
+					"scene_root": scene_root,
+					"collision_mask": raycast.collision_mask,
+					"collide_with_areas": raycast.collide_with_areas,
+					"collide_with_bodies": raycast.collide_with_bodies,
+					"hit_from_inside": raycast.hit_from_inside,
+					"hit_back_faces": raycast.hit_back_faces,
+					"reflections_left": config.max_reflections,
+					"damage_multiplier": 1.0,
+					"hits": []
+				})
+				reflection_queued = true
+				
+				# Once we reflect, we don't continue the original ray further.
+				break
+		
+		# Next segment for deep ray starts from this hit.
+		last_segment_start = hit_point
+	
+	# Spawn trail from origin to the last point we reached.
+	_spawn_trail(config, origin, hit_point, scene_root)
+	return hit_point
 
 
 ## Queues a reflection request to be processed in _physics_process.
@@ -159,11 +211,15 @@ func _process_reflection(request: Dictionary) -> void:
 	var can_reflect_from_other: bool = not (hit_body is Enemy) and not (hit_body is PistolBombShotCollsionReciever)
 	
 	if reflections_left > 1 and (can_reflect_from_enemy or can_reflect_from_other):
+		var next_dir: Vector3 = reflected_dir
+		var next_origin: Vector3 = hit_point
+		var next_normal: Vector3 = hit_normal
+		
 		_queue_reflection({
 			"config": config,
-			"origin": hit_point,
-			"incoming_direction": reflected_dir,
-			"surface_normal": hit_normal,
+			"origin": next_origin,
+			"incoming_direction": next_dir,
+			"surface_normal": next_normal,
 			"scene_root": scene_root,
 			"collision_mask": request.collision_mask,
 			"collide_with_areas": request.collide_with_areas,
