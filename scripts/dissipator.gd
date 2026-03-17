@@ -41,7 +41,6 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	Debug.log(reflection_charge)
 	if charging:
 		reflection_charge = move_toward(reflection_charge, reflection_max_charge, reflection_charge_speed * delta)
 	else:

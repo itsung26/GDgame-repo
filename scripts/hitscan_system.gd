@@ -97,12 +97,14 @@ func fire(
 		
 		# Reflection behavior:
 		# - Non-piercing: can reflect from reflective enemies and world geometry.
-		# - Piercing: can reflect only from world geometry (not from enemies).
+		# - Piercing: can reflect only from world geometry (not from enemies, and not from PhysicalBone3D).
 		if should_queue_reflection and not reflection_queued:
 			var is_enemy := hit_body is Enemy
 			var is_reflective_enemy := is_enemy and (hit_body as Enemy).reflective
 			var is_pistol_receiver := hit_body is PistolBombShotCollsionReciever
-			var can_reflect_from_other := not is_enemy and not is_pistol_receiver
+			var is_physical_bone := hit_body is PhysicalBone3D
+			# World / non-enemy geometry that is not handled specially elsewhere.
+			var can_reflect_from_other := not is_enemy and not is_pistol_receiver and not is_physical_bone
 			
 			var can_reflect_here := false
 			if config.can_pierce_enemies:
@@ -314,8 +316,10 @@ func _handle_hit(
 	elif hit_body is PistolBombShotCollsionReciever:
 		var bomb: PistolBomb = hit_body.getPistolBomb()
 		_handle_pistol_bomb_hit(bomb, scene_root)
-		
 	
+	elif hit_body is PhysicalBone3D:
+		return
+		
 	else:
 		# World geometry hit - spawn impact effects.
 		_spawn_impact_particles(config, hit_point, hit_normal, scene_root)

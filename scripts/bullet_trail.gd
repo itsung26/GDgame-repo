@@ -17,7 +17,6 @@ func _ready() -> void:
 
 # Called every frame.
 func _process(delta: float) -> void:
-	billboardToCameraX()
 	if not shrinking_y:
 		return
 	if shrink_curve == null:
@@ -51,29 +50,13 @@ func setup(origin_pos:Vector3, target_pos:Vector3, color:Color = Color.GOLD):
 		_base_height = sz.y
 		sz.x = origin_pos.distance_to(target_pos)
 		q.size = sz
-		var q_mat:StandardMaterial3D = q.material
-		if q_mat:
-			q_mat.albedo_color = color
-			q_mat.emission = color
 
-func billboardToCameraX() -> void:
-	var cam: Camera3D = get_viewport().get_camera_3d()
-	var parent := get_parent()
-	if cam == null or parent == null:
-		return
-
-	# Camera and self in PARENT space (stable; does not depend on this node's current rotation)
-	var cam_parent: Vector3 = parent.to_local(cam.global_position)
-	var to_cam_parent: Vector3 = cam_parent - position
-	# Constrain to local XY plane (so we rotate around local Z only)
-	to_cam_parent.z = 0.0
-	if to_cam_parent.length_squared() < 1e-10:
-		return
-
-	var desired_z: float = atan2(to_cam_parent.y, to_cam_parent.x)
-
-	# Optional smoothing to further reduce visual jitter:
-	# rotation.z = lerp_angle(rotation.z, desired_z, 0.25)
-	var r := rotation
-	r.z = desired_z
-	rotation = r
+	# Apply color into the ShaderMaterial driving this trail, if present.
+	# Prefer material_override; fall back to the mesh surface material.
+	var mat: Material = mesh.surface_get_material(0)
+	if mat is ShaderMaterial:
+		var sm := mat as ShaderMaterial
+		if sm.get_shader_parameter("albedo") is Color:
+			sm.set_shader_parameter("albedo", color)
+		if sm.get_shader_parameter("emission") is Color:
+			sm.set_shader_parameter("emission", color)
