@@ -65,7 +65,7 @@ func _special() -> void:
 func _specialRelease() -> void:
 	super._specialRelease()
 	if reflection_charge == reflection_max_charge:
-		_fireSpecial()
+		fireSpecial()
 	setCharging(false)
 
 
@@ -73,13 +73,18 @@ func _reload() -> void:
 	super._reload()
 
 
-func _fireSpecial() -> void:
-	HitscanSystem.fire(
+func fireSpecial() -> void:
+	var first_firing_point:Vector3 = Vector3.ZERO
+	
+	# First the hitscan hits the place the weapon is aimed as usual.
+	first_firing_point = HitscanSystem.fire(
 		reflection_bullet_config,
 		muzzle.global_position,
 		dissipator_piercing_hitscan,
 		get_tree().current_scene
 	)
+	
+	# Then, the hitscan should reflect to the nearest enemy. (ideally piercing them)
 
 
 func fireBullet() -> void:

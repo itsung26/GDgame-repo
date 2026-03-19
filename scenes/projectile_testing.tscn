@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=3 uid="uid://ctkkc4v7jqox5"]
 
-[ext_resource type="Script" uid="uid://dhrd18jipeqpj" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
+[ext_resource type="Script" uid="uid://cfg33qj40lkc8" path="res://scripts/level.gd" id="1_488l3"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="4_s3yq3"]
@@ -79,8 +79,9 @@ data = PackedVector3Array(-2.5, -1.1388354, 2.5, -2.5, -1.1388354, -2.5, -2.5, 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_5138l"]
 size = Vector3(41.612732, 15.599609, 26.74353)
 
-[node name="ProjectileTesting" type="Node3D"]
-script = ExtResource("1_7ksdt")
+[node name="ProjectileTesting" type="Node"]
+script = ExtResource("1_488l3")
+metadata/_custom_type_script = "uid://cfg33qj40lkc8"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nptal")
@@ -97,17 +98,17 @@ navigation_mesh = SubResource("NavigationMesh_7ksdt")
 [node name="floor" type="MeshInstance3D" parent="NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.76741, 0, 0)
 mesh = SubResource("PlaneMesh_r4hxy")
-skeleton = NodePath("../..")
+skeleton = NodePath("")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 1.3625, 17.4)
 mesh = SubResource("PrismMesh_q8du6")
-skeleton = NodePath("../..")
+skeleton = NodePath("")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="NavigationRegion3D"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 11.2, 1.3625, 17.4)
 mesh = SubResource("PrismMesh_q8du6")
-skeleton = NodePath("../..")
+skeleton = NodePath("")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.527588, 2.885841, 0)
@@ -384,3 +385,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.07102, 0, -20.858204)
 
 [node name="Marker3D3" type="Marker3D" parent="CombatArea/wave_1_skitterbombs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.274857, 0, -22.02266)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+collision_mask = 2

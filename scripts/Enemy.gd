@@ -12,7 +12,26 @@ signal parried
 var _was_on_floor: bool = false
 
 # states and constants
-enum damage_types{NORMAL, LASER, DARK, EXPLOSIVE}
+## The types of damage that an enemy can recieve. These types are used in deciding
+## which death vfx occurs, as well as what kind of death behavior the enemy uses.
+enum damage_types{
+	## Normal type of damage. Commonly used as the type for the player's weapons.
+	NORMAL,
+	## Damage type implying a heavier weapon being used. For example, the piercing
+	## shot from a revolver or a sniper rifle.
+	HEAVY,
+	## A type that can often be caused by enviroment hazards, causes an effect similar
+	## to burning.
+	LASER,
+	## A type related exclusively to demonic type attacks.
+	DARK,
+	## A type related exlusively to angelic type attacks.
+	LIGHT,
+	## Self explanatory. Causes instant, full dismemberment and/or desintegration.
+	EXPLOSIVE,
+	## Burning attack. Does not cause gibbing. Causes burning.
+	INCENDIARY
+}
 enum weight_class{LIGHT, HEAVY}
 
 var last_hit_damage_type:damage_types
@@ -107,11 +126,3 @@ func _exit_tree() -> void:
 		var cb := Callable(self, "_on_physics_frame")
 		if get_tree().is_connected("physics_frame", cb):
 			get_tree().disconnect("physics_frame", cb)
-
-func _on_physics_frame() -> void:
-	var now := is_on_floor()
-	if _was_on_floor and not now:
-		emit_signal("left_floor")
-	elif (not _was_on_floor) and now:
-		emit_signal("hit_floor")
-	_was_on_floor = now

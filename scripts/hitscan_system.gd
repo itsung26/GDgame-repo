@@ -10,18 +10,20 @@ extends Node
 ## HitscanSystem.fire(bullet_config, muzzle.global_position, raycast, get_tree().current_scene)
 ## [/codeblock]
 
-## Internal raycast used for reflection checks, processed in _physics_process.
-var _reflection_raycast: RayCast3D
+## Internal deep raycast used for reflection checks, processed in _physics_process.
+var _reflection_raycast: DeepRayCast3D
 
 ## Queue of pending reflection requests to process in _physics_process.
 var _reflection_queue: Array[Dictionary] = []
 
 
 func _ready() -> void:
-	# Create the reflection raycast node.
-	_reflection_raycast = RayCast3D.new()
-	_reflection_raycast.enabled = false  # We manually control updates
-	_reflection_raycast.name = "ReflectionRaycast"
+	# Create the reflection deep raycast node (single internal instance).
+	_reflection_raycast = DeepRayCast3D.new()
+	_reflection_raycast.enabled = true
+	_reflection_raycast.auto_forward = true
+	_reflection_raycast.raycast_visible = false
+	_reflection_raycast.name = "ReflectionDeepRaycast"
 	add_child(_reflection_raycast)
 
 
@@ -66,6 +68,8 @@ func fire(
 		
 		hit_point = start_pos + dir.normalized() * dist
 		_spawn_trail(config, origin, hit_point, scene_root)
+		# No reflections possible if nothing was initially hit.
+		Debug.log("HitscanSystem: shot completed with 0 reflections")
 		return hit_point
 	
 	var should_queue_reflection := config.can_reflect and config.max_reflections > 0
@@ -96,27 +100,30 @@ func fire(
 				break
 		
 		# Reflection behavior:
-		# - Non-piercing: can reflect from reflective enemies and world geometry.
-		# - Piercing: can reflect only from world geometry (not from enemies, and not from PhysicalBone3D).
+		# - Non-piercing: can reflect from reflective enemies and reflective world bodies.
+		# - Piercing: can reflect only from reflective world bodies (not from enemies, and not from PhysicalBone3D).
 		if should_queue_reflection and not reflection_queued:
 			var is_enemy := hit_body is Enemy
 			var is_reflective_enemy := is_enemy and (hit_body as Enemy).reflective
 			var is_pistol_receiver := hit_body is PistolBombShotCollsionReciever
 			var is_physical_bone := hit_body is PhysicalBone3D
-			# World / non-enemy geometry that is not handled specially elsewhere.
-			var can_reflect_from_other := not is_enemy and not is_pistol_receiver and not is_physical_bone
+			var is_reflective_worldbody: bool = hit_body is WorldBody and (hit_body.reflective == true)
+			# Reflective world bodies: non-enemy, not pistol receiver, not PhysicalBone3D, reflective flag on.
+			var can_reflect_from_other := not is_enemy and not is_pistol_receiver and not is_physical_bone and is_reflective_worldbody
 			
 			var can_reflect_here := false
 			if config.can_pierce_enemies:
-				# Piercing ray: only reflect off world / non-enemy geometry.
+				# Piercing ray: only reflect off reflective world bodies.
 				can_reflect_here = can_reflect_from_other
 			else:
-				# Non-piercing ray: reflect off reflective enemies or world geometry.
+				# Non-piercing ray: reflect off reflective enemies or reflective world bodies.
 				can_reflect_here = is_reflective_enemy or can_reflect_from_other
 			
 			if can_reflect_here:
 				# Compute direction from the previous segment start to this hit.
 				var direction: Vector3 = (hit_point - last_segment_start).normalized()
+				# Queue the first reflection. Since this is the initial bounce,
+				# start reflection_count at 1 so logging includes this first reflection.
 				_queue_reflection({
 					"config": config,
 					"origin": hit_point,
@@ -130,7 +137,8 @@ func fire(
 					"hit_back_faces": raycast.hit_back_faces,
 					"reflections_left": config.max_reflections,
 					"damage_multiplier": 1.0,
-					"hits": []
+					"hits": [],
+					"reflection_count": 1,
 				})
 				reflection_queued = true
 				
@@ -142,6 +150,11 @@ func fire(
 	
 	# Spawn trail from origin to the last point we reached.
 	_spawn_trail(config, origin, hit_point, scene_root)
+	
+	# If we fired but never queued a reflection, report 0 reflections for this shot.
+	if not reflection_queued:
+		pass
+		#Debug.log("HitscanSystem: shot completed with 0 reflections")
 	return hit_point
 
 
@@ -160,6 +173,7 @@ func _process_reflection(request: Dictionary) -> void:
 	var reflections_left: int = request.reflections_left
 	var damage_multiplier: float = request.damage_multiplier
 	var hits: Array = request.get("hits", [])
+	var reflection_count: int = int(request.get("reflection_count", 0))
 	
 	if reflections_left <= 0:
 		return
@@ -174,49 +188,58 @@ func _process_reflection(request: Dictionary) -> void:
 	# Offset origin slightly to avoid self-intersection.
 	var ray_origin: Vector3 = origin + (surface_normal * 0.05)
 	
-	# Configure the reflection raycast.
-	_reflection_raycast.global_position = ray_origin
-	_reflection_raycast.target_position = reflected_dir * 1000.0
+	# Configure the internal reflection DeepRayCast3D to cast along the reflected direction.
+	if not is_instance_valid(_reflection_raycast):
+		return
+	_reflection_raycast.global_transform = Transform3D(
+		Basis().looking_at(reflected_dir, Vector3.UP),
+		ray_origin
+	)
+	_reflection_raycast.forward_distance = 1000.0
 	_reflection_raycast.collision_mask = request.collision_mask
 	_reflection_raycast.collide_with_areas = false
 	_reflection_raycast.collide_with_bodies = request.collide_with_bodies
 	_reflection_raycast.hit_from_inside = request.hit_from_inside
 	_reflection_raycast.hit_back_faces = request.hit_back_faces
 	_reflection_raycast.enabled = true
-	_reflection_raycast.force_raycast_update()
-	_reflection_raycast.enabled = false
+	_reflection_raycast._update_raycast()
 	
-	# Get collision data.
-	var hit_body: Node3D = _reflection_raycast.get_collider()
+	# Get collision data (first hit along the reflected deep ray).
 	var hit_point: Vector3
 	var hit_normal: Vector3 = Vector3.UP
-	
-	if hit_body:
-		hit_point = _reflection_raycast.get_collision_point()
-		hit_normal = _reflection_raycast.get_collision_normal()
-		hits.append(hit_body)
-	else:
-		hit_point = _reflection_raycast.to_global(_reflection_raycast.target_position)
+	var hit_body: Node3D = null
+	var hit_count := _reflection_raycast.get_collider_count()
+	if hit_count > 0:
+		var body := _reflection_raycast.get_collider(0)
+		if body is Node3D:
+			hit_body = body
+			hit_point = _reflection_raycast.get_hit_position(0)
+			hit_normal = _reflection_raycast.get_normal(0)
+			hits.append(hit_body)
+	if hit_body == null:
+		hit_point = _reflection_raycast.global_transform.origin + reflected_dir * 1000.0
 	
 	# Spawn trail for reflected bullet.
 	_spawn_trail(config, ray_origin, hit_point, scene_root)
 	
 	# If nothing was hit, we're done.
 	if not hit_body:
+		#Debug.log("HitscanSystem: shot completed with %d reflections" % reflection_count)
 		return
 	
 	# Handle the hit with reduced damage. Reflections should respect the
 	# reflective flag, so we don't ignore it here.
 	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, damage_multiplier, false)
 	
-	# Queue another reflection if surface is reflective (world or reflective enemy).
+	# Queue another reflection if surface is reflective (world body with reflective flag or reflective enemy).
 	var can_reflect_from_enemy: bool = false
 	if hit_body is Enemy:
 		can_reflect_from_enemy = (hit_body as Enemy).reflective
-	# Reflect from non-enemy surfaces, but NOT from the pistol bomb collision receiver.
-	var can_reflect_from_other: bool = not (hit_body is Enemy) and not (hit_body is PistolBombShotCollsionReciever)
+	# Reflect from reflective world bodies (non-enemy, reflective flag), but NOT from the pistol bomb collision receiver.
+	var can_reflect_from_other: bool = hit_body is WorldBody and (hit_body.reflective == true) and not (hit_body is Enemy) and not (hit_body is PistolBombShotCollsionReciever)
 	
 	if reflections_left > 1 and (can_reflect_from_enemy or can_reflect_from_other):
+		reflection_count += 1
 		var next_dir: Vector3 = reflected_dir
 		var next_origin: Vector3 = hit_point
 		var next_normal: Vector3 = hit_normal
@@ -234,8 +257,13 @@ func _process_reflection(request: Dictionary) -> void:
 			"hit_back_faces": request.hit_back_faces,
 			"reflections_left": reflections_left - 1,
 			"damage_multiplier": damage_multiplier * config.reflection_damage_falloff if config.use_damage_falloff else 1.0,
-			"hits": hits
+			"hits": hits,
+			"reflection_count": reflection_count,
 		})
+	else:
+		# No further reflections; report total reflections for this shot.
+		#Debug.log("HitscanSystem: shot completed with %d reflections" % reflection_count)
+		pass
 
 
 ## Spawns the bullet trail effect.
