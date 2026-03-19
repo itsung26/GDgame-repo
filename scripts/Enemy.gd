@@ -121,6 +121,7 @@ func _ready() -> void:
 	if get_tree():
 		get_tree().connect("physics_frame", Callable(self, "_on_physics_frame"))
 
+
 func _exit_tree() -> void:
 	if get_tree():
 		var cb := Callable(self, "_on_physics_frame")

@@ -215,7 +215,6 @@ bbcode_edit/editor/open_current_file_documentation={
 
 [physics]
 
-3d/run_on_separate_thread=true
 common/physics_ticks_per_second=120
 3d/physics_engine="Jolt Physics"
 jolt_physics_3d/simulation/speculative_contact_distance=0.16

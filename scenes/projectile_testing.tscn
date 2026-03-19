@@ -1,6 +1,6 @@
-[gd_scene load_steps=30 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=31 format=3 uid="uid://ctkkc4v7jqox5"]
 
-[ext_resource type="Script" uid="uid://cfg33qj40lkc8" path="res://scripts/level.gd" id="1_488l3"]
+[ext_resource type="Script" uid="uid://2qnsnh5bqxs" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="4_s3yq3"]
@@ -13,6 +13,28 @@
 [ext_resource type="PackedScene" uid="uid://chjuj625vfhiy" path="res://scenes/checkPoint.tscn" id="10_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://da0o4xn0tk2l8" path="res://scenes/entities/skitterbomb.tscn" id="11_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://5s0qavju0eqt" path="res://scenes/combat_area.tscn" id="12_5138l"]
+
+[sub_resource type="GDScript" id="GDScript_488l3"]
+script/source = "extends Node3D
+
+#@onready var marker_3d: Marker3D = $Marker3D
+#@onready var marker_3d_2: Marker3D = $Marker3D2
+#
+#const line_of_sight_query_SCENE:PackedScene = preload(\"res://scenes/line_of_sight_query.tscn\")
+#
+#var line_of_sight_query:LineOfSightQuery
+#func _ready() -> void:
+	#line_of_sight_query = line_of_sight_query_SCENE.instantiate()
+	#get_tree().current_scene.add_child.call_deferred(line_of_sight_query)
+#
+#
+#func _input(event: InputEvent) -> void:
+	#if Input.is_action_just_pressed(\"debug func\"):
+		#Debug.log(line_of_sight_query.test(marker_3d.global_position, marker_3d_2.global_position, 
+		#false, false, true))
+		#Debug.log(line_of_sight_query.is_colliding())
+		##line_of_sight_query.queue_free()
+"
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_488l3"]
 
@@ -80,8 +102,17 @@ data = PackedVector3Array(-2.5, -1.1388354, 2.5, -2.5, -1.1388354, -2.5, -2.5, 1
 size = Vector3(41.612732, 15.599609, 26.74353)
 
 [node name="ProjectileTesting" type="Node"]
-script = ExtResource("1_488l3")
+script = ExtResource("1_7ksdt")
 metadata/_custom_type_script = "uid://cfg33qj40lkc8"
+
+[node name="LOS testing" type="Node3D" parent="."]
+script = SubResource("GDScript_488l3")
+
+[node name="Marker3D" type="Marker3D" parent="LOS testing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.246918, 0.95567757)
+
+[node name="Marker3D2" type="Marker3D" parent="LOS testing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.246918, 8.067306)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nptal")
@@ -385,6 +416,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.07102, 0, -20.858204)
 
 [node name="Marker3D3" type="Marker3D" parent="CombatArea/wave_1_skitterbombs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.274857, 0, -22.02266)
-
-[node name="RayCast3D" type="RayCast3D" parent="."]
-collision_mask = 2

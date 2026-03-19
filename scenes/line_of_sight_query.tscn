@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c31aih4bqyuu"]
+
+[ext_resource type="Script" uid="uid://xwdemfylwl5r" path="res://scripts/line_of_sight_query.gd" id="1_bi0ps"]
+
+[node name="LineOfSightQuery" type="RayCast3D"]
+target_position = Vector3(0, 0, -5000)
+collision_mask = 0
+debug_shape_custom_color = Color(1, 1, 0, 1)
+script = ExtResource("1_bi0ps")

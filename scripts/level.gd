@@ -4,8 +4,15 @@ extends Node
 ## not the levels themselves.
 
 
+@onready var player:Player = get_tree().get_first_node_in_group("players")
+
+
 func _ready() -> void:
 	_connectAllSignals()
+
+
+func _process(delta: float) -> void:
+	pass
 
 
 func _connectAllSignals() -> void:
@@ -21,7 +28,3 @@ func _on_child_entered_tree(node: Node) -> void:
 func _on_child_exiting_tree(node: Node) -> void:
 	if node is Enemy:
 		EnemyPopulationHandler.removeEnemyFromPopulation(node)
-
-
-func _process(delta: float) -> void:
-	Debug.log(EnemyPopulationHandler.getAllEnemies())
