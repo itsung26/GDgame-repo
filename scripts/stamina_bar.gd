@@ -118,6 +118,24 @@ func getActiveBar() -> ProgressBar:
 		return stamina_bar_1  # top bar
 
 
+## Sets a segment fill color by index.
+## bar_index uses 1-based indexing: 1=top, 2=middle, 3=bottom.
+func setBarFillColor(bar_index: int, color: Color) -> void:
+	var target_bar: ProgressBar = null
+	if bar_index == 1:
+		target_bar = stamina_bar_1
+	elif bar_index == 2:
+		target_bar = stamina_bar_2
+	elif bar_index == 3:
+		target_bar = stamina_bar_3
+	else:
+		push_warning("setBarFillColor: invalid bar_index %s (expected 1..3)." % str(bar_index))
+		return
+	
+	var fill_style: StyleBoxFlat = target_bar.get_theme_stylebox("fill")
+	fill_style.bg_color = color
+
+
 ## Returns segment index (0 = none full, 1 = first full, 2 = first two full, 3 = all full).
 func _getSegmentIndex(p: float) -> int:
 	var segment_max := max_value / 3.0
@@ -146,6 +164,9 @@ func _flashBar(bar: ProgressBar) -> void:
 
 
 func _on_segment_changed(is_increase: bool) -> void:
+	if (progress == max_value / 3) or (progress == (max_value / 3) * 2) or (progress == max_value):
+		return
+	
 	if not is_increase:
 		var active_bar:ProgressBar = getActiveBar()
 		var fill_style:StyleBoxFlat = active_bar.get_theme_stylebox("fill")
