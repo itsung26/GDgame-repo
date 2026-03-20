@@ -3,6 +3,12 @@ extends Node
 
 
 var enemies:Array[Enemy] = []
+var line_of_sight_query:LineOfSightQuery
+
+
+func _ready() -> void:
+	line_of_sight_query = LineOfSightQuery.new()
+	get_tree().current_scene.add_child(line_of_sight_query)
 
 
 func addEnemyToPopulation(enemy:Enemy) -> Enemy:
@@ -65,4 +71,25 @@ func getClosestEnemy(pos:Vector3) -> Enemy:
 	return closest_enemy
 
 func getClosestVisibleEnemy(from_pos:Vector3) -> Enemy:
-	return
+	var closest_enemy:Enemy = null
+	var closest_dist_sq:float = INF
+
+	assert(line_of_sight_query != null)
+
+	for enemy:Enemy in getAllEnemies():
+		var is_visible:bool = line_of_sight_query.queryHasLineOfSight(
+			from_pos,
+			enemy.global_position,
+			false, # stop_on_players
+			false, # stop_on_enemies
+			true # stop_on_world
+		)
+		if not is_visible:
+			continue
+
+		var dist_sq := from_pos.distance_squared_to(enemy.global_position)
+		if dist_sq < closest_dist_sq:
+			closest_dist_sq = dist_sq
+			closest_enemy = enemy
+
+	return closest_enemy

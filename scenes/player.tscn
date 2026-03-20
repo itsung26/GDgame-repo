@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=91 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -443,6 +443,35 @@ render_priority = 0
 shader = SubResource("VisualShader_wqfne")
 shader_parameter/screen_texture = SubResource("ViewportTexture_wnwbv")
 shader_parameter/emission = 0.0
+
+[sub_resource type="Resource" id="Resource_pf23h"]
+resource_local_to_scene = true
+script = ExtResource("23_wqfne")
+damage_min = 1.0
+damage_max = 1.0
+trail_scene = ExtResource("24_wnwbv")
+trail_color = Color(1, 1, 0, 1)
+impact_particle_scene = ExtResource("22_dt7fs")
+impact_light_scene = ExtResource("21_pf23h")
+can_reflect = true
+max_reflections = 15
+use_damage_falloff = false
+metadata/_custom_type_script = "uid://d06qyp8sfm13t"
+
+[sub_resource type="Resource" id="Resource_dt7fs"]
+resource_local_to_scene = true
+script = ExtResource("23_wqfne")
+damage_min = 3.0
+damage_max = 3.0
+trail_scene = ExtResource("24_wnwbv")
+trail_color = Color(1, 0, 0, 1)
+impact_particle_scene = ExtResource("22_dt7fs")
+impact_light_scene = ExtResource("21_pf23h")
+can_reflect = true
+max_reflections = 1
+use_damage_falloff = false
+can_pierce_enemies = true
+metadata/_custom_type_script = "uid://d06qyp8sfm13t"
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
 emission_shape = 3
@@ -916,9 +945,11 @@ material_override = SubResource("ShaderMaterial_dt7fs")
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns" groups=["weapons"] instance=ExtResource("20_a38lo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, -0.103, -0.462)
+bullet_config = SubResource("Resource_pf23h")
+reflection_bullet_config = SubResource("Resource_dt7fs")
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.038218584, -0.9991937, 0.0123073775, 0.011149741, -0.012742029, -0.9998558, 0.99920624, -0.038075898, 0.011627734, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.03821858, -0.9991937, 0.012307377, 0.011149741, -0.012742029, -0.99985576, 0.9992062, -0.038075898, 0.011627733, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)

@@ -11,3 +11,5 @@ func _process(delta: float) -> void:
 	super._process(delta)
 	#Debug.log(EnemyPopulationHandler.getAllEnemies())
 	#Debug.log(EnemyPopulationHandler.getClosestVisibleEnemy(player.global_position))
+	var g = EnemyPopulationHandler.getClosestVisibleEnemy(player.global_position)
+	Debug.log(g)

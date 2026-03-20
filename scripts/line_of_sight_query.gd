@@ -6,7 +6,7 @@ extends RayCast3D
 ## `target_position` toward `to`. It then raycasts and reports whether any
 ## enabled collision layers block the ray.
 ##
-## Note: `test()` resets the collision mask on every call so results don't
+## Note: `queryHasLineOfSight()` resets the collision mask on every call so results don't
 ## depend on previous queries.
 
 const LAYER_PLAYERS: int = 1
@@ -16,7 +16,7 @@ const LAYER_WORLD: int = 3
 
 func _clear_collision_masks() -> void:
 	# Godot collision masks can use up to 32 layer indices (0..31).
-	# Clear everything so each `test()` call starts from a known state.
+	# Clear everything so each `queryHasLineOfSight()` call starts from a known state.
 	for i in range(1, 32):
 		set_collision_mask_value(i, false)
 
@@ -37,7 +37,7 @@ func _ready() -> void:
 ##
 ## Returns `true` only when there is a clear path along the ray for the
 ## enabled layers.
-func test(
+func queryHasLineOfSight(
 	from: Vector3,
 	to: Vector3,
 	stop_on_players: bool,

@@ -69,8 +69,8 @@ extends CharacterBody3D
 
 const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
-var grapple_rope_mesh_gen:ropeMeshGenerator
 const bullet_trail_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
+const los_query_SCENE:PackedScene = preload("res://scenes/line_of_sight_query.tscn")
 
 @export_group("Input Allowments")
 @export var player_move_input_enabled:bool = true
@@ -214,6 +214,9 @@ var input_dir := Vector2.ZERO
 var dash_dir:Vector3
 var initial_player_rotation:Vector3
 var initial_camera_rotation:Vector3
+var los_query:LineOfSightQuery
+var grapple_rope_mesh_gen:ropeMeshGenerator
+
 
 func set_player_state(new_player_state:player_states):
 	# init vars
@@ -393,8 +396,11 @@ func set_arm_state(new_arm_state:arm_states):
 # Player should be loaded after main enviroment and global lighting, but before 
 # map and everything else.
 func _ready() -> void:
+	# initializers for variables and state machines
 	initial_player_rotation = player.rotation
 	initial_camera_rotation = camera_3d.rotation
+	los_query = los_query_SCENE.instantiate()
+	get_tree().current_scene.add_child(los_query)
 	
 	var contains_weapon:bool = false
 	for weapon in weapon_states:
@@ -782,6 +788,15 @@ func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_dur
 			HEALTH = new_health
 			if HEALTH == 0.0:
 				playerDie()
+
+
+## Returns true if [param targ] is in the line of sight from the player's camera.
+## Note that this does not account for the target being in the player's field of view.
+func losQuery(targ:Vector3, stop_on_enemies:bool, stop_on_world:bool) -> bool:
+	var line_of_sight_clear:bool = false
+	line_of_sight_clear = los_query.queryHasLineOfSight(camera_3d.global_position, targ, false, stop_on_enemies, stop_on_world)
+	return line_of_sight_clear
+
 
 func healPlayer(amount:float):
 	if not can_be_healed:
