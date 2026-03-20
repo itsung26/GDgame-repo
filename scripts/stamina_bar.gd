@@ -26,6 +26,7 @@ var _original_fill_colors: Dictionary = {}
 ## Tracks the previous segment index to detect threshold crossings.
 var _previous_segment_index: int = 0
 var tween:Tween
+var _is_initialized: bool = false
 
 
 func _ready() -> void:
@@ -41,8 +42,9 @@ func _ready() -> void:
 	_previous_segment_index = _getSegmentIndex(progress)
 	
 	# Ensure progress is clamped into the valid range on startup.
-	setProgress(clampf(progress, 0.0, max_value))
 	_calculateSubBars()
+	_restoreDefaultFillColors()
+	_is_initialized = true
 
 
 func setProgress(new_value:float) -> void:
@@ -52,21 +54,32 @@ func setProgress(new_value:float) -> void:
 	progress = clampf(new_value, 0.0, max_value)
 	_calculateSubBars()
 	
+	# Ignore transitions before initialization to prevent startup flashes.
+	if not _is_initialized:
+		_previous_segment_index = _getSegmentIndex(progress)
+		return
+	
 	var new_segment := _getSegmentIndex(progress)
 	if new_segment != old_segment:
 		segment_changed.emit(new_segment > old_segment)
 	
 	# If we moved UP into a higher segment, flash the bar that just filled.
 	if new_segment > old_segment:
-		# Flash all bars that were crossed (handles cases where multiple segments fill at once).
-		if old_segment < 1 and new_segment >= 1:
+		# Flash only the newly entered segment to avoid stale flash state on startup jumps.
+		if new_segment == 1:
 			_flashBar(stamina_bar_3)  # first segment filled
-		if old_segment < 2 and new_segment >= 2:
+		elif new_segment == 2:
 			_flashBar(stamina_bar_2)  # second segment filled
-		if old_segment < 3 and new_segment >= 3:
+		elif new_segment == 3:
 			_flashBar(stamina_bar_1)  # third segment filled
 	
 	_previous_segment_index = new_segment
+
+
+func _restoreDefaultFillColors() -> void:
+	setBarFillColor(1, _original_fill_colors.get(stamina_bar_1, stamina_bar_1.get_theme_stylebox("fill").bg_color))
+	setBarFillColor(2, _original_fill_colors.get(stamina_bar_2, stamina_bar_2.get_theme_stylebox("fill").bg_color))
+	setBarFillColor(3, _original_fill_colors.get(stamina_bar_3, stamina_bar_3.get_theme_stylebox("fill").bg_color))
 
 
 func set_max_value(new_max:float) -> void:
@@ -79,6 +92,10 @@ func set_max_value(new_max:float) -> void:
 ## Calculates each bar's maximum value based on the maximum value of the StaminaBar,
 ## and calculates their value based on the progress of the StaminaBar.
 func _calculateSubBars() -> void:
+	# Allow max_value/progress assignments before child bars are ready.
+	if not is_node_ready():
+		return
+	
 	var sub_bars:Array[ProgressBar] = [stamina_bar_1, stamina_bar_2, stamina_bar_3]
 	# Each segment covers an equal share of the logical range.
 	var segment_max:float = max_value / 3.0
@@ -158,18 +175,24 @@ func _flashBar(bar: ProgressBar) -> void:
 	fill_style.bg_color = flash_color
 	
 	# Tween back to original color.
-	tween.stop()
+	if tween and tween.is_valid():
+		tween.kill()
 	tween = create_tween()
-	tween.tween_property(fill_style, "bg_color", original_color, flash_duration).set_ease(Tween.EASE_OUT)
+	var color_tweener := tween.tween_property(fill_style, "bg_color", original_color, flash_duration)
+	if color_tweener:
+		color_tweener.set_ease(Tween.EASE_OUT)
 
 
 func _on_segment_changed(is_increase: bool) -> void:
-	if (progress == max_value / 3) or (progress == (max_value / 3) * 2) or (progress == max_value):
+	if (progress == max_value / 3) or (progress == max_value):
 		return
 	
 	if not is_increase:
 		var active_bar:ProgressBar = getActiveBar()
 		var fill_style:StyleBoxFlat = active_bar.get_theme_stylebox("fill")
-		tween.stop()
-		
-		fill_style.bg_color = charging_color
+		if tween and tween.is_valid():
+			tween.kill()
+		if (progress == (max_value / 3) * 2):
+			setBarFillColor(1, charging_color)
+		else:
+			fill_style.bg_color = charging_color

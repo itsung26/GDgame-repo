@@ -131,27 +131,6 @@ func _on_player_entered_arm_state(new_arm_state: Player.arm_states, previous_arm
 	if previous_arm_state == Player.arm_states.PARRYARM:
 		arm_panel_2.visible = false
 
-## DEPRECATED: related to control of the pistol charge. To be deprecated in favor of a different special and system.
-func barChargeSetReady():
-	pistol.isCharged = true
-
-## DEPRECATED: related to control of the pistol charge. To be deprecated in favor of a different special and system.
-func barChargeSetNotReady():
-	pistol.isCharged = false
-
-## DEPRECATED: related to control of the pistol charge. To be deprecated in favor of a different special and system.
-func startBarFill():
-	animation_player.play("bar_charge_fill")
-
-## DEPRECATED: related to control of the pistol charge. To be deprecated in favor of a different special and system.
-func setOnState():
-	player.zoomOut()
-	pistol_on_overclock = true
-
-## DEPRECATED: related to control of the pistol charge. To be deprecated in favor of a different special and system.
-func setOffState():
-	player.zoomIn()
-	pistol_on_overclock = false
 
 # updates the ammo counter based on the weapon's ammo and name. To be called every frame.
 func updateAmmoCounter():

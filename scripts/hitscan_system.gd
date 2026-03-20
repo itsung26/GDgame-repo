@@ -10,11 +10,13 @@ extends Node
 ## HitscanSystem.fire(bullet_config, muzzle.global_position, raycast, get_tree().current_scene)
 ## [/codeblock]
 
+
+#region regular vars
 ## Internal deep raycast used for reflection checks, processed in _physics_process.
 var _reflection_raycast: DeepRayCast3D
-
 ## Queue of pending reflection requests to process in _physics_process.
 var _reflection_queue: Array[Dictionary] = []
+#endregion
 
 
 func _ready() -> void:
@@ -156,6 +158,18 @@ func fire(
 		pass
 		#Debug.log("HitscanSystem: shot completed with 0 reflections")
 	return hit_point
+
+
+## Fires a hitscan bullet in a manually-defined direction using the collision layers
+## and search length of the [param raycast] [DeepRayCast3D]. Returns the intial point
+## of contact of the hitscan and is capable of reflection, just [code]fire()[/code].
+func fireManual(
+	config: HitscanBulletConfig,
+	origin: Vector3,
+	raycast: DeepRayCast3D,
+	direction: Vector3
+) -> Vector3:
+	return Vector3.ZERO
 
 
 ## Queues a reflection request to be processed in _physics_process.

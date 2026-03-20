@@ -216,6 +216,7 @@ var initial_player_rotation:Vector3
 var initial_camera_rotation:Vector3
 var los_query:LineOfSightQuery
 var grapple_rope_mesh_gen:ropeMeshGenerator
+var max_stamina:float
 
 
 func set_player_state(new_player_state:player_states):
@@ -399,6 +400,7 @@ func _ready() -> void:
 	# initializers for variables and state machines
 	initial_player_rotation = player.rotation
 	initial_camera_rotation = camera_3d.rotation
+	max_stamina = STAMINA
 	los_query = los_query_SCENE.instantiate()
 	get_tree().current_scene.add_child(los_query)
 	
@@ -436,6 +438,10 @@ func _ready() -> void:
 		set_weapon_state(initial_weapon)
 	else:
 		set_weapon_state(initial_weapon)
+	
+	# initialize the stamina and stamina bar
+	_initializeStamina()
+
 
 ## Called every frame. Main thread frames fluctuate around a target fps of 60.
 ## Kinematic-related operations should only be run in _physics_process, while logic and other operations
@@ -443,7 +449,7 @@ func _ready() -> void:
 func _process(delta) -> void:
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
-	chargeStamina()
+	chargeStamina(delta)
 	
 	#region Gun Inputs
 	if weapon_state and weapon_switch_input_enabled:
@@ -828,7 +834,7 @@ func activateWeapons() -> void:
 
 func chargeStamina(delta=get_process_delta_time()):
 	if stamina_recharging:
-		STAMINA = move_toward(STAMINA, 300.0, stamina_charge_speed * delta)
+		STAMINA = move_toward(STAMINA, max_stamina, stamina_charge_speed * delta)
 
 
 ## Will check if there is a valid parry target and parry it if so.
@@ -947,6 +953,12 @@ func playerDie():
 
 func getHookedTarget() -> Node3D:
 	return grapple_arm.hooked_target
+
+
+func _initializeStamina() -> void:
+	hud.stamina_bar.max_value = max_stamina
+	hud.stamina_bar.progress = max_stamina
+
 
 func _on_dash_length_timer_timeout() -> void:
 	if player_state != player_states.REELINGTO:

@@ -949,7 +949,7 @@ bullet_config = SubResource("Resource_pf23h")
 reflection_bullet_config = SubResource("Resource_dt7fs")
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.03821858, -0.9991937, 0.012307377, 0.011149741, -0.012742029, -0.99985576, 0.9992062, -0.038075898, 0.011627733, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.038218584, -0.9991937, 0.012307377, 0.011149741, -0.012742029, -0.99985576, 0.99920624, -0.038075898, 0.011627733, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
