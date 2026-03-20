@@ -6,6 +6,7 @@ extends Control
 ## - The range is evenly split across three child [ProgressBar]s.
 ## - Each segment visually represents one third of the total range.
 ## - The underlying [ProgressBar].min_value is always 0.0 and is not exposed as an exported property.
+signal segment_changed(is_increase: bool)
 
 @onready var stamina_bar_1: ProgressBar = %StaminaBar1
 @onready var stamina_bar_2: ProgressBar = %StaminaBar2
@@ -24,9 +25,13 @@ extends Control
 var _original_fill_colors: Dictionary = {}
 ## Tracks the previous segment index to detect threshold crossings.
 var _previous_segment_index: int = 0
+var tween:Tween
 
 
 func _ready() -> void:
+	# initialize the tweener
+	tween = create_tween()
+	
 	# Store original fill colors for each bar so flash can tween back to them.
 	_original_fill_colors[stamina_bar_1] = stamina_bar_1.get_theme_stylebox("fill").bg_color
 	_original_fill_colors[stamina_bar_2] = stamina_bar_2.get_theme_stylebox("fill").bg_color
@@ -48,6 +53,8 @@ func setProgress(new_value:float) -> void:
 	_calculateSubBars()
 	
 	var new_segment := _getSegmentIndex(progress)
+	if new_segment != old_segment:
+		segment_changed.emit(new_segment > old_segment)
 	
 	# If we moved UP into a higher segment, flash the bar that just filled.
 	if new_segment > old_segment:
@@ -133,5 +140,15 @@ func _flashBar(bar: ProgressBar) -> void:
 	fill_style.bg_color = flash_color
 	
 	# Tween back to original color.
-	var tween := create_tween()
+	tween.stop()
+	tween = create_tween()
 	tween.tween_property(fill_style, "bg_color", original_color, flash_duration).set_ease(Tween.EASE_OUT)
+
+
+func _on_segment_changed(is_increase: bool) -> void:
+	if not is_increase:
+		var active_bar:ProgressBar = getActiveBar()
+		var fill_style:StyleBoxFlat = active_bar.get_theme_stylebox("fill")
+		tween.stop()
+		
+		fill_style.bg_color = charging_color

@@ -421,7 +421,6 @@ anchor_left = 0.9
 anchor_top = 0.08743173
 anchor_right = 0.9690476
 anchor_bottom = 0.9125684
-charging_color = Color(0, 0.42352942, 0.5803922, 1)
 
 [node name="StaminaBar1" parent="BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="0"]
 anchor_top = -0.005600821
@@ -580,5 +579,7 @@ theme_override_styles/panel = ExtResource("10_eld54")
 
 [node name="ToolTipDissapearTimer" type="Timer" parent="BottomMidArea/tooltipMargin/TooltipPanel"]
 one_shot = true
+
+[connection signal="segment_changed" from="BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" to="BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" method="_on_segment_changed"]
 
 [editable path="BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar"]
