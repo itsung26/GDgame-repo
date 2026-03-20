@@ -14,6 +14,7 @@ extends Control
 @export var flash_color:Color = Color(0.0, 0.737, 1.0)
 ## Duration of the flash effect in seconds.
 @export var flash_duration:float = 0.25
+@export var charging_color:Color = Color(0.0, 0.424, 0.58)
 @export var max_value:float = 300.0:
 	set = set_max_value
 @export var progress:float = 0.0:
@@ -134,8 +135,3 @@ func _flashBar(bar: ProgressBar) -> void:
 	# Tween back to original color.
 	var tween := create_tween()
 	tween.tween_property(fill_style, "bg_color", original_color, flash_duration).set_ease(Tween.EASE_OUT)
-
-
-func _process(delta: float) -> void:
-	return
-	Debug.log(progress)

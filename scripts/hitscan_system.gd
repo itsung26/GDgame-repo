@@ -277,7 +277,7 @@ func _spawn_trail(
 		return
 	
 	var trail: Node = config.trail_scene.instantiate()
-	scene_root.add_child(trail)
+	get_tree().current_scene.add_child(trail)
 	trail.setup(origin, target, config.trail_color)
 
 

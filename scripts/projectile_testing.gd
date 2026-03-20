@@ -1,14 +1,12 @@
 extends Level
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	super._ready()
+func _onLevelReady() -> void:
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	super._process(delta)
+func _onLevelTick(_delta: float) -> void:
+	return
 	#Debug.log(EnemyPopulationHandler.getAllEnemies())
 	#Debug.log(EnemyPopulationHandler.getClosestVisibleEnemy(player.global_position))
 	var g = EnemyPopulationHandler.getClosestVisibleEnemy(player.global_position)

@@ -70,6 +70,10 @@ func getClosestEnemy(pos:Vector3) -> Enemy:
 
 	return closest_enemy
 
+
+## Returns the closest visible enemy to from_pos. Only world geometry can break visibility.
+## Note that enemy origins are at their center offset, so an enemy with only its head
+## or feet visibile will not be detected as in line of sight.
 func getClosestVisibleEnemy(from_pos:Vector3) -> Enemy:
 	var closest_enemy:Enemy = null
 	var closest_dist_sq:float = INF
@@ -79,7 +83,7 @@ func getClosestVisibleEnemy(from_pos:Vector3) -> Enemy:
 	for enemy:Enemy in getAllEnemies():
 		var is_visible:bool = line_of_sight_query.queryHasLineOfSight(
 			from_pos,
-			enemy.global_position,
+			enemy.global_position + enemy.chest_offset,
 			false, # stop_on_players
 			false, # stop_on_enemies
 			true # stop_on_world

@@ -1382,7 +1382,7 @@ one_shot = true
 process_material = SubResource("ParticleProcessMaterial_q7pvh")
 draw_pass_1 = SubResource("SphereMesh_axemi")
 
-[node name="Marker3D2" type="Marker3D" parent="."]
+[node name="ChestOffset" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2328, -0.139401)
 
 [node name="StateDebugText" parent="." instance=ExtResource("5_00tiq")]
