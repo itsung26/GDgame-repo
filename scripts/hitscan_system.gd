@@ -161,7 +161,7 @@ func fire(
 
 
 ## Fires a hitscan bullet in a manually-defined direction using the collision layers
-## and search length of the [param raycast] [DeepRayCast3D]. Returns the intial point
+## and settings of the [param raycast] [DeepRayCast3D]. Returns the intial point
 ## of contact of the hitscan and is capable of reflection, just [code]fire()[/code].
 func fireManual(
 	config: HitscanBulletConfig,
