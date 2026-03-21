@@ -89,8 +89,44 @@ environment = SubResource("Environment_nptal")
 [node name="grapple_rope_meshGen" parent="." instance=ExtResource("1_s3yq3")]
 
 [node name="Player" parent="." node_paths=PackedStringArray("weapon_states") instance=ExtResource("3_7ksdt")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15.834608, 0.000179171, -16.121834)
+transform = Transform3D(-1, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1, -0.26670456, 0.000179171, -16.517889)
 weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
+
+[node name="DebugLabels" type="Node3D" parent="."]
+
+[node name="Label3D" type="Label3D" parent="DebugLabels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.6103, 10.038849, -11.978118)
+billboard = 2
+modulate = Color(1, 0, 0, 1)
+text = "Test combat area"
+font_size = 375
+
+[node name="Label3D2" type="Label3D" parent="DebugLabels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4329796, 3.4684553, -7.1710234)
+pixel_size = 0.0011
+billboard = 2
+modulate = Color(1, 0, 0, 1)
+text = "Test checkpoints"
+font_size = 375
+
+[node name="Label3D3" type="Label3D" parent="DebugLabels"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 17.79914, 4.8710175, -0.07651603)
+pixel_size = 0.0011
+modulate = Color(1, 0, 0, 1)
+text = "Test enemies:
+Filth
+Skitterbomb
+Defender Turret"
+font_size = 375
+horizontal_alignment = 0
+
+[node name="Label3D4" type="Label3D" parent="DebugLabels"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8.806818, 6.555541, -0.07651603)
+pixel_size = 0.0011
+modulate = Color(1, 0, 0, 1)
+text = "Reflectivity Test"
+font_size = 375
+horizontal_alignment = 0
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_7ksdt")
@@ -224,12 +260,12 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.0915
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.316534, 0.848577, -7.22804)
 
 [node name="BulletTurret" parent="." instance=ExtResource("10_5138l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1934514, 3.2420573, -0.08562398)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.452654, 3.2420573, -0.08562398)
 behavior_enabled = false
 reflective = true
 
 [node name="BulletTurret2" parent="." instance=ExtResource("10_5138l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8275657, 3.2420573, -0.08562398)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.033893, 3.2420573, -0.08562398)
 behavior_enabled = false
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
@@ -304,21 +340,10 @@ light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.6103, 10.038849, -11.978118)
-billboard = 2
-modulate = Color(1, 0, 0, 1)
-text = "Test combat area"
-font_size = 375
-
 [node name="enemy_filth" parent="." instance=ExtResource("7_wl3f4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000705719, -1.9073486e-06, -0.04624176)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.231758, -1.9073486e-06, -0.04624176)
 behavior_enabled = false
 reflective = true
-
-[node name="Skitterbomb" parent="." instance=ExtResource("11_r4hxy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6482625, 0, -15.790521)
-behavior_enabled = false
 
 [node name="CombatArea" parent="." node_paths=PackedStringArray("enemy_wave_0", "enemy_wave_1") instance=ExtResource("12_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.6103, 7.7998047, -11.978118)
@@ -385,3 +410,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.07102, 0, -20.858204)
 
 [node name="Marker3D3" type="Marker3D" parent="CombatArea/wave_1_skitterbombs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.274857, 0, -22.02266)
+
+[node name="Skitterbomb" parent="." instance=ExtResource("11_r4hxy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.685855, 4.7683716e-07, -0.07539654)

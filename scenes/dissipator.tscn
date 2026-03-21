@@ -64,6 +64,8 @@ script = ExtResource("1_nc7lg")
 bullet_config = SubResource("Resource_5hci3")
 reflection_bullet_config = SubResource("Resource_4nle0")
 reflection_charge_speed = 250.0
+camera_shake_strength = 0.66
+camera_shake_duration = 0.75
 ammo = 999
 magsize = 999
 damage_min = 1.0
@@ -76,7 +78,7 @@ automatic = true
 transform = Transform3D(-2.1533342e-06, -0.0005945936, 0.9999995, -0.9999175, 0.012836559, 5.4634e-06, -0.012836604, -0.99991745, -0.0005946271, -2.5425106e-07, -0.004908182, -0.5440906)
 
 [node name="Dissipator" parent="Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.03821859, -0.99919385, 0.012307393, 0.011149744, -0.0127420295, -0.9998571, 0.9992065, -0.0380759, 0.011627749, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.03821859, -0.99919385, 0.012307393, 0.011149743, -0.0127420295, -0.9998571, 0.9992064, -0.0380759, 0.011627749, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="SpecialReadyFlash" type="Sprite3D" parent="Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator" index="1"]
 transform = Transform3D(0.9992014, 0.03836213, -0.01124319, -0.03806459, 0.99894774, 0.02557916, 0.012212678, -0.025130788, 0.9996091, 0.00439631, -0.0042397915, -0.07406698)

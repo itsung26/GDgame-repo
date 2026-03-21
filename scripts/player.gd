@@ -674,8 +674,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0.0
 	move_and_slide()
 
-	
-			
 
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
@@ -953,6 +951,20 @@ func playerDie():
 
 func getHookedTarget() -> Node3D:
 	return grapple_arm.hooked_target
+
+
+## Applies a single force to the player in a direction.
+func applyForceImpulse(force:float, dir:Vector3) -> void:
+	if not dir.is_normalized():
+		dir = dir.normalized()
+	velocity += force * dir
+
+
+## Zeros the player's velocity and returns what it was before it was killed.
+func killVelocity() -> Vector3:
+	var ret:Vector3 = velocity
+	velocity = Vector3.ZERO
+	return ret
 
 
 func _initializeStamina() -> void:

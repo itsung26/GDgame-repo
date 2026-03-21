@@ -16,6 +16,9 @@ const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_l
 @export var reflection_bullet_config:HitscanBulletConfig
 @export var reflection_max_charge:float = 100.0
 @export var reflection_charge_speed:float = 1.0
+@export var camera_shake_strength:float
+@export var camera_shake_duration:float
+@export var firing_hitstop_duration:float = 0.15
 
 var reflection_charge:float = 0.0: set = setReflectionCharge
 var charging:bool = false: set = setCharging
@@ -75,6 +78,11 @@ func _reload() -> void:
 
 func fireSpecial() -> void:
 	var first_firing_point:Vector3 = Vector3.ZERO
+	var player:Player = get_tree().get_first_node_in_group("players")
+	var playercam:PlayerCamera = player.camera_3d
+	
+	player.hitStop(firing_hitstop_duration)
+	playercam.shakeCamera(camera_shake_duration, camera_shake_strength)
 	
 	# First the hitscan hits the place the weapon is aimed as usual.
 	first_firing_point = HitscanSystem.fire(
