@@ -88,8 +88,7 @@ func fireSpecial() -> void:
 	first_firing_point = HitscanSystem.fire(
 		reflection_bullet_config,
 		muzzle.global_position,
-		dissipator_piercing_hitscan,
-		get_tree().current_scene
+		dissipator_piercing_hitscan
 	)
 	
 	# Then, the hitscan should reflect to the nearest enemy. (ideally piercing them)
@@ -99,6 +98,5 @@ func fireBullet() -> void:
 	HitscanSystem.fire(
 		bullet_config,
 		muzzle.global_position,
-		dissipator_piercing_hitscan,
-		get_tree().current_scene
+		dissipator_piercing_hitscan
 	)

@@ -2,19 +2,19 @@ extends Node
 ## Autoload singleton for firing hitscan bullets.
 ##
 ## Provides a unified interface for firing raycast-based bullets with configurable
-## damage, visuals, and reflection behavior. Reflections are queued and processed
-## in _physics_process() to work with multithreaded physics.
+## damage, visuals, and reflection behavior. Reflections are resolved immediately
+## during the same fire call.
 ##
 ## Usage:
 ## [codeblock]
-## HitscanSystem.fire(bullet_config, muzzle.global_position, raycast, get_tree().current_scene)
+## HitscanSystem.fire(bullet_config, muzzle.global_position, raycast)
 ## [/codeblock]
 
 
 #region regular vars
-## Internal deep raycast used for reflection checks, processed in _physics_process.
+## Internal deep raycast used for reflection checks.
 var _reflection_raycast: DeepRayCast3D
-## Queue of pending reflection requests to process in _physics_process.
+## Queue of pending reflection requests, drained immediately in fire().
 var _reflection_queue: Array[Dictionary] = []
 #endregion
 
@@ -29,24 +29,15 @@ func _ready() -> void:
 	add_child(_reflection_raycast)
 
 
-func _physics_process(_delta: float) -> void:
-	# Process all queued reflections.
-	while not _reflection_queue.is_empty():
-		var request: Dictionary = _reflection_queue.pop_front()
-		_process_reflection(request)
-
-
 ## Fires a hitscan bullet using a DeepRayCast3D and configuration.
 ## [param config]: The bullet configuration resource.
 ## [param origin]: World position where the bullet originates (muzzle).
 ## [param raycast]: A DeepRayCast3D used for hit detection.
-## [param scene_root]: The node to add visual effects to (usually current_scene).
 ## Returns the global position of the last point hit (or the ray end if nothing was hit).
 func fire(
 	config: HitscanBulletConfig,
 	origin: Vector3,
-	raycast: DeepRayCast3D,
-	scene_root: Node
+	raycast: DeepRayCast3D
 ) -> Vector3:
 	var hit_point: Vector3 = origin
 	var hit_normal: Vector3 = Vector3.ZERO
@@ -69,7 +60,7 @@ func fire(
 			dist = raycast.forward_distance
 		
 		hit_point = start_pos + dir.normalized() * dist
-		_spawn_trail(config, origin, hit_point, scene_root)
+		_spawn_trail(config, origin, hit_point)
 		# No reflections possible if nothing was initially hit.
 		Debug.log("HitscanSystem: shot completed with 0 reflections")
 		return hit_point
@@ -92,10 +83,10 @@ func fire(
 			# Treat reflective enemies as "normal" for damage/visuals here so
 			# they can be damaged by piercing shots and don't spawn
 			# reflection-only impact effects.
-			_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0, true)
+			_handle_hit(config, hit_body, hit_point, hit_normal, 1.0, true)
 		else:
 			# Non-piercing: apply hit, but stop after hitting a non-reflective enemy.
-			_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, 1.0)
+			_handle_hit(config, hit_body, hit_point, hit_normal, 1.0)
 			
 			if hit_body is Enemy and not (hit_body as Enemy).reflective:
 				# Stop the original ray when hitting a normal enemy.
@@ -131,7 +122,6 @@ func fire(
 					"origin": hit_point,
 					"incoming_direction": direction,
 					"surface_normal": hit_normal,
-					"scene_root": scene_root,
 					"collision_mask": raycast.collision_mask,
 					"collide_with_areas": raycast.collide_with_areas,
 					"collide_with_bodies": raycast.collide_with_bodies,
@@ -151,12 +141,11 @@ func fire(
 		last_segment_start = hit_point
 	
 	# Spawn trail from origin to the last point we reached.
-	_spawn_trail(config, origin, hit_point, scene_root)
+	_spawn_trail(config, origin, hit_point)
 	
-	# If we fired but never queued a reflection, report 0 reflections for this shot.
-	if not reflection_queued:
-		pass
-		#Debug.log("HitscanSystem: shot completed with 0 reflections")
+	
+	# Resolve reflections in the same frame (single-threaded physics).
+	_drain_reflection_queue()
 	return hit_point
 
 
@@ -172,18 +161,25 @@ func fireManual(
 	return Vector3.ZERO
 
 
-## Queues a reflection request to be processed in _physics_process.
+## Queues a reflection request for immediate drain.
 func _queue_reflection(request: Dictionary) -> void:
 	_reflection_queue.append(request)
 
 
-## Processes a single reflection request (called from _physics_process).
+## Processes all queued reflections immediately.
+func _drain_reflection_queue() -> void:
+	while not _reflection_queue.is_empty():
+		var request: Dictionary = _reflection_queue.pop_front()
+		_process_reflection(request)
+
+
+## Processes a single reflection request.
 func _process_reflection(request: Dictionary) -> void:
+	var scene_root: Node = get_tree().current_scene
 	var config: HitscanBulletConfig = request.config
 	var origin: Vector3 = request.origin
 	var incoming_direction: Vector3 = request.incoming_direction
 	var surface_normal: Vector3 = request.surface_normal
-	var scene_root: Node = request.scene_root
 	var reflections_left: int = request.reflections_left
 	var damage_multiplier: float = request.damage_multiplier
 	var hits: Array = request.get("hits", [])
@@ -234,7 +230,7 @@ func _process_reflection(request: Dictionary) -> void:
 		hit_point = _reflection_raycast.global_transform.origin + reflected_dir * 1000.0
 	
 	# Spawn trail for reflected bullet.
-	_spawn_trail(config, ray_origin, hit_point, scene_root)
+	_spawn_trail(config, ray_origin, hit_point)
 	
 	# If nothing was hit, we're done.
 	if not hit_body:
@@ -243,7 +239,7 @@ func _process_reflection(request: Dictionary) -> void:
 	
 	# Handle the hit with reduced damage. Reflections should respect the
 	# reflective flag, so we don't ignore it here.
-	_handle_hit(config, hit_body, hit_point, hit_normal, scene_root, damage_multiplier, false)
+	_handle_hit(config, hit_body, hit_point, hit_normal, damage_multiplier, false)
 	
 	# Queue another reflection if surface is reflective (world body with reflective flag or reflective enemy).
 	var can_reflect_from_enemy: bool = false
@@ -263,7 +259,6 @@ func _process_reflection(request: Dictionary) -> void:
 			"origin": next_origin,
 			"incoming_direction": next_dir,
 			"surface_normal": next_normal,
-			"scene_root": scene_root,
 			"collision_mask": request.collision_mask,
 			"collide_with_areas": request.collide_with_areas,
 			"collide_with_bodies": request.collide_with_bodies,
@@ -284,14 +279,14 @@ func _process_reflection(request: Dictionary) -> void:
 func _spawn_trail(
 	config: HitscanBulletConfig,
 	origin: Vector3,
-	target: Vector3,
-	scene_root: Node
+	target: Vector3
 ) -> void:
 	if not config.trail_scene:
 		return
 	
 	var trail: Node = config.trail_scene.instantiate()
-	get_tree().current_scene.add_child(trail)
+	var scene_root: Node = get_tree().current_scene
+	scene_root.add_child(trail)
 	trail.setup(origin, target, config.trail_color)
 
 
@@ -299,13 +294,13 @@ func _spawn_trail(
 func _spawn_impact_particles(
 	config: HitscanBulletConfig,
 	hit_point: Vector3,
-	hit_normal: Vector3,
-	scene_root: Node
+	hit_normal: Vector3
 ) -> void:
 	if not config.impact_particle_scene:
 		return
 	
 	var particles: Node = config.impact_particle_scene.instantiate()
+	var scene_root: Node = get_tree().current_scene
 	scene_root.add_child(particles)
 	particles.setup(hit_point, hit_normal)
 
@@ -314,13 +309,13 @@ func _spawn_impact_particles(
 func _spawn_impact_light(
 	config: HitscanBulletConfig,
 	hit_point: Vector3,
-	hit_normal: Vector3,
-	scene_root: Node
+	hit_normal: Vector3
 ) -> void:
 	if not config.impact_light_scene:
 		return
 	
 	var light: Node3D = config.impact_light_scene.instantiate()
+	var scene_root: Node = get_tree().current_scene
 	scene_root.add_child(light)
 	light.global_position = hit_point + (hit_normal * 0.01)
 
@@ -331,7 +326,6 @@ func _handle_hit(
 	hit_body: Node3D,
 	hit_point: Vector3,
 	hit_normal: Vector3,
-	scene_root: Node,
 	damage_multiplier: float,
 	ignore_reflective_flag: bool = false
 ) -> void:
@@ -341,8 +335,8 @@ func _handle_hit(
 		# ignore that (e.g. non-piercing reflections), treat it like a
 		# reflective surface only: no damage, just visuals.
 		if enemy.reflective and not ignore_reflective_flag:
-			_spawn_impact_particles(config, hit_point, hit_normal, scene_root)
-			_spawn_impact_light(config, hit_point, hit_normal, scene_root)
+			_spawn_impact_particles(config, hit_point, hit_normal)
+			_spawn_impact_light(config, hit_point, hit_normal)
 			return
 		
 		# Otherwise, deal normal damage (piercing or non-piercing).
@@ -357,19 +351,20 @@ func _handle_hit(
 	
 	elif hit_body is PistolBombShotCollsionReciever:
 		var bomb: PistolBomb = hit_body.getPistolBomb()
-		_handle_pistol_bomb_hit(bomb, scene_root)
+		_handle_pistol_bomb_hit(bomb)
 	
 	elif hit_body is PhysicalBone3D:
 		return
 		
 	else:
 		# World geometry hit - spawn impact effects.
-		_spawn_impact_particles(config, hit_point, hit_normal, scene_root)
-		_spawn_impact_light(config, hit_point, hit_normal, scene_root)
+		_spawn_impact_particles(config, hit_point, hit_normal)
+		_spawn_impact_light(config, hit_point, hit_normal)
 
 
 ## Handles the special case of hitting a PistolBomb.
-func _handle_pistol_bomb_hit(bomb: PistolBomb, scene_root: Node) -> void:
+func _handle_pistol_bomb_hit(bomb: PistolBomb) -> void:
+	var scene_root: Node = get_tree().current_scene
 	var player: Player = scene_root.get_tree().get_first_node_in_group("players")
 	if player:
 		player.hitStop(bomb.hitstop_duration_on_being_shot)
