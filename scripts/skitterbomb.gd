@@ -18,6 +18,7 @@ signal leap_landed
 @onready var red_flash_animator: AnimationPlayer = $"Skitterbomb2/Armature/Skeleton3D/back bomb/red flash animator"
 @onready var omni_light_3d: OmniLight3D = $"Skitterbomb2/Armature/Skeleton3D/back bomb/OmniLight3D"
 @onready var back_bomb_red_flash: Sprite3D = $"Skitterbomb2/Armature/Skeleton3D/back bomb/back bomb red flash"
+@onready var skeleton_3d: Skeleton3D = $Skitterbomb2/Armature/Skeleton3D
 
 # constants
 const explosion_SCENE:PackedScene = preload("res://scenes/explosion_3d.tscn")
@@ -161,6 +162,7 @@ func setEnemyState(new_enemy_state:enemy_states):
 		for t:Timer in timers:
 			t.stop()
 		ragdoll(gib_fling_force)
+		finalize_death()
 
 func _ready() -> void:
 	# Initialize navigation data if we have a player
@@ -290,12 +292,20 @@ func physBonesMakeException(object:Node):
 		bone.add_collision_exception_with(object)
 
 func ragdoll(force_applied:float) -> void:
+	skeleton_3d.name = "SkitterbombRagdollRig"
+	# reparent the skeleton rig to the world
+	skeleton_3d.reparent(get_tree().current_scene)
+	
 	physical_bone_simulator_3d.active = true
 	physical_bone_simulator_3d.physical_bones_start_simulation()
 	physBonesMakeException(player)
 	for bone:PhysicalBone3D in physical_bones:
 		var random_direction:Vector3 = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 		bone.linear_velocity += random_direction * force_applied
+
+
+func finalize_death() -> void:
+	call_deferred("queue_free")
 
 
 func _on_player_detector_body_entered(player:Player) -> void:

@@ -62,11 +62,6 @@ func _on_child_entered_tree(node: Node) -> void:
 		EnemyPopulationHandler.addEnemyToPopulation(node)
 	elif node is Skeleton3D:
 		RagdollManager.addRagdollRig(node)
-		var rig_phys_sims:Array[PhysicalBoneSimulator3D]
-		var children:Array[Node] = node.get_children()
-		for child:Node in children:
-			if child is PhysicalBoneSimulator3D:
-				rig_phys_sims.append(child)
 
 
 func _on_child_exiting_tree(node: Node) -> void:
