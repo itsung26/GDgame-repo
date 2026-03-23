@@ -297,6 +297,7 @@ func ragdoll(force_applied:float) -> void:
 		skeleton_3d.get_parent().remove_child(skeleton_3d)
 		world_root.add_child(skeleton_3d)
 		skeleton_3d.global_transform = old_global
+		skeleton_3d.name = "BulletTurretRagdollRig"
 
 	# After reparenting, make bones no-collide with the player and start physics
 	for bone:PhysicalBone3D in phys_sim_bones:

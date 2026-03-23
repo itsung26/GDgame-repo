@@ -47,6 +47,7 @@ return_to_sender_multiplier = 0.25
 gib_fling_force = 5.0
 HEALTH = 1.0
 SPEED = 450.0
+chest_offset = Vector3(0, 0.6568788, -0.08385682)
 metadata/_custom_type_script = "uid://1fvkhlatl2xa"
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
@@ -195,11 +196,11 @@ transform = Transform3D(-0.17891668, 6.4546626e-08, -5.059106e-16, -6.454662e-08
 active = false
 
 [node name="Physical Bone Root" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
-transform = Transform3D(1.0851895e-14, 3.094183e-07, 1, -1.8138644e-07, -1, 3.094183e-07, 1, -1.8138644e-07, 4.5272386e-14, 0, 0.07930791, 9.080395e-09)
+transform = Transform3D(1.0851895e-14, 3.0941834e-07, 1, -1.8138641e-07, -1, 3.0941834e-07, 1, -1.8138641e-07, 4.527239e-14, 0, 0.0793079, 9.313226e-09)
 collision_layer = 4
 collision_mask = 4
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1641565e-09, -0.01557848, 2.6012562e-15)
-body_offset = Transform3D(1, 2.1316282e-13, 4.5272356e-14, -2.1316282e-13, 0.99999994, -1.7408297e-13, 1.0851954e-14, 1.6697754e-13, 1, -1.1641532e-09, 0.015578479, 0)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.313263e-10, -0.015578488, 3.0440249e-15)
+body_offset = Transform3D(1, 2.4158453e-13, 4.527235e-14, -2.4158453e-13, 0.99999994, -2.0250468e-13, 1.0851959e-14, 1.9539925e-13, 1, -9.313226e-10, 0.015578486, 0)
 bounce = 0.18
 bone_name = "Root"
 
@@ -208,11 +209,11 @@ transform = Transform3D(1, 4.5536474e-19, 1.9904625e-26, 0, -4.371139e-08, 1, 4.
 shape = SubResource("BoxShape3D_ogiig")
 
 [node name="Physical Bone Ocular" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
-transform = Transform3D(-1.2871601e-07, -0.028732838, 0.9995871, -0.009993018, -0.9995372, -0.028731404, 0.9999501, -0.009988895, -0.00028699907, 0.093752146, 0.1348747, -0.10467663)
+transform = Transform3D(-1.2872066e-07, -0.028732836, 0.9995871, -0.009993016, -0.9995372, -0.028731402, 0.99995005, -0.009988894, -0.000286999, 0.093752146, 0.13487469, -0.10467664)
 collision_layer = 4
 collision_mask = 4
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02082537, -0.026804607, 0.017653108)
-body_offset = Transform3D(1.0000001, 8.381903e-09, -2.3283064e-10, -1.0244548e-08, 1.0000001, -3.3527613e-08, 1.7462298e-10, 2.9802322e-08, 1, 0.020825371, 0.026804611, -0.017653108)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02082535, -0.026804622, 0.017653108)
+body_offset = Transform3D(1.0000002, 1.0244548e-08, -1.7462298e-10, -1.21071935e-08, 1.0000001, -3.5390258e-08, 1.1641532e-10, 3.1664968e-08, 1, 0.020825356, 0.026804626, -0.017653108)
 bounce = 0.18
 bone_name = "Ocular"
 
@@ -221,11 +222,11 @@ transform = Transform3D(1.0000038, 5.9604645e-08, -1.4551915e-10, -3.9115548e-08
 shape = SubResource("CylinderShape3D_ogiig")
 
 [node name="Physical Bone FR upper" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
-transform = Transform3D(0.00012489538, -0.6882158, 0.725506, 0.0006536885, -0.7255058, -0.68821573, 0.9999998, 0.0005602099, 0.00035926639, -0.030178547, -0.0989736, -0.06604203)
+transform = Transform3D(0.00012489535, -0.6882158, 0.725506, 0.0006536885, -0.7255058, -0.6882157, 0.9999998, 0.0005602099, 0.00035926639, -0.030178547, -0.0989736, -0.06604203)
 collision_layer = 4
 collision_mask = 4
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01298597, 0.018176746, 0.009074836)
-body_offset = Transform3D(1.0000001, 2.8929207e-08, 4.1749445e-07, -2.8667273e-08, 1.0000001, -1.4305115e-06, -4.1746534e-07, 1.3411045e-06, 1.0000001, 0.012985967, -0.018176734, -0.009074867)
+body_offset = Transform3D(1.0000001, 2.8812792e-08, 4.1746534e-07, -2.8609065e-08, 1.0000001, -1.4007092e-06, -4.1743624e-07, 1.3411045e-06, 1.0000001, 0.012985967, -0.018176734, -0.009074867)
 bounce = 0.18
 bone_name = "Root.001"
 
@@ -234,11 +235,11 @@ transform = Transform3D(1, 2.1465975e-07, 3.1538544e-08, -2.0861633e-07, 0.99124
 shape = SubResource("BoxShape3D_yswi4")
 
 [node name="Physical Bone FL Upper2" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
-transform = Transform3D(0.0001251246, -0.6882162, 0.7255057, 0.0006534041, -0.72550553, -0.68821615, 0.9999998, 0.0005601612, 0.00035890465, -0.030178368, -0.098973095, 0.061355505)
+transform = Transform3D(0.00012512456, -0.68821615, 0.72550577, 0.0006534041, -0.72550553, -0.68821603, 0.9999998, 0.00056016113, 0.00035890465, -0.030178368, -0.09897307, 0.061355505)
 collision_layer = 4
 collision_mask = 4
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012038779, 0.018191224, 0.009084083)
-body_offset = Transform3D(1.0000002, -9.895302e-10, -4.4732587e-08, 1.0768417e-09, 1.0000002, -1.1026859e-06, 4.4703484e-08, 1.0728836e-06, 1.0000002, -0.012038782, -0.018191218, -0.0090841055)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012038779, 0.018191226, 0.009084113)
+body_offset = Transform3D(1.0000002, -9.604264e-10, -4.4732587e-08, 1.1059456e-09, 1.0000002, -1.1324883e-06, 4.467438e-08, 1.1026859e-06, 1.0000002, -0.012038782, -0.018191218, -0.009084135)
 bounce = 0.18
 bone_name = "Root.004"
 
@@ -247,11 +248,11 @@ transform = Transform3D(0.9999997, -4.4703484e-07, 4.3213367e-07, -2.682209e-07,
 shape = SubResource("BoxShape3D_yswi4")
 
 [node name="Physical Bone BR upper2" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
-transform = Transform3D(0.0022321446, -0.688217, -0.7255015, 0.0025885717, 0.7255048, -0.6882122, 0.9999942, -0.00034182347, 0.0034009307, -0.030177832, 0.021758601, -0.065637335)
+transform = Transform3D(0.0022321441, -0.688217, -0.7255015, 0.0025885713, 0.7255048, -0.6882122, 0.9999942, -0.00034182335, 0.00340093, -0.030177832, 0.021758579, -0.065637335)
 collision_layer = 4
 collision_mask = 4
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012895025, 0.0071847728, 0.0013157394)
-body_offset = Transform3D(1.0000001, 2.66009e-07, -6.018672e-08, -2.6647467e-07, 0.99999976, -4.4703484e-07, 6.1118044e-08, 6.854534e-07, 0.9999994, 0.012895025, -0.0071847737, -0.0013157427)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012895025, 0.0071848026, 0.0013157395)
+body_offset = Transform3D(1.0000001, 2.66009e-07, -6.065238e-08, -2.665911e-07, 0.99999976, -4.4703484e-07, 6.1583705e-08, 6.854534e-07, 0.9999994, 0.012895025, -0.0071848035, -0.0013157427)
 bounce = 0.18
 bone_name = "Root.013"
 
@@ -260,11 +261,11 @@ transform = Transform3D(1, -3.5753163e-07, 5.5632746e-08, -1.1920929e-07, 0.9993
 shape = SubResource("BoxShape3D_4qdxy")
 
 [node name="Physical Bone BL Upper" type="PhysicalBone3D" parent="Skitterbomb2/Armature/Skeleton3D/PhysicalBoneSimulator3D" groups=["gib limb"]]
-transform = Transform3D(0.0022321471, -0.6882169, -0.7255016, 0.002588985, 0.72550493, -0.68821216, 0.9999942, -0.00034212196, 0.003401217, -0.030177772, 0.02175877, 0.06176031)
+transform = Transform3D(0.0022321471, -0.6882169, -0.72550154, 0.0025889846, 0.72550493, -0.68821216, 0.9999942, -0.0003421216, 0.0034012166, -0.030177772, 0.02175877, 0.061760306)
 collision_layer = 4
 collision_mask = 4
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012129468, 0.0071761576, 0.0014010109)
-body_offset = Transform3D(1.0000002, -3.0966476e-08, 1.215376e-07, 3.0500814e-08, 1.0000002, 5.066395e-07, -1.2188684e-07, -3.5762787e-07, 1.0000002, -0.012129471, -0.007176161, -0.0014010072)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012129472, 0.0071761576, 0.0014010109)
+body_offset = Transform3D(1.0000002, -3.0733645e-08, 1.2142118e-07, 3.015157e-08, 1.0000002, 5.364418e-07, -1.215376e-07, -3.5762787e-07, 1.0000002, -0.012129474, -0.007176161, -0.0014010072)
 bounce = 0.18
 bone_name = "Root.009"
 
@@ -291,6 +292,10 @@ billboard = 2
 texture_filter = 2
 text = "Leap target"
 font = ExtResource("6_c5kqr")
+
+[node name="ChestOffset" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6568788, -0.08385682)
+gizmo_extents = 0.66
 
 [connection signal="leap_landed" from="." to="." method="_on_leap_landed"]
 [connection signal="parried" from="." to="." method="_on_parried"]

@@ -158,7 +158,42 @@ func fireManual(
 	raycast: DeepRayCast3D,
 	direction: Vector3
 ) -> Vector3:
-	return Vector3.ZERO
+	if not is_instance_valid(raycast):
+		return origin
+	
+	if direction.length_squared() <= 0.000001:
+		return origin
+	
+	# Temporarily configure the provided raycast to fire from origin in the
+	# requested direction, then reuse the standard fire() behavior.
+	var previous_transform: Transform3D = raycast.global_transform
+	var previous_auto_forward: bool = raycast.auto_forward
+	var previous_target: Node3D = raycast.target
+	var previous_target_offset: Vector3 = raycast.target_offset_position
+	var previous_enabled: bool = raycast.enabled
+	
+	var fire_direction: Vector3 = direction.normalized()
+	raycast.global_transform = Transform3D(
+		Basis().looking_at(fire_direction, Vector3.UP),
+		origin
+	)
+	raycast.auto_forward = true
+	raycast.target = null
+	raycast.target_offset_position = Vector3.ZERO
+	raycast.enabled = true
+	raycast._update_raycast()
+	
+	var hit_point: Vector3 = fire(config, origin, raycast)
+	
+	# Restore caller-owned raycast state.
+	raycast.global_transform = previous_transform
+	raycast.auto_forward = previous_auto_forward
+	raycast.target = previous_target
+	raycast.target_offset_position = previous_target_offset
+	raycast.enabled = previous_enabled
+	raycast._update_raycast()
+	
+	return hit_point
 
 
 ## Queues a reflection request for immediate drain.

@@ -3,13 +3,15 @@ extends Node
 ## Class representing game levels. Note that [LoadHandler] handles level transitions,
 ## not the levels themselves.
 
-
 @onready var player:Player = get_tree().get_first_node_in_group("players")
-
 
 func _enter_tree() -> void:
 	_connectAllSignals()
 	_onLevelEnterTree()
+
+
+func _exit_tree() -> void:
+	_onLevelExitTree()
 
 
 func _ready() -> void:
@@ -42,6 +44,10 @@ func _onLevelEnterTree() -> void:
 	pass
 
 
+func _onLevelExitTree() -> void:
+	pass
+
+
 func _onLevelTick(_delta: float) -> void:
 	pass
 
@@ -54,8 +60,17 @@ func _connectAllSignals() -> void:
 func _on_child_entered_tree(node: Node) -> void:
 	if node is Enemy:
 		EnemyPopulationHandler.addEnemyToPopulation(node)
+	elif node is Skeleton3D:
+		RagdollManager.addRagdollRig(node)
+		var rig_phys_sims:Array[PhysicalBoneSimulator3D]
+		var children:Array[Node] = node.get_children()
+		for child:Node in children:
+			if child is PhysicalBoneSimulator3D:
+				rig_phys_sims.append(child)
 
 
 func _on_child_exiting_tree(node: Node) -> void:
 	if node is Enemy:
 		EnemyPopulationHandler.removeEnemyFromPopulation(node)
+	elif node is Skeleton3D:
+		RagdollManager.removeRagdollRig(node)

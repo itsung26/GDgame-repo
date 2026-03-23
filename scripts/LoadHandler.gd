@@ -4,6 +4,20 @@ extends Node
 const loading_icon_scene_path:String = "res://scenes/main menu screens/loading_label.tscn"
 var loading_icon_scene_master:PackedScene = preload(loading_icon_scene_path)
 var delay_timer:Timer = Timer.new()
+var current_level:Level:
+	set = setCurrentLevel
+
+
+func _ready() -> void:
+	current_level = getCurrentLevel()
+
+
+func setCurrentLevel(value:Level) -> void:
+	current_level = value
+
+
+func getCurrentLevel() -> Level:
+	return get_tree().current_scene
 
 
 ## Loads the new scene at new_scene_path, adds the loading icon the the scene if showLoadingIcon is true after waiting a few frames.
@@ -19,6 +33,7 @@ func loadNewLevel(new_scene_path:String, showLoadingIcon:bool = true, frames_del
 
 	# change scene (still deferred to be safe)
 	get_tree().call_deferred("change_scene_to_file", new_scene_path)
+	call_deferred("setCurrentLevel", get_tree().current_scene)
 
 
 func reloadCurrentLevel() -> void:

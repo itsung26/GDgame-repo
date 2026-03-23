@@ -8,7 +8,7 @@ var line_of_sight_query:LineOfSightQuery
 
 func _ready() -> void:
 	line_of_sight_query = LineOfSightQuery.new()
-	get_tree().current_scene.add_child(line_of_sight_query)
+	add_child(line_of_sight_query)
 
 
 func addEnemyToPopulation(enemy:Enemy) -> Enemy:
@@ -72,7 +72,7 @@ func getClosestEnemy(pos:Vector3) -> Enemy:
 
 
 ## Returns the closest visible enemy to from_pos. Only world geometry can break visibility.
-## Note that enemy origins are at their center offset, so an enemy with only its head
+## Note that visibility is checked with the enemy's center offset, so an enemy with only its head
 ## or feet visibile will not be detected as in line of sight.
 func getClosestVisibleEnemy(from_pos:Vector3) -> Enemy:
 	var closest_enemy:Enemy = null

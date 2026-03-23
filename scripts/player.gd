@@ -447,6 +447,8 @@ func _ready() -> void:
 ## Kinematic-related operations should only be run in _physics_process, while logic and other operations
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
+	Debug.log(RagdollManager.ragdoll_rigs)
+	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
 	chargeStamina(delta)

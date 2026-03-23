@@ -91,7 +91,27 @@ func fireSpecial() -> void:
 		dissipator_piercing_hitscan
 	)
 	
+	# get the location of the nearest enemy's center from the first hit point
+	var nearest_enemy:Enemy = EnemyPopulationHandler.getClosestVisibleEnemy(first_firing_point)
+	var nearest_enemy_pos:Vector3
+	var dir:Vector3
+	
+	# if valid enemy, reflect towards them.
+	# else, reflect in a random direction
+	if nearest_enemy:
+		nearest_enemy_pos = nearest_enemy.global_position + nearest_enemy.chest_offset
+		dir = nearest_enemy_pos - first_firing_point
+		dir = dir.normalized()
+	else:
+		dir = Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
+	
 	# Then, the hitscan should reflect to the nearest enemy. (ideally piercing them)
+	HitscanSystem.fireManual(
+		reflection_bullet_config,
+		first_firing_point,
+		dissipator_piercing_hitscan,
+		dir
+	)
 
 
 func fireBullet() -> void:

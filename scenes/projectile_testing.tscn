@@ -121,7 +121,7 @@ font_size = 375
 horizontal_alignment = 0
 
 [node name="Label3D4" type="Label3D" parent="DebugLabels"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -8.806818, 6.555541, -0.07651603)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.4283764, 6.555541, -0.07651693)
 pixel_size = 0.0011
 modulate = Color(1, 0, 0, 1)
 text = "Reflectivity Test"
@@ -220,27 +220,6 @@ shape = SubResource("ConcavePolygonShape3D_gt65t")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48317, 0.9364419, 4.3500614)
 shape = SubResource("ConcavePolygonShape3D_exc5x")
 
-[node name="EnemySpawnHandler" type="Node" parent="."]
-script = ExtResource("4_s3yq3")
-enemy_to_spawn_SCENE = ExtResource("7_wl3f4")
-metadata/_custom_type_script = "uid://s0gj2noon5cx"
-
-[node name="Marker3D" type="Marker3D" parent="EnemySpawnHandler"]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 21.883648, 0, -21.33136)
-gizmo_extents = 1.57
-
-[node name="Marker3D2" type="Marker3D" parent="EnemySpawnHandler"]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 21.883648, 0, -16.33136)
-gizmo_extents = 1.57
-
-[node name="Marker3D3" type="Marker3D" parent="EnemySpawnHandler"]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 21.883648, 0, -11.331359)
-gizmo_extents = 1.57
-
-[node name="Marker3D4" type="Marker3D" parent="EnemySpawnHandler"]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 21.883648, 0, -6.3313594)
-gizmo_extents = 1.57
-
 [node name="GrappleCube" parent="." instance=ExtResource("8_wl3f4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.96889, 7.16574, -14.665242)
 
@@ -260,7 +239,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.0915
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.316534, 0.848577, -7.22804)
 
 [node name="BulletTurret" parent="." instance=ExtResource("10_5138l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.452654, 3.2420573, -0.08562398)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28631687, 3.2420573, -0.08562398)
 behavior_enabled = false
 reflective = true
 
@@ -343,7 +322,6 @@ omni_attenuation = 2.0
 [node name="enemy_filth" parent="." instance=ExtResource("7_wl3f4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.231758, -1.9073486e-06, -0.04624176)
 behavior_enabled = false
-reflective = true
 
 [node name="CombatArea" parent="." node_paths=PackedStringArray("enemy_wave_0", "enemy_wave_1") instance=ExtResource("12_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.6103, 7.7998047, -11.978118)
@@ -413,3 +391,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.274857, 0, -22.02266)
 
 [node name="Skitterbomb" parent="." instance=ExtResource("11_r4hxy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.685855, 4.7683716e-07, -0.07539654)
+behavior_enabled = false
