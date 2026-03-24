@@ -1,3 +1,4 @@
+@tool
 class_name CombatArea
 extends Area3D
 ## When the player enters this area, they are considered in combat. This area will keep track of child enemy spawners and spawn enemies in waves according to a preset order.
@@ -13,7 +14,8 @@ signal player_died_in_combat(wave:int)
 ## Represents the current set of enemies to spawn. -1 when no waves have yet been triggered.
 @export var current_wave:int = -1
 @export var delay_before_first_wave:float = 1.0
-@export var enemy_wave_0:Array[EnemySpawnHandler] = []
+var _enemy_wave_0: Array[EnemySpawnHandler] = []
+@export var enemy_wave_0: Array[EnemySpawnHandler] = []
 @export var enemy_wave_1:Array[EnemySpawnHandler] = []
 @export var enemy_wave_2:Array[EnemySpawnHandler] = []
 @export var enemy_wave_3:Array[EnemySpawnHandler] = []
@@ -25,10 +27,24 @@ var finished:bool = false
 var active_enemies:Array[Enemy] = []
 var tracked_player:Player
 
-func _ready() -> void:
-	# ensure the first wave has enemies in it
-	assert(not enemy_wave_0.is_empty())
 
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings:PackedStringArray = []
+	var all_null:bool = enemy_wave_0.all(func(i): return i == null)
+	if enemy_wave_0.is_empty() or all_null:
+		warnings.append("First wave is empty. Add at least one EnemySpawnHandler.")
+	return warnings
+
+
+func _ready() -> void:
+	if not Engine.is_editor_hint():
+		# ensure the first wave has enemies in it
+		assert(not enemy_wave_0.is_empty())
+
+
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		update_configuration_warnings()
 
 func _get_wave_handlers(wave_index:int) -> Array[EnemySpawnHandler]:
 	match wave_index:
@@ -58,7 +74,7 @@ func advanceWave():
 	if wave_handlers.is_empty():
 		finished = true
 		if tracked_player:
-			tracked_player.in_combat = false
+			tracked_player.setInCombat(false)
 		var last_wave:int = max(current_wave - 1, 0)
 		player_finished_combat.emit(last_wave)
 		return
@@ -86,7 +102,7 @@ func _on_body_entered(player:Player) -> void:
 	if finished:
 		return
 	tracked_player = player
-	player.in_combat = true
+	player.setInCombat(true)
 	player_entered_combat.emit()
 	# Track when the player dies while in this combat area.
 	if not player.entered_player_state.is_connected(_on_player_entered_state):

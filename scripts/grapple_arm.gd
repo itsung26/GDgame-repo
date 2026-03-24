@@ -31,7 +31,7 @@ func _on_world_collide_box_body_entered(body: StaticBody3D) -> void:
 	get_tree().current_scene.add_child(impact_particles)
 	impact_particles.setup(hit_point, hit_point + hit_surface_normal)
 	
-	player.action_state = player.action_states.IDLE
+	player.set_action_state(player.action_states.IDLE)
 
 # Called when the hook enters the hook detection area of the grapple cube
 func _on_grapple_cube_boost_collide_box_area_entered(grapple_cube_hook_detector: GrappleCubeHookDetector) -> void:

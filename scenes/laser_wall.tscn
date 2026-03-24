@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://dr0hsxeh3ohxa"]
+
+[ext_resource type="Shader" uid="uid://b0552ydptaclr" path="res://shaders/visual shaders/laser_wall.tres" id="1_lpr72"]
+[ext_resource type="Texture2D" uid="uid://cw662nob2n3a" path="res://assets/2d assets/noise/noise 512x512/Vein/Vein_01-512x512.png" id="2_40gwy"]
+[ext_resource type="Script" uid="uid://cyes8i2of2mka" path="res://scripts/laser_wall.gd" id="3_40gwy"]
+[ext_resource type="Script" uid="uid://befxvekrdd3ag" path="res://scripts/laser_wall_hazard_area.gd" id="4_8wmqe"]
+[ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="5_qh7ye"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8wmqe"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_lpr72")
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/scale = Vector2(5.83, 1.04)
+shader_parameter/Texture2DParameter = ExtResource("2_40gwy")
+shader_parameter/FloatParameter = 1.7349999999999999
+shader_parameter/ColorParameter = Color(1, 0, 0, 1)
+shader_parameter/emission_intensity = 7.055
+
+[sub_resource type="BoxMesh" id="BoxMesh_egx7n"]
+resource_local_to_scene = true
+size = Vector3(2.309, 10.805, 38.575)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8wmqe"]
+size = Vector3(2.309, 10.805, 38.575)
+
+[node name="LaserWall" type="MeshInstance3D"]
+material_override = SubResource("ShaderMaterial_8wmqe")
+mesh = SubResource("BoxMesh_egx7n")
+skeleton = NodePath("../Cube_009")
+script = ExtResource("3_40gwy")
+
+[node name="RefreshTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="LaserWallHazardArea" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 11
+script = ExtResource("4_8wmqe")
+damage_to_enemies = 5.0
+damage_to_player = 25.0
+bounce_speed = 28.0
+metadata/_custom_type_script = "uid://bnd8mvqpb1r6f"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LaserWallHazardArea"]
+shape = SubResource("BoxShape3D_8wmqe")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.80072, 0, 0)
+pixel_size = 0.0946
+billboard = 1
+modulate = Color(1, 0, 0, 1)
+text = "FRONT"
+
+[node name="Label3D2" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.663963, 0, 0)
+pixel_size = 0.0946
+billboard = 1
+modulate = Color(1, 0, 0, 1)
+text = "BACK"
+
+[node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
+script = ExtResource("5_qh7ye")
+nodes_to_hide_on_ready = [NodePath("../Label3D"), NodePath("../Label3D2")]
+metadata/_custom_type_script = "uid://bcsxapsamvmvq"
+
+[connection signal="timeout" from="RefreshTimer" to="." method="_on_refresh_timer_timeout"]

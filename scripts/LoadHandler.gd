@@ -17,7 +17,10 @@ func setCurrentLevel(value:Level) -> void:
 
 
 func getCurrentLevel() -> Level:
-	return get_tree().current_scene
+	if get_tree().current_scene is Level:
+		return get_tree().current_scene
+	else:
+		return null
 
 
 ## Loads the new scene at new_scene_path, adds the loading icon the the scene if showLoadingIcon is true after waiting a few frames.

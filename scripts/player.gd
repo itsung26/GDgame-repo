@@ -81,7 +81,7 @@ const los_query_SCENE:PackedScene = preload("res://scenes/line_of_sight_query.ts
 @export var player_arm_action_input_enabled:bool = true
 @export var weapon_switch_input_enabled:bool = true
 @export var player_slide_slam_input_enabled:bool = true
-var stamina_recharging:bool = true
+@export var player_arm_switch_input_enabled:bool = true
 
 @export_category("Main Attributes")
 @export var Godmode:bool = false
@@ -207,6 +207,10 @@ var action_state:action_states = action_states.IDLE:
 signal entered_player_state(new_player_state:player_states, previous_player_state:player_states)
 signal entered_arm_state(new_arm_state:arm_states, previous_arm_state:arm_states)
 signal entered_action_state(new_action_state:action_states, previous_action_state:action_states)
+## Emitted when the equipped [code]weapon_state[/code] ([code]PlayerWeapon[/code]) changes.
+signal entered_weapon_state(new_weapon_state:PlayerWeapon, previous_weapon_state:PlayerWeapon)
+## Emitted when [code]in_combat[/code] changes (e.g. combat area enter/exit).
+signal in_combat_changed(new_in_combat:bool, previous_in_combat:bool)
 
 var cause_of_death:String = ""
 var direction:Vector3
@@ -217,6 +221,7 @@ var initial_camera_rotation:Vector3
 var los_query:LineOfSightQuery
 var grapple_rope_mesh_gen:ropeMeshGenerator
 var max_stamina:float
+var stamina_recharging:bool = true
 
 
 func set_player_state(new_player_state:player_states):
@@ -248,6 +253,10 @@ func set_player_state(new_player_state:player_states):
 		player_look_input_enabled = false
 		# prevent healing the player
 		can_be_healed = false
+		player_kinematics_enabled_xz = false
+		player_kinematics_enabled_y = false
+		
+		killVelocity()
 
 	# GROUNDED to and from
 	if new_player_state == player_states.GROUNDED:
@@ -297,7 +306,7 @@ func set_player_state(new_player_state:player_states):
 	# SLAMMING to and from
 	if new_player_state == player_states.SLAMMING:
 		player_move_input_enabled = false
-		action_state = action_states.IDLE
+		set_action_state(action_states.IDLE)
 		gravity_enabled = false
 		velocity = Vector3.ZERO # kill velocity
 		velocity.y = -slam_velocity # slam down
@@ -316,6 +325,8 @@ func set_weapon_state(new_weapon_state:PlayerWeapon):
 	# prevent switching to the same state
 	if previous_weapon_state == new_weapon_state:
 		return
+	
+	entered_weapon_state.emit(new_weapon_state, previous_weapon_state)
 	
 	# makes the previous weapon invisible and the new weapon visible
 	if previous_weapon_state != null:
@@ -525,7 +536,7 @@ func _physics_process(delta: float) -> void:
 	player_state != player_states.SLIDING and 
 	player_state != player_states.DASHING and
 	player_state != player_states.GROUNDED):
-		player_state = player_states.GROUNDED
+		set_player_state(player_states.GROUNDED)
 
 	elif (not is_on_floor() and 
 	player_state != player_states.REELINGTO and 
@@ -533,7 +544,7 @@ func _physics_process(delta: float) -> void:
 	player_state != player_states.SLAMMING and 
 	player_state != player_states.FALLING and
 	player_state != player_states.WALL_SLIDING):
-		player_state = player_states.FALLING
+		set_player_state(player_states.FALLING)
 	
 	# Add the gravity 
 	if not is_on_floor() and gravity_enabled:
@@ -547,7 +558,7 @@ func _physics_process(delta: float) -> void:
 		and touching_wall
 		and player_state == player_states.FALLING
 		and velocity.y < 0.0):
-		player_state = player_states.WALL_SLIDING
+		set_player_state(player_states.WALL_SLIDING)
 	
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and player_jump_input_enabled:
@@ -565,7 +576,7 @@ func _physics_process(delta: float) -> void:
 				velocity.z = push_dir.z * wall_jump_applied_velocity
 				velocity.y = JUMP_VELOCITY
 				wall_jumps_left -= 1
-				player_state = player_states.FALLING
+				set_player_state(player_states.FALLING)
 		# Jump-cancel out of reeling grapple while airborne
 		elif not is_on_floor() and player_state == player_states.REELINGTO:
 			set_action_state(action_states.IDLE)
@@ -680,8 +691,7 @@ func _physics_process(delta: float) -> void:
 # camera control by mouse input relative to last frame
 func _input(event) -> void:
 	
-	
-	if Input.is_action_just_pressed("switch arm"):
+	if Input.is_action_just_pressed("switch arm") and player_arm_switch_input_enabled:
 		if arm_state == arm_states.GRAPPLEARM:
 			set_arm_state(arm_states.PARRYARM)
 		elif arm_state == arm_states.PARRYARM:
@@ -692,9 +702,9 @@ func _input(event) -> void:
 		if arm_state == arm_states.GRAPPLEARM:
 			if not grapple_rope_mesh_gen == null:
 				if action_state != action_states.GRAPPLING:
-					action_state = action_states.GRAPPLING
+					set_action_state(action_states.GRAPPLING)
 				elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
-					action_state = action_states.IDLE
+					set_action_state(action_states.IDLE)
 			else:
 				assert(false, "Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
 		
@@ -704,9 +714,9 @@ func _input(event) -> void:
 			
 	# on slide | slam pressed
 	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor() and player_slide_slam_input_enabled:
-		player_state = player_states.SLIDING
+		set_player_state(player_states.SLIDING)
 	elif Input.is_action_just_pressed("Slide | Slam") and not is_on_floor() and player_slide_slam_input_enabled:
-		#player_state = player_states.SLAMMING
+		#set_player_state(player_states.SLAMMING)
 		Debug.log("Slamming is currently disabled due to being terrible. Replacement is WIP.")
 
 	# on slide | slam released do state check
@@ -714,7 +724,7 @@ func _input(event) -> void:
 		if player_state == player_states.REELINGTO:
 			pass
 		else:
-			player_state = player_states.GROUNDED
+			set_player_state(player_states.GROUNDED)
 	
 	if Input.is_action_just_pressed("dash") and player_dash_input_enabled and STAMINA >= 100:
 		# Determine dash direction for camera effects based on input:
@@ -747,8 +757,12 @@ func _input(event) -> void:
 		)
 
 
-func setInCombat(new_state:bool):
+func setInCombat(new_state:bool) -> void:
+	if in_combat == new_state:
+		return
+	var previous_in_combat:bool = in_combat
 	in_combat = new_state
+	in_combat_changed.emit(in_combat, previous_in_combat)
 
 
 func getCheckPoint() -> checkPoint:
@@ -977,9 +991,9 @@ func _initializeStamina() -> void:
 func _on_dash_length_timer_timeout() -> void:
 	if player_state != player_states.REELINGTO:
 		if is_on_floor():
-			player_state = player_states.GROUNDED
+			set_player_state(player_states.GROUNDED)
 		elif not is_on_floor():
-			player_state = player_states.FALLING
+			set_player_state(player_states.FALLING)
 
 func _on_stamina_charge_delay_timer_timeout() -> void:
 	stamina_recharging = true
