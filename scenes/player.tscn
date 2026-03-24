@@ -1025,6 +1025,7 @@ one_shot = true
 ignore_time_scale = true
 
 [connection signal="entered_arm_state" from="." to="huds/HUD" method="_on_player_entered_arm_state"]
+[connection signal="entered_player_state" from="." to="Pivot/Camera3D" method="_on_player_entered_player_state"]
 [connection signal="body_entered" from="GrappleEnemyCeaseArea" to="." method="_on_grapple_enemy_cease_area_body_entered"]
 [connection signal="new_hooked_target_set" from="Pivot/Camera3D/GrappleArm" to="." method="_on_grapple_arm_new_hooked_target_set"]
 [connection signal="area_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_entered"]

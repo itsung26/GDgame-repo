@@ -10,7 +10,7 @@
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_lpr72")
-shader_parameter/offset = Vector2(0, 0)
+shader_parameter/FloatParameter2 = 1.0
 shader_parameter/scale = Vector2(5.83, 1.04)
 shader_parameter/Texture2DParameter = ExtResource("2_40gwy")
 shader_parameter/FloatParameter = 1.7349999999999999

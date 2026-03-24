@@ -26,6 +26,7 @@ extends CharacterBody3D
 ## machine, so any changes to it's position/rotation have to be procedural and account for
 ## the camera being in any given state.
 
+#region @onready
 @onready var player: CharacterBody3D = $"."
 @onready var camera_3d: PlayerCamera = %Camera3D
 @onready var pivot: Node3D = $Pivot
@@ -66,11 +67,31 @@ extends CharacterBody3D
 @onready var impact_sparks_2:GPUParticles3D = $SlideParticles/ImpactParticles/SparkTrailsSide/ImpactSparks2
 @onready var impact_particles:GPUParticles3D = $SlideParticles/ImpactParticles
 @onready var pause_menu: PauseMenu = %PauseMenu
+#endregion
 
-const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
-const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
-const bullet_trail_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
-const los_query_SCENE:PackedScene = preload("res://scenes/line_of_sight_query.tscn")
+#region Enum FSMs
+## Declared before [code]@export[/code] so properties such as [code]inital_arm[/code] can use these types.
+## 4 seperate FSMs (finite state machines) to replace conditional trees.
+##
+## Player states. These states affect the player's kinematics.
+## Associated state variable of type [code]player_states[/code]: [code]player_state[/code]
+enum player_states {
+	GROUNDED,
+	DEAD,
+	FALLING,
+	WALL_SLIDING,
+	REELINGTO,
+	SLIDING,
+	DASHING,
+	SLAMMING
+}
+
+## Arm states. These states affect which arm is currently active. Associated state variable of type [code]arm_states[/code]: [code]arm_state[/code]
+enum arm_states{GRAPPLEARM, PARRYARM}
+
+## WIP. Currently only represents the grapple hook's state.
+enum action_states{IDLE, GRAPPLING}
+#endregion
 
 @export_group("Input Allowments")
 @export var player_move_input_enabled:bool = true
@@ -126,12 +147,6 @@ const los_query_SCENE:PackedScene = preload("res://scenes/line_of_sight_query.ts
 @export var wall_jump_applied_velocity:float = 12.0
 ## Maximum number of times the player can jump off walls before touching the ground again.
 @export var max_wall_jumps:int = 3
-## Remaining wall jumps available before needing to touch the ground.
-var wall_jumps_left:int = 0
-## True while the player is touching a wall based on slide collisions, even without input.
-var touching_wall:bool = false
-## Approximate normal of the wall the player is currently touching, derived from test_move checks.
-var wall_normal:Vector3 = Vector3.ZERO
 
 @export_group("Grappling Hook")
 @export var Grapple_Enabled:= true
@@ -142,7 +157,6 @@ var wall_normal:Vector3 = Vector3.ZERO
 @export var grapple_hook_damage:float = 1.0
 
 @export_group("Parrying")
-var parry_target:Node3D
 ## The amount of time that time stops for when parrying something.
 @export var hitstop_duration:float = 0.21
 ## The factor that projectile's speed is multiplied with after being parried.
@@ -159,59 +173,34 @@ var parry_target:Node3D
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
 @export var free_slide_enabled := false
 
-#region State Machine initializers
-## 4 seperate FSMs (finite state machines) to replace conditional trees.
-##
-## Player states. These states affect the player's kinematics. 
-## Associated state variable of type [code]player_states[/code]: [code]player_state[/code]
-enum player_states {
-	GROUNDED,
-	DEAD,
-	FALLING,
-	WALL_SLIDING,
-	REELINGTO,
-	SLIDING,
-	DASHING,
-	SLAMMING
-}
-var player_state:player_states = player_states.GROUNDED:
-	set = set_player_state
-
 @export_category("Weapons")
 ## The initial weapon. If none is set, the initial weapon defaults to the first in the
 ## weapon_states order.
 @export var initial_weapon:PlayerWeapon
-## Weapon states. These states serve as the weapons that the player is allowed to use. 
+## Weapon states. These states serve as the weapons that the player is allowed to use.
 ## Associated state variable of type [code]PlayerWeapon[/code]: [code]weapon_state[/code]
 ## Important Note: This state machine differs from the others in the way that it is an array,
 ## not an enumeration. The array directly contains refrences to the PlayerWeapon objects
 ## and the weapon_state directly holds the object itself.
 ## For example, checking if the player has the pistol would include: weapon_state == pistol.
 @export var weapon_states:Array[PlayerWeapon]
-@onready var weapon_state:PlayerWeapon:
-	set = set_weapon_state
 
-## Arm states. These states affect which arm is currently active. Associated state variable of type [code]arm_states[/code]: [code]arm_state[/code]
-enum arm_states{GRAPPLEARM, PARRYARM}
+#region Variables
+var player_state:player_states = player_states.GROUNDED:
+	set = set_player_state
 var arm_state:arm_states = arm_states.GRAPPLEARM:
 	set = set_arm_state
-
-## WIP. Currently only represents the grapple hook's state.
-enum action_states{IDLE, GRAPPLING}
 var action_state:action_states = action_states.IDLE:
 	set = set_action_state
-#endregion
-
-# Signals for corresponding FSMs.
-## Emitted when the [code]player_state[/code] changes.
-signal entered_player_state(new_player_state:player_states, previous_player_state:player_states)
-signal entered_arm_state(new_arm_state:arm_states, previous_arm_state:arm_states)
-signal entered_action_state(new_action_state:action_states, previous_action_state:action_states)
-## Emitted when the equipped [code]weapon_state[/code] ([code]PlayerWeapon[/code]) changes.
-signal entered_weapon_state(new_weapon_state:PlayerWeapon, previous_weapon_state:PlayerWeapon)
-## Emitted when [code]in_combat[/code] changes (e.g. combat area enter/exit).
-signal in_combat_changed(new_in_combat:bool, previous_in_combat:bool)
-
+var weapon_state:PlayerWeapon:
+	set = set_weapon_state
+## Remaining wall jumps available before needing to touch the ground.
+var wall_jumps_left:int = 0
+## True while the player is touching a wall based on slide collisions, even without input.
+var touching_wall:bool = false
+## Approximate normal of the wall the player is currently touching, derived from test_move checks.
+var wall_normal:Vector3 = Vector3.ZERO
+var parry_target:Node3D
 var cause_of_death:String = ""
 var direction:Vector3
 var input_dir := Vector2.ZERO
@@ -222,6 +211,25 @@ var los_query:LineOfSightQuery
 var grapple_rope_mesh_gen:ropeMeshGenerator
 var max_stamina:float
 var stamina_recharging:bool = true
+#endregion
+
+#region Constants
+const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
+const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
+const bullet_trail_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
+const los_query_SCENE:PackedScene = preload("res://scenes/line_of_sight_query.tscn")
+#endregion
+
+#region Signals
+## Emitted when the [code]player_state[/code] changes.
+signal entered_player_state(new_player_state:player_states, previous_player_state:player_states)
+signal entered_arm_state(new_arm_state:arm_states, previous_arm_state:arm_states)
+signal entered_action_state(new_action_state:action_states, previous_action_state:action_states)
+## Emitted when the equipped [code]weapon_state[/code] ([code]PlayerWeapon[/code]) changes.
+signal entered_weapon_state(new_weapon_state:PlayerWeapon, previous_weapon_state:PlayerWeapon)
+## Emitted when [code]in_combat[/code] changes (e.g. combat area enter/exit).
+signal in_combat_changed(new_in_combat:bool, previous_in_combat:bool)
+#endregion
 
 
 func set_player_state(new_player_state:player_states):
@@ -313,7 +321,8 @@ func set_player_state(new_player_state:player_states):
 	if previous_player_state == player_states.SLAMMING:
 		player_move_input_enabled = true
 		gravity_enabled = true
-	
+
+
 func set_weapon_state(new_weapon_state:PlayerWeapon):
 	# prevent the weapon state from being set to null
 	if new_weapon_state == null:
@@ -335,7 +344,8 @@ func set_weapon_state(new_weapon_state:PlayerWeapon):
 	
 	# calls the equip logic on the weapon that is being equipped
 	new_weapon_state._onEquip()
-		
+
+
 func set_action_state(new_action_state:action_states):
 	# init vars
 	var previous_action_state := action_state
@@ -378,6 +388,7 @@ func set_action_state(new_action_state:action_states):
 	if previous_action_state == action_states.IDLE:
 		pass
 
+
 func set_arm_state(new_arm_state:arm_states):
 	# init vars
 	var previous_arm_state := arm_state
@@ -403,6 +414,7 @@ func set_arm_state(new_arm_state:arm_states):
 		parry_arm.visible = true
 	if previous_arm_state == arm_states.PARRYARM:
 		parry_arm.visible = false
+
 
 # called when the player is loaded into the scene.
 # Player should be loaded after main enviroment and global lighting, but before 
@@ -506,7 +518,7 @@ func _process(delta) -> void:
 	# Again, I hate this, but it stays for now.
 	if grapple_rope_mesh_gen:
 		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
-	
+
 
 # Called every physics frame. FPS: 120
 func _physics_process(delta: float) -> void:
@@ -773,6 +785,7 @@ func setCheckPoint(new_checkpoint:checkPoint):
 	var previous_check_point:checkPoint = checkpoint
 	checkpoint = new_checkpoint
 
+
 ## When the player dies in a combat area, they are to respawn with full health at
 ## the last checkpoint. Enemy waves are reset and the player's camera look direction
 ## and body rotation should be set according to properties in the checkPoint object.
@@ -786,6 +799,7 @@ func respawnCheckPoint() -> void:
 	player.global_position = checkpoint.respawn_player_position
 	player.rotation = initial_player_rotation
 	camera_3d.rotation = initial_camera_rotation
+
 
 ## Call to damage player. Requires a [code]damage[/code] parameter. Optionally, additional parameters for screen shake can be passed to the function. Otherwise, screen shake will not occur.
 func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_duration:float = 0.66, screen_shake_strength:float = 1.0):
@@ -833,11 +847,13 @@ func healPlayer(amount:float):
 	else:
 		HEALTH = new_health
 
+
 ## Disables firing for all weapons possesed by the player.
 func deactivateWeapons() -> void:
 	for weapon_state:PlayerWeapon in weapon_states:
 		if weapon_state:
 			weapon_state.can_fire = false
+
 
 ## Enables firing for all weapons possesed by the player.
 func activateWeapons() -> void:
@@ -912,6 +928,7 @@ func parryTargetInBox():
 	elif parry_target != null and parry_target.parriable == false:
 		parry_arm_animator.play("swing arm miss")
 
+
 ## Returns the combined rotation of the player's camera and the player's body. This
 ## corresponds to the combined vector of where they are looking.
 func getFacingRot() -> Vector3:
@@ -920,11 +937,13 @@ func getFacingRot() -> Vector3:
 	var combined_global_rot = Vector3(cam_global_rot_x, player_global_rot_y, 0.0)
 	return combined_global_rot
 
+
 ## Returns the inverse rotation of [code]getFacingRot()[/code]. (180 degrees)
 func getFacingRotInverted() -> Vector3:
 	var combined_global_rot:Vector3 = getFacingRot()
 	combined_global_rot = combined_global_rot.inverse()
 	return combined_global_rot
+
 
 ## Returns the point that a 5000 meter long raycast originating from the player's
 ## central camera zone collides with. Raycast only collides with the world.
@@ -935,11 +954,13 @@ func getFacingPoint() -> Vector3:
 		return ret
 	return Vector3.ZERO
 
+
 ## Disables the firing of all weapons and sets the timescale to zero for [param hitstop_duration_time]
 func hitStop(hitstop_duration_time:float):
 	deactivateWeapons()
 	Engine.time_scale = 0.0
 	hitstop_timer.start(hitstop_duration_time)
+
 
 ## Get's the player's predicted position at [code]time[/code] seconds, assuming velocity
 ## will remain constant. Cane be used for enemy aim prediction. Returns in the global
@@ -949,6 +970,7 @@ func getPredictedPos(time:float) -> Vector3:
 	var r:Vector3 = a + global_position
 	return r
 
+
 ## Get's the player camera's predicted position at [code]time[/code] seconds, assuming velocity
 ## will remain constant. Cane be used for enemy aim prediction. Returns in the global
 ## coordinate system.
@@ -957,13 +979,16 @@ func getCameraPredictedPos(time:float) -> Vector3:
 	var r:Vector3 = a + camera_3d.global_position
 	return r
 
+
 ## Returns global coords.
 func getGlobalPos() -> Vector3:
 	return global_position
 
+
 func playerDie():
 	set_player_state(player_states.DEAD)
 	Engine.time_scale = 0.3
+
 
 func getHookedTarget() -> Node3D:
 	return grapple_arm.hooked_target
@@ -995,13 +1020,16 @@ func _on_dash_length_timer_timeout() -> void:
 		elif not is_on_floor():
 			set_player_state(player_states.FALLING)
 
+
 func _on_stamina_charge_delay_timer_timeout() -> void:
 	stamina_recharging = true
+
 
 # when enemy touches player on grapple, kill player velocity and apply hop if on floor
 func _on_grapple_enemy_cease_area_body_entered(body:Enemy) -> void:
 	if body == grapple_target:
 		pass # set the grapple state to idle
+
 
 #region Parry Hitbox entry and exit
 func _on_parry_hitbox_body_entered(body: Node3D) -> void:
@@ -1016,6 +1044,8 @@ func _on_parry_hitbox_body_entered(body: Node3D) -> void:
 func _on_parry_hitbox_body_exited(body: Node3D) -> void:
 	if body == parry_target:
 		parry_target = null
+
+
 #endregion
 
 ## When this timer ends, the hitstop is ended.
@@ -1031,6 +1061,7 @@ func _on_hitstop_timer_timeout() -> void:
 		else:
 			node.visible = false
 	Engine.time_scale = 1.0
+
 
 ## Primary logic for beginning grapple interactions goes here. State machines handle maintaining grapple connection and physics.
 func _on_grapple_arm_new_hooked_target_set(previous_hooked_target: Node3D, new_hooked_target: Node3D) -> void:
