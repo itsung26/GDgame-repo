@@ -106,7 +106,8 @@ enum action_states{IDLE, GRAPPLING}
 
 @export_category("Main Attributes")
 @export var Godmode:bool = false
-@export var HEALTH:float = 100
+@export var HEALTH:float = 100:
+	set = setHealth
 @export var can_be_healed:bool = true
 @export var can_be_damaged:bool = true
 @export var in_combat:bool = false: set = setInCombat
@@ -840,35 +841,12 @@ func setCheckPoint(new_checkpoint:checkPoint):
 func respawnCheckPoint() -> void:
 	if not player.checkpoint:
 		return
-	healPlayer(9999.0)
+	
 	set_player_state(player_states.GROUNDED)
 	player.velocity = Vector3.ZERO
 	player.global_position = checkpoint.respawn_player_position
 	player.rotation = initial_player_rotation
 	camera_3d.rotation = initial_camera_rotation
-
-
-## Call to damage player. Requires a [code]damage[/code] parameter. Optionally, additional parameters for screen shake can be passed to the function. Otherwise, screen shake will not occur.
-func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_duration:float = 0.66, screen_shake_strength:float = 1.0):
-	if damage == 0.0 or not can_be_damaged:
-		return
-	var previous_health:float = HEALTH
-	var new_health:float = HEALTH - damage
-	new_health = clampf(new_health, 0.0, 100.0)
-	cause_of_death = death_cause
-	# shake camera
-	camera_3d.shakeCamera(screen_shake_duration, screen_shake_strength)
-	# make screen flash red by instancing a VFX scene. It will be automatically freed when done.
-	var hurt_rect:Control = hurt_rect_SCENE.instantiate()
-	get_tree().current_scene.add_child(hurt_rect)
-	
-	if damage < 0.0:
-		assert(false, "Player recieved negative damage.")
-	else:
-		if not Godmode:
-			HEALTH = new_health
-			if HEALTH == 0.0:
-				killPlayer()
 
 
 ## Returns true if [param targ] is in the line of sight from the player's camera.
@@ -877,22 +855,6 @@ func losQuery(targ:Vector3, stop_on_enemies:bool, stop_on_world:bool) -> bool:
 	var line_of_sight_clear:bool = false
 	line_of_sight_clear = los_query.queryHasLineOfSight(camera_3d.global_position, targ, false, stop_on_enemies, stop_on_world)
 	return line_of_sight_clear
-
-
-func healPlayer(amount:float):
-	if not can_be_healed:
-		return
-
-	var previous_health:float = HEALTH
-	var new_health:float = HEALTH + amount
-	new_health = clampf(new_health, 0.0, 100.0)
-	
-	if amount == 0.0:
-		push_warning("Player was healed by 0? If this is intended, this method should not have been called.")
-	elif amount < 0.0:
-		assert(false, "Cannot heal the player by a negative amount.")
-	else:
-		HEALTH = new_health
 
 
 ## Disables firing for all weapons possesed by the player.
@@ -940,7 +902,7 @@ func parryTargetInBox():
 		
 		# Special cases in for different parriable things.
 		if parry_target is EnemyProjectile:
-			healPlayer(parry_heal_amount)
+			setHealth(HEALTH + parry_heal_amount)
 			parry_target.has_been_parried = true
 			if parry_target is EnergyBall:
 				parry_target.linear_velocity = Vector3.ZERO

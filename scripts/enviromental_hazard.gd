@@ -9,7 +9,6 @@ class_name EnviromentalHazard extends Area3D
 ## Damage done to entities
 @export var damage_to_enemies: float = 2.5
 @export var damage_to_player: float = 10.0
-## Death-cause text passed into `Player.damagePlayer(...)`.
 @export var enviromental_death_cause: String
 ## Direction used for knockback. Normalized in `_ready()`.
 @export var bounce_direction: Vector3
@@ -38,7 +37,8 @@ func _on_hazard_area_body_entered(body: Node3D) -> void:
 	if body is Player:
 		_onHazardPlayerEnter(body)
 		var player: Player = body
-		player.damagePlayer(damage_to_player, enviromental_death_cause)
+		player.setHealth(player.HEALTH - damage_to_player)
+		player.cause_of_death = enviromental_death_cause
 		# Preserve movement state consistency when a slam is interrupted by hazard hit.
 		if player.player_state == player.player_states.SLAMMING:
 			if player.is_on_floor():

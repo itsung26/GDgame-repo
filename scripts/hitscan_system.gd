@@ -381,7 +381,7 @@ func _handle_hit(
 	
 	if hit_body is Player:
 		var damage: float = config.get_random_damage() * damage_multiplier
-		hit_body.damagePlayer(damage, "Hitscan")
+		hit_body.setHealth(hit_body.HEALTH - damage)
 		return
 	
 	elif hit_body is PistolBombShotCollsionReciever:

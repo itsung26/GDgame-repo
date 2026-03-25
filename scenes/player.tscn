@@ -641,12 +641,22 @@ unique_name_in_owner = true
 process_mode = 1
 current = true
 script = ExtResource("9_ke2ow")
+camera_roll_enabled = null
 max_camera_roll = 2.25
+camera_roll_speed = null
+camera_target_roll = null
+dash_roll_enabled = null
 dash_roll_amount = 4.0
 dash_roll_lerp_speed = 50.0
+base_min_pitch_deg = null
+base_max_pitch_deg = null
+dash_pitch_enabled = null
 dash_pitch_amount = 3.0
 dash_pitch_lerp_speed = 25.0
+camera_fov_lerp_enabled = null
+camera_target_fov = null
 camera_fov_lerp_speed = 10.0
+smoothness = null
 
 [node name="LongPointGetter" type="RayCast3D" parent="Pivot/Camera3D"]
 editor_description = "see getFacingPoint()"

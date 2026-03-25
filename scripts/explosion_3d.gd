@@ -189,7 +189,9 @@ func _on_body_influencer_player_entered(player: Player) -> void:
 		player.global_position.y += 0.1
 		player.velocity += dir_to_player_head * knockback_force # apply a force to the player
 		
-	player.damagePlayer(damage, "explosion", screen_shake_duration, screen_shake_strength)
+	player.setHealth(player.HEALTH - damage)
+	player.cause_of_death = "Explosion."
+	player.camera_3d.shakeCamera(screen_shake_duration, screen_shake_strength)
 
 ## When projectile hit by explosion
 func _on_body_influencer_projectile_entered(projectile: EnemyProjectile) -> void:
