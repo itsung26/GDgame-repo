@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw504iwrb8kb3"]
+
+[ext_resource type="Script" uid="uid://e6tqv273n3g5" path="res://scripts/death_camera.gd" id="1_perir"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_perir"]
+radius = 0.01666362
+
+[node name="DeathCamera" type="Node3D"]
+script = ExtResource("1_perir")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_mask = 4
+
+[node name="Camera3D" type="Camera3D" parent="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_perir")

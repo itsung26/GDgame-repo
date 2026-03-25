@@ -207,9 +207,3 @@ func shakeCamera(duration: float = 0.66, strength: float = 1.0) -> void:
 	current_strength = 0.0
 	remaining_time = 0.0
 	elapsed_time = 0.0
-
-
-func _on_player_entered_player_state(new_player_state: Player.player_states, previous_player_state: Player.player_states) -> void:
-	if new_player_state == Player.player_states.DEAD:
-		if cam_shaking:
-			pass

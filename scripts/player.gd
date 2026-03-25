@@ -108,6 +108,7 @@ enum action_states{IDLE, GRAPPLING}
 @export var Godmode:bool = false
 @export var HEALTH:float = 100
 @export var can_be_healed:bool = true
+@export var can_be_damaged:bool = true
 @export var in_combat:bool = false: set = setInCombat
 @export var STAMINA:float = 300
 ## Delay after dash before stamina before stamina begins to recharge in seconds.
@@ -166,8 +167,10 @@ enum action_states{IDLE, GRAPPLING}
 ## How much health is regained on a successful parry.
 @export var parry_heal_amount:float = 25.0
 
-@export_group("Respawning")
+@export_group("Respawning and Death")
 @export var checkpoint:checkPoint
+@export var death_camera_fling_magnitude:float
+@export var death_camera_spin_magnitude:float
 
 @export_group("Extras")
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
@@ -218,6 +221,7 @@ const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
 const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
 const bullet_trail_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
 const los_query_SCENE:PackedScene = preload("res://scenes/line_of_sight_query.tscn")
+const death_camera_SCENE:PackedScene = preload("res://scenes/death_camera.tscn")
 #endregion
 
 #region Signals
@@ -245,10 +249,7 @@ func set_player_state(new_player_state:player_states):
 	
 	# Emit signal
 	entered_player_state.emit(new_player_state, previous_player_state)
-	
-	#if previous_player_state == new_player_state:
-		#print("WARNING: Player entered a new state matching it's own. This is allowed, but may cause state machine override problems.")
-	
+		
 	# death to and from
 	if new_player_state == player_states.DEAD:
 		# disable inputs
@@ -263,8 +264,33 @@ func set_player_state(new_player_state:player_states):
 		can_be_healed = false
 		player_kinematics_enabled_xz = false
 		player_kinematics_enabled_y = false
+		grapple_arm.visible = false
+		parry_arm.visible = false
+		can_be_damaged = false
 		
 		killVelocity()
+		weapon_state.visible = false
+		
+		var death_camera:DeathCamera = death_camera_SCENE.instantiate()
+		get_tree().current_scene.add_child(death_camera)
+		death_camera.setup(death_camera_spin_magnitude, death_camera_fling_magnitude)
+	if previous_player_state == player_states.DEAD:
+		# re enable inputs
+		player_move_input_enabled = true
+		player_dash_input_enabled = true
+		player_jump_input_enabled = true
+		player_fire_input_enabled = true
+		player_arm_action_input_enabled = true
+		weapon_switch_input_enabled = true
+		player_look_input_enabled = true
+		can_be_healed = true
+		player_kinematics_enabled_xz = true
+		player_kinematics_enabled_y = true
+		grapple_arm.visible = true
+		parry_arm.visible = true
+		can_be_damaged = true
+		
+		weapon_state.visible = true
 
 	# GROUNDED to and from
 	if new_player_state == player_states.GROUNDED:
@@ -470,7 +496,8 @@ func _ready() -> void:
 ## Kinematic-related operations should only be run in _physics_process, while logic and other operations
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
-	Debug.log(RagdollManager.ragdoll_rigs)
+	if Input.is_action_just_pressed("debug func"):
+		killPlayer()
 	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
@@ -769,6 +796,26 @@ func _input(event) -> void:
 		)
 
 
+func setHealth(new_health:float = HEALTH) -> void:
+	new_health = clampf(new_health, 0.0, 100.0)
+	var health_increased:bool = new_health > HEALTH
+	var health_decreased:bool = new_health < HEALTH
+	
+	if health_increased:
+		if not can_be_healed:
+			return
+	elif health_decreased:
+		if not can_be_damaged:
+			return
+		# make screen flash red by instancing a VFX scene. It will be automatically freed when done.
+		var hurt_rect:Control = hurt_rect_SCENE.instantiate()
+		get_tree().current_scene.add_child(hurt_rect)
+	else:
+		pass # health unchanged
+	
+	HEALTH = new_health
+
+
 func setInCombat(new_state:bool) -> void:
 	if in_combat == new_state:
 		return
@@ -803,7 +850,7 @@ func respawnCheckPoint() -> void:
 
 ## Call to damage player. Requires a [code]damage[/code] parameter. Optionally, additional parameters for screen shake can be passed to the function. Otherwise, screen shake will not occur.
 func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_duration:float = 0.66, screen_shake_strength:float = 1.0):
-	if damage == 0.0:
+	if damage == 0.0 or not can_be_damaged:
 		return
 	var previous_health:float = HEALTH
 	var new_health:float = HEALTH - damage
@@ -821,7 +868,7 @@ func damagePlayer(damage:float, death_cause:String = "Unknown", screen_shake_dur
 		if not Godmode:
 			HEALTH = new_health
 			if HEALTH == 0.0:
-				playerDie()
+				killPlayer()
 
 
 ## Returns true if [param targ] is in the line of sight from the player's camera.
@@ -985,9 +1032,13 @@ func getGlobalPos() -> Vector3:
 	return global_position
 
 
-func playerDie():
+func killPlayer():
+	if player_state == player_states.DEAD:
+		push_warning("Attempted to call KillPlayer() when the player is already dead.")
+		return
+	if HEALTH != 0.0:
+		HEALTH = 0.0
 	set_player_state(player_states.DEAD)
-	Engine.time_scale = 0.3
 
 
 func getHookedTarget() -> Node3D:
