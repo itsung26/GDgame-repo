@@ -1,12 +1,179 @@
-[gd_scene load_steps=3 format=3 uid="uid://dw504iwrb8kb3"]
+[gd_scene load_steps=9 format=3 uid="uid://dw504iwrb8kb3"]
 
 [ext_resource type="Script" uid="uid://e6tqv273n3g5" path="res://scripts/death_camera.gd" id="1_perir"]
+[ext_resource type="Shader" uid="uid://bwtjtm0v8mpm0" path="res://shaders/GDSL shaders/CRT_shader.gdshader" id="2_3lbjf"]
+[ext_resource type="Texture2D" uid="uid://dkbewgfjrgmhy" path="res://assets/2d assets/ui/coldLevel.png" id="2_63fif"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lbjf"]
+shader = ExtResource("2_3lbjf")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.0
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = false
+shader_parameter/roll_speed = 14.925
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 4.5380002122951195
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.0
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_perir"]
 radius = 0.01666362
 
+[sub_resource type="Animation" id="Animation_63fif"]
+resource_name = "fade_to_death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathOutroShader/ColorRect:material:shader_parameter/static_noise_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathOutroShader/ColorRect:material:shader_parameter/vignette_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [0.4, 50.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathOutroShader/ColorRect:material:shader_parameter/roll")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeathOutroShader/ColorRect:material:shader_parameter/aberration")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8280401),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [0.03, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_y6y7v"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathOutroShader/ColorRect:material:shader_parameter/static_noise_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathOutroShader/ColorRect:material:shader_parameter/vignette_intensity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [0.4, 50.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathOutroShader/ColorRect:material:shader_parameter/roll")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DeathOutroShader/ColorRect:material:shader_parameter/aberration")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8280401),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [0.03, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y6y7v"]
+_data = {
+&"RESET": SubResource("Animation_y6y7v"),
+&"fade_to_death": SubResource("Animation_63fif")
+}
+
 [node name="DeathCamera" type="Node3D"]
 script = ExtResource("1_perir")
+
+[node name="DeathOutroShader" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="DeathOutroShader"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_63fif")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="DeathOutroShader"]
+z_index = -1
+z_as_relative = false
+material = SubResource("ShaderMaterial_3lbjf")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 collision_mask = 4
@@ -16,3 +183,9 @@ angular_damp = 2.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("SphereShape3D_perir")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_y6y7v")
+}
+speed_scale = 0.25

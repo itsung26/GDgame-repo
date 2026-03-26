@@ -55,7 +55,6 @@ extends CharacterBody3D
 @onready var world_collide_box: Area3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox
 @onready var parry_arm: Node3D = $Pivot/Camera3D/ParryArm
 @onready var parry_arm_animator: AnimationPlayer = $"Pivot/Camera3D/ParryArm/parry arm/AnimationPlayer"
-@onready var hitstop_timer: Timer = $HitstopTimer
 @onready var distant_marker: Marker3D = $Pivot/Camera3D/distantMarker
 @onready var parry_flash: MeshInstance3D = $Pivot/Camera3D/ParryArm/ParryFlash
 @onready var parry_flash_go_back_marker: Marker3D = $Pivot/Camera3D/parryFlashGoBackMarker
@@ -169,8 +168,9 @@ enum action_states{IDLE, GRAPPLING}
 @export var parry_heal_amount:float = 25.0
 
 @export_group("Respawning and Death")
-@export var death_camera_fling_magnitude:float
-@export var death_camera_spin_magnitude:float
+@export var death_camera_fling_magnitude:float = 1.0
+@export var death_camera_spin_magnitude:float = 1.0
+@export var death_time_slow_speed:float = 1.0
 
 @export_group("Extras")
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
@@ -510,7 +510,8 @@ func _ready() -> void:
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("debug func"):
-		setHealth(HEALTH - 25.0)
+		setHealth(HEALTH - 100.0)
+	# print what canvasitem was clicked on when something is clicked here
 	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
@@ -563,15 +564,8 @@ func _process(delta) -> void:
 
 
 func process_player_state(delta:float) -> void:
-	# replace with a time flow system singleton?
-	var time:float = 1.0
 	if player_state == player_states.DEAD:
-		time = lerpf(time, 0.0, 1.0 * delta)
-		Engine.time_scale = time
-	if player_state != player_states.DEAD:
-		time = lerpf(time, 1.0, 1.0 * delta)
-		Engine.time_scale = time
-		
+		TimeFlowSystem.setTimeScale(lerpf())
 
 
 # Called every physics frame. FPS: 120
@@ -826,9 +820,9 @@ func _input(event) -> void:
 
 
 func setHealth(new_health:float = HEALTH) -> void:
+	new_health = clampf(new_health, 0.0, 100.0)
 	var previous_health:float = HEALTH
 	HEALTH = new_health
-	new_health = clampf(new_health, 0.0, 100.0)
 	var health_increased:bool = new_health > previous_health
 	var health_decreased:bool = new_health < previous_health
 	
@@ -975,9 +969,22 @@ func getFacingPoint() -> Vector3:
 
 ## Disables the firing of all weapons and sets the timescale to zero for [param hitstop_duration_time]
 func hitStop(hitstop_duration_time:float):
+	TimeFlowSystem.interruptTimeflow(hitstop_duration_time, Callable(self, &"_on_hitstop_end"))
 	deactivateWeapons()
-	Engine.time_scale = 0.0
-	hitstop_timer.start(hitstop_duration_time)
+
+
+## This callback is called after the hitstop ends.
+func _on_hitstop_end() -> void:
+	activateWeapons()
+	parry_input_allowed = true
+	var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")
+	for node:Node in parry_visuals:
+		if node == parry_flash:
+			parry_flash.visible = false
+			parry_flash.top_level = false
+			parry_flash.global_position = parry_flash_go_back_marker.global_position
+		else:
+			node.visible = false
 
 
 ## Get's the player's predicted position at [code]time[/code] seconds, assuming velocity
@@ -1055,20 +1062,6 @@ func _on_parry_hitbox_body_exited(body: Node3D) -> void:
 
 
 #endregion
-
-## When this timer ends, the hitstop is ended.
-func _on_hitstop_timer_timeout() -> void:
-	activateWeapons()
-	parry_input_allowed = true
-	var parry_visuals:Array[Node] = get_tree().get_nodes_in_group("parry visuals")
-	for node:Node in parry_visuals:
-		if node == parry_flash:
-			parry_flash.visible = false
-			parry_flash.top_level = false
-			parry_flash.global_position = parry_flash_go_back_marker.global_position
-		else:
-			node.visible = false
-	Engine.time_scale = 1.0
 
 
 ## Primary logic for beginning grapple interactions goes here. State machines handle maintaining grapple connection and physics.

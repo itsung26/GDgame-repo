@@ -5,6 +5,7 @@ extends Node3D
 
 @onready var rigid_body_3d: RigidBody3D = $RigidBody3D
 @onready var camera_3d: Camera3D = $RigidBody3D/Camera3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func setup(
@@ -29,6 +30,7 @@ initial_velocity:Vector3 = Vector3.ZERO
 	rigid_body_3d.angular_velocity = angular_vector
 	
 	camera_3d.make_current()
+	animation_player.play("fade_to_death")
 
 
 ## Returns a random vector with each component independently in [range_min, range_max].

@@ -25,4 +25,6 @@ func log(loggable = "") -> void:
 ## The stack trace is printed above the error line as a regular print line.
 ## Intended to replace default printerr() behaviour.
 func logerr(loggable = "") -> void:
-	pass
+	var stackslim:String = getStackSlim()
+	print(stackslim)
+	printerr(str(loggable))
