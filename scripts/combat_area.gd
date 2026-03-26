@@ -14,7 +14,6 @@ signal player_died_in_combat(wave:int)
 ## Represents the current set of enemies to spawn. -1 when no waves have yet been triggered.
 @export var current_wave:int = -1
 @export var delay_before_first_wave:float = 1.0
-var _enemy_wave_0: Array[EnemySpawnHandler] = []
 @export var enemy_wave_0: Array[EnemySpawnHandler] = []
 @export var enemy_wave_1:Array[EnemySpawnHandler] = []
 @export var enemy_wave_2:Array[EnemySpawnHandler] = []

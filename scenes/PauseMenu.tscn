@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccwx4hsr3uqux"]
+[gd_scene load_steps=12 format=3 uid="uid://ccwx4hsr3uqux"]
 
 [ext_resource type="Theme" uid="uid://bn6oc86kvsu5j" path="res://assets/styles/menu styles/pause_center_buttons.tres" id="1_5w6ei"]
 [ext_resource type="Script" uid="uid://drc2nlc2fo4of" path="res://scripts/PauseMenu.gd" id="2_jiu6o"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dl8xt57ea7kn6" path="res://scripts/resolution_drop_down.gd" id="5_yx35g"]
 [ext_resource type="Script" uid="uid://bnaeh3uelbpqe" path="res://scripts/vsync_drop_down.gd" id="6_40atx"]
 [ext_resource type="Script" uid="uid://cvj26a3vkhvyo" path="res://scripts/window_mode_drop_down.gd" id="7_yx35g"]
+[ext_resource type="Texture2D" uid="uid://bf28n4vor6bri" path="res://assets/2d assets/ui/icons generic/undo_arrow.png" id="8_vd2mf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5w6ei"]
 content_margin_left = 15.0
@@ -460,6 +461,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("4_yx35g")
 nodes_to_hide = [NodePath("GameplaySettingsFrame/MarginContainer/VBoxContainer")]
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
@@ -524,11 +527,15 @@ theme_override_font_sizes/font_size = 28
 text = "This is easy mode place holder"
 
 [node name="DisplaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
+visible = false
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("4_yx35g")
-nodes_to_hide = [NodePath("DisplaySettingsFrame/MarginContainer")]
+nodes_to_hide = [NodePath("DisplaySettingsFrame/ScrollContainer")]
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
 metadata/_edit_use_anchors_ = true
 
@@ -540,23 +547,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame"]
-layout_mode = 1
-anchors_preset = -1
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame"]
+layout_mode = 0
 anchor_left = 0.036061026
 anchor_top = 0.059585493
 anchor_right = 0.96948683
 anchor_bottom = 0.95595855
-grow_horizontal = 2
-grow_vertical = 2
+horizontal_scroll_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="SettingsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SettingsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 111
 
-[node name="LabelsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox"]
+[node name="LabelsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -565,46 +574,37 @@ theme_type_variation = &"SettingsHBox"
 theme_override_constants/separation = 23
 vertical = true
 
-[node name="blank" type="Container" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/LabelsBox"]
+[node name="blank" type="Container" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/LabelsBox"]
 custom_minimum_size = Vector2(0, -17.225)
 layout_mode = 2
 
-[node name="BoxContainer" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/LabelsBox"]
+[node name="BoxContainer" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/LabelsBox"]
 layout_mode = 2
 theme_override_constants/separation = 51
 vertical = true
 
-[node name="Label" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/LabelsBox/BoxContainer"]
+[node name="Label" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/LabelsBox/BoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 38
 text = "Resolution"
 
-[node name="VsyncLabel" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/LabelsBox/BoxContainer"]
+[node name="VsyncLabel" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/LabelsBox/BoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 38
 text = "Vsync Mode"
 metadata/_edit_use_anchors_ = true
 
-[node name="WindowModeLabel" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/LabelsBox/BoxContainer"]
+[node name="WindowModeLabel" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/LabelsBox/BoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 38
 text = "Window Mode"
 metadata/_edit_use_anchors_ = true
 
-[node name="ResolutionScaleLabel" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/LabelsBox/BoxContainer"]
-custom_minimum_size = Vector2(245, 71)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 38
-text = "Resolution scale"
-autowrap_mode = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ButtonsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox"]
+[node name="ButtonsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -613,7 +613,7 @@ theme_type_variation = &"SettingsHBox"
 theme_override_constants/separation = 5
 vertical = true
 
-[node name="ResolutionDropDown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox"]
+[node name="ResolutionDropDown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox"]
 layout_mode = 2
 theme_type_variation = &"SettingsOptionButton"
 item_count = 2
@@ -624,7 +624,7 @@ popup/item_1/id = 1
 script = ExtResource("5_yx35g")
 metadata/_custom_type_script = "uid://bhbf0afvs18ey"
 
-[node name="VsyncDropDown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox"]
+[node name="VsyncDropDown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox"]
 layout_mode = 2
 theme_type_variation = &"SettingsOptionButton"
 item_count = 3
@@ -637,7 +637,7 @@ popup/item_2/id = 2
 script = ExtResource("6_40atx")
 metadata/_custom_type_script = "uid://bhbf0afvs18ey"
 
-[node name="WindowModeDropDown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox"]
+[node name="WindowModeDropDown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox"]
 layout_mode = 2
 theme_type_variation = &"SettingsOptionButton"
 selected = 0
@@ -651,16 +651,7 @@ popup/item_2/id = 2
 script = ExtResource("7_yx35g")
 metadata/_custom_type_script = "uid://bhbf0afvs18ey"
 
-[node name="blank" type="Container" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox"]
-custom_minimum_size = Vector2(0, 55.955)
-layout_mode = 2
-
-[node name="ResolutionScaleSlider" type="HSlider" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox"]
-layout_mode = 2
-value = 50.0
-
 [node name="GraphicsSettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -668,7 +659,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_yx35g")
-nodes_to_hide = [NodePath("GraphicsSettingsFrame/MarginContainer")]
+nodes_to_hide = [NodePath("GraphicsSettingsFrame/ScrollContainer")]
 metadata/_custom_type_script = "uid://dad2rvg0scop5"
 
 [node name="GraphicsSettingsFrame" type="Panel" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings"]
@@ -679,20 +670,86 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame"]
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = -1
+anchor_left = 0.036061026
+anchor_top = 0.059585493
+anchor_right = 0.96948683
+anchor_bottom = 0.95595855
+horizontal_scroll_mode = 0
+metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SettingsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 111
+
+[node name="LabelsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("1_5w6ei")
+theme_type_variation = &"SettingsHBox"
+theme_override_constants/separation = 23
+vertical = true
+
+[node name="blank" type="Container" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/LabelsBox"]
+custom_minimum_size = Vector2(0, -17.225)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/MarginContainer/VBoxContainer"]
+[node name="LabelsContainer" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/LabelsBox"]
 layout_mode = 2
-text = "this is the graphics menu"
+theme_override_constants/separation = 51
+vertical = true
+
+[node name="Label" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/LabelsBox/LabelsContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 38
+text = "Resolution
+Scale"
+
+[node name="ButtonsBox" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_5w6ei")
+theme_type_variation = &"SettingsHBox"
+theme_override_constants/separation = 5
+vertical = true
+
+[node name="blank" type="Container" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox"]
+custom_minimum_size = Vector2(311, 14.98)
+layout_mode = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox"]
+layout_mode = 2
+
+[node name="ResolutionScaleReadout" type="Label" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/BoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.0x"
+
+[node name="Container" type="Container" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/BoxContainer"]
+custom_minimum_size = Vector2(131.27, 0)
+layout_mode = 2
+
+[node name="ResolutionScaleResetDefaultButton" type="Button" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/BoxContainer"]
+layout_mode = 2
+icon = ExtResource("8_vd2mf")
+
+[node name="ResolutionScaleSlider" type="HSlider" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 25.0
+max_value = 200.0
+value = 100.0
 
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterButtons/MainCenterPause/Panel/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
@@ -709,6 +766,9 @@ text = "this is the graphics menu"
 [connection signal="toggled" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Display" to="." method="_on_display_toggled"]
 [connection signal="toggled" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsModeTab/PanelContainer/Settings Tabs/Graphics" to="." method="_on_graphics_toggled"]
 [connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting/SettingsHBox/DifficultyDropdown" to="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting/SettingsHBox" method="_on_difficulty_dropdown_item_selected"]
-[connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox/ResolutionDropDown" to="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox/ResolutionDropDown" method="_on_item_selected"]
-[connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox/VsyncDropDown" to="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox/VsyncDropDown" method="_on_vsync_drop_down_item_selected"]
-[connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox/WindowModeDropDown" to="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/MarginContainer/SettingsBox/ButtonsBox/WindowModeDropDown" method="_on_item_selected"]
+[connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/ResolutionDropDown" to="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/ResolutionDropDown" method="_on_item_selected"]
+[connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/VsyncDropDown" to="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/VsyncDropDown" method="_on_vsync_drop_down_item_selected"]
+[connection signal="item_selected" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/WindowModeDropDown" to="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/DisplaySettings/DisplaySettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/WindowModeDropDown" method="_on_item_selected"]
+[connection signal="pressed" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/BoxContainer/ResolutionScaleResetDefaultButton" to="." method="_on_resolution_scale_reset_default_button_pressed"]
+[connection signal="ready" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/ResolutionScaleSlider" to="." method="_on_resolution_scale_slider_ready" flags=18]
+[connection signal="value_changed" from="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GraphicsSettings/GraphicsSettingsFrame/ScrollContainer/MarginContainer/SettingsBox/ButtonsBox/ResolutionScaleSlider" to="." method="_on_resolution_scale_slider_value_changed" flags=18]

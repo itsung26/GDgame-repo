@@ -7,16 +7,25 @@ extends Node3D
 @onready var camera_3d: Camera3D = $RigidBody3D/Camera3D
 
 
-func setup(torque_applied:float = 10.0, velocity_applied:float = 10.0) -> void:
+func setup(
+torque_applied:float = 10.0,
+velocity_applied:float = 10.0,
+initial_rotation:Vector3 = Vector3.ZERO,
+initial_position:Vector3 = Vector3.ZERO,
+initial_velocity:Vector3 = Vector3.ZERO
+) -> void:
 	name = "DeathCamera"
 	var angular_vector:Vector3
 	var fling_dir:Vector3
+	
+	global_position = initial_position
+	global_rotation = initial_rotation
 	
 	fling_dir = getRandomVector(-1.0, 1.0).normalized()
 	angular_vector = getRandomVector(-1.0, 1.0).normalized()
 	angular_vector = angular_vector * torque_applied
 	
-	rigid_body_3d.linear_velocity = fling_dir * velocity_applied
+	rigid_body_3d.linear_velocity = initial_velocity + (fling_dir * velocity_applied)
 	rigid_body_3d.angular_velocity = angular_vector
 	
 	camera_3d.make_current()

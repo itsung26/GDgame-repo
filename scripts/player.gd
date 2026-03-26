@@ -260,6 +260,7 @@ func set_player_state(new_player_state:player_states):
 		player_fire_input_enabled = false
 		player_arm_action_input_enabled = false
 		weapon_switch_input_enabled = false
+		player_arm_switch_input_enabled = false
 		player_look_input_enabled = false
 		# prevent healing the player
 		can_be_healed = false
@@ -267,14 +268,23 @@ func set_player_state(new_player_state:player_states):
 		player_kinematics_enabled_y = false
 		grapple_arm.visible = false
 		parry_arm.visible = false
+		# prevent damaging the player
 		can_be_damaged = false
+		player_look_input_enabled = false
+		player_slide_slam_input_enabled = false
 		
-		killVelocity()
+		var velocity_cache:Vector3 = killVelocity()
 		weapon_state.visible = false
 		
 		var death_camera:DeathCamera = death_camera_SCENE.instantiate()
 		get_tree().current_scene.add_child(death_camera)
-		death_camera.setup(death_camera_spin_magnitude, death_camera_fling_magnitude)
+		death_camera.setup(
+			death_camera_spin_magnitude,
+			death_camera_fling_magnitude,
+			camera_3d.global_rotation,
+			camera_3d.global_position,
+			velocity_cache
+			)
 	if previous_player_state == player_states.DEAD:
 		# re enable inputs
 		player_move_input_enabled = true
@@ -290,6 +300,9 @@ func set_player_state(new_player_state:player_states):
 		grapple_arm.visible = true
 		parry_arm.visible = true
 		can_be_damaged = true
+		player_look_input_enabled = true
+		player_slide_slam_input_enabled = true
+		player_arm_switch_input_enabled = true
 		
 		weapon_state.visible = true
 
@@ -452,7 +465,7 @@ func _ready() -> void:
 	initial_camera_rotation = camera_3d.rotation
 	max_stamina = STAMINA
 	los_query = los_query_SCENE.instantiate()
-	get_tree().current_scene.add_child(los_query)
+	get_tree().current_scene.add_child.call_deferred(los_query)
 	
 	var contains_weapon:bool = false
 	for weapon in weapon_states:
@@ -498,7 +511,7 @@ func _ready() -> void:
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("debug func"):
-		killPlayer()
+		setHealth(HEALTH - 25.0)
 	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
@@ -575,7 +588,8 @@ func _physics_process(delta: float) -> void:
 	player_state != player_states.REELINGTO and 
 	player_state != player_states.SLIDING and 
 	player_state != player_states.DASHING and
-	player_state != player_states.GROUNDED):
+	player_state != player_states.GROUNDED and
+	player_state != player_states.DEAD):
 		set_player_state(player_states.GROUNDED)
 
 	elif (not is_on_floor() and 
@@ -583,7 +597,8 @@ func _physics_process(delta: float) -> void:
 	player_state != player_states.DASHING and 
 	player_state != player_states.SLAMMING and 
 	player_state != player_states.FALLING and
-	player_state != player_states.WALL_SLIDING):
+	player_state != player_states.WALL_SLIDING and
+	player_state != player_states.DEAD):
 		set_player_state(player_states.FALLING)
 	
 	# Add the gravity 
@@ -780,8 +795,6 @@ func _input(event) -> void:
 		
 		set_player_state(player_states.DASHING)
 			
-	if Input.is_action_just_released("debug func"):
-		pass
 		
 	# handle mouselook
 	if event is InputEventMouseMotion and player_look_input_enabled:
@@ -798,9 +811,11 @@ func _input(event) -> void:
 
 
 func setHealth(new_health:float = HEALTH) -> void:
+	var previous_health:float = HEALTH
+	HEALTH = new_health
 	new_health = clampf(new_health, 0.0, 100.0)
-	var health_increased:bool = new_health > HEALTH
-	var health_decreased:bool = new_health < HEALTH
+	var health_increased:bool = new_health > previous_health
+	var health_decreased:bool = new_health < previous_health
 	
 	if health_increased:
 		if not can_be_healed:
@@ -811,10 +826,13 @@ func setHealth(new_health:float = HEALTH) -> void:
 		# make screen flash red by instancing a VFX scene. It will be automatically freed when done.
 		var hurt_rect:Control = hurt_rect_SCENE.instantiate()
 		get_tree().current_scene.add_child(hurt_rect)
-	else:
+		hurt_rect.name = "HurtRect"
+		assert(get_tree().current_scene.has_node("HurtRect"))
+	elif previous_health == new_health:
 		pass # health unchanged
-	
-	HEALTH = new_health
+
+	if new_health <= 0.0 and player_state != player_states.DEAD:
+		set_player_state(player_states.DEAD)
 
 
 func setInCombat(new_state:bool) -> void:
@@ -987,20 +1005,6 @@ func getCameraPredictedPos(time:float) -> Vector3:
 	var a:Vector3 = velocity * time
 	var r:Vector3 = a + camera_3d.global_position
 	return r
-
-
-## Returns global coords.
-func getGlobalPos() -> Vector3:
-	return global_position
-
-
-func killPlayer():
-	if player_state == player_states.DEAD:
-		push_warning("Attempted to call KillPlayer() when the player is already dead.")
-		return
-	if HEALTH != 0.0:
-		HEALTH = 0.0
-	set_player_state(player_states.DEAD)
 
 
 func getHookedTarget() -> Node3D:

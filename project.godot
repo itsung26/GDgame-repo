@@ -34,6 +34,10 @@ CfgParser="*res://scripts/cfg_parser.gd"
 HitscanSystem="*res://scripts/hitscan_system.gd"
 RagdollManager="*res://scripts/ragdoll_manager.gd"
 
+[debug]
+
+file_logging/enable_file_logging=true
+
 [debug_draw_3d]
 
 settings/addon_root_folder="res://addons/debug_draw_3d"

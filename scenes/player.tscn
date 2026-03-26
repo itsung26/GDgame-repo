@@ -535,8 +535,8 @@ inital_arm = 1
 AIR_ACCELERATION = 50.0
 dash_time_length = 0.2
 wall_jump_applied_velocity = 16.0
-death_camera_fling_magnitude = 5.0
-death_camera_spin_magnitude = 5.0
+death_camera_fling_magnitude = 1.0
+death_camera_spin_magnitude = 0.1
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
 weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
 

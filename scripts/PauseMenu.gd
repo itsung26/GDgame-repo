@@ -394,3 +394,27 @@ func _switch_options_submenu_to(new_submenu_tab: Button) -> void:
 			previous_submenu.collapseVertical()
 		else:
 			request_show_panel(_active_options_sub_menu)
+
+
+func _on_resolution_scale_slider_value_changed(value: float, source:Node) -> void:
+	var viewport:Viewport = get_viewport()
+	var resolution_scale_readout:Label = %ResolutionScaleReadout
+	resolution_scale_readout.text = str(value / 100) + "x"
+	viewport.scaling_3d_scale = value / 100
+	CfgParser.set_float("display", "render_scale", value / 100)
+	CfgParser.save()
+
+
+func _on_resolution_scale_slider_ready(source: Node) -> void:
+	var slider:HSlider = %ResolutionScaleSlider
+	if CfgParser.has_key("display", "render_scale"):
+		var val = CfgParser.get_float("display", "render_scale")
+		val = clampf(val, 0.25, 2.0)
+		slider.value = val
+	else:
+		slider.value = 1.0 * 100
+
+
+func _on_resolution_scale_reset_default_button_pressed() -> void:
+	var slider:HSlider = %ResolutionScaleSlider
+	slider.value = 1.0 * 100

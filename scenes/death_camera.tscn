@@ -10,6 +10,7 @@ script = ExtResource("1_perir")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 collision_mask = 4
+angular_damp = 5.0
 
 [node name="Camera3D" type="Camera3D" parent="RigidBody3D"]
 

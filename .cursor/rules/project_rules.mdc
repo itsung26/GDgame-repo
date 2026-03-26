@@ -1,0 +1,18 @@
+---
+description: Core project conventions
+alwaysApply: true
+---
+
+# Project Conventions
+
+- Always assume the godot version is 4.x and use the according syntax in both scripts and shaders.
+- Put two blank lines between each function definition.
+- Prefer explicit ":" typing over implicit ":=" typing.
+- Use the following syntax for linking setter methods:
+
+var x:variant:
+	set = foo
+
+func foo(new) -> void:
+	x = new
+	pass # replace with setter behavior.

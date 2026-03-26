@@ -25,6 +25,7 @@ func _ensure_user_data_path_ready() -> void:
 	print("CfgParser: user data path = ", resolved)
 
 
+#region User Directory Public API
 ## Loads settings from [param path]. If the file does not exist, loads from [constant BUNDLED_DEFAULTS_PATH] and saves to [param path].
 func load_config(path: String = DEFAULT_PATH) -> void:
 	_config = ConfigFile.new()
@@ -105,3 +106,4 @@ func set_float(section: String, key: String, value: float) -> void:
 ## Sets a String value for [param section] and [param key].
 func set_string(section: String, key: String, value: String) -> void:
 	set_value(section, key, value)
+#endregion
