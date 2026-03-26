@@ -410,7 +410,7 @@ func _on_resolution_scale_slider_ready(source: Node) -> void:
 	if CfgParser.has_key("display", "render_scale"):
 		var val = CfgParser.get_float("display", "render_scale")
 		val = clampf(val, 0.25, 2.0)
-		slider.value = val
+		slider.value = val * 100
 	else:
 		slider.value = 1.0 * 100
 

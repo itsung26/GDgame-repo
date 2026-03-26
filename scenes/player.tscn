@@ -536,7 +536,7 @@ AIR_ACCELERATION = 50.0
 dash_time_length = 0.2
 wall_jump_applied_velocity = 16.0
 death_camera_fling_magnitude = 1.0
-death_camera_spin_magnitude = 0.1
+death_camera_spin_magnitude = 1.0
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
 weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
 
@@ -959,7 +959,7 @@ bullet_config = SubResource("Resource_pf23h")
 reflection_bullet_config = SubResource("Resource_dt7fs")
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.03821858, -0.9991937, 0.012307375, 0.01114974, -0.012742029, -0.9998556, 0.9992061, -0.038075898, 0.011627731, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.03821858, -0.99919397, 0.012307373, 0.01114974, -0.012742031, -0.99985546, 0.9992061, -0.03807591, 0.011627729, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)

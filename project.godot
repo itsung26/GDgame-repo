@@ -33,6 +33,8 @@ Debug="*res://scripts/Debug.gd"
 CfgParser="*res://scripts/cfg_parser.gd"
 HitscanSystem="*res://scripts/hitscan_system.gd"
 RagdollManager="*res://scripts/ragdoll_manager.gd"
+RespawnSystem="*res://scripts/respawn_system.gd"
+TimeFlowSystem="*res://scripts/time_flow_system.gd"
 
 [debug]
 

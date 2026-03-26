@@ -169,7 +169,6 @@ enum action_states{IDLE, GRAPPLING}
 @export var parry_heal_amount:float = 25.0
 
 @export_group("Respawning and Death")
-@export var checkpoint:checkPoint
 @export var death_camera_fling_magnitude:float
 @export var death_camera_spin_magnitude:float
 
@@ -556,9 +555,23 @@ func _process(delta) -> void:
 	#endregion
 
 	# keeps the rope attatched to the grapple bit.
-	# Again, I hate this, but it stays for now.
+	# DEPRECATED - replace with self contained behavior in the form of an object
 	if grapple_rope_mesh_gen:
 		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
+	
+	process_player_state(delta)
+
+
+func process_player_state(delta:float) -> void:
+	# replace with a time flow system singleton?
+	var time:float = 1.0
+	if player_state == player_states.DEAD:
+		time = lerpf(time, 0.0, 1.0 * delta)
+		Engine.time_scale = time
+	if player_state != player_states.DEAD:
+		time = lerpf(time, 1.0, 1.0 * delta)
+		Engine.time_scale = time
+		
 
 
 # Called every physics frame. FPS: 120
@@ -642,7 +655,18 @@ func _physics_process(delta: float) -> void:
 	input_dir = Input.get_vector("left", "right", "forward", "back")
 	direction = Vector3(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-#region Player State Logic
+	physics_process_player_state(delta)
+
+	# if kinematics are not enabled, kill all velocity before computing physics
+	if not player_kinematics_enabled_xz:
+		velocity.x = 0.0
+		velocity.z = 0.0
+	if not player_kinematics_enabled_y:
+		velocity.y = 0.0
+	move_and_slide()
+
+
+func physics_process_player_state(delta:float) -> void:
 	# run all state machine related physics logic every physics frame
 	# grounded movement state logic
 	if player_state == player_states.GROUNDED:
@@ -732,15 +756,6 @@ func _physics_process(delta: float) -> void:
 	elif player_state == player_states.SLAMMING:
 		# velocity was set from beginning, so no changes are made
 		pass # see set_player_state()
-#endregion
-
-	# if kinematics are not enabled, kill all velocity before computing physics
-	if not player_kinematics_enabled_xz:
-		velocity.x = 0.0
-		velocity.z = 0.0
-	if not player_kinematics_enabled_y:
-		velocity.y = 0.0
-	move_and_slide()
 
 
 # camera control by mouse input relative to last frame
@@ -841,30 +856,6 @@ func setInCombat(new_state:bool) -> void:
 	var previous_in_combat:bool = in_combat
 	in_combat = new_state
 	in_combat_changed.emit(in_combat, previous_in_combat)
-
-
-func getCheckPoint() -> checkPoint:
-	return checkpoint
-
-
-func setCheckPoint(new_checkpoint:checkPoint):
-	var previous_check_point:checkPoint = checkpoint
-	checkpoint = new_checkpoint
-
-
-## When the player dies in a combat area, they are to respawn with full health at
-## the last checkpoint. Enemy waves are reset and the player's camera look direction
-## and body rotation should be set according to properties in the checkPoint object.
-## All other properties, such as the world time and objects present should not be affected.
-func respawnCheckPoint() -> void:
-	if not player.checkpoint:
-		return
-	
-	set_player_state(player_states.GROUNDED)
-	player.velocity = Vector3.ZERO
-	player.global_position = checkpoint.respawn_player_position
-	player.rotation = initial_player_rotation
-	camera_3d.rotation = initial_camera_rotation
 
 
 ## Returns true if [param targ] is in the line of sight from the player's camera.
