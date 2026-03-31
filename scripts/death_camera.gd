@@ -5,10 +5,16 @@ extends Node3D
 
 @onready var rigid_body_3d: RigidBody3D = $RigidBody3D
 @onready var camera_3d: Camera3D = $RigidBody3D/Camera3D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var death_shader_animator: AnimationPlayer = $DeathShaderAnimator
+@onready var death_screen: Control = $DeathScreen
+
+
+func _ready() -> void:
+	death_screen.visible = false
 
 
 func setup(
+player:Player,
 torque_applied:float = 10.0,
 velocity_applied:float = 10.0,
 initial_rotation:Vector3 = Vector3.ZERO,
@@ -30,7 +36,7 @@ initial_velocity:Vector3 = Vector3.ZERO
 	rigid_body_3d.angular_velocity = angular_vector
 	
 	camera_3d.make_current()
-	animation_player.play("fade_to_death")
+	death_shader_animator.play("fade_to_death")
 
 
 ## Returns a random vector with each component independently in [range_min, range_max].
@@ -40,3 +46,8 @@ func getRandomVector(range_min: float, range_max: float) -> Vector3:
 		randf_range(range_min, range_max),
 		randf_range(range_min, range_max),
 	)
+
+
+func _on_death_shader_animator_current_animation_changed(name: String) -> void:
+	if name == "":
+		death_screen.visible = true

@@ -13,11 +13,11 @@ func _ready() -> void:
 	freeze_timer.ignore_time_scale = true
 	# connect the freeze_timer's signal to this object's listener method
 	freeze_timer.timeout.connect(_on_freeze_timer_timeout)
-	_cached_timescale = Engine.time_scale
+	_cached_timescale = getTimeScale()
 
 
 func _on_freeze_timer_timeout() -> void:
-	Engine.time_scale = _cached_timescale
+	setTimeScale(_cached_timescale)
 	if _cached_timestop_end_callable.is_valid():
 		_cached_timestop_end_callable.call_deferred()
 	_cached_timestop_end_callable = Callable()
@@ -31,12 +31,12 @@ func interruptTimeflow(duration:float, on_interrupt_end:Callable = Callable()) -
 			"Attempted to stop timeflow for a zero or less than zero duration."
 			)
 		return
-	if Engine.time_scale == 0.0:
+	if getTimeScale() == 0.0:
 		Debug.logerr("Timescale is already zero. Was this call intended?")
 		return
-	_cached_timescale = Engine.time_scale
+	_cached_timescale = getTimeScale()
 	_cached_timestop_end_callable = on_interrupt_end
-	Engine.time_scale = 0.0
+	setTimeScale(0.0)
 	freeze_timer.start(duration)
 
 

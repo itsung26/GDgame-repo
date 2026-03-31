@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dw504iwrb8kb3"]
+[gd_scene load_steps=11 format=3 uid="uid://dw504iwrb8kb3"]
 
 [ext_resource type="Script" uid="uid://e6tqv273n3g5" path="res://scripts/death_camera.gd" id="1_perir"]
 [ext_resource type="Shader" uid="uid://bwtjtm0v8mpm0" path="res://shaders/GDSL shaders/CRT_shader.gdshader" id="2_3lbjf"]
-[ext_resource type="Texture2D" uid="uid://dkbewgfjrgmhy" path="res://assets/2d assets/ui/coldLevel.png" id="2_63fif"]
+[ext_resource type="Theme" uid="uid://bn6oc86kvsu5j" path="res://assets/styles/menu styles/pause_center_buttons.tres" id="3_y6y7v"]
+[ext_resource type="Script" uid="uid://dculuxmxjasi2" path="res://scripts/death_shader_animator.gd" id="4_y6y7v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3lbjf"]
 shader = ExtResource("2_3lbjf")
@@ -140,6 +141,31 @@ _data = {
 &"fade_to_death": SubResource("Animation_63fif")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kd3w6"]
+resource_local_to_scene = true
+shader = ExtResource("2_3lbjf")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.0
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = true
+shader_parameter/roll = true
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 1.8
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.03
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+
 [node name="DeathCamera" type="Node3D"]
 script = ExtResource("1_perir")
 
@@ -151,17 +177,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="TextureRect" type="TextureRect" parent="DeathOutroShader"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_63fif")
-expand_mode = 1
 
 [node name="ColorRect" type="ColorRect" parent="DeathOutroShader"]
 z_index = -1
@@ -184,8 +199,52 @@ angular_damp = 2.5
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("SphereShape3D_perir")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="DeathShaderAnimator" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_y6y7v")
 }
 speed_scale = 0.25
+script = ExtResource("4_y6y7v")
+
+[node name="DeathScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_y6y7v")
+
+[node name="DeathScreenColorRect" type="ColorRect" parent="DeathScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="DeathScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="DeathScreen/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 86
+text = "Connection Lost."
+horizontal_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="DeathScreen"]
+material = SubResource("ShaderMaterial_kd3w6")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="current_animation_changed" from="DeathShaderAnimator" to="." method="_on_death_shader_animator_current_animation_changed"]

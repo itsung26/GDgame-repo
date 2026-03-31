@@ -278,6 +278,7 @@ func set_player_state(new_player_state:player_states):
 		var death_camera:DeathCamera = death_camera_SCENE.instantiate()
 		get_tree().current_scene.add_child(death_camera)
 		death_camera.setup(
+			self,
 			death_camera_spin_magnitude,
 			death_camera_fling_magnitude,
 			camera_3d.global_rotation,
@@ -565,7 +566,11 @@ func _process(delta) -> void:
 
 func process_player_state(delta:float) -> void:
 	if player_state == player_states.DEAD:
-		TimeFlowSystem.setTimeScale(lerpf())
+		TimeFlowSystem.setTimeScale(lerpf(
+			TimeFlowSystem.getTimeScale(),
+			0.0,
+			death_time_slow_speed * delta
+		))
 
 
 # Called every physics frame. FPS: 120
