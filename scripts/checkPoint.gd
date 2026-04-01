@@ -4,9 +4,16 @@ extends Resource
 ## and the direction they are set to look when they respawn.
 
 
-@export var respawn_location:Vector3
-#@export var player_cam
+@export var respawn_position:Vector3
+@export var pivot_rotation_x:float
+@export var player_rotation_y:float
 
 
-func _init(respawn_location:Vector3 = Vector3.ZERO) -> void:
-	self.respawn_location = respawn_location
+func _init(
+	respawn_position:Vector3 = Vector3.ZERO,
+	pivot_rotation_x:float = 0.0,
+	player_rotation_y:float = 0.0
+	) -> void:
+	self.respawn_position = respawn_position
+	self.pivot_rotation_x = pivot_rotation_x
+	self.player_rotation_y = player_rotation_y

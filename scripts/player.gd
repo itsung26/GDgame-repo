@@ -150,7 +150,7 @@ enum action_states{IDLE, GRAPPLING}
 @export var max_wall_jumps:int = 3
 
 @export_group("Grappling Hook")
-@export var Grapple_Enabled:= true
+@export var Grapple_Enabled:bool = true
 @export var GRAPPLE_SPEED_MAX = 90
 @export var grapple_pull_speed:float = 25.0
 ## The amount of upward velocity that is added to the player after beginning to pull the grapple on an enemy
@@ -256,15 +256,7 @@ func set_player_state(new_player_state:player_states):
 		
 	# death to and from
 	if new_player_state == player_states.DEAD:
-		# disable inputs
-		player_move_input_enabled = false
-		player_dash_input_enabled = false
-		player_jump_input_enabled = false
-		player_fire_input_enabled = false
-		player_arm_action_input_enabled = false
-		weapon_switch_input_enabled = false
-		player_arm_switch_input_enabled = false
-		player_look_input_enabled = false
+		disableInputAllowments()
 		# prevent healing the player
 		can_be_healed = false
 		player_kinematics_enabled_xz = false
@@ -273,8 +265,6 @@ func set_player_state(new_player_state:player_states):
 		parry_arm.visible = false
 		# prevent damaging the player
 		can_be_damaged = false
-		player_look_input_enabled = false
-		player_slide_slam_input_enabled = false
 		
 		var velocity_cache:Vector3 = killVelocity()
 		weapon_state.visible = false
@@ -290,24 +280,13 @@ func set_player_state(new_player_state:player_states):
 			velocity_cache
 			)
 	if previous_player_state == player_states.DEAD:
-		# re enable inputs
-		player_move_input_enabled = true
-		player_dash_input_enabled = true
-		player_jump_input_enabled = true
-		player_fire_input_enabled = true
-		player_arm_action_input_enabled = true
-		weapon_switch_input_enabled = true
-		player_look_input_enabled = true
+		enableInputAllowments()
 		can_be_healed = true
 		player_kinematics_enabled_xz = true
 		player_kinematics_enabled_y = true
 		grapple_arm.visible = true
 		parry_arm.visible = true
 		can_be_damaged = true
-		player_look_input_enabled = true
-		player_slide_slam_input_enabled = true
-		player_arm_switch_input_enabled = true
-		
 		weapon_state.visible = true
 
 	# GROUNDED to and from
@@ -514,7 +493,9 @@ func _ready() -> void:
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("debug func"):
-		RespawnSystem.request_respawn(self)
+		setHealth(HEALTH - 100.0)
+		#killVelocity()
+		#RespawnSystem.request_respawn(self)
 	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
@@ -783,6 +764,11 @@ func _input(event: InputEvent) -> void:
 			var respawn_flash_fx:RespawnFlashFx = respawn_flash_fx_SCENE.instantiate()
 			get_tree().current_scene.add_child(respawn_flash_fx)
 			respawn_flash_fx.setup()
+			can_lerp_time_in_death = true
+			if is_on_floor():
+				set_player_state(player_states.GROUNDED)
+			else:
+				set_player_state(player_states.FALLING)
 		
 		if event.is_action_pressed("switch arm") and not event.is_echo() and player_arm_switch_input_enabled:
 			if arm_state == arm_states.GRAPPLEARM:
@@ -1029,6 +1015,32 @@ func killVelocity() -> Vector3:
 	var ret:Vector3 = velocity
 	velocity = Vector3.ZERO
 	return ret
+
+
+## Enables all properties in the [b]Input Allowments[/b] group.
+func enableInputAllowments() -> void:
+	player_move_input_enabled = true
+	player_jump_input_enabled = true
+	player_look_input_enabled = true
+	player_fire_input_enabled = true
+	player_dash_input_enabled = true
+	player_arm_action_input_enabled = true
+	weapon_switch_input_enabled = true
+	player_slide_slam_input_enabled = true
+	player_arm_switch_input_enabled = true
+
+
+## Disables all properties in the [b]Input Allowments[/b] group.
+func disableInputAllowments() -> void:
+	player_move_input_enabled = false
+	player_jump_input_enabled = false
+	player_look_input_enabled = false
+	player_fire_input_enabled = false
+	player_dash_input_enabled = false
+	player_arm_action_input_enabled = false
+	weapon_switch_input_enabled = false
+	player_slide_slam_input_enabled = false
+	player_arm_switch_input_enabled = false
 
 
 func _initializeStamina() -> void:

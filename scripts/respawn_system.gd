@@ -22,7 +22,6 @@ func get_current_checkpoint() -> Checkpoint:
 
 func request_respawn(player:Player) -> void:
 	assert(player != null)
-	Debug.log(current_checkpoint)
 	
 	# if a checkpoint is not set, fallback to loading the level from the beginning.
 	if current_checkpoint == null:
@@ -34,7 +33,9 @@ func request_respawn(player:Player) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		
 		# send the player back to where they were, revert properties
-		player.global_position = current_checkpoint.respawn_location
+		player.global_position = current_checkpoint.respawn_position
+		player.global_rotation.y = current_checkpoint.player_rotation_y
+		player.pivot.rotation.x = current_checkpoint.pivot_rotation_x
 		player.HEALTH = 100.0
 		player.STAMINA = 300.0
 		
