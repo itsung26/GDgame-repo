@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://chjuj625vfhiy"]
 
-[ext_resource type="Script" uid="uid://bnintd3yp60ty" path="res://scripts/checkPoint.gd" id="1_n3f1i"]
+[ext_resource type="Script" uid="uid://bnintd3yp60ty" path="res://scripts/check_point_marker.gd" id="1_n3f1i"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_vfkb7"]
 [ext_resource type="PackedScene" uid="uid://dsal1i0nd3xgb" path="res://assets/meshes/player size comparison/player size comparison.fbx" id="3_avsog"]
 
@@ -424,7 +424,7 @@ cull_mode = 2
 material = SubResource("StandardMaterial3D_1hf1p")
 size = Vector2(3.05, 0.54)
 
-[node name="CheckPoint" type="Node3D"]
+[node name="CheckPointMarker" type="Node3D"]
 script = ExtResource("1_n3f1i")
 
 [node name="partLeft" type="MeshInstance3D" parent="."]

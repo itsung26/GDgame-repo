@@ -762,63 +762,11 @@ func physics_process_player_state(delta:float) -> void:
 
 
 # camera control by mouse input relative to last frame
-func _input(event) -> void:
-	
-	if Input.is_action_just_pressed("switch arm") and player_arm_switch_input_enabled:
-		if arm_state == arm_states.GRAPPLEARM:
-			set_arm_state(arm_states.PARRYARM)
-		elif arm_state == arm_states.PARRYARM:
-			set_arm_state(arm_states.GRAPPLEARM)
-	
-	# handle grapple activation
-	if Input.is_action_just_pressed("arm action") and player_arm_action_input_enabled:
-		if arm_state == arm_states.GRAPPLEARM:
-			if not grapple_rope_mesh_gen == null:
-				if action_state != action_states.GRAPPLING:
-					set_action_state(action_states.GRAPPLING)
-				elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
-					set_action_state(action_states.IDLE)
-			else:
-				assert(false, "Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
-		
-		elif arm_state == arm_states.PARRYARM:
-			if parry_input_allowed:
-				parry_arm_animator.play("swing arm initial")
-			
-	# on slide | slam pressed
-	if Input.is_action_just_pressed("Slide | Slam") and is_on_floor() and player_slide_slam_input_enabled:
-		set_player_state(player_states.SLIDING)
-	elif Input.is_action_just_pressed("Slide | Slam") and not is_on_floor() and player_slide_slam_input_enabled:
-		#set_player_state(player_states.SLAMMING)
-		Debug.log("Slamming is currently disabled due to being terrible. Replacement is WIP.")
-
-	# on slide | slam released do state check
-	if Input.is_action_just_released("Slide | Slam") and player_state == player_states.SLIDING:
-		if player_state == player_states.REELINGTO:
-			pass
-		else:
-			set_player_state(player_states.GROUNDED)
-	
-	if Input.is_action_just_pressed("dash") and player_dash_input_enabled and STAMINA >= 100:
-		# Determine dash direction for camera effects based on input:
-		# - If there is no movement input, use forward direction (default forward dash)
-		# - Otherwise, use the current input direction relative to the player
-		var dash_input: Vector2 = Input.get_vector("left", "right", "forward", "back")
-		if dash_input == Vector2.ZERO:
-			var forward_dir: Vector3 = -transform.basis.z
-			dash_dir = forward_dir.normalized()
-		else:
-			var local_dash: Vector3 = Vector3(dash_input.x, 0.0, dash_input.y)
-			dash_dir = (transform.basis * local_dash).normalized()
-		
-		set_player_state(player_states.DASHING)
-			
-		
-	# handle mouselook
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and player_look_input_enabled:
-		var mouse_delta = event.relative
-		var yaw = -mouse_delta.x
-		var pitch = -mouse_delta.y
+		var mouse_delta: Vector2 = event.relative
+		var yaw: float = -mouse_delta.x
+		var pitch: float = -mouse_delta.y
 		player.rotate_y(deg_to_rad(look_sensitivity * yaw))
 		pivot.rotate_x(deg_to_rad(look_sensitivity * pitch))
 		pivot.rotation_degrees.x = clamp(
@@ -826,6 +774,61 @@ func _input(event) -> void:
 			camera_3d.get_min_pitch_deg(),
 			camera_3d.get_max_pitch_deg()
 		)
+
+	# Input map actions: physical events (key, joypad, mouse) or InputEventAction from Input.parse_input_event().
+	# Godot does not emit InputEventAction for normal keypresses; those arrive as InputEventKey etc.
+	if event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion or event is InputEventMouseButton or event is InputEventAction:
+		if awaiting_death_input:
+			pass
+		
+		if event.is_action_pressed("switch arm") and not event.is_echo() and player_arm_switch_input_enabled:
+			if arm_state == arm_states.GRAPPLEARM:
+				set_arm_state(arm_states.PARRYARM)
+			elif arm_state == arm_states.PARRYARM:
+				set_arm_state(arm_states.GRAPPLEARM)
+
+		# handle grapple activation
+		if event.is_action_pressed("arm action") and not event.is_echo() and player_arm_action_input_enabled:
+			if arm_state == arm_states.GRAPPLEARM:
+				if not grapple_rope_mesh_gen == null:
+					if action_state != action_states.GRAPPLING:
+						set_action_state(action_states.GRAPPLING)
+					elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
+						set_action_state(action_states.IDLE)
+				else:
+					assert(false, "Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
+
+			elif arm_state == arm_states.PARRYARM:
+				if parry_input_allowed:
+					parry_arm_animator.play("swing arm initial")
+
+		# on slide | slam pressed
+		if event.is_action_pressed("Slide | Slam") and not event.is_echo() and is_on_floor() and player_slide_slam_input_enabled:
+			set_player_state(player_states.SLIDING)
+		elif event.is_action_pressed("Slide | Slam") and not event.is_echo() and not is_on_floor() and player_slide_slam_input_enabled:
+			#set_player_state(player_states.SLAMMING)
+			Debug.log("Slamming is currently disabled due to being terrible. Replacement is WIP.")
+
+		# on slide | slam released do state check
+		if event.is_action_released("Slide | Slam") and player_state == player_states.SLIDING:
+			if player_state == player_states.REELINGTO:
+				pass
+			else:
+				set_player_state(player_states.GROUNDED)
+
+		if event.is_action_pressed("dash") and not event.is_echo() and player_dash_input_enabled and STAMINA >= 100:
+			# Determine dash direction for camera effects based on input:
+			# - If there is no movement input, use forward direction (default forward dash)
+			# - Otherwise, use the current input direction relative to the player
+			var dash_input: Vector2 = Input.get_vector("left", "right", "forward", "back")
+			if dash_input == Vector2.ZERO:
+				var forward_dir: Vector3 = -transform.basis.z
+				dash_dir = forward_dir.normalized()
+			else:
+				var local_dash: Vector3 = Vector3(dash_input.x, 0.0, dash_input.y)
+				dash_dir = (transform.basis * local_dash).normalized()
+
+			set_player_state(player_states.DASHING)
 
 
 func setHealth(new_health:float = HEALTH) -> void:
