@@ -5,7 +5,7 @@ extends Resource
 
 
 @export var respawn_location:Vector3
-@export var respawn_input_allowments:bool
+#@export var player_cam
 
 
 func _init(respawn_location:Vector3 = Vector3.ZERO) -> void:

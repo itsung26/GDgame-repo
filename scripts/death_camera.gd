@@ -68,7 +68,8 @@ func _onEndDeathTweenTransition() -> void:
 
 
 func _onDeathScreenFxTransitionDone() -> void:
-	Debug.log("foo")
+	var player:Player = get_tree().get_first_node_in_group("players")
+	player.awaiting_death_input = true
 
 
 ## When the tween/slowdown anim finishes

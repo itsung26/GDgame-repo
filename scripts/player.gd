@@ -225,6 +225,7 @@ const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.t
 const bullet_trail_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
 const los_query_SCENE:PackedScene = preload("res://scenes/line_of_sight_query.tscn")
 const death_camera_SCENE:PackedScene = preload("res://scenes/death_camera.tscn")
+const respawn_flash_fx_SCENE:PackedScene = preload("res://scenes/respawn_flash_fx.tscn")
 #endregion
 
 #region Signals
@@ -513,8 +514,7 @@ func _ready() -> void:
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("debug func"):
-		setHealth(HEALTH - 100.0)
-	# print what canvasitem was clicked on when something is clicked here
+		RespawnSystem.request_respawn(self)
 	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
@@ -777,7 +777,12 @@ func _input(event: InputEvent) -> void:
 	# Godot does not emit InputEventAction for normal keypresses; those arrive as InputEventKey etc.
 	if event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion or event is InputEventMouseButton or event is InputEventAction:
 		if awaiting_death_input:
-			pass
+			awaiting_death_input = false
+			get_tree().get_first_node_in_group("death camera").queue_free()
+			RespawnSystem.request_respawn(self)
+			var respawn_flash_fx:RespawnFlashFx = respawn_flash_fx_SCENE.instantiate()
+			get_tree().current_scene.add_child(respawn_flash_fx)
+			respawn_flash_fx.setup()
 		
 		if event.is_action_pressed("switch arm") and not event.is_echo() and player_arm_switch_input_enabled:
 			if arm_state == arm_states.GRAPPLEARM:

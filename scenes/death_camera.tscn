@@ -233,7 +233,7 @@ _data = {
 &"connection_lost_text_2": SubResource("Animation_hh2mn")
 }
 
-[node name="DeathCamera" type="Node3D"]
+[node name="DeathCamera" type="Node3D" groups=["death camera"]]
 script = ExtResource("1_perir")
 
 [node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_show_on_ready")]
