@@ -216,7 +216,6 @@ var initial_player_rotation:Vector3
 var initial_camera_rotation:Vector3
 var los_query:LineOfSightQuery
 var grapple_rope_mesh_gen:ropeMeshGenerator
-var max_stamina:float
 var stamina_recharging:bool = true
 #endregion
 
@@ -467,7 +466,6 @@ func _ready() -> void:
 	# initializers for variables and state machines
 	initial_player_rotation = player.rotation
 	initial_camera_rotation = camera_3d.rotation
-	max_stamina = STAMINA
 	los_query = los_query_SCENE.instantiate()
 	get_tree().current_scene.add_child.call_deferred(los_query)
 	
@@ -888,7 +886,7 @@ func activateWeapons() -> void:
 
 func chargeStamina(delta=get_process_delta_time()):
 	if stamina_recharging:
-		STAMINA = move_toward(STAMINA, max_stamina, stamina_charge_speed * delta)
+		STAMINA = move_toward(STAMINA, 300.0, stamina_charge_speed * delta)
 
 
 ## Will check if there is a valid parry target and parry it if so.
@@ -955,17 +953,10 @@ func parryTargetInBox():
 
 ## Returns the combined rotation of the player's camera and the player's body. This
 ## corresponds to the combined vector of where they are looking.
-func getFacingRot() -> Vector3:
+func getFacingRot() -> Vector2:
 	var cam_global_rot_x:float = camera_3d.global_rotation.x
 	var player_global_rot_y:float = global_rotation.y
-	var combined_global_rot = Vector3(cam_global_rot_x, player_global_rot_y, 0.0)
-	return combined_global_rot
-
-
-## Returns the inverse rotation of [code]getFacingRot()[/code]. (180 degrees)
-func getFacingRotInverted() -> Vector3:
-	var combined_global_rot:Vector3 = getFacingRot()
-	combined_global_rot = combined_global_rot.inverse()
+	var combined_global_rot = Vector2(cam_global_rot_x, player_global_rot_y)
 	return combined_global_rot
 
 
@@ -1036,8 +1027,8 @@ func killVelocity() -> Vector3:
 
 
 func _initializeStamina() -> void:
-	hud.stamina_bar.max_value = max_stamina
-	hud.stamina_bar.progress = max_stamina
+	hud.stamina_bar.max_value = 300.0
+	hud.stamina_bar.progress = 300.0
 
 
 func _on_dash_length_timer_timeout() -> void:

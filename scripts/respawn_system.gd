@@ -22,8 +22,10 @@ func get_current_checkpoint() -> Checkpoint:
 
 func request_respawn(player:Player) -> void:
 	assert(player != null)
-	if current_checkpoint == null:
-		push_warning("Respawn requested but no active checkpoint is set.")
-		return
+	assert(current_checkpoint != null)
+	
+	player.global_position = current_checkpoint.respawn_location
+	player.HEALTH = 100.0
+	player.STAMINA = 300.0
 	
 	respawn_requested.emit(player, current_checkpoint)
