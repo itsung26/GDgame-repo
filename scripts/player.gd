@@ -171,6 +171,10 @@ enum action_states{IDLE, GRAPPLING}
 @export var death_camera_fling_magnitude:float = 1.0
 @export var death_camera_spin_magnitude:float = 1.0
 @export var death_time_slow_speed:float = 1.0
+@export var can_lerp_time_in_death:bool = true
+## When [code]true[/code], any button input will cause a respawn. Only intended to
+## be used in the [code]DEAD[/code] state.
+@export var awaiting_death_input:bool = false
 
 @export_group("Extras")
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
@@ -565,7 +569,7 @@ func _process(delta) -> void:
 
 
 func process_player_state(delta:float) -> void:
-	if player_state == player_states.DEAD:
+	if player_state == player_states.DEAD and can_lerp_time_in_death:
 		TimeFlowSystem.setTimeScale(lerpf(
 			TimeFlowSystem.getTimeScale(),
 			0.0,

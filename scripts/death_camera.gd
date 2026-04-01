@@ -7,10 +7,17 @@ extends Node3D
 @onready var camera_3d: Camera3D = $RigidBody3D/Camera3D
 @onready var death_shader_animator: AnimationPlayer = $DeathShaderAnimator
 @onready var death_screen: Control = $DeathScreen
+@onready var death_outro_shader: Control = $DeathOutroShader
+@onready var death_screen_text_animator: AnimationPlayer = $DeathScreenTextAnimator
 
 
 func _ready() -> void:
 	death_screen.visible = false
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventAction:
+		pass
 
 
 func setup(
@@ -48,6 +55,34 @@ func getRandomVector(range_min: float, range_max: float) -> Vector3:
 	)
 
 
+# Coroutine - single thread, time based
+func _onEndDeathTweenTransition() -> void:
+	var player:Player = (get_tree().get_first_node_in_group("players")) as Player
+	player.can_lerp_time_in_death = false
+	TimeFlowSystem.setTimeScale(1.0)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	death_screen.visible = true
+	death_outro_shader.visible = false
+	await get_tree().create_timer(0.75, true, false, true).timeout
+	death_screen_text_animator.play("connection_lost_text_1")
+
+
+func _onDeathScreenFxTransitionDone() -> void:
+	Debug.log("foo")
+
+
+## When the tween/slowdown anim finishes
 func _on_death_shader_animator_current_animation_changed(name: String) -> void:
 	if name == "":
-		death_screen.visible = true
+		_onEndDeathTweenTransition()
+
+
+## When [code]connection_lost_text_1[/code] finishes on [member death_screen_text_animator], wait 0.5s then play [code]connection_lost_text_2[/code].
+func _on_death_screen_text_animator_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "connection_lost_text_2":
+		_onDeathScreenFxTransitionDone()
+		return
+	if anim_name != "connection_lost_text_1":
+		return
+	await get_tree().create_timer(0.50, true, false, true).timeout
+	death_screen_text_animator.play("connection_lost_text_2")

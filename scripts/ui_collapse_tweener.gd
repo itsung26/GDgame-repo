@@ -2,7 +2,7 @@ class_name UICollapseTweener
 extends Control
 
 ## UI animator capable of collapse and expand transitions.
-## Uses move_toward and delta time instead of tweens.
+## Uses move_toward and unscaled wall-clock time (independent of Engine.time_scale) instead of tweens.
 
 enum InitialState {
 	EXPANDED,
@@ -43,6 +43,7 @@ var _target_position: Vector2 = Vector2.ZERO
 var _anim_duration: float = 0.0
 var _anim_elapsed: float = 0.0
 var _anim_collapsing: bool = false
+var _last_anim_ticks_usec: int = 0
 
 
 ## Sets process mode, derives expanded/collapsed positions from scene position, and applies initial state.
@@ -60,11 +61,16 @@ func _notification(what: int) -> void:
 
 
 ## Advances the collapse/expand animation each frame. Do not override in subclasses without calling super.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not animating:
 		return
+	var now_usec: int = Time.get_ticks_usec()
+	var unscaled_delta: float = float(now_usec - _last_anim_ticks_usec) / 1000000.0
+	_last_anim_ticks_usec = now_usec
+	if unscaled_delta <= 0.0:
+		return
 	var remaining: float = _anim_duration - _anim_elapsed
-	if remaining <= 0.0 or delta >= remaining:
+	if remaining <= 0.0 or unscaled_delta >= remaining:
 		size = _target_size
 		position = _target_position
 		animating = false
@@ -79,14 +85,14 @@ func _process(delta: float) -> void:
 			visible = true
 			finished_transition.emit(transitions.EXPAND_VERTICAL)
 		return
-	var step_size: float = size.distance_to(_target_size) * (delta / remaining)
-	var step_pos: float = position.distance_to(_target_position) * (delta / remaining)
+	var step_size: float = size.distance_to(_target_size) * (unscaled_delta / remaining)
+	var step_pos: float = position.distance_to(_target_position) * (unscaled_delta / remaining)
 	size = size.move_toward(_target_size, step_size)
 	position = position.move_toward(_target_position, step_pos)
 	# Keep vertical center fixed at _initial_pos.y so the item stays centered while animating
 	position.y = _initial_pos.y - size.y / 2.0
-	_anim_elapsed += delta
-	
+	_anim_elapsed += unscaled_delta
+
 
 ## Executes a vertical collapse. No-op if already collapsed or if a collapse/expand animation is in progress.
 func collapseVertical():
@@ -119,6 +125,7 @@ func expandVertical() -> void:
 	_target_position = _expanded_pos
 	_anim_duration = vertical_expand_time
 	_anim_elapsed = 0.0
+	_last_anim_ticks_usec = Time.get_ticks_usec()
 
 
 ## Collapses the control immediately with no animation (size and position set to collapsed state).

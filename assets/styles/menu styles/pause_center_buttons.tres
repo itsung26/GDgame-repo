@@ -132,6 +132,7 @@ Label/font_sizes/font_size = 38
 Label/fonts/font = ExtResource("1_tdbgf")
 Panel/styles/panel = SubResource("StyleBoxFlat_rc7jk")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_w4yif")
+RichTextLabel/fonts/normal_font = ExtResource("1_tdbgf")
 SettingsHBox/base_type = &"HBoxContainer"
 SettingsHBox/constants/separation = 200
 SettingsOptionButton/base_type = &"OptionButton"
