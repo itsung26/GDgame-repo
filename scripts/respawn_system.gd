@@ -23,11 +23,17 @@ func get_current_checkpoint() -> Checkpoint:
 func request_respawn(player:Player) -> void:
 	assert(player != null)
 	
-	# if a checkpoint is not set, fallback to loading the level from the beginning.
+	# if a checkpoint is not set, fallback to going to the level start position.
 	if current_checkpoint == null:
-		# emit the signal before the scene changes
+		# send the player back to where they were, revert properties
+		player.position = player.initial_player_rotation
+		player.rotation.y = player.initial_player_rotation.y
+		player.pivot.rotation.x = player.initial_pivot_roation.x
+		player.HEALTH = 100.0
+		player.STAMINA = 300.0
+		
+		# emit the signal
 		respawn_requested.emit(player, current_checkpoint, true)
-		LoadHandler.reloadCurrentLevel()
 	else:
 		# re-confine the mouse
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

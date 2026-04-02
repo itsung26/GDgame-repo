@@ -958,7 +958,7 @@ bullet_config = SubResource("Resource_pf23h")
 reflection_bullet_config = SubResource("Resource_dt7fs")
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.03821858, -0.99919397, 0.012307373, 0.01114974, -0.012742031, -0.99985546, 0.9992061, -0.03807591, 0.011627729, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.038218576, -0.99919397, 0.012307372, 0.011149739, -0.012742031, -0.9998554, 0.99920607, -0.03807591, 0.011627728, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
@@ -1036,8 +1036,8 @@ one_shot = true
 [connection signal="area_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cube_boost_collide_box_area_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_entered"]
-[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_exited"]
 [connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_enemy_exited"]
+[connection signal="body_exited" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_exited"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]

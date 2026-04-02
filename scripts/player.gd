@@ -212,8 +212,9 @@ var cause_of_death:String = ""
 var direction:Vector3
 var input_dir := Vector2.ZERO
 var dash_dir:Vector3
+var initial_player_position:Vector3
 var initial_player_rotation:Vector3
-var initial_camera_rotation:Vector3
+var initial_pivot_roation:Vector3
 var los_query:LineOfSightQuery
 var grapple_rope_mesh_gen:ropeMeshGenerator
 var stamina_recharging:bool = true
@@ -444,8 +445,9 @@ func set_arm_state(new_arm_state:arm_states):
 # map and everything else.
 func _ready() -> void:
 	# initializers for variables and state machines
-	initial_player_rotation = player.rotation
-	initial_camera_rotation = camera_3d.rotation
+	initial_player_position = position
+	initial_player_rotation = rotation
+	initial_pivot_roation = pivot.rotation
 	los_query = los_query_SCENE.instantiate()
 	get_tree().current_scene.add_child.call_deferred(los_query)
 	
@@ -940,15 +942,6 @@ func parryTargetInBox():
 
 	elif parry_target != null and parry_target.parriable == false:
 		parry_arm_animator.play("swing arm miss")
-
-
-## Returns the combined rotation of the player's camera and the player's body. This
-## corresponds to the combined vector of where they are looking.
-func getFacingRot() -> Vector2:
-	var cam_global_rot_x:float = camera_3d.global_rotation.x
-	var player_global_rot_y:float = global_rotation.y
-	var combined_global_rot = Vector2(cam_global_rot_x, player_global_rot_y)
-	return combined_global_rot
 
 
 ## Returns the point that a 5000 meter long raycast originating from the player's
