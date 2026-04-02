@@ -53,7 +53,8 @@ func setup(spawn_pos: Vector3) -> void:
 	freeze = false
 	contact_monitor = true
 	var player: Player = get_tree().get_first_node_in_group("players")
-	global_rotation = Vector3(player.getFacingRot().x, player.getFacingRot().y, 0.0)
+	#global_rotation = Vector3(player.getFacingRot().x, player.getFacingRot().y, 0.0)
+	look_at(player.getFacingPoint())
 	# Start grace-period timer so the bomb can hit the player after time_before_player_collide.
 	if can_hit_player:
 		time_before_can_hit_player.start(time_before_player_collide)

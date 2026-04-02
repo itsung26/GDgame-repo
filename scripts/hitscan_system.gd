@@ -400,14 +400,18 @@ func _handle_hit(
 ## Handles the special case of hitting a PistolBomb.
 func _handle_pistol_bomb_hit(bomb: PistolBomb) -> void:
 	var scene_root: Node = get_tree().current_scene
-	var player: Player = scene_root.get_tree().get_first_node_in_group("players")
-	if player:
-		player.hitStop(bomb.hitstop_duration_on_being_shot)
-		
-		# Show parry visuals.
-		var parry_visuals: Array[Node] = scene_root.get_tree().get_nodes_in_group("parry visuals")
-		for parry_visual in parry_visuals:
-			if parry_visual.name != "ParryFlash":
-				parry_visual.visible = true
+	#var player: Player = scene_root.get_tree().get_first_node_in_group("players")
+	# Show parry visuals.
+	var parry_visuals: Array[Node] = scene_root.get_tree().get_nodes_in_group("parry visuals")
+	for parry_visual in parry_visuals:
+		if parry_visual.name != "ParryFlash":
+			parry_visual.visible = true
 	
+	TimeFlowSystem.interruptTimeflow(
+		bomb.hitstop_duration_on_being_shot,
+		func()->void:
+			for parry_visual in parry_visuals:
+				if parry_visual.name != "ParryFlash":
+					parry_visual.visible = false
+	)
 	bomb.explode()

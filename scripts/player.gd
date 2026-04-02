@@ -259,6 +259,8 @@ func set_player_state(new_player_state:player_states):
 	# death to and from
 	if new_player_state == player_states.DEAD:
 		disableInputAllowments()
+		# stop the dash timer if it is running
+		dash_length_timer.stop()
 		# prevent healing the player
 		can_be_healed = false
 		player_kinematics_enabled_xz = false
@@ -500,8 +502,7 @@ func _ready() -> void:
 func _process(delta) -> void:
 	if Input.is_action_just_pressed("debug func"):
 		setHealth(HEALTH - 100.0)
-		#killVelocity()
-		#RespawnSystem.request_respawn(self)
+	
 	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
@@ -771,11 +772,18 @@ func _input(event: InputEvent) -> void:
 			var respawn_flash_fx:RespawnFlashFx = respawn_flash_fx_SCENE.instantiate()
 			get_tree().current_scene.add_child(respawn_flash_fx)
 			respawn_flash_fx.setup()
+			# re-enable the time slow visual fx
 			can_lerp_time_in_death = true
+			
+			# check for state and set
 			if is_on_floor():
 				set_player_state(player_states.GROUNDED)
 			else:
 				set_player_state(player_states.FALLING)
+			
+			# return to prevent double-handling of input
+			return
+			
 		
 		if event.is_action_pressed("switch arm") and not event.is_echo() and player_arm_switch_input_enabled:
 			if arm_state == arm_states.GRAPPLEARM:
@@ -951,12 +959,16 @@ func parryTargetInBox():
 
 ## Returns the point that a 5000 meter long raycast originating from the player's
 ## central camera zone collides with. Raycast only collides with the world.
+## If no collider is in range, returns the global position of the raycasts' target
+## point.
 func getFacingPoint() -> Vector3:
 	var long_point_getter: RayCast3D = $Pivot/Camera3D/LongPointGetter
 	if long_point_getter.get_collider() != null:
 		var ret:Vector3 = long_point_getter.get_collision_point()
 		return ret
-	return Vector3.ZERO
+	else:
+		var ret:Vector3 = long_point_getter.to_global(long_point_getter.target_position)
+		return ret
 
 
 ## Disables the firing of all weapons and sets the timescale to zero for [param hitstop_duration_time]
@@ -1046,6 +1058,7 @@ func _initializeStamina() -> void:
 	hud.stamina_bar.progress = 300.0
 
 
+## When the dash duration ends, this method is called in order to end the dash.
 func _on_dash_length_timer_timeout() -> void:
 	if player_state != player_states.REELINGTO:
 		if is_on_floor():

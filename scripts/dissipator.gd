@@ -81,7 +81,7 @@ func fireSpecial() -> void:
 	var player:Player = get_tree().get_first_node_in_group("players")
 	var playercam:PlayerCamera = player.camera_3d
 	
-	player.hitStop(firing_hitstop_duration)
+	TimeFlowSystem.interruptTimeflow(firing_hitstop_duration)
 	playercam.shakeCamera(camera_shake_duration, camera_shake_strength)
 	
 	# First the hitscan hits the place the weapon is aimed as usual.
