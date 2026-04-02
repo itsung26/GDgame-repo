@@ -384,6 +384,7 @@ func _handle_hit(
 		hit_body.setHealth(hit_body.HEALTH - damage)
 		return
 	
+	# there is no check for the pistol bomb object itself being hit, this is intentional
 	elif hit_body is PistolBombShotCollsionReciever:
 		var bomb: PistolBomb = hit_body.getPistolBomb()
 		_handle_pistol_bomb_hit(bomb)
