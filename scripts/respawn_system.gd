@@ -6,7 +6,8 @@ extends Node
 signal checkpoint_changed(new_checkpoint:Checkpoint, previous_checkpoint:Checkpoint)
 signal respawn_requested(player:Player, checkpoint:Checkpoint, reload_queued:bool)
 
-var current_checkpoint:Checkpoint
+var current_checkpoint:Checkpoint:
+	set = set_current_checkpoint
 
 
 func set_current_checkpoint(new_checkpoint:Checkpoint) -> void:	
@@ -25,10 +26,13 @@ func request_respawn(player:Player) -> void:
 	
 	# if a checkpoint is not set, fallback to going to the level start position.
 	if current_checkpoint == null:
+		# re-confine the mouse
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
 		# send the player back to where they were, revert properties
-		player.position = player.initial_player_rotation
-		player.rotation.y = player.initial_player_rotation.y
-		player.pivot.rotation.x = player.initial_pivot_roation.x
+		player.global_position = player.global_initial_player_position
+		player.global_rotation.y = player.global_initial_player_rotation.y
+		player.pivot.global_rotation.x = player.global_initial_pivot_roation.x
 		player.HEALTH = 100.0
 		player.STAMINA = 300.0
 		

@@ -174,7 +174,7 @@ enum action_states{IDLE, GRAPPLING}
 @export var can_lerp_time_in_death:bool = true
 ## When [code]true[/code], any button input will cause a respawn. Only intended to
 ## be used in the [code]DEAD[/code] state.
-@export var awaiting_death_input:bool = false
+@export var revert_to_initial_weapon_on_death:bool = true
 
 @export_group("Extras")
 ## This enables the ability to freely control the slide direction. Largley overpowered and intended as a cheat/extra feature.
@@ -212,12 +212,13 @@ var cause_of_death:String = ""
 var direction:Vector3
 var input_dir := Vector2.ZERO
 var dash_dir:Vector3
-var initial_player_position:Vector3
-var initial_player_rotation:Vector3
-var initial_pivot_roation:Vector3
+var global_initial_player_position:Vector3
+var global_initial_player_rotation:Vector3
+var global_initial_pivot_roation:Vector3
 var los_query:LineOfSightQuery
 var grapple_rope_mesh_gen:ropeMeshGenerator
 var stamina_recharging:bool = true
+var awaiting_death_input:bool = false
 #endregion
 
 #region Constants
@@ -266,6 +267,9 @@ func set_player_state(new_player_state:player_states):
 		parry_arm.visible = false
 		# prevent damaging the player
 		can_be_damaged = false
+		
+		if revert_to_initial_weapon_on_death:
+			set_weapon_state(initial_weapon)
 		
 		var velocity_cache:Vector3 = killVelocity()
 		weapon_state.visible = false
@@ -445,9 +449,9 @@ func set_arm_state(new_arm_state:arm_states):
 # map and everything else.
 func _ready() -> void:
 	# initializers for variables and state machines
-	initial_player_position = position
-	initial_player_rotation = rotation
-	initial_pivot_roation = pivot.rotation
+	global_initial_player_position = global_position
+	global_initial_player_rotation = global_rotation
+	global_initial_pivot_roation = pivot.global_rotation
 	los_query = los_query_SCENE.instantiate()
 	get_tree().current_scene.add_child.call_deferred(los_query)
 	
@@ -760,6 +764,7 @@ func _input(event: InputEvent) -> void:
 	# Godot does not emit InputEventAction for normal keypresses; those arrive as InputEventKey etc.
 	if event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion or event is InputEventMouseButton or event is InputEventAction:
 		if awaiting_death_input:
+			assert(player_state == player_states.DEAD)
 			awaiting_death_input = false
 			get_tree().get_first_node_in_group("death camera").queue_free()
 			RespawnSystem.request_respawn(self)

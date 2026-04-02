@@ -40,8 +40,9 @@ func loadNewLevel(new_scene_path:String, showLoadingIcon:bool = true, frames_del
 
 
 func reloadCurrentLevel() -> void:
-	var plr:Player = get_tree().get_first_node_in_group("players")
-	plr.pause_menu.unpause()
+	var player:Player = get_tree().get_first_node_in_group("players")
+	player.pause_menu.unpause()
+	RespawnSystem.set_current_checkpoint(null)
 	get_tree().reload_current_scene()
 
 
