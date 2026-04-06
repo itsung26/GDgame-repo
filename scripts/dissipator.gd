@@ -81,7 +81,11 @@ func fireSpecial() -> void:
 	var player:Player = get_tree().get_first_node_in_group("players")
 	var playercam:PlayerCamera = player.camera_3d
 	
-	TimeFlowSystem.interruptTimeflow(firing_hitstop_duration)
+	# Approximate the hit body. If the body is a pistolbomb, a timeScaleInterruption
+	# will be requested, so only request one if the hit body is not a pistolbomb
+	# so that the request does not fail due to overlap.
+	if not dissipator_piercing_hitscan.get_collider_of_type(PistolBombShotCollsionReciever):
+		TimeFlowSystem.interruptTimeflow(firing_hitstop_duration)
 	playercam.shakeCamera(camera_shake_duration, camera_shake_strength)
 	
 	# First the hitscan hits the place the weapon is aimed as usual.

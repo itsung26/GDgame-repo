@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://quy3m87hsxdc"]
+
+[ext_resource type="Script" uid="uid://bv54ovnyf6rtf" path="res://scripts/physical_particle_emitter.gd" id="1_hr68w"]
+
+[node name="PhysicalParticleEmitter" type="Node3D"]
+script = ExtResource("1_hr68w")
+pool_allocations = null
+velocity = null

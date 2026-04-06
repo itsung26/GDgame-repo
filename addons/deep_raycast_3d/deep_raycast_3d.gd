@@ -138,6 +138,14 @@ func get_collider_count() -> int:
 func get_collider(index: int) -> PhysicsBody3D:
 	return _deep_results[index].collider
 
+## Returns the first collider that is of the passed [param class_type] (a class reference, e.g. [code]RigidBody3D[/code]).
+func get_collider_of_type(class_type: Variant) -> Variant:
+	for i in range(get_collider_count()):
+		var item: PhysicsBody3D = get_collider(i)
+		if is_instance_of(item, class_type):
+			return item
+	return null
+
 ## Returns the surface normal vector of the collision at the given hit index. This vector represents the perpendicular direction to the impacted surface.
 func get_normal(index: int) -> Vector3:
 	return _deep_results[index].normal

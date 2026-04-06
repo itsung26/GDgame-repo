@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://i802iksyib3n"]
+
+[ext_resource type="Script" uid="uid://cb871ia1rwnnt" path="res://addons/vaportrail/example/smoky_thing.gd" id="1_4ciwx"]
+[ext_resource type="Material" uid="uid://diuqr100472rk" path="res://addons/vaportrail/example/SmokyMaterial.tres" id="1_qmxm2"]
+
+[sub_resource type="Curve" id="Curve_4ciwx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2924791, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_4ciwx"]
+offsets = PackedFloat32Array(0, 0.021806853, 0.06542056, 0.11214953, 0.16510904, 0.21806854, 0.74454826, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.8928636, 0.83372813, 0, 1, 0.86, 0.62307, 0.1118, 1, 0.48, 0.062399995, 0.062399995, 1, 0, 0, 0, 1, 0, 0, 0, 0.7529412, 0, 0, 0, 0)
+
+[node name="VaporTrail" type="VaporTrail"]
+config/num_points = 32
+config/update_interval = 0.01
+visual/material = ExtResource("1_qmxm2")
+visual/size = 0.1
+visual/size_curve = SubResource("Curve_4ciwx")
+visual/minimum_onscreen_size = 5.0
+visual/color_gradient = SubResource("Gradient_4ciwx")
+script = ExtResource("1_4ciwx")
