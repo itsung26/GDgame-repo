@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://quy3m87hsxdc"]
+[gd_scene load_steps=5 format=3 uid="uid://quy3m87hsxdc"]
 
 [ext_resource type="Script" uid="uid://bv54ovnyf6rtf" path="res://scripts/physical_particle_emitter.gd" id="1_hr68w"]
+[ext_resource type="PackedScene" uid="uid://db8pymsa3bx8w" path="res://scenes/blood_particle.tscn" id="2_c7kni"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hr68w"]
 
@@ -8,11 +9,15 @@
 
 [node name="PhysicalParticleEmitter" type="Node3D"]
 script = ExtResource("1_hr68w")
+particle_SCENE = ExtResource("2_c7kni")
 pool_allocations = 25
+particle_amount = 1
+one_shot = true
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.799921, 0, 0)
 process_material = SubResource("ParticleProcessMaterial_hr68w")
 draw_pass_1 = SubResource("PlaneMesh_c7kni")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.408823)

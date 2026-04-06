@@ -24,35 +24,94 @@ extends Node3D
 
 var _particle_pool:Array[PhysicalParticle]
 var active_particles:Array[PhysicalParticle]
+## Fractional particle spawns carried across frames (same idea as Godot's internal emission accumulator).
+var _emission_accumulator:float = 0.0
+var _one_shot_remaining:int = 0
+var _emitting_was:bool = false
 
 
 func _ready() -> void:
 	if particle_SCENE:
-		_allocatePoolInstances(particle_SCENE, pool_allocations)
+		allocatePoolInstances(particle_SCENE, pool_allocations)
+	_emitting_was = emitting
+	if emitting:
+		_emission_accumulator = 0.0
+		if one_shot:
+			_one_shot_remaining = particle_amount
+
 
 
 func _process(delta: float) -> void:
-	if emitting:
-		pass # emit here
+	if emitting != _emitting_was:
+		if emitting:
+			_emission_accumulator = 0.0
+			if one_shot:
+				_one_shot_remaining = particle_amount
+		else:
+			_emission_accumulator = 0.0
+		_emitting_was = emitting
+	if not emitting:
+		return
+	if particle_lifetime <= 0.0 or particle_amount <= 0:
+		if one_shot:
+			emitting = false
+		return
+	# Matches GPUParticles3D: effective rate = amount / lifetime (particles per second).
+	var emission_rate:float = float(particle_amount) / particle_lifetime
+	_emission_accumulator += delta * emission_rate
+	while _emission_accumulator >= 1.0:
+		if one_shot and _one_shot_remaining <= 0:
+			_emission_accumulator = 0.0
+			emitting = false
+			return
+		emitSingleParticle(particle_lifetime)
+		_emission_accumulator -= 1.0
+		if one_shot:
+			_one_shot_remaining -= 1
+			if _one_shot_remaining <= 0:
+				_emission_accumulator = 0.0
+				emitting = false
+				return
 
 
-func _allocatePoolInstances(scene:PackedScene, amount:int) -> void:
+
+func allocatePoolInstances(scene:PackedScene, amount:int) -> void:
 	for i in range(amount):
 		_particle_pool.append(scene.instantiate())
 
 
-func _emitSingleParticle(particle_lifetime:float) -> void:
-	assert(not _particle_pool.is_empty())
+func requestParticleFromPool() -> PhysicalParticle:
+	if _particle_pool.is_empty():
+		Debug.logerr("PhysicalParticleEmitter: particle pool is exhausted.")
+		return null
 	var particle:PhysicalParticle = _particle_pool.pop_front()
-	var particle_life_time_timer:Timer = Timer.new()
-	
 	active_particles.append(particle)
-	
-	# add the particle and it's timer to the scene
 	add_child(particle)
+	particle._setup()
+	return particle
+
+
+func returnParticleToPool(particle:PhysicalParticle) -> void:
+	if not active_particles.has(particle):
+		Debug.logerr("PhysicalParticleEmitter: returnParticleToPool called with a particle that is not active.")
+		return
+	if particle.get_parent() == self:
+		remove_child(particle)
+	active_particles.erase(particle)
+	_particle_pool.append(particle)
+
+
+func emitSingleParticle(p_lifetime:float) -> void:
+	var particle:PhysicalParticle = requestParticleFromPool()
+	if particle == null:
+		return
+	var particle_life_time_timer:Timer = Timer.new()
 	particle.add_child(particle_life_time_timer)
-	
-	# configure and start the particle's lifetime timer
 	particle_life_time_timer.one_shot = true
-	particle_life_time_timer.start(particle_lifetime)
-	particle_life_time_timer.connect(&"timeout", func() -> void: particle.get_parent().remove_child(particle))
+	particle_life_time_timer.start(p_lifetime)
+	particle_life_time_timer.connect(
+		&"timeout",
+		func() -> void:
+			particle_life_time_timer.queue_free()
+			returnParticleToPool(particle)
+	)

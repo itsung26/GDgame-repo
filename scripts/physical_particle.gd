@@ -1,3 +1,4 @@
+@tool
 class_name PhysicalParticle
 extends RigidBody3D
 
