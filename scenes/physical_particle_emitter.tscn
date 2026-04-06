@@ -1,8 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://quy3m87hsxdc"]
+[gd_scene load_steps=4 format=3 uid="uid://quy3m87hsxdc"]
 
 [ext_resource type="Script" uid="uid://bv54ovnyf6rtf" path="res://scripts/physical_particle_emitter.gd" id="1_hr68w"]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hr68w"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c7kni"]
+
 [node name="PhysicalParticleEmitter" type="Node3D"]
 script = ExtResource("1_hr68w")
-pool_allocations = null
-velocity = null
+pool_allocations = 25
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.799921, 0, 0)
+process_material = SubResource("ParticleProcessMaterial_hr68w")
+draw_pass_1 = SubResource("PlaneMesh_c7kni")
+
+[node name="Timer" type="Timer" parent="."]
