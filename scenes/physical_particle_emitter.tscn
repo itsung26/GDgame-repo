@@ -10,9 +10,10 @@
 [node name="PhysicalParticleEmitter" type="Node3D"]
 script = ExtResource("1_hr68w")
 particle_SCENE = ExtResource("2_c7kni")
-pool_allocations = 25
-particle_amount = 1
-one_shot = true
+particle_amount = 6
+emitting = true
+gravity_scale = 0.0
+collision_layer = 1024
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.799921, 0, 0)
