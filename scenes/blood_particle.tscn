@@ -1,8 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://db8pymsa3bx8w"]
+[gd_scene load_steps=10 format=3 uid="uid://db8pymsa3bx8w"]
 
-[ext_resource type="Script" uid="uid://knulhg6dxp2m" path="res://scripts/physical_particle.gd" id="1_2jgbo"]
+[ext_resource type="Script" uid="uid://b7rg0fspc1dte" path="res://scripts/blood_particle.gd" id="1_2jgbo"]
+[ext_resource type="PackedScene" uid="uid://qrj1lx1k5tg6" path="res://scenes/blood_decal.tscn" id="2_ccgeu"]
+[ext_resource type="Texture2D" uid="uid://bsxlyvq6hevfx" path="res://assets/2d assets/particles/dot.png" id="3_3ioxw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2jgbo"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("3_3ioxw")
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
 billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
@@ -10,18 +17,47 @@ particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_ccgeu"]
 material = SubResource("StandardMaterial3D_2jgbo")
+size = Vector2(0.25, 0.25)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ccgeu"]
-points = PackedVector3Array(0.4578707, 0.19807906, 0.01578243, -0.48873997, -0.09168735, -0.04518683, -0.47150937, -0.1370268, -0.090701535, 0.07635914, -0.33327514, 0.36417928, 0.13656896, -0.33242497, -0.3469059, -0.15161654, 0.47198188, -0.060245913, -0.10534735, 0.21193622, 0.43966028, -0.045016855, 0.19809827, -0.4564163, 0.4090765, -0.15116782, 0.2425159, -0.27137637, -0.37776056, 0.18187061, 0.41147974, -0.07598096, -0.27324012, 0.19819722, -0.4561612, -0.04493101, -0.24064063, -0.33167413, -0.2857683, 0.22713655, 0.2567203, 0.36304116, 0.22752243, 0.42360392, -0.13548777, -0.37899047, 0.060702223, 0.31946206, -0.40674683, 0.18104935, -0.22569102, -0.014631338, -0.09176946, 0.49022886, -0.37785473, 0.30279276, 0.121712334, 0.046232317, 0.45601088, 0.19818504, -0.22746402, -0.060786348, -0.44034815, 0.22845526, 0.06072284, -0.43988743, -0.09113759, -0.48924586, -0.045174047, 0.44186506, -0.22821625, -0.044958085, 0.31717873, 0.24121423, -0.30081153, -0.044848714, 0.39473665, -0.30295488, -0.316348, -0.19622163, 0.33255145, 0.19844188, -0.03042933, 0.45723665, 0.061471395, -0.1522456, -0.47130713, 0.36308852, 0.25670764, 0.22707908, 0.15213433, -0.43948856, 0.18237916, -0.21072462, 0.36227608, 0.2722302)
+[sub_resource type="SphereShape3D" id="SphereShape3D_xf53b"]
+radius = 0.13851614
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3ioxw"]
+load_path = "res://.godot/imported/normal.png-4fb8ad7a57b38574b5a5cd00b0202f8d.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xf53b"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+normal_texture = SubResource("CompressedTexture2D_3ioxw")
+
+[sub_resource type="Curve" id="Curve_xf53b"]
+_limits = [0.0, 1.0, 0.0, 0.1]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.040310074, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="BloodParticle" type="RigidBody3D"]
 sleeping = true
-freeze = true
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_2jgbo")
+decal_scene = ExtResource("2_ccgeu")
+chance_to_have_trail = 0.75
 metadata/_custom_type_script = "uid://knulhg6dxp2m"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_ccgeu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_ccgeu")
+shape = SubResource("SphereShape3D_xf53b")
+
+[node name="BloodParticleTrail" type="VaporTrail" parent="."]
+config/geometry_nodepath = NodePath("..")
+config/num_points = 400
+config/update_interval = 0.01
+visual/material = SubResource("StandardMaterial3D_xf53b")
+visual/size = 0.25
+visual/size_curve = SubResource("Curve_xf53b")
+unique_name_in_owner = true

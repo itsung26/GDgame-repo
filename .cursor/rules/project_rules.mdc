@@ -6,10 +6,10 @@ alwaysApply: true
 # Project Conventions
 
 - Always assume the godot version is 4.x and use the according syntax in both scripts and shaders.
-- Put two blank lines between each function definition.
+- Keep two blank lines between each func definition.
 - Prefer explicit ":" typing over implicit ":=" typing.
 - Replace any usage of the print() or printerr() methods with the Debug.log() and Debug.logerr() methods.
-- Use the following syntax for linking setter methods:
+- Use the following syntax for linking setter methods to properties:
 
 var x:variant:
 	set = foo
@@ -17,3 +17,5 @@ var x:variant:
 func foo(new) -> void:
 	x = new
 	pass # replace with setter behavior.
+
+- Do not link getter methods to properties unless explicitly told to do so.

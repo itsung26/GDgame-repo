@@ -35,6 +35,7 @@ HitscanSystem="*res://scripts/hitscan_system.gd"
 RagdollManager="*res://scripts/ragdoll_manager.gd"
 RespawnSystem="*res://scripts/respawn_system.gd"
 TimeFlowSystem="*res://scripts/time_flow_system.gd"
+DecalPool="*res://scripts/decal_pool.gd"
 
 [debug]
 
@@ -210,6 +211,7 @@ bbcode_edit/editor/open_current_file_documentation={
 
 [layer_names]
 
+3d_render/layer_2="blood decals"
 3d_physics/layer_1="player"
 3d_physics/layer_2="enemies"
 3d_physics/layer_3="world"

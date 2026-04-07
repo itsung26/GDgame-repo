@@ -18,5 +18,4 @@ func _on_credits_pressed() -> void:
 	pass
 
 func _on_quit_pressed() -> void:
-	print("quitting")
 	get_tree().quit()

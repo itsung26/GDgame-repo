@@ -1,5 +1,14 @@
 class_name PhysicalParticle
 extends RigidBody3D
-## Prepares the object for usage from a pool. Must be reusable.
-func _setup() -> void:
-	pass
+
+@export var hiding_on_collide:bool = false
+
+
+func _ready() -> void:
+	connect("body_entered", _on_body_entered)
+
+
+func _on_body_entered(body: Node) -> void:
+	if hiding_on_collide:
+		visible = false
+		freeze = true

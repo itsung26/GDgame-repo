@@ -401,9 +401,7 @@ func set_action_state(new_action_state:action_states):
 		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX # move forwards with a set linear velocity
 		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
 	if previous_action_state == action_states.GRAPPLING: # run these actions upon moving out of grappling state unless going into reelingfrom state
-		print(world_collide_box.monitoring)
 		world_collide_box.set_deferred("monitoring", false)
-		print(world_collide_box.monitoring)
 		grapple_rope_mesh_gen.visible = false
 		grapple_hook.freeze = true
 		grapple_hook.reparent(rope_origin) # reparent and set it to face how it did before

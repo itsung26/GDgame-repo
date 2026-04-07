@@ -181,30 +181,21 @@ curve = SubResource("Curve3D_1cqmv")
 metadata/_edit_group_ = true
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.818762, 0.02247429, 0.57367903, -9.313142e-10, 0.9992106, -0.03914612, -0.57411736, 0.032051105, 0.8181369, -1.27339, 0.403995, 0.598389)
+transform = Transform3D(0.818762, 0.022474267, 0.57367903, -9.313142e-10, 0.9992095, -0.03914612, -0.57411736, 0.03205107, 0.8181369, -1.27339, 0.403995, 0.598389)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, -1.8626451e-09, 0, 1.8626451e-09, 1.0000001, 0, 0, 0)
 mesh = SubResource("BoxMesh_job12")
 
 [node name="Tr0n" type="VaporTrail" parent="Path3D/PathFollow3D/MeshInstance3D"]
-_import_path = NodePath("")
-unique_name_in_owner = true
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
 config/alignment = 2
 config/num_points = 20
 visual/material = SubResource("StandardMaterial3D_5enqk")
 visual/size = 0.1
 visual/minimum_onscreen_size = 20.0
 visual/color_gradient = SubResource("Gradient_dx8xt")
+unique_name_in_owner = true
 transform = Transform3D(1.0000005, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
-script = null
 
 [node name="Path3D4" type="Path3D" parent="."]
 transform = Transform3D(0.8359415, -0.5488186, 0, 0.2978388, 0.45365775, -0.83993256, 0.4609706, 0.70213443, 0.5426908, 0, 0.155, 0)
@@ -212,29 +203,19 @@ curve = SubResource("Curve3D_1cqmv")
 metadata/_edit_group_ = true
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D4"]
-transform = Transform3D(0.81876224, 0.022474261, 0.5736792, -9.313144e-10, 0.9992093, -0.039146133, -0.57411754, 0.032051064, 0.8181371, -1.27339, 0.403995, 0.598389)
+transform = Transform3D(0.81876224, 0.022474252, 0.5736792, -9.313144e-10, 0.99920887, -0.039146133, -0.57411754, 0.03205105, 0.8181371, -1.27339, 0.403995, 0.598389)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D4/PathFollow3D"]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, -1.8626451e-09, 0, 1.8626451e-09, 1.0000001, 0, 0, 0)
 mesh = SubResource("BoxMesh_job12")
 
 [node name="Banner" type="VaporTrail" parent="Path3D4/PathFollow3D/MeshInstance3D"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
 config/alignment = 2
 config/num_points = 15
 visual/material = SubResource("StandardMaterial3D_4frb0")
 visual/size = 0.2
 visual/minimum_onscreen_size = 20.0
 transform = Transform3D(1.0000005, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
-script = null
 
 [node name="Path3D3" type="Path3D" parent="."]
 transform = Transform3D(-0.22554617, 1.9717872e-08, -0.9742325, -8.742278e-08, -1, 0, -0.9742325, 8.517011e-08, 0.22554617, 0, 0.8261885, 0)
@@ -242,22 +223,13 @@ curve = SubResource("Curve3D_1cqmv")
 metadata/_edit_group_ = true
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D3"]
-transform = Transform3D(0.8187647, 0.022474298, 0.57367986, -9.3131725e-10, 0.99921095, -0.039146177, -0.57411927, 0.032051116, 0.8181381, -1.27339, 0.403995, 0.598389)
+transform = Transform3D(0.8187647, 0.022474274, 0.57367986, -9.3131725e-10, 0.9992099, -0.039146177, -0.57411927, 0.032051083, 0.8181381, -1.27339, 0.403995, 0.598389)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D3/PathFollow3D"]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, -1.8626451e-09, 0, 1.8626451e-09, 1.0000001, 0, 0, 0)
 mesh = SubResource("BoxMesh_2hso6")
 
 [node name="Vapor" type="VaporTrail" parent="Path3D3/PathFollow3D/MeshInstance3D"]
-_import_path = NodePath("")
-unique_name_in_owner = true
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
 config/num_points = 60
 config/update_interval = 0.05
 config/randomness = 0.3
@@ -265,8 +237,8 @@ visual/material = ExtResource("5_romn7")
 visual/size = 0.1
 visual/color_gradient = SubResource("Gradient_4frb0")
 visual/uv_shift = -0.5
+unique_name_in_owner = true
 transform = Transform3D(1.0000005, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
-script = null
 
 [node name="Path3D2" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2.05538, 0)

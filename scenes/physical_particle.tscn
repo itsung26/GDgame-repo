@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://knulhg6dxp2m" path="res://scripts/physical_particle.gd" id="1_u4o30"]
 
 [node name="PhysicalParticle" type="RigidBody3D"]
-sleeping = true
-freeze = true
+collision_layer = 0
+collision_mask = 0
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_u4o30")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
