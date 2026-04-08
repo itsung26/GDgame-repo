@@ -1,51 +1,54 @@
 class_name ConsoleCommand
 extends RefCounted
 ## Descriptor for a developer-console command: metadata plus a [Callable] invoked with parsed args.
+## Commands are formatted as such:
+## [codeblock]name_or_alias arg1 arg2[/codeblock]
+## [br]Note that all arguments are parsed as strings.
 
 
-enum ConsoleCommandPermission {
+## Whether the command is allowed in normal debug builds ([code]DEBUG[/code]) or only when cheats are enabled ([code]CHEAT[/code]).
+enum Permission {
 	DEBUG,
 	CHEAT,
 }
 
+## Primary name used on the command line (first token).
 var name: StringName
+## Alternate names that resolve to this command.
 var aliases: PackedStringArray
-var help: String
-var usage: String
+## Method actually executing the command.
 var handler: Callable
+## Minimum number of argument tokens after the command name.
 var min_args: int
+## Maximum number of argument tokens after the command name.
 var max_args: int
-var permission: ConsoleCommandPermission
 
 
+## Stores metadata and [param p_handler], which the registry invokes with argument tokens only.
 func _init(
 	p_name: StringName,
 	p_handler: Callable,
-	p_help: String = "",
-	p_usage: String = "",
 	p_aliases: PackedStringArray = PackedStringArray(),
 	p_min_args: int = 0,
 	p_max_args: int = 2147483647,
-	p_permission: ConsoleCommandPermission = ConsoleCommandPermission.DEBUG,
 ) -> void:
 	name = p_name
 	handler = p_handler
-	help = p_help
-	usage = p_usage
 	aliases = p_aliases
 	min_args = p_min_args
 	max_args = p_max_args
-	permission = p_permission
 
 
-func get_usage_or_name() -> String:
-	if usage.length() > 0:
-		return usage
-	return str(name)
+func _to_string() -> String:
+	return "Command(" + name + ", " + "min args: " + str(min_args) + ")"
 
 
-func get_one_line_help() -> String:
-	var u: String = get_usage_or_name()
-	if help.length() > 0:
-		return u + " — " + help
-	return u
+## Returns true if [param what] is equal to the main name or any of the aliases.
+func canRecognize(what:String) -> bool:
+	if what == name:
+		return true
+	else:
+		for alias:String in aliases:
+			if what == alias:
+				return true
+	return false

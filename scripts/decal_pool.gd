@@ -148,8 +148,8 @@ func _free_bucket_nodes(bucket:PoolBucket) -> void:
 	bucket.active.clear()
 
 
-func _process(delta: float) -> void:
-	Debug.log(_buckets)
+#func _process(delta: float) -> void:
+	#Debug.log(_buckets)
 
 ## Internal: one scene, two queues, one cap.
 class PoolBucket:
