@@ -66,6 +66,8 @@ func spawnDecal(pos:Vector3, normal:Vector3, rot:float) -> void:
 	blood_decal.global_position = pos
 	lookAtFront(blood_decal, blood_decal.global_position + n, Vector3.UP, Vector3(0.0, 1.0, 0.0))
 	blood_decal.global_rotate(n, rot)
+	var x:float = randf_range(1.0, 2.0)
+	blood_decal.size *= x
 
 
 func _on_body_entered(body: Node) -> void:

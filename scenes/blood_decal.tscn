@@ -1,10 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://qrj1lx1k5tg6"]
 
-[ext_resource type="Texture2D" uid="uid://compjoq2de2ge" path="res://assets/2d assets/decals/blood_decal.png" id="1_sjj1r"]
+[ext_resource type="Texture2D" uid="uid://cpoww2hmjhytw" path="res://assets/2d assets/decals/blood_decal.png" id="1_sjj1r"]
 
 [node name="BloodDecal" type="Decal"]
-layers = 2
+size = Vector3(2, 0.1, 2)
 texture_albedo = ExtResource("1_sjj1r")
 upper_fade = 0.0
 lower_fade = 0.0
 distance_fade_enabled = true
+cull_mask = 1048574

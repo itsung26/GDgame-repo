@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtwecmrwho6gd"]
+
+[ext_resource type="Script" uid="uid://cvxlfddylgmdx" path="res://scripts/dev_console.gd" id="1_gtvys"]
+[ext_resource type="FontFile" uid="uid://743wq4dsrerv" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_qve2q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1co7n"]
+font = ExtResource("2_qve2q")
+
+[node name="DevConsole" type="CanvasLayer"]
+script = ExtResource("1_gtvys")
+
+[node name="RootMargin" type="MarginContainer" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.33333334
+metadata/_edit_use_anchors_ = true
+
+[node name="ConsolePanel" type="PanelContainer" parent="RootMargin"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="RootMargin/ConsolePanel"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="RootMargin/ConsolePanel/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="RootMargin/ConsolePanel/VBox/Header"]
+layout_mode = 2
+text = "Developer Console"
+label_settings = SubResource("LabelSettings_1co7n")
+
+[node name="Spacer" type="Control" parent="RootMargin/ConsolePanel/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ModeLabel" type="Label" parent="RootMargin/ConsolePanel/VBox/Header"]
+layout_mode = 2
+text = "DEBUG/CHEAT"
+label_settings = SubResource("LabelSettings_1co7n")
+
+[node name="OutputScroll" type="ScrollContainer" parent="RootMargin/ConsolePanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Output" type="RichTextLabel" parent="RootMargin/ConsolePanel/VBox/OutputScroll"]
+layout_mode = 2
+bbcode_enabled = true
+
+[node name="InputRow" type="HBoxContainer" parent="RootMargin/ConsolePanel/VBox"]
+layout_mode = 2
+
+[node name="Prompt" type="Label" parent="RootMargin/ConsolePanel/VBox/InputRow"]
+layout_mode = 2
+text = ">"
+
+[node name="CommandInput" type="LineEdit" parent="RootMargin/ConsolePanel/VBox/InputRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+context_menu_enabled = false
+
+[node name="SuggestionPanel" type="PanelContainer" parent="RootMargin/ConsolePanel/VBox"]
+layout_mode = 2
+
+[node name="Suggestions" type="ItemList" parent="RootMargin/ConsolePanel/VBox/SuggestionPanel"]
+layout_mode = 2

@@ -36,6 +36,7 @@ RagdollManager="*res://scripts/ragdoll_manager.gd"
 RespawnSystem="*res://scripts/respawn_system.gd"
 TimeFlowSystem="*res://scripts/time_flow_system.gd"
 DecalPool="*res://scripts/decal_pool.gd"
+CommandRegistry="*res://scripts/command_registry.gd"
 
 [debug]
 
@@ -206,6 +207,11 @@ bbcode_edit/editor/open_current_file_documentation={
 "debug func 2"={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":61,"key_label":0,"unicode":61,"location":0,"echo":false,"script":null)
+]
+}
+"developer console"={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194336,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 

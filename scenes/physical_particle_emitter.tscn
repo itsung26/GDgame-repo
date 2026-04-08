@@ -16,6 +16,7 @@ sky_material = SubResource("ProceduralSkyMaterial_c7kni")
 background_mode = 2
 sky = SubResource("Sky_pyw1r")
 tonemap_mode = 2
+ssao_enabled = true
 glow_enabled = true
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hr68w"]
@@ -38,8 +39,8 @@ emitting = true
 explosiveness = 1.0
 direction = Vector3(0, 1, 0)
 spread = 180.0
-initial_velocity_min = 8.0
-initial_velocity_max = 8.0
+initial_velocity_min = 9.0
+initial_velocity_max = 9.0
 hide_on_collision = true
 collision_layer = 1024
 collision_mask = 4
@@ -69,8 +70,18 @@ collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.6779199, 0)
+layers = 3
 mesh = SubResource("PlaneMesh_vy1ud")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.6779199, 0)
+shape = SubResource("ConcavePolygonShape3D_8fku7")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.251926, 5.2776737)
+layers = 3
+mesh = SubResource("PlaneMesh_vy1ud")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.251926, 5.2776737)
 shape = SubResource("ConcavePolygonShape3D_8fku7")
