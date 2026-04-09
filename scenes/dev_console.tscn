@@ -44,7 +44,12 @@ size_flags_vertical = 3
 
 [node name="Output" type="RichTextLabel" parent="RootMargin/ConsolePanel/VBox/OutputScroll"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 bbcode_enabled = true
+fit_content = true
+scroll_following = true
+scroll_following_visible_characters = true
 
 [node name="InputRow" type="HBoxContainer" parent="RootMargin/ConsolePanel/VBox"]
 layout_mode = 2
@@ -56,10 +61,15 @@ text = ">"
 [node name="CommandInput" type="LineEdit" parent="RootMargin/ConsolePanel/VBox/InputRow"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
+placeholder_text = "Enter a command here"
 context_menu_enabled = false
+selecting_enabled = false
 
 [node name="SuggestionPanel" type="PanelContainer" parent="RootMargin/ConsolePanel/VBox"]
 layout_mode = 2
 
 [node name="Suggestions" type="ItemList" parent="RootMargin/ConsolePanel/VBox/SuggestionPanel"]
 layout_mode = 2
+
+[connection signal="text_submitted" from="RootMargin/ConsolePanel/VBox/InputRow/CommandInput" to="." method="_on_command_input_text_submitted"]

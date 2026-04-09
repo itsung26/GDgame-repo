@@ -1,30 +1,30 @@
 class_name ConsoleCommand
 extends RefCounted
-## Descriptor for a developer-console command: metadata plus a [Callable] invoked with parsed args.
-## Commands are formatted as such:
-## [codeblock]name_or_alias arg1 arg2[/codeblock]
-## [br]Note that all arguments are parsed as strings.
+## Lightweight descriptor for a developer-console command: a display name, aliases, argument bounds, and a [Callable] handler.
+## Typical input shape (tokens after splitting a line):
+## [code]name_or_alias arg1 arg2[/code]
+## All argument tokens are strings; parsing (quotes, spaces) is done by the caller.
 
 
-## Whether the command is allowed in normal debug builds ([code]DEBUG[/code]) or only when cheats are enabled ([code]CHEAT[/code]).
+## Reserved for future permission tiers (e.g. cheat vs debug). Not read by [CommandRegistry] yet.
 enum Permission {
 	DEBUG,
 	CHEAT,
 }
 
-## Primary name used on the command line (first token).
+## Display / canonical name for the command (also matched by [method canRecognize]).
 var name: StringName
-## Alternate names that resolve to this command.
+## Extra strings that [method canRecognize] treats as this command (case-sensitive [code]==[/code]).
 var aliases: PackedStringArray
-## Method actually executing the command.
+## Called by [method CommandRegistry.execute] when this command matches; receives only argument tokens (not the invoked name).
 var handler: Callable
-## Minimum number of argument tokens after the command name.
+## Minimum number of argument tokens required after the command name.
 var min_args: int
-## Maximum number of argument tokens after the command name.
+## Maximum number of argument tokens allowed after the command name.
 var max_args: int
 
 
-## Stores metadata and [param p_handler], which the registry invokes with argument tokens only.
+## Assigns fields. [param p_handler] should accept [code]PackedStringArray[/code] (often a [code]COMMAND_*[/code] method on [CommandRegistry]).
 func _init(
 	p_name: StringName,
 	p_handler: Callable,
@@ -39,16 +39,17 @@ func _init(
 	max_args = p_max_args
 
 
+## Debug string: primary name and [member min_args] only.
 func _to_string() -> String:
 	return "Command(" + name + ", " + "min args: " + str(min_args) + ")"
 
 
-## Returns true if [param what] is equal to the main name or any of the aliases.
-func canRecognize(what:String) -> bool:
+## [code]true[/code] if [param what] equals [member name] or one of [member aliases] (case-sensitive; [String] and [StringName] compare by value).
+func canRecognize(what: String) -> bool:
 	if what == name:
 		return true
 	else:
-		for alias:String in aliases:
+		for alias: String in aliases:
 			if what == alias:
 				return true
 	return false
