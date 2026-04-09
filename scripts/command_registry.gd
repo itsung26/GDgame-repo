@@ -109,4 +109,10 @@ func COMMAND_godMode(args: PackedStringArray):
 func COMMAND_print(args: PackedStringArray):
 	var arg: String = str(args[0])
 	Debug.log(arg)
+
+
+func COMMAND_listCommands(args: PackedStringArray):
+	var dev_console:DevConsole = get_tree().get_first_node_in_group("developer console")
+	for i:String in getCommandNames():
+		dev_console.pushConsoleOutput(i)
 #endregion

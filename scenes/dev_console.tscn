@@ -6,7 +6,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_1co7n"]
 font = ExtResource("2_qve2q")
 
-[node name="DevConsole" type="CanvasLayer"]
+[node name="DevConsole" type="CanvasLayer" groups=["developer console"]]
 script = ExtResource("1_gtvys")
 
 [node name="RootMargin" type="MarginContainer" parent="."]
