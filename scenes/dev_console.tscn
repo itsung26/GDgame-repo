@@ -48,6 +48,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 fit_content = true
+scroll_following = true
 
 [node name="InputRow" type="HBoxContainer" parent="RootMargin/ConsolePanel/VBox"]
 layout_mode = 2

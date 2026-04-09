@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @onready var command_input: LineEdit = $RootMargin/ConsolePanel/VBox/InputRow/CommandInput
 @onready var output: RichTextLabel = $RootMargin/ConsolePanel/VBox/OutputScroll/Output
+@onready var output_scroll: ScrollContainer = $RootMargin/ConsolePanel/VBox/OutputScroll
 
 ## Prevents the command console from displaying over this many lines.
 @export_range(0, 500, 1) var max_lines_displayable:int = 250
@@ -53,13 +54,22 @@ func splitStringBySpaces(what:String) -> PackedStringArray:
 	return ret
 
 
+func scrollOutputToBottom() -> void:
+	if not is_instance_valid(output_scroll):
+		return
+	var v_scroll: VScrollBar = output_scroll.get_v_scroll_bar()
+	if v_scroll == null:
+		return
+	output_scroll.scroll_vertical = int(v_scroll.max_value)
+
+
 func _on_command_input_text_submitted(new_text: String) -> void:
 	if new_text == "":
 		return
-	Debug.log(CommandRegistry.getCommandNames())
-	command_input.clear()
 	
-	var parts:PackedStringArray = splitStringBySpaces(new_text)
+	command_input.clear()
+
+	var parts: PackedStringArray = splitStringBySpaces(new_text)
 	var passed_command:String = parts[0]
 	var passed_args:PackedStringArray = parts
 	passed_args.remove_at(0)
@@ -67,6 +77,8 @@ func _on_command_input_text_submitted(new_text: String) -> void:
 	var error_status:String = CommandRegistry.execute(passed_command, passed_args)
 	if error_status != "":
 		pushConsoleOutput(error_status)
+	
+	scrollOutputToBottom()
 
 
 func _on_command_failure(command:ConsoleCommand, failure_reason:String) -> void:

@@ -44,25 +44,25 @@ func _ready() -> void:
 
 ## Walks [member registered_console_commands] in order and first filters by [method ConsoleCommand.canRecognize] using [param invoked_name].
 ## Once a command matches, validates [param args] size against that command's [member ConsoleCommand.min_args] and [member ConsoleCommand.max_args], then invokes [member ConsoleCommand.handler].
-## Returns [code]""[/code] on success or when no command is recognized, otherwise returns an error string for argument bound failures.
+## Returns [code]""[/code] after a successful handler run, an error string for bad arg counts, or an unknown-command error if no entry matched [param invoked_name].
 func execute(invoked_name: String, args: PackedStringArray) -> String:
 	for command: ConsoleCommand in registered_console_commands:
-		# First we do the name check for the command.
-		if command.canRecognize(invoked_name):
-			# Then we do the argument count check.
-			var passed_args: int = args.size()
-			if passed_args > command.max_args:
-				command_failure.emit(command, "Exceeded command argument count.")
-				return "ERROR: Exceeded command argument count."
-			elif passed_args < command.min_args:
-				command_failure.emit(command, "Did not meet minimum command argument count.")
-				return "ERROR: Did not meet minimum command argument count."
-			command.handler.call(args)
-			return ""
-		else:
-			command_failure.emit(null, "Command not recognized.")
-			return "ERROR: Command not recognized."
-	return ""
+		if not command.canRecognize(invoked_name):
+			continue
+		
+		var passed_args: int = args.size()
+		if passed_args > command.max_args:
+			command_failure.emit(command, "Exceeded command argument count.")
+			return "ERROR: Exceeded command argument count. Expected: \n        " + "[" + command.name + " + " + str(command.min_args) + " to " + str(command.max_args) + " arguments]"
+		if passed_args < command.min_args:
+			command_failure.emit(command, "Did not meet minimum command argument count.")
+			return "ERROR: Did not meet minimum command argument count. Expected: \n        " + "[" + command.name + " + " + str(command.min_args) + " to " + str(command.max_args) + " arguments]"
+		command.handler.call(args)
+		command_success.emit(command, "")
+		return ""
+	
+	command_failure.emit(null, "Command not recognized.")
+	return "ERROR: Command not recognized."
 
 
 ## Appends [param cmd] to [member registered_console_commands]. Does not check for duplicate names or aliases.
@@ -113,9 +113,8 @@ func getCommandNames() -> Array[String]:
 ## Godmode command: placeholder; logs to [Debug].
 ## [param args] must satisfy the [ConsoleCommand] bounds registered for this handler (currently zero arguments).
 func COMMAND_godMode(args: PackedStringArray):
-	var player:Player = LoadHandler.get_tree().get_first_node_in_group("players")
+	var player: Player = LoadHandler.get_tree().get_first_node_in_group("players")
 	player.Godmode = true
-	command_success.emit()
 
 
 ## Prints one argument to [Debug]. Expects exactly one token after the command name.
