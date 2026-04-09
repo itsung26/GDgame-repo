@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=91 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://csatdjhfoaqcw" path="res://scenes/pistol.tscn" id="4_dqkch"]
 [ext_resource type="AnimationLibrary" uid="uid://df4wluqxdk4ww" path="res://animations/grapple arm animation library.res" id="4_ur7pv"]
 [ext_resource type="Script" uid="uid://b4yu2jimgjsob" path="res://scripts/player_floor_cast.gd" id="6_4ni07"]
+[ext_resource type="PackedScene" uid="uid://dtwecmrwho6gd" path="res://scenes/dev_console.tscn" id="6_dt7fs"]
 [ext_resource type="Script" uid="uid://cjhvcb5uyoehj" path="res://scripts/wind_particles.gd" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://bh4w73yqjy2wa" path="res://scenes/slide_particles.tscn" id="8_smehm"]
 [ext_resource type="Script" uid="uid://cmyfxiobhbpum" path="res://scripts/camera_3d.gd" id="9_ke2ow"]
@@ -592,6 +593,8 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_pf23h")
 [node name="PauseMenu" parent="huds" instance=ExtResource("11_3v2ag")]
 unique_name_in_owner = true
 
+[node name="DevConsole" parent="huds" instance=ExtResource("6_dt7fs")]
+
 [node name="CollisionShapeMain" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.847, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
@@ -960,7 +963,7 @@ camera_shake_strength = 0.22
 firing_hitstop_duration = 0.1
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.038218576, -0.99919397, 0.012307372, 0.011149739, -0.012742031, -0.9998554, 0.99920607, -0.03807591, 0.011627728, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.038218573, -0.99919397, 0.012307371, 0.011149738, -0.012742031, -0.9998553, 0.999206, -0.03807591, 0.011627727, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)

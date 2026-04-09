@@ -498,10 +498,6 @@ func _ready() -> void:
 ## Kinematic-related operations should only be run in _physics_process, while logic and other operations
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
-	if Input.is_action_just_pressed("debug func"):
-		setHealth(HEALTH - 100.0)
-	
-	
 	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
 	# I hate this
 	chargeStamina(delta)

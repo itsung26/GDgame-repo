@@ -12,7 +12,7 @@ script = ExtResource("1_gtvys")
 [node name="RootMargin" type="MarginContainer" parent="."]
 anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 0.33333334
+anchor_bottom = 0.5046296
 metadata/_edit_use_anchors_ = true
 
 [node name="ConsolePanel" type="PanelContainer" parent="RootMargin"]
@@ -48,7 +48,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 fit_content = true
-scroll_following = true
 
 [node name="InputRow" type="HBoxContainer" parent="RootMargin/ConsolePanel/VBox"]
 layout_mode = 2
@@ -60,10 +59,9 @@ text = ">"
 [node name="CommandInput" type="LineEdit" parent="RootMargin/ConsolePanel/VBox/InputRow"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Enter a command here"
+placeholder_text = "Enter a command or help to list commands"
 keep_editing_on_text_submit = true
 context_menu_enabled = false
-selecting_enabled = false
 
 [node name="SuggestionPanel" type="PanelContainer" parent="RootMargin/ConsolePanel/VBox"]
 layout_mode = 2

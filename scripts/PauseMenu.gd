@@ -301,7 +301,9 @@ func unpause() -> void:
 	if not get_tree().paused:
 		return
 	get_tree().paused = false
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# if a free camera is not present in the scene, re-capture the mouse
+	if not get_tree().get_first_node_in_group("free camera"):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	unpaused.emit()
 
 

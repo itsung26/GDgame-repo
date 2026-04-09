@@ -9,6 +9,7 @@ signal command_failure(command:ConsoleCommand, failure_reason:String)
 signal command_success(command:ConsoleCommand, success_message:String)
 
 
+#region Command Registry
 ## Registers built-in [ConsoleCommand]s. Add more [method registerCommand] calls here for new commands.
 func _ready() -> void:
 	registerCommand(
@@ -20,7 +21,7 @@ func _ready() -> void:
 		0
 		)
 	)
-
+	
 	registerCommand(
 		ConsoleCommand.new(
 		"print",
@@ -40,6 +41,27 @@ func _ready() -> void:
 			0
 		)
 	)
+	
+	registerCommand(
+		ConsoleCommand.new(
+			"quit",
+			Callable(self, "COMMAND_quit"),
+			["Quit", "quitgame", "QuitGame", "quitGame"],
+			0,
+			0
+		)
+	)
+	
+	registerCommand(
+		ConsoleCommand.new(
+			"freeCam",
+			Callable(self, "COMMAND_freeCam"),
+			["FreeCam", "freecam", "Freecam"],
+			0,
+			0
+		)
+	)
+#endregion
 
 
 ## Walks [member registered_console_commands] in order and first filters by [method ConsoleCommand.canRecognize] using [param invoked_name].
@@ -114,7 +136,13 @@ func getCommandNames() -> Array[String]:
 ## [param args] must satisfy the [ConsoleCommand] bounds registered for this handler (currently zero arguments).
 func COMMAND_godMode(args: PackedStringArray):
 	var player: Player = LoadHandler.get_tree().get_first_node_in_group("players")
-	player.Godmode = true
+	var dev_console:DevConsole = get_tree().get_first_node_in_group("developer console")
+	if player.Godmode:
+		player.Godmode = false
+		dev_console.pushConsoleOutput("Godmode OFF")
+	else:
+		player.Godmode = true
+		dev_console.pushConsoleOutput("Godmode ON")
 
 
 ## Prints one argument to [Debug]. Expects exactly one token after the command name.
@@ -128,4 +156,33 @@ func COMMAND_listCommands(args: PackedStringArray):
 	var dev_console:DevConsole = get_tree().get_first_node_in_group("developer console")
 	for i:String in getCommandNames():
 		dev_console.pushConsoleOutput(i)
+
+
+func COMMAND_quit(args: PackedStringArray):
+	# exception from the replace print with Debug.log convention
+	print(args[0])
+	get_tree().quit()
+
+
+func COMMAND_freeCam(args: PackedStringArray):
+	var freecam:FreeCamera
+	var player:Player = get_tree().get_first_node_in_group("players")
+	var dev_console:DevConsole = get_tree().get_first_node_in_group("developer console")
+	
+	if get_tree().get_first_node_in_group("free camera"):
+		freecam = get_tree().get_first_node_in_group("free camera")
+		freecam.queue_free()
+		player.camera_3d.make_current()
+		player.enableInputAllowments()
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		dev_console.pushConsoleOutput("toggled freecam OFF")
+	else:
+		var freecam_SCENE:PackedScene = load("res://scenes/free_camera.tscn")
+		freecam = freecam_SCENE.instantiate()
+		get_tree().current_scene.add_child(freecam)
+		freecam.global_position = player.camera_3d.global_position
+		freecam.make_current()
+		player.disableInputAllowments()
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		dev_console.pushConsoleOutput("toggled freecam ON")
 #endregion

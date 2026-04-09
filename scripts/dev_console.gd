@@ -14,14 +14,21 @@ func _ready() -> void:
 	setVisible(false)
 	CommandRegistry.connect("command_success", _on_command_success)
 	CommandRegistry.connect("command_failure", _on_command_failure)
+	# Parent [ScrollContainer] scrolls; internal RTL scroll fights layout and stale [code]max_value[/code].
+	output.scroll_active = false
+	output.scroll_following = false
 
 
 func _input(event: InputEvent) -> void:
+	var player:Player = get_tree().get_first_node_in_group("players")
 	if Input.is_action_just_pressed("developer console"):
 		setVisible(!visible)
 		
 		if visible:
 			command_input.grab_focus()
+			player.disableInputAllowments()
+		else:
+			player.enableInputAllowments()
 
 
 func setVisible(value:bool) -> void:
@@ -41,7 +48,7 @@ func pushConsoleOutput(what:String) -> void:
 		existing_lines = PackedStringArray(existing_lines.slice(start_index, existing_lines.size()))
 	output.clear()
 	output.append_text("\n".join(existing_lines))
-	output.scroll_to_line(output.get_line_count())
+	scrollOutputToBottom()
 
 
 ## Returns an array containing all parts of [param what] seperated by spaces.
@@ -54,7 +61,15 @@ func splitStringBySpaces(what:String) -> PackedStringArray:
 	return ret
 
 
+## Scrolls [member output_scroll] after layout. [code]fit_content[/code] updates height next frame, so [code]VScrollBar.max_value[/code] is wrong if read immediately after [method RichTextLabel.append_text].
 func scrollOutputToBottom() -> void:
+	call_deferred("_scroll_output_to_bottom_after_layout")
+
+
+
+func _scroll_output_to_bottom_after_layout() -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
 	if not is_instance_valid(output_scroll):
 		return
 	var v_scroll: VScrollBar = output_scroll.get_v_scroll_bar()

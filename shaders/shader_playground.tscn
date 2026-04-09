@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=98 format=4 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Script" uid="uid://dc04b3pq7nowl" path="res://scripts/shader_playground.gd" id="1_573pc"]
 [ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
@@ -11,11 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://7jdkfa1b8ul2" path="res://assets/2d assets/primary textures/photorealistic/Rock058_1K-JPG/Rock058_1K-JPG_Roughness.jpg" id="9_6eyvu"]
 [ext_resource type="Texture2D" uid="uid://ctlmwveknqfsr" path="res://icon.svg" id="10_wvfjj"]
 [ext_resource type="Shader" uid="uid://cwqvoe2yiuisl" path="res://shaders/GDSL shaders/holographic_shader.gdshader" id="11_aagwi"]
-[ext_resource type="Shader" uid="uid://bc8elyc8c7dbs" path="res://shaders/visual shaders/BlackHoleShader.tres" id="12_hl1cy"]
+[ext_resource type="Shader" uid="uid://0akasyitqrp0" path="res://shaders/GDSL shaders/black_hole.gdshader" id="12_bu5lp"]
 [ext_resource type="Shader" uid="uid://dcu2v4v1is3l8" path="res://shaders/GDSL shaders/holographic.gdshader" id="13_7c073"]
 [ext_resource type="Material" uid="uid://cynpet0x6y5db" path="res://assets/materials/frensel_outline_shader.tres" id="14_03nm1"]
-[ext_resource type="Material" uid="uid://cfe6eqv35y70m" path="res://temp/Smoke_Scene.tres" id="14_6cuth"]
-[ext_resource type="Material" uid="uid://dxt37gdn05eyw" path="res://temp/Smoke_Scene_process_material.tres" id="15_lqk2t"]
 [ext_resource type="ArrayMesh" uid="uid://c03p1wq8x7grl" path="res://scenes/Smoke_Project/Mesh.tres" id="16_7b3fo"]
 [ext_resource type="Shader" uid="uid://byk3dfkudeyxo" path="res://scenes/Smoke_Project/Stylized_Smoke_Shader.gdshader" id="17_6eyvu"]
 [ext_resource type="Material" uid="uid://dacrkvgaw0er8" path="res://assets/materials/shader materials/tornado shader.tres" id="18_lqk2t"]
@@ -94,19 +92,6 @@ emission = Color(0, 1, 0, 1)
 material = SubResource("StandardMaterial3D_l7yxw")
 size = Vector2(11.925, 10.88)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1u33o"]
-render_priority = 1
-shader = ExtResource("12_hl1cy")
-shader_parameter/oscillate_speed = 5.0
-shader_parameter/frensel = 1.0
-shader_parameter/ColorParameter = Color(0.627451, 0.12549, 0.941176, 1)
-shader_parameter/alpha = 1.0
-shader_parameter/emissionintensity = 16.0
-shader_parameter/light_diffuse = 0.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_a0f2g"]
-material = SubResource("ShaderMaterial_1u33o")
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x1s4k"]
 load_path = "res://.godot/imported/texture_01.png-3a8f846f21e0fa319446858f894dc2c0.s3tc.ctex"
 
@@ -122,6 +107,13 @@ uv1_scale = Vector3(-25, -25, -25)
 [sub_resource type="PlaneMesh" id="PlaneMesh_t34ei"]
 material = SubResource("StandardMaterial3D_7uixr")
 size = Vector2(50, 50)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1u33o"]
+render_priority = 1
+shader = ExtResource("12_bu5lp")
+
+[sub_resource type="SphereMesh" id="SphereMesh_a0f2g"]
+material = SubResource("ShaderMaterial_1u33o")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4xor"]
 render_priority = 1
@@ -589,15 +581,17 @@ mesh = SubResource("BoxMesh_1u33o")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.992633)
 mesh = SubResource("QuadMesh_dflox")
 
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
-transform = Transform3D(10.4065, 0, 0, 0, 10.4065, 0, 0, 0, 10.4065, -12, 0, 0)
-mesh = SubResource("SphereMesh_a0f2g")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.485402, 0)
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="."]
+transform = Transform3D(10.4065, 0, 0, 0, 10.4065, 0, 0, 0, 10.4065, -12, -5.051336, -142.00415)
 mesh = SubResource("PlaneMesh_t34ei")
+skeleton = NodePath("../MeshInstance3D5")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D5"]
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -142.00415)
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(10.4065, 0, 0, 0, 10.4065, 0, 0, 0, 10.4065, -0.10720348, 1.4498664, -127.89842)
+mesh = SubResource("SphereMesh_a0f2g")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.95705, 0, 0, 0, 2.95705, 0, 0, 0, 2.95705, -5.1, -2.87028, 5.7)
@@ -615,12 +609,10 @@ offset_bottom = 433.0
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.1289, -4.41542, 8.97112)
-material_override = ExtResource("14_6cuth")
 cast_shadow = 0
 amount = 16
 lifetime = 2.0
 trail_lifetime = 0.2
-process_material = ExtResource("15_lqk2t")
 draw_pass_1 = ExtResource("16_7b3fo")
 
 [node name="Smoke2" type="GPUParticles3D" parent="."]
@@ -639,7 +631,6 @@ cast_shadow = 0
 amount = 32
 lifetime = 2.0
 trail_lifetime = 0.2
-process_material = ExtResource("15_lqk2t")
 draw_pass_1 = ExtResource("16_7b3fo")
 
 [node name="Circle" type="MeshInstance3D" parent="."]
@@ -710,3 +701,6 @@ mesh = SubResource("SphereMesh_lps8w")
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_myvun")
 mesh = SubResource("PlaneMesh_1cyw6")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.925613, 1.9073486e-06, 2.9363475)
