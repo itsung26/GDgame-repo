@@ -54,11 +54,10 @@ func splitStringBySpaces(what:String) -> PackedStringArray:
 
 
 func _on_command_input_text_submitted(new_text: String) -> void:
-	command_input.clear()
-	# LineEdit may release focus after emitting text_submitted; defer re-focus to the end of the frame.
-	command_input.call_deferred("grab_focus")
 	if new_text == "":
 		return
+	Debug.log(CommandRegistry.getCommandNames())
+	command_input.clear()
 	
 	var parts:PackedStringArray = splitStringBySpaces(new_text)
 	var passed_command:String = parts[0]

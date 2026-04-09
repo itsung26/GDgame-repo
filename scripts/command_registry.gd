@@ -11,21 +11,35 @@ signal command_success(command:ConsoleCommand, success_message:String)
 
 ## Registers built-in [ConsoleCommand]s. Add more [method registerCommand] calls here for new commands.
 func _ready() -> void:
-	registerCommand(ConsoleCommand.new(
+	registerCommand(
+		ConsoleCommand.new(
 		"Godmode",
 		Callable(self, "COMMAND_godMode"),
 		["god", "God", "GodMode", "God_Mode", "god_mode", "jesuschrist", "JesusChrist"],
 		0,
 		0
-	))
+		)
+	)
 
-	registerCommand(ConsoleCommand.new(
+	registerCommand(
+		ConsoleCommand.new(
 		"print",
 		Callable(self, "COMMAND_print"),
 		["Print", "print"],
 		0,
 		1
-	))
+		)
+	)
+	
+	registerCommand(
+		ConsoleCommand.new(
+			"listCommands",
+			Callable(self, "COMMAND_listCommands"),
+			["listcommands", "ListCommands", "help"],
+			0,
+			0
+		)
+	)
 
 
 ## Walks [member registered_console_commands] in order and first filters by [method ConsoleCommand.canRecognize] using [param invoked_name].
