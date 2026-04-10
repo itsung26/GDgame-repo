@@ -1,5 +1,5 @@
 class_name Level
-extends Node
+extends Node3D
 ## Class representing game levels. Note that [LoadHandler] handles level transitions,
 ## not the levels themselves.
 

@@ -1,6 +1,5 @@
-[gd_scene load_steps=98 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=97 format=4 uid="uid://b0dmfplshi71"]
 
-[ext_resource type="Script" uid="uid://dc04b3pq7nowl" path="res://scripts/shader_playground.gd" id="1_573pc"]
 [ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
 [ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_j4xor"]
 [ext_resource type="Texture2D" uid="uid://dbgxiygc2iyd4" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Roughness.jpg" id="4_mso3s"]
@@ -111,6 +110,14 @@ size = Vector2(50, 50)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1u33o"]
 render_priority = 1
 shader = ExtResource("12_bu5lp")
+shader_parameter/fresnel_power = 3.10000004619372
+shader_parameter/fresnel_invert = false
+shader_parameter/frequency = 7.9399999999999995
+shader_parameter/amplitude = 1.655
+shader_parameter/offset = 2.995
+shader_parameter/emission_multiplier = 5.62
+shader_parameter/inner_color = Color(0, 0, 0, 1)
+shader_parameter/outer_color = Color(0.627451, 0.1254902, 0.9411765, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_a0f2g"]
 material = SubResource("ShaderMaterial_1u33o")
@@ -548,7 +555,6 @@ subdivide_width = 40
 subdivide_depth = 40
 
 [node name="ShaderTest" type="Node3D"]
-script = ExtResource("1_573pc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.92005, 0, -3.63887)
@@ -590,7 +596,7 @@ skeleton = NodePath("../MeshInstance3D5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -142.00415)
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
-transform = Transform3D(10.4065, 0, 0, 0, 10.4065, 0, 0, 0, 10.4065, -0.10720348, 1.4498664, -127.89842)
+transform = Transform3D(10.4065, 0, 0, 0, 10.4065, 0, 0, 0, 10.4065, -0.10720348, 1.4498664, -126.04574)
 mesh = SubResource("SphereMesh_a0f2g")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]

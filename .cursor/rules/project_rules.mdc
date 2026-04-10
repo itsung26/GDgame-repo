@@ -6,7 +6,6 @@ alwaysApply: true
 # Project Conventions
 
 - Always assume the godot version is 4.x and use the according syntax in both scripts and shaders.
-- Keep two blank lines between each func definition.
 - Prefer explicit ":" typing over implicit ":=" typing.
 - Replace any usage of the print() or printerr() methods with the Debug.log() and Debug.logerr() methods.
 - Use the following syntax for linking setter methods to properties:
@@ -19,3 +18,28 @@ func foo(new) -> void:
 	pass # replace with setter behavior.
 
 - Do not link getter methods to properties unless explicitly told to do so.
+- Keep TWO blank lines between each func definition in the following manner:
+
+## comments here
+func foo() -> void:
+    # implementation here
+
+
+## comments here
+func bar() -> void:
+    #implementation here
+
+- Avoid splitting behaviors into too many helper methods, as nested helper methods become hard to read and add more bloat to the public API. For example, the following is unneccesary and should be avoided:
+
+func main() -> void:
+    _helper_outer()
+
+
+func _helper_outer() -> void:
+    _helper_inner()
+
+
+func _helper_inner() -> void:
+    # implementation here
+
+- For method naming conventions, use camelCase for all non built-in methods except helper methods, which should have an underscore in the front, be all lowercase, and have underscores between words.

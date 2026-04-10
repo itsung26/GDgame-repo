@@ -160,7 +160,7 @@ func COMMAND_listCommands(args: PackedStringArray):
 
 func COMMAND_quit(args: PackedStringArray):
 	# exception from the replace print with Debug.log convention
-	print(args[0])
+	print("goodbye")
 	get_tree().quit()
 
 
@@ -185,4 +185,10 @@ func COMMAND_freeCam(args: PackedStringArray):
 		player.disableInputAllowments()
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		dev_console.pushConsoleOutput("toggled freecam ON")
+
+
+## usage - teleport x y z
+func COMMAND_teleport(args: PackedStringArray):
+	var player:Player = get_tree().get_first_node_in_group("players")
+	
 #endregion

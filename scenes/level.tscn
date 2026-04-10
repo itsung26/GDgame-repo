@@ -2,6 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cfg33qj40lkc8" path="res://scripts/level.gd" id="1_2q6dc"]
 
-[node name="Level" type="Node"]
+[node name="Level" type="Node3D"]
 script = ExtResource("1_2q6dc")
 metadata/_custom_type_script = "uid://cfg33qj40lkc8"

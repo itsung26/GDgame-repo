@@ -3,7 +3,7 @@ extends Level
 
 
 func _onLevelReady() -> void:
-	pass
+	Debug.log(global_position)
 
 
 func _onLevelTick(_delta: float) -> void:

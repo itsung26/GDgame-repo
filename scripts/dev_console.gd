@@ -8,6 +8,8 @@ extends CanvasLayer
 ## Prevents the command console from displaying over this many lines.
 @export_range(0, 500, 1) var max_lines_displayable:int = 250
 
+var command_input_history:Array[float] = []
+
 
 func _ready() -> void:
 	clearCommandInput()
@@ -24,10 +26,17 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("developer console"):
 		setVisible(!visible)
 		
+		# on open
 		if visible:
+			command_input.clear()
 			command_input.grab_focus()
 			player.disableInputAllowments()
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		# on close
 		else:
+			if get_tree().get_first_node_in_group("free camera"):
+				return
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			player.enableInputAllowments()
 
 
@@ -66,7 +75,6 @@ func scrollOutputToBottom() -> void:
 	call_deferred("_scroll_output_to_bottom_after_layout")
 
 
-
 func _scroll_output_to_bottom_after_layout() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -94,6 +102,8 @@ func _on_command_input_text_submitted(new_text: String) -> void:
 		pushConsoleOutput(error_status)
 	
 	scrollOutputToBottom()
+	# update the console history internal memory
+	command_input_history.append(new_text)
 
 
 func _on_command_failure(command:ConsoleCommand, failure_reason:String) -> void:
