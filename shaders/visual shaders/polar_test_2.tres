@@ -1,0 +1,149 @@
+[gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://c1xaokr5eg5f7"]
+
+[sub_resource type="VisualShaderNodeUVPolarCoord" id="VisualShaderNodeUVPolarCoord_tuqwu"]
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_tuqwu"]
+size = Vector2(680, 380)
+expression = "float r;
+r = sin(uv_polar.y);
+// emit_col = vec3(distance(uv_polar.x, radius_param));
+emit_col = vec3(distance(uv_polar.y, theta_param));"
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_tuqwu"]
+parameter_name = "ColorParameter"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_tuqwu"]
+parameter_name = "radius_param"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_xh5ks"]
+parameter_name = "theta_param"
+
+[sub_resource type="VisualShaderNodeGlobalExpression" id="VisualShaderNodeGlobalExpression_jhfwk"]
+size = Vector2(479.99997, 340)
+expression = "void vec2 toRectCoords(r, theta) {
+	float x = r * cos(theta);
+	float y = r * sin(theta);
+	return vec2(x, y);
+};"
+
+[sub_resource type="VisualShaderNodeGlobalExpression" id="VisualShaderNodeGlobalExpression_c5sj3"]
+size = Vector2(580, 299.99997)
+expression = "void vertex() {
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
+			MAIN_CAM_INV_VIEW_MATRIX[0],
+			MAIN_CAM_INV_VIEW_MATRIX[1],
+			MAIN_CAM_INV_VIEW_MATRIX[2],
+			MODEL_MATRIX[3]);
+	MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+}"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform vec4 ColorParameter : source_color;
+uniform float radius_param;
+uniform float theta_param;
+
+
+// GlobalExpression:0
+	void vertex() {
+		MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
+				MAIN_CAM_INV_VIEW_MATRIX[0],
+				MAIN_CAM_INV_VIEW_MATRIX[1],
+				MAIN_CAM_INV_VIEW_MATRIX[2],
+				MODEL_MATRIX[3]);
+		MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+	}
+// GlobalExpression:1
+	void vec2 toRectCoords(r, theta) {
+		float x = r * cos(theta);
+		float y = r * sin(theta);
+		return vec2(x, y);
+	};
+
+void fragment() {
+// ColorParameter:6
+	vec4 n_out6p0 = ColorParameter;
+
+
+	vec2 n_out2p0;
+// UVPolarCoord:2
+	vec2 n_in2p1 = vec2(0.50000, 0.50000);
+	float n_in2p2 = 1.00000;
+	float n_in2p3 = 1.00000;
+	{
+		vec2 __dir = UV - n_in2p1;
+		float __radius = length(__dir) * 2.0;
+		float __angle = atan(__dir.y, __dir.x) * 1.0 / (PI * 2.0);
+		n_out2p0 = vec2(__radius * n_in2p2, __angle * n_in2p3);
+	}
+
+
+// FloatParameter:7
+	float n_out7p0 = radius_param;
+
+
+// FloatParameter:8
+	float n_out8p0 = theta_param;
+
+
+	vec3 n_out5p0;
+// Expression:5
+	n_out5p0 = vec3(0.0, 0.0, 0.0);
+	{
+		float r;
+		r = sin(n_out2p0.y);
+		// n_out5p0 = vec3(distance(n_out2p0.x, n_out7p0));
+		n_out5p0 = vec3(distance(n_out2p0.y, n_out8p0));
+	}
+
+
+// Output:0
+	ALBEDO = vec3(n_out6p0.xyz);
+	EMISSION = n_out5p0;
+
+
+}
+"
+nodes/vertex/5/node = SubResource("VisualShaderNodeGlobalExpression_c5sj3")
+nodes/vertex/5/position = Vector2(-300, 240)
+nodes/vertex/5/size = Vector2(580, 299.99997)
+nodes/vertex/5/input_ports = ""
+nodes/vertex/5/output_ports = ""
+nodes/vertex/5/expression = "void vertex() {
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
+			MAIN_CAM_INV_VIEW_MATRIX[0],
+			MAIN_CAM_INV_VIEW_MATRIX[1],
+			MAIN_CAM_INV_VIEW_MATRIX[2],
+			MODEL_MATRIX[3]);
+	MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+}"
+nodes/fragment/2/node = SubResource("VisualShaderNodeUVPolarCoord_tuqwu")
+nodes/fragment/2/position = Vector2(-1000, 0)
+nodes/fragment/5/node = SubResource("VisualShaderNodeExpression_tuqwu")
+nodes/fragment/5/position = Vector2(-620, 20)
+nodes/fragment/5/size = Vector2(680, 380)
+nodes/fragment/5/input_ports = "0,3,uv_polar;1,0,radius_param;2,0,theta_param;"
+nodes/fragment/5/output_ports = "0,4,emit_col;"
+nodes/fragment/5/expression = "float r;
+r = sin(uv_polar.y);
+// emit_col = vec3(distance(uv_polar.x, radius_param));
+emit_col = vec3(distance(uv_polar.y, theta_param));"
+nodes/fragment/6/node = SubResource("VisualShaderNodeColorParameter_tuqwu")
+nodes/fragment/6/position = Vector2(60, -80)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatParameter_tuqwu")
+nodes/fragment/7/position = Vector2(-1000, 180)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_xh5ks")
+nodes/fragment/8/position = Vector2(-980, 400)
+nodes/fragment/9/node = SubResource("VisualShaderNodeGlobalExpression_jhfwk")
+nodes/fragment/9/position = Vector2(-460, 500)
+nodes/fragment/9/size = Vector2(479.99997, 340)
+nodes/fragment/9/input_ports = ""
+nodes/fragment/9/output_ports = ""
+nodes/fragment/9/expression = "void vec2 toRectCoords(r, theta) {
+	float x = r * cos(theta);
+	float y = r * sin(theta);
+	return vec2(x, y);
+};"
+nodes/fragment/connections = PackedInt32Array(5, 0, 0, 5, 6, 0, 0, 0, 2, 0, 5, 0, 7, 0, 5, 1, 8, 0, 5, 2)

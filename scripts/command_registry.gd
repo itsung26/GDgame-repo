@@ -189,6 +189,13 @@ func COMMAND_freeCam(args: PackedStringArray):
 
 ## usage - teleport x y z
 func COMMAND_teleport(args: PackedStringArray):
+	var x:float = float(args[0])
+	var y:float = float(args[1])
+	var z:float = float(args[2])
 	var player:Player = get_tree().get_first_node_in_group("players")
+	var teleport_position:Vector3 = Vector3(x, y, z)
+	
+	player.global_position = teleport_position
+	DevConsole
 	
 #endregion

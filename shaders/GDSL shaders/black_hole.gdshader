@@ -17,7 +17,6 @@ void vertex() {
 
 void fragment() {
 	vec3 world_pos = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	vec3 color = vec3(0.0);
 	vec3 emission = vec3(0.0);
 	
 	vec3 frag_normal = normalize(NORMAL);
@@ -37,8 +36,8 @@ void fragment() {
 	// the fresnel texture stored in emission will serve as a mask for mixing the two colors
 	emission = mix(outer_color, inner_color, emission);
 	
-	//emission = clamp(emission, 0.0, 1.0);
+	emission = clamp(emission, 0.0, 1.0);
 	
 	EMISSION = emission;
-	ALBEDO = color;
+	ALBEDO = vec3(0.0);
 }

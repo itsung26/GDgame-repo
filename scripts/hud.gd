@@ -30,13 +30,11 @@ var current_frames_per_second = "null"
 @onready var black_hole_gun_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Black hole gun outline"
 @onready var pistol_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Pistol outline"
 @onready var hand_outline: TextureRect = $"BottomLeftArea/AmmoPanel/SubViewport/BGpanel/WeaponOutlines/Hand outline"
-@onready var pistol = Helper.getFirstInScene("Pistol")
 @onready var arm_panel: Panel = $BottomLeftArea/AmmoPanel/SubViewport/ArmPanel
 @onready var arm_panel_2: Panel = $BottomLeftArea/AmmoPanel/SubViewport/ArmPanel2
 @export var player:Player
 @onready var debug_container: VBoxContainer = $DebugContainer
 @onready var grapple_arm: GrappleArm = $"../../Pivot/Camera3D/GrappleArm"
-@onready var grapple_hook:RigidBody3D = Helper.getFirstInScene("hook")
 @onready var stamina_bar: StaminaBar = $BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar
 
 @export_category("Crosshair Properties")
@@ -107,7 +105,6 @@ func _process(delta) -> void:
 		%CurrentMagnitude.text = "Net vector magnitude: " + str(roundi(player.velocity.length()))
 		%CurrentMagnitudeXZ.text = "Net vector magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
 		%CurrentParryTarget.text = "parry target: " + str(player.parry_target)
-		%CurrentHookGPos.text = "Hook Gpos: " + str(grapple_hook.global_position)
 		%CurrentCombatState.text = "In Combat: " + str(player.in_combat)
 		# ----------------------------------------------------------------------------------------------
 #endregion

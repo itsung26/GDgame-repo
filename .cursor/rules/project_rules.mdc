@@ -20,15 +20,16 @@ func foo(new) -> void:
 - Do not link getter methods to properties unless explicitly told to do so.
 - Keep TWO blank lines between each func definition in the following manner:
 
-## comments here
+// comments here
 func foo() -> void:
     # implementation here
 
 
-## comments here
+// comments here
 func bar() -> void:
     #implementation here
 
+- Avoid accidentally putting three blank lines in between method definitions.
 - Avoid splitting behaviors into too many helper methods, as nested helper methods become hard to read and add more bloat to the public API. For example, the following is unneccesary and should be avoided:
 
 func main() -> void:

@@ -24,8 +24,6 @@ buses/default_bus_layout=""
 
 [autoload]
 
-Global="*res://scripts/Global.gd"
-Helper="*res://scripts/Helper.gd"
 DebugInputHandler="*res://scripts/debug_input_handler.gd"
 EnemyPopulationHandler="*res://scripts/enemy_population_handler.gd"
 LoadHandler="*res://scripts/LoadHandler.gd"
@@ -37,6 +35,7 @@ RespawnSystem="*res://scripts/respawn_system.gd"
 TimeFlowSystem="*res://scripts/time_flow_system.gd"
 DecalPool="*res://scripts/decal_pool.gd"
 CommandRegistry="*res://scripts/command_registry.gd"
+QuickRef="*res://scripts/quick_ref.gd"
 
 [debug]
 

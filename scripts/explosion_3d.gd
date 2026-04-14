@@ -41,7 +41,7 @@ var _fading_alpha:bool = false
 var _elapsed: float = 0.0  # normalized time along the curve [0..1]
 var _alpha_elapsed: float = 0.0
 var _can_apply_scale: bool = false
-var _player:Player = Helper.getFirstInScene("Player")
+var _player:Player 
 
 @export_group("Explosion preset parameters")
 @export_category("Yellow Explosion")
@@ -61,6 +61,7 @@ func _init() -> void:
 	_scale_float = 0.00001
 
 func _ready() -> void:
+	_player = get_tree().get_first_node_in_group("players")
 	collision_deactivation_timer.start(time_before_deactivation)
 	queue_free_timer.start(time_before_deletion)
 
