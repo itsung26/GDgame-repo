@@ -72,7 +72,6 @@ explosions=""
 "death camera"="The group the death camera belongs to. It should only have 1 member."
 "developer console"=""
 "free camera"=""
-"gib limb"=""
 
 [input]
 

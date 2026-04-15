@@ -243,3 +243,7 @@ func _on_collision_deactivation_timer_timeout() -> void:
 
 func _on_queue_free_timer_timeout() -> void:
 	queue_free()
+
+
+func _on_body_influencer_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=27 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://2qnsnh5bqxs" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://fv5x0rms3ykv" path="res://explosionIcon.png" id="9_rj2dv"]
 [ext_resource type="PackedScene" uid="uid://chjuj625vfhiy" path="res://scenes/checkPoint.tscn" id="10_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/entities/enemy_filth.tscn" id="10_yvgsm"]
+[ext_resource type="PackedScene" uid="uid://bwa158sy5fj7y" path="res://scenes/entities/bullet_turret.tscn" id="11_r4hxy"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_488l3"]
 
@@ -281,4 +282,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1533378, 0.01809448, -1.19
 texture_albedo = ExtResource("9_rj2dv")
 
 [node name="enemy_filth" parent="." instance=ExtResource("10_yvgsm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2101173, 2.0681384, -1.5905457)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2101173, 0.038240194, -1.5905457)
+behavior_enabled = false
+
+[node name="BulletTurret" parent="." instance=ExtResource("11_r4hxy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7681217, 3.1099648, -1.3079629)
