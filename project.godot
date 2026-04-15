@@ -72,6 +72,7 @@ explosions=""
 "death camera"="The group the death camera belongs to. It should only have 1 member."
 "developer console"=""
 "free camera"=""
+"gib limb"=""
 
 [input]
 
@@ -222,14 +223,12 @@ bbcode_edit/editor/open_current_file_documentation={
 3d_physics/layer_1="player"
 3d_physics/layer_2="enemies"
 3d_physics/layer_3="world"
-3d_physics/layer_4="projectile"
-3d_physics/layer_5="pickup"
+3d_physics/layer_4="enemy projectile"
 3d_physics/layer_6="explosions"
 3d_physics/layer_7="pistol bomb"
-3d_physics/layer_9="grapple_boxes"
+3d_physics/layer_8="physical particles"
+3d_physics/layer_9="ragdoll"
 3d_physics/layer_10="grapple_hook"
-3d_physics/layer_11="physical_particles"
-3d_physics/layer_12="miscallaneaous"
 
 [physics]
 

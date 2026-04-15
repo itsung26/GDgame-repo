@@ -39,6 +39,8 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.040310074, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="BloodParticle" type="RigidBody3D"]
+collision_layer = 128
+collision_mask = 4
 sleeping = true
 contact_monitor = true
 max_contacts_reported = 1
@@ -61,3 +63,5 @@ visual/material = SubResource("StandardMaterial3D_xf53b")
 visual/size = 0.25
 visual/size_curve = SubResource("Curve_xf53b")
 unique_name_in_owner = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

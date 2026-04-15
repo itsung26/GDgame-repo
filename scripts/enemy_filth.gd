@@ -2,9 +2,12 @@ class_name EnemyFilth extends Enemy
 
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
-@onready var filth_animator:AnimationPlayer = $FilthAnimator
+@onready var filth_animator:AnimationPlayer = $filth/AnimationPlayer
 @onready var body_collider: CollisionShape3D = $bodyCollider
 @onready var state_debug_text: StateDebugText = $StateDebugText
+@onready var filth_ragdoll_sim: PhysicalBoneSimulator3D = $filth/Skeleton3D/FilthRagdollSim
+@onready var enemy_rig: Skeleton3D = $filth/Skeleton3D
+@onready var blood_emitter: PhysicalParticleEmitter = $filth/Skeleton3D/FilthRagdollSim/BloodEmitter
 
 ## The weight that the enemy rotates exponentially with to look at it's target
 @export var lerp_angle_factor:float = 8.0
@@ -20,7 +23,15 @@ class_name EnemyFilth extends Enemy
 @export var path_update_interval:float = 0.2
 
 ## Main physics states.
-enum enemy_states {IDLE, FALLING, RUNNING, PREPARINGBITE, BITING, ENDINGBITE, DEAD}
+enum enemy_states {
+	IDLE,
+	FALLING,
+	RUNNING,
+	PREPARINGBITE,
+	BITING,
+	ENDINGBITE,
+	DEAD
+}
 var enemy_state:enemy_states = enemy_states.RUNNING:
 	set = set_enemy_state
 
@@ -36,31 +47,27 @@ func set_enemy_state(new_enemy_state:enemy_states):
 	# prevent same-state setting
 	if previous_enemy_state == new_enemy_state:
 		return
-	# prevent switching out of death states
-	elif previous_enemy_state == enemy_states.DEAD:
-		enemy_state = previous_enemy_state
-		return
 	
 	# falling to and from
 	if new_enemy_state == enemy_states.FALLING:
-		filth_animator.play("Falling_4")
+		filth_animator.play("Falling_4_002")
 	
 	# IDLE to and from
 	if new_enemy_state == enemy_states.IDLE:
-		filth_animator.play("Idle_8")
+		filth_animator.play("Idle_8_002")
 		
 	# running to and from
 	if new_enemy_state == enemy_states.RUNNING:
-		filth_animator.play("Run_11")
+		filth_animator.play("Run_11_002")
 	
 	# preparing bite to and from
 	if new_enemy_state == enemy_states.PREPARINGBITE:
 		velocity = Vector3.ZERO
-		filth_animator.play("Bite_0")
+		filth_animator.play("Bite_0_002")
 	if previous_enemy_state == enemy_states.ENDINGBITE:
 		# on ending the bite, check if the player is still in the bite box and and begin another attack chain
 		if player_in_bite_box:
-			beginBiteChain()
+			set_enemy_state(enemy_states.PREPARINGBITE)
 	
 	# Biting to and from
 	if new_enemy_state == enemy_states.BITING:
@@ -78,15 +85,18 @@ func set_enemy_state(new_enemy_state:enemy_states):
 	# DEAD to and from
 	if new_enemy_state == enemy_states.DEAD:
 		velocity = Vector3.ZERO
-		$readyBiteBox/CollisionShape3D.disabled = true
+		$readyBiteBox/ReadyBiteCollider.disabled = true
 		body_collider.disabled = true
-		queue_free()
+		filth_animator.pause()
+		ragdoll()
+		blood_emitter.emitting = true
+		call_deferred("queue_free")
+		
 		
 
 func _ready() -> void:
 	super._ready() # ensure Enemy._ready runs (physics_frame hookup)
-	if filth_animator == null:
-		assert(false, "Enemy found no animation player.")
+	assert(filth_animator)
 	if player == null:
 		set_enemy_state(enemy_states.IDLE)
 	else:
@@ -94,12 +104,20 @@ func _ready() -> void:
 		# Initialize navigation agent settings for better performance
 		navigation_agent_3d.path_desired_distance = 0.5
 		navigation_agent_3d.target_desired_distance = 0.5
+	
+	# disable the bone colliders
+	disableEnemyBoneColliders()
+	# add all of the bones to the gib limb group
+	for bone:PhysicalBone3D in getPhysicalBones():
+		bone.add_to_group("gib limb")
+
 
 func _process(_delta: float) -> void:
 	state_debug_text.updateStateReadout(enemy_state, enemy_states)
 	
 	if not behavior_enabled:
 		set_enemy_state(enemy_states.IDLE)
+
 
 func _physics_process(delta: float) -> void:
 	
@@ -160,20 +178,8 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 
-	
-		
-
 func _killEnemy():
 	set_enemy_state(enemy_states.DEAD)
-
-func disableProcess():
-	print("disabled process")
-	# set the process thread to disabled
-	process_mode = Node.PROCESS_MODE_DISABLED # disables all interactions with node
-
-## Begins the method stack for the bite attack
-func beginBiteChain():
-	set_enemy_state(enemy_states.PREPARINGBITE)
 
 
 func _disableCollisionAllEnemies():
@@ -200,10 +206,58 @@ func enablePhysicalCollider(with_all:bool) -> void:
 		_enableCollisionAllEnemies()
 
 
+## Returns all physical bones that are part of the simulation.
+func getPhysicalBones() -> Array[PhysicalBone3D]:
+	var physical_bones:Array[PhysicalBone3D] = []
+	for child:Node in filth_ragdoll_sim.get_children():
+		if child is PhysicalBone3D:
+			physical_bones.append(child)
+	return physical_bones
+
+
+## Returns all collision shapes that belong to a physical bone.
+func getPhysicalBoneCollisionShapes() -> Array[CollisionShape3D]:
+	var bone_colliders:Array[CollisionShape3D]
+	var phys_bones:Array[PhysicalBone3D] = getPhysicalBones()
+	for bone:PhysicalBone3D in phys_bones:
+		var bone_collider:CollisionShape3D = bone.get_child(0)
+		if bone_collider is CollisionShape3D:
+			bone_colliders.append(bone_collider)
+	return bone_colliders
+
+
+func disableEnemyBoneColliders() -> void:
+	var shapes:Array[CollisionShape3D] = getPhysicalBoneCollisionShapes()
+	for collider:CollisionShape3D in shapes:
+		collider.disabled = true
+
+
+func enableEnemyBoneColliders() -> void:
+	var shapes:Array[CollisionShape3D] = getPhysicalBoneCollisionShapes()
+	for collider:CollisionShape3D in shapes:
+		collider.disabled = false
+
+
+func ragdoll(force_applied:float = 0.0) -> void:
+	# reparent the rig to scene space
+	enemy_rig.name = "FilthRagdollRig"
+	enemy_rig.reparent(get_tree().current_scene)
+	
+	enableEnemyBoneColliders()
+	filth_ragdoll_sim.physical_bones_start_simulation()
+	physBonesMakeException(player)
+
+
+## Adds a collision exception with [param object] for all physical bones.
+func physBonesMakeException(object:Node):
+	for bone:PhysicalBone3D in getPhysicalBones():
+		bone.add_collision_exception_with(object)
+
+
 func _on_ready_bite_box_body_entered(_body: Player) -> void:
 	if enemy_state != enemy_states.FALLING:
 		player_in_bite_box = true
-		beginBiteChain()
+		set_enemy_state(enemy_states.PREPARINGBITE)
 
 
 func _on_ready_bite_box_body_exited(_body: Player) -> void:

@@ -1,6 +1,7 @@
 extends Node
 ## Autoload: generic [Decal] pooling keyed by [PackedScene]. Register scenes once (or pass them to [method request] to auto-register).
 ## Each pool tracks free + active arrays; returning decals is required for sustained reuse.
+## Note that this node pools refrences to SCENES, not nodes or any other type.
 
 const META_POOL_SCENE:StringName = &"_decal_pool_scene"
 

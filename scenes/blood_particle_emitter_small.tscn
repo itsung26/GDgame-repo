@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2jobt548m373"]
+
+[ext_resource type="Script" uid="uid://bv54ovnyf6rtf" path="res://scripts/physical_particle_emitter.gd" id="1_j70rw"]
+[ext_resource type="PackedScene" uid="uid://db8pymsa3bx8w" path="res://scenes/blood_particle.tscn" id="2_ebll6"]
+
+[node name="BloodEmitter" type="Node3D"]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_j70rw")
+particle_SCENE = ExtResource("2_ebll6")
+particle_lifetime = 2.5
+particle_amount = 18
+one_shot = true
+explosiveness = 1.0
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 8.0
+initial_velocity_max = 9.0
+metadata/_custom_type_script = "uid://bv54ovnyf6rtf"

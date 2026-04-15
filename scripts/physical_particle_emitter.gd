@@ -39,11 +39,6 @@ extends Node3D
 @export var gravity_scale:float = 1.0
 @export var mass:float = 1.0
 
-@export_group("Particle Collision")
-@export var hide_on_collision:bool = false
-@export_flags_3d_physics var collision_layer: int
-@export_flags_3d_physics var collision_mask: int
-
 
 ## Fractional particle spawns carried across frames (same idea as Godot's internal emission accumulator).
 var _emission_accumulator:float = 0.0
@@ -63,8 +58,6 @@ func _ready() -> void:
 		_editor_sprite.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 		_editor_sprite.pixel_size = 0.0043
 	else:
-		#if particle_SCENE:
-		#	allocatePoolInstances(particle_SCENE, pool_allocations)
 		_emitting_was = emitting
 		if emitting:
 			_emission_accumulator = 0.0
@@ -160,37 +153,7 @@ func _emitParticleBurst() -> void:
 				return
 
 
-
-#func allocatePoolInstances(scene:PackedScene, amount:int) -> void:
-#	for i in range(amount):
-#		_particle_pool.append(scene.instantiate())
-
-
-#func requestParticleFromPool() -> PhysicalParticle:
-#	if _particle_pool.is_empty():
-#		Debug.logerr("PhysicalParticleEmitter: particle pool is exhausted.")
-#		return null
-#	var particle:PhysicalParticle = _particle_pool.pop_front()
-#	active_particles.append(particle)
-#	add_child(particle)
-#	particle._setup()
-#	return particle
-
-
-#func returnParticleToPool(particle:PhysicalParticle) -> void:
-#	if not active_particles.has(particle):
-#		Debug.logerr("PhysicalParticleEmitter: returnParticleToPool called with a particle that is not active.")
-#		return
-#	if particle.get_parent() == self:
-#		remove_child(particle)
-#	active_particles.erase(particle)
-#	_particle_pool.append(particle)
-
-
 func _emitSingleParticle(p_lifetime:float) -> void:
-	#var particle:PhysicalParticle = requestParticleFromPool()
-	#if particle == null:
-	#	return
 	if particle_SCENE == null:
 		return
 	var particle:PhysicalParticle = particle_SCENE.instantiate() as PhysicalParticle
@@ -214,11 +177,8 @@ func _emitSingleParticle(p_lifetime:float) -> void:
 
 
 func _configureParticle(particle:PhysicalParticle) -> void:
-	particle.hiding_on_collide = hide_on_collision
 	particle.top_level = true
 	particle.freeze = false
-	particle.collision_layer = collision_layer
-	particle.collision_mask = collision_mask
 	particle.gravity_scale = gravity_scale
 	particle.mass = mass
 	var vmin:float = initial_velocity_min

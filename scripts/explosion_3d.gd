@@ -234,9 +234,8 @@ func _on_body_influencer_phys_bone_entered(bone: PhysicalBone3D) -> void:
 	var dir_out:Vector3 = (bone.global_position - center_point).normalized() # get vector to projectile away from center
 	var force_to_bone:float = 10.0
 	
-	if bone.is_in_group("gib limb"):
-		bone.linear_velocity = Vector3.ZERO
-		bone.apply_impulse(dir_out * force_to_bone)
+	bone.linear_velocity = Vector3.ZERO
+	bone.apply_impulse(dir_out * force_to_bone)
 
 func _on_collision_deactivation_timer_timeout() -> void:
 	bodyinfluencercollider.disabled = true

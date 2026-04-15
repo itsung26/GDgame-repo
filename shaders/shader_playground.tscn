@@ -153,7 +153,7 @@ render_priority = 0
 shader = ExtResource("13_1cyw6")
 shader_parameter/swirl_color = Color(0.5689201, 0.089528, 0.8590591, 1)
 shader_parameter/emission_intensity = 3.95
-shader_parameter/swirl_prog = 2.528
+shader_parameter/swirl_prog = -0.427
 shader_parameter/swirls = 0.74
 shader_parameter/line_thickness = 0.0150000007125
 shader_parameter/theta_offset = 0.61
@@ -168,6 +168,7 @@ size = Vector2(50, 50)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2uiyl"]
 shader = ExtResource("14_myvun")
 shader_parameter/rotation = Vector3(0, 0, 0)
+shader_parameter/look_at_point = Vector3(9.504347, 4.9466896, 6.2547607)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_myvun"]
 transparency = 1
@@ -672,6 +673,7 @@ process_material = SubResource("ShaderMaterial_2uiyl")
 draw_pass_1 = SubResource("QuadMesh_2uiyl")
 
 [node name="particles look at" type="Marker3D" parent="FresnelSphere/GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.504347, 4.9466896, 6.2547607)
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.95705, 0, 0, 0, 2.95705, 0, 0, 0, 2.95705, -5.1, -2.87028, 5.7)

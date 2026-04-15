@@ -11,7 +11,6 @@ var last_physics_state:PhysicsDirectBodyState3D
 
 
 func _ready() -> void:
-	super._ready()
 	if not DecalPool.is_pool_registered(decal_scene):
 		DecalPool.register_pool(decal_scene, 1000)
 	var random:float = randf_range(0.0, 1.0)
@@ -71,7 +70,9 @@ func spawnDecal(pos:Vector3, normal:Vector3, rot:float) -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-	super._on_body_entered(body)
+	freeze = true
+	visible = false
+	
 	# check to make sure the body has a valid contact (it always should)
 	if get_contact_count() < 1:
 		return

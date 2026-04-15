@@ -14,6 +14,7 @@ const float EULER_EPS = 0.00000025;
 const float HALF_PI = 1.57079632679;
 
 uniform vec3 rotation;
+uniform vec3 look_at_point;
 
 
 vec3 getEulerRot(mat4 transform) {
@@ -102,9 +103,39 @@ void setEulerRot(inout mat4 transform, vec3 euler_yxz) {
 }
 
 
-// Orients the particle to look at where. Expects where to be a point in global coordinates.
-void lookAt(mat4 transform, vec3 up_vector, vec3 where) {
-	//
+// Orients the basis so local -Z faces the target (same as Node3D: forward is -basis.z).
+// `where` and `transform[3]` must be in the same space (e.g. both world if position is world).
+// `up_vector` is a hint for the local +Y axis (usually vec3(0,1,0) in world space).
+// Pass TRANSFORM from start()/process() — built-ins are not visible inside user functions.
+void lookAt(inout mat4 transform, vec3 up_vector, vec3 where) {
+	vec3 pos = transform[3].xyz;
+	vec3 to_target = where - pos;
+	float dist = length(to_target);
+	if (dist > 1e-6) {
+		vec3 fwd = to_target / dist;
+		vec3 z_axis = -fwd;
+		vec3 x_axis = cross(up_vector, z_axis);
+		float lx = length(x_axis);
+		if (lx < 1e-6) {
+			x_axis = cross(vec3(0.0, 0.0, 1.0), z_axis);
+			lx = length(x_axis);
+		}
+		if (lx < 1e-6) {
+			x_axis = cross(vec3(1.0, 0.0, 0.0), z_axis);
+			lx = length(x_axis);
+		}
+		x_axis = x_axis / max(lx, 1e-6);
+		vec3 y_axis = cross(z_axis, x_axis);
+		y_axis = normalize(y_axis);
+
+		float sx = max(length(transform[0].xyz), 1e-6);
+		float sy = max(length(transform[1].xyz), 1e-6);
+		float sz = max(length(transform[2].xyz), 1e-6);
+
+		transform[0].xyz = x_axis * sx;
+		transform[1].xyz = y_axis * sy;
+		transform[2].xyz = z_axis * sz;
+	}
 }
 
 
@@ -140,6 +171,6 @@ void process() {
 		ACTIVE = false;
 	} else {
 		TRANSFORM[3].xyz += VELOCITY * DELTA;
-		setEulerRot(TRANSFORM, rotation);
+		lookAt(TRANSFORM, vec3(0.0, 1.0, 0.0), look_at_point);
 	}
 }

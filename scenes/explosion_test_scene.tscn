@@ -97,8 +97,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.589177, 0)
 
 [node name="grapple_rope_meshGen" parent="." instance=ExtResource("4_h86ws")]
 
-[node name="Player" parent="." instance=ExtResource("3_e0515")]
+[node name="Player" parent="." node_paths=PackedStringArray("weapon_states") instance=ExtResource("3_e0515")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.2471)
+weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 4
