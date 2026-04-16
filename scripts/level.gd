@@ -1,7 +1,9 @@
+@abstract
 class_name Level
 extends Node3D
-## Class representing game levels. Note that [LoadHandler] handles level transitions,
-## not the levels themselves.
+## Abstract base class representing game levels. Note that [LoadHandler] handles level transitions,
+## not the levels themselves. Levels are the objects that watch for ragdolls or enemies
+## being added to the scene and update the databases/managers accordingly.
 
 @onready var player:Player = get_tree().get_first_node_in_group("players")
 
@@ -35,21 +37,20 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_onLevelTick(delta)
 
-
-func _onLevelReady() -> void:
-	pass
-
-
-func _onLevelEnterTree() -> void:
-	pass
+@abstract
+func _onLevelReady() -> void
 
 
-func _onLevelExitTree() -> void:
-	pass
+@abstract
+func _onLevelEnterTree() -> void
 
 
-func _onLevelTick(_delta: float) -> void:
-	pass
+@abstract
+func _onLevelExitTree() -> void
+
+
+@abstract
+func _onLevelTick(_delta: float) -> void
 
 
 func _connectAllSignals() -> void:

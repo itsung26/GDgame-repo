@@ -263,6 +263,7 @@ script = ExtResource("1_8551a")
 lerp_angle_factor = 9.0
 bite_damage = 16.0
 path_update_threshold = 1.0
+ragdoll_force = 25.0
 HEALTH = 1.0
 SPEED = 900.0
 chest_offset = Vector3(0, 1.2328, -0.139401)

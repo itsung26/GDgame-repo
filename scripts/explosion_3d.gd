@@ -149,7 +149,7 @@ color:Color = Color.GRAY, emission_strength:float = 0.0, unshaded:bool = false, 
 ## do moderate damage. Red and cyan explosions deal the most damage, with red dealing double as much
 ## damage as yellow, and cyan dealing 3 times as much damage. Damaging explosions have a knockback of
 ## 0 as a shockwave is meant to be spawned in addition.
-func setup_preset(spawn_pos:Vector3, explosion_preset:explosion_presets):
+func setupPreset(spawn_pos:Vector3, explosion_preset:explosion_presets):
 	if explosion_preset == explosion_presets.SHOCKWAVE_SMALL:
 		setup(spawn_pos, 0.0, shockwave_explosion_knockback, 0.66, 2.0, Color.GRAY, 0.0, false, shockwave_explosion_small_final_size)
 	elif explosion_preset == explosion_presets.YELLOW_SMALL:
@@ -180,12 +180,8 @@ func getCurvesStoppedSampling() -> bool:
 	return (not scale_active) and (not alpha_active)
 
 
+## Called when a node enters the explosion area.
 func _handle_hit(body:Node3D) -> void:
-	pass # keep as placeholder for now
-
-
-func _on_body_influencer_body_entered(body: Node3D) -> void:
-	
 	if body is Player:
 		var center_point:Vector3 = global_position # get the center of the sphere
 		var dir_to_player_head:Vector3 = (body.camera_3d.global_position - center_point).normalized()
@@ -229,6 +225,10 @@ func _on_body_influencer_body_entered(body: Node3D) -> void:
 		
 		body.linear_velocity = Vector3.ZERO
 		body.apply_impulse(dir_out * force_to_bone)
+
+
+func _on_body_influencer_body_entered(body: Node3D) -> void:
+	_handle_hit(body)
 
 
 func _on_collision_deactivation_timer_timeout() -> void:

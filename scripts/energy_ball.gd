@@ -66,12 +66,12 @@ func spawnExplosions() -> void:
 	# instance the first part of the explosion (shockwave)
 	var shockwave_explosion:Explosion3D = explosion_3d_SCENE.instantiate()
 	get_tree().current_scene.add_child(shockwave_explosion)
-	shockwave_explosion.setup_preset(global_position, shockwave_explosion.explosion_presets.SHOCKWAVE_SMALL)
+	shockwave_explosion.setupPreset(global_position, shockwave_explosion.explosion_presets.SHOCKWAVE_SMALL)
 	
 	# instance the second part of the explosion (damage)
 	var explosion_yellow:Explosion3D = explosion_3d_SCENE.instantiate()
 	get_tree().current_scene.add_child(explosion_yellow)
-	explosion_yellow.setup_preset(global_position, explosion_yellow.explosion_presets.YELLOW_SMALL)
+	explosion_yellow.setupPreset(global_position, explosion_yellow.explosion_presets.YELLOW_SMALL)
 
 func disconnectAllSignals() -> void:
 	# Disconnect DamageCollider body_entered signals

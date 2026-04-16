@@ -280,11 +280,11 @@ func getJumpingAtTargetPos() -> Vector3:
 func explode() -> void:
 	var explosion:Explosion3D = explosion_SCENE.instantiate()
 	get_tree().current_scene.add_child(explosion)
-	explosion.setup_preset(global_position, Explosion3D.explosion_presets.YELLOW_SMALL)
+	explosion.setupPreset(global_position, Explosion3D.explosion_presets.YELLOW_SMALL)
 	
 	var explosion_2:Explosion3D = explosion_SCENE.instantiate()
 	get_tree().current_scene.add_child(explosion_2)
-	explosion_2.setup_preset(global_position, Explosion3D.explosion_presets.SHOCKWAVE_SMALL)
+	explosion_2.setupPreset(global_position, Explosion3D.explosion_presets.SHOCKWAVE_SMALL)
 
 ## Adds a collision exception with [param object] for all physical bones.
 func physBonesMakeException(object:Node):

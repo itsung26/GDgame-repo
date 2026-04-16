@@ -44,6 +44,7 @@ extends Enemy
 @onready var skeleton_3d: Skeleton3D = $"bullet turret/Armature/Skeleton3D"
 @onready var gun_l_attatchment: BoneAttachment3D = $"bullet turret/Armature/Skeleton3D/GunLAttatchment"
 @onready var gun_r_attatchment: BoneAttachment3D = $"bullet turret/Armature/Skeleton3D/GunRAttatchment"
+@onready var blood_emitter: PhysicalParticleEmitter = $"bullet turret/Armature/Skeleton3D/BloodEmitter"
 
 ## Packed scene for the projectile this turret fires.
 const bullet_scene:PackedScene = preload("res://scenes/energy_ball.tscn")
@@ -131,6 +132,7 @@ func setEnemyState(new_enemy_state:enemy_states):
 		player_detection.monitorable = false
 		phys_collider.disabled = true
 		physical_bone_simulator_3d.active = true
+		blood_emitter.emitting = true
 		ragdoll(ragdoll_force_applied)
 		death_smoke_timer.start(death_smoke_duration)
 		for smoke_particle:GPUParticles3D in death_smoke_particles:
@@ -231,7 +233,6 @@ func _killEnemy():
 	if player.getHookedTarget() == self:
 		# unhook grapple if the hooked enemy is self
 		player.set_action_state(player.action_states.IDLE)
-	
 	setEnemyState(enemy_states.DESTROYED)
 
 ## Assigns a look target for the head and gun look modifiers.

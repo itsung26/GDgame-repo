@@ -1,6 +1,6 @@
-[gd_scene load_steps=27 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=30 format=3 uid="uid://ctkkc4v7jqox5"]
 
-[ext_resource type="Script" uid="uid://2qnsnh5bqxs" path="res://scripts/projectile_testing.gd" id="1_7ksdt"]
+[ext_resource type="Script" uid="uid://cfg33qj40lkc8" path="res://scripts/level.gd" id="1_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
 [ext_resource type="Texture2D" uid="uid://ctufkwjjy161d" path="res://assets/2d assets/primary textures/Ultra Textures/GridBox_Default.png" id="5_yvgsm"]
@@ -29,8 +29,8 @@ ssao_ao_channel_affect = 1.0
 sdfgi_use_occlusion = true
 sdfgi_energy = 0.135
 glow_enabled = true
-volumetric_fog_density = 0.0768
-volumetric_fog_albedo = Color(1, 0, 0, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
 adjustment_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_yvgsm"]
@@ -74,8 +74,21 @@ data = PackedVector3Array(-2.5, -2.003623, 2.5, -2.5, -2.003623, -2.5, -2.5, 2.0
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_exc5x"]
 data = PackedVector3Array(-2.5, -1.1388354, 2.5, -2.5, -1.1388354, -2.5, -2.5, 1.1388354, -2.5, 2.5, -1.1388354, -2.5, -2.5, -1.1388354, -2.5, -2.5, -1.1388354, 2.5, -2.5, 1.1388354, -2.5, -2.5, -1.1388354, -2.5, 2.5, -1.1388354, -2.5, -2.5, 1.1388354, -2.5, -2.5, 1.1388354, 2.5, -2.5, -1.1388354, 2.5, -2.5, -1.1388354, 2.5, -2.5, 1.1388354, 2.5, 2.5, 1.1388354, 2.5, 2.5, 1.1388354, 2.5, -2.5, 1.1388354, 2.5, -2.5, 1.1388354, -2.5, -2.5, -1.1388354, 2.5, 2.5, -1.1388354, 2.5, 2.5, -1.1388354, -2.5, 2.5, 1.1388354, 2.5, 2.5, -1.1388354, 2.5, -2.5, -1.1388354, 2.5, 2.5, -1.1388354, -2.5, 2.5, -1.1388354, 2.5, 2.5, 1.1388354, 2.5, 2.5, -1.1388354, -2.5, 2.5, 1.1388354, -2.5, -2.5, 1.1388354, -2.5, -2.5, 1.1388354, -2.5, 2.5, 1.1388354, -2.5, 2.5, 1.1388354, 2.5, 2.5, 1.1388354, 2.5, 2.5, 1.1388354, -2.5, 2.5, -1.1388354, -2.5)
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r4hxy"]
+offset = Vector3(-176.69, 0, 0)
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_5138l"]
+noise = SubResource("FastNoiseLite_r4hxy")
+
+[sub_resource type="FogMaterial" id="FogMaterial_r4hxy"]
+density = 8.0
+albedo = Color(0, 0, 0, 1)
+emission = Color(1, 0, 0, 1)
+edge_fade = 0.5
+density_texture = SubResource("NoiseTexture3D_5138l")
+
 [node name="ProjectileTesting" type="Node3D"]
-script = ExtResource("1_7ksdt")
+script = ExtResource("1_r4hxy")
 metadata/_custom_type_script = "uid://cfg33qj40lkc8"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -287,3 +300,9 @@ behavior_enabled = false
 
 [node name="BulletTurret" parent="." instance=ExtResource("11_r4hxy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7681217, 3.1099648, -1.3079629)
+
+[node name="FogVolume" type="FogVolume" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3116913, 1.1005268, -1.8045441)
+size = Vector3(1, 2, 1)
+shape = 2
+material = SubResource("FogMaterial_r4hxy")

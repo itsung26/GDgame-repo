@@ -20,11 +20,11 @@ func spawnExplosion():
 	var explosion3d_SCENE:PackedScene = load("res://scenes/explosion_3d.tscn")
 	var explosion3d:Explosion3D = explosion3d_SCENE.instantiate()
 	add_child(explosion3d)
-	explosion3d.setup_preset(explosion_spawn_pos.global_position, explosion3d.explosion_presets.SHOCKWAVE_SMALL)
+	explosion3d.setupPreset(explosion_spawn_pos.global_position, explosion3d.explosion_presets.SHOCKWAVE_SMALL)
 	
 	var explosion_yellow:Explosion3D = explosion3d_SCENE.instantiate()
 	add_child(explosion_yellow)
-	explosion_yellow.setup_preset(explosion_spawn_pos.global_position, explosion_yellow.explosion_presets.YELLOW_SMALL)
+	explosion_yellow.setupPreset(explosion_spawn_pos.global_position, explosion_yellow.explosion_presets.YELLOW_SMALL)
 	
 func clearExplosions():
 	var explosions = get_tree().get_nodes_in_group("explosions")

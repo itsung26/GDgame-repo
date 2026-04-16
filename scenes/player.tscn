@@ -530,7 +530,7 @@ inner_radius = 0.645
 outer_radius = 0.715
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("initial_weapon", "weapon_states") groups=["player collision detectors", "players"]]
-collision_mask = 263
+collision_mask = 14
 script = ExtResource("1_qhqgy")
 inital_arm = 1
 AIR_ACCELERATION = 50.0
@@ -963,7 +963,7 @@ camera_shake_strength = 0.22
 firing_hitstop_duration = 0.1
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.038218573, -0.99919397, 0.012307371, 0.011149738, -0.012742031, -0.9998553, 0.999206, -0.03807591, 0.011627727, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.038218573, -0.99919397, 0.01230737, 0.011149738, -0.012742031, -0.9998552, 0.99920595, -0.03807591, 0.011627726, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)

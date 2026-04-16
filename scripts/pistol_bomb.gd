@@ -68,11 +68,11 @@ func explode() -> void:
 	$CollisionShape3D.disabled = true  # Prevent double explosions.
 	var explosion_shockwave: Explosion3D = explosion_scene.instantiate()
 	get_tree().current_scene.add_child(explosion_shockwave)
-	explosion_shockwave.setup_preset(global_position, explosion_shockwave.explosion_presets.SHOCKWAVE_SMALL)
+	explosion_shockwave.setupPreset(global_position, explosion_shockwave.explosion_presets.SHOCKWAVE_SMALL)
 
 	var explosion_damage: Explosion3D = explosion_scene.instantiate()
 	get_tree().current_scene.add_child(explosion_damage)
-	explosion_damage.setup_preset(global_position, explosion_damage.explosion_presets.YELLOW_SMALL)
+	explosion_damage.setupPreset(global_position, explosion_damage.explosion_presets.YELLOW_SMALL)
 
 	queue_free()
 

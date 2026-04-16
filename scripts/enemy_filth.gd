@@ -21,6 +21,8 @@ class_name EnemyFilth extends Enemy
 @export var path_update_threshold:float = 2.0
 ## How often to update the navigation path (in seconds). Lower = more frequent updates but more expensive
 @export var path_update_interval:float = 0.2
+## The direction is a randomized normalized vector.
+@export var ragdoll_force:float = 1.0
 
 ## Main physics states.
 enum enemy_states {
@@ -88,7 +90,7 @@ func set_enemy_state(new_enemy_state:enemy_states):
 		$readyBiteBox/ReadyBiteCollider.disabled = true
 		body_collider.disabled = true
 		filth_animator.pause()
-		ragdoll()
+		ragdoll(ragdoll_force)
 		blood_emitter.emitting = true
 		call_deferred("queue_free")
 		
@@ -239,13 +241,16 @@ func enableEnemyBoneColliders() -> void:
 
 
 func ragdoll(force_applied:float = 0.0) -> void:
+	var physical_bone_spine_02_012: PhysicalBone3D = $"filth/Skeleton3D/FilthRagdollSim/Physical Bone Spine_02_012"
+	var random_dir:Vector3 = Vector3(randf(), randf(), randf()).normalized()
 	# reparent the rig to scene space
 	enemy_rig.name = "FilthRagdollRig"
 	enemy_rig.reparent(get_tree().current_scene)
 	
 	enableEnemyBoneColliders()
 	filth_ragdoll_sim.physical_bones_start_simulation()
-	physBonesMakeException(player)
+	#physBonesMakeException(player)
+	physical_bone_spine_02_012.apply_central_impulse(random_dir * force_applied)
 
 
 ## Adds a collision exception with [param object] for all physical bones.
