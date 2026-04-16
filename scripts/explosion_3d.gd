@@ -178,64 +178,58 @@ func getCurvesStoppedSampling() -> bool:
 
 	# Return true only if both are NOT active
 	return (not scale_active) and (not alpha_active)
+
+
+func _handle_hit(body:Node3D) -> void:
+	pass # keep as placeholder for now
+
+
+func _on_body_influencer_body_entered(body: Node3D) -> void:
 	
-## When player hit by explosion
-func _on_body_influencer_player_entered(player: Player) -> void:
-	var center_point:Vector3 = global_position # get the center of the sphere
-	var dir_to_player_head:Vector3 = (player.camera_3d.global_position - center_point).normalized()
-	
-	# apply a force to the player
-	if knockback_force > 0:
-		player.velocity = Vector3.ZERO # kill player velocity. (may be removed in the future)
-		player.global_position.y += 0.1
-		player.velocity += dir_to_player_head * knockback_force # apply a force to the player
+	if body is Player:
+		var center_point:Vector3 = global_position # get the center of the sphere
+		var dir_to_player_head:Vector3 = (body.camera_3d.global_position - center_point).normalized()
 		
-	player.setHealth(player.HEALTH - damage)
-	player.cause_of_death = "Explosion."
-	player.camera_3d.shakeCamera(screen_shake_duration, screen_shake_strength)
-
-## When projectile hit by explosion
-func _on_body_influencer_projectile_entered(projectile: EnemyProjectile) -> void:
-	var center_point:Vector3 = global_position # get the center of the sphere
-	var dir_out:Vector3 = (projectile.global_position - center_point).normalized() # get vector to projectile away from center
+		# apply a force to the player
+		if knockback_force > 0:
+			body.velocity = Vector3.ZERO # kill player velocity. (may be removed in the future)
+			body.global_position.y += 0.1
+			body.velocity += dir_to_player_head * knockback_force # apply a force to the player
+			
+		body.setHealth(body.HEALTH - damage)
+		body.cause_of_death = "Explosion."
+		body.camera_3d.shakeCamera(screen_shake_duration, screen_shake_strength)
 	
-	# knock any projectiles back out and boost their speed
-	if knockback_force > 0:
-		projectile.linear_velocity = Vector3.ZERO
-		projectile.linear_velocity = dir_out * knockback_force * 4.0
-
-## When an enemy is hit by an explosion.
-func _on_body_influencer_enemy_entered(enemy: Enemy) -> void:
-	var center_point:Vector3 = global_position # get the center of the sphere
-	var vertical_offset:float = 1.0 # so the force isnt applied to the feet of the enemy
-	var dir_to_enemy:Vector3 = ((enemy.global_position + Vector3(0, vertical_offset, 0)) - center_point).normalized()
-	
-	# apply a force to the enemy
-	if knockback_force > 0:
-		enemy.velocity = Vector3.ZERO
-		enemy.global_position.y += 0.001
-		enemy.velocity += dir_to_enemy * knockback_force
+	elif body is EnemyProjectile:
+		var center_point:Vector3 = global_position # get the center of the sphere
+		var dir_out:Vector3 = (body.global_position - center_point).normalized() # get vector to projectile away from center
 		
-	enemy.damageEnemy(damage, Enemy.damage_types.EXPLOSIVE)
-
-## When a rigidbody in a valid group is hit by an explosion.
-func _on_body_influencer_rigidbody_entered(rb: RigidBody3D) -> void:
-	var center_point:Vector3 = global_position # get the center of the sphere
-	var dir_out:Vector3 = (rb.global_position - center_point).normalized() # get vector to projectile away from center
-	var force_to_rigidbody:float = 10.0 # to be changed...?
+		# knock any projectiles back out and boost their speed
+		if knockback_force > 0:
+			body.linear_velocity = Vector3.ZERO
+			body.linear_velocity = dir_out * knockback_force * 4.0
 	
-	if rb.is_in_group("enviroment rigidbodies"):
-		rb.linear_velocity = Vector3.ZERO
-		rb.apply_impulse(dir_out * force_to_rigidbody)
-
-## When a gibbed limb enteres the area of influence.
-func _on_body_influencer_phys_bone_entered(bone: PhysicalBone3D) -> void:
-	var center_point:Vector3 = global_position # get the center of the sphere
-	var dir_out:Vector3 = (bone.global_position - center_point).normalized() # get vector to projectile away from center
-	var force_to_bone:float = 10.0
+	elif body is Enemy:
+		var center_point:Vector3 = global_position # get the center of the sphere
+		var vertical_offset:float = 1.0 # so the force isnt applied to the feet of the enemy
+		var dir_to_enemy:Vector3 = ((body.global_position + Vector3(0, vertical_offset, 0)) - center_point).normalized()
+		
+		# apply a force to the enemy
+		if knockback_force > 0:
+			body.velocity = Vector3.ZERO
+			body.global_position.y += 0.001
+			body.velocity += dir_to_enemy * knockback_force
+			
+		body.damageEnemy(damage, Enemy.damage_types.EXPLOSIVE)
 	
-	bone.linear_velocity = Vector3.ZERO
-	bone.apply_impulse(dir_out * force_to_bone)
+	elif body is PhysicalBone3D:
+		var center_point:Vector3 = global_position # get the center of the sphere
+		var dir_out:Vector3 = (body.global_position - center_point).normalized() # get vector to projectile away from center
+		var force_to_bone:float = 10.0
+		
+		body.linear_velocity = Vector3.ZERO
+		body.apply_impulse(dir_out * force_to_bone)
+
 
 func _on_collision_deactivation_timer_timeout() -> void:
 	bodyinfluencercollider.disabled = true
@@ -243,7 +237,3 @@ func _on_collision_deactivation_timer_timeout() -> void:
 
 func _on_queue_free_timer_timeout() -> void:
 	queue_free()
-
-
-func _on_body_influencer_body_entered(body: Node3D) -> void:
-	pass # Replace with function body.
