@@ -25,7 +25,6 @@ const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_l
 
 var reflection_charge:float = 0.0: set = setReflectionCharge
 var charging:bool = false: set = setCharging
-var spinning:bool = false: set = setSpinning
 
 
 func setReflectionCharge(value:float) -> void:
@@ -48,12 +47,6 @@ func setCharging(value:bool) -> void:
 		animation_player.stop()
 
 
-func setSpinning(value:bool) -> void:
-	if spinning == value:
-		return
-	spinning = value
-
-
 func _ready() -> void:
 	pass
 
@@ -64,8 +57,9 @@ func _process(delta: float) -> void:
 	else:
 		reflection_charge  = 0.0
 	
-	if spinning:
-		dissipator_MESH.rotation.x += spin_speed * delta
+	if reflection_max_charge > 0.0 and reflection_charge > 0.0:
+		var charge_t:float = reflection_charge / reflection_max_charge
+		dissipator_MESH.rotation.x += charge_t * spin_speed * delta
 
 
 func _onEquip() -> void:
@@ -88,7 +82,6 @@ func _specialRelease() -> void:
 	if reflection_charge == reflection_max_charge:
 		fireSpecial()
 	charging = false
-	spinning = false
 
 
 func _reload() -> void:
