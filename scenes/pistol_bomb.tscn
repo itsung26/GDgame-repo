@@ -1,8 +1,8 @@
 [gd_scene load_steps=25 format=3 uid="uid://61okbfgjpx7l"]
 
-[ext_resource type="PackedScene" uid="uid://c7uvepbagwqyr" path="res://assets/meshes/player pistol/pistol part.blend" id="1_15tcn"]
+[ext_resource type="PackedScene" uid="uid://c7uvepbagwqyr" path="res://assets/meshes/player weapons/player pistol/pistol part.blend" id="1_15tcn"]
 [ext_resource type="Script" uid="uid://5jjx5ed25yge" path="res://scripts/pistol_bomb.gd" id="1_ujw1o"]
-[ext_resource type="Shader" uid="uid://cqm7jo4447377" path="res://assets/meshes/player pistol/materials/glass cover shader.res" id="2_7lji3"]
+[ext_resource type="Shader" uid="uid://cqm7jo4447377" path="res://assets/meshes/player weapons/player pistol/materials/glass cover shader.res" id="2_7lji3"]
 [ext_resource type="Texture2D" uid="uid://bqqadb7cemav6" path="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/34.png" id="4_daat3"]
 [ext_resource type="Script" uid="uid://bqjws4088apbj" path="res://scripts/shot_collision_reciever.gd" id="5_64q8a"]
 

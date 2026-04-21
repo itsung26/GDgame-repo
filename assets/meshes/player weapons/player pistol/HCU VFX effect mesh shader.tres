@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cop7fkwoj2g3a"]
+
+[ext_resource type="Shader" uid="uid://m4s6ghp3mhjq" path="res://assets/meshes/player weapons/player pistol/_HCU VFX effect mesh shader.tres" id="1_63aiq"]
+
+[sub_resource type="Gradient" id="Gradient_63aiq"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2dxcp"]
+gradient = SubResource("Gradient_63aiq")
+fill_from = Vector2(1, 0.478632)
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_63aiq")
+shader_parameter/ColorParameter = Color(0.815973, 0.286033, 0, 1)
+shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_2dxcp")
+shader_parameter/alpha_intensity = 1.0
+shader_parameter/emission_intensity = 6.838

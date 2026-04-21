@@ -12,6 +12,7 @@ signal command_success(command:ConsoleCommand, success_message:String)
 #region Command Registry
 ## Registers built-in [ConsoleCommand]s. Add more [method registerCommand] calls here for new commands.
 func _ready() -> void:
+	# GODMODE
 	registerCommand(
 		ConsoleCommand.new(
 		"Godmode",
@@ -22,6 +23,7 @@ func _ready() -> void:
 		)
 	)
 	
+	# PRINT
 	registerCommand(
 		ConsoleCommand.new(
 		"print",
@@ -32,6 +34,7 @@ func _ready() -> void:
 		)
 	)
 	
+	# LISTCOMMANDS
 	registerCommand(
 		ConsoleCommand.new(
 			"listCommands",
@@ -42,6 +45,7 @@ func _ready() -> void:
 		)
 	)
 	
+	# QUIT
 	registerCommand(
 		ConsoleCommand.new(
 			"quit",
@@ -52,6 +56,7 @@ func _ready() -> void:
 		)
 	)
 	
+	# FREECAM
 	registerCommand(
 		ConsoleCommand.new(
 			"freeCam",
@@ -59,6 +64,28 @@ func _ready() -> void:
 			["FreeCam", "freecam", "Freecam"],
 			0,
 			0
+		)
+	)
+	
+	# TELEPORT
+	registerCommand(
+		ConsoleCommand.new(
+			"teleport",
+			Callable(self, "COMMAND_teleport"),
+			["Teleport", "goto", "tp", "Tp"],
+			3,
+			3
+		)
+	)
+	
+	# DISABLEAI
+	registerCommand(
+		ConsoleCommand.new(
+			"AiEnabled",
+			Callable(self, "COMMAND_AiEnabled"),
+			["ai", "AIenabled", "aienabled", "Aienabled", "aiEnabled"],
+			1,
+			1
 		)
 	)
 #endregion
@@ -153,7 +180,7 @@ func COMMAND_print(args: PackedStringArray):
 
 
 func COMMAND_listCommands(args: PackedStringArray):
-	var dev_console:DevConsole = get_tree().get_first_node_in_group("developer console")
+	var dev_console:DevConsole = QuickRef.dev_console
 	for i:String in getCommandNames():
 		dev_console.pushConsoleOutput(i)
 
@@ -189,13 +216,35 @@ func COMMAND_freeCam(args: PackedStringArray):
 
 ## usage - teleport x y z
 func COMMAND_teleport(args: PackedStringArray):
+	if args.size() != 3:
+		return
 	var x:float = float(args[0])
 	var y:float = float(args[1])
 	var z:float = float(args[2])
-	var player:Player = get_tree().get_first_node_in_group("players")
+	var player:Player = QuickRef.player
 	var teleport_position:Vector3 = Vector3(x, y, z)
 	
 	player.global_position = teleport_position
-	DevConsole
+	QuickRef.dev_console.pushConsoleOutput("Teleported to " + str(teleport_position))
+
+
+## Toggles the ai state. Usage: AiEnabled [0 or 1]
+func COMMAND_AiEnabled(args: PackedStringArray):
+	var enemies:Array[Enemy] = EnemyPopulationHandler.getAllEnemies()
+	var argument:int = int(args[0])
 	
+	if argument != 1 and argument != 0:
+		QuickRef.dev_console.pushConsoleOutput("Unrecognized argument. Expected 0 or 1.")
+		return
+	
+	for enemy:Enemy in enemies:
+		if enemy:
+			enemy.behavior_enabled = (argument == 1)
+	
+	if argument == 1:
+		QuickRef.dev_console.pushConsoleOutput("ai ON")
+	else:
+		QuickRef.dev_console.pushConsoleOutput("ai OFF")
+
+
 #endregion

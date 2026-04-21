@@ -1,4 +1,4 @@
-[gd_scene load_steps=107 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=121 format=4 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
 [ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_j4xor"]
@@ -16,8 +16,11 @@
 [ext_resource type="Shader" uid="uid://dcu2v4v1is3l8" path="res://shaders/GDSL shaders/holographic.gdshader" id="13_7c073"]
 [ext_resource type="Material" uid="uid://cynpet0x6y5db" path="res://assets/materials/frensel_outline_shader.tres" id="14_03nm1"]
 [ext_resource type="Shader" uid="uid://covb2pllewrrg" path="res://shaders/GDSL shaders/black_hole_particle_shader.gdshader" id="14_myvun"]
+[ext_resource type="Shader" uid="uid://c00vejpkr2m1q" path="res://shaders/visual shaders/fresnelSphere.tres" id="15_2uiyl"]
 [ext_resource type="ArrayMesh" uid="uid://c03p1wq8x7grl" path="res://scenes/Smoke_Project/Mesh.tres" id="16_7b3fo"]
+[ext_resource type="Texture2D" uid="uid://4g3nshsflim7" path="res://assets/2d assets/primary textures/earth.jpg" id="16_tbw28"]
 [ext_resource type="Shader" uid="uid://byk3dfkudeyxo" path="res://scenes/Smoke_Project/Stylized_Smoke_Shader.gdshader" id="17_6eyvu"]
+[ext_resource type="Shader" uid="uid://cy2nt51asimkw" path="res://shaders/GDSL shaders/holographic_cone.gdshader" id="17_p2tuj"]
 [ext_resource type="Material" uid="uid://dacrkvgaw0er8" path="res://assets/materials/shader materials/tornado shader.tres" id="18_lqk2t"]
 [ext_resource type="Shader" uid="uid://d0ve3v6vcp75l" path="res://shaders/visual shaders/metal_sign.tres" id="19_o40ls"]
 [ext_resource type="Texture2D" uid="uid://decw5kos26fht" path="res://assets/meshes/sign/sign_DiamondPlate008C_2K-PNG_Color.png" id="20_03nm1"]
@@ -178,6 +181,73 @@ vertex_color_use_as_albedo = true
 [sub_resource type="QuadMesh" id="QuadMesh_2uiyl"]
 material = SubResource("StandardMaterial3D_myvun")
 size = Vector2(5, 5)
+
+[sub_resource type="Gradient" id="Gradient_2uiyl"]
+offsets = PackedFloat32Array(0.5190476, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2uiyl"]
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tbw28"]
+noise = SubResource("FastNoiseLite_2uiyl")
+color_ramp = SubResource("Gradient_2uiyl")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbw28"]
+render_priority = 1
+shader = ExtResource("15_2uiyl")
+shader_parameter/base_color = 0.0
+shader_parameter/ring_height = 0.0
+shader_parameter/ring_thickness = 0.0
+shader_parameter/vert_stripes_blackoout = 0.0
+shader_parameter/horizontal_lines_blackout = 0.0
+shader_parameter/outer_fresnel_power = 2.7
+shader_parameter/inner_fresnel_power = 2.825
+shader_parameter/inner_fresnel_multiplicant = 1.655
+shader_parameter/stripe_wave_period = 36.0
+shader_parameter/stripe_wave_width = 0.145
+shader_parameter/grid_color = Color(0, 1, 0, 1)
+shader_parameter/grid_color_brightness = 15.44
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_tbw28")
+shader_parameter/screen_uv_offset = Vector2(0, 0)
+shader_parameter/screen_uv_scale = Vector2(1, 1)
+shader_parameter/inner_texture = ExtResource("16_tbw28")
+shader_parameter/inner_texture_brightness = 0.505
+
+[sub_resource type="SphereMesh" id="SphereMesh_p2tuj"]
+lightmap_size_hint = Vector2i(165, 83)
+add_uv2 = true
+radius = 5.203
+height = 10.406
+
+[sub_resource type="Curve" id="Curve_p2tuj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kdw2u"]
+curve = SubResource("Curve_p2tuj")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p2tuj"]
+noise_type = 3
+frequency = 0.2369
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kdw2u"]
+noise = SubResource("FastNoiseLite_p2tuj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kdw2u"]
+render_priority = 0
+shader = ExtResource("17_p2tuj")
+shader_parameter/color = Color(0, 1, 0, 1)
+shader_parameter/fade_alpha_curve = SubResource("CurveTexture_kdw2u")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_kdw2u")
+shader_parameter/uv_scale = Vector2(1, 2.4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p742p"]
+top_radius = 5.451
+bottom_radius = 3.055
+height = 3.153
+radial_segments = 11
+cap_top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j4xor"]
 render_priority = 1
@@ -647,33 +717,43 @@ mesh = SubResource("QuadMesh_dflox")
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="."]
 transform = Transform3D(10.4065, 0, 0, 0, 10.4065, 0, 0, 0, 10.4065, -12, -5.051336, -142.00415)
 mesh = SubResource("PlaneMesh_t34ei")
-skeleton = NodePath("../FresnelSphere")
+skeleton = NodePath("../BlackHoleV2")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -142.00415)
 
-[node name="FresnelSphere" type="MeshInstance3D" parent="."]
+[node name="BlackHoleV2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10720348, 16.913872, -143.2934)
 mesh = SubResource("SphereMesh_a0f2g")
 
-[node name="BackQuad" type="MeshInstance3D" parent="FresnelSphere"]
+[node name="BackQuad" type="MeshInstance3D" parent="BlackHoleV2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9522953, 0, 0)
 visible = false
 mesh = SubResource("QuadMesh_1cyw6")
 
-[node name="BackQuad2" type="MeshInstance3D" parent="FresnelSphere"]
+[node name="BackQuad2" type="MeshInstance3D" parent="BlackHoleV2"]
 transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("QuadMesh_myvun")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="FresnelSphere"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="BlackHoleV2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2817354, 0, 5.3312836)
 lifetime = 3.0
 local_coords = true
 process_material = SubResource("ShaderMaterial_2uiyl")
 draw_pass_1 = SubResource("QuadMesh_2uiyl")
 
-[node name="particles look at" type="Marker3D" parent="FresnelSphere/GPUParticles3D"]
+[node name="particles look at" type="Marker3D" parent="BlackHoleV2/GPUParticles3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.504347, 4.9466896, 6.2547607)
+
+[node name="FresnelEarthGlobe" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10720348, 16.913872, -122.49389)
+material_override = SubResource("ShaderMaterial_tbw28")
+mesh = SubResource("SphereMesh_p2tuj")
+
+[node name="EarthUnderLight" type="MeshInstance3D" parent="FresnelEarthGlobe"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.048729, 0)
+material_override = SubResource("ShaderMaterial_kdw2u")
+mesh = SubResource("CylinderMesh_p742p")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.95705, 0, 0, 0, 2.95705, 0, 0, 0, 2.95705, -5.1, -2.87028, 5.7)

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ddu1yjq3m5njd" path="res://scripts/dissipator.gd" id="1_nc7lg"]
 [ext_resource type="Script" uid="uid://d06qyp8sfm13t" path="res://scripts/hitscan_bullet_config.gd" id="2_4larc"]
 [ext_resource type="PackedScene" uid="uid://dywnj42fw476f" path="res://scenes/dissipator_bullet_light.tscn" id="2_5hci3"]
-[ext_resource type="PackedScene" uid="uid://dcpw3x4jtiilc" path="res://assets/meshes/Player Dissipator/Dissipator.blend" id="2_cin2g"]
+[ext_resource type="PackedScene" uid="uid://dcpw3x4jtiilc" path="res://assets/meshes/player weapons/Player Dissipator/Dissipator.blend" id="2_cin2g"]
 [ext_resource type="PackedScene" uid="uid://dso2uc8cxmgub" path="res://scenes/bullet_trail.tscn" id="3_3tpvc"]
 [ext_resource type="PackedScene" uid="uid://tpo71rqh0bjm" path="res://scenes/bullet_impact_particles_2.tscn" id="3_4nle0"]
 [ext_resource type="Script" uid="uid://c4tqukqmdcvec" path="res://scripts/dissipator_piercing_hitscan.gd" id="7_4nle0"]
@@ -62,12 +62,11 @@ _data = {
 [node name="Dissipator" type="Node3D"]
 script = ExtResource("1_nc7lg")
 bullet_config = SubResource("Resource_5hci3")
+spin_speed = 25.0
 reflection_bullet_config = SubResource("Resource_4nle0")
-reflection_max_charge = null
 reflection_charge_speed = 250.0
 camera_shake_strength = 0.66
 camera_shake_duration = 0.75
-firing_hitstop_duration = null
 ammo = 999
 magsize = 999
 damage_min = 1.0
@@ -80,7 +79,7 @@ automatic = true
 transform = Transform3D(-2.1533342e-06, -0.0005945936, 0.9999995, -0.9999175, 0.012836559, 5.4634e-06, -0.012836604, -0.99991745, -0.0005946271, -2.5425106e-07, -0.004908182, -0.5440906)
 
 [node name="Dissipator" parent="Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.038218584, -0.99919385, 0.012307393, 0.011149741, -0.0127420295, -0.9998571, 0.99920624, -0.0380759, 0.011627749, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.03613505, -0.9956435, -0.08596048, 0.0026405023, 0.08592124, -0.9962988, 0.99934363, -0.036228284, -0.0004757697, -0.046606656, 0.18653367, -0.035306763)
 
 [node name="SpecialReadyFlash" type="Sprite3D" parent="Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator" index="1"]
 transform = Transform3D(0.9992014, 0.03836213, -0.01124319, -0.03806459, 0.99894774, 0.02557916, 0.012212678, -0.025130788, 0.9996091, 0.00439631, -0.0042397915, -0.07406698)
@@ -97,6 +96,7 @@ libraries = {
 }
 
 [node name="AnimationPlayer" parent="Dissipator2" index="1"]
+callback_mode_method = 1
 speed_scale = 1.5
 
 [node name="unused" type="RayCast3D" parent="."]

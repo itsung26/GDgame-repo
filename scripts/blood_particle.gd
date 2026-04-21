@@ -70,6 +70,7 @@ func spawnDecal(pos:Vector3, normal:Vector3, rot:float) -> void:
 
 
 func _on_body_entered(body: Node) -> void:
+	sleeping = true
 	freeze = true
 	visible = false
 	

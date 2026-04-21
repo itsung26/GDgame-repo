@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cyk62iasrpppl"]
+
+[ext_resource type="Shader" uid="uid://dtg0dp7tve25u" path="res://assets/meshes/player weapons/player pistol/power cell shader.tres" id="1_51xt2"]
+
+[sub_resource type="Gradient" id="Gradient_lucca"]
+offsets = PackedFloat32Array(0, 0.1, 0.458333, 1)
+colors = PackedColorArray(0.14902, 0.14902, 0.14902, 1, 1, 1, 1, 1, 0.589096, 0.589096, 0.589096, 1, 0.147672, 0.147672, 0.147672, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y3rj0"]
+gradient = SubResource("Gradient_lucca")
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_51xt2")
+shader_parameter/ColorParameter = Color(0.963048, 0.343621, 0, 1)
+shader_parameter/scale = Vector2(3, 1)
+shader_parameter/time_speed = 0.1
+shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_y3rj0")
+shader_parameter/emission_intensity = 13.297

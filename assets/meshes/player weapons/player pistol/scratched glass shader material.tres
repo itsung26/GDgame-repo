@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://7kin3vti4ce0"]
+
+[ext_resource type="Shader" uid="uid://c03e0ql7bl46t" path="res://assets/meshes/player weapons/player pistol/scratched glass shader.tres" id="1_4vjvy"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nivi4"]
+frequency = 0.0862
+fractal_lacunarity = 8.08
+fractal_gain = 0.838
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4vjvy"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_nivi4")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_4vjvy")
+shader_parameter/ColorParameter = Color(0.842635, 3.56168e-06, 4.81307e-07, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/scale = 1.0
+shader_parameter/Texture2DParameter = SubResource("NoiseTexture2D_4vjvy")

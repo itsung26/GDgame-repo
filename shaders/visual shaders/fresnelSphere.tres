@@ -1,0 +1,751 @@
+[gd_resource type="VisualShader" load_steps=52 format=3 uid="uid://c00vejpkr2m1q"]
+
+[sub_resource type="VisualShaderNodeGlobalExpression" id="VisualShaderNodeGlobalExpression_mca8t"]
+size = Vector2(960, 1080)
+expression = "uniform float stripe_wave_period;
+uniform float stripe_wave_width;
+uniform vec3 grid_color:source_color;
+uniform float grid_color_brightness = 1.0;
+uniform sampler2D noise_texture;
+uniform vec2 screen_uv_offset = vec2(0.0);
+uniform vec2 screen_uv_scale = vec2(1.0);
+uniform sampler2D inner_texture:filter_nearest;
+uniform float inner_texture_brightness = 1.0;
+
+float squareWave(float x, float y_stretch, float y_displacement, float p) {
+	return y_stretch * (4.0 * floor(p * x) - 2.0 * floor(2.0 * p * x) + 1.0) + y_displacement;
+}
+
+
+float stripeWave(float x, float period_2, float width, float y_low, float y_high) {
+	float phase = fract(x * period_2);
+	float s = step(phase, width);
+	return mix(y_low, y_high, s);
+}
+
+
+// returns the dot product between a view vector and a normal vector
+float dotAngleDifference(vec3 p_view_vector, vec3 p_normal) {
+	vec3 view_vector = normalize(p_view_vector);
+	vec3 normal = normalize(p_normal);
+	return dot(view_vector, normal);
+}"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_mca8t"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_a8lcy"]
+linked_parent_graph_frame = 14
+parameter_name = "vert_stripes_blackoout"
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_mca8t"]
+size = Vector2(1400, 601)
+title = "top and bottom rings"
+attached_nodes = PackedInt32Array(5, 7, 6, 4, 2)
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_msgvv"]
+size = Vector2(1199.9999, 481)
+title = "latitude lines"
+attached_nodes = PackedInt32Array(8, 12)
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_jwk6o"]
+size = Vector2(1179.9999, 481)
+title = "longitude lines"
+attached_nodes = PackedInt32Array(18, 17)
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_tapbx"]
+linked_parent_graph_frame = 15
+parameter_name = "horizontal_lines_blackout"
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_yqelk"]
+linked_parent_graph_frame = 15
+size = Vector2(699.99994, 400)
+expression = "
+if (UV.y > d && UV.y < 1.0 - d) {
+	output0 = stripeWave(UV.y, stripe_wave_period, stripe_wave_width, 0.0, 1.0);
+} else {
+	output0 = 0.0;
+}"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_msgvv"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_mca8t"]
+linked_parent_graph_frame = 13
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_a8lcy"]
+size = Vector2(1140, 601)
+title = "fresnel"
+attached_nodes = PackedInt32Array(22, 23, 24, 25, 28)
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_fh3u6"]
+linked_parent_graph_frame = 20
+input_name = "normal"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_mifg5"]
+linked_parent_graph_frame = 20
+input_name = "view"
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_h8p2b"]
+linked_parent_graph_frame = 20
+size = Vector2(680, 500)
+expression = "output0 = 1.0 - dotAngleDifference(view, normal);
+output0 = pow(output0, fresnel_power);"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_mca8t"]
+linked_parent_graph_frame = 20
+parameter_name = "outer_fresnel_power"
+default_value_enabled = true
+default_value = 5.575
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_jwk6o"]
+
+[sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_a8lcy"]
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_fh3u6"]
+size = Vector2(1160, 662)
+title = "inverse fresnel"
+attached_nodes = PackedInt32Array(29, 32, 31, 30, 35)
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_mifg5"]
+linked_parent_graph_frame = 28
+size = Vector2(680, 500)
+expression = "output0 = dotAngleDifference(view, normal);
+output0 = output0 * multiplicant;
+output0 = pow(output0, fresnel_power);"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_msgvv"]
+parameter_name = "base_color"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_h8p2b"]
+linked_parent_graph_frame = 28
+input_name = "normal"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_tapbx"]
+linked_parent_graph_frame = 28
+input_name = "view"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_yqelk"]
+linked_parent_graph_frame = 28
+parameter_name = "inner_fresnel_power"
+default_value_enabled = true
+default_value = 1.0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_4ocsi"]
+operator = 1
+
+[sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_h64xu"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_ssaf2"]
+linked_parent_graph_frame = 28
+parameter_name = "inner_fresnel_multiplicant"
+default_value_enabled = true
+default_value = 1.0
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_msgvv"]
+linked_parent_graph_frame = 37
+size = Vector2(780, 520)
+expression = "vec2 uv_scaled = UV * screen_uv_scale;
+vec2 uv_scaled_and_panned = uv_scaled + screen_uv_offset;
+vec3 col = texture(noise_texture, uv_scaled + vec2(TIME, TIME)).xyz;
+output0 = col;"
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_mifg5"]
+size = Vector2(860, 601)
+title = "screen mapped noise texture"
+attached_nodes = PackedInt32Array(36)
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_mca8t"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, 0.5]
+op_type = 4
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_jwk6o"]
+size = Vector2(280, 220)
+expression = "col = grid_color;
+col = col * grid_color_brightness;"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_jwk6o"]
+default_input_values = [0, Vector2(0, 0)]
+linked_parent_graph_frame = 13
+op_type = 0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_a8lcy"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeReroute" id="VisualShaderNodeReroute_mca8t"]
+default_input_values = [0, Vector3(0, 0, 0)]
+port_type = 4
+
+[sub_resource type="VisualShaderNodeReroute" id="VisualShaderNodeReroute_msgvv"]
+
+[sub_resource type="VisualShaderNodeReroute" id="VisualShaderNodeReroute_jwk6o"]
+
+[sub_resource type="VisualShaderNodeReroute" id="VisualShaderNodeReroute_a8lcy"]
+
+[sub_resource type="VisualShaderNodeReroute" id="VisualShaderNodeReroute_fh3u6"]
+
+[sub_resource type="VisualShaderNodeReroute" id="VisualShaderNodeReroute_mifg5"]
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_h8p2b"]
+size = Vector2(960, 581)
+title = "inner texture"
+attached_nodes = PackedInt32Array(48)
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_tapbx"]
+linked_parent_graph_frame = 47
+size = Vector2(880, 500)
+expression = "output0 = texture(inner_texture, UV).xyz;
+output0 = mix(output0, input0, input1);
+output0 = output0 * inner_texture_brightness;"
+
+[sub_resource type="VisualShaderNodeReroute" id="VisualShaderNodeReroute_yqelk"]
+default_input_values = [0, Vector3(0, 0, 0)]
+port_type = 4
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_a8lcy"]
+linked_parent_graph_frame = 13
+size = Vector2(700, 480)
+expression = "float distance_to_top = distance(uv_y, uv_y_coord);
+float distance_to_bottom = distance(uv_y, 1.0 - uv_y_coord);
+if (distance_to_top <= threshold || distance_to_bottom <= threshold) {
+	col = 1.0;
+} else {
+	col = 0.0;
+}"
+
+[sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_mca8t"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_mca8t"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_msgvv"]
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_jwk6o"]
+constant = 1.0
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_mca8t"]
+constant = Color(0, 1, 0, 1)
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_a8lcy"]
+constant = 0.402
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_fh3u6"]
+linked_parent_graph_frame = 13
+parameter_name = "ring_height"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_mifg5"]
+linked_parent_graph_frame = 13
+parameter_name = "ring_thickness"
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_mca8t"]
+linked_parent_graph_frame = 14
+size = Vector2(699.99994, 400)
+expression = "
+if (UV.y > d && UV.y < 1.0 - d) {
+	output0 = stripeWave(UV.x, stripe_wave_period, stripe_wave_width, 0.0, 1.0);
+} else {
+	output0 = 0.0;
+}"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform float base_color = 0.0;
+uniform float ring_height;
+uniform float ring_thickness;
+uniform float vert_stripes_blackoout;
+uniform float horizontal_lines_blackout;
+uniform float outer_fresnel_power = 5.57499980926514;
+uniform float inner_fresnel_power = 1.0;
+uniform float inner_fresnel_multiplicant = 1.0;
+
+
+// GlobalExpression:0
+	uniform float stripe_wave_period;
+	uniform float stripe_wave_width;
+	uniform vec3 grid_color:source_color;
+	uniform float grid_color_brightness = 1.0;
+	uniform sampler2D noise_texture;
+	uniform vec2 screen_uv_offset = vec2(0.0);
+	uniform vec2 screen_uv_scale = vec2(1.0);
+	uniform sampler2D inner_texture:filter_nearest;
+	uniform float inner_texture_brightness = 1.0;
+	
+	float squareWave(float x, float y_stretch, float y_displacement, float p) {
+		return y_stretch * (4.0 * floor(p * x) - 2.0 * floor(2.0 * p * x) + 1.0) + y_displacement;
+	}
+	
+	
+	float stripeWave(float x, float period_2, float width, float y_low, float y_high) {
+		float phase = fract(x * period_2);
+		float s = step(phase, width);
+		return mix(y_low, y_high, s);
+	}
+	
+	
+	// returns the dot product between a view vector and a normal vector
+	float dotAngleDifference(vec3 p_view_vector, vec3 p_normal) {
+		vec3 view_vector = normalize(p_view_vector);
+		vec3 normal = normalize(p_normal);
+		return dot(view_vector, normal);
+	}
+
+void fragment() {
+// FloatParameter:3
+	float n_out3p0 = base_color;
+
+
+// FloatConstant:52
+	float n_out52p0 = 0.000000;
+
+
+// FloatConstant:53
+	float n_out53p0 = 1.000000;
+
+
+// FloatConstant:51
+	float n_out51p0 = 0.000000;
+
+
+// ColorConstant:54
+	vec4 n_out54p0 = vec4(0.000000, 1.000000, 0.000000, 1.000000);
+
+
+// FloatConstant:55
+	float n_out55p0 = 0.402000;
+
+
+	vec3 n_out48p0;
+// Expression:48
+	n_out48p0 = vec3(0.0, 0.0, 0.0);
+	{
+		n_out48p0 = texture(inner_texture, UV).xyz;
+		n_out48p0 = mix(n_out48p0, vec3(n_out54p0.xyz), vec3(n_out55p0));
+		n_out48p0 = n_out48p0 * inner_texture_brightness;
+	}
+
+
+// Reroute:49
+	vec3 n_out49p0 = n_out48p0;
+
+
+	vec3 n_out39p0;
+// Expression:39
+	n_out39p0 = vec3(0.0, 0.0, 0.0);
+	{
+		n_out39p0 = grid_color;
+		n_out39p0 = n_out39p0 * grid_color_brightness;
+	}
+
+
+// Input:2
+	vec2 n_out2p0 = UV;
+
+
+// VectorDecompose:4
+	float n_out4p0 = n_out2p0.x;
+	float n_out4p1 = n_out2p0.y;
+
+
+// FloatParameter:6
+	float n_out6p0 = ring_height;
+
+
+// FloatParameter:7
+	float n_out7p0 = ring_thickness;
+
+
+	float n_out5p0;
+// Expression:5
+	n_out5p0 = 0.0;
+	{
+		float distance_to_top = distance(n_out4p1, n_out6p0);
+		float distance_to_bottom = distance(n_out4p1, 1.0 - n_out6p0);
+		if (distance_to_top <= n_out7p0 || distance_to_bottom <= n_out7p0) {
+			n_out5p0 = 1.0;
+		} else {
+			n_out5p0 = 0.0;
+		}
+	}
+
+
+// Reroute:44
+	float n_out44p0 = n_out5p0;
+
+
+// FloatParameter:12
+	float n_out12p0 = vert_stripes_blackoout;
+
+
+	float n_out8p0;
+// Expression:8
+	n_out8p0 = 0.0;
+	{
+		
+		if (UV.y > n_out12p0 && UV.y < 1.0 - n_out12p0) {
+			n_out8p0 = stripeWave(UV.x, stripe_wave_period, stripe_wave_width, 0.0, 1.0);
+		} else {
+			n_out8p0 = 0.0;
+		}
+	}
+
+
+// Reroute:45
+	float n_out45p0 = n_out8p0;
+
+
+// FloatOp:11
+	float n_out11p0 = n_out44p0 + n_out45p0;
+
+
+// FloatParameter:17
+	float n_out17p0 = horizontal_lines_blackout;
+
+
+	float n_out18p0;
+// Expression:18
+	n_out18p0 = 0.0;
+	{
+		
+		if (UV.y > n_out17p0 && UV.y < 1.0 - n_out17p0) {
+			n_out18p0 = stripeWave(UV.y, stripe_wave_period, stripe_wave_width, 0.0, 1.0);
+		} else {
+			n_out18p0 = 0.0;
+		}
+	}
+
+
+// Reroute:46
+	float n_out46p0 = n_out18p0;
+
+
+// FloatOp:19
+	float n_out19p0 = n_out11p0 + n_out46p0;
+
+
+// Input:22
+	vec3 n_out22p0 = NORMAL;
+
+
+// Input:23
+	vec3 n_out23p0 = VIEW;
+
+
+// FloatParameter:25
+	float n_out25p0 = outer_fresnel_power;
+
+
+	float n_out24p0;
+// Expression:24
+	n_out24p0 = 0.0;
+	{
+		n_out24p0 = 1.0 - dotAngleDifference(n_out23p0, n_out22p0);
+		n_out24p0 = pow(n_out24p0, n_out25p0);
+	}
+
+
+// Reroute:43
+	float n_out43p0 = n_out24p0;
+
+
+// FloatOp:26
+	float n_out26p0 = n_out19p0 + n_out43p0;
+
+
+// Clamp:34
+	float n_in34p1 = 0.00000;
+	float n_in34p2 = 1.00000;
+	float n_out34p0 = clamp(n_out26p0, n_in34p1, n_in34p2);
+
+
+// Input:30
+	vec3 n_out30p0 = NORMAL;
+
+
+// Input:31
+	vec3 n_out31p0 = VIEW;
+
+
+// FloatParameter:32
+	float n_out32p0 = inner_fresnel_power;
+
+
+// FloatParameter:35
+	float n_out35p0 = inner_fresnel_multiplicant;
+
+
+	float n_out29p0;
+// Expression:29
+	n_out29p0 = 0.0;
+	{
+		n_out29p0 = dotAngleDifference(n_out31p0, n_out30p0);
+		n_out29p0 = n_out29p0 * n_out35p0;
+		n_out29p0 = pow(n_out29p0, n_out32p0);
+	}
+
+
+// Reroute:42
+	float n_out42p0 = n_out29p0;
+
+
+// FloatOp:33
+	float n_out33p0 = n_out34p0 - n_out42p0;
+
+
+// Clamp:27
+	float n_in27p1 = 0.00000;
+	float n_in27p2 = 1.00000;
+	float n_out27p0 = clamp(n_out33p0, n_in27p1, n_in27p2);
+
+
+	vec3 n_out36p0;
+// Expression:36
+	n_out36p0 = vec3(0.0, 0.0, 0.0);
+	{
+		vec2 uv_scaled = UV * screen_uv_scale;
+		vec2 uv_scaled_and_panned = uv_scaled + screen_uv_offset;
+		vec3 col = texture(noise_texture, uv_scaled + vec2(TIME, TIME)).xyz;
+		n_out36p0 = col;
+	}
+
+
+// Reroute:41
+	vec3 n_out41p0 = n_out36p0;
+
+
+// FloatOp:40
+	float n_out40p0 = n_out27p0 * n_out41p0.x;
+
+
+// Clamp:50
+	float n_in50p1 = 0.00000;
+	float n_in50p2 = 1.00000;
+	float n_out50p0 = clamp(n_out40p0, n_in50p1, n_in50p2);
+
+
+// Mix:38
+	vec3 n_out38p0 = mix(n_out49p0, n_out39p0, n_out50p0);
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0);
+	METALLIC = n_out52p0;
+	ROUGHNESS = n_out53p0;
+	SPECULAR = n_out51p0;
+	EMISSION = n_out38p0;
+
+
+}
+"
+preview_params/stripe_wave_period = "36.0"
+preview_params/stripe_wave_width = "0.145"
+preview_params/grid_color = "Color(0, 1, 0, 1)"
+preview_params/noise_texture = "Object(NoiseTexture2D,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"width\":512,\"height\":512,\"generate_mipmaps\":true,\"noise\":Object(FastNoiseLite,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"noise_type\":1,\"seed\":0,\"frequency\":1.0,\"offset\":Vector3(0, 0, 0),\"fractal_type\":1,\"fractal_octaves\":5,\"fractal_lacunarity\":2.0,\"fractal_gain\":0.5,\"fractal_weighted_strength\":0.0,\"fractal_ping_pong_strength\":2.0,\"cellular_distance_function\":0,\"cellular_jitter\":1.0,\"cellular_return_type\":1,\"domain_warp_enabled\":false,\"domain_warp_type\":0,\"domain_warp_amplitude\":30.0,\"domain_warp_frequency\":0.05,\"domain_warp_fractal_type\":1,\"domain_warp_fractal_octaves\":5,\"domain_warp_fractal_lacunarity\":6.0,\"domain_warp_fractal_gain\":0.5,\"script\":null)
+,\"color_ramp\":Object(Gradient,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"interpolation_mode\":0,\"interpolation_color_space\":0,\"offsets\":PackedFloat32Array(0.5190476, 1),\"colors\":PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1),\"script\":null)
+,\"seamless\":true,\"invert\":false,\"in_3d_space\":false,\"as_normal_map\":false,\"normalize\":true,\"seamless_blend_skirt\":0.1,\"bump_strength\":8.0,\"script\":null)
+"
+preview_params/screen_uv_offset = "Vector2(0, 0)"
+preview_params/screen_uv_scale = "Vector2(1, 1)"
+preview_params/inner_texture = "Resource(\"uid://4g3nshsflim7\", \"res://assets/2d assets/primary textures/earth.jpg\")"
+preview_params/inner_texture_brightness = "0.505"
+preview_params/base_color = "0.0"
+preview_params/ring_height = "0.0"
+preview_params/ring_thickness = "0.0"
+preview_params/vert_stripes_blackoout = "0.0"
+preview_params/horizontal_lines_blackout = "0.0"
+preview_params/outer_fresnel_power = "2.7"
+preview_params/inner_fresnel_power = "1.0"
+preview_params/inner_fresnel_multiplicant = "1.655"
+preview_params/grid_color_brightness = "15.44"
+nodes/fragment/0/position = Vector2(2680, 1720)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_mca8t")
+nodes/fragment/2/position = Vector2(-2140, 800)
+nodes/fragment/3/node = SubResource("VisualShaderNodeFloatParameter_msgvv")
+nodes/fragment/3/position = Vector2(2320, 1500)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorDecompose_jwk6o")
+nodes/fragment/4/position = Vector2(-1800, 680)
+nodes/fragment/5/node = SubResource("VisualShaderNodeExpression_a8lcy")
+nodes/fragment/5/position = Vector2(-1520, 720)
+nodes/fragment/5/size = Vector2(700, 480)
+nodes/fragment/5/input_ports = "0,0,uv_y;1,0,uv_y_coord;2,0,threshold;"
+nodes/fragment/5/output_ports = "0,0,col;"
+nodes/fragment/5/expression = "float distance_to_top = distance(uv_y, uv_y_coord);
+float distance_to_bottom = distance(uv_y, 1.0 - uv_y_coord);
+if (distance_to_top <= threshold || distance_to_bottom <= threshold) {
+	col = 1.0;
+} else {
+	col = 0.0;
+}"
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatParameter_fh3u6")
+nodes/fragment/6/position = Vector2(-1840, 880)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatParameter_mifg5")
+nodes/fragment/7/position = Vector2(-1860, 1080)
+nodes/fragment/8/node = SubResource("VisualShaderNodeExpression_mca8t")
+nodes/fragment/8/position = Vector2(-1540, 1880)
+nodes/fragment/8/size = Vector2(699.99994, 400)
+nodes/fragment/8/input_ports = "0,0,d;"
+nodes/fragment/8/output_ports = "0,0,output0;"
+nodes/fragment/8/expression = "
+if (UV.y > d && UV.y < 1.0 - d) {
+	output0 = stripeWave(UV.x, stripe_wave_period, stripe_wave_width, 0.0, 1.0);
+} else {
+	output0 = 0.0;
+}"
+nodes/fragment/10/node = SubResource("VisualShaderNodeGlobalExpression_mca8t")
+nodes/fragment/10/position = Vector2(-3140, 1880)
+nodes/fragment/10/size = Vector2(960, 1080)
+nodes/fragment/10/input_ports = ""
+nodes/fragment/10/output_ports = ""
+nodes/fragment/10/expression = "uniform float stripe_wave_period;
+uniform float stripe_wave_width;
+uniform vec3 grid_color:source_color;
+uniform float grid_color_brightness = 1.0;
+uniform sampler2D noise_texture;
+uniform vec2 screen_uv_offset = vec2(0.0);
+uniform vec2 screen_uv_scale = vec2(1.0);
+uniform sampler2D inner_texture:filter_nearest;
+uniform float inner_texture_brightness = 1.0;
+
+float squareWave(float x, float y_stretch, float y_displacement, float p) {
+	return y_stretch * (4.0 * floor(p * x) - 2.0 * floor(2.0 * p * x) + 1.0) + y_displacement;
+}
+
+
+float stripeWave(float x, float period_2, float width, float y_low, float y_high) {
+	float phase = fract(x * period_2);
+	float s = step(phase, width);
+	return mix(y_low, y_high, s);
+}
+
+
+// returns the dot product between a view vector and a normal vector
+float dotAngleDifference(vec3 p_view_vector, vec3 p_normal) {
+	vec3 view_vector = normalize(p_view_vector);
+	vec3 normal = normalize(p_normal);
+	return dot(view_vector, normal);
+}"
+nodes/fragment/11/node = SubResource("VisualShaderNodeFloatOp_mca8t")
+nodes/fragment/11/position = Vector2(-340, 1380)
+nodes/fragment/12/node = SubResource("VisualShaderNodeFloatParameter_a8lcy")
+nodes/fragment/12/position = Vector2(-1960, 2060)
+nodes/fragment/13/node = SubResource("VisualShaderNodeFrame_mca8t")
+nodes/fragment/13/position = Vector2(-2180, 639)
+nodes/fragment/14/node = SubResource("VisualShaderNodeFrame_msgvv")
+nodes/fragment/14/position = Vector2(-2000, 1739)
+nodes/fragment/15/node = SubResource("VisualShaderNodeFrame_jwk6o")
+nodes/fragment/15/position = Vector2(-2040, 1339)
+nodes/fragment/17/node = SubResource("VisualShaderNodeFloatParameter_tapbx")
+nodes/fragment/17/position = Vector2(-2000, 1560)
+nodes/fragment/18/node = SubResource("VisualShaderNodeExpression_yqelk")
+nodes/fragment/18/position = Vector2(-1600, 1380)
+nodes/fragment/18/size = Vector2(699.99994, 400)
+nodes/fragment/18/input_ports = "0,0,d;"
+nodes/fragment/18/output_ports = "0,0,output0;"
+nodes/fragment/18/expression = "
+if (UV.y > d && UV.y < 1.0 - d) {
+	output0 = stripeWave(UV.y, stripe_wave_period, stripe_wave_width, 0.0, 1.0);
+} else {
+	output0 = 0.0;
+}"
+nodes/fragment/19/node = SubResource("VisualShaderNodeFloatOp_msgvv")
+nodes/fragment/19/position = Vector2(-140, 1580)
+nodes/fragment/20/node = SubResource("VisualShaderNodeFrame_a8lcy")
+nodes/fragment/20/position = Vector2(-1920, 2359)
+nodes/fragment/22/node = SubResource("VisualShaderNodeInput_fh3u6")
+nodes/fragment/22/position = Vector2(-1860, 2400)
+nodes/fragment/23/node = SubResource("VisualShaderNodeInput_mifg5")
+nodes/fragment/23/position = Vector2(-1880, 2500)
+nodes/fragment/24/node = SubResource("VisualShaderNodeExpression_h8p2b")
+nodes/fragment/24/position = Vector2(-1500, 2420)
+nodes/fragment/24/size = Vector2(680, 500)
+nodes/fragment/24/input_ports = "0,4,normal;1,4,view;2,0,fresnel_power;"
+nodes/fragment/24/output_ports = "0,0,output0;"
+nodes/fragment/24/expression = "output0 = 1.0 - dotAngleDifference(view, normal);
+output0 = pow(output0, fresnel_power);"
+nodes/fragment/25/node = SubResource("VisualShaderNodeFloatParameter_mca8t")
+nodes/fragment/25/position = Vector2(-1840, 2640)
+nodes/fragment/26/node = SubResource("VisualShaderNodeFloatOp_jwk6o")
+nodes/fragment/26/position = Vector2(160, 1560)
+nodes/fragment/27/node = SubResource("VisualShaderNodeClamp_a8lcy")
+nodes/fragment/27/position = Vector2(800, 1640)
+nodes/fragment/28/node = SubResource("VisualShaderNodeFrame_fh3u6")
+nodes/fragment/28/position = Vector2(-1940, 3020)
+nodes/fragment/29/node = SubResource("VisualShaderNodeExpression_mifg5")
+nodes/fragment/29/position = Vector2(-1500, 3100)
+nodes/fragment/29/size = Vector2(680, 500)
+nodes/fragment/29/input_ports = "0,4,normal;1,4,view;2,0,fresnel_power;3,0,multiplicant;"
+nodes/fragment/29/output_ports = "0,0,output0;"
+nodes/fragment/29/expression = "output0 = dotAngleDifference(view, normal);
+output0 = output0 * multiplicant;
+output0 = pow(output0, fresnel_power);"
+nodes/fragment/30/node = SubResource("VisualShaderNodeInput_h8p2b")
+nodes/fragment/30/position = Vector2(-1880, 3060)
+nodes/fragment/31/node = SubResource("VisualShaderNodeInput_tapbx")
+nodes/fragment/31/position = Vector2(-1900, 3160)
+nodes/fragment/32/node = SubResource("VisualShaderNodeFloatParameter_yqelk")
+nodes/fragment/32/position = Vector2(-1860, 3300)
+nodes/fragment/33/node = SubResource("VisualShaderNodeFloatOp_4ocsi")
+nodes/fragment/33/position = Vector2(580, 1620)
+nodes/fragment/34/node = SubResource("VisualShaderNodeClamp_h64xu")
+nodes/fragment/34/position = Vector2(360, 1560)
+nodes/fragment/35/node = SubResource("VisualShaderNodeFloatParameter_ssaf2")
+nodes/fragment/35/position = Vector2(-1860, 3600)
+nodes/fragment/36/node = SubResource("VisualShaderNodeExpression_msgvv")
+nodes/fragment/36/position = Vector2(-1740, 3940)
+nodes/fragment/36/size = Vector2(780, 520)
+nodes/fragment/36/input_ports = ""
+nodes/fragment/36/output_ports = "0,4,output0;"
+nodes/fragment/36/expression = "vec2 uv_scaled = UV * screen_uv_scale;
+vec2 uv_scaled_and_panned = uv_scaled + screen_uv_offset;
+vec3 col = texture(noise_texture, uv_scaled + vec2(TIME, TIME)).xyz;
+output0 = col;"
+nodes/fragment/37/node = SubResource("VisualShaderNodeFrame_mifg5")
+nodes/fragment/37/position = Vector2(-1780, 3899)
+nodes/fragment/38/node = SubResource("VisualShaderNodeMix_mca8t")
+nodes/fragment/38/position = Vector2(1700, 1720)
+nodes/fragment/39/node = SubResource("VisualShaderNodeExpression_jwk6o")
+nodes/fragment/39/position = Vector2(1180, 1460)
+nodes/fragment/39/size = Vector2(280, 220)
+nodes/fragment/39/input_ports = ""
+nodes/fragment/39/output_ports = "0,4,col;"
+nodes/fragment/39/expression = "col = grid_color;
+col = col * grid_color_brightness;"
+nodes/fragment/40/node = SubResource("VisualShaderNodeFloatOp_a8lcy")
+nodes/fragment/40/position = Vector2(1020, 1760)
+nodes/fragment/41/node = SubResource("VisualShaderNodeReroute_mca8t")
+nodes/fragment/41/position = Vector2(1020, 4040)
+nodes/fragment/42/node = SubResource("VisualShaderNodeReroute_msgvv")
+nodes/fragment/42/position = Vector2(500, 3160)
+nodes/fragment/43/node = SubResource("VisualShaderNodeReroute_jwk6o")
+nodes/fragment/43/position = Vector2(100, 2480)
+nodes/fragment/44/node = SubResource("VisualShaderNodeReroute_a8lcy")
+nodes/fragment/44/position = Vector2(-380, 780)
+nodes/fragment/45/node = SubResource("VisualShaderNodeReroute_fh3u6")
+nodes/fragment/45/position = Vector2(-360, 1920)
+nodes/fragment/46/node = SubResource("VisualShaderNodeReroute_mifg5")
+nodes/fragment/46/position = Vector2(-740, 1660)
+nodes/fragment/47/node = SubResource("VisualShaderNodeFrame_h8p2b")
+nodes/fragment/47/position = Vector2(-1860, 4600)
+nodes/fragment/48/node = SubResource("VisualShaderNodeExpression_tapbx")
+nodes/fragment/48/position = Vector2(-1820, 4640)
+nodes/fragment/48/size = Vector2(880, 500)
+nodes/fragment/48/input_ports = "0,4,input0;1,4,input1;"
+nodes/fragment/48/output_ports = "0,4,output0;"
+nodes/fragment/48/expression = "output0 = texture(inner_texture, UV).xyz;
+output0 = mix(output0, input0, input1);
+output0 = output0 * inner_texture_brightness;"
+nodes/fragment/49/node = SubResource("VisualShaderNodeReroute_yqelk")
+nodes/fragment/49/position = Vector2(1620, 4640)
+nodes/fragment/50/node = SubResource("VisualShaderNodeClamp_mca8t")
+nodes/fragment/50/position = Vector2(1340, 1780)
+nodes/fragment/51/node = SubResource("VisualShaderNodeFloatConstant_mca8t")
+nodes/fragment/51/position = Vector2(2440, 1920)
+nodes/fragment/52/node = SubResource("VisualShaderNodeFloatConstant_msgvv")
+nodes/fragment/52/position = Vector2(2440, 1720)
+nodes/fragment/53/node = SubResource("VisualShaderNodeFloatConstant_jwk6o")
+nodes/fragment/53/position = Vector2(2440, 1820)
+nodes/fragment/54/node = SubResource("VisualShaderNodeColorConstant_mca8t")
+nodes/fragment/54/position = Vector2(-2160, 4620)
+nodes/fragment/55/node = SubResource("VisualShaderNodeFloatConstant_a8lcy")
+nodes/fragment/55/position = Vector2(-2180, 4840)
+nodes/fragment/connections = PackedInt32Array(2, 0, 4, 0, 4, 1, 5, 0, 6, 0, 5, 1, 7, 0, 5, 2, 11, 0, 19, 0, 17, 0, 18, 0, 12, 0, 8, 0, 23, 0, 24, 1, 22, 0, 24, 0, 25, 0, 24, 2, 19, 0, 26, 0, 31, 0, 29, 1, 30, 0, 29, 0, 32, 0, 29, 2, 33, 0, 27, 0, 26, 0, 34, 0, 34, 0, 33, 0, 35, 0, 29, 3, 39, 0, 38, 1, 27, 0, 40, 0, 36, 0, 41, 0, 41, 0, 40, 1, 29, 0, 42, 0, 42, 0, 33, 1, 24, 0, 43, 0, 43, 0, 26, 1, 5, 0, 44, 0, 44, 0, 11, 0, 8, 0, 45, 0, 45, 0, 11, 1, 18, 0, 46, 0, 46, 0, 19, 1, 48, 0, 49, 0, 49, 0, 38, 0, 40, 0, 50, 0, 50, 0, 38, 2, 38, 0, 0, 5, 3, 0, 0, 0, 51, 0, 0, 4, 52, 0, 0, 2, 53, 0, 0, 3, 54, 0, 48, 0, 55, 0, 48, 1)

@@ -10,8 +10,11 @@ const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_l
 @onready var dissipator_hitscan: RayCast3D = $DissipatorHitscan
 @onready var flash_animator: AnimationPlayer = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator/FlashAnimator
 @onready var dissipator_piercing_hitscan: DissipatorPiercingHitscan = $DissipatorPiercingHitscan
+@onready var dissipator_MESH: MeshInstance3D = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator
 
 @export var bullet_config:HitscanBulletConfig
+@export_category("Behavior")
+@export var spin_speed:float = 1.0
 @export_category("Reflection Special")
 @export var reflection_bullet_config:HitscanBulletConfig
 @export var reflection_max_charge:float = 100.0
@@ -22,6 +25,7 @@ const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_l
 
 var reflection_charge:float = 0.0: set = setReflectionCharge
 var charging:bool = false: set = setCharging
+var spinning:bool = false: set = setSpinning
 
 
 func setReflectionCharge(value:float) -> void:
@@ -37,6 +41,17 @@ func setCharging(value:bool) -> void:
 	if charging == value:
 		return
 	charging = value
+	
+	if value == true:
+		animation_player.play("ReadySpin")
+	elif value == false:
+		animation_player.stop()
+
+
+func setSpinning(value:bool) -> void:
+	if spinning == value:
+		return
+	spinning = value
 
 
 func _ready() -> void:
@@ -48,6 +63,9 @@ func _process(delta: float) -> void:
 		reflection_charge = move_toward(reflection_charge, reflection_max_charge, reflection_charge_speed * delta)
 	else:
 		reflection_charge  = 0.0
+	
+	if spinning:
+		dissipator_MESH.rotation.x += spin_speed * delta
 
 
 func _onEquip() -> void:
@@ -69,7 +87,8 @@ func _specialRelease() -> void:
 	super._specialRelease()
 	if reflection_charge == reflection_max_charge:
 		fireSpecial()
-	setCharging(false)
+	charging = false
+	spinning = false
 
 
 func _reload() -> void:
@@ -119,6 +138,7 @@ func fireSpecial() -> void:
 
 
 func fireBullet() -> void:
+	charging = false
 	HitscanSystem.fire(
 		bullet_config,
 		muzzle.global_position,

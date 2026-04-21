@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://vcb1a0yxsq2y" path="res://scenes/melee.tscn" id="19_a38lo"]
 [ext_resource type="PackedScene" uid="uid://hc5vuirav3l6" path="res://scenes/dissipator.tscn" id="20_a38lo"]
 [ext_resource type="PackedScene" uid="uid://dywnj42fw476f" path="res://scenes/dissipator_bullet_light.tscn" id="21_pf23h"]
-[ext_resource type="Shader" uid="uid://dtg0dp7tve25u" path="res://assets/meshes/player pistol/power cell shader.tres" id="22_31cv2"]
+[ext_resource type="Shader" uid="uid://dtg0dp7tve25u" path="res://assets/meshes/player weapons/player pistol/power cell shader.tres" id="22_31cv2"]
 [ext_resource type="PackedScene" uid="uid://tpo71rqh0bjm" path="res://scenes/bullet_impact_particles_2.tscn" id="22_dt7fs"]
 [ext_resource type="Script" uid="uid://d06qyp8sfm13t" path="res://scripts/hitscan_bullet_config.gd" id="23_wqfne"]
 [ext_resource type="PackedScene" uid="uid://sb8irsvfcfed" path="res://scenes/wall_slide_particles.tscn" id="24_l71n6"]
@@ -538,7 +538,7 @@ dash_time_length = 0.2
 wall_jump_applied_velocity = 16.0
 death_time_slow_speed = 2.5
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
-weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
+weapon_states = [null, NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
 
 [node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
 script = ExtResource("2_a38lo")
@@ -963,7 +963,7 @@ camera_shake_strength = 0.22
 firing_hitstop_duration = 0.1
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.038218573, -0.99919397, 0.01230737, 0.011149738, -0.012742031, -0.9998552, 0.99920595, -0.03807591, 0.011627726, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.036135, -0.995643, -0.085960306, 0.0026404983, 0.085921206, -0.9962968, 0.99934214, -0.036228266, -0.00047576876, -0.046606656, 0.18653367, -0.035306763)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
