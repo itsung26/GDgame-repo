@@ -26,6 +26,7 @@ const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_l
 
 var reflection_charge:float = 0.0: set = setReflectionCharge
 var charging:bool = false: set = setCharging
+#var _cached_mesh_rotation:Vector3 = Vector3.ZERO
 
 
 func setReflectionCharge(value:float) -> void:
@@ -79,12 +80,15 @@ func _fire() -> void:
 
 func _special() -> void:
 	super._special()
+	#_cached_mesh_rotation = dissipator_MESH.rotation
 	setCharging(true)
 
 
 func _specialRelease() -> void:
 	super._specialRelease()
 	charging = false
+	animation_player.play("FireSpecial")
+	#dissipator_MESH.rotation = _cached_mesh_rotation
 	if reflection_charge == reflection_max_charge:
 		fireSpecial()
 
