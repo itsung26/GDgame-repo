@@ -53,10 +53,6 @@ func setCharging(value:bool) -> void:
 		#hand_attatchment.rotation_degrees = bone_attatchment_degrees_preset
 
 
-func _ready() -> void:
-	pass
-
-
 func _process(delta: float) -> void:
 	if charging:
 		reflection_charge = move_toward(reflection_charge, reflection_max_charge, reflection_charge_speed * delta)
