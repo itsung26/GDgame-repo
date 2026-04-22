@@ -11,6 +11,7 @@ const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_l
 @onready var flash_animator: AnimationPlayer = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator/FlashAnimator
 @onready var dissipator_piercing_hitscan: DissipatorPiercingHitscan = $DissipatorPiercingHitscan
 @onready var dissipator_MESH: MeshInstance3D = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator
+@onready var hand_attatchment: BoneAttachment3D = $Dissipator2/feedbacker/Skeleton3D/Hand
 
 @export var bullet_config:HitscanBulletConfig
 @export_category("Behavior")
@@ -45,6 +46,10 @@ func setCharging(value:bool) -> void:
 		animation_player.play("ReadySpin")
 	elif value == false:
 		animation_player.stop()
+		#var mesh_rotation_degrees_preset:Vector3 = Vector3(89.0, 46.6, 138.8)
+		#var bone_attatchment_degrees_preset:Vector3 = Vector3(3.2, 89.9, -90.7)
+		#dissipator_MESH.rotation_degrees = mesh_rotation_degrees_preset
+		#hand_attatchment.rotation_degrees = bone_attatchment_degrees_preset
 
 
 func _ready() -> void:
@@ -79,9 +84,9 @@ func _special() -> void:
 
 func _specialRelease() -> void:
 	super._specialRelease()
+	charging = false
 	if reflection_charge == reflection_max_charge:
 		fireSpecial()
-	charging = false
 
 
 func _reload() -> void:

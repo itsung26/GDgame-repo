@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=127 format=4 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
 [ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_j4xor"]
@@ -36,6 +36,8 @@
 [ext_resource type="Shader" uid="uid://c2ii60bgdp8us" path="res://shaders/visual shaders/worldspace fragcoord.tres" id="31_lps8w"]
 [ext_resource type="Shader" uid="uid://cd8g5knmsnoup" path="res://shaders/visual shaders/screen_texture_test.tres" id="32_1cyw6"]
 [ext_resource type="Texture2D" uid="uid://b7yi6qjocjb0k" path="res://concept/Teleport_Pad.webp" id="33_myvun"]
+[ext_resource type="Shader" uid="uid://0fmbiwck3cqt" path="res://shaders/GDSL shaders/cell_test.gdshader" id="37_kdw2u"]
+[ext_resource type="Shader" uid="uid://c0mqs7yluch7x" path="res://shaders/GDSL shaders/triplanar_test.gdshader" id="38_p742p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0f2g"]
 albedo_texture = ExtResource("2_7c073")
@@ -681,6 +683,27 @@ shader_parameter/blue_displacement = Vector2(-0.017, 0)
 subdivide_width = 40
 subdivide_depth = 40
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p742p"]
+render_priority = 0
+shader = ExtResource("37_kdw2u")
+shader_parameter/uv_stretch = Vector2(0.5, 0.5)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_cell_stretch = Vector2(3.37, 3.37)
+shader_parameter/uv_cell_offset = Vector2(0, 0)
+shader_parameter/cells_amt = 10.0
+shader_parameter/test_point = Vector2(0.5, 0.5)
+
+[sub_resource type="QuadMesh" id="QuadMesh_wljk0"]
+material = SubResource("ShaderMaterial_p742p")
+size = Vector2(100, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wljk0"]
+render_priority = 0
+shader = ExtResource("38_p742p")
+
+[sub_resource type="BoxMesh" id="BoxMesh_e62h8"]
+size = Vector3(10, 10, 10)
+
 [node name="ShaderTest" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -866,3 +889,12 @@ mesh = SubResource("PlaneMesh_1cyw6")
 
 [node name="MeshInstance3D11" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.925613, 1.9073486e-06, 2.9363475)
+
+[node name="CellTest" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, 0.99999994, 0, -0.99999994, 0, 43.112, 3.1, -75.048)
+mesh = SubResource("QuadMesh_wljk0")
+
+[node name="TriplanarTest" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.932526, 15.940586, -150.87683)
+material_override = SubResource("ShaderMaterial_wljk0")
+mesh = SubResource("BoxMesh_e62h8")
