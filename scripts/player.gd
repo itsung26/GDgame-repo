@@ -374,7 +374,7 @@ func set_action_state(new_action_state:action_states):
 	
 	# GRAPPLING to and from.
 	if new_action_state == action_states.GRAPPLING:
-		var dir:Vector3 = getFacingPoint().normalized()
+		var dir:Vector3 = (getFacingPoint() - camera_3d.global_position).normalized()
 		var vel:float = grapple_arm.throw_velocity
 		grapple_arm.throwHook(dir, vel)
 	if previous_action_state == action_states.GRAPPLING:

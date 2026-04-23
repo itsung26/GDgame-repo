@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=92 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://imchkmka60lw" path="res://assets/meshes/parry arm/parry arm.blend" id="12_qfm1y"]
 [ext_resource type="Animation" uid="uid://3atkceswsf0e" path="res://assets/meshes/parry arm/animations/swing arm initial.res" id="13_60mlk"]
 [ext_resource type="Texture2D" uid="uid://clio45cdgnanq" path="res://assets/2d assets/particles/kenney_particle-pack/PNG (Transparent)/star_07.png" id="13_fulsm"]
-[ext_resource type="Script" uid="uid://crecwxxu8v0ww" path="res://scripts/grapple_hook_sweeping_cast.gd" id="13_wqfne"]
 [ext_resource type="Animation" uid="uid://cnhkkcfwtl5vx" path="res://assets/meshes/parry arm/animations/swing arm miss.res" id="14_i4ail"]
 [ext_resource type="Animation" uid="uid://c6a32v1x3a8qx" path="res://assets/meshes/parry arm/animations/swing arm parry.res" id="15_i4ail"]
 [ext_resource type="Animation" uid="uid://cy6myi3dyfemb" path="res://assets/meshes/parry arm/animations/RESET.res" id="16_4ni07"]
@@ -692,7 +691,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, -0.154, -0.5, 0.0226591)
 script = ExtResource("9_l71n6")
 logging_debug = true
-throw_velocity = 25.0
+throw_velocity = 75.0
 
 [node name="grappleArm" type="Node3D" parent="Pivot/Camera3D/GrappleArm"]
 
@@ -872,11 +871,15 @@ transform = Transform3D(1.0000098, -1.4901161e-07, -1.6391277e-07, -2.0116568e-0
 shape = SubResource("BoxShape3D_ur7pv")
 
 [node name="GrappleHookSweepingCast" type="ShapeCast3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00508976, 0.009017944, -0.14773035)
+transform = Transform3D(-0.16091408, -0.03303235, -0.01035968, 0.0048452653, -0.070260085, 0.14876775, -0.03427803, 0.145135, 0.06966088, -0.14709465, 0.97420347, 0.036358558)
+top_level = true
 shape = SubResource("BoxShape3D_ur7pv")
 target_position = Vector3(0, 0, 0)
 collision_mask = 4
-script = ExtResource("13_wqfne")
+
+[node name="TrailingIntervalTimer" type="Timer" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/GrappleHookSweepingCast"]
+wait_time = 0.25
+autostart = true
 
 [node name="grapple_arm_animator" type="AnimationPlayer" parent="Pivot/Camera3D/GrappleArm/grappleArm"]
 libraries = {
@@ -1042,6 +1045,7 @@ one_shot = true
 one_shot = true
 
 [connection signal="entered_arm_state" from="." to="huds/HUD" method="_on_player_entered_arm_state"]
+[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]

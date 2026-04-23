@@ -7,6 +7,7 @@ const IMPACT_PARTICLES_SCENE:PackedScene = preload("res://scenes/impact_particle
 @onready var grapple_hook: RigidBody3D = %GrappleHook
 @onready var camera_3d: PlayerCamera = %Camera3D
 @onready var rope_origin: BoneAttachment3D = $grappleArm/whiplash_ARM/Skeleton3D/rope_origin
+@onready var grapple_hook_sweeping_cast: ShapeCast3D = $grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/GrappleHookSweepingCast
 
 @export var logging_debug:bool = false
 @export_category("Behavior")
@@ -90,3 +91,8 @@ func isInHolder() -> bool:
 		return true
 	else:
 		return false
+
+
+func _on_world_collide_box_body_entered(body: Node3D) -> void:
+	if body is WorldBody:
+		player.set_action_state(Player.action_states.IDLE)
