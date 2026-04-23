@@ -24,7 +24,9 @@ moving faster than speed limit
 will not take any damage
 	-fix: change from area to StaticBody (why would the player ever need to swim in lava?)
 
-
+. if a high number of decal scenes are requested from their pool and some become free, a null
+casting error is thrown
+	-fix: ensure decals are returned to the pool instead of freed.
 
 FIXED ISSUES==========================================================================================
 

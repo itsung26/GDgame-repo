@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7v24ad6gqchr"]
+
+[ext_resource type="Script" uid="uid://cnyljydx4o8dh" path="res://scripts/grapple_rope_line.gd" id="1_k53m6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k53m6"]
+cull_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="GrappleRopeLine" type="Node3D"]
+script = ExtResource("1_k53m6")
+line_thickness = 0.341
+material = SubResource("StandardMaterial3D_k53m6")
+metadata/_custom_type_script = "uid://b8kote37ryldo"

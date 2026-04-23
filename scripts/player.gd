@@ -374,7 +374,9 @@ func set_action_state(new_action_state:action_states):
 	
 	# GRAPPLING to and from.
 	if new_action_state == action_states.GRAPPLING:
-		grapple_arm.throwHook(Vector3.UP, 10.0)
+		var dir:Vector3 = getFacingPoint().normalized()
+		var vel:float = grapple_arm.throw_velocity
+		grapple_arm.throwHook(dir, vel)
 	if previous_action_state == action_states.GRAPPLING:
 		grapple_arm.setHookActive(false)
 		grapple_arm.returnHookToHolder()
@@ -894,11 +896,17 @@ func parryTargetInBox():
 
 
 ## Returns the point that a 5000 meter long raycast originating from the player's
-## central camera zone collides with. Raycast only collides with the world.
-## If no collider is in range, returns the global position of the raycasts' target
-## point.
-func getFacingPoint() -> Vector3:
+## central camera zone collides with. Raycast only collides with the world, unless
+## enemy collision is enabled. If no collider is in range, returns the global position
+## of the raycasts' target point.
+func getFacingPoint(collide_with_enemies:bool = false) -> Vector3:
 	var long_point_getter: RayCast3D = $Pivot/Camera3D/LongPointGetter
+	# enable collision with enemies if true
+	if collide_with_enemies:
+		long_point_getter.set_collision_mask_value(2, true)
+	else:
+		long_point_getter.set_collision_mask_value(2, false)
+	long_point_getter.force_raycast_update()
 	if long_point_getter.get_collider() != null:
 		var ret:Vector3 = long_point_getter.get_collision_point()
 		return ret

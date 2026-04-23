@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene load_steps=93 format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://d06qyp8sfm13t" path="res://scripts/hitscan_bullet_config.gd" id="23_wqfne"]
 [ext_resource type="PackedScene" uid="uid://sb8irsvfcfed" path="res://scenes/wall_slide_particles.tscn" id="24_l71n6"]
 [ext_resource type="PackedScene" uid="uid://dso2uc8cxmgub" path="res://scenes/bullet_trail.tscn" id="24_wnwbv"]
+[ext_resource type="PackedScene" uid="uid://c7v24ad6gqchr" path="res://scenes/grapple_rope_line.tscn" id="31_wnwbv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a38lo"]
 albedo_color = Color(1, 0, 0, 1)
@@ -691,6 +692,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, -0.154, -0.5, 0.0226591)
 script = ExtResource("9_l71n6")
 logging_debug = true
+throw_velocity = 25.0
 
 [node name="grappleArm" type="Node3D" parent="Pivot/Camera3D/GrappleArm"]
 
@@ -961,7 +963,7 @@ camera_shake_strength = 0.22
 firing_hitstop_duration = 0.1
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.04678542, -0.99866164, 0.022041397, -0.0017326607, -0.021984428, -0.9997552, 0.99890184, -0.046812307, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.046785418, -0.9986616, 0.022041397, -0.0017326606, -0.021984428, -0.9997552, 0.9989018, -0.046812307, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
@@ -1019,6 +1021,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7159977, 0)
 [node name="HeadMarker" type="Marker3D" parent="CameraMarkerPositions"]
 editor_description = "Where the camera goes when not sliding"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
+
+[node name="GrappleRopeLine" parent="." instance=ExtResource("31_wnwbv")]
+editor_description = "the rope attatched to the hook from the hand"
+transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, 0, 0, 0)
+top_level = true
+point_a = Vector3(0.93224204, 6.172652, -0.28552225)
+point_b = Vector3(0.8936708, 5.918755, -0.22089581)
 
 [node name="SlamTimer" type="Timer" parent="."]
 process_callback = 0

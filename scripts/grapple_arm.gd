@@ -9,6 +9,8 @@ const IMPACT_PARTICLES_SCENE:PackedScene = preload("res://scenes/impact_particle
 @onready var rope_origin: BoneAttachment3D = $grappleArm/whiplash_ARM/Skeleton3D/rope_origin
 
 @export var logging_debug:bool = false
+@export_category("Behavior")
+@export var throw_velocity:float = 1.0
 
 var hooked_target:Node3D:
 	set =  setHookedTarget
@@ -38,7 +40,8 @@ func setHookedTarget(hooked_targ:Node3D):
 	
 	hooked_target = new_hooked_target
 	if previous_hooked_target == new_hooked_target:
-		Debug.log("Grappler hooked the same target again, was this intended?")
+		if logging_debug:
+			Debug.log("Grappler hooked the same target again, was this intended?")
 
 
 ## Activates/deactivates the hook, preventing or enabling it from moving, monitoring
@@ -56,21 +59,24 @@ func setHookActive(state:bool) -> void:
 
 
 ## Reparents the hook to the player and moves the hook back to it's bone attatchment,
-## re orienting it in the process. Requires the hook to be inactive.
+## re orienting it in the process.
 func returnHookToHolder() -> void:
 	if hook_active:
-		Debug.logerr("Attempted to return hook while it is still active.")
-		return
+		hook_active = false
 	
-	grapple_hook.reparent(player)
+	grapple_hook.reparent(rope_origin)
 	grapple_hook.transform = hook_initial_transform
 
 
 ## Does the actual release of the hook, in [param direction] with [param velocity].
-## Expects the hook to be inactive and in the holder.
 func throwHook(direction:Vector3, velocity:float) -> void:
-	if hook_active or not isInHolder():
-		Debug.logerr("Attempted to throw the hook when it was either not in the holder or still active.")
+	if hook_active:
+		if logging_debug:
+			Debug.logerr("Attempted to throw the hook when it was still active.")
+		return
+	elif not isInHolder():
+		if logging_debug:
+			Debug.logerr("Attempted to throw the hook when it was not in the holder.")
 		return
 	
 	grapple_hook.reparent(get_tree().current_scene)

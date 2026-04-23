@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7or444er575j"]
+
+[ext_resource type="Script" uid="uid://b8kote37ryldo" path="res://scripts/line_3d.gd" id="1_2quvm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2quvm"]
+cull_mode = 2
+
+[node name="Line3D" type="Node3D"]
+script = ExtResource("1_2quvm")
+line_thickness = 0.246
+material = SubResource("StandardMaterial3D_2quvm")
+point_a = Vector3(1, 0, 0)
+point_b = Vector3(-1, 0, 0)
