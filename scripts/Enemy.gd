@@ -79,13 +79,8 @@ func damageEnemy(damage:float, damage_type:damage_types):
 		pass
 
 ## Called when health reaches zero. Override to provide the death behavior of the enemy.
-## Note that the grapple should be unhooked if the current hooked enemy is the one
-## that died.
 func _killEnemy():
 	print("no death behavior configured. defaulting to deletion on death.")
-	if player.getHookedTarget() == self:
-		# unhook grapple if the hooked enemy is self
-		player.set_action_state(player.action_states.IDLE) 
 	queue_free()
 
 ## heals the enemy

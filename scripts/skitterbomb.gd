@@ -266,9 +266,6 @@ func _physics_process(delta: float) -> void:
 			can_explode = false
 
 func _killEnemy():
-	if player.getHookedTarget() == self:
-		# unhook grapple if the hooked enemy is self
-		player.set_action_state(player.action_states.IDLE)
 	setEnemyState(enemy_states.DEAD)
 
 ## Returns the location in global coordinates that the enemy is currently leaping at.

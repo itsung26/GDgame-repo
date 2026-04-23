@@ -228,11 +228,8 @@ func _process(delta: float) -> void:
 		setEnemyAttackState(enemy_attack_states.DISARMED)
 #endregion
 
-## Kills this enemy, unhooking the player if grappled and triggering the DESTROYED state.
+## Kills this enemy and triggers the DESTROYED state.
 func _killEnemy():
-	if player.getHookedTarget() == self:
-		# unhook grapple if the hooked enemy is self
-		player.set_action_state(player.action_states.IDLE)
 	setEnemyState(enemy_states.DESTROYED)
 
 ## Assigns a look target for the head and gun look modifiers.

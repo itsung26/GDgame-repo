@@ -33,33 +33,25 @@ extends CharacterBody3D
 @onready var gun_animator: AnimationPlayer = $GunAnimator
 @onready var camera_animator: AnimationPlayer = $CameraAnimator
 @onready var shotgun: Node3D = $Pivot/Camera3D/Guns/shotgun
-@onready var grapple_ray_cast: RayCast3D = $Pivot/Camera3D/GrappleRayCast
 @onready var slam_timer: Timer = $SlamTimer
 @onready var black_hole_launcher: Node3D = $Pivot/Camera3D/Guns/BlackHoleLauncher
 @onready var bll_animator: AnimationPlayer = $BLLAnimator
 @onready var arm_pivot_pistol: Node3D = $Pivot/Camera3D/ArmPivotPistol
 @onready var arm_pivot_bll: Node3D = $Pivot/Camera3D/ArmPivotBLL
 @onready var hud: HudGui = %HUD
-@onready var grapple_target: Node3D = $"../GrappleTarget"
 @onready var grapple_arm: GrappleArm = $Pivot/Camera3D/GrappleArm
-@onready var grapple_direction_getter: RayCast3D = $Pivot/Camera3D/GrappleDirectionGetter
-@onready var grapple_hook: RigidBody3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook
-@onready var grapple_timer: Timer = $GrappleTimer
 @onready var cam_shake_timer: Timer = $CamShakeTimer
 @onready var sliding_marker: Marker3D = $CameraMarkerPositions/SlidingMarker
 @onready var head_marker: Marker3D = $CameraMarkerPositions/HeadMarker
 @onready var wind_rings: GPUParticles3D = $Pivot/Camera3D/WindRings
 @onready var dash_length_timer: Timer = $DashLengthTimer
 @onready var stamina_charge_delay_timer: Timer = $StaminaChargeDelayTimer
-@onready var tail_marker: Marker3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/TailMarker
-@onready var world_collide_box: Area3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/hook/WorldCollideBox
 @onready var parry_arm: Node3D = $Pivot/Camera3D/ParryArm
 @onready var parry_arm_animator: AnimationPlayer = $"Pivot/Camera3D/ParryArm/parry arm/AnimationPlayer"
 @onready var distant_marker: Marker3D = $Pivot/Camera3D/distantMarker
 @onready var parry_flash: MeshInstance3D = $Pivot/Camera3D/ParryArm/ParryFlash
 @onready var parry_flash_go_back_marker: Marker3D = $Pivot/Camera3D/parryFlashGoBackMarker
 @onready var punch_raycast: RayCast3D = $Pivot/Camera3D/PunchRaycast
-@onready var rope_origin: BoneAttachment3D = $Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin
 @onready var slide_particles: SlideParticles = $SlideParticles
 @onready var slide_light:OmniLight3D = $SlideParticles/ImpactParticles/SlideLight
 @onready var impact_sparks:GPUParticles3D = $SlideParticles/ImpactParticles/SparkTrailsSide/ImpactSparks
@@ -79,7 +71,6 @@ enum player_states {
 	DEAD,
 	FALLING,
 	WALL_SLIDING,
-	REELINGTO,
 	SLIDING,
 	DASHING,
 	SLAMMING
@@ -149,14 +140,6 @@ enum action_states{IDLE, GRAPPLING}
 ## Maximum number of times the player can jump off walls before touching the ground again.
 @export var max_wall_jumps:int = 3
 
-@export_group("Grappling Hook")
-@export var Grapple_Enabled:bool = true
-@export var GRAPPLE_SPEED_MAX = 90
-@export var grapple_pull_speed:float = 25.0
-## The amount of upward velocity that is added to the player after beginning to pull the grapple on an enemy
-@export var grapple_hop:float = 1.0
-@export var grapple_hook_damage:float = 1.0
-
 @export_group("Parrying")
 ## The amount of time that time stops for when parrying something.
 @export var hitstop_duration:float = 0.21
@@ -216,14 +199,12 @@ var global_initial_player_position:Vector3
 var global_initial_player_rotation:Vector3
 var global_initial_pivot_roation:Vector3
 var los_query:LineOfSightQuery
-var grapple_rope_mesh_gen:ropeMeshGenerator
 var stamina_recharging:bool = true
 var awaiting_death_input:bool = false
 #endregion
 
 #region Constants
 const hurt_rect_SCENE:PackedScene = preload("res://scenes/hurt_rect.tscn")
-const grapple_rope_mesh_gen_SCENE = preload("res://scenes/grapple_rope_meshGen.tscn")
 const bullet_trail_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
 const los_query_SCENE:PackedScene = preload("res://scenes/line_of_sight_query.tscn")
 const death_camera_SCENE:PackedScene = preload("res://scenes/death_camera.tscn")
@@ -321,9 +302,6 @@ func set_player_state(new_player_state:player_states):
 		stamina_recharging = false
 		stamina_charge_delay_timer.start(stamina_charge_delay)
 		STAMINA -= 100
-		# cancels grapple if it is active
-		if action_state == action_states.GRAPPLING:
-			set_action_state(action_states.IDLE)
 		# starts the timer and zeroes velocity
 		dash_length_timer.start(dash_time_length)
 		velocity = Vector3.ZERO
@@ -381,40 +359,25 @@ func set_action_state(new_action_state:action_states):
 	var previous_action_state := action_state
 	action_state = new_action_state
 	
+	# Prevent same-state switching.
 	if previous_action_state == new_action_state:
 		return
 	
-	# Emit signal
+	# Emit signal.
 	entered_action_state.emit(new_action_state, previous_action_state)
 	
-	# grappling to and from
-	if new_action_state == action_states.GRAPPLING and Grapple_Enabled:
-		world_collide_box.monitoring = true
-		grapple_rope_mesh_gen.visible = true
-		grapple_hook.reparent(get_tree().current_scene) # reparent and face direction raycast is looking
-		grapple_hook.rotation = Vector3.ZERO
-		var grapple_dir = grapple_direction_getter.global_rotation
-		grapple_hook.rotation = grapple_dir
-		grapple_hook.freeze = false
-		# Use basis to get the forward direction
-		var forward = grapple_hook.global_transform.basis.z.normalized()
-		grapple_hook.linear_velocity = -forward * GRAPPLE_SPEED_MAX # move forwards with a set linear velocity
-		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_out")
-	if previous_action_state == action_states.GRAPPLING: # run these actions upon moving out of grappling state unless going into reelingfrom state
-		world_collide_box.set_deferred("monitoring", false)
-		grapple_rope_mesh_gen.visible = false
-		grapple_hook.freeze = true
-		grapple_hook.reparent(rope_origin) # reparent and set it to face how it did before
-		grapple_hook.position = Vector3(-0.069, 0.252, 0.043)
-		grapple_hook.rotation = Vector3(deg_to_rad(81.1), deg_to_rad(86.5), deg_to_rad(83.3))
-		grapple_hook.scale = Vector3(1.0, 1.0, 1.0)
-		$Pivot/Camera3D/GrappleArm/grappleArm/grapple_arm_animator.play("grapple_rebound")
-		
-	# IDLE to and from
+	# IDLE to and from.
 	if new_action_state == action_states.IDLE:
 		pass
 	if previous_action_state == action_states.IDLE:
 		pass
+	
+	# GRAPPLING to and from.
+	if new_action_state == action_states.GRAPPLING:
+		grapple_arm.throwHook(Vector3.UP, 10.0)
+	if previous_action_state == action_states.GRAPPLING:
+		grapple_arm.setHookActive(false)
+		grapple_arm.returnHookToHolder()
 
 
 func set_arm_state(new_arm_state:arm_states):
@@ -433,9 +396,6 @@ func set_arm_state(new_arm_state:arm_states):
 		grapple_arm.visible = true
 	if previous_arm_state == arm_states.GRAPPLEARM:
 		grapple_arm.visible = false
-		# on leaving the grapple arm state, grapple go back to idle if currently busy
-		if action_state == action_states.GRAPPLING:
-			set_action_state(action_states.IDLE)
 	
 	# PARRYARM to and from
 	if new_arm_state == arm_states.PARRYARM:
@@ -476,9 +436,6 @@ func _ready() -> void:
 	# set the mouse to be captured by the gamewindow
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	# set the grapple hook's physics process to static so it doesn't fall to the depths of hell
-	grapple_hook.freeze = true
-	
 	# Switch to the initial arm
 	if arm_state != inital_arm:
 		set_arm_state(inital_arm)
@@ -498,8 +455,6 @@ func _ready() -> void:
 ## Kinematic-related operations should only be run in _physics_process, while logic and other operations
 ## should be run in the main [color=455aff]process[/color] loop.
 func _process(delta) -> void:
-	grapple_rope_mesh_gen = get_tree().current_scene.get_node("grapple_rope_meshGen")
-	# I hate this
 	chargeStamina(delta)
 	
 	#region Gun Inputs
@@ -540,11 +495,6 @@ func _process(delta) -> void:
 		# ======================================================================================================
 	#endregion
 
-	# keeps the rope attatched to the grapple bit.
-	# DEPRECATED - replace with self contained behavior in the form of an object
-	if grapple_rope_mesh_gen:
-		grapple_rope_mesh_gen.generate_mesh_planes(rope_origin.global_position, grapple_hook.global_position)
-	
 	process_player_state(delta)
 
 
@@ -581,7 +531,6 @@ func _physics_process(delta: float) -> void:
 
 	# state control
 	if (is_on_floor() and 
-	player_state != player_states.REELINGTO and 
 	player_state != player_states.SLIDING and 
 	player_state != player_states.DASHING and
 	player_state != player_states.GROUNDED and
@@ -589,7 +538,6 @@ func _physics_process(delta: float) -> void:
 		set_player_state(player_states.GROUNDED)
 
 	elif (not is_on_floor() and 
-	player_state != player_states.REELINGTO and 
 	player_state != player_states.DASHING and 
 	player_state != player_states.SLAMMING and 
 	player_state != player_states.FALLING and
@@ -614,7 +562,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and player_jump_input_enabled:
 		# Normal ground jump
-		if is_on_floor() and not (player_state == player_states.REELINGTO):
+		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
 			wall_jumps_left = max_wall_jumps
 		# Wall jump while airborne (limited by wall_jumps_left)
@@ -628,12 +576,6 @@ func _physics_process(delta: float) -> void:
 				velocity.y = JUMP_VELOCITY
 				wall_jumps_left -= 1
 				set_player_state(player_states.FALLING)
-		# Jump-cancel out of reeling grapple while airborne
-		elif not is_on_floor() and player_state == player_states.REELINGTO:
-			set_action_state(action_states.IDLE)
-			velocity = Vector3.ZERO
-			velocity.y = JUMP_VELOCITY
-	
 	# Get the input direction and handle the movement/deceleration.
 	input_dir = Input.get_vector("left", "right", "forward", "back")
 	direction = Vector3(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -701,11 +643,6 @@ func physics_process_player_state(delta:float) -> void:
 			var wall_decel_step: float = Aerial_Slowdown * delta
 			velocity.x = move_toward(velocity.x, 0.0, wall_decel_step)
 			velocity.z = move_toward(velocity.z, 0.0, wall_decel_step)
-	# reeling state logic
-	elif player_state == player_states.REELINGTO:
-		# Continually set the player's velocity to move towards the grapple target
-		var dir:Vector3 = (grapple_arm.hooked_target.global_position - camera_3d.global_position).normalized()
-		velocity = dir * grapple_pull_speed
 	# sliding state logic
 	elif player_state == player_states.SLIDING:
 		# allows free control of slide direction
@@ -743,6 +680,8 @@ func physics_process_player_state(delta:float) -> void:
 
 # camera control by mouse input relative to last frame
 func _input(event: InputEvent) -> void:
+	
+#region Mouselook
 	if event is InputEventMouseMotion and player_look_input_enabled:
 		var mouse_delta: Vector2 = event.relative
 		var yaw: float = -mouse_delta.x
@@ -754,7 +693,9 @@ func _input(event: InputEvent) -> void:
 			camera_3d.get_min_pitch_deg(),
 			camera_3d.get_max_pitch_deg()
 		)
+#endregion
 
+#region Awaiting respawn in death input
 	# Input map actions: physical events (key, joypad, mouse) or InputEventAction from Input.parse_input_event().
 	# Godot does not emit InputEventAction for normal keypresses; those arrive as InputEventKey etc.
 	if event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion or event is InputEventMouseButton or event is InputEventAction:
@@ -777,29 +718,30 @@ func _input(event: InputEvent) -> void:
 			
 			# return to prevent double-handling of input
 			return
-			
-		
+#endregion
+
+#region Arm state switch
 		if event.is_action_pressed("switch arm") and not event.is_echo() and player_arm_switch_input_enabled:
 			if arm_state == arm_states.GRAPPLEARM:
 				set_arm_state(arm_states.PARRYARM)
 			elif arm_state == arm_states.PARRYARM:
 				set_arm_state(arm_states.GRAPPLEARM)
+#endregion
 
+#region Grapple out state switch
 		# handle grapple activation
 		if event.is_action_pressed("arm action") and not event.is_echo() and player_arm_action_input_enabled:
 			if arm_state == arm_states.GRAPPLEARM:
-				if not grapple_rope_mesh_gen == null:
-					if action_state != action_states.GRAPPLING:
-						set_action_state(action_states.GRAPPLING)
-					elif action_state == action_states.GRAPPLING and player_state != player_states.REELINGTO:
-						set_action_state(action_states.IDLE)
+				if action_state != action_states.GRAPPLING:
+					set_action_state(action_states.GRAPPLING)
 				else:
-					assert(false, "Grapple disabled due to lack of mesh generator. Be sure to add one to the scene to enable grapple hook rope generation.")
-
+					set_action_state(action_states.IDLE)
 			elif arm_state == arm_states.PARRYARM:
 				if parry_input_allowed:
 					parry_arm_animator.play("swing arm initial")
+#endregion
 
+#region Sliding and slamming
 		# on slide | slam pressed
 		if event.is_action_pressed("Slide | Slam") and not event.is_echo() and is_on_floor() and player_slide_slam_input_enabled:
 			set_player_state(player_states.SLIDING)
@@ -809,11 +751,10 @@ func _input(event: InputEvent) -> void:
 
 		# on slide | slam released do state check
 		if event.is_action_released("Slide | Slam") and player_state == player_states.SLIDING:
-			if player_state == player_states.REELINGTO:
-				pass
-			else:
-				set_player_state(player_states.GROUNDED)
+			set_player_state(player_states.GROUNDED)
+#endregion
 
+#region Dash state switch
 		if event.is_action_pressed("dash") and not event.is_echo() and player_dash_input_enabled and STAMINA >= 100:
 			# Determine dash direction for camera effects based on input:
 			# - If there is no movement input, use forward direction (default forward dash)
@@ -827,6 +768,7 @@ func _input(event: InputEvent) -> void:
 				dash_dir = (transform.basis * local_dash).normalized()
 
 			set_player_state(player_states.DASHING)
+#endregion
 
 
 func setHealth(new_health:float = HEALTH) -> void:
@@ -1004,7 +946,7 @@ func getCameraPredictedPos(time:float) -> Vector3:
 
 
 func getHookedTarget() -> Node3D:
-	return grapple_arm.hooked_target
+	return null
 
 
 ## Applies a single force to the player in a direction.
@@ -1054,22 +996,14 @@ func _initializeStamina() -> void:
 
 ## When the dash duration ends, this method is called in order to end the dash.
 func _on_dash_length_timer_timeout() -> void:
-	if player_state != player_states.REELINGTO:
-		if is_on_floor():
-			set_player_state(player_states.GROUNDED)
-		elif not is_on_floor():
-			set_player_state(player_states.FALLING)
+	if is_on_floor():
+		set_player_state(player_states.GROUNDED)
+	elif not is_on_floor():
+		set_player_state(player_states.FALLING)
 
 
 func _on_stamina_charge_delay_timer_timeout() -> void:
 	stamina_recharging = true
-
-
-# when enemy touches player on grapple, kill player velocity and apply hop if on floor
-func _on_grapple_enemy_cease_area_body_entered(body:Enemy) -> void:
-	if body == grapple_target:
-		pass # set the grapple state to idle
-
 
 #region Parry Hitbox entry and exit
 func _on_parry_hitbox_body_entered(body: Node3D) -> void:
@@ -1087,23 +1021,3 @@ func _on_parry_hitbox_body_exited(body: Node3D) -> void:
 
 
 #endregion
-
-
-## Primary logic for beginning grapple interactions goes here. State machines handle maintaining grapple connection and physics.
-func _on_grapple_arm_new_hooked_target_set(previous_hooked_target: Node3D, new_hooked_target: Node3D) -> void:
-	if new_hooked_target is GrappleCubeBoost:
-		set_player_state(player_states.REELINGTO)
-
-	elif new_hooked_target is Enemy:
-		# Cause the enemy to emit the grappled signal.
-		new_hooked_target.emit_signal("on_grappled")
-		if new_hooked_target.weight == Enemy.weight_class.HEAVY:
-			set_player_state(player_states.REELINGTO)
-		elif new_hooked_target.weight == Enemy.weight_class.LIGHT:
-			Debug.log("Placeholder: Light enemy hooked")
-
-	elif new_hooked_target == null:
-		if is_on_floor():
-			set_player_state(player_states.GROUNDED)
-		elif not is_on_floor():
-			set_player_state(player_states.FALLING)
