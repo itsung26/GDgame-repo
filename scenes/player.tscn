@@ -863,7 +863,6 @@ mesh = SubResource("ArrayMesh_a04ym")
 editor_description = "This is the collider for the grapple hook."
 collision_layer = 512
 collision_mask = 4
-monitoring = false
 
 [node name="grapple hook smaller collider" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/WorldCollideBox"]
 editor_description = "This is the collision shape for the grapple hook's collider. It is super long because the engine physics are terrible and this is the only workaround other than increasing physics FPS (reducing performance)."

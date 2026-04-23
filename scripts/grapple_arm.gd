@@ -19,6 +19,9 @@ var hooked_target:Node3D:
 var hook_active:bool = false:
 	set = setHookActive
 var hook_initial_transform:Transform3D
+## True if 
+var collision_handled:bool = false
+var last_hook_global_position:Vector3 = Vector3.ZERO
 
 signal new_hooked_target_set(previous_hooked_target:Node3D, new_hooked_target:Node3D)
 
@@ -29,9 +32,8 @@ func _ready() -> void:
 	setHookActive(false)
 
 
-# If a target is hooked, go to it's position and stay there.
-func _process(delta: float) -> void:
-	pass
+func _physics_process(delta: float) -> void:
+	last_hook_global_position = grapple_hook.global_position
 
 
 func setHookedTarget(hooked_targ:Node3D):
@@ -93,6 +95,10 @@ func isInHolder() -> bool:
 		return false
 
 
-func _on_world_collide_box_body_entered(body: Node3D) -> void:
+func handleHookCollision(body:Node3D) -> void:
 	if body is WorldBody:
 		player.set_action_state(Player.action_states.IDLE)
+
+
+func _on_world_collide_box_body_entered(body: Node3D) -> void:
+	handleHookCollision(body)
