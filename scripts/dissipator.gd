@@ -18,6 +18,7 @@ const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_l
 @export_category("Behavior")
 @export var spin_speed:float = 1.0
 @export var delay_before_idle_anim:float = 1.0
+@export var logging_debug:bool = true
 
 @export_category("Reflection Special")
 @export var reflection_bullet_config:HitscanBulletConfig
@@ -53,7 +54,6 @@ func setCharging(value:bool) -> void:
 
 
 func _process(delta: float) -> void:
-	#Debug.log(animation_player.current_animation)
 	if charging:
 		reflection_charge = move_toward(reflection_charge, reflection_max_charge, reflection_charge_speed * delta)
 	else:
@@ -157,18 +157,23 @@ func is_spinning() -> bool:
 func _onAnimationPlayerAnimationFinished(_anim_name:StringName) -> void:
 	# if the equip anim finished, play idle immidiately
 	if _anim_name == "Equip":
-		Debug.log("started timer")
+		if logging_debug:
+			Debug.log("started timer")
 		delay_before_idle_timer.start(delay_before_idle_anim)
 	elif _anim_name == "Fire":
-		Debug.log("started timer")
+		if logging_debug:
+			Debug.log("started timer")
 		delay_before_idle_timer.start(delay_before_idle_anim)
 
 
 func _on_delay_before_idle_timer_timeout() -> void:
 	if not animation_player.is_playing() and not is_spinning():
-		Debug.log("Delay timeout. Playing Idle anim.")
+		if logging_debug:
+			Debug.log("Delay timeout. Playing Idle anim.")
 		animation_player.play("Idle")
 	elif animation_player.is_playing():
-		Debug.log("Delay timeout. Animation already playing.")
+		if logging_debug:
+			Debug.log("Delay timeout. Animation already playing.")
 	elif is_spinning():
-		Debug.log("Delay timeout. Anim could not be played due to charging state.")
+		if logging_debug:
+			Debug.log("Delay timeout. Anim could not be played due to charging state.")
