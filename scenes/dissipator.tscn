@@ -99,19 +99,18 @@ libraries = {
 callback_mode_method = 1
 speed_scale = 1.5
 
-[node name="unused" type="RayCast3D" parent="."]
-editor_description = "The damaging raycast for the Dissipator"
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24, 0.103000045, 0.462)
-visible = false
-target_position = Vector3(0, -1, -5000)
-collision_mask = 70
-debug_shape_custom_color = Color(1, 0, 0, 1)
-
 [node name="DissipatorPiercingHitscan" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24, 0.103000045, 0.462)
 script = ExtResource("7_4nle0")
 forward_distance = 5000.0
 collision_mask = 70
 metadata/_custom_type_script = "uid://c2xmdga52gaga"
+
+[node name="DelayBeforeIdleTimer" type="Timer" parent="."]
+editor_description = "corresponding var: delay_before_idle_anim"
+one_shot = true
+
+[connection signal="current_animation_changed" from="Dissipator2/AnimationPlayer" to="." method="_onAnimationPlayerAnimationFinished"]
+[connection signal="timeout" from="DelayBeforeIdleTimer" to="." method="_on_delay_before_idle_timer_timeout"]
 
 [editable path="Dissipator2"]

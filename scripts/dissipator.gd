@@ -7,15 +7,18 @@ const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_l
 
 @onready var animation_player: AnimationPlayer = $Dissipator2/AnimationPlayer
 @onready var muzzle: Node3D = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator/muzzle
-@onready var dissipator_hitscan: RayCast3D = $DissipatorHitscan
 @onready var flash_animator: AnimationPlayer = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator/FlashAnimator
 @onready var dissipator_piercing_hitscan: DissipatorPiercingHitscan = $DissipatorPiercingHitscan
 @onready var dissipator_MESH: MeshInstance3D = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator
 @onready var hand_attatchment: BoneAttachment3D = $Dissipator2/feedbacker/Skeleton3D/Hand
+@onready var delay_before_idle_timer: Timer = $DelayBeforeIdleTimer
 
 @export var bullet_config:HitscanBulletConfig
+
 @export_category("Behavior")
 @export var spin_speed:float = 1.0
+@export var delay_before_idle_anim:float = 1.0
+
 @export_category("Reflection Special")
 @export var reflection_bullet_config:HitscanBulletConfig
 @export var reflection_max_charge:float = 100.0
@@ -46,14 +49,11 @@ func setCharging(value:bool) -> void:
 	if value == true:
 		animation_player.play("ReadySpin")
 	elif value == false:
-		animation_player.stop()
-		#var mesh_rotation_degrees_preset:Vector3 = Vector3(89.0, 46.6, 138.8)
-		#var bone_attatchment_degrees_preset:Vector3 = Vector3(3.2, 89.9, -90.7)
-		#dissipator_MESH.rotation_degrees = mesh_rotation_degrees_preset
-		#hand_attatchment.rotation_degrees = bone_attatchment_degrees_preset
+		delay_before_idle_timer.start(delay_before_idle_anim)
 
 
 func _process(delta: float) -> void:
+	#Debug.log(animation_player.current_animation)
 	if charging:
 		reflection_charge = move_toward(reflection_charge, reflection_max_charge, reflection_charge_speed * delta)
 	else:
@@ -66,7 +66,11 @@ func _process(delta: float) -> void:
 
 func _onEquip() -> void:
 	super._onEquip()
-	animation_player.play("Equip")
+	if animation_player.current_animation == "Idle":
+		animation_player.stop()
+		animation_player.play("Equip")
+	else:
+		animation_player.play("Equip")
 
 
 func _fire() -> void:
@@ -83,9 +87,9 @@ func _special() -> void:
 func _specialRelease() -> void:
 	super._specialRelease()
 	charging = false
-	animation_player.play("FireSpecial")
 	#dissipator_MESH.rotation = _cached_mesh_rotation
 	if reflection_charge == reflection_max_charge:
+		animation_player.play("FireSpecial")
 		fireSpecial()
 
 
@@ -142,3 +146,29 @@ func fireBullet() -> void:
 		muzzle.global_position,
 		dissipator_piercing_hitscan
 	)
+
+
+## Retuns true if the weapon is currently spinning, regardless of if the weapon is
+## charged or not.
+func is_spinning() -> bool:
+	return reflection_max_charge > 0.0 and reflection_charge > 0.0
+
+
+func _onAnimationPlayerAnimationFinished(_anim_name:StringName) -> void:
+	# if the equip anim finished, play idle immidiately
+	if _anim_name == "Equip":
+		Debug.log("started timer")
+		delay_before_idle_timer.start(delay_before_idle_anim)
+	elif _anim_name == "Fire":
+		Debug.log("started timer")
+		delay_before_idle_timer.start(delay_before_idle_anim)
+
+
+func _on_delay_before_idle_timer_timeout() -> void:
+	if not animation_player.is_playing() and not is_spinning():
+		Debug.log("Delay timeout. Playing Idle anim.")
+		animation_player.play("Idle")
+	elif animation_player.is_playing():
+		Debug.log("Delay timeout. Animation already playing.")
+	elif is_spinning():
+		Debug.log("Delay timeout. Anim could not be played due to charging state.")
