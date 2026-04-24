@@ -125,9 +125,8 @@ func handleHookCollision(body:Node3D) -> void:
 
 ## Moves the shapecast to pos, looking at pos_2. Expects global coordinates.
 func updateShapeCastState(pos:Vector3, pos_2:Vector3) -> void:
-	grapple_hook_sweeping_cast.look_at_from_position(pos, pos_2)
-	var length_of_cast:float = pos.distance_to(pos_2)
-	grapple_hook_sweeping_cast.target_position = Vector3(0.0, 0.0, -length_of_cast)
+	grapple_hook_sweeping_cast.global_position = pos
+	grapple_hook_sweeping_cast.target_position = grapple_hook_sweeping_cast.to_local(pos_2)
 	grapple_hook_sweeping_cast.force_shapecast_update()
 
 
