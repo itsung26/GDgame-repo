@@ -8,6 +8,7 @@ const IMPACT_PARTICLES_SCENE:PackedScene = preload("res://scenes/impact_particle
 @onready var camera_3d: PlayerCamera = %Camera3D
 @onready var rope_origin: BoneAttachment3D = $grappleArm/whiplash_ARM/Skeleton3D/rope_origin
 @onready var grapple_hook_sweeping_cast: ShapeCast3D = $grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/GrappleHookSweepingCast
+@onready var animator: AnimationPlayer = $grappleArm/grapple_arm_animator
 
 @export var logging_debug:bool = false
 @export_category("Behavior")
@@ -63,15 +64,17 @@ func setHookedTarget(hooked_targ:Node3D):
 ## Activates/deactivates the hook, preventing or enabling it from moving, monitoring
 ## contacts, etc. The hook should be disabled before it is teleported to prevent
 ## physical miscalculations and erroring.
-func setHookActive(state:bool) -> void:
-	hook_active = state
+func setHookActive(is_active:bool) -> void:
+	hook_active = is_active
 	
-	if state == true:
+	if is_active == true:
 		grapple_hook.freeze = false
 		grapple_hook.sleeping = false
-	elif state == false:
+		grapple_hook.contact_monitor = true
+	elif is_active == false:
 		grapple_hook.freeze = true
 		grapple_hook.sleeping = true
+		grapple_hook.contact_monitor = false
 
 
 ## Reparents the hook to the player and moves the hook back to it's bone attatchment,
@@ -130,9 +133,10 @@ func updateShapeCastState(pos:Vector3, pos_2:Vector3) -> void:
 	grapple_hook_sweeping_cast.force_shapecast_update()
 
 
-func _on_world_collide_box_body_entered(body: Node3D) -> void:
+## Called when the hook collides with something.
+func _on_grapple_hook_body_entered(body: Node) -> void:
 	if logging_debug:
-		Debug.log("Hook area registered collision.")
+		Debug.log("Hook body registered collision.")
 	last_hook_global_position = _hook_global_position_cache
 	_hook_global_position_cache = grapple_hook.global_position
 	handleHookCollision(body)

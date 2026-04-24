@@ -702,7 +702,7 @@ bones/0/name = "bip_collar_L"
 bones/0/parent = -1
 bones/0/rest = Transform3D(0.0351161, 0.999381, 0.00215055, 0.000219792, -0.0021596, 0.999998, 0.999383, -0.0351155, -0.000295493, -0.645405, 2.76579, -0.520804)
 bones/0/enabled = true
-bones/0/position = Vector3(-0.645405, 2.76579, -0.520804)
+bones/0/position = Vector3(-0.345549, 2.76579, -0.40007)
 bones/0/rotation = Quaternion(-0.5093059, -0.4906679, -0.4916169, 0.50809985)
 bones/0/scale = Vector3(0.9999997, 1, 1.0000004)
 bones/1/name = "bip_upperarm_L"
@@ -838,7 +838,7 @@ mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
 [node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.98527426, 0.091284975, 0.14456815, 0.1445683, -0.8962309, -0.41936687, 0.09128457, 0.434092, -0.89623034, -0.0033820868, 0.18137646, -0.14785723)
+transform = Transform3D(0.98527426, 0.091284975, 0.14456815, 0.1445683, -0.8962309, -0.41936687, 0.09128457, 0.434092, -0.89623034, 0.29647398, 0.18137646, -0.027123272)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
@@ -853,20 +853,16 @@ mass = 0.2
 gravity_scale = 0.3
 freeze = true
 continuous_cd = true
+contact_monitor = true
 max_contacts_reported = 1
 
 [node name="hook_smd" type="MeshInstance3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_a04ym")
 
-[node name="WorldCollideBox" type="Area3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook"]
-editor_description = "This is the collider for the grapple hook."
-collision_layer = 512
-collision_mask = 4
-
-[node name="grapple hook smaller collider" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/WorldCollideBox"]
+[node name="grapple hook smaller collider" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook"]
 editor_description = "This is the collision shape for the grapple hook's collider. It is super long because the engine physics are terrible and this is the only workaround other than increasing physics FPS (reducing performance)."
-transform = Transform3D(1.0000098, -1.4901161e-07, -1.6391277e-07, -2.0116568e-06, 1.00001, 1.5199184e-06, 5.9604645e-07, -1.66893e-06, 1.0000101, 0.00508976, 0.009017944, -0.14773035)
+transform = Transform3D(1.0000099, -1.3411045e-07, -1.5646219e-07, -1.9967556e-06, 1.00001, 1.5497208e-06, 5.8859587e-07, -1.6093254e-06, 1.0000101, 0.00508976, 0.009017944, -0.14773035)
 shape = SubResource("BoxShape3D_ur7pv")
 
 [node name="GrappleHookSweepingCast" type="ShapeCast3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook"]
@@ -875,10 +871,6 @@ top_level = true
 shape = SubResource("BoxShape3D_ur7pv")
 target_position = Vector3(0, 0, -1)
 collision_mask = 4
-
-[node name="TrailingIntervalTimer" type="Timer" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/GrappleHookSweepingCast"]
-wait_time = 0.25
-autostart = true
 
 [node name="grapple_arm_animator" type="AnimationPlayer" parent="Pivot/Camera3D/GrappleArm/grappleArm"]
 libraries = {
@@ -1028,8 +1020,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 editor_description = "the rope attatched to the hook from the hand"
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, 0, 0, 0)
 top_level = true
-point_a = Vector3(0.93224204, 6.172652, -0.28552225)
-point_b = Vector3(0.8936708, 5.918755, -0.22089581)
+point_a = Vector3(1.9265682, 8.607603, 1.7535237)
+point_b = Vector3(1.9446005, 8.739946, 1.9821893)
 
 [node name="SlamTimer" type="Timer" parent="."]
 process_callback = 0
@@ -1044,7 +1036,7 @@ one_shot = true
 one_shot = true
 
 [connection signal="entered_arm_state" from="." to="huds/HUD" method="_on_player_entered_arm_state"]
-[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/WorldCollideBox" to="Pivot/Camera3D/GrappleArm" method="_on_world_collide_box_body_entered"]
+[connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_hook_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]
 [connection signal="timeout" from="DashLengthTimer" to="." method="_on_dash_length_timer_timeout"]
