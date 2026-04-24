@@ -15,13 +15,15 @@ const IMPACT_PARTICLES_SCENE:PackedScene = preload("res://scenes/impact_particle
 
 var hooked_target:Node3D:
 	set =  setHookedTarget
-## If true, the hook cannot detect any collision nor move.
+## If true, the hook is in flight and can move/collide.
 var hook_active:bool = false:
 	set = setHookActive
 var hook_initial_transform:Transform3D
 ## True if 
 var collision_handled:bool = false
+## The global position of the hook last physics frame.
 var last_hook_global_position:Vector3 = Vector3.ZERO
+var _hook_global_position_cache:Vector3 = Vector3.ZERO
 
 signal new_hooked_target_set(previous_hooked_target:Node3D, new_hooked_target:Node3D)
 
@@ -29,11 +31,22 @@ signal new_hooked_target_set(previous_hooked_target:Node3D, new_hooked_target:No
 func _ready() -> void:
 	# Cache the hook's initial transform
 	hook_initial_transform = grapple_hook.transform
+	_hook_global_position_cache = grapple_hook.global_position
+	last_hook_global_position = _hook_global_position_cache
 	setHookActive(false)
 
 
 func _physics_process(delta: float) -> void:
-	last_hook_global_position = grapple_hook.global_position
+	if hook_active:
+		last_hook_global_position = _hook_global_position_cache
+		_hook_global_position_cache = grapple_hook.global_position
+		updateShapeCastState(last_hook_global_position, grapple_hook.global_position)
+		
+		var cast_collider_body:Node3D = grapple_hook_sweeping_cast.get_collider(0)
+		if cast_collider_body:
+			if logging_debug:
+				Debug.log("Hook shapecast registered collision, handling.")
+			handleHookCollision(cast_collider_body)
 
 
 func setHookedTarget(hooked_targ:Node3D):
@@ -65,10 +78,12 @@ func setHookActive(state:bool) -> void:
 ## re orienting it in the process.
 func returnHookToHolder() -> void:
 	if hook_active:
-		hook_active = false
+		setHookActive(false)
 	
 	grapple_hook.reparent(rope_origin)
 	grapple_hook.transform = hook_initial_transform
+	_hook_global_position_cache = grapple_hook.global_position
+	last_hook_global_position = _hook_global_position_cache
 
 
 ## Does the actual release of the hook, in [param direction] with [param velocity].
@@ -83,7 +98,9 @@ func throwHook(direction:Vector3, velocity:float) -> void:
 		return
 	
 	grapple_hook.reparent(get_tree().current_scene)
-	hook_active = true
+	_hook_global_position_cache = grapple_hook.global_position
+	last_hook_global_position = _hook_global_position_cache
+	setHookActive(true)
 	grapple_hook.linear_velocity = direction.normalized() * velocity
 
 
@@ -96,9 +113,27 @@ func isInHolder() -> bool:
 
 
 func handleHookCollision(body:Node3D) -> void:
+	#if collision_handled:
+		#Debug.log("Hook collision already handled, returning from call.")
+		#return
+	if logging_debug:
+		Debug.log("Handling hook collision for: " + str(body))
+	
 	if body is WorldBody:
 		player.set_action_state(Player.action_states.IDLE)
 
 
+## Moves the shapecast to pos, looking at pos_2. Expects global coordinates.
+func updateShapeCastState(pos:Vector3, pos_2:Vector3) -> void:
+	grapple_hook_sweeping_cast.look_at_from_position(pos, pos_2)
+	var length_of_cast:float = pos.distance_to(pos_2)
+	grapple_hook_sweeping_cast.target_position = Vector3(0.0, 0.0, -length_of_cast)
+	grapple_hook_sweeping_cast.force_shapecast_update()
+
+
 func _on_world_collide_box_body_entered(body: Node3D) -> void:
+	if logging_debug:
+		Debug.log("Hook area registered collision.")
+	last_hook_global_position = _hook_global_position_cache
+	_hook_global_position_cache = grapple_hook.global_position
 	handleHookCollision(body)

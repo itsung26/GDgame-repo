@@ -873,7 +873,7 @@ shape = SubResource("BoxShape3D_ur7pv")
 transform = Transform3D(-0.16091408, -0.03303235, -0.01035968, 0.0048452653, -0.070260085, 0.14876775, -0.03427803, 0.145135, 0.06966088, -0.14709465, 0.97420347, 0.036358558)
 top_level = true
 shape = SubResource("BoxShape3D_ur7pv")
-target_position = Vector3(0, 0, 0)
+target_position = Vector3(0, 0, -1)
 collision_mask = 4
 
 [node name="TrailingIntervalTimer" type="Timer" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/GrappleHookSweepingCast"]
