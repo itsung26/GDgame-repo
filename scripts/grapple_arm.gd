@@ -20,13 +20,21 @@ var hooked_target:Node3D:
 var hook_active:bool = false:
 	set = setHookActive
 var hook_initial_transform:Transform3D
-## True if 
-var collision_handled:bool = false
 ## The global position of the hook last physics frame.
 var last_hook_global_position:Vector3 = Vector3.ZERO
 var _hook_global_position_cache:Vector3 = Vector3.ZERO
+## True if the hook is in the holder bone attachment.
+var isInHolder:bool:
+	get = getIsInHolder
 
 signal new_hooked_target_set(previous_hooked_target:Node3D, new_hooked_target:Node3D)
+
+
+func getIsInHolder() -> bool:
+	if grapple_hook.get_parent() == rope_origin:
+		return true
+	else:
+		return false
 
 
 func _ready() -> void:
@@ -37,7 +45,7 @@ func _ready() -> void:
 	setHookActive(false)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if hook_active:
 		last_hook_global_position = _hook_global_position_cache
 		_hook_global_position_cache = grapple_hook.global_position
@@ -53,12 +61,11 @@ func _physics_process(delta: float) -> void:
 func setHookedTarget(hooked_targ:Node3D):
 	var previous_hooked_target:Node3D = hooked_target
 	var new_hooked_target:Node3D = hooked_targ
+	hooked_target = new_hooked_target
 	new_hooked_target_set.emit(previous_hooked_target, new_hooked_target)
 	
-	hooked_target = new_hooked_target
-	if previous_hooked_target == new_hooked_target:
-		if logging_debug:
-			Debug.log("Grappler hooked the same target again, was this intended?")
+	if new_hooked_target == null:
+		breakpoint
 
 
 ## Activates/deactivates the hook, preventing or enabling it from moving, monitoring
@@ -95,7 +102,7 @@ func throwHook(direction:Vector3, velocity:float) -> void:
 		if logging_debug:
 			Debug.logerr("Attempted to throw the hook when it was still active.")
 		return
-	elif not isInHolder():
+	elif not isInHolder:
 		if logging_debug:
 			Debug.logerr("Attempted to throw the hook when it was not in the holder.")
 		return
@@ -107,18 +114,7 @@ func throwHook(direction:Vector3, velocity:float) -> void:
 	grapple_hook.linear_velocity = direction.normalized() * velocity
 
 
-## Returns true if the hook is in the holder bone attatchment.
-func isInHolder() -> bool:
-	if grapple_hook.get_parent() == rope_origin:
-		return true
-	else:
-		return false
-
-
 func handleHookCollision(body:Node3D) -> void:
-	#if collision_handled:
-		#Debug.log("Hook collision already handled, returning from call.")
-		#return
 	if logging_debug:
 		Debug.log("Handling hook collision for: " + str(body))
 	
