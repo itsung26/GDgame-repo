@@ -1020,8 +1020,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 editor_description = "the rope attatched to the hook from the hand"
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, 0, 0, 0)
 top_level = true
-point_a = Vector3(1.9265682, 8.607603, 1.7535237)
-point_b = Vector3(1.9446005, 8.739946, 1.9821893)
+point_a = Vector3(2.1286392, 7.1391706, 0.8752584)
+point_b = Vector3(2.1633782, 6.981439, 1.0851192)
 
 [node name="SlamTimer" type="Timer" parent="."]
 process_callback = 0
