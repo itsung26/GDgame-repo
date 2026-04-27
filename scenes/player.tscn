@@ -539,7 +539,7 @@ dash_time_length = 0.2
 wall_jump_applied_velocity = 16.0
 death_time_slow_speed = 2.5
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
-weapon_states = [null, NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
+weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
 
 [node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
 script = ExtResource("2_a38lo")
@@ -593,8 +593,10 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_pf23h")
 
 [node name="PauseMenu" parent="huds" instance=ExtResource("11_3v2ag")]
 unique_name_in_owner = true
+visible = false
 
 [node name="DevConsole" parent="huds" instance=ExtResource("6_dt7fs")]
+visible = false
 
 [node name="CollisionShapeMain" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.847, 0)
@@ -691,7 +693,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, -0.154, -0.5, 0.0226591)
 script = ExtResource("9_l71n6")
 logging_debug = true
-throw_velocity = 75.0
+grapple_speed = 19.5
 
 [node name="grappleArm" type="Node3D" parent="Pivot/Camera3D/GrappleArm"]
 
@@ -957,7 +959,7 @@ camera_shake_strength = 0.22
 firing_hitstop_duration = 0.1
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.046785418, -0.9986616, 0.022041397, -0.0017326606, -0.021984428, -0.9997552, 0.9989018, -0.046812307, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.046785414, -0.9986615, 0.022041397, -0.0017326605, -0.021984426, -0.9997552, 0.9989017, -0.046812303, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
@@ -1020,8 +1022,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 editor_description = "the rope attatched to the hook from the hand"
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, 0, 0, 0)
 top_level = true
-point_a = Vector3(2.1286392, 7.1391706, 0.8752584)
-point_b = Vector3(2.1633782, 6.981439, 1.0851192)
+point_a = Vector3(1.2320981, 6.172652, -0.16478829)
+point_b = Vector3(1.1935269, 5.918755, -0.10016185)
 
 [node name="SlamTimer" type="Timer" parent="."]
 process_callback = 0

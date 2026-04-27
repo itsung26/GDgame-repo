@@ -265,6 +265,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "grapple target: null"
 
+[node name="HookActive" type="Label" parent="DebugContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Hook active: "
+
 [node name="CurrentPlayerState" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -304,11 +309,6 @@ text = "Current player velocity vector: "
 unique_name_in_owner = true
 layout_mode = 2
 text = "Current player velocity magnitude: "
-
-[node name="CurrentMagnitudeXZ" type="Label" parent="DebugContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Current player velocity magnitude (XZ plane): "
 
 [node name="CurrentParryTarget" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true

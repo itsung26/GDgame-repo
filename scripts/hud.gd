@@ -103,9 +103,9 @@ func _process(delta) -> void:
 		current_player_state.text = "Player/Phys state: " + player.player_states.keys()[player.player_state]
 		%CurrentVelocity.text = "Net vector: " + str(player.velocity)
 		%CurrentMagnitude.text = "Net vector magnitude: " + str(roundi(player.velocity.length()))
-		%CurrentMagnitudeXZ.text = "Net vector magnitude (XZ plane): " + str(roundi(Vector2(player.velocity.x, player.velocity.z).length()))
 		%CurrentParryTarget.text = "parry target: " + str(player.parry_target)
 		%CurrentCombatState.text = "In Combat: " + str(player.in_combat)
+		%HookActive.text = "Hook active: " + str(player.grapple_arm.hook_active)
 		# ----------------------------------------------------------------------------------------------
 #endregion
 

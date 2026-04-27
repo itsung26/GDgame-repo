@@ -9,5 +9,6 @@ extends Line3D
 func _process(delta: float) -> void:
 	point_a = to_local(rope_origin.global_position)
 	point_b = to_local(hook_smd.global_position)
-	# hide if hook is not actively out
-	visible = !grapple_arm.isInHolder
+	if not Engine.is_editor_hint():
+		# hide if hook is not actively out, if not in editor.
+		visible = !grapple_arm.isInHolder

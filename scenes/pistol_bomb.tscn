@@ -205,7 +205,7 @@ size = Vector2(0, 0)
 [sub_resource type="SphereShape3D" id="SphereShape3D_daat3"]
 radius = 1.0498434
 
-[node name="PistolBomb" type="RigidBody3D"]
+[node name="PistolBomb" type="RigidBody3D" groups=["pistol bombs"]]
 collision_layer = 8
 collision_mask = 7
 mass = 0.2

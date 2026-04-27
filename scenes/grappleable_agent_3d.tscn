@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://kcjtpyxncujl"]
+
+[ext_resource type="Script" uid="uid://vvywp65j7qtu" path="res://scripts/grappleable_agent_3d.gd" id="1_df2f3"]
+
+[node name="GrappleableAgent3D" type="StaticBody3D"]
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("1_df2f3")

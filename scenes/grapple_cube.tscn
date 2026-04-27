@@ -1,28 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccl7hn0ddburv"]
+[gd_scene load_steps=2 format=3 uid="uid://ccl7hn0ddburv"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dla8w"]
-size = Vector3(1.44, 1.76, 1.435)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wxfaj"]
-size = Vector3(1.44, 1.76, 1.435)
+[ext_resource type="PackedScene" uid="uid://boitjw0ayo4ss" path="res://assets/meshes/grapple_cube/grapple_cube.blend" id="1_wxfaj"]
 
 [node name="GrappleCube" type="Node3D" groups=["grapple_cubes"]]
 
-[node name="SpeedBoostBlock" type="Area3D" parent="."]
-transform = Transform3D(0.942136, 0, 0, 0, 0.942136, 0, 0, 0, 0.942136, 0, 0, 0)
-collision_layer = 4
-collision_mask = 512
+[node name="grapple_cube" parent="." instance=ExtResource("1_wxfaj")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SpeedBoostBlock"]
-transform = Transform3D(1.50475, 0, 0, 0, 1.50475, 0, 0, 0, 1.50475, 0, 0, 0)
-shape = SubResource("BoxShape3D_dla8w")
-debug_color = Color(1, 1, 0, 1)
-
-[node name="GrappleDetectBlock" type="Area3D" parent="."]
-collision_layer = 256
-collision_mask = 512
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleDetectBlock"]
-transform = Transform3D(1.71751, 0, 0, 0, 1.71751, 0, 0, 0, 1.71751, 0, 0, 0)
-shape = SubResource("BoxShape3D_wxfaj")
-debug_color = Color(0, 0.75, 1, 0.592157)
+[editable path="grapple_cube"]

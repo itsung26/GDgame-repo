@@ -14,7 +14,8 @@ extends Node3D
 #region export vars
 @export var logging_debug:bool = false
 @export_category("Behavior")
-@export var throw_velocity:float = 1.0
+@export var throw_velocity:float = 75.0
+@export var grapple_speed:float = 1.0
 #endregion
 
 #region regular vars
@@ -84,8 +85,8 @@ func setHookedTarget(hooked_targ:Node3D):
 	hooked_target = new_hooked_target
 	new_hooked_target_set.emit(previous_hooked_target, new_hooked_target)
 	
-	if new_hooked_target == null:
-		breakpoint
+	if new_hooked_target != null:
+		hook_active = false
 
 
 ## Activates/deactivates the hook, preventing or enabling it from moving, monitoring
@@ -127,8 +128,12 @@ func _physics_process(_delta: float) -> void:
 			if logging_debug:
 				Debug.log("Hook shapecast registered collision, handling.")
 			handleHookCollision(cast_collider_body)
-
-
+	
+	if hooked_target:
+		if hooked_target is Enemy:
+			grapple_hook.global_position = hooked_target.global_position + hooked_target.chest_offset
+		else:
+			grapple_hook.global_position = hooked_target.global_position
 
 
 ## Reparents the hook to the player and moves the hook back to it's bone attatchment,
@@ -136,6 +141,8 @@ func _physics_process(_delta: float) -> void:
 func returnHookToHolder() -> void:
 	if hook_active:
 		setHookActive(false)
+	if hooked_target:
+		hooked_target = null
 	
 	grapple_hook.reparent(rope_origin)
 	grapple_hook.transform = hook_initial_transform
@@ -170,6 +177,11 @@ func handleHookCollision(body:Node3D) -> void:
 		get_tree().current_scene.add_child(impact_particles)
 		impact_particles.setup(last_collision_point, last_collision_point + last_collision_normal.normalized())
 		player.set_action_state(Player.action_states.IDLE)
+	
+	elif body is GrappleableAgent3D:
+		hooked_target = body
+		if body.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_PLAYER:
+			player.set_player_state(Player.player_states.GRAPPLING_TO)
 
 
 ## Moves the shapecast to pos, looking at pos_2. Expects global coordinates.
@@ -186,3 +198,13 @@ func _on_grapple_hook_body_entered(body: Node) -> void:
 	last_hook_global_position = _hook_global_position_cache
 	_hook_global_position_cache = grapple_hook.global_position
 	handleHookCollision(body)
+
+
+## Call this instead of hooked_target.global_position.
+func getHookedTargetPosition() -> Vector3:
+	if hooked_target == null:
+		return Vector3.ZERO
+	elif hooked_target is Enemy:
+		return hooked_target.global_position + hooked_target.chest_offset
+	else:
+		return hooked_target.global_position

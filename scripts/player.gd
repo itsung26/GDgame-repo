@@ -73,7 +73,8 @@ enum player_states {
 	WALL_SLIDING,
 	SLIDING,
 	DASHING,
-	SLAMMING
+	SLAMMING,
+	GRAPPLING_TO
 }
 
 ## Arm states. These states affect which arm is currently active. Associated state variable of type [code]arm_states[/code]: [code]arm_state[/code]
@@ -329,6 +330,12 @@ func set_player_state(new_player_state:player_states):
 	if previous_player_state == player_states.SLAMMING:
 		player_move_input_enabled = true
 		gravity_enabled = true
+	
+	# GRAPPLING_TO to and from
+	if new_player_state == player_states.GRAPPLING_TO:
+		killVelocity()
+	if previous_player_state == player_states.GRAPPLING_TO:
+		set_action_state(action_states.IDLE)
 
 
 func set_weapon_state(new_weapon_state:PlayerWeapon):
@@ -379,7 +386,6 @@ func set_action_state(new_action_state:action_states):
 		grapple_arm.animator.play(&"grapple_out")
 		grapple_arm.throwHook(dir, vel)
 	if previous_action_state == action_states.GRAPPLING:
-		grapple_arm.setHookActive(false)
 		grapple_arm.returnHookToHolder()
 		grapple_arm.animator.play(&"grapple_rebound")
 
@@ -538,7 +544,8 @@ func _physics_process(delta: float) -> void:
 	player_state != player_states.SLIDING and 
 	player_state != player_states.DASHING and
 	player_state != player_states.GROUNDED and
-	player_state != player_states.DEAD):
+	player_state != player_states.DEAD and
+	player_state != player_states.GRAPPLING_TO):
 		set_player_state(player_states.GROUNDED)
 
 	elif (not is_on_floor() and 
@@ -546,7 +553,8 @@ func _physics_process(delta: float) -> void:
 	player_state != player_states.SLAMMING and 
 	player_state != player_states.FALLING and
 	player_state != player_states.WALL_SLIDING and
-	player_state != player_states.DEAD):
+	player_state != player_states.DEAD and
+	player_state != player_states.GRAPPLING_TO):
 		set_player_state(player_states.FALLING)
 	
 	# Add the gravity 
@@ -680,6 +688,10 @@ func physics_process_player_state(delta:float) -> void:
 	elif player_state == player_states.SLAMMING:
 		# velocity was set from beginning, so no changes are made
 		pass # see set_player_state()
+	elif player_state == player_states.GRAPPLING_TO:
+		# compute the vector going from the player camera to the grappling target
+		var dir:Vector3 = (grapple_arm.getHookedTargetPosition() - camera_3d.global_position).normalized()
+		velocity = dir * grapple_arm.grapple_speed
 
 
 # camera control by mouse input relative to last frame
