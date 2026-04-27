@@ -102,10 +102,10 @@ func fireSpecial() -> void:
 	var player:Player = get_tree().get_first_node_in_group("players")
 	var playercam:PlayerCamera = player.camera_3d
 	
-	# Approximate the hit body. If the body is a pistolbomb, a timeScaleInterruption
-	# will be requested, so only request one if the hit body is not a pistolbomb
-	# so that the request does not fail due to overlap.
-	if not dissipator_piercing_hitscan.get_collider_of_type(PistolBombShotCollsionReciever):
+	# If there is a pistolbomb in the scene, hitting it will cause the time interruption to
+	# fail due to overlap, so don't do the small timestopping if there is a pistolbomb in
+	# the scene as a temporary workaround.
+	if get_tree().get_nodes_in_group(&"pistol bombs").is_empty():
 		TimeFlowSystem.interruptTimeflow(firing_hitstop_duration)
 	playercam.shakeCamera(camera_shake_duration, camera_shake_strength)
 	
@@ -116,11 +116,28 @@ func fireSpecial() -> void:
 		dissipator_piercing_hitscan
 	)
 	
-	# First attempt to reflect towards the nearest PistolBomb if there is one.
+	
+#region Reflection towards an object===================================================
+	# First, attempt to reflect towards the nearest PistolBomb if there is one.
 	var pistol_bombs:Array[Node] = get_tree().get_nodes_in_group(&"pistol bombs")
-	var nearest_pistol_bomb:PistolBomb
-	for bomb:PistolBomb in pistol_bombs:
-		
+	var nearest_pistol_bomb: PistolBomb
+	var nearest_distance: float = INF
+	if not pistol_bombs.is_empty():
+		for bomb: PistolBomb in pistol_bombs:
+			var distance: float = bomb.global_position.distance_to(first_firing_point)
+			if distance < nearest_distance:
+				nearest_distance = distance
+				nearest_pistol_bomb = bomb
+	if nearest_pistol_bomb:
+		var direction:Vector3 = (nearest_pistol_bomb.global_position - first_firing_point).normalized()
+		HitscanSystem.fireManual(
+			reflection_bullet_config,
+			first_firing_point,
+			dissipator_piercing_hitscan,
+			direction
+		)
+		return
+	# Otherwise, try to reflect to the nearest enemy
 	
 	# get the location of the nearest enemy's center from the first hit point
 	var nearest_enemy:Enemy = EnemyPopulationHandler.getClosestVisibleEnemy(first_firing_point)
@@ -144,6 +161,7 @@ func fireSpecial() -> void:
 		dir
 	)
 	return
+#endregion=======================================================================
 
 
 func fireBullet() -> void:
