@@ -63,6 +63,7 @@ _data = {
 script = ExtResource("1_nc7lg")
 bullet_config = SubResource("Resource_5hci3")
 spin_speed = 25.0
+logging_debug = false
 reflection_bullet_config = SubResource("Resource_4nle0")
 reflection_charge_speed = 125.0
 camera_shake_strength = 0.66
@@ -79,7 +80,7 @@ automatic = true
 transform = Transform3D(-2.1533342e-06, -0.0005945936, 0.9999995, -0.9999175, 0.012836559, 5.4634e-06, -0.012836604, -0.99991745, -0.0005946271, -2.5425106e-07, -0.004908182, -0.5440906)
 
 [node name="Dissipator" parent="Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.046785485, -0.99866194, 0.022041438, -0.001732663, -0.021984436, -0.99975705, 0.9989032, -0.046812322, -0.00070179225, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.04678548, -0.9986618, 0.022041438, -0.0017326629, -0.021984432, -0.99975705, 0.99890316, -0.046812315, -0.00070179225, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="SpecialReadyFlash" type="Sprite3D" parent="Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator" index="1"]
 transform = Transform3D(0.9992014, 0.03836213, -0.01124319, -0.03806459, 0.99894774, 0.02557916, 0.012212678, -0.025130788, 0.9996091, 0.00439631, -0.0042397915, -0.07406698)

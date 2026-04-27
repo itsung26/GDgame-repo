@@ -3,22 +3,11 @@ KNOWN ISSUES====================================================================
 . the grapple hook works, but under the hood is complete ass 
 	-rewrite in progress
 
-. enemies do not properly collide with the player on attacking 
-	-possible engine limitation
-	-may require low-level communication with the physics server to control collision
-	of specific objects
-
 . the ui panel movement is horrible
 	-fix: convert velocity vector to screen space vector
 
 . grapple cube particles do not render properly
 	-fix: instantiate new particles, enable them, and garbage collect them when done.
-
-
-
-. player's velocity is brought down when attempting to move while already 
-moving faster than speed limit
-	-fix: 🤷
 
 . if the player is able to remain inside of a hazard area (the damaging kind), they
 will not take any damage
@@ -26,7 +15,11 @@ will not take any damage
 
 . if a high number of decal scenes are requested from their pool and some become free, a null
 casting error is thrown
-	-fix: ensure decals are returned to the pool instead of freed.
+	-fix: ensure decals are returned to the pool instead of freed?
+
+. overlapping timeInterruptions can cancel each other out (for example, Dissipator special
+and PistolBomb overlap), causing expected hitstop/slow interruption to fail
+	-fix: queue/stack interruptions in TimeFlowSystem instead of replacing active interruption state
 
 FIXED ISSUES==========================================================================================
 
@@ -37,3 +30,13 @@ FIXED ISSUES====================================================================
 used again, then it fixes
 	-FIXED: apparently, when scene heirarchy changes order, methods have to be called deferred or things
 	get broken.
+
+. player's velocity is brought down when attempting to move while already 
+moving faster than speed limit
+	-FIXED: Implemented smart aerial directional tracking: attempting to move in a new direction will 
+	now consider the direction of current travel and attempt to conserve momentum instead of clamping down
+	to the speed limit.
+
+. enemies do not properly collide with the player on attacking 
+	-FIXED: Reworked physics layer structure and allowed enemies to override their own physical collision
+	rules.
