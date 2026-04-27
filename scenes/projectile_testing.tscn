@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ctufkwjjy161d" path="res://assets/2d assets/primary textures/Ultra Textures/GridBox_Default.png" id="5_yvgsm"]
 [ext_resource type="Script" uid="uid://d4i447jqxsygd" path="res://scripts/world_body.gd" id="6_488l3"]
 [ext_resource type="Material" uid="uid://b1rt4gpft6ljt" path="res://assets/materials/white_prototype.tres" id="6_r4hxy"]
-[ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube_boost.tscn" id="8_wl3f4"]
+[ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube.tscn" id="8_wl3f4"]
 [ext_resource type="PackedScene" uid="uid://chjuj625vfhiy" path="res://scenes/checkPoint.tscn" id="10_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/entities/enemy_filth.tscn" id="10_yvgsm"]
 [ext_resource type="PackedScene" uid="uid://bwa158sy5fj7y" path="res://scenes/entities/bullet_turret.tscn" id="11_r4hxy"]
@@ -200,7 +200,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48317, 0.9364419, 4.3500614
 shape = SubResource("ConcavePolygonShape3D_exc5x")
 
 [node name="GrappleCube" parent="." instance=ExtResource("8_wl3f4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.968891, 10.077782, -8.6004925)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.968891, 3.9000282, -11.428597)
 
 [node name="CheckPoint" parent="." instance=ExtResource("10_r4hxy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.186, 0.848577, -7.22804)

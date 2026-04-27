@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="4_egx7n"]
 [ext_resource type="Script" uid="uid://dlvtg3dyubshi" path="res://scripts/laser_wall_hazard.gd" id="6_30v2v"]
 [ext_resource type="PackedScene" uid="uid://chjuj625vfhiy" path="res://scenes/checkPoint.tscn" id="9_wped7"]
-[ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube_boost.tscn" id="10_it201"]
+[ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube.tscn" id="10_it201"]
 [ext_resource type="PackedScene" uid="uid://5s0qavju0eqt" path="res://scenes/combat_area.tscn" id="11_1vq1x"]
 [ext_resource type="Script" uid="uid://s0gj2noon5cx" path="res://scripts/enemy_spawn_handler.gd" id="12_5s5oy"]
 [ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/entities/enemy_filth.tscn" id="13_56kth"]
