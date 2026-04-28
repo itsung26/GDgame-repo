@@ -1,6 +1,11 @@
 class_name GrappleArm
 extends Node3D
 
+## Public API notes:
+## - This class owns hook launch, collision, and attachment state.
+## - Hook pulling/reeling behavior is NOT processed here; it is processed in [code]Player[/code]
+##   physics state machines (player/action states), and this class only exposes state/data for that flow.
+
 #region @onready vars
 @onready var player:Player = QuickRef.player
 @onready var grapple_hook: RigidBody3D = %GrappleHook
@@ -15,11 +20,14 @@ extends Node3D
 #region export vars
 @export var logging_debug:bool = false
 @export_category("Behavior")
+## Base throw speed used by [code]throwHook()[/code].
 @export var throw_velocity:float = 75.0
+## Shared grapple movement speed consumed by player/hook logic.
 @export var grapple_speed:float = 1.0
 #endregion
 
 #region regular vars
+## Current target attached to the hook, or [code]null[/code] when unattached.
 var hooked_target:Node3D:
 	set =  setHookedTarget
 ## Enables/disables collision contact monitoring for the hook.
@@ -46,6 +54,7 @@ var last_collision_point:Vector3:
 #endregion
 
 signal new_hooked_target_set(previous_hooked_target:Node3D, new_hooked_target:Node3D)
+## Emitted when the hook collides and collision data is available.
 signal hook_collided(body:Node3D, collision_point:Vector3, collision_normal:Vector3)
 
 const IMPACT_PARTICLES_SCENE:PackedScene = preload("res://scenes/impact_particles.tscn")
@@ -83,6 +92,7 @@ func getLastCollisionPoint() -> Vector3:
 		return _last_collision_point_cache
 
 
+## Sets [code]hooked_target[/code], emits [code]new_hooked_target_set[/code], and disables free-flight simulation.
 func setHookedTarget(hooked_targ:Node3D):
 	var previous_hooked_target:Node3D = hooked_target
 	var new_hooked_target:Node3D = hooked_targ
@@ -94,6 +104,7 @@ func setHookedTarget(hooked_targ:Node3D):
 		setHookPhysicsSimulationActive(false)
 
 
+## Enables/disables collision monitoring and sweeping cast updates for the hook.
 func setHookCollisionMonitoringActive(is_active:bool) -> void:
 	hook_collision_monitoring_active = is_active
 	grapple_hook.contact_monitor = is_active
@@ -101,6 +112,7 @@ func setHookCollisionMonitoringActive(is_active:bool) -> void:
 	grapple_hook_sweeping_cast.enabled = is_active
 
 
+## Enables/disables hook rigid-body simulation by toggling freeze/sleeping.
 func setHookPhysicsSimulationActive(is_active:bool) -> void:
 	hook_physics_simulation_active = is_active
 	grapple_hook.freeze = not is_active
@@ -140,6 +152,7 @@ func _physics_process(_delta: float) -> void:
 
 ## Reparents the hook to the player and moves the hook back to it's bone attatchment,
 ## re orienting it in the process.
+## This is an immediate reset and does not run pull/reel behavior.
 func returnHookToHolderInstant() -> void:
 	if hook_physics_simulation_active:
 		setHookCollisionMonitoringActive(false)
@@ -154,6 +167,7 @@ func returnHookToHolderInstant() -> void:
 
 
 ## Does the actual release of the hook, in [param direction] with [param velocity].
+## This only starts hook flight; any pull/reel behavior is processed by [code]Player[/code] state machines.
 func throwHook(direction:Vector3, velocity:float) -> void:
 	if hook_physics_simulation_active:
 		if logging_debug:
@@ -172,6 +186,7 @@ func throwHook(direction:Vector3, velocity:float) -> void:
 	grapple_hook.linear_velocity = direction.normalized() * velocity
 
 
+## Handles a registered hook collision and emits [code]hook_collided[/code].
 func handleHookCollision(body:Node3D) -> void:
 	if logging_debug:
 		Debug.log("Handling hook collision for: " + str(body))

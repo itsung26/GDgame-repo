@@ -278,7 +278,6 @@ material = SubResource("FogMaterial_r4hxy")
 
 [node name="enemy_filth" parent="." instance=ExtResource("10_yvgsm")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.84493756, 0, -18.932728)
-reflective = true
 
 [node name="EnviromentTest" parent="." instance=ExtResource("7_wl3f4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.493874, 3.727313, -15.1976185)
