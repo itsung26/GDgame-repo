@@ -472,44 +472,8 @@ func _ready() -> void:
 func _process(delta) -> void:
 	chargeStamina(delta)
 	
-	#region Gun Inputs
-	if weapon_state and weapon_switch_input_enabled:
-		# switch weapon block==================================================================================
-		if Input.is_action_just_pressed("slot1"):
-			if weapon_states[0]:
-				set_weapon_state(weapon_states[0]) # slot 1
-			
-		if Input.is_action_just_pressed("slot2"):
-			if weapon_states[1]:
-				set_weapon_state(weapon_states[1]) # slot 2
-		
-		if Input.is_action_just_pressed("slot3"):
-			if weapon_states[2]:
-				set_weapon_state(weapon_states[2])
-		
-		
-		# automatic fire block===================================================================================
-		if Input.is_action_pressed("fire") and player_fire_input_enabled and weapon_state.automatic and weapon_state.can_fire:
-			# use seperate animation players for each weapon
-			weapon_state._fire()
-		# semi-automatic fire block========================================================================
-		if Input.is_action_just_pressed("fire") and player_fire_input_enabled and not weapon_state.automatic and weapon_state.can_fire:
-			weapon_state._fire()
-		# inspect block=======================================================================================
-		if Input.is_action_just_pressed("inspect weapon"):
-			print("weapon inspect currently disabled")
-		# reload block=========================================================================================
-		if Input.is_action_just_pressed("reload"):
-			weapon_state._reload()
-				
-		# special block=========================================================================================
-		if Input.is_action_just_pressed("right click action") and player_fire_input_enabled:
-			weapon_state._special()
-		elif Input.is_action_just_released("right click action"):
-			weapon_state._specialRelease()
-		# ======================================================================================================
-	#endregion
-
+	_continuous_input()
+	
 	process_player_state(delta)
 
 
@@ -811,6 +775,48 @@ func _input(event: InputEvent) -> void:
 
 			set_player_state(player_states.DASHING)
 #endregion
+
+
+## Listens for inputs. Identical to _input except it uses direct action listeners and
+## is designed to be called every frame.
+func _continuous_input() -> void:
+	#region Gun Inputs
+	if weapon_state and weapon_switch_input_enabled:
+		# switch weapon block==================================================================================
+		if Input.is_action_just_pressed("slot1"):
+			if weapon_states[0]:
+				set_weapon_state(weapon_states[0]) # slot 1
+			
+		if Input.is_action_just_pressed("slot2"):
+			if weapon_states[1]:
+				set_weapon_state(weapon_states[1]) # slot 2
+		
+		if Input.is_action_just_pressed("slot3"):
+			if weapon_states[2]:
+				set_weapon_state(weapon_states[2]) # slot 3
+		
+		
+		# automatic fire block===================================================================================
+		if Input.is_action_pressed("fire") and player_fire_input_enabled and weapon_state.automatic and weapon_state.can_fire:
+			# use seperate animation players for each weapon
+			weapon_state._fire()
+		# semi-automatic fire block========================================================================
+		if Input.is_action_just_pressed("fire") and player_fire_input_enabled and not weapon_state.automatic and weapon_state.can_fire:
+			weapon_state._fire()
+		# inspect block=======================================================================================
+		if Input.is_action_just_pressed("inspect weapon"):
+			print("weapon inspect currently disabled")
+		# reload block=========================================================================================
+		if Input.is_action_just_pressed("reload"):
+			weapon_state._reload()
+				
+		# special block=========================================================================================
+		if Input.is_action_just_pressed("right click action") and player_fire_input_enabled:
+			weapon_state._special()
+		elif Input.is_action_just_released("right click action"):
+			weapon_state._specialRelease()
+		# ======================================================================================================
+	#endregion
 
 
 func setHealth(new_health:float = HEALTH) -> void:

@@ -6,10 +6,13 @@ extends PlayerWeapon
 ## fires a first piercing hitscan, then reflects toward the nearest PistolBomb when
 ## available, otherwise toward the nearest visible enemy, or a random direction.
 
+#region constants
 const bullet_trail_SCENE:PackedScene = preload("res://scenes/bullet_trail.tscn")
 const BULLET_IMPACT_PARTICLE_SCENE_2:PackedScene = preload("res://scenes/bullet_impact_particles_2.tscn")
 const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_light.tscn")
+#endregion
 
+#region @onready vars
 @onready var animation_player: AnimationPlayer = $Dissipator2/AnimationPlayer
 @onready var muzzle: Node3D = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator/muzzle
 @onready var flash_animator: AnimationPlayer = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator/FlashAnimator
@@ -17,7 +20,9 @@ const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_l
 @onready var dissipator_MESH: MeshInstance3D = $Dissipator2/feedbacker/Skeleton3D/Hand/Dissipator
 @onready var hand_attatchment: BoneAttachment3D = $Dissipator2/feedbacker/Skeleton3D/Hand
 @onready var delay_before_idle_timer: Timer = $DelayBeforeIdleTimer
+#endregion
 
+#region @export vars
 ## Primary-fire hitscan settings used by [method fireBullet].
 @export var bullet_config:HitscanBulletConfig
 
@@ -42,12 +47,14 @@ const bullet_light_SCENE:PackedScene = preload("res://scenes/dissipator_bullet_l
 @export var camera_shake_duration:float
 ## Short time-flow interruption duration applied when allowed.
 @export var firing_hitstop_duration:float = 0.15
+#endregion
 
+#region regular vars
 ## Current accumulated special charge.
 var reflection_charge:float = 0.0: set = setReflectionCharge
 ## True while special input is held and the weapon is charging.
 var charging:bool = false: set = setCharging
-#var _cached_mesh_rotation:Vector3 = Vector3.ZERO
+#endregion
 
 
 ## Sets current reflection charge and triggers a one-shot flash at max charge.
@@ -86,7 +93,6 @@ func _process(delta: float) -> void:
 
 ## Runs equip behavior and starts the equip animation.
 func _onEquip() -> void:
-	super._onEquip()
 	if animation_player.current_animation == "Idle":
 		animation_player.stop()
 		animation_player.play("Equip")
@@ -96,20 +102,17 @@ func _onEquip() -> void:
 
 ## Runs base fire behavior and starts the primary fire animation.
 func _fire() -> void:
-	super._fire()
 	animation_player.play("Fire")
 
 
 ## Starts charging the reflection special.
 func _special() -> void:
-	super._special()
 	#_cached_mesh_rotation = dissipator_MESH.rotation
 	setCharging(true)
 
 
 ## Stops charging and fires the reflection special when fully charged.
 func _specialRelease() -> void:
-	super._specialRelease()
 	charging = false
 	#dissipator_MESH.rotation = _cached_mesh_rotation
 	if reflection_charge == reflection_max_charge:
@@ -119,7 +122,7 @@ func _specialRelease() -> void:
 
 ## Calls base reload behavior for this weapon.
 func _reload() -> void:
-	super._reload()
+	pass
 
 
 ## Fires the reflection special:

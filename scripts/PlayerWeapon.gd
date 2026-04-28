@@ -1,3 +1,4 @@
+@abstract
 @icon("res://weapon_placeholder.png")
 class_name PlayerWeapon
 extends Node3D
@@ -18,21 +19,25 @@ signal special_released
 var can_fire:bool = true
 
 
-func _onEquip() -> void:
-	equipped.emit()
+func _notification(what: int) -> void:
+	pass
 
 
-func _fire() -> void:
-	fired.emit()
+@abstract
+func _onEquip() -> void
 
 
-func _special() -> void:
-	special_triggered.emit()
+@abstract
+func _fire() -> void
 
 
-func _specialRelease() -> void:
-	special_released.emit()
+@abstract
+func _special() -> void
 
 
-func _reload() -> void:
-	reloaded.emit()
+@abstract
+func _specialRelease() -> void
+
+
+@abstract
+func _reload() -> void
