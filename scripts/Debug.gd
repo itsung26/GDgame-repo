@@ -31,6 +31,14 @@ func logerr(loggable = "") -> void:
 	printerr(str(loggable))
 
 
+## Prints the string from of the variant in a standard warning line.
+## The stack trace is printed above the warning line as a regular print line.
+func logwarn(loggable = "") -> void:
+	var stackslim:String = getStackSlim()
+	print(stackslim)
+	push_warning(str(loggable))
+
+
 ## Creates a variable watcher that logs whenever the getter's value changes.
 func createDebugLogger(name:String, getter:Callable, print_initial:bool = false) -> void:
 	if name.is_empty():
