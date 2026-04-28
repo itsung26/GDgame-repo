@@ -91,11 +91,12 @@ func _process(delta) -> void:
 			fps_counter.add_theme_color_override("font_color", Color.GREEN)
 		else:
 			fps_counter.add_theme_color_override("font_color", Color.RED)
-			
+		
+		
 #region Debug Text
 		# set debug text-------------------------------------------------------------------------------
 		current_action_state.text = "Current action state: " + player.action_states.keys()[player.action_state]
-		hooked_target.text = "grapple target: " + str(grapple_arm.hooked_target)
+		hooked_target.text = "Hooked body: " + str(grapple_arm.hooked_target)
 		current_weapon_state.text = "Current weapon state: " + player.weapon_state.to_string()
 		current_look_dir.text = "lookDir: " + str(pivot.rotation_degrees + player.rotation_degrees)
 		current_player_pos.text = "GPos: " + str(player.global_position)
