@@ -24,6 +24,12 @@ extends Node3D
 @export var throw_velocity:float = 75.0
 ## Shared grapple movement speed consumed by player/hook logic.
 @export var grapple_speed:float = 1.0
+## This force is applied to the player when the grapple finds a target and calls setHookedTarget.
+@export var force_applied_on_grapple:Vector3 = Vector3.UP
+## This force is applied to the player when the grapple target goes back to null/the
+## grapple finishes. Note that this force is only applied when either the player reaches
+## the target, or the target reaches the player.
+@export var force_applied_on_ungrapple:Vector3 = Vector3.UP
 #endregion
 
 #region regular vars
@@ -100,6 +106,8 @@ func setHookedTarget(hooked_targ:Node3D):
 	new_hooked_target_set.emit(previous_hooked_target, new_hooked_target)
 	
 	if new_hooked_target != null:
+		player.killVelocity()
+		player.applyForceImpulse(force_applied_on_grapple.length(), force_applied_on_grapple.normalized())
 		setHookCollisionMonitoringActive(false)
 		setHookPhysicsSimulationActive(false)
 
@@ -187,6 +195,8 @@ func throwHook(direction:Vector3, velocity:float) -> void:
 
 
 ## Handles a registered hook collision and emits [code]hook_collided[/code].
+## This is the most important method in the grapple hook system as every reaction
+## to the hook runs through here.
 func handleHookCollision(body:Node3D) -> void:
 	if logging_debug:
 		Debug.log("Handling hook collision for: " + str(body))

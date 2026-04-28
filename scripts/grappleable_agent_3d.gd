@@ -1,11 +1,17 @@
 @tool
 class_name GrappleableAgent3D
 extends StaticBody3D
+## Object allowing for to/from grapple interactions. Only functions as an initiator for the logic.
+## The player's grapple system "detects" this object and intiates a push or pull grapple based on
+## it's configuration.
 
 @export var pull_behavior:pull_behaviors = pull_behaviors.PULL_PLAYER
 
 ## The "owner" of this grappleable box.
 var agent:Node3D
+
+signal grappled
+signal ungrappled
 
 enum pull_behaviors {PULL_AGENT, PULL_PLAYER}
 
@@ -18,10 +24,6 @@ func _notification(what: int) -> void:
 		NOTIFICATION_PROCESS:
 			if Engine.is_editor_hint():
 				update_configuration_warnings()
-
-
-func _physics_process(delta: float) -> void:
-	pass
 
 
 func _get_configuration_warnings() -> PackedStringArray:

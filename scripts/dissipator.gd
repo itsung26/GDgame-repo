@@ -91,8 +91,9 @@ func _process(delta: float) -> void:
 		dissipator_MESH.rotation.x += charge_t * spin_speed * delta
 
 
+#region PlayerWeapon overrides
 ## Runs equip behavior and starts the equip animation.
-func _onEquip() -> void:
+func _onEquipImpl() -> void:
 	if animation_player.current_animation == "Idle":
 		animation_player.stop()
 		animation_player.play("Equip")
@@ -101,18 +102,18 @@ func _onEquip() -> void:
 
 
 ## Runs base fire behavior and starts the primary fire animation.
-func _fire() -> void:
+func _fireImpl() -> void:
 	animation_player.play("Fire")
 
 
 ## Starts charging the reflection special.
-func _special() -> void:
+func _specialImpl() -> void:
 	#_cached_mesh_rotation = dissipator_MESH.rotation
 	setCharging(true)
 
 
 ## Stops charging and fires the reflection special when fully charged.
-func _specialRelease() -> void:
+func _specialReleaseImpl() -> void:
 	charging = false
 	#dissipator_MESH.rotation = _cached_mesh_rotation
 	if reflection_charge == reflection_max_charge:
@@ -121,8 +122,9 @@ func _specialRelease() -> void:
 
 
 ## Calls base reload behavior for this weapon.
-func _reload() -> void:
+func _reloadImpl() -> void:
 	pass
+#endregion
 
 
 ## Fires the reflection special:

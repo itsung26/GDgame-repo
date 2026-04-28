@@ -537,6 +537,7 @@ inital_arm = 1
 AIR_ACCELERATION = 50.0
 dash_time_length = 0.2
 wall_jump_applied_velocity = 16.0
+death_camera_spin_magnitude = 2.0
 death_time_slow_speed = 2.5
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
 weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
@@ -694,6 +695,7 @@ transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08,
 script = ExtResource("9_l71n6")
 logging_debug = true
 grapple_speed = 19.5
+force_applied_on_grapple = Vector3(0, 5, 0)
 
 [node name="grappleArm" type="Node3D" parent="Pivot/Camera3D/GrappleArm"]
 
@@ -959,7 +961,7 @@ camera_shake_strength = 0.22
 firing_hitstop_duration = 0.1
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.046785414, -0.9986615, 0.022041397, -0.0017326605, -0.021984426, -0.9997552, 0.9989017, -0.046812303, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.04678541, -0.99866146, 0.022041397, -0.0017326602, -0.021984424, -0.9997552, 0.9989016, -0.0468123, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)

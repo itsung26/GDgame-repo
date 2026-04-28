@@ -110,11 +110,11 @@ func _process(delta: float) -> void:
 			muzzle_charge_animator_2.play("fully charged")
 
 
-func _onEquip():
-	super._onEquip()
+func _onEquipImpl():
+	pass
 
-func _fire():
-	super._fire()
+
+func _fireImpl():
 	if charging_state == charging_states.IDLE:
 		firePistol()
 	elif charging_state == charging_states.CHARGED:
@@ -123,22 +123,22 @@ func _fire():
 	elif charging_state == charging_states.CHARGING:
 		set_charging_state(charging_states.IDLE)
 		firePistol()
-	
-func _special():
-	super._special()
+
+
+func _specialImpl():
 	if charging_state == charging_states.IDLE:
 		set_charging_state(charging_states.CHARGING)
 
-func _specialRelease():
-	super._specialRelease()
+
+func _specialReleaseImpl():
 	if charging_state == charging_states.CHARGING:
 		set_charging_state(charging_states.IDLE)
 	elif charging_state == charging_states.CHARGED:
 		fireSpecial()
 		set_charging_state(charging_states.IDLE)
 
-func _reload():
-	super._reload()
+
+func _reloadImpl():
 	pass
 
 ## Does the actual firing, including damage and vfx.

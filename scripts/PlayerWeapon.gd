@@ -23,21 +23,46 @@ func _notification(what: int) -> void:
 	pass
 
 
-@abstract
-func _onEquip() -> void
+func onEquip() -> void:
+	equipped.emit()
+	_onEquipImpl()
+
+
+func fire() -> void:
+	fired.emit()
+	_fireImpl()
+
+
+func special() -> void:
+	special_triggered.emit()
+	_specialImpl()
+
+
+func specialRelease() -> void:
+	special_released.emit()
+	_specialReleaseImpl()
+
+
+func reload() -> void:
+	reloaded.emit()
+	_reloadImpl()
 
 
 @abstract
-func _fire() -> void
+func _onEquipImpl() -> void
 
 
 @abstract
-func _special() -> void
+func _fireImpl() -> void
 
 
 @abstract
-func _specialRelease() -> void
+func _specialImpl() -> void
 
 
 @abstract
-func _reload() -> void
+func _specialReleaseImpl() -> void
+
+
+@abstract
+func _reloadImpl() -> void
