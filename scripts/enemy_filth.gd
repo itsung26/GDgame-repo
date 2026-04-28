@@ -176,7 +176,7 @@ func _physics_process(delta: float) -> void:
 				rotation.y = lerp_angle(rotation.y, target_angle, lerp_angle_factor * delta)
 	
 	# if the enemy is dead, skip physics calculations
-	if enemy_state != enemy_states.DEAD:
+	if enemy_state != enemy_states.DEAD or stationary:
 		move_and_slide()
 
 

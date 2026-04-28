@@ -689,10 +689,11 @@ render_priority = 0
 shader = ExtResource("37_kdw2u")
 shader_parameter/uv_stretch = Vector2(0.5, 0.5)
 shader_parameter/uv_offset = Vector2(0, 0)
-shader_parameter/uv_cell_stretch = Vector2(3.37, 3.37)
+shader_parameter/uv_cell_stretch = Vector2(1, 1)
 shader_parameter/uv_cell_offset = Vector2(0, 0)
-shader_parameter/cells_amt = 10.0
-shader_parameter/test_point = Vector2(0.5, 0.5)
+shader_parameter/float_param = 0.147
+shader_parameter/float_param_2 = 0.048
+shader_parameter/test_point = Vector2(0, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_wljk0"]
 material = SubResource("ShaderMaterial_p742p")
@@ -907,7 +908,7 @@ mesh = SubResource("PlaneMesh_1cyw6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.925613, 1.9073486e-06, 2.9363475)
 
 [node name="CellTest" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0, 0.99999994, 0, -0.99999994, 0, 43.112, 3.1, -75.048)
+transform = Transform3D(1, 0, 0, 0, 0, 0.99999994, 0, -0.99999994, 0, 43.112, 18.371521, -75.048)
 mesh = SubResource("QuadMesh_wljk0")
 
 [node name="TriplanarTest" type="MeshInstance3D" parent="."]

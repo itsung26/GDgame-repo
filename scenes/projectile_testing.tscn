@@ -1,12 +1,12 @@
 [gd_scene load_steps=27 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://cfg33qj40lkc8" path="res://scripts/level.gd" id="1_r4hxy"]
-[ext_resource type="PackedScene" uid="uid://ceorn7ljbkgss" path="res://scenes/grapple_rope_meshGen.tscn" id="1_s3yq3"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
 [ext_resource type="Texture2D" uid="uid://ctufkwjjy161d" path="res://assets/2d assets/primary textures/Ultra Textures/GridBox_Default.png" id="5_yvgsm"]
 [ext_resource type="Script" uid="uid://d4i447jqxsygd" path="res://scripts/world_body.gd" id="6_488l3"]
 [ext_resource type="Material" uid="uid://b1rt4gpft6ljt" path="res://assets/materials/white_prototype.tres" id="6_r4hxy"]
 [ext_resource type="Script" uid="uid://vvywp65j7qtu" path="res://scripts/grappleable_agent_3d.gd" id="8_wl3f4"]
+[ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/entities/enemy_filth.tscn" id="10_yvgsm"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_488l3"]
 
@@ -92,8 +92,6 @@ metadata/_custom_type_script = "uid://cfg33qj40lkc8"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nptal")
-
-[node name="grapple_rope_meshGen" parent="." instance=ExtResource("1_s3yq3")]
 
 [node name="Player" parent="." node_paths=PackedStringArray("weapon_states") instance=ExtResource("3_7ksdt")]
 transform = Transform3D(-1, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1, 4.738869, 0, -15.737817)
@@ -287,3 +285,7 @@ metadata/_custom_type_script = "uid://vvywp65j7qtu"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleableAgent3D"]
 shape = SubResource("BoxShape3D_rj2dv")
 debug_color = Color(0, 1, 0, 1)
+
+[node name="enemy_filth" parent="." instance=ExtResource("10_yvgsm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.84493756, 0, -18.932728)
+behavior_enabled = false

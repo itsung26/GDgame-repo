@@ -115,8 +115,6 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if hooked_target:
-		pass
 	
 	if hook_active:
 		last_hook_global_position = _hook_global_position_cache
@@ -130,10 +128,13 @@ func _physics_process(_delta: float) -> void:
 			handleHookCollision(cast_collider_body)
 	
 	if hooked_target:
+		# snap hook to the target
 		if hooked_target is Enemy:
 			grapple_hook.global_position = hooked_target.global_position + hooked_target.chest_offset
 		else:
 			grapple_hook.global_position = hooked_target.global_position
+	
+		
 
 
 ## Reparents the hook to the player and moves the hook back to it's bone attatchment,
@@ -179,7 +180,7 @@ func handleHookCollision(body:Node3D) -> void:
 		player.set_action_state(Player.action_states.IDLE)
 	
 	elif body is GrappleableAgent3D:
-		hooked_target = body
+		hooked_target = body.agent
 		if body.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_PLAYER:
 			player.set_player_state(Player.player_states.GRAPPLING_TO)
 

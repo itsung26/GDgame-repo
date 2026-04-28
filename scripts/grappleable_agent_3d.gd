@@ -4,7 +4,9 @@ extends StaticBody3D
 
 @export var pull_behavior:pull_behaviors = pull_behaviors.PULL_PLAYER
 
-#var agent:CharacterBody3D
+## The "owner" of this grappleable box.
+var agent:Node3D
+var grappled:bool = false
 
 enum pull_behaviors {PULL_AGENT, PULL_PLAYER}
 
@@ -12,26 +14,22 @@ enum pull_behaviors {PULL_AGENT, PULL_PLAYER}
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_READY:
-			#set_collision_layer_value(1, false)
-			#set_collision_layer_value(10, true)
-			#set_collision_mask_value(1, false)
-			pass
+			agent = get_parent()
 		NOTIFICATION_PROCESS:
 			if Engine.is_editor_hint():
 				update_configuration_warnings()
-		NOTIFICATION_PHYSICS_PROCESS:
-			pass
+
+
+func _physics_process(delta: float) -> void:
+	pass
 
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var ret:PackedStringArray
-	#if !_has_collision_shape_child():
-		#ret.append("Needs at least 1 child collision shape.")
-	if !_has_characterbody_parent():
-		if pull_behavior == pull_behaviors.PULL_AGENT:
-			ret.append("A CharacterBody3D parent is required in PULL_AGENT mode.")
 	if _has_more_than_one_shape_child():
 		ret.append("Can only have one child CollisionShape3D.")
+	if _parent_is_level():
+		ret.append("Parent cannot be the level itself.")
 	return ret
 
 
@@ -41,18 +39,6 @@ func _has_collision_shape_child() -> bool:
 	for child:Node in children:
 		if child is CollisionShape3D:
 			return true
-	
-	return false
-
-
-## Returns true if this node's parent is is a characterbody3D.
-func _has_characterbody_parent() -> bool:
-	var current_parent:Node = get_parent()
-	while current_parent != null:
-		if current_parent is CharacterBody3D:
-			return true
-		current_parent = current_parent.get_parent()
-	
 	return false
 
 
@@ -66,3 +52,12 @@ func _has_more_than_one_shape_child() -> bool:
 				return true
 	
 	return false
+
+
+## Returns true if the parent node is the root node.
+func _parent_is_level() -> bool:
+	var parent:Node = get_parent()
+	if get_tree().current_scene == parent:
+		return true
+	else:
+		return false

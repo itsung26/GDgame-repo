@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://fyr1gxk7lvr1"]
+[gd_scene load_steps=48 format=3 uid="uid://fyr1gxk7lvr1"]
 
 [ext_resource type="Script" uid="uid://x7wtow671t3i" path="res://scripts/enemy_filth.gd" id="1_8551a"]
 [ext_resource type="PackedScene" uid="uid://dyuqogkkej1om" path="res://assets/meshes/filth/filth.blend" id="2_60a7p"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b3eyw6tagvntj" path="res://scripts/spawn_intro_particles.gd" id="4_00tiq"]
 [ext_resource type="PackedScene" uid="uid://dctdckc0awxi0" path="res://scenes/state_debug_text.tscn" id="5_00tiq"]
 [ext_resource type="PlaneMesh" uid="uid://cfhhmqbewj66t" path="res://assets/meshes/example_floor.tres" id="5_o4bbs"]
+[ext_resource type="Script" uid="uid://vvywp65j7qtu" path="res://scripts/grappleable_agent_3d.gd" id="8_e8k1w"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_60a7p"]
 radius = 1.1121858
@@ -255,6 +256,9 @@ emission_energy_multiplier = 0.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_axemi"]
 material = SubResource("StandardMaterial3D_s6c3y")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mra7v"]
+size = Vector3(1, 1.9199219, 1.0859375)
 
 [node name="enemy_filth" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 2
@@ -607,6 +611,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2328, -0.139401)
 
 [node name="StateDebugText" parent="." instance=ExtResource("5_00tiq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2146952, 0)
+
+[node name="GrappleableAgent3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.152596, 0)
+script = ExtResource("8_e8k1w")
+pull_behavior = 0
+metadata/_custom_type_script = "uid://vvywp65j7qtu"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleableAgent3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2019043, -0.04296875)
+shape = SubResource("BoxShape3D_mra7v")
 
 [connection signal="body_entered" from="readyBiteBox" to="." method="_on_ready_bite_box_body_entered"]
 [connection signal="body_exited" from="readyBiteBox" to="." method="_on_ready_bite_box_body_exited"]
