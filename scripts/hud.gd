@@ -105,7 +105,8 @@ func _process(delta) -> void:
 		%CurrentMagnitude.text = "Net vector magnitude: " + str(roundi(player.velocity.length()))
 		%CurrentParryTarget.text = "parry target: " + str(player.parry_target)
 		%CurrentCombatState.text = "In Combat: " + str(player.in_combat)
-		%HookActive.text = "Hook active: " + str(player.grapple_arm.hook_active)
+		%HookPhysicsActive.text = "Hook physics active: " + str(player.grapple_arm.hook_physics_simulation_active)
+		%HookCollisionActive.text = "Hook collision active: " + str(player.grapple_arm.hook_collision_monitoring_active)
 		# ----------------------------------------------------------------------------------------------
 #endregion
 

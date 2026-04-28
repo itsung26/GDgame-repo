@@ -265,10 +265,15 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "grapple target: null"
 
-[node name="HookActive" type="Label" parent="DebugContainer"]
+[node name="HookPhysicsActive" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Hook active: "
+text = "Hook physics active: "
+
+[node name="HookCollisionActive" type="Label" parent="DebugContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Hook collision active: "
 
 [node name="CurrentPlayerState" type="Label" parent="DebugContainer"]
 unique_name_in_owner = true

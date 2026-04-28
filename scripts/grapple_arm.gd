@@ -9,6 +9,7 @@ extends Node3D
 @onready var grapple_hook_sweeping_cast: ShapeCast3D = $grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/GrappleHookSweepingCast
 @onready var animator: AnimationPlayer = $grappleArm/grapple_arm_animator
 @onready var grapple_rope_line: GrappleRopeLine = $"../../../GrappleRopeLine"
+@onready var grapple_hook_smaller_collider: CollisionShape3D = $"grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook/grapple hook smaller collider"
 #endregion
 
 #region export vars
@@ -21,9 +22,12 @@ extends Node3D
 #region regular vars
 var hooked_target:Node3D:
 	set =  setHookedTarget
-## If true, the hook is in flight and can move/collide.
-var hook_active:bool = false:
-	set = setHookActive
+## Enables/disables collision contact monitoring for the hook.
+var hook_collision_monitoring_active:bool = false:
+	set = setHookCollisionMonitoringActive
+## Enables/disables movement simulation by toggling freeze/sleeping.
+var hook_physics_simulation_active:bool = false:
+	set = setHookPhysicsSimulationActive
 var hook_initial_transform:Transform3D
 ## The global position of the hook last physics frame.
 var last_hook_global_position:Vector3 = Vector3.ZERO
@@ -39,6 +43,10 @@ var last_collision_normal:Vector3:
 ## The location of the last [code]grapple_hook[/code] collision, in global coordinates.
 var last_collision_point:Vector3:
 	get = getLastCollisionPoint
+## When true, the hook is returning to the holder in an animation, not instantly.
+## Note that this value is never modified if returnHookToHolderInstant is called.
+var reeling:bool = false:
+	set = setReeling
 #endregion
 
 signal new_hooked_target_set(previous_hooked_target:Node3D, new_hooked_target:Node3D)
@@ -86,23 +94,21 @@ func setHookedTarget(hooked_targ:Node3D):
 	new_hooked_target_set.emit(previous_hooked_target, new_hooked_target)
 	
 	if new_hooked_target != null:
-		hook_active = false
+		setHookCollisionMonitoringActive(false)
+		setHookPhysicsSimulationActive(false)
 
 
-## Activates/deactivates the hook, preventing or enabling it from moving, monitoring
-## contacts, etc. The hook should be disabled before it is teleported to prevent
-## physical miscalculations and erroring.
-func setHookActive(is_active:bool) -> void:
-	hook_active = is_active
-	
-	if is_active == true:
-		grapple_hook.freeze = false
-		grapple_hook.sleeping = false
-		grapple_hook.contact_monitor = true
-	elif is_active == false:
-		grapple_hook.freeze = true
-		grapple_hook.sleeping = true
-		grapple_hook.contact_monitor = false
+func setHookCollisionMonitoringActive(is_active:bool) -> void:
+	hook_collision_monitoring_active = is_active
+	grapple_hook.contact_monitor = is_active
+	grapple_hook_smaller_collider.disabled = !is_active
+	grapple_hook_sweeping_cast.enabled = is_active
+
+
+func setHookPhysicsSimulationActive(is_active:bool) -> void:
+	hook_physics_simulation_active = is_active
+	grapple_hook.freeze = not is_active
+	grapple_hook.sleeping = not is_active
 #endregion
 
 
@@ -111,12 +117,13 @@ func _ready() -> void:
 	hook_initial_transform = grapple_hook.transform
 	_hook_global_position_cache = grapple_hook.global_position
 	last_hook_global_position = _hook_global_position_cache
-	setHookActive(false)
+	setHookCollisionMonitoringActive(false)
+	setHookPhysicsSimulationActive(false)
 
 
 func _physics_process(_delta: float) -> void:
 	
-	if hook_active:
+	if hook_physics_simulation_active:
 		last_hook_global_position = _hook_global_position_cache
 		_hook_global_position_cache = grapple_hook.global_position
 		updateShapeCastState(last_hook_global_position, grapple_hook.global_position)
@@ -126,6 +133,10 @@ func _physics_process(_delta: float) -> void:
 			if logging_debug:
 				Debug.log("Hook shapecast registered collision, handling.")
 			handleHookCollision(cast_collider_body)
+		
+		if reeling:
+			var dir:Vector3 = (player.camera_3d.global_position - getHookedTargetPosition()).normalized()
+			grapple_hook.linear_velocity = dir * grapple_speed
 	
 	if hooked_target:
 		# snap hook to the target
@@ -133,15 +144,24 @@ func _physics_process(_delta: float) -> void:
 			grapple_hook.global_position = hooked_target.global_position + hooked_target.chest_offset
 		else:
 			grapple_hook.global_position = hooked_target.global_position
+
+
+func setReeling(is_reeling:bool) -> void:
+	reeling = is_reeling
 	
-		
+	if is_reeling == true:
+		grapple_hook.linear_velocity = Vector3.ZERO
+		hook_collision_monitoring_active = false
+	elif is_reeling == false:
+		hook_collision_monitoring_active = false
 
 
 ## Reparents the hook to the player and moves the hook back to it's bone attatchment,
 ## re orienting it in the process.
-func returnHookToHolder() -> void:
-	if hook_active:
-		setHookActive(false)
+func returnHookToHolderInstant() -> void:
+	if hook_physics_simulation_active:
+		setHookCollisionMonitoringActive(false)
+		setHookPhysicsSimulationActive(false)
 	if hooked_target:
 		hooked_target = null
 	
@@ -153,7 +173,7 @@ func returnHookToHolder() -> void:
 
 ## Does the actual release of the hook, in [param direction] with [param velocity].
 func throwHook(direction:Vector3, velocity:float) -> void:
-	if hook_active:
+	if hook_physics_simulation_active:
 		if logging_debug:
 			Debug.logerr("Attempted to throw the hook when it was still active.")
 		return
@@ -165,13 +185,16 @@ func throwHook(direction:Vector3, velocity:float) -> void:
 	grapple_hook.reparent(get_tree().current_scene)
 	_hook_global_position_cache = grapple_hook.global_position
 	last_hook_global_position = _hook_global_position_cache
-	setHookActive(true)
+	setHookCollisionMonitoringActive(true)
+	setHookPhysicsSimulationActive(true)
 	grapple_hook.linear_velocity = direction.normalized() * velocity
 
 
 func handleHookCollision(body:Node3D) -> void:
 	if logging_debug:
 		Debug.log("Handling hook collision for: " + str(body))
+
+	hook_collided.emit(body, last_collision_point, last_collision_normal)
 	
 	if body is WorldBody:
 		var impact_particles:GPUParticles3D = IMPACT_PARTICLES_SCENE.instantiate()
@@ -184,7 +207,7 @@ func handleHookCollision(body:Node3D) -> void:
 		if body.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_PLAYER:
 			player.set_player_state(Player.player_states.GRAPPLING_TO)
 		elif body.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_AGENT:
-			pass
+			reeling = true
 
 
 ## Moves the shapecast to pos, looking at pos_2. Expects global coordinates.

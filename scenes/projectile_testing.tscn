@@ -287,6 +287,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.493874, 3.727313, -15.1976
 collision_layer = 512
 collision_mask = 512
 script = ExtResource("8_wl3f4")
+pull_behavior = 0
 metadata/_custom_type_script = "uid://vvywp65j7qtu"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnviromentTest/GrappleableAgent3D"]

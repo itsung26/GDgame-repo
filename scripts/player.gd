@@ -384,7 +384,7 @@ func set_action_state(new_action_state:action_states):
 		grapple_arm.animator.play(&"grapple_out")
 		grapple_arm.throwHook(dir, vel)
 	if previous_action_state == action_states.GRAPPLING:
-		grapple_arm.returnHookToHolder()
+		grapple_arm.returnHookToHolderInstant()
 		grapple_arm.animator.play(&"grapple_rebound")
 	
 	# REELING_IN to and from.
