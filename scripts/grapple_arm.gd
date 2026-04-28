@@ -248,3 +248,8 @@ func getHookedTargetPosition() -> Vector3:
 ## Returns the true global_position, ignoring any offsets.
 func getTrueHookedTargetPosition() -> Vector3:
 	return hooked_target.global_position
+
+
+func _on_grapple_cease_area_body_entered(body: Node3D) -> void:
+	if body is GrappleableAgent3D:
+		player.set_action_state(Player.action_states.IDLE)

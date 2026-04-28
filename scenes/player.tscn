@@ -544,7 +544,7 @@ weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Cam
 
 [node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
 script = ExtResource("2_a38lo")
-nodes_to_hide_on_ready = [NodePath("../Pivot/Camera3D/ParryArm/ParryHitbox/CollisionShape3D"), NodePath("../Pivot/Camera3D/PunchRaycast"), NodePath("../player body"), NodePath("../CollisionShapeMain"), NodePath("../GrappleEnemyCeaseArea/CollisionShape3D"), NodePath("../PlayerFloorCast")]
+nodes_to_hide_on_ready = [NodePath("../Pivot/Camera3D/ParryArm/ParryHitbox/CollisionShape3D"), NodePath("../Pivot/Camera3D/PunchRaycast"), NodePath("../player body"), NodePath("../CollisionShapeMain"), NodePath("../GrappleCeaseArea/CollisionShape3D"), NodePath("../PlayerFloorCast")]
 metadata/_custom_type_script = "uid://bcsxapsamvmvq"
 
 [node name="player body" parent="." instance=ExtResource("2_i4ail")]
@@ -615,11 +615,12 @@ target_position = Vector3(0, -5000, 0)
 collision_mask = 6
 script = ExtResource("6_4ni07")
 
-[node name="GrappleEnemyCeaseArea" type="Area3D" parent="."]
+[node name="GrappleCeaseArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.941914, 0)
-collision_mask = 2
+collision_layer = 512
+collision_mask = 512
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleEnemyCeaseArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleCeaseArea"]
 shape = SubResource("SphereShape3D_y4r1p")
 debug_color = Color(0, 1, 0, 0.41960785)
 
@@ -1040,6 +1041,7 @@ one_shot = true
 one_shot = true
 
 [connection signal="entered_arm_state" from="." to="huds/HUD" method="_on_player_entered_arm_state"]
+[connection signal="body_entered" from="GrappleCeaseArea" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_cease_area_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook" to="Pivot/Camera3D/GrappleArm" method="_on_grapple_hook_body_entered"]
 [connection signal="body_entered" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_entered"]
 [connection signal="body_exited" from="Pivot/Camera3D/ParryArm/ParryHitbox" to="." method="_on_parry_hitbox_body_exited"]

@@ -290,3 +290,17 @@ metadata/_custom_type_script = "uid://vvywp65j7qtu"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnviromentTest/GrappleableAgent3D"]
 shape = SubResource("BoxShape3D_rj2dv")
 debug_color = Color(0, 1, 0, 1)
+
+[node name="EnviromentTest2" parent="." instance=ExtResource("7_wl3f4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.3459835, 3.727313, -15.1976185)
+
+[node name="GrappleableAgent3D" type="StaticBody3D" parent="EnviromentTest2"]
+collision_layer = 512
+collision_mask = 512
+script = ExtResource("8_wl3f4")
+pull_behavior = 0
+metadata/_custom_type_script = "uid://vvywp65j7qtu"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnviromentTest2/GrappleableAgent3D"]
+shape = SubResource("BoxShape3D_rj2dv")
+debug_color = Color(0, 1, 0, 1)
