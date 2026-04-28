@@ -373,7 +373,8 @@ func set_action_state(new_action_state:action_states):
 	
 	# IDLE to and from.
 	if new_action_state == action_states.IDLE:
-		pass
+		grapple_arm.returnHookToHolderInstant()
+		grapple_arm.animator.play(&"grapple_rebound")
 	if previous_action_state == action_states.IDLE:
 		pass
 	
@@ -384,12 +385,12 @@ func set_action_state(new_action_state:action_states):
 		grapple_arm.animator.play(&"grapple_out")
 		grapple_arm.throwHook(dir, vel)
 	if previous_action_state == action_states.GRAPPLING:
-		grapple_arm.returnHookToHolderInstant()
-		grapple_arm.animator.play(&"grapple_rebound")
+		pass
 	
 	# REELING_IN to and from.
 	if new_action_state == action_states.REELING_IN:
-		pass
+		grapple_arm.hook_physics_simulation_active = true
+		grapple_arm.hook_collision_monitoring_active = false
 	if previous_action_state == action_states.REELING_IN:
 		pass
 
@@ -596,9 +597,10 @@ func _physics_process(delta: float) -> void:
 	input_dir = Input.get_vector("left", "right", "forward", "back")
 	direction = Vector3(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
+	# Run all of the state machine logic right before calculating physics.
 	physics_process_player_state(delta)
 
-	# if kinematics are not enabled, kill all velocity before computing physics
+	# if kinematics are not enabled, kill all velocity before computing physics.
 	if not player_kinematics_enabled_xz:
 		velocity.x = 0.0
 		velocity.z = 0.0
@@ -609,6 +611,7 @@ func _physics_process(delta: float) -> void:
 
 func physics_process_player_state(delta:float) -> void:
 	# run all state machine related physics logic every physics frame
+#region Player states
 	# grounded movement state logic
 	if player_state == player_states.GROUNDED:
 		if direction and player_move_input_enabled:
@@ -696,7 +699,19 @@ func physics_process_player_state(delta:float) -> void:
 		# compute the vector going from the player camera to the grappling target
 		var dir:Vector3 = (grapple_arm.getHookedTargetPosition() - camera_3d.global_position).normalized()
 		velocity = dir * grapple_arm.grapple_speed
-
+#endregion
+#region Action states
+	if action_state == action_states.IDLE:
+		pass
+	elif action_state == action_states.GRAPPLING:
+		pass
+	elif action_state == action_states.REELING_IN:
+		if grapple_arm.hooked_target:
+			grapple_arm.hooked_target.global_position = grapple_arm.hooked_target.global_position.move_toward(
+				player.global_position,
+				grapple_arm.grapple_speed * delta
+			)
+#endregion
 
 # camera control by mouse input relative to last frame
 func _input(event: InputEvent) -> void:
@@ -740,7 +755,7 @@ func _input(event: InputEvent) -> void:
 			return
 #endregion
 
-#region Arm state switch
+#region Arm switch
 		if event.is_action_pressed("switch arm") and not event.is_echo() and player_arm_switch_input_enabled:
 			if arm_state == arm_states.GRAPPLEARM:
 				set_arm_state(arm_states.PARRYARM)
@@ -748,15 +763,22 @@ func _input(event: InputEvent) -> void:
 				set_arm_state(arm_states.GRAPPLEARM)
 #endregion
 
-#region Grapple out state switch
+#region Arm action state switch
 		# handle grapple activation
 		if event.is_action_pressed("arm action") and not event.is_echo() and player_arm_action_input_enabled:
+			
 			if arm_state == arm_states.GRAPPLEARM:
-				if action_state != action_states.GRAPPLING:
+				
+				if action_state == action_states.IDLE:
 					set_action_state(action_states.GRAPPLING)
-				else:
+				elif action_state == action_states.GRAPPLING:
 					set_action_state(action_states.IDLE)
+				elif action_state == action_states.REELING_IN:
+					set_action_state(action_states.IDLE)
+			
+			
 			elif arm_state == arm_states.PARRYARM:
+				
 				if parry_input_allowed:
 					parry_arm_animator.play("swing arm initial")
 #endregion

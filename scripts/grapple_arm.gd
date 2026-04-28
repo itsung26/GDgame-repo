@@ -43,10 +43,6 @@ var last_collision_normal:Vector3:
 ## The location of the last [code]grapple_hook[/code] collision, in global coordinates.
 var last_collision_point:Vector3:
 	get = getLastCollisionPoint
-## When true, the hook is returning to the holder in an animation, not instantly.
-## Note that this value is never modified if returnHookToHolderInstant is called.
-var reeling:bool = false:
-	set = setReeling
 #endregion
 
 signal new_hooked_target_set(previous_hooked_target:Node3D, new_hooked_target:Node3D)
@@ -133,10 +129,6 @@ func _physics_process(_delta: float) -> void:
 			if logging_debug:
 				Debug.log("Hook shapecast registered collision, handling.")
 			handleHookCollision(cast_collider_body)
-		
-		if reeling:
-			var dir:Vector3 = (player.camera_3d.global_position - getHookedTargetPosition()).normalized()
-			grapple_hook.linear_velocity = dir * grapple_speed
 	
 	if hooked_target:
 		# snap hook to the target
@@ -144,16 +136,6 @@ func _physics_process(_delta: float) -> void:
 			grapple_hook.global_position = hooked_target.global_position + hooked_target.chest_offset
 		else:
 			grapple_hook.global_position = hooked_target.global_position
-
-
-func setReeling(is_reeling:bool) -> void:
-	reeling = is_reeling
-	
-	if is_reeling == true:
-		grapple_hook.linear_velocity = Vector3.ZERO
-		hook_collision_monitoring_active = false
-	elif is_reeling == false:
-		hook_collision_monitoring_active = false
 
 
 ## Reparents the hook to the player and moves the hook back to it's bone attatchment,
@@ -207,7 +189,7 @@ func handleHookCollision(body:Node3D) -> void:
 		if body.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_PLAYER:
 			player.set_player_state(Player.player_states.GRAPPLING_TO)
 		elif body.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_AGENT:
-			reeling = true
+			player.set_action_state(Player.action_states.REELING_IN)
 
 
 ## Moves the shapecast to pos, looking at pos_2. Expects global coordinates.
@@ -226,7 +208,7 @@ func _on_grapple_hook_body_entered(body: Node) -> void:
 	handleHookCollision(body)
 
 
-## Call this instead of hooked_target.global_position.
+## Call this instead of hooked_target.global_position to account for enemy chest offset.
 func getHookedTargetPosition() -> Vector3:
 	if hooked_target == null:
 		if logging_debug:
@@ -236,3 +218,8 @@ func getHookedTargetPosition() -> Vector3:
 		return hooked_target.global_position + hooked_target.chest_offset
 	else:
 		return hooked_target.global_position
+
+
+## Returns the true global_position, ignoring any offsets.
+func getTrueHookedTargetPosition() -> Vector3:
+	return hooked_target.global_position
