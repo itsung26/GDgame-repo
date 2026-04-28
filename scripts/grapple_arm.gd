@@ -183,6 +183,8 @@ func handleHookCollision(body:Node3D) -> void:
 		hooked_target = body.agent
 		if body.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_PLAYER:
 			player.set_player_state(Player.player_states.GRAPPLING_TO)
+		elif body.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_AGENT:
+			pass
 
 
 ## Moves the shapecast to pos, looking at pos_2. Expects global coordinates.
@@ -204,6 +206,8 @@ func _on_grapple_hook_body_entered(body: Node) -> void:
 ## Call this instead of hooked_target.global_position.
 func getHookedTargetPosition() -> Vector3:
 	if hooked_target == null:
+		if logging_debug:
+			Debug.logerr("Hooked target is null! Returning Vector3.ZERO")
 		return Vector3.ZERO
 	elif hooked_target is Enemy:
 		return hooked_target.global_position + hooked_target.chest_offset

@@ -6,7 +6,6 @@ extends StaticBody3D
 
 ## The "owner" of this grappleable box.
 var agent:Node3D
-var grappled:bool = false
 
 enum pull_behaviors {PULL_AGENT, PULL_PLAYER}
 
@@ -14,7 +13,8 @@ enum pull_behaviors {PULL_AGENT, PULL_PLAYER}
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_READY:
-			agent = get_parent()
+			if not _parent_is_level():
+				agent = get_parent()
 		NOTIFICATION_PROCESS:
 			if Engine.is_editor_hint():
 				update_configuration_warnings()

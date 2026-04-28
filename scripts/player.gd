@@ -81,7 +81,7 @@ enum player_states {
 enum arm_states{GRAPPLEARM, PARRYARM}
 
 ## WIP. Currently only represents the grapple hook's state.
-enum action_states{IDLE, GRAPPLING}
+enum action_states{IDLE, GRAPPLING, REELING_IN}
 #endregion
 
 @export_group("Input Allowments")
@@ -365,11 +365,9 @@ func set_action_state(new_action_state:action_states):
 	# init vars
 	var previous_action_state := action_state
 	action_state = new_action_state
-	
 	# Prevent same-state switching.
 	if previous_action_state == new_action_state:
 		return
-	
 	# Emit signal.
 	entered_action_state.emit(new_action_state, previous_action_state)
 	
@@ -388,6 +386,12 @@ func set_action_state(new_action_state:action_states):
 	if previous_action_state == action_states.GRAPPLING:
 		grapple_arm.returnHookToHolder()
 		grapple_arm.animator.play(&"grapple_rebound")
+	
+	# REELING_IN to and from.
+	if new_action_state == action_states.REELING_IN:
+		pass
+	if previous_action_state == action_states.REELING_IN:
+		pass
 
 
 func set_arm_state(new_arm_state:arm_states):
