@@ -311,8 +311,8 @@ func ragdoll(force_applied:float) -> void:
 func finalize_death() -> void:
 	call_deferred("queue_free")
 
-## Hurt callback: wakes the turret and begins seeking if hit while offline.
-func _on_hurt(damage: float, damage_type: Enemy.damage_types) -> void:
+## Health change callback: wakes the turret and begins seeking if hit while offline.
+func _on_health_changed(previous_health:float, new_health:float, damage_type:Enemy.damage_types) -> void:
 	if enemy_state == enemy_states.OFFLINE:
 		seeking_timer.start(time_before_stop_seeking)
 		setEnemyState(enemy_states.SEEKING)

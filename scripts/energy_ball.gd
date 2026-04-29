@@ -99,12 +99,12 @@ func _on_hit_player(player: Player) -> void:
 func _on_hit_enemy(enemy: Enemy) -> void:
 	if enemy == owner_enemy:
 		if collision_with_owner_enabled:
-			enemy.damageEnemy(damage_to_enemies, enemy.damage_types.NORMAL)
+			enemy.setHealth(enemy.HEALTH - damage_to_enemies, enemy.damage_types.NORMAL)
 			if has_been_parried:
 				spawnExplosions()
 			_destroySelf()
 	else:
-		enemy.damageEnemy(damage_to_enemies, enemy.damage_types.NORMAL)
+		enemy.setHealth(enemy.HEALTH - damage_to_enemies, enemy.damage_types.NORMAL)
 		if has_been_parried:
 			spawnExplosions()
 		_destroySelf()

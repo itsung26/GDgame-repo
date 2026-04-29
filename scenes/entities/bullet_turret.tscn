@@ -326,7 +326,7 @@ transform = Transform3D(2.61, 0, 0, 0, 2.61, 0, 0, 0, 2.61, 0, 1.7439591, 0)
 texture_filter = 2
 modulate = Color(1, 0, 0, 1)
 
-[connection signal="on_hurt" from="." to="." method="_on_hurt"]
+[connection signal="on_health_changed" from="." to="." method="_on_health_changed"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
 [connection signal="timeout" from="SeekingTimer" to="." method="_on_seeking_timer_timeout"]

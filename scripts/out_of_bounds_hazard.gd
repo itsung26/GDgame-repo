@@ -13,5 +13,5 @@ func _on_body_entered(body: CharacterBody3D) -> void:
 	
 	elif body.is_in_group("enemy"):
 		var enemy:Enemy = body
-		enemy.damageEnemy(damage_to_enemies, enemy.damage_types.NORMAL)
+		enemy.setHealth(enemy.HEALTH - damage_to_enemies, enemy.damage_types.NORMAL)
 		enemy.queue_free()

@@ -216,7 +216,7 @@ func _handle_hit(body:Node3D) -> void:
 			body.global_position.y += 0.001
 			body.velocity += dir_to_enemy * knockback_force
 			
-		body.damageEnemy(damage, Enemy.damage_types.EXPLOSIVE)
+		body.setHealth(body.HEALTH - damage, Enemy.damage_types.EXPLOSIVE)
 	
 	elif body is PhysicalBone3D:
 		var center_point:Vector3 = global_position # get the center of the sphere

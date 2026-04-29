@@ -376,7 +376,7 @@ func _handle_hit(
 		
 		# Otherwise, deal normal damage (piercing or non-piercing).
 		var damage: float = config.get_random_damage() * damage_multiplier
-		enemy.damageEnemy(damage, config.damage_type)
+		enemy.setHealth(enemy.HEALTH - damage, config.damage_type)
 		return
 	
 	if hit_body is Player:

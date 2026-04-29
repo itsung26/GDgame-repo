@@ -1,9 +1,10 @@
+@abstract
 ## Base class for all enemies, ranged and melee. Handles health, damage, and death behavior.
 class_name Enemy extends CharacterBody3D
 
-## Called [color=green]AFTER[/color] damage is applied but [color=red]BEFORE[/color]
-## the deatch check. Use with caution.
-signal on_hurt(damage:float, damage_type:damage_types)
+## Called [color=green]AFTER[/color] health is applied but [color=red]BEFORE[/color]
+## the death check. Use with caution.
+signal on_health_changed(previous_health:float, new_health:float, damage_type:damage_types)
 signal parried
 
 # states and constants
@@ -29,7 +30,6 @@ enum damage_types{
 }
 enum weight_class{LIGHT, HEAVY}
 
-var last_hit_damage_type:damage_types
 
 ## The actual health of the enemy. This is the primary thing modified.
 @export var HEALTH:float = 100.0
@@ -43,7 +43,7 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 @onready var player:Player = get_tree().current_scene.find_child("Player")
 ## How quickly the enemy is slowed when in the air on the xz plane
 @export var slowInAirFactor:float = 10.0
-## Whether the enemy recieves damage. Taking damage will still call [code]damageEnemy[/code], but interior logic will be skipped.
+## Whether the enemy recieves damage. Taking damage will still call [code]setHealth[/code], but interior logic will be skipped.
 @export var damage_enabled:bool = true
 ## The point that the grapple hook will attatch to. This should be located somewhere near the center of the enemy.
 @export var chest_offset:Vector3 = Vector3.ZERO
@@ -57,15 +57,17 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 ## If true, hitscan bullets will reflect off this enemy's surface.
 @export var reflective:bool = false
 
-func damageEnemy(damage:float, damage_type:damage_types):
+var last_hit_damage_type:damage_types
+
+
+func setHealth(new_health:float, damage_type:damage_types):
 	if damage_enabled:
-		var previous_enemy_health = HEALTH
-		var new_enemy_health = HEALTH - damage
+		var previous_enemy_health:float = HEALTH
 		last_hit_damage_type = damage_type
-		HEALTH = new_enemy_health
+		HEALTH = new_health
 		HEALTH = clampf(HEALTH, 0, 100)
 		
-		on_hurt.emit(damage, damage_type)
+		on_health_changed.emit(previous_enemy_health, HEALTH, damage_type)
 		
 		
 		if HEALTH == 0:
@@ -73,16 +75,19 @@ func damageEnemy(damage:float, damage_type:damage_types):
 	else:
 		pass
 
+
+@abstract
 ## Called when health reaches zero. Override to provide the death behavior of the enemy.
-func _killEnemy():
-	print("no death behavior configured. defaulting to deletion on death.")
-	queue_free()
+func _killEnemy()
 
 
 ## gets the health of the enemy
 func getHealth() -> float:
 	return HEALTH
 
+
+@abstract
+func _ready() -> void
 
 ## gets the vector rotation looking at the target (returns globally and in radians)
 func getVec3LookingAtTarget(target_pos:Vector3) -> Vector3:

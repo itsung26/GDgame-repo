@@ -51,7 +51,7 @@ func _on_hazard_area_body_entered(body: Node3D) -> void:
 	elif body is Enemy:
 		_onHazardEnemyEnter(body)
 		var enemy: Enemy = body
-		enemy.damageEnemy(damage_to_enemies, enemy.damage_types.NORMAL)
+		enemy.setHealth(enemy.HEALTH - damage_to_enemies, enemy.damage_types.NORMAL)
 		enemy.velocity = Vector3.ZERO
 		enemy.velocity += bounce_direction * bounce_speed
 
