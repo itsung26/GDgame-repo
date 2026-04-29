@@ -123,9 +123,9 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	if not is_on_floor() and gravity_enabled:
+	if canApplyGravity():
 		# handle gravity
-		velocity += get_gravity() * delta
+		applyGravity(delta)
 
 	# handle allowed physics
 	# checks to see if the enemy is in the air or on the ground and sets the state once accordingly if it is not already in another state

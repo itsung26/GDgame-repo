@@ -187,8 +187,8 @@ func _process(delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	# apply gravity when in the air
-	if not is_on_floor() and gravity_enabled and enemy_state != enemy_states.RETURNTOSENDER and enemy_state != enemy_states.DEAD:
-		velocity += get_gravity() * delta
+	if canApplyGravity() and enemy_state != enemy_states.RETURNTOSENDER and enemy_state != enemy_states.DEAD:
+		applyGravity(delta)
 	
 	# handle air/ground state transitions
 	# Only FOLLOWING can enter FALLING. LEAPING is handled separately below.

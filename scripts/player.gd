@@ -1078,6 +1078,16 @@ func _on_parry_hitbox_body_entered(body: Node3D) -> void:
 func _on_parry_hitbox_body_exited(body: Node3D) -> void:
 	if body == parry_target:
 		parry_target = null
-
-
 #endregion
+
+
+func _on_grapple_cease_area_body_entered(body: Node3D) -> void:
+	if body is GrappleableAgent3D:
+		# ensure the unhook logic only runs when the entered body is the one currently hooked
+		if body == grapple_arm.hooked_grappleable:
+			set_action_state(Player.action_states.IDLE)
+			killVelocity()
+			applyForceImpulse(
+				grapple_arm.force_applied_on_ungrapple.length(), 
+				grapple_arm.force_applied_on_ungrapple.normalized()
+				)

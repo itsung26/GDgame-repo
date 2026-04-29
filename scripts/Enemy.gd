@@ -1,15 +1,10 @@
 ## Base class for all enemies, ranged and melee. Handles health, damage, and death behavior.
 class_name Enemy extends CharacterBody3D
 
-signal left_floor
-signal hit_floor
-signal on_grappled
 ## Called [color=green]AFTER[/color] damage is applied but [color=red]BEFORE[/color]
 ## the deatch check. Use with caution.
 signal on_hurt(damage:float, damage_type:damage_types)
 signal parried
-
-var _was_on_floor: bool = false
 
 # states and constants
 ## The types of damage that an enemy can recieve. These types are used in deciding
@@ -83,9 +78,6 @@ func _killEnemy():
 	print("no death behavior configured. defaulting to deletion on death.")
 	queue_free()
 
-## heals the enemy
-func healEnemy(health:float):
-	HEALTH += health
 
 ## gets the health of the enemy
 func getHealth() -> float:
@@ -111,14 +103,12 @@ func getPredictedPos(time:float) -> Vector3:
 	var r:Vector3 = a + global_position
 	return r
 
-func _ready() -> void:
-	_was_on_floor = is_on_floor()
-	if get_tree():
-		get_tree().connect("physics_frame", Callable(self, "_on_physics_frame"))
+## Returns true when gravity should be applied for this enemy.
+func canApplyGravity() -> bool:
+	return gravity_enabled and not is_on_floor()
 
 
-func _exit_tree() -> void:
-	if get_tree():
-		var cb := Callable(self, "_on_physics_frame")
-		if get_tree().is_connected("physics_frame", cb):
-			get_tree().disconnect("physics_frame", cb)
+## Applies gravity to [code]velocity[/code] when [method canApplyGravity] is true.
+func applyGravity(delta:float) -> void:
+	if canApplyGravity():
+		velocity += get_gravity() * delta

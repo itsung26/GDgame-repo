@@ -62,12 +62,16 @@ var last_collision_point:Vector3:
 	get = getLastCollisionPoint
 #endregion
 
+#region signals
 signal new_hooked_target_set(previous_hooked_target:Node3D, new_hooked_target:Node3D)
 signal new_hooked_grappleable_set(previous_hooked_grappleable:GrappleableAgent3D, new_hooked_grappleable:GrappleableAgent3D)
 ## Emitted when the hook collides and collision data is available.
 signal hook_collided(body:Node3D, collision_point:Vector3, collision_normal:Vector3)
+#endregion
 
+#region constants
 const IMPACT_PARTICLES_SCENE:PackedScene = preload("res://scenes/impact_particles.tscn")
+#endregion
 
 
 #region Setters and getters
@@ -108,9 +112,6 @@ func setHookedTarget(hooked_targ:Node3D):
 	var new_hooked_target:Node3D = hooked_targ
 	hooked_target = new_hooked_target
 	new_hooked_target_set.emit(previous_hooked_target, new_hooked_target)
-
-	if previous_hooked_target != null and new_hooked_target == null:
-		hooked_grappleable = null
 	
 	if new_hooked_target != null:
 		player.killVelocity()
@@ -125,13 +126,6 @@ func setHookedGrappleable(grappleable:GrappleableAgent3D) -> void:
 	var new_hooked_grappleable:GrappleableAgent3D = grappleable
 	hooked_grappleable = new_hooked_grappleable
 	new_hooked_grappleable_set.emit(previous_hooked_grappleable, new_hooked_grappleable)
-
-	if previous_hooked_grappleable != null and previous_hooked_grappleable != new_hooked_grappleable:
-		if is_instance_valid(previous_hooked_grappleable):
-			previous_hooked_grappleable.ungrappled.emit()
-
-	if new_hooked_grappleable != null and previous_hooked_grappleable != new_hooked_grappleable:
-		new_hooked_grappleable.grappled.emit()
 
 
 ## Enables/disables collision monitoring and sweeping cast updates for the hook.
@@ -224,22 +218,29 @@ func throwHook(direction:Vector3, velocity:float) -> void:
 func handleHookCollision(body:Node3D) -> void:
 	if logging_debug:
 		Debug.log("Handling hook collision for: " + str(body))
-
 	hook_collided.emit(body, last_collision_point, last_collision_normal)
 	
+	# outer layer, body = what physical body the hook rigidbody hit
 	if body is WorldBody:
 		var impact_particles:GPUParticles3D = IMPACT_PARTICLES_SCENE.instantiate()
 		get_tree().current_scene.add_child(impact_particles)
 		impact_particles.setup(last_collision_point, last_collision_point + last_collision_normal.normalized())
 		player.set_action_state(Player.action_states.IDLE)
-	
-	elif body is GrappleableAgent3D:
+	if body is GrappleableAgent3D:
 		hooked_grappleable = body
 		hooked_target = body.agent
 		if hooked_grappleable.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_PLAYER:
 			player.set_player_state(Player.player_states.GRAPPLING_TO)
 		elif hooked_grappleable.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_AGENT:
 			player.set_action_state(Player.action_states.REELING_IN)
+		
+		# inner layer===================================================================
+		# hooked_grappleable = which grappleable agent was registered
+		# hooked_target = the owner of the agent, eg. the enemy parent of the agent
+		if hooked_target is Enemy:
+			if logging_debug:
+				Debug.log("hooked enemy as target")
+		# ==============================================================================
 
 
 ## Moves the shapecast to pos, looking at pos_2. Expects global coordinates.
@@ -268,8 +269,3 @@ func getHookedTargetPosition() -> Vector3:
 		return hooked_target.global_position + hooked_target.chest_offset
 	else:
 		return hooked_target.global_position
-
-
-func _on_grapple_cease_area_body_entered(body: Node3D) -> void:
-	if body is GrappleableAgent3D:
-		player.set_action_state(Player.action_states.IDLE)
