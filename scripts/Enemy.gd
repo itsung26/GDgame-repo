@@ -89,6 +89,15 @@ func getHealth() -> float:
 @abstract
 func _ready() -> void
 
+
+@abstract
+func _process(delta: float) -> void
+
+
+@abstract
+func _physics_process(delta: float) -> void
+
+
 ## gets the vector rotation looking at the target (returns globally and in radians)
 func getVec3LookingAtTarget(target_pos:Vector3) -> Vector3:
 	# store the rotation

@@ -97,7 +97,6 @@ func set_enemy_state(new_enemy_state:enemy_states):
 		
 
 func _ready() -> void:
-	super._ready() # ensure Enemy._ready runs (physics_frame hookup)
 	assert(filth_animator)
 	if player == null:
 		set_enemy_state(enemy_states.IDLE)
