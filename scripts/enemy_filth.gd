@@ -97,7 +97,6 @@ func set_enemy_state(new_enemy_state:enemy_states):
 		
 
 func _ready() -> void:
-	assert(filth_animator)
 	if player == null:
 		set_enemy_state(enemy_states.IDLE)
 	else:
@@ -181,6 +180,10 @@ func _physics_process(delta: float) -> void:
 
 func _killEnemy():
 	set_enemy_state(enemy_states.DEAD)
+
+
+func _on_parried_impl() -> void:
+	pass
 
 
 func _disableCollisionAllEnemies():

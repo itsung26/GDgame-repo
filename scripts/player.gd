@@ -937,7 +937,7 @@ func parryTargetInBox():
 				parry_target.queue_free()
 		
 		elif parry_target is Enemy:
-			parry_target.parried.emit()
+			parry_target.on_parried()
 		
 	# If no valid target was found in the box
 	elif parry_target == null:
