@@ -10,9 +10,6 @@ extends StaticBody3D
 ## The "owner" of this grappleable box.
 var agent:Node3D
 
-signal grappled
-signal ungrappled
-
 enum pull_behaviors {PULL_AGENT, PULL_PLAYER}
 
 

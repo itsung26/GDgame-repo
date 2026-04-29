@@ -677,7 +677,7 @@ func physics_process_player_state(delta:float) -> void:
 		pass
 	elif action_state == action_states.REELING_IN:
 		if grapple_arm.hooked_target:
-			grapple_arm.hooked_target.global_position = grapple_arm.getTrueHookedTargetPosition().move_toward(
+			grapple_arm.hooked_target.global_position = grapple_arm.hooked_target.global_position.move_toward(
 				player.global_position,
 				grapple_arm.grapple_speed * delta
 			)

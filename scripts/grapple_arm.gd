@@ -36,6 +36,9 @@ extends Node3D
 ## Current target attached to the hook, or [code]null[/code] when unattached.
 var hooked_target:Node3D:
 	set =  setHookedTarget
+## Current grappleable interaction source attached to the hook, or [code]null[/code] when unattached.
+var hooked_grappleable:GrappleableAgent3D:
+	set = setHookedGrappleable
 ## Enables/disables collision contact monitoring for the hook.
 var hook_collision_monitoring_active:bool = false:
 	set = setHookCollisionMonitoringActive
@@ -60,6 +63,7 @@ var last_collision_point:Vector3:
 #endregion
 
 signal new_hooked_target_set(previous_hooked_target:Node3D, new_hooked_target:Node3D)
+signal new_hooked_grappleable_set(previous_hooked_grappleable:GrappleableAgent3D, new_hooked_grappleable:GrappleableAgent3D)
 ## Emitted when the hook collides and collision data is available.
 signal hook_collided(body:Node3D, collision_point:Vector3, collision_normal:Vector3)
 
@@ -104,12 +108,30 @@ func setHookedTarget(hooked_targ:Node3D):
 	var new_hooked_target:Node3D = hooked_targ
 	hooked_target = new_hooked_target
 	new_hooked_target_set.emit(previous_hooked_target, new_hooked_target)
+
+	if previous_hooked_target != null and new_hooked_target == null:
+		hooked_grappleable = null
 	
 	if new_hooked_target != null:
 		player.killVelocity()
 		player.applyForceImpulse(force_applied_on_grapple.length(), force_applied_on_grapple.normalized())
 		setHookCollisionMonitoringActive(false)
 		setHookPhysicsSimulationActive(false)
+
+
+## Sets [code]hooked_grappleable[/code], emits [code]new_hooked_grappleable_set[/code], and emits grapple lifecycle signals.
+func setHookedGrappleable(grappleable:GrappleableAgent3D) -> void:
+	var previous_hooked_grappleable:GrappleableAgent3D = hooked_grappleable
+	var new_hooked_grappleable:GrappleableAgent3D = grappleable
+	hooked_grappleable = new_hooked_grappleable
+	new_hooked_grappleable_set.emit(previous_hooked_grappleable, new_hooked_grappleable)
+
+	if previous_hooked_grappleable != null and previous_hooked_grappleable != new_hooked_grappleable:
+		if is_instance_valid(previous_hooked_grappleable):
+			previous_hooked_grappleable.ungrappled.emit()
+
+	if new_hooked_grappleable != null and previous_hooked_grappleable != new_hooked_grappleable:
+		new_hooked_grappleable.grappled.emit()
 
 
 ## Enables/disables collision monitoring and sweeping cast updates for the hook.
@@ -165,6 +187,8 @@ func returnHookToHolderInstant() -> void:
 	if hook_physics_simulation_active:
 		setHookCollisionMonitoringActive(false)
 		setHookPhysicsSimulationActive(false)
+	if hooked_grappleable:
+		hooked_grappleable = null
 	if hooked_target:
 		hooked_target = null
 	
@@ -210,10 +234,11 @@ func handleHookCollision(body:Node3D) -> void:
 		player.set_action_state(Player.action_states.IDLE)
 	
 	elif body is GrappleableAgent3D:
+		hooked_grappleable = body
 		hooked_target = body.agent
-		if body.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_PLAYER:
+		if hooked_grappleable.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_PLAYER:
 			player.set_player_state(Player.player_states.GRAPPLING_TO)
-		elif body.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_AGENT:
+		elif hooked_grappleable.pull_behavior == GrappleableAgent3D.pull_behaviors.PULL_AGENT:
 			player.set_action_state(Player.action_states.REELING_IN)
 
 
@@ -243,11 +268,6 @@ func getHookedTargetPosition() -> Vector3:
 		return hooked_target.global_position + hooked_target.chest_offset
 	else:
 		return hooked_target.global_position
-
-
-## Returns the true global_position, ignoring any offsets.
-func getTrueHookedTargetPosition() -> Vector3:
-	return hooked_target.global_position
 
 
 func _on_grapple_cease_area_body_entered(body: Node3D) -> void:
