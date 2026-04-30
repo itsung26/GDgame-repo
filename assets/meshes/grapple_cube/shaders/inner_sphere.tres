@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://kivfa03x0l06"]
+
+[ext_resource type="Shader" uid="uid://bypxaa64npt5b" path="res://assets/meshes/grapple_cube/shaders/grapple_cube.gdshader" id="1_ma1um"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ma1um")
+shader_parameter/fresnel_power = 3.795
+shader_parameter/fresnel_invert = false
+shader_parameter/fresnel_color = Color(0.23304483, 0.6050508, 0.8276703, 1)
+shader_parameter/fresnel_brightness = 5.26

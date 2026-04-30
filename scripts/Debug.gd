@@ -40,7 +40,8 @@ func logwarn(loggable = "") -> void:
 
 
 ## Creates a variable watcher that logs whenever the getter's value changes.
-func createDebugLogger(name:String, getter:Callable, print_initial:bool = false) -> void:
+## If [param owner] is provided, the logger is removed automatically when the owner is freed.
+func createDebugLogger(name:String, getter:Callable, print_initial:bool = false, owner:Object = null) -> void:
 	if name.is_empty():
 		self.logerr("createDebugLogger(): name cannot be empty.")
 		return
@@ -51,7 +52,7 @@ func createDebugLogger(name:String, getter:Callable, print_initial:bool = false)
 		self.logerr("createDebugLogger(): logger already exists with name: " + name)
 		return
 	
-	var logger:DebugLogger = DebugLogger.new(name, getter)
+	var logger:DebugLogger = DebugLogger.new(name, getter, owner)
 	debug_loggers.append(logger)
 	if print_initial:
 		self.log(name + " = " + str(logger.last_value))
@@ -71,10 +72,13 @@ func clearDebugLoggers() -> void:
 
 
 func _process(_delta: float) -> void:
-	var logger_count:int = debug_loggers.size()
-	for logger_idx:int in range(logger_count):
+	for logger_idx:int in range(debug_loggers.size() - 1, -1, -1):
 		var logger:DebugLogger = debug_loggers[logger_idx]
 		if logger == null:
+			debug_loggers.remove_at(logger_idx)
+			continue
+		if logger.shouldAutoRemove():
+			debug_loggers.remove_at(logger_idx)
 			continue
 		
 		var has_change:bool = logger.pollHasChange()
@@ -96,14 +100,23 @@ class DebugLogger:
 	var getter:Callable
 	var last_value:Variant = null
 	var initialized:bool = false
+	var owner_ref:WeakRef
 	
 	
-	func _init(logger_name:String, logger_getter:Callable) -> void:
+	func _init(logger_name:String, logger_getter:Callable, owner:Object = null) -> void:
 		name = logger_name
 		getter = logger_getter
+		if owner != null:
+			owner_ref = weakref(owner)
 		last_value = getter.call()
 		initialized = true
 	
+
+	func shouldAutoRemove() -> bool:
+		if owner_ref == null:
+			return false
+		return owner_ref.get_ref() == null
+
 	
 	func pollHasChange() -> bool:
 		if not getter.is_valid():
@@ -114,7 +127,13 @@ class DebugLogger:
 			last_value = new_value
 			initialized = true
 			return false
-		
+
+		var new_value_type:int = typeof(new_value)
+		var last_value_type:int = typeof(last_value)
+		if new_value_type != last_value_type:
+			last_value = new_value
+			return true
+
 		if new_value != last_value:
 			last_value = new_value
 			return true

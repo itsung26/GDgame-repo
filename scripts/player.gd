@@ -58,6 +58,7 @@ extends CharacterBody3D
 @onready var impact_sparks_2:GPUParticles3D = $SlideParticles/ImpactParticles/SparkTrailsSide/ImpactSparks2
 @onready var impact_particles:GPUParticles3D = $SlideParticles/ImpactParticles
 @onready var pause_menu: PauseMenu = %PauseMenu
+@onready var collision_shape_main: CollisionShape3D = $CollisionShapeMain
 #endregion
 
 #region Enum FSMs
@@ -996,27 +997,14 @@ func getPredictedPos(time:float) -> Vector3:
 	return r
 
 
-## Get's the player camera's predicted position at [code]time[/code] seconds, assuming velocity
-## will remain constant. Cane be used for enemy aim prediction. Returns in the global
-## coordinate system.
-func getCameraPredictedPos(time:float) -> Vector3:
-	var a:Vector3 = velocity * time
-	var r:Vector3 = a + camera_3d.global_position
-	return r
-
-
-func getHookedTarget() -> Node3D:
-	return null
-
-
-## Applies a single force to the player in a direction.
+## Applies a single force to the player in a direction with force [param force].
 func applyForceImpulse(force:float, dir:Vector3) -> void:
 	if not dir.is_normalized():
 		dir = dir.normalized()
 	velocity += force * dir
 
 
-## Zeros the player's velocity and returns what it was before it was killed.
+## Zeros the player's velocity and returns what it was before it was zeroed.
 func killVelocity() -> Vector3:
 	var ret:Vector3 = velocity
 	velocity = Vector3.ZERO
@@ -1047,6 +1035,11 @@ func disableInputAllowments() -> void:
 	weapon_switch_input_enabled = false
 	player_slide_slam_input_enabled = false
 	player_arm_switch_input_enabled = false
+
+
+## Returns the midpoint of the main collision shape as an offset to global_position.
+func getCenterOffset() -> Vector3:
+	return player.to_local(collision_shape_main.global_position)
 
 
 func _initializeStamina() -> void:

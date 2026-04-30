@@ -138,6 +138,16 @@ func get_min_pitch_deg() -> float:
 func get_max_pitch_deg() -> float:
 	return base_max_pitch_deg + dash_pitch_current
 
+
+## Get's the player camera's predicted position at [code]time[/code] seconds, assuming velocity
+## will remain constant. Cane be used for enemy aim prediction. Returns in the global
+## coordinate system.
+func getPredictedPos(time:float) -> Vector3:
+	var a:Vector3 = player.velocity * time
+	var r:Vector3 = a + global_position
+	return r
+
+
 ## Moves the camera pivot to the sliding marker and reapplies pitch clamping.
 func gotoSliding() -> void:
 	camera_sliding = true

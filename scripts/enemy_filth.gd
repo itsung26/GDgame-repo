@@ -97,6 +97,13 @@ func set_enemy_state(new_enemy_state:enemy_states):
 		
 
 func _ready() -> void:
+	Debug.createDebugLogger(
+		"logger gravity_enabled",
+		func() -> bool: return gravity_enabled,
+		true,
+		self
+		)
+		
 	if player == null:
 		set_enemy_state(enemy_states.IDLE)
 	else:

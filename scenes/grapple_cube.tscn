@@ -1,9 +1,60 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccl7hn0ddburv"]
+[gd_scene load_steps=5 format=3 uid="uid://ccl7hn0ddburv"]
 
+[ext_resource type="Script" uid="uid://b5vt2cx6flp38" path="res://scripts/grapple_cube.gd" id="1_55mbd"]
 [ext_resource type="PackedScene" uid="uid://boitjw0ayo4ss" path="res://assets/meshes/grapple_cube/grapple_cube.blend" id="1_wxfaj"]
+[ext_resource type="Script" uid="uid://dgm2v2t25u4k0" path="res://scripts/grapple_cube_procedural_animator.gd" id="2_lpllt"]
+[ext_resource type="Material" uid="uid://kivfa03x0l06" path="res://assets/meshes/grapple_cube/shaders/inner_sphere.tres" id="3_kgreb"]
 
 [node name="GrappleCube" type="Node3D" groups=["grapple_cubes"]]
+script = ExtResource("1_55mbd")
 
 [node name="grapple_cube" parent="." instance=ExtResource("1_wxfaj")]
+
+[node name="GrappleCubeProceduralAnimator" type="Node3D" parent="grapple_cube/Skeleton3D" index="0"]
+editor_description = "rotates the joints only"
+script = ExtResource("2_lpllt")
+master_speed_multiplier = 7.0
+mid_rotation_speed = -1.0
+
+[node name="Icosphere" parent="grapple_cube/Skeleton3D" index="1"]
+surface_material_override/1 = ExtResource("3_kgreb")
+
+[node name="OuterMostLookAt" type="LookAtModifier3D" parent="grapple_cube/Skeleton3D" index="2"]
+target_node = NodePath("../outermost_joint/outermost")
+bone_name = "Outer_ring"
+bone = 3
+forward_axis = 3
+primary_rotation_axis = 2
+
+[node name="MidLookAt" type="LookAtModifier3D" parent="grapple_cube/Skeleton3D" index="3"]
+target_node = NodePath("../mid_joint/mid")
+bone_name = "Inner_ring"
+bone = 2
+forward_axis = 2
+primary_rotation_axis = 0
+
+[node name="InnerLookAt" type="LookAtModifier3D" parent="grapple_cube/Skeleton3D" index="4"]
+target_node = NodePath("../inner_joint/inner")
+bone_name = "Center_orb"
+bone = 1
+primary_rotation_axis = 0
+
+[node name="outermost_joint" type="Node3D" parent="grapple_cube/Skeleton3D" index="5"]
+transform = Transform3D(0.9999998, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="outermost" type="Marker3D" parent="grapple_cube/Skeleton3D/outermost_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="mid_joint" type="Node3D" parent="grapple_cube/Skeleton3D" index="6"]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="mid" type="Marker3D" parent="grapple_cube/Skeleton3D/mid_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="inner_joint" type="Node3D" parent="grapple_cube/Skeleton3D" index="7"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.9999998, 0, 0, 0)
+
+[node name="inner" type="Marker3D" parent="grapple_cube/Skeleton3D/inner_joint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [editable path="grapple_cube"]

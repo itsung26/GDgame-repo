@@ -51,6 +51,8 @@ var last_hook_global_position:Vector3 = Vector3.ZERO
 var _hook_global_position_cache:Vector3 = Vector3.ZERO
 var _last_collision_normal_cache:Vector3 = Vector3.ZERO
 var _last_collision_point_cache:Vector3 = Vector3.ZERO
+var _reeling_enemy:Enemy
+var _reeling_enemy_previous_gravity_enabled:bool = true
 ## True if the hook is in the holder bone attachment.
 var isInHolder:bool:
 	get = getIsInHolder
@@ -112,12 +114,16 @@ func setHookedTarget(hooked_targ:Node3D):
 	var new_hooked_target:Node3D = hooked_targ
 	hooked_target = new_hooked_target
 	new_hooked_target_set.emit(previous_hooked_target, new_hooked_target)
+
+	if previous_hooked_target != new_hooked_target:
+		_restoreReelingEnemyGravity()
 	
 	if new_hooked_target != null:
 		player.killVelocity()
 		player.applyForceImpulse(force_applied_on_grapple.length(), force_applied_on_grapple.normalized())
 		setHookCollisionMonitoringActive(false)
 		setHookPhysicsSimulationActive(false)
+		_tryDisableReelingEnemyGravity()
 
 
 ## Sets [code]hooked_grappleable[/code], emits [code]new_hooked_grappleable_set[/code], and emits grapple lifecycle signals.
@@ -141,6 +147,26 @@ func setHookPhysicsSimulationActive(is_active:bool) -> void:
 	hook_physics_simulation_active = is_active
 	grapple_hook.freeze = not is_active
 	grapple_hook.sleeping = not is_active
+
+
+func _tryDisableReelingEnemyGravity() -> void:
+	if hooked_grappleable == null:
+		return
+	if hooked_grappleable.pull_behavior != GrappleableAgent3D.pull_behaviors.PULL_AGENT:
+		return
+	if not (hooked_target is Enemy):
+		return
+	_reeling_enemy = hooked_target as Enemy
+	_reeling_enemy_previous_gravity_enabled = _reeling_enemy.gravity_enabled
+	_reeling_enemy.gravity_enabled = false
+
+
+func _restoreReelingEnemyGravity() -> void:
+	if _reeling_enemy == null:
+		return
+	if is_instance_valid(_reeling_enemy):
+		_reeling_enemy.gravity_enabled = _reeling_enemy_previous_gravity_enabled
+	_reeling_enemy = null
 #endregion
 
 
