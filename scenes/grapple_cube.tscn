@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccl7hn0ddburv"]
+[gd_scene load_steps=6 format=3 uid="uid://ccl7hn0ddburv"]
 
 [ext_resource type="Script" uid="uid://b5vt2cx6flp38" path="res://scripts/grapple_cube.gd" id="1_55mbd"]
 [ext_resource type="PackedScene" uid="uid://boitjw0ayo4ss" path="res://assets/meshes/grapple_cube/grapple_cube.blend" id="1_wxfaj"]
 [ext_resource type="Script" uid="uid://dgm2v2t25u4k0" path="res://scripts/grapple_cube_procedural_animator.gd" id="2_lpllt"]
 [ext_resource type="Material" uid="uid://kivfa03x0l06" path="res://assets/meshes/grapple_cube/shaders/inner_sphere.tres" id="3_kgreb"]
+[ext_resource type="Script" uid="uid://ch7clcs1l8wu4" path="res://scripts/shader_driver.gd" id="5_euxnb"]
 
 [node name="GrappleCube" type="Node3D" groups=["grapple_cubes"]]
 script = ExtResource("1_55mbd")
@@ -56,5 +57,11 @@ transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.9999998, 0, 
 
 [node name="inner" type="Marker3D" parent="grapple_cube/Skeleton3D/inner_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="ShaderDriver" type="Node" parent="."]
+script = ExtResource("5_euxnb")
+material_is_geometry_override = null
+material_slot_index = null
+metadata/_custom_type_script = "uid://ch7clcs1l8wu4"
 
 [editable path="grapple_cube"]
