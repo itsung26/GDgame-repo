@@ -1,4 +1,5 @@
 @tool
+class_name GrappleCubeProceduralAnimator
 extends Node3D
 
 @onready var outermost_joint: Node3D = $"../outermost_joint"

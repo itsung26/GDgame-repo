@@ -7,5 +7,5 @@ render_priority = 0
 shader = ExtResource("1_ma1um")
 shader_parameter/fresnel_power = 3.795
 shader_parameter/fresnel_invert = false
-shader_parameter/fresnel_color = Color(0.23304483, 0.6050508, 0.8276703, 1)
+shader_parameter/fresnel_color = Color(0.38039216, 0.38039216, 0.38039216, 1)
 shader_parameter/fresnel_brightness = 5.26
