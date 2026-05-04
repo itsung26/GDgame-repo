@@ -77,3 +77,11 @@ func _process(delta: float) -> void:
 
 func process_state_logic(delta:float) -> void:
 	pass
+
+
+func _on_grappleable_agent_3d_became_hooked_grappleable(grapple_arm: GrappleArm) -> void:
+	set_state(states.GRAPPLED)
+
+
+func _on_grappleable_agent_3d_stopped_being_hooked_grappleable(grapple_arm: GrappleArm) -> void:
+	set_state(states.ACTIVE)

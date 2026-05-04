@@ -1,27 +1,21 @@
-[gd_scene load_steps=14 format=3 uid="uid://ccl7hn0ddburv"]
+[gd_scene load_steps=11 format=3 uid="uid://ccl7hn0ddburv"]
 
 [ext_resource type="Script" uid="uid://b5vt2cx6flp38" path="res://scripts/grapple_cube.gd" id="1_55mbd"]
 [ext_resource type="PackedScene" uid="uid://boitjw0ayo4ss" path="res://assets/meshes/grapple_cube/grapple_cube.blend" id="1_wxfaj"]
 [ext_resource type="Script" uid="uid://dgm2v2t25u4k0" path="res://scripts/grapple_cube_procedural_animator.gd" id="2_lpllt"]
-[ext_resource type="Script" uid="uid://b05jvssenpg8" path="res://scripts/debug_child_killer.gd" id="2_ub55t"]
 [ext_resource type="Material" uid="uid://kivfa03x0l06" path="res://assets/meshes/grapple_cube/shaders/inner_sphere.tres" id="3_kgreb"]
 [ext_resource type="Script" uid="uid://ch7clcs1l8wu4" path="res://scripts/shader_driver.gd" id="5_euxnb"]
-[ext_resource type="PackedScene" uid="uid://b6toc85qg2us2" path="res://scenes/free_camera.tscn" id="6_y22kw"]
+[ext_resource type="Shader" uid="uid://bypxaa64npt5b" path="res://assets/meshes/grapple_cube/shaders/grapple_cube.gdshader" id="5_lnha8"]
 [ext_resource type="PackedScene" uid="uid://dctdckc0awxi0" path="res://scenes/state_debug_text.tscn" id="7_pjrce"]
 [ext_resource type="Script" uid="uid://vvywp65j7qtu" path="res://scripts/grappleable_agent_3d.gd" id="8_14y22"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y22kw"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_pjrce"]
-sky_material = SubResource("ProceduralSkyMaterial_y22kw")
-
-[sub_resource type="Environment" id="Environment_lnha8"]
-background_mode = 2
-sky = SubResource("Sky_pjrce")
-tonemap_mode = 2
-glow_enabled = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ub55t"]
+render_priority = 0
+shader = ExtResource("5_lnha8")
+shader_parameter/fresnel_power = 2.065
+shader_parameter/fresnel_invert = false
+shader_parameter/fresnel_color = Color(0.6784314, 0.84705883, 0.9019608, 1)
+shader_parameter/fresnel_brightness = 5.26
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ub55t"]
 radius = 0.9766383
@@ -29,21 +23,6 @@ radius = 0.9766383
 [node name="GrappleCube" type="Node3D" groups=["grapple_cubes"]]
 script = ExtResource("1_55mbd")
 initial_state = 1
-
-[node name="DebugChildKiller" type="Node3D" parent="."]
-script = ExtResource("2_ub55t")
-metadata/_custom_type_script = "uid://b05jvssenpg8"
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="DebugChildKiller"]
-environment = SubResource("Environment_lnha8")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="DebugChildKiller"]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
-directional_shadow_max_distance = 1.0
-
-[node name="FreeCamera" parent="DebugChildKiller" instance=ExtResource("6_y22kw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.180222)
 
 [node name="grapple_cube" parent="." instance=ExtResource("1_wxfaj")]
 
@@ -54,6 +33,7 @@ mid_rotation_speed = -1.0
 
 [node name="Icosphere" parent="grapple_cube/Skeleton3D" index="1"]
 surface_material_override/1 = ExtResource("3_kgreb")
+surface_material_override/2 = SubResource("ShaderMaterial_ub55t")
 
 [node name="OuterMostLookAt" type="LookAtModifier3D" parent="grapple_cube/Skeleton3D" index="2"]
 target_node = NodePath("../outermost_joint/outermost")
@@ -111,6 +91,9 @@ metadata/_custom_type_script = "uid://ch7clcs1l8wu4"
 
 [node name="StateDebugText" parent="." instance=ExtResource("7_pjrce")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.305479, 0)
+
+[connection signal="became_hooked_grappleable" from="GrappleableAgent3D" to="." method="_on_grappleable_agent_3d_became_hooked_grappleable"]
+[connection signal="stopped_being_hooked_grappleable" from="GrappleableAgent3D" to="." method="_on_grappleable_agent_3d_stopped_being_hooked_grappleable"]
 
 [editable path="grapple_cube"]
 [editable path="StateDebugText"]

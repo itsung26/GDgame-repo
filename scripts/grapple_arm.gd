@@ -132,6 +132,10 @@ func setHookedGrappleable(grappleable:GrappleableAgent3D) -> void:
 	var new_hooked_grappleable:GrappleableAgent3D = grappleable
 	hooked_grappleable = new_hooked_grappleable
 	new_hooked_grappleable_set.emit(previous_hooked_grappleable, new_hooked_grappleable)
+	if previous_hooked_grappleable != null and previous_hooked_grappleable != new_hooked_grappleable:
+		previous_hooked_grappleable.stopped_being_hooked_grappleable.emit(self)
+	if new_hooked_grappleable != null and new_hooked_grappleable != previous_hooked_grappleable:
+		new_hooked_grappleable.became_hooked_grappleable.emit(self)
 
 
 ## Enables/disables collision monitoring and sweeping cast updates for the hook.

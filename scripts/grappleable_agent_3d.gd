@@ -6,9 +6,16 @@ extends StaticBody3D
 ## it's configuration.
 
 @export var pull_behavior:pull_behaviors = pull_behaviors.PULL_PLAYER
+## If false, the agent is expected to manually handle unhooking the grapple.
+@export var unhook_on_reached:bool = true
 
 ## The "owner" of this grappleable box.
 var agent:Node3D
+
+## Emitted when this grappleable becomes the active [code]hooked_grappleable[/code] of a [code]GrappleArm[/code].
+signal became_hooked_grappleable(grapple_arm:GrappleArm)
+## Emitted when this grappleable stops being the active [code]hooked_grappleable[/code] of a [code]GrappleArm[/code].
+signal stopped_being_hooked_grappleable(grapple_arm:GrappleArm)
 
 enum pull_behaviors {PULL_AGENT, PULL_PLAYER}
 

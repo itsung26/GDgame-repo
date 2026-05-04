@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=29 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://cfg33qj40lkc8" path="res://scripts/level.gd" id="1_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
@@ -6,8 +6,9 @@
 [ext_resource type="Script" uid="uid://d4i447jqxsygd" path="res://scripts/world_body.gd" id="6_488l3"]
 [ext_resource type="Material" uid="uid://b1rt4gpft6ljt" path="res://assets/materials/white_prototype.tres" id="6_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://bqtx3d0wrsnu3" path="res://scenes/enviroment_test.tscn" id="7_wl3f4"]
+[ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube.tscn" id="8_rj2dv"]
 [ext_resource type="Script" uid="uid://vvywp65j7qtu" path="res://scripts/grappleable_agent_3d.gd" id="8_wl3f4"]
-[ext_resource type="PackedScene" uid="uid://fyr1gxk7lvr1" path="res://scenes/entities/enemy_filth.tscn" id="10_yvgsm"]
+[ext_resource type="PackedScene" uid="uid://dkcmqlhhhkcqd" path="res://scenes/door_small.tscn" id="9_rj2dv"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_488l3"]
 
@@ -275,9 +276,6 @@ size = Vector3(1, 2, 1)
 shape = 2
 material = SubResource("FogMaterial_r4hxy")
 
-[node name="enemy_filth" parent="." instance=ExtResource("10_yvgsm")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.84493756, 0, -18.932728)
-
 [node name="EnviromentTest" parent="." instance=ExtResource("7_wl3f4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.493874, 3.727313, -15.1976185)
 
@@ -304,3 +302,9 @@ metadata/_custom_type_script = "uid://vvywp65j7qtu"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnviromentTest2/GrappleableAgent3D"]
 shape = SubResource("BoxShape3D_rj2dv")
 debug_color = Color(0, 1, 0, 1)
+
+[node name="GrappleCube" parent="." instance=ExtResource("8_rj2dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9151993, 4.273391, -10.150164)
+
+[node name="DoorSmall" parent="." instance=ExtResource("9_rj2dv")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.7595751, 4.7683716e-07, -9.586982)

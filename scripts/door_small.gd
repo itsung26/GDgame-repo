@@ -1,98 +1,69 @@
-class_name DoorSmall extends Node3D
-@onready var open_delay: Timer = %OpenDelay
-@onready var close_delay: Timer = %CloseDelay
+@tool
+class_name DoorSmall
+extends Node3D
+
+#region @onready vars
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
-@onready var front_box: Area3D = $FrontBox
-@onready var front_collider: CollisionShape3D = $FrontBox/FrontCollider
-@onready var big_red_x: Sprite3D = $big_red_x
-@onready var big_red_x_2: Sprite3D = $big_red_x2
+@onready var door_shape_3d: CollisionShape3D = $DoorStaticBody/DoorShape3D
+@onready var shader_driver: ShaderDriver = $ShaderDriver
+#endregion
 
-signal door_opened(door:DoorSmall)
+#region @export vars
+@export var open: bool = false:
+	set = setOpen
+@export var locked: bool = false:
+	set = setLocked
+@export var laser_grid_enabled: bool = false:
+	set = setLaserGridEnabled
+@export var laser_grid_dissolve_speed:float
+#endregion
 
-@export_enum ("STAYOPEN", "CLOSEONEXIT", "LOCKED") var door_modes:int = 0
-@export var delay_before_open:float = 1.0
-@export var delay_before_close:float = 1.0
-@export var can_show_red_x:bool = true
-var isOpen:bool = false
-var playerInFrontBox:bool = false
-var previous_door_mode:int
+#region regular vars
+var has_opened:bool = false
+#endregion
 
-func _ready() -> void:
-	if delay_before_open == 0.0:
-		delay_before_open = 0.01
 
-	if delay_before_close == 0.0:
-		delay_before_close = 0.01
-
-# check if locked and hide and show visuals if so
 func _process(delta: float) -> void:
-	if door_modes == 2 and can_show_red_x:
-		big_red_x.visible = true
-		big_red_x_2.visible = true
-	else:
-		big_red_x.visible = false
-		big_red_x_2.visible = false
+	var laser_dissolve_fac:float = shader_driver.getShaderParameter(&"dissolve_fac")
+	if laser_grid_enabled:
+		shader_driver.setShaderParameter(
+			&"dissolve_fac", 
+			move_toward(laser_dissolve_fac, 0.0, laser_grid_dissolve_speed * delta)
+			)
+	elif not laser_grid_enabled:
+		shader_driver.setShaderParameter(
+			&"dissolve_fac",
+			move_toward(laser_dissolve_fac, 1.0, laser_grid_dissolve_speed * delta)
+		)
 
-# checks which mode the door is in and opens accordingly
-func open():
-	if door_modes == 2: # locked
-		print("door locked and cannot open")
-	elif door_modes == 0: # stayopen
-		isOpen = true
-		animation_player.play("door_open")
-	elif door_modes == 1: # closeonexit
-		isOpen = true
-		animation_player.play("door_open")
-		
 
-# checks which mode the door is in and closes accordingly
-func close():
-	if door_modes == 0: # stayopen
-		isOpen = false
-		animation_player.play("door_close")
-	elif door_modes == 1: # closeonexit
-		isOpen = false
-		animation_player.play("door_close")
-	elif door_modes == 2: # locked
-		print("door locked and cannot close")
-
-func lock():
-	previous_door_mode = door_modes
-	if isOpen:
-		close()
-	door_modes = 2 # set to locked after closing
+func setOpen(new_open: bool) -> void:
+	if locked:
+		return
+	open = new_open
 	
-func unlock():
-	door_modes = previous_door_mode
-	if not isOpen:
-		open()
-
-# on front collider entered
-func _on_front_box_body_entered(body: Player) -> void:
-	playerInFrontBox = true
-	if door_modes == 2: # locked
-		front_collider.disabled = true
-		playerInFrontBox = false
-	else: front_collider.disabled = false
+	if new_open == true:
+		animation_player.play("door_open")
+		door_shape_3d.disabled = true
+		has_opened = true
+	elif new_open == false:
+		animation_player.play("door_close")
+		door_shape_3d.disabled = false
 	
-	if door_modes == 0: # stayopen
-		if not isOpen:
-			open_delay.start(delay_before_open)
-	if door_modes == 1: # closeonexit
-		if not isOpen:
-			open_delay.start(delay_before_open)
 
-# on front collider exited
-func _on_front_box_body_exited(body: Player) -> void:
-	playerInFrontBox = false
-	if door_modes == 1: # closeonexit
-		close_delay.start(delay_before_close)
-	else: pass
 
-# after open delay
-func _on_open_delay_timeout() -> void:
-	open()
+func setLocked(new_locked: bool) -> void:
+	locked = new_locked
+	
 
-# after close delay
-func _on_close_delay_timeout() -> void:
-	close()
+
+func setLaserGridEnabled(new_laser_grid_enabled: bool) -> void:
+	laser_grid_enabled = new_laser_grid_enabled
+
+
+func _on_entry_area_body_entered(body: Node3D) -> void:
+	if body is Player:
+		if has_opened or locked:
+			return
+		else:
+			open = true
