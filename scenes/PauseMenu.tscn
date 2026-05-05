@@ -50,8 +50,21 @@ enum difficulties {EASY, MEDIUM, HARD, BRUTAL}
 
 
 func _ready() -> void:
-	difficulty_dropdown.selected = difficulties.EASY
-	changeColor(getDifficultyColor(difficulties.EASY))
+	_loadDifficultyFromCfg()
+
+
+func _loadDifficultyFromCfg() -> void:
+	var difficulty_string:String = CfgParser.get_string(\"gameplay\", \"difficulty\", \"medium\")
+	match difficulty_string:
+		\"easy\":
+			difficulty_dropdown.select(0)
+			changeColor(getDifficultyColor(difficulties.EASY))
+		\"medium\":
+			difficulty_dropdown.select(1)
+			changeColor(getDifficultyColor(difficulties.MEDIUM))
+		\"hard\":
+			difficulty_dropdown.select(2)
+			changeColor(getDifficultyColor(difficulties.HARD))
 
 
 func _on_difficulty_dropdown_item_selected(new_difficulty: int) -> void:
@@ -456,7 +469,6 @@ metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="GamePlaySettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -510,7 +522,7 @@ text = "Difficulty"
 [node name="DifficultyDropdown" type="OptionButton" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea/GamePlaySettings/GameplaySettingsFrame/MarginContainer/VBoxContainer/DifficultySetting/SettingsHBox"]
 layout_mode = 2
 theme_type_variation = &"SettingsOptionButton"
-selected = 3
+selected = 1
 item_count = 4
 popup/item_0/text = "Easy"
 popup/item_0/id = 0
@@ -652,6 +664,7 @@ script = ExtResource("7_yx35g")
 metadata/_custom_type_script = "uid://bhbf0afvs18ey"
 
 [node name="GraphicsSettings" type="Control" parent="OptionsMenu/OptionsMenuMainFrame/ArtPanel/SettingsArea" node_paths=PackedStringArray("nodes_to_hide") groups=["pause menu overlay", "pause menu panels"]]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

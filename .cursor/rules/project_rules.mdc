@@ -44,3 +44,5 @@ func _helper_inner() -> void:
     # implementation here
 
 - For method naming conventions, use camelCase for all non built-in methods except helper methods, which should have an underscore in the front, be all lowercase, and have underscores between words.
+
+- when using @export_range, do not provide the third step parameter unless explicitly told to do so

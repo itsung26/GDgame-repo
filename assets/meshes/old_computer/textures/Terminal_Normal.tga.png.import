@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctdus7wg21luw"
-path.s3tc="res://.godot/imported/50.png-274ba83fe593a858bf52f64875c001b2.s3tc.ctex"
+uid="uid://dw6ufypo8dmal"
+path.s3tc="res://.godot/imported/Terminal_Normal.tga.png-b58d076fd0eca5d147908b6cee6eb538.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/50.png"
-dest_files=["res://.godot/imported/50.png-274ba83fe593a858bf52f64875c001b2.s3tc.ctex"]
+source_file="res://assets/meshes/old_computer/textures/Terminal_Normal.tga.png"
+dest_files=["res://.godot/imported/Terminal_Normal.tga.png-b58d076fd0eca5d147908b6cee6eb538.s3tc.ctex"]
 
 [params]
 
@@ -22,12 +22,12 @@ compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://assets/meshes/old_computer/textures/Terminal_Normal.tga.png"
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

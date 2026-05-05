@@ -1,0 +1,112 @@
+[gd_scene load_steps=13 format=3 uid="uid://cx0e6g2dg24du"]
+
+[ext_resource type="Script" uid="uid://cfg33qj40lkc8" path="res://scripts/level.gd" id="1_vuduy"]
+[ext_resource type="PackedScene" uid="uid://ctnphuiw5rpv5" path="res://assets/meshes/old_computer/old_computer.blend" id="2_juow0"]
+[ext_resource type="Texture2D" uid="uid://ctdus7wg21luw" path="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/50.png" id="3_3438a"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_juow0"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_3438a"]
+sky_material = SubResource("ProceduralSkyMaterial_juow0")
+
+[sub_resource type="Environment" id="Environment_wifpd"]
+background_mode = 2
+sky = SubResource("Sky_3438a")
+tonemap_mode = 2
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+fog_light_energy = 0.53
+fog_density = 0.0
+volumetric_fog_density = 0.0312
+volumetric_fog_albedo = Color(1, 0.64705884, 0, 1)
+volumetric_fog_emission = Color(1, 0.64705884, 0, 1)
+volumetric_fog_emission_energy = 0.53
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_juow0"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3438a"]
+resource_local_to_scene = true
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission_texture = SubResource("ViewportTexture_juow0")
+
+[sub_resource type="World3D" id="World3D_juow0"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wifpd"]
+emission_shape_scale = Vector3(25, 25, 25)
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+initial_velocity_min = 0.25
+initial_velocity_max = 0.25
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dw6o5"]
+transparency = 1
+albedo_texture = ExtResource("3_3438a")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_xeku4"]
+material = SubResource("StandardMaterial3D_dw6o5")
+size = Vector2(0.25, 0.25)
+
+[node name="IntroCutscene" type="Node3D"]
+script = ExtResource("1_vuduy")
+metadata/_custom_type_script = "uid://cfg33qj40lkc8"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wifpd")
+
+[node name="old_computer" parent="." instance=ExtResource("2_juow0")]
+
+[node name="Comp_Screen_002" parent="old_computer" index="1"]
+surface_material_override/1 = SubResource("StandardMaterial3D_3438a")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+world_3d = SubResource("World3D_juow0")
+handle_input_locally = false
+size = Vector2i(1152, 648)
+size_2d_override = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 483.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="lighting" type="Node3D" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="lighting"]
+transform = Transform3D(1, 0, 0, 0, 0.809017, 0.58778524, 0, -0.58778524, 0.809017, 0, 9.113511, 11.118382)
+light_energy = 4.82
+spot_range = 20.331917
+spot_angle = 16.599516
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 360
+lifetime = 4.3
+visibility_aabb = AABB(-24.144354, -24.740269, -23.501648, 46.66858, 47.601173, 48.136314)
+process_material = SubResource("ParticleProcessMaterial_wifpd")
+draw_pass_1 = SubResource("QuadMesh_xeku4")
+
+[editable path="old_computer"]

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctdus7wg21luw"
-path.s3tc="res://.godot/imported/50.png-274ba83fe593a858bf52f64875c001b2.s3tc.ctex"
+uid="uid://konvl5nkqpiq"
+path.s3tc="res://.godot/imported/Terminal_Color.tga.png-0181d3cdd0edde2ed238eb175a710b09.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/2d assets/particles/masks for particles/masks for  particles transparent/50.png"
-dest_files=["res://.godot/imported/50.png-274ba83fe593a858bf52f64875c001b2.s3tc.ctex"]
+source_file="res://assets/meshes/old_computer/textures/Terminal_Color.tga.png"
+dest_files=["res://.godot/imported/Terminal_Color.tga.png-0181d3cdd0edde2ed238eb175a710b09.s3tc.ctex"]
 
 [params]
 

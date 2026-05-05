@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3 uid="uid://of7nx5eb1lda"]
+
+[ext_resource type="Script" uid="uid://bqmtarmktgtpw" path="res://scripts/shockwave.gd" id="1_fafld"]
+[ext_resource type="Shader" uid="uid://ckp88in5h2o8" path="res://shaders/GDSL shaders/main_ring_mesh.gdshader" id="2_238uk"]
+[ext_resource type="Script" uid="uid://br5suysqesqyw" path="res://scripts/shockwave_config.gd" id="2_uo8p8"]
+[ext_resource type="Script" uid="uid://d23hhbfpwrvcl" path="res://scripts/half_torus.gd" id="4_at7mu"]
+
+[sub_resource type="Resource" id="Resource_at7mu"]
+script = ExtResource("2_uo8p8")
+metadata/_custom_type_script = "uid://br5suysqesqyw"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fafld"]
+render_priority = 0
+shader = ExtResource("2_238uk")
+shader_parameter/primary_color = Color(1, 0.64705884, 0, 1)
+shader_parameter/color_intensity = 1.0
+shader_parameter/alpha = 0.30000000447036
+
+[sub_resource type="TorusMesh" id="TorusMesh_fafld"]
+material = SubResource("ShaderMaterial_fafld")
+inner_radius = 2.55
+outer_radius = 3.485
+rings = 16
+ring_segments = 16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_at7mu"]
+render_priority = 0
+shader = ExtResource("2_238uk")
+shader_parameter/primary_color = Color(1, 0.64705884, 0, 1)
+shader_parameter/color_intensity = 1.0
+shader_parameter/alpha = 0.2430000115425
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_at7mu"]
+
+[node name="Shockwave" type="Node3D"]
+script = ExtResource("1_fafld")
+shockwave_config = SubResource("Resource_at7mu")
+size = 5.1
+
+[node name="MainRingMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_fafld")
+
+[node name="HalfTorus" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_at7mu")
+mesh = SubResource("ImmediateMesh_at7mu")
+script = ExtResource("4_at7mu")
+outer_radius = 9.235
+inner_to_outer_ratio = 0.05
+fixed_height = 0.848
