@@ -5,6 +5,7 @@ extends Node3D
 #region @onready vars
 @onready var half_torus: HalfTorus = $HalfTorus
 @onready var shader_driver: ShaderDriver = $ShaderDriver
+@onready var shockwave_collider: CollisionShape3D = $ShockwaveHurtbox/ShockwaveCollider
 #endregion
 
 #region @export vars
@@ -24,6 +25,7 @@ var _initial_size:float
 
 func _process(delta: float) -> void:
 	if expanding:
+		shockwave_collider.shape = getConvexShape()
 		size = move_toward(size, shockwave_config.ending_size, shockwave_config.expand_speed * delta)
 		if size == shockwave_config.ending_size:
 			expanding = false
