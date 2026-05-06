@@ -1,4 +1,4 @@
-[gd_scene load_steps=133 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=137 format=4 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
 [ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_j4xor"]
@@ -40,6 +40,7 @@
 [ext_resource type="Shader" uid="uid://wepgvhhllkxx" path="res://shaders/GDSL shaders/normal_reconstruction_shader.gdshader" id="39_2d6gy"]
 [ext_resource type="Texture2D" uid="uid://wdsn8say307i" path="res://assets/2d assets/primary textures/godot-theme-prototype-textures-v0-pev67seeqtac1.png" id="39_wljk0"]
 [ext_resource type="Shader" uid="uid://d0csssiupmsxq" path="res://shaders/GDSL shaders/parallax_test.gdshader" id="40_ftuxs"]
+[ext_resource type="Shader" uid="uid://balxfadksvly0" path="res://shaders/GDSL shaders/normal_reconstruction.gdshader" id="41_2d6gy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0f2g"]
 albedo_texture = ExtResource("2_7c073")
@@ -693,6 +694,21 @@ size = Vector2(100, 100)
 subdivide_width = 6
 subdivide_depth = 6
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jxcp7"]
+render_priority = 0
+shader = ExtResource("41_2d6gy")
+shader_parameter/base_color = Color(1, 0.64705884, 0, 1)
+shader_parameter/normal_strength = 0.01
+shader_parameter/cells_amt = 8.0
+shader_parameter/circle_radius = 0.313
+shader_parameter/circle_falloff = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_2d6gy"]
+material = SubResource("ShaderMaterial_jxcp7")
+size = Vector2(100, 100)
+subdivide_width = 6
+subdivide_depth = 6
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ftuxs"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3fyh7"]
@@ -733,6 +749,10 @@ size = Vector3(25, 25, 25)
 [sub_resource type="TorusMesh" id="TorusMesh_e62h8"]
 inner_radius = 5.288
 outer_radius = 10.576
+
+[sub_resource type="QuadMesh" id="QuadMesh_e62h8"]
+material = SubResource("ShaderMaterial_jxcp7")
+size = Vector2(25, 25)
 
 [node name="ShaderTest" type="Node3D"]
 
@@ -927,8 +947,13 @@ mesh = SubResource("ArrayMesh_e62h8")
 skeleton = NodePath("")
 
 [node name="NormalReconstructionShader" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.9106857e-15, -4.3711378e-08, 0.9999998, -1.0000001, -4.3711378e-08, 0, 4.3711392e-08, -0.99999976, -4.371138e-08, -114.80286, 47.17779, -203.43787)
+transform = Transform3D(0.029997714, -4.2380464e-08, 0.9995498, -0.9995501, -4.500295e-08, 0.029997705, 4.3711392e-08, -0.99999976, -4.3711385e-08, -114.80286, 223.7969, -203.43787)
 mesh = SubResource("QuadMesh_qrdqw")
+
+[node name="NormalReconstructionShader2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.0000002, 0, 0, 0, -0.90312517, 0.4293764, 0, -0.4293763, -0.9031254, -114.80286, 223.7969, -324.74475)
+mesh = SubResource("QuadMesh_2d6gy")
+skeleton = NodePath("../NormalReconstructionShader")
 
 [node name="Parallax_test" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.0000001, 0, 0, 0, 0.99999976, 0, 0, 0, 0.9999998, 69.59741, 0, -315.281)
@@ -943,3 +968,7 @@ mesh = SubResource("BoxMesh_e62h8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.695755, 28.862497, -172.83125)
 material_override = SubResource("ShaderMaterial_wljk0")
 mesh = SubResource("TorusMesh_e62h8")
+
+[node name="NormalReconstruction" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.014717224, 0.41366026, -0.91031224, -0.006634601, 0.9104314, 0.41360706, 0.9998692, -4.7594902e-05, 0.016143462, -85.90288, 169.61774, -174.60892)
+mesh = SubResource("QuadMesh_e62h8")

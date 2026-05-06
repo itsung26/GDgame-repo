@@ -1,15 +1,23 @@
 @tool
+## Generates a procedural half-torus mesh with a closed bottom cap.
+## The mesh is rebuilt whenever exported shaping parameters change.
+class_name HalfTorus
 extends MeshInstance3D
 
 
+## Absolute outer radius of the torus profile (distance from center to outside edge).
 @export var outer_radius:float = 2.5:
 	set = set_outer_radius
-@export_range(0.001, 1.0) var inner_to_outer_ratio:float = 0.5:
+## Thickness control where 0.0 maps to inner = 0.5 * outer and 1.0 maps to inner = outer.
+@export_range(0.0, 1.0, 0.001) var inner_to_outer_ratio:float = 0.5:
 	set = set_inner_to_outer_ratio
+## Optional fixed tube radius override. Set to 0.0 to use ratio-based thickness.
 @export_range(0.0, 10.0) var fixed_height:float = 0.0:
 	set = set_fixed_height
+## Number of segments around the major torus ring.
 @export_range(3, 256, 1) var radial_segments:int = 64:
 	set = set_radial_segments
+## Number of segments along the half-circle tube profile.
 @export_range(3, 128, 1) var tube_segments:int = 32:
 	set = set_tube_segments
 
@@ -24,7 +32,7 @@ func set_outer_radius(new_value:float) -> void:
 
 
 func set_inner_to_outer_ratio(new_value:float) -> void:
-	inner_to_outer_ratio = clamp(new_value, 0.05, 0.98)
+	inner_to_outer_ratio = clamp(new_value, 0.0, 1.0)
 	_rebuild_mesh()
 
 
@@ -44,16 +52,20 @@ func set_tube_segments(new_value:int) -> void:
 
 
 func _rebuild_mesh() -> void:
-	var inner_radius:float = outer_radius * inner_to_outer_ratio
-	var R:float = (outer_radius + inner_radius) * 0.5
 	var r:float = _current_computed_tube_radius()
 	if fixed_height > 0.0:
-		r = fixed_height
+		r = min(fixed_height, outer_radius)
+	var R:float = outer_radius - r
 	mesh = generate_half_torus(R, r)
 
 
+func _current_inner_radius() -> float:
+	var mapped_ratio:float = 0.5 + (0.5 * inner_to_outer_ratio)
+	return outer_radius * mapped_ratio
+
+
 func _current_computed_tube_radius() -> float:
-	var inner_radius:float = outer_radius * inner_to_outer_ratio
+	var inner_radius:float = _current_inner_radius()
 	return (outer_radius - inner_radius) * 0.5
 
 
