@@ -22,8 +22,9 @@ extends MeshInstance3D
 	set = set_tube_segments
 
 
-func _ready() -> void:
-	_rebuild_mesh()
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_READY:
+		_rebuild_mesh()
 
 
 func set_outer_radius(new_value:float) -> void:

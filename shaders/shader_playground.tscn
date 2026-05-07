@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=140 format=4 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
 [ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_j4xor"]
@@ -38,6 +38,7 @@
 [ext_resource type="Shader" uid="uid://bp7ncamffwj48" path="res://shaders/GDSL shaders/wireframe_shader.gdshader" id="38_e62h8"]
 [ext_resource type="Shader" uid="uid://c0mqs7yluch7x" path="res://shaders/GDSL shaders/triplanar_test.gdshader" id="38_p742p"]
 [ext_resource type="Shader" uid="uid://wepgvhhllkxx" path="res://shaders/GDSL shaders/normal_reconstruction_shader.gdshader" id="39_2d6gy"]
+[ext_resource type="Shader" uid="uid://datftmervjxrg" path="res://shaders/GDSL shaders/absorption_shader.gdshader" id="39_ftuxs"]
 [ext_resource type="Texture2D" uid="uid://wdsn8say307i" path="res://assets/2d assets/primary textures/godot-theme-prototype-textures-v0-pev67seeqtac1.png" id="39_wljk0"]
 [ext_resource type="Shader" uid="uid://d0csssiupmsxq" path="res://shaders/GDSL shaders/parallax_test.gdshader" id="40_ftuxs"]
 [ext_resource type="Shader" uid="uid://balxfadksvly0" path="res://shaders/GDSL shaders/normal_reconstruction.gdshader" id="41_2d6gy"]
@@ -697,7 +698,7 @@ subdivide_depth = 6
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jxcp7"]
 render_priority = 0
 shader = ExtResource("41_2d6gy")
-shader_parameter/base_color = Color(1, 0.64705884, 0, 1)
+shader_parameter/base_color = Color(0.47787982, 0.4778803, 0.47788012, 1)
 shader_parameter/normal_strength = 0.01
 shader_parameter/cells_amt = 8.0
 shader_parameter/circle_radius = 0.313
@@ -706,6 +707,17 @@ shader_parameter/circle_falloff = 0.1
 [sub_resource type="QuadMesh" id="QuadMesh_2d6gy"]
 material = SubResource("ShaderMaterial_jxcp7")
 size = Vector2(100, 100)
+subdivide_width = 6
+subdivide_depth = 6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3rsen"]
+render_priority = 0
+shader = ExtResource("39_ftuxs")
+shader_parameter/float_param = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_dhnnc"]
+material = SubResource("ShaderMaterial_3rsen")
+size = Vector2(10, 10)
 subdivide_width = 6
 subdivide_depth = 6
 
@@ -951,8 +963,13 @@ transform = Transform3D(0.029997714, -4.2380464e-08, 0.9995498, -0.9995501, -4.5
 mesh = SubResource("QuadMesh_qrdqw")
 
 [node name="NormalReconstructionShader2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.0000002, 0, 0, 0, -0.90312517, 0.4293764, 0, -0.4293763, -0.9031254, -114.80286, 223.7969, -324.74475)
+transform = Transform3D(1.0000002, 0, 0, 0, -0.8157942, 0.57834166, 0, -0.57834154, -0.8157944, -114.80286, 223.7969, -324.74475)
 mesh = SubResource("QuadMesh_2d6gy")
+skeleton = NodePath("../NormalReconstructionShader")
+
+[node name="AbsorptionShader" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.0000002, 0, 0, 0, 0.866025, 0.49999982, 0, -0.49999976, 0.8660251, -4.329426, 41.373516, -156.32887)
+mesh = SubResource("QuadMesh_dhnnc")
 skeleton = NodePath("../NormalReconstructionShader")
 
 [node name="Parallax_test" type="MeshInstance3D" parent="."]

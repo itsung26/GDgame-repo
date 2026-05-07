@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShockwaveConfig" load_steps=3 format=3 uid="uid://b3knkw1di8l75"]
+
+[ext_resource type="Script" uid="uid://br5suysqesqyw" path="res://scripts/shockwave_config.gd" id="1_kuhdo"]
+
+[sub_resource type="Curve" id="Curve_wvvyk"]
+_data = [Vector2(0, 0.5144312), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.3077249, 0.0, 0, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_kuhdo")
+beginning_size = 1.046
+ending_size = 7.551
+expand_speed = 27.0
+ring_color = Color(0.50928575, 0.5092863, 0.50928617, 1)
+alpha_curve = SubResource("Curve_wvvyk")
+force_applied = 3.5
+metadata/_custom_type_script = "uid://br5suysqesqyw"

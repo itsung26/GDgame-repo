@@ -62,13 +62,7 @@ func _ready() -> void:
 	set_state(initial_state)
 
 
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("debug func"):
-		if state == states.INACTIVE:
-			set_state(states.ACTIVE)
-		elif state == states.ACTIVE:
-			set_state(states.INACTIVE)
-	
+func _process(delta: float) -> void:	
 	var debug_text:StateDebugText = $StateDebugText
 	debug_text.updateStateReadout(state, states)
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene load_steps=30 format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://cfg33qj40lkc8" path="res://scripts/level.gd" id="1_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ccl7hn0ddburv" path="res://scenes/grapple_cube.tscn" id="8_rj2dv"]
 [ext_resource type="Script" uid="uid://vvywp65j7qtu" path="res://scripts/grappleable_agent_3d.gd" id="8_wl3f4"]
 [ext_resource type="PackedScene" uid="uid://dkcmqlhhhkcqd" path="res://scenes/door_small.tscn" id="9_rj2dv"]
+[ext_resource type="PackedScene" uid="uid://of7nx5eb1lda" path="res://scenes/shockwave.tscn" id="10_yvgsm"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_488l3"]
 
@@ -308,3 +309,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9151993, 4.273391, -10.150
 
 [node name="DoorSmall" parent="." instance=ExtResource("9_rj2dv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.7595751, 4.7683716e-07, -9.586982)
+
+[node name="Shockwave" parent="." instance=ExtResource("10_yvgsm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0784097, 0, -9.947584)

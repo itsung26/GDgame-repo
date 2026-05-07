@@ -8,3 +8,4 @@ extends Resource
 @export var ring_color:Color = Color(1.0, 1.0, 1.0, 1.0)
 ## Must have a domain of [0, 1]. Range must be [0, 1].
 @export var alpha_curve:Curve
+@export var force_applied:float = 1.0

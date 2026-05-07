@@ -226,6 +226,7 @@ bbcode_edit/editor/open_current_file_documentation={
 3d_physics/layer_2="enemies"
 3d_physics/layer_3="world"
 3d_physics/layer_4="enemy projectile"
+3d_physics/layer_5="force areas"
 3d_physics/layer_7="pistol bomb"
 3d_physics/layer_8="physical particles"
 3d_physics/layer_9="ragdoll"
