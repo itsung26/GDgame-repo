@@ -283,6 +283,6 @@ func _on_ready_bite_box_body_exited(_body: Player) -> void:
 func _on_bite_hurt_box_body_entered(body: Player) -> void:
 	if enemy_state == enemy_states.BITING:
 		var plr:Player = body
-		plr.setHealth(plr.HEALTH - bite_damage)
+		plr.setHealth(plr.health - bite_damage)
 		plr.cause_of_death = player_cause_of_death_message
 		plr.camera_3d.shakeCamera()

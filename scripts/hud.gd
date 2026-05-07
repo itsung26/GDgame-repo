@@ -100,7 +100,7 @@ func _process(delta) -> void:
 		current_weapon_state.text = "Current weapon state: " + player.weapon_state.to_string()
 		current_look_dir.text = "lookDir: " + str(pivot.rotation_degrees + player.rotation_degrees)
 		current_player_pos.text = "GPos: " + str(player.global_position)
-		current_player_health.text = "Player health: " + str(player.HEALTH)
+		current_player_health.text = "Player health: " + str(player.health)
 		current_player_state.text = "Player/Phys state: " + player.player_states.keys()[player.player_state]
 		%CurrentVelocity.text = "Net vector: " + str(player.velocity)
 		%CurrentMagnitude.text = "Net vector magnitude: " + str(roundi(player.velocity.length()))
@@ -168,9 +168,9 @@ func updateCrosshair(width:float=crosshair_width, color:Color=crosshair_albedo, 
 # updates the healthbar
 func updateHealthBar(delta):
 	if healthbar_smooth_react_enabled:
-		health_bar.value = lerp(health_bar.value, player.HEALTH, healthbar_react_speed * delta)
+		health_bar.value = lerp(health_bar.value, player.health, healthbar_react_speed * delta)
 	else:
-		health_bar.value = player.HEALTH
+		health_bar.value = player.health
 
 # updates stamina bar
 func updateStaminaBar(delta):

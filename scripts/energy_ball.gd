@@ -89,7 +89,7 @@ func disconnectAllSignals() -> void:
 		owner_collision_timer.timeout.disconnect(Callable(self, "_on_owner_collision_timer_timeout"))
 
 func _on_hit_player(player: Player) -> void:
-		player.setHealth(player.HEALTH - damage_to_player)
+		player.setHealth(player.health - damage_to_player)
 		player.cause_of_death = "Melted by energy projectile"
 		player.camera_3d.shakeCamera(cam_shake_duration, cam_shake_strength)
 		if has_been_parried:
@@ -99,12 +99,12 @@ func _on_hit_player(player: Player) -> void:
 func _on_hit_enemy(enemy: Enemy) -> void:
 	if enemy == owner_enemy:
 		if collision_with_owner_enabled:
-			enemy.setHealth(enemy.HEALTH - damage_to_enemies, enemy.damage_types.NORMAL)
+			enemy.setHealth(enemy.health - damage_to_enemies, enemy.damage_types.NORMAL)
 			if has_been_parried:
 				spawnExplosions()
 			_destroySelf()
 	else:
-		enemy.setHealth(enemy.HEALTH - damage_to_enemies, enemy.damage_types.NORMAL)
+		enemy.setHealth(enemy.health - damage_to_enemies, enemy.damage_types.NORMAL)
 		if has_been_parried:
 			spawnExplosions()
 		_destroySelf()

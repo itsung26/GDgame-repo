@@ -37,7 +37,7 @@ func _on_hazard_area_body_entered(body: Node3D) -> void:
 	if body is Player:
 		_onHazardPlayerEnter(body)
 		var player: Player = body
-		player.setHealth(player.HEALTH - damage_to_player)
+		player.setHealth(player.health - damage_to_player)
 		player.cause_of_death = enviromental_death_cause
 		# Preserve movement state consistency when a slam is interrupted by hazard hit.
 		if player.player_state == player.player_states.SLAMMING:
@@ -51,7 +51,7 @@ func _on_hazard_area_body_entered(body: Node3D) -> void:
 	elif body is Enemy:
 		_onHazardEnemyEnter(body)
 		var enemy: Enemy = body
-		enemy.setHealth(enemy.HEALTH - damage_to_enemies, enemy.damage_types.NORMAL)
+		enemy.setHealth(enemy.health - damage_to_enemies, enemy.damage_types.NORMAL)
 		enemy.velocity = Vector3.ZERO
 		enemy.velocity += bounce_direction * bounce_speed
 

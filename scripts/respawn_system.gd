@@ -33,7 +33,7 @@ func request_respawn(player:Player) -> void:
 		player.global_position = player.global_initial_player_position
 		player.global_rotation.y = player.global_initial_player_rotation.y
 		player.pivot.global_rotation.x = player.global_initial_pivot_roation.x
-		player.HEALTH = 100.0
+		player.health = 100.0
 		player.STAMINA = 300.0
 		
 		# emit the signal
@@ -46,7 +46,7 @@ func request_respawn(player:Player) -> void:
 		player.global_position = current_checkpoint.respawn_position
 		player.global_rotation.y = current_checkpoint.player_rotation_y
 		player.pivot.rotation.x = current_checkpoint.pivot_rotation_x
-		player.HEALTH = 100.0
+		player.health = 100.0
 		player.STAMINA = 300.0
 		
 		

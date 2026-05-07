@@ -192,7 +192,7 @@ func _handle_hit(body:Node3D) -> void:
 			body.global_position.y += 0.1
 			body.velocity += dir_to_player_head * knockback_force # apply a force to the player
 			
-		body.setHealth(body.HEALTH - damage)
+		body.setHealth(body.health - damage)
 		body.cause_of_death = "Explosion."
 		body.camera_3d.shakeCamera(screen_shake_duration, screen_shake_strength)
 	
@@ -216,7 +216,7 @@ func _handle_hit(body:Node3D) -> void:
 			body.global_position.y += 0.001
 			body.velocity += dir_to_enemy * knockback_force
 			
-		body.setHealth(body.HEALTH - damage, Enemy.damage_types.EXPLOSIVE)
+		body.setHealth(body.health - damage, Enemy.damage_types.EXPLOSIVE)
 	
 	elif body is PhysicalBone3D:
 		var center_point:Vector3 = global_position # get the center of the sphere

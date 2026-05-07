@@ -8,6 +8,7 @@ point_count = 2
 
 [resource]
 script = ExtResource("1_kuhdo")
+shockwave_height = 0.204
 beginning_size = 1.046
 ending_size = 7.551
 expand_speed = 27.0

@@ -9,7 +9,7 @@ class_name Enemy extends CharacterBody3D
 
 #region @export vars
 ## The actual health of the enemy. This is the primary thing modified.
-@export var HEALTH:float = 100.0
+@export var health:float = 100.0
 ## If the enemy should expirience gravity or not
 @export var gravity_enabled:bool = true
 ## The XZ speed of the enemy
@@ -76,15 +76,15 @@ const DAMAGE_HITMARKER_SCENE:PackedScene = preload("res://scenes/damage_hitmarke
 #region setters and getters
 func setHealth(new_health:float, damage_type:damage_types):
 	if damage_enabled:
-		var previous_enemy_health:float = HEALTH
+		var previous_enemy_health:float = health
 		last_hit_damage_type = damage_type
-		HEALTH = new_health
-		HEALTH = clampf(HEALTH, 0, 100)
+		health = new_health
+		health = clampf(health, 0, 100)
 		
-		on_health_changed.emit(previous_enemy_health, HEALTH, damage_type)
+		on_health_changed.emit(previous_enemy_health, health, damage_type)
 		
 		
-		if HEALTH == 0:
+		if health == 0:
 			_killEnemy()
 	else:
 		pass
@@ -92,7 +92,7 @@ func setHealth(new_health:float, damage_type:damage_types):
 
 ## gets the health of the enemy
 func getHealth() -> float:
-	return HEALTH
+	return health
 #endregion
 
 

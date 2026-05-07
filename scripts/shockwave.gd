@@ -56,6 +56,8 @@ func setSize(size_new:float) -> void:
 	shader_driver.setShaderParameter(&"alpha", shockwave_config.alpha_curve.sample_baked(getNormalizedSize()))
 	# update the collision shape
 	buildTrimeshCollider()
+	# update ring height
+	half_torus.fixed_height = shockwave_config.shockwave_height
 
 
 ## Creates multiple convex colliders in the form of collisionshape3D from source_mesh_instance
@@ -137,6 +139,7 @@ func buildTrimeshCollider() -> void:
 
 
 func setup() -> void:
+	half_torus.fixed_height = shockwave_config.shockwave_height
 	shader_driver.setShaderParameter(&"primary_color", shockwave_config.ring_color)
 	size = shockwave_config.beginning_size
 	_initial_size = size
@@ -145,8 +148,9 @@ func setup() -> void:
 
 func _on_shockwave_hurtbox_body_entered(body: Node3D) -> void:
 	if body is Player:
-		Debug.log("Foo")
 		body.applyForceImpulse(shockwave_config.force_applied, Vector3.UP)
-		body.setHealth(body.HEALTH - shockwave_config.damage)
+		body.setHealth(body.health - shockwave_config.damage)
 	elif body is Enemy:
-		body.setHealth(body.HEALTH - shockwave_config.damage)
+		body.setHealth(body.health - shockwave_config.damage)
+	elif body is PhysicalBone3D:
+		body.linear_velocity.y = shockwave_config.force_applied

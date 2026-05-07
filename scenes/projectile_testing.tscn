@@ -309,6 +309,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9151993, 4.273391, -10.150
 
 [node name="DoorSmall" parent="." instance=ExtResource("9_rj2dv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.7595751, 4.7683716e-07, -9.586982)
+locked = true
+laser_grid_enabled = true
 
 [node name="Shockwave" parent="." instance=ExtResource("10_yvgsm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0784097, 0, -9.947584)

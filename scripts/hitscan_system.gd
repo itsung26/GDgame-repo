@@ -376,12 +376,12 @@ func _handle_hit(
 		
 		# Otherwise, deal normal damage (piercing or non-piercing).
 		var damage: float = config.get_random_damage() * damage_multiplier
-		enemy.setHealth(enemy.HEALTH - damage, config.damage_type)
+		enemy.setHealth(enemy.health - damage, config.damage_type)
 		return
 	
 	if hit_body is Player:
 		var damage: float = config.get_random_damage() * damage_multiplier
-		hit_body.setHealth(hit_body.HEALTH - damage)
+		hit_body.setHealth(hit_body.health - damage)
 		return
 	
 	# there is no check for the pistol bomb object itself being hit, this is intentional

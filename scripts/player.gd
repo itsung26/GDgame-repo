@@ -98,7 +98,7 @@ enum action_states{IDLE, GRAPPLING, REELING_IN}
 
 @export_category("Main Attributes")
 @export var Godmode:bool = false
-@export var HEALTH:float = 100:
+@export var health:float = 100:
 	set = setHealth
 @export var can_be_healed:bool = true
 @export var can_be_damaged:bool = true
@@ -826,10 +826,10 @@ func _continuous_input() -> void:
 	#endregion
 
 
-func setHealth(new_health:float = HEALTH) -> void:
+func setHealth(new_health:float = health) -> void:
 	new_health = clampf(new_health, 0.0, 100.0)
-	var previous_health:float = HEALTH
-	HEALTH = new_health
+	var previous_health:float = health
+	health = new_health
 	var health_increased:bool = new_health > previous_health
 	var health_decreased:bool = new_health < previous_health
 	
@@ -912,7 +912,7 @@ func parryTargetInBox():
 		
 		# Special cases in for different parriable things.
 		if parry_target is EnemyProjectile:
-			setHealth(HEALTH + parry_heal_amount)
+			setHealth(health + parry_heal_amount)
 			parry_target.has_been_parried = true
 			if parry_target is EnergyBall:
 				parry_target.linear_velocity = Vector3.ZERO
