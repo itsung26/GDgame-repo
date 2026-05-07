@@ -6,6 +6,7 @@ extends Node3D
 @onready var half_torus: HalfTorus = $HalfTorus
 @onready var shader_driver: ShaderDriver = $ShaderDriver
 @onready var shockwave_collider: CollisionShape3D = $ShockwaveHurtbox/ShockwaveCollider
+@onready var shockwave_hurtbox: Area3D = $ShockwaveHurtbox
 #endregion
 
 #region @export vars
@@ -17,6 +18,8 @@ extends Node3D
 ## Drives the size and alpha properties of the shockwave ring.
 @export var size:float:
 	set = setSize
+@export var collision_segments:int = 12:
+	set = setCollisionSegments
 var expanding:bool = false:
 	set = setExpanding
 var _initial_size:float
@@ -25,7 +28,6 @@ var _initial_size:float
 
 func _process(delta: float) -> void:
 	if expanding:
-		shockwave_collider.shape = getConvexShape()
 		size = move_toward(size, shockwave_config.ending_size, shockwave_config.expand_speed * delta)
 		if size == shockwave_config.ending_size:
 			expanding = false
@@ -38,7 +40,6 @@ func setSize(size_new:float) -> void:
 	half_torus.outer_radius = size_new
 	# update the mesh shader alpha
 	shader_driver.setShaderParameter(&"alpha", shockwave_config.alpha_curve.sample_baked(getNormalizedSize()))
-	
 
 
 func setExpanding(expanding_new:bool) -> void:
@@ -52,19 +53,25 @@ func getNormalizedSize() -> float:
 	return remap(size, shockwave_config.beginning_size, shockwave_config.ending_size, 0.0, 1.0)
 
 
-## Returns a convex shape matching the mesh shape.
-func getConvexShape() -> ConvexPolygonShape3D:
-	if half_torus == null:
-		return ConvexPolygonShape3D.new()
+func setCollisionSegments(segments_new:int) -> void:
+	collision_segments = segments_new
+	
+	for i:int in range(segments_new):
+		shockwave_hurtbox.add_child(CollisionShape3D.new())
 
-	if half_torus.mesh == null:
-		return ConvexPolygonShape3D.new()
 
-	var convex_shape:ConvexPolygonShape3D = half_torus.mesh.create_convex_shape()
-	if convex_shape == null:
-		return ConvexPolygonShape3D.new()
+## Disables and queues free all of the hurtbox children area3D nodes.
+func queueFreeHurtboxChildren() -> void:
+	var hurtbox_children:Array[Node] = shockwave_hurtbox.get_children()
+	for child in hurtbox_children:
+		if child is Area3D:
+			child.disabled = true
+			child.queue_free()
 
-	return convex_shape
+
+## Generates [param segments] concave colliders in the shape of the torus.
+func generateConcaveColliders(segments:int) -> void:
+	pass
 
 
 func setup() -> void:
