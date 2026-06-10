@@ -31,9 +31,8 @@ editor_description = "rotates the joints only"
 script = ExtResource("2_lpllt")
 mid_rotation_speed = -1.0
 
-[node name="Icosphere" parent="grapple_cube/Skeleton3D" index="1"]
-surface_material_override/1 = ExtResource("3_kgreb")
-surface_material_override/2 = SubResource("ShaderMaterial_ub55t")
+[node name="trimsheet" parent="grapple_cube/Skeleton3D" index="1"]
+visible = false
 
 [node name="OuterMostLookAt" type="LookAtModifier3D" parent="grapple_cube/Skeleton3D" index="2"]
 target_node = NodePath("../outermost_joint/outermost")
@@ -72,6 +71,10 @@ transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999998, 0, 0,
 
 [node name="inner" type="Marker3D" parent="grapple_cube/Skeleton3D/inner_joint"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Icosphere" parent="grapple_cube/Skeleton3D" index="8"]
+surface_material_override/1 = ExtResource("3_kgreb")
+surface_material_override/2 = SubResource("ShaderMaterial_ub55t")
 
 [node name="GrappleableAgent3D" type="StaticBody3D" parent="."]
 collision_layer = 512

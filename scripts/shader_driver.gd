@@ -28,6 +28,10 @@ func _process(delta: float) -> void:
 
 ## Sets a shader uniform value on the currently resolved shader material.
 func setShaderParameter(param:StringName, value:Variant) -> void:
+	if mesh_node == null:
+		Debug.log("No mesh node found!")
+		return
+	
 	if _shader_material == null:
 		_cacheShaderMaterialReference()
 	
@@ -54,6 +58,10 @@ func setShaderParameter(param:StringName, value:Variant) -> void:
 
 ## Gets a shader uniform value from the currently resolved shader material.
 func getShaderParameter(param:StringName) -> Variant:
+	if mesh_node == null:
+		Debug.log("No mesh node found!")
+		return
+	
 	if _shader_material == null:
 		_cacheShaderMaterialReference()
 	

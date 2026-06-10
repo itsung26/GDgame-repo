@@ -54,7 +54,7 @@ window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/any_icon.editor/plugin.cfg", "res://addons/bbcode_edit.editor/plugin.cfg", "res://addons/deep_raycast_3d/plugin.cfg", "res://addons/func_godot/plugin.cfg", "res://addons/object_pool_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg", "res://addons/any_icon.editor/plugin.cfg", "res://addons/bbcode_edit.editor/plugin.cfg", "res://addons/deep_raycast_3d/plugin.cfg", "res://addons/func_godot/plugin.cfg")
 
 [global_group]
 
@@ -234,7 +234,6 @@ bbcode_edit/editor/open_current_file_documentation={
 
 [physics]
 
-common/physics_ticks_per_second=120
 3d/physics_engine="Jolt Physics"
 jolt_physics_3d/simulation/speculative_contact_distance=0.16
 jolt_physics_3d/collisions/collision_margin_fraction=0.16

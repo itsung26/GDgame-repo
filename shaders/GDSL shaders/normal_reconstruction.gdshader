@@ -1,4 +1,4 @@
-shader_type spatial;
+shader_type spatial; render_mode cull_disabled;
 
 uniform vec3 base_color:source_color;
 uniform float normal_strength = 1.0;

@@ -137,6 +137,9 @@ enum action_states{IDLE, GRAPPLING, REELING_IN}
 @export var slam_velocity := 35.0
 ## Multiplier for gravity strength while wall sliding.
 @export var wall_slide_gravity_scale:float = 0.3
+## Minimum dot product needed between horizontal velocity and wall approach direction
+## before entering wall sliding. Higher values require more direct movement into the wall.
+@export_range(0.0, 1.0) var wall_slide_enter_dot_threshold:float = 0.2
 ## Horizontal velocity applied away from the wall when performing a wall jump.
 @export var wall_jump_applied_velocity:float = 12.0
 ## Maximum number of times the player can jump off walls before touching the ground again.
@@ -189,7 +192,8 @@ var weapon_state:PlayerWeapon:
 ## Remaining wall jumps available before needing to touch the ground.
 var wall_jumps_left:int = 0
 ## True while the player is touching a wall based on slide collisions, even without input.
-var touching_wall:bool = false
+var touching_wall:bool:
+	get = getTouchingWall
 ## Approximate normal of the wall the player is currently touching, derived from test_move checks.
 var wall_normal:Vector3 = Vector3.ZERO
 var parry_target:Node3D
@@ -495,26 +499,6 @@ func process_player_state(delta:float) -> void:
 
 # Called every physics frame. FPS: 120
 func _physics_process(delta: float) -> void:
-
-	# Update touching_wall using test_move so it does not depend on current velocity/input.
-	touching_wall = false
-	wall_normal = Vector3.ZERO
-	var wall_check_distance := 0.1
-	var local_dirs := [
-		Vector3.LEFT,
-		Vector3.RIGHT,
-		Vector3.FORWARD,
-		Vector3.BACK
-	]
-	for local_dir in local_dirs:
-		var world_dir: Vector3 = (transform.basis * local_dir).normalized()
-		if test_move(global_transform, world_dir * wall_check_distance):
-			touching_wall = true
-			# The surface normal points away from the wall; approximate it as the opposite
-			# of the direction we are testing into.
-			wall_normal = -world_dir
-			break
-
 	# state control
 	if (is_on_floor() and 
 	player_state != player_states.SLIDING and 
@@ -541,10 +525,17 @@ func _physics_process(delta: float) -> void:
 		velocity += gravity * delta
 
 	# Enter wall sliding when airborne and touching a wall, primarily while falling.
+	var horizontal_velocity:Vector3 = Vector3(velocity.x, 0.0, velocity.z)
+	var moving_towards_wall:bool = false
+	if touching_wall and wall_normal != Vector3.ZERO and horizontal_velocity.length_squared() > 0.000001:
+		var wall_approach_direction:Vector3 = -wall_normal.normalized()
+		var horizontal_direction:Vector3 = horizontal_velocity.normalized()
+		moving_towards_wall = horizontal_direction.dot(wall_approach_direction) >= wall_slide_enter_dot_threshold
 	if (not is_on_floor()
 		and touching_wall
 		and player_state == player_states.FALLING
-		and velocity.y < 0.0):
+		and velocity.y < 0.0
+		and moving_towards_wall):
 		set_player_state(player_states.WALL_SLIDING)
 	
 	# Handle jump.
@@ -578,6 +569,25 @@ func _physics_process(delta: float) -> void:
 	if not player_kinematics_enabled_y:
 		velocity.y = 0.0
 	move_and_slide()
+
+
+func getTouchingWall() -> bool:
+	wall_normal = Vector3.ZERO
+	var wall_check_distance:float = 0.1
+	var local_dirs:Array[Vector3] = [
+		Vector3.LEFT,
+		Vector3.RIGHT,
+		Vector3.FORWARD,
+		Vector3.BACK
+	]
+	for local_dir:Vector3 in local_dirs:
+		var world_dir:Vector3 = (transform.basis * local_dir).normalized()
+		if test_move(global_transform, world_dir * wall_check_distance):
+			# The surface normal points away from the wall; approximate it as the opposite
+			# of the direction we are testing into.
+			wall_normal = -world_dir
+			return true
+	return false
 
 
 func physics_process_player_state(delta:float) -> void:

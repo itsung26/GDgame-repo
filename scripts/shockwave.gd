@@ -15,7 +15,6 @@ extends Node3D
 @export var size:float:
 	set = setSize
 @export_tool_button("test activate") var a:Callable = setup
-@export_tool_button("test collider generation") var b:Callable = test
 #endregion
 
 #region regular vars
@@ -25,12 +24,7 @@ var _initial_size:float
 #endregion
 
 
-func test() -> void:
-	return
-	buildTrimeshCollider()
-
-
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	#var current_scene:Node = get_tree().current_scene
 	#if current_scene != null:
 		#var collision_shapes:Array[Node] = current_scene.find_children("*", "CollisionShape3D", true, false)
@@ -146,7 +140,7 @@ func setup() -> void:
 	expanding = true
 
 
-func _on_shockwave_hurtbox_body_entered(body: Node3D) -> void:
+func _handle_hit(body:Node3D) -> void:
 	if body is Player:
 		body.applyForceImpulse(shockwave_config.force_applied, Vector3.UP)
 		body.setHealth(body.health - shockwave_config.damage)
@@ -154,3 +148,7 @@ func _on_shockwave_hurtbox_body_entered(body: Node3D) -> void:
 		body.setHealth(body.health - shockwave_config.damage)
 	elif body is PhysicalBone3D:
 		body.linear_velocity.y = shockwave_config.force_applied
+
+
+func _on_shockwave_hurtbox_body_entered(body: Node3D) -> void:
+	_handle_hit(body)
