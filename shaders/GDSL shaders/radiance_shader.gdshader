@@ -40,6 +40,10 @@ float sample_color_ramp(float value) {
 	return texture(color_ramp, vec2(value, 0.5)).r;
 }
 
+vec2 rect_to_polar(vec2 rect) {
+	float
+}
+
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
@@ -54,8 +58,10 @@ void fragment() {
 	float cell_noise_value = clamp(texture(cell_noise_texture, UV).x, 0.0, 1.0);
 	float cell_noise_value_ramped = sample_color_ramp(cell_noise_value);
 	
+	vec2 SC
+	
 	// ALPHA = fresnel_value;
 	ALBEDO = vec3(0.0);
-	EMISSION = vec3(direction_to_color(frag_world_normal));
+	EMISSION = vec3(1.0);
 	ALPHA = (1.0);
 }

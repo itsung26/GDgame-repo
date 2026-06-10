@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dhe5rxp36sxoo"]
+
+[ext_resource type="Shader" uid="uid://fd7rpy17lait" path="res://shaders/GDSL shaders/radiance_shader.gdshader" id="1_16dt0"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_16dt0")
