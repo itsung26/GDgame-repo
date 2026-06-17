@@ -1370,10 +1370,10 @@ metadata/extras = {
 [node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="filth/Skeleton3D"]
 
 [node name="Physical Bone Hip_Left_01" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.23949319, -0.0022662843, -0.9708955, 0.23934618, 0.9689972, -0.061301954, 0.940934, -0.24706152, -0.23152578, 0.054023743, 1.0304685, 0.03223531)
+transform = Transform3D(-0.23949319, -0.0022662852, -0.9708955, 0.23934618, 0.9689972, -0.061301954, 0.940934, -0.24706152, -0.23152578, 0.054023743, 1.0304685, 0.03223531)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1483767e-05, 5.0430408e-05, 0.055629857)
-body_offset = Transform3D(0.0001112856, 100.00007, 0.00041109324, 4.5776367e-05, 0.00041902065, -100.000046, -100.00008, 0.00010692701, -3.6239624e-05, -0.005065918, 5.5629883, 0.0041503906)
+body_offset = Transform3D(0.0001112856, 100.00007, 0.00041109324, 4.5776367e-05, 0.00041893125, -100.000046, -100.00008, 0.000106904656, -3.6239624e-05, -0.005065918, 5.5629883, 0.0041503906)
 bone_name = "Hip_Left_01"
 joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0

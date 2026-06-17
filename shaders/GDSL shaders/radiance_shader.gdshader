@@ -5,6 +5,7 @@ uniform bool fresnel_invert = false;
 uniform float fresnel_brightness = 1.0;
 uniform sampler2D cell_noise_texture;
 uniform sampler2D color_ramp:filter_nearest;
+uniform float test_float;
 
 vec3 spherical_coordinates(vec3 position) {
 	vec3 spherical_position = vec3(length(position.xz), atan(position.z, position.x), position.y);
@@ -41,7 +42,10 @@ float sample_color_ramp(float value) {
 }
 
 vec2 rect_to_polar(vec2 rect) {
-	float
+	float radius = distance(vec2(0.0), rect);
+	float theta = atan(rect.y, rect.x);
+	float normalized_theta = clamp(theta / (2.0 * PI) + 0.5, 0.0, 1.0);
+	return vec2(radius, normalized_theta);
 }
 
 void vertex() {
@@ -58,10 +62,12 @@ void fragment() {
 	float cell_noise_value = clamp(texture(cell_noise_texture, UV).x, 0.0, 1.0);
 	float cell_noise_value_ramped = sample_color_ramp(cell_noise_value);
 	
-	vec2 SC
+	vec2 UV_CENTERED = UV - vec2(0.5, 0.5);
+	vec2 SCREEN_UV_CENTERED = SCREEN_UV - vec2(0.5, 0.5);
+	vec2 SCREEN_UV_POLAR = rect_to_polar(SCREEN_UV_CENTERED);
 	
 	// ALPHA = fresnel_value;
 	ALBEDO = vec3(0.0);
-	EMISSION = vec3(1.0);
+	EMISSION = vec3(distance(SCREEN_UV_POLAR.y, test_float));
 	ALPHA = (1.0);
 }
