@@ -953,7 +953,7 @@ camera_shake_strength = 0.22
 firing_hitstop_duration = 0.1
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.046785403, -0.9986614, 0.022041397, -0.0017326601, -0.021984423, -0.9997552, 0.9989015, -0.046812296, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
+transform = Transform3D(-0.0467854, -0.99866134, 0.022041397, -0.00173266, -0.021984423, -0.9997552, 0.9989014, -0.046812296, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)

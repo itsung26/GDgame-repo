@@ -217,3 +217,14 @@ func shakeCamera(duration: float = 0.66, strength: float = 1.0) -> void:
 	current_strength = 0.0
 	remaining_time = 0.0
 	elapsed_time = 0.0
+
+
+## Returns a 3d point in global coordinates in its normalized 2d screen-space coordinates.
+func unprojectPositionNormalized(world_point:Vector3) -> Vector2:
+	var raw_screen_coord:Vector2 = unproject_position(world_point)
+	var viewport_size = get_viewport().get_visible_rect().size
+	var normalized_screen_coord:Vector2 = Vector2(
+		raw_screen_coord.x / viewport_size.x,
+		raw_screen_coord.y / viewport_size.y
+	)
+	return normalized_screen_coord

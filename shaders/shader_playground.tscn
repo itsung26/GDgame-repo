@@ -1,4 +1,4 @@
-[gd_scene load_steps=175 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene load_steps=178 format=4 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
 [ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_j4xor"]
@@ -41,6 +41,7 @@
 [ext_resource type="Shader" uid="uid://wepgvhhllkxx" path="res://shaders/GDSL shaders/normal_reconstruction_shader.gdshader" id="39_2d6gy"]
 [ext_resource type="Shader" uid="uid://datftmervjxrg" path="res://shaders/GDSL shaders/absorption_shader.gdshader" id="39_ftuxs"]
 [ext_resource type="Texture2D" uid="uid://wdsn8say307i" path="res://assets/2d assets/primary textures/godot-theme-prototype-textures-v0-pev67seeqtac1.png" id="39_wljk0"]
+[ext_resource type="Shader" uid="uid://cw5qbiir3n61n" path="res://shaders/GDSL shaders/ntest2.gdshader" id="40_erc2r"]
 [ext_resource type="Shader" uid="uid://d0csssiupmsxq" path="res://shaders/GDSL shaders/parallax_test.gdshader" id="40_ftuxs"]
 [ext_resource type="Shader" uid="uid://balxfadksvly0" path="res://shaders/GDSL shaders/normal_reconstruction.gdshader" id="41_2d6gy"]
 [ext_resource type="Shader" uid="uid://c3ugwrpjbdkin" path="res://shaders/GDSL shaders/buffer_tester.gdshader" id="41_jxcp7"]
@@ -749,6 +750,16 @@ size = Vector2(100, 100)
 subdivide_width = 6
 subdivide_depth = 6
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wi7ed"]
+render_priority = 0
+shader = ExtResource("40_erc2r")
+
+[sub_resource type="QuadMesh" id="QuadMesh_y3rpc"]
+material = SubResource("ShaderMaterial_wi7ed")
+size = Vector2(100, 100)
+subdivide_width = 6
+subdivide_depth = 6
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3rsen"]
 render_priority = 0
 shader = ExtResource("39_ftuxs")
@@ -1176,6 +1187,11 @@ transform = Transform3D(1.0000002, 0, 0, 0, -0.8157942, 0.57834166, 0, -0.578341
 mesh = SubResource("QuadMesh_2d6gy")
 skeleton = NodePath("../NormalReconstructionShader")
 
+[node name="NormalReconstructionShader3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.0000002, 0, 0, 0, -0.8157942, 0.57834166, 0, -0.57834154, -0.8157944, 21.607468, 223.7969, -324.74475)
+mesh = SubResource("QuadMesh_y3rpc")
+skeleton = NodePath("../NormalReconstructionShader")
+
 [node name="AbsorptionShader" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.371139e-08, -4.3711378e-08, 0.9999999, -1, 1.9106853e-15, -4.3711385e-08, 0, -0.9999999, -4.3711378e-08, -0.1210525, 0.51752853, -22.376408)
 material_override = SubResource("ShaderMaterial_3rsen")
@@ -1370,10 +1386,10 @@ metadata/extras = {
 [node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="filth/Skeleton3D"]
 
 [node name="Physical Bone Hip_Left_01" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.23949319, -0.002266282, -0.9708955, 0.23934618, 0.9689972, -0.06130195, 0.940934, -0.24706152, -0.23152578, 0.054023743, 1.0304685, 0.03223531)
+transform = Transform3D(-0.23949319, -0.002266283, -0.9708955, 0.23934618, 0.9689972, -0.061301954, 0.940934, -0.24706152, -0.23152578, 0.054023743, 1.0304685, 0.03223531)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1483767e-05, 5.0430408e-05, 0.055629857)
-body_offset = Transform3D(0.0001112856, 100.00007, 0.00041109324, 4.5776367e-05, 0.00041888654, -100.000046, -100.00008, 0.00010689348, -3.6239624e-05, -0.005065918, 5.5629883, 0.0041503906)
+body_offset = Transform3D(0.0001112856, 100.00007, 0.00041109324, 4.5776367e-05, 0.00041879714, -100.000046, -100.00008, 0.00010687113, -3.6239624e-05, -0.005065918, 5.5629883, 0.0041503906)
 bone_name = "Hip_Left_01"
 joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
