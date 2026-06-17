@@ -5,6 +5,7 @@ uniform bool fresnel_invert = false;
 uniform float fresnel_brightness = 1.0;
 uniform sampler2D cell_noise_texture;
 uniform sampler2D color_ramp:filter_nearest;
+uniform vec2 screen_uv_origin = vec2(0.5, 0.5);
 uniform float test_float;
 
 vec3 spherical_coordinates(vec3 position) {
@@ -37,15 +38,15 @@ vec3 viewDirToWorld(vec3 view_direction, mat4 inverse_view_matrix) {
 	return normalize((inverse_view_matrix * vec4(view_direction, 0.0)).xyz);
 }
 
-float sample_color_ramp(float value) {
-	return texture(color_ramp, vec2(value, 0.5)).r;
-}
-
 vec2 rect_to_polar(vec2 rect) {
 	float radius = distance(vec2(0.0), rect);
 	float theta = atan(rect.y, rect.x);
 	float normalized_theta = clamp(theta / (2.0 * PI) + 0.5, 0.0, 1.0);
 	return vec2(radius, normalized_theta);
+}
+
+vec3 sample_color_ramp(float fac) {
+	return texture(color_ramp, vec2(fac, 0.5)).rgb;
 }
 
 void vertex() {
@@ -60,14 +61,14 @@ void fragment() {
 	fresnel_value *= fresnel_brightness;
 	
 	float cell_noise_value = clamp(texture(cell_noise_texture, UV).x, 0.0, 1.0);
-	float cell_noise_value_ramped = sample_color_ramp(cell_noise_value);
 	
-	vec2 UV_CENTERED = UV - vec2(0.5, 0.5);
-	vec2 SCREEN_UV_CENTERED = SCREEN_UV - vec2(0.5, 0.5);
+	vec2 SCREEN_UV_CENTERED = SCREEN_UV - screen_uv_origin;
 	vec2 SCREEN_UV_POLAR = rect_to_polar(SCREEN_UV_CENTERED);
+	
+	vec3 color_from_polar_angle = sample_color_ramp(SCREEN_UV_POLAR.y);
 	
 	// ALPHA = fresnel_value;
 	ALBEDO = vec3(0.0);
-	EMISSION = vec3(distance(SCREEN_UV_POLAR.y, test_float));
-	ALPHA = (1.0);
+	EMISSION = vec3(color_from_polar_angle);
+	ALPHA = (fresnel_value);
 }

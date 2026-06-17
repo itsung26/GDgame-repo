@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://0u3c4p3j804t" path="res://assets/2d assets/noise/noise 512x512/Vein/Vein_10-512x512.png" id="2_yqo33"]
 
 [sub_resource type="Gradient" id="Gradient_erc2r"]
-offsets = PackedFloat32Array(0.234375, 1)
+offsets = PackedFloat32Array(0.125, 0.38020834, 0.5520833, 0.7083333, 0.9166667)
+colors = PackedColorArray(0.8277791, 0.06273193, 3.85046e-07, 1, 0, 0.5641274, 0.62672937, 1, 0.3202397, 0.77821213, 7.70092e-07, 1, 0.7182688, 0.2426852, 1, 1, 0.827451, 0.0627451, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_wi7ed"]
 gradient = SubResource("Gradient_erc2r")
@@ -12,9 +13,10 @@ gradient = SubResource("Gradient_erc2r")
 [resource]
 render_priority = 0
 shader = ExtResource("1_16dt0")
-shader_parameter/fresnel_power = 1.99
+shader_parameter/fresnel_power = 1.47
 shader_parameter/fresnel_invert = false
-shader_parameter/fresnel_brightness = 2.73
+shader_parameter/fresnel_brightness = 1.0
 shader_parameter/cell_noise_texture = ExtResource("2_yqo33")
 shader_parameter/color_ramp = SubResource("GradientTexture1D_wi7ed")
-shader_parameter/test_float = 0.543
+shader_parameter/screen_uv_origin = Vector2(0.5, 0.5)
+shader_parameter/test_float = 0.533
