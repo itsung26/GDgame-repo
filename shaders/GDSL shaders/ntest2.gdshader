@@ -1,9 +1,31 @@
 shader_type spatial;
 
-// Returns 1.0 if uv.x and uv.y are multiples of 0.1, and returns 0.0 otherwise.
+uniform float uv_scale = 1.0;
+uniform float normal_strength = 1.0;
+const float EPSILON = 0.0001;
+uniform sampler2D falloff_texture;
+
+float sample_falloff_texture(float fac) {
+	return texture(falloff_texture, vec2(fac, 0.5)).r;
+}
+
 float sample_shape_function(vec2 uv) {
-	float x_value_divided = uv.x / 0.1;
-	if (x_value_divided)
+	float distance_to_center = distance(uv, vec2(0.5));
+	return sample_falloff_texture(distance_to_center);
+}
+
+vec3 construct_tangent_normal(vec2 uv) {
+	float center = sample_shape_function(uv);
+	float up = sample_shape_function(uv + vec2(0.0, EPSILON));
+	float down = sample_shape_function(uv - vec2(0.0, EPSILON));
+	float right = sample_shape_function(uv + vec2(EPSILON, 0.0));
+	float left = sample_shape_function(uv - vec2(EPSILON, 0.0));
+	
+	float deriv_x = ((right - left) / (2.0 * EPSILON)) * normal_strength;
+	float deriv_y = ((up - down) / (2.0 * EPSILON)) * normal_strength;
+	
+	vec3 tangent_normal = normalize(vec3(-deriv_x, -deriv_y, 1.0));
+	return tangent_normal;
 }
 
 void vertex() {
@@ -11,5 +33,11 @@ void vertex() {
 }
 
 void fragment() {
-	// Called for every pixel the material is visible on.
+	vec2 uv_transformed = UV * uv_scale;
+	
+	//ALBEDO = vec3(sample_shape_function(uv_transformed));
+	//ALBEDO = vec3(construct_tangent_normal(uv_transformed));
+	ALBEDO = vec3(1.0);
+	EMISSION = vec3(0.0);
+	NORMAL_MAP = construct_tangent_normal(uv_transformed);
 }

@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=16 format=3 uid="uid://jf7ydkp1k3e4"]
+[gd_resource type="VisualShader" format=3 uid="uid://jf7ydkp1k3e4"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_3871a"]
 operator = 2
@@ -60,74 +60,6 @@ input_name = "time"
 
 [resource]
 resource_local_to_scene = true
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_front, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform vec4 ColorParameter : source_color = vec4(1.000000, 0.000000, 0.000000, 1.000000);
-uniform float Frequency = 5.5149998664856;
-uniform float amplitude;
-uniform float Midlevel = 5.66200017929077;
-
-
-
-void fragment() {
-// ColorParameter:3
-	vec4 n_out3p0 = ColorParameter;
-
-
-// Input:8
-	float n_out8p0 = TIME;
-
-
-// FloatParameter:11
-	float n_out11p0 = Frequency;
-
-
-// FloatOp:10
-	float n_out10p0 = n_out8p0 * n_out11p0;
-
-
-// FloatFunc:7
-	float n_out7p0 = sin(n_out10p0);
-
-
-// FloatParameter:12
-	float n_out12p0 = amplitude;
-
-
-// FloatOp:13
-	float n_out13p0 = n_out7p0 * n_out12p0;
-
-
-// FloatParameter:4
-	float n_out4p0 = Midlevel;
-
-
-// FloatOp:9
-	float n_out9p0 = n_out13p0 + n_out4p0;
-
-
-// Fresnel:2
-	float n_out2p0 = pow(clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_out9p0);
-
-
-// FloatConstant:6
-	float n_out6p0 = 0.000000;
-
-
-// FloatConstant:5
-	float n_out5p0 = 1.000000;
-
-
-// Output:0
-	ALBEDO = vec3(n_out3p0.xyz);
-	ALPHA = n_out2p0;
-	METALLIC = n_out6p0;
-	ROUGHNESS = n_out5p0;
-
-
-}
-"
 modes/cull = 1
 flags/unshaded = true
 nodes/fragment/2/node = SubResource("VisualShaderNodeFresnel_3871a")

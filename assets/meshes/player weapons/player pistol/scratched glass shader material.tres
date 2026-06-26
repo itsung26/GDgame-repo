@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://7kin3vti4ce0"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://7kin3vti4ce0"]
 
 [ext_resource type="Shader" uid="uid://c03e0ql7bl46t" path="res://assets/meshes/player weapons/player pistol/scratched glass shader.tres" id="1_4vjvy"]
 

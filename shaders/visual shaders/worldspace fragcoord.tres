@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://c2ii60bgdp8us"]
+[gd_resource type="VisualShader" format=3 uid="uid://c2ii60bgdp8us"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_rgp7h"]
 parameter_name = "ColorParameter"
@@ -34,78 +34,6 @@ default_value = Vector3(0, 0, -5)
 [sub_resource type="VisualShaderNodeVectorDistance" id="VisualShaderNodeVectorDistance_aq8xb"]
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-
-// Varyings
-varying vec3 var_v_world_position;
-
-uniform vec4 ColorParameter : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
-uniform vec3 Vector3Parameter = vec3(0.000000, 0.000000, -5.000000);
-uniform float fade_radius;
-uniform float fade_power;
-
-
-
-void vertex() {
-	var_v_world_position = vec3(0.0);
-}
-
-void fragment() {
-// ColorParameter:10
-	vec4 n_out10p0 = ColorParameter;
-
-
-// Input:4
-	mat4 n_out4p0 = INV_VIEW_MATRIX;
-
-
-// Input:5
-	vec3 n_out5p0 = VERTEX;
-
-
-// TransformVectorMult:6
-	vec3 n_out6p0 = (n_out4p0 * vec4(n_out5p0, 1.0)).xyz;
-
-
-// Vector3Parameter:7
-	vec3 n_out7p0 = Vector3Parameter;
-
-
-// Distance:8
-	float n_out8p0 = distance(n_out6p0, n_out7p0);
-
-
-// FloatParameter:15
-	float n_out15p0 = fade_radius;
-
-
-// FloatOp:14
-	float n_out14p0 = n_out8p0 * n_out15p0;
-
-
-// FloatParameter:13
-	float n_out13p0 = fade_power;
-
-
-// FloatOp:12
-	float n_out12p0 = pow(n_out14p0, n_out13p0);
-
-
-// Clamp:11
-	float n_in11p1 = 0.00000;
-	float n_in11p2 = 1.00000;
-	float n_out11p0 = clamp(n_out12p0, n_in11p1, n_in11p2);
-
-
-// Output:0
-	ALBEDO = vec3(n_out10p0.xyz);
-	ALPHA = n_out11p0;
-
-
-}
-"
 varyings/v_world_position = "0,4"
 nodes/vertex/0/position = Vector2(60, 120)
 nodes/fragment/0/position = Vector2(1760, 280)

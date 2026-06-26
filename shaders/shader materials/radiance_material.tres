@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://dhe5rxp36sxoo"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dhe5rxp36sxoo"]
 
 [ext_resource type="Shader" uid="uid://fd7rpy17lait" path="res://shaders/GDSL shaders/radiance_shader.gdshader" id="1_16dt0"]
 [ext_resource type="Texture2D" uid="uid://0u3c4p3j804t" path="res://assets/2d assets/noise/noise 512x512/Vein/Vein_10-512x512.png" id="2_yqo33"]

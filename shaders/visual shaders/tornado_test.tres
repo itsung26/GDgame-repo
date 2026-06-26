@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=22 format=3 uid="uid://be02pk80ehgbc"]
+[gd_resource type="VisualShader" format=3 uid="uid://be02pk80ehgbc"]
 
 [ext_resource type="Texture2D" uid="uid://cntdjuba48bdv" path="res://shaders/shader textures/cf5e3552-b7de-4c24-80fc-ea0698ad3195.png" id="1_07nc6"]
 
@@ -90,100 +90,6 @@ linked_parent_graph_frame = 15
 operator = 2
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx;
-
-uniform vec2 uv_scale = vec2(1.000000, 1.000000);
-uniform float Pan_speed_x;
-uniform float Pan_speed_y;
-uniform sampler2D tex_frg_2;
-uniform vec4 WindColor : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
-uniform float Emission : hint_range(0.0, 100.0);
-uniform float scissor_threshhold : hint_range(0.0, 1.0);
-
-
-
-void fragment() {
-// Vector2Parameter:4
-	vec2 n_out4p0 = uv_scale;
-
-
-// UVFunc:3
-	vec2 n_in3p2 = vec2(0.00000, 0.00000);
-	vec2 n_out3p0 = (UV - n_in3p2) * n_out4p0 + n_in3p2;
-
-
-// Input:7
-	float n_out7p0 = TIME;
-
-
-// FloatParameter:8
-	float n_out8p0 = Pan_speed_x;
-
-
-// FloatOp:9
-	float n_out9p0 = n_out7p0 * n_out8p0;
-
-
-// Input:11
-	float n_out11p0 = TIME;
-
-
-// FloatParameter:12
-	float n_out12p0 = Pan_speed_y;
-
-
-// FloatOp:13
-	float n_out13p0 = n_out11p0 * n_out12p0;
-
-
-// VectorCompose:10
-	vec2 n_out10p0 = vec2(n_out9p0, n_out13p0);
-
-
-// UVFunc:5
-	vec2 n_in5p1 = vec2(1.00000, 1.00000);
-	vec2 n_out5p0 = n_out10p0 * n_in5p1 + n_out3p0;
-
-
-// Texture2D:2
-	vec4 n_out2p0 = texture(tex_frg_2, n_out5p0);
-
-
-// ColorParameter:19
-	vec4 n_out19p0 = WindColor;
-
-
-// VectorOp:18
-	vec3 n_out18p0 = vec3(n_out2p0.xyz) * vec3(n_out19p0.xyz);
-
-
-// FloatOp:22
-	float n_in22p1 = 1.00000;
-	float n_out22p0 = n_out2p0.x * n_in22p1;
-
-
-// FloatParameter:21
-	float n_out21p0 = Emission;
-
-
-// VectorOp:20
-	vec3 n_out20p0 = n_out18p0 * vec3(n_out21p0);
-
-
-// FloatParameter:14
-	float n_out14p0 = scissor_threshhold;
-
-
-// Output:0
-	ALBEDO = n_out18p0;
-	ALPHA = n_out22p0;
-	EMISSION = n_out20p0;
-	ALPHA_SCISSOR_THRESHOLD = n_out14p0;
-
-
-}
-"
 modes/cull = 2
 preview_params/Pan_speed_x = "Vector2(3.685, 1)"
 preview_params/Pan_speed_y = "0.5"

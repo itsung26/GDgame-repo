@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=14 format=3 uid="uid://80erornecaqj"]
+[gd_resource type="VisualShader" format=3 uid="uid://80erornecaqj"]
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_wsh6y"]
 
@@ -45,37 +45,6 @@ op_type = 0
 varying_name = "worldpos"
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx;
-
-
-// Varyings
-varying float var_worldpos;
-
-uniform float cull_threshold = 0.5;
-
-
-
-void vertex() {
-	var_worldpos = 0.0;
-}
-
-void fragment() {
-// ColorConstant:2
-	vec4 n_out2p0 = vec4(1.000000, 0.647059, 0.000000, 1.000000);
-
-
-// FloatParameter:4
-	float n_out4p0 = cull_threshold;
-
-
-// Output:0
-	ALBEDO = vec3(n_out2p0.xyz);
-	ALPHA_SCISSOR_THRESHOLD = n_out4p0;
-
-
-}
-"
 modes/cull = 2
 varyings/worldpos = "0,0"
 preview_params/cull_threshold = "0.0"

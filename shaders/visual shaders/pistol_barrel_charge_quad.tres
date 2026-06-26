@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://b8ywhgx6gmyim"]
+[gd_resource type="VisualShader" format=3 uid="uid://b8ywhgx6gmyim"]
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_44ppn"]
 parameter_name = "Texture2DParameter"
@@ -7,26 +7,6 @@ parameter_name = "Texture2DParameter"
 source = 5
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform sampler2D Texture2DParameter;
-
-
-
-void fragment() {
-	vec4 n_out3p0;
-// Texture2D:3
-	n_out3p0 = texture(Texture2DParameter, UV);
-
-
-// Output:0
-	ALBEDO = vec3(n_out3p0.xyz);
-	ALPHA = n_out3p0.x;
-
-
-}
-"
 flags/unshaded = true
 nodes/fragment/0/position = Vector2(800, 100)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_44ppn")

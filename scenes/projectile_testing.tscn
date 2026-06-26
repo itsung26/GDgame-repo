@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ctkkc4v7jqox5"]
+[gd_scene format=3 uid="uid://ctkkc4v7jqox5"]
 
 [ext_resource type="Script" uid="uid://cfg33qj40lkc8" path="res://scripts/level.gd" id="1_r4hxy"]
 [ext_resource type="PackedScene" uid="uid://ch37b3vrtbtsd" path="res://scenes/player.tscn" id="3_7ksdt"]
@@ -91,39 +91,39 @@ density_texture = SubResource("NoiseTexture3D_5138l")
 [sub_resource type="BoxShape3D" id="BoxShape3D_rj2dv"]
 size = Vector3(1.9907227, 1.9890137, 2.0253906)
 
-[node name="ProjectileTesting" type="Node3D"]
+[node name="ProjectileTesting" type="Node3D" unique_id=74961065]
 script = ExtResource("1_r4hxy")
 metadata/_custom_type_script = "uid://cfg33qj40lkc8"
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1018077014]
 environment = SubResource("Environment_nptal")
 
-[node name="Player" parent="." node_paths=PackedStringArray("weapon_states") instance=ExtResource("3_7ksdt")]
+[node name="Player" parent="." unique_id=530594627 node_paths=PackedStringArray("weapon_states") instance=ExtResource("3_7ksdt")]
 transform = Transform3D(-1, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1, 4.738869, 0, -15.737817)
 weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1032669640]
 navigation_mesh = SubResource("NavigationMesh_yvgsm")
 
-[node name="floor" type="MeshInstance3D" parent="NavigationRegion3D"]
+[node name="floor" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=851369805]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.76741, 0, 0)
 layers = 3
 mesh = SubResource("PlaneMesh_r4hxy")
 skeleton = NodePath("")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="NavigationRegion3D"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1526459645]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 1.3625, 17.4)
 layers = 3
 mesh = SubResource("PrismMesh_q8du6")
 skeleton = NodePath("")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="NavigationRegion3D"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1552325029]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 11.2, 1.3625, 17.4)
 layers = 3
 mesh = SubResource("PrismMesh_q8du6")
 skeleton = NodePath("")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D" unique_id=247743621]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.527588, 2.885841, 0)
 layers = 3
 collision_layer = 4
@@ -132,7 +132,7 @@ flip_faces = true
 size = Vector3(133.05518, 44.000977, 50)
 material = SubResource("StandardMaterial3D_r4hxy")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1714391343]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.697733, 2.473981, 4.3500614)
 layers = 3
 collision_layer = 4
@@ -140,7 +140,7 @@ collision_mask = 527
 size = Vector3(5, 5.352749, 5)
 material = ExtResource("6_r4hxy")
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1474418591]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8201275, 6.64901, 22.050404)
 layers = 3
 collision_layer = 4
@@ -148,7 +148,7 @@ collision_mask = 527
 size = Vector3(5, 13.702811, 5)
 material = ExtResource("6_r4hxy")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1349800955]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.705872, 1.8012295, 4.3500614)
 layers = 3
 collision_layer = 4
@@ -156,7 +156,7 @@ collision_mask = 527
 size = Vector3(5, 4.007246, 5)
 material = ExtResource("6_r4hxy")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1854447586]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48317, 0.9364419, 4.3500614)
 layers = 3
 collision_layer = 4
@@ -164,161 +164,161 @@ collision_mask = 527
 size = Vector3(5, 2.2776709, 5)
 material = ExtResource("6_r4hxy")
 
-[node name="MapCollider" type="StaticBody3D" parent="."]
+[node name="MapCollider" type="StaticBody3D" parent="." unique_id=780456211]
 collision_layer = 4
 collision_mask = 911
 script = ExtResource("6_488l3")
 metadata/_custom_type_script = "uid://d4i447jqxsygd"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MapCollider"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MapCollider" unique_id=1195408555]
 shape = SubResource("ConcavePolygonShape3D_r4hxy")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="MapCollider"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MapCollider" unique_id=149044420]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, 1.3625, 17.4)
 shape = SubResource("ConcavePolygonShape3D_5138l")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="MapCollider"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="MapCollider" unique_id=1349954513]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 11.2, 1.3625, 17.4)
 shape = SubResource("ConcavePolygonShape3D_488l3")
 
-[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="MapCollider"]
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="MapCollider" unique_id=301692884]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.527588, 2.885841, 0)
 shape = SubResource("ConcavePolygonShape3D_p8vjj")
 
-[node name="CSGBakedCollisionShape3D2" type="CollisionShape3D" parent="MapCollider"]
+[node name="CSGBakedCollisionShape3D2" type="CollisionShape3D" parent="MapCollider" unique_id=467783011]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.697733, 2.473981, 4.3500614)
 shape = SubResource("ConcavePolygonShape3D_ihnmj")
 
-[node name="CSGBakedCollisionShape3D3" type="CollisionShape3D" parent="MapCollider"]
+[node name="CSGBakedCollisionShape3D3" type="CollisionShape3D" parent="MapCollider" unique_id=175768410]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8201275, 6.64901, 22.050404)
 shape = SubResource("ConcavePolygonShape3D_1gpp5")
 
-[node name="CSGBakedCollisionShape3D4" type="CollisionShape3D" parent="MapCollider"]
+[node name="CSGBakedCollisionShape3D4" type="CollisionShape3D" parent="MapCollider" unique_id=417253381]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.705872, 1.8012295, 4.3500614)
 shape = SubResource("ConcavePolygonShape3D_gt65t")
 
-[node name="CSGBakedCollisionShape3D5" type="CollisionShape3D" parent="MapCollider"]
+[node name="CSGBakedCollisionShape3D5" type="CollisionShape3D" parent="MapCollider" unique_id=1498866900]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48317, 0.9364419, 4.3500614)
 shape = SubResource("ConcavePolygonShape3D_exc5x")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=509662712]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.950869, 12.83057, -8.596948)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=1192279917]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.950869, 12.83057, 9.030652)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+[node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=2112992371]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.045349, 12.83057, -8.596948)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+[node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=1814403491]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.045349, 12.83057, 9.030652)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D5" type="OmniLight3D" parent="."]
+[node name="OmniLight3D5" type="OmniLight3D" parent="." unique_id=2123446120]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.190292, 12.83057, -8.596948)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D6" type="OmniLight3D" parent="."]
+[node name="OmniLight3D6" type="OmniLight3D" parent="." unique_id=449221190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.190292, 12.83057, 9.030652)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D7" type="OmniLight3D" parent="."]
+[node name="OmniLight3D7" type="OmniLight3D" parent="." unique_id=69462035]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.992203, 12.83057, -8.596948)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D8" type="OmniLight3D" parent="."]
+[node name="OmniLight3D8" type="OmniLight3D" parent="." unique_id=920351810]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.992203, 12.83057, 9.030652)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D9" type="OmniLight3D" parent="."]
+[node name="OmniLight3D9" type="OmniLight3D" parent="." unique_id=1728557519]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.404236, 12.83057, -8.596948)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D10" type="OmniLight3D" parent="."]
+[node name="OmniLight3D10" type="OmniLight3D" parent="." unique_id=891646590]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.404236, 12.83057, 9.030652)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D11" type="OmniLight3D" parent="."]
+[node name="OmniLight3D11" type="OmniLight3D" parent="." unique_id=1146286625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.27757, 12.83057, -8.596948)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="OmniLight3D12" type="OmniLight3D" parent="."]
+[node name="OmniLight3D12" type="OmniLight3D" parent="." unique_id=633546052]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.27757, 12.83057, 9.030652)
 light_energy = 54.37
 omni_range = 47.095524
 omni_attenuation = 2.0
 
-[node name="FogVolume" type="FogVolume" parent="."]
+[node name="FogVolume" type="FogVolume" parent="." unique_id=509869181]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3116913, 1.1005268, -1.8045441)
 size = Vector3(1, 2, 1)
 shape = 2
 material = SubResource("FogMaterial_r4hxy")
 
-[node name="EnviromentTest" parent="." instance=ExtResource("7_wl3f4")]
+[node name="EnviromentTest" parent="." unique_id=1185078554 instance=ExtResource("7_wl3f4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.493874, 3.727313, -15.1976185)
 
-[node name="GrappleableAgent3D" type="StaticBody3D" parent="EnviromentTest"]
+[node name="GrappleableAgent3D" type="StaticBody3D" parent="EnviromentTest" unique_id=1592219678]
 collision_layer = 512
 collision_mask = 512
 script = ExtResource("8_wl3f4")
 metadata/_custom_type_script = "uid://vvywp65j7qtu"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnviromentTest/GrappleableAgent3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnviromentTest/GrappleableAgent3D" unique_id=87312179]
 shape = SubResource("BoxShape3D_rj2dv")
 debug_color = Color(0, 1, 0, 1)
 
-[node name="EnviromentTest2" parent="." instance=ExtResource("7_wl3f4")]
+[node name="EnviromentTest2" parent="." unique_id=690493772 instance=ExtResource("7_wl3f4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.3459835, 3.727313, -15.1976185)
 
-[node name="GrappleableAgent3D" type="StaticBody3D" parent="EnviromentTest2"]
+[node name="GrappleableAgent3D" type="StaticBody3D" parent="EnviromentTest2" unique_id=1513327894]
 collision_layer = 512
 collision_mask = 512
 script = ExtResource("8_wl3f4")
 pull_behavior = 0
 metadata/_custom_type_script = "uid://vvywp65j7qtu"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnviromentTest2/GrappleableAgent3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnviromentTest2/GrappleableAgent3D" unique_id=232937862]
 shape = SubResource("BoxShape3D_rj2dv")
 debug_color = Color(0, 1, 0, 1)
 
-[node name="GrappleCube" parent="." instance=ExtResource("8_rj2dv")]
+[node name="GrappleCube" parent="." unique_id=545388754 instance=ExtResource("8_rj2dv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9151993, 4.273391, -10.150164)
 
-[node name="DoorSmall" parent="." instance=ExtResource("9_rj2dv")]
+[node name="DoorSmall" parent="." unique_id=1340999002 instance=ExtResource("9_rj2dv")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -2.7595751, 4.7683716e-07, -9.586982)
 locked = true
 laser_grid_enabled = true
 
-[node name="Shockwave" parent="." instance=ExtResource("10_yvgsm")]
+[node name="Shockwave" parent="." unique_id=1685949240 instance=ExtResource("10_yvgsm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0784097, 0, -9.947584)
 
-[node name="Explosion3D" parent="." instance=ExtResource("11_r4hxy")]
+[node name="Explosion3D" parent="." unique_id=1353207807 instance=ExtResource("11_r4hxy")]
 transform = Transform3D(2.46105, 0, 0, 0, 2.46105, 0, 0, 0, 2.46105, 13.572117, 1.9073486e-06, -5.980957)
 
-[node name="BloodDecal" parent="." instance=ExtResource("12_5138l")]
+[node name="BloodDecal" parent="." unique_id=2031905661 instance=ExtResource("12_5138l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7566351, 0, -3.867707)

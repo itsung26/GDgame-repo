@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=10 format=3 uid="uid://dagrnu38kh5hx"]
+[gd_resource type="VisualShader" format=3 uid="uid://dagrnu38kh5hx"]
 
 [ext_resource type="Texture2D" uid="uid://sju5vyor67fi" path="res://shaders/shader textures/Plane Base Color.png" id="1_0mqi4"]
 
@@ -32,44 +32,6 @@ texture = ExtResource("1_0mqi4")
 parameter_name = "offset"
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-uniform vec2 scale = vec2(1.000000, 1.000000);
-uniform vec2 offset;
-uniform sampler2D tex_frg_7;
-
-
-
-void fragment() {
-// Vector2Parameter:10
-	vec2 n_out10p0 = scale;
-
-
-// UVFunc:11
-	vec2 n_in11p2 = vec2(2.15000, 0.00000);
-	vec2 n_out11p0 = (UV - n_in11p2) * n_out10p0 + n_in11p2;
-
-
-// Vector2Parameter:9
-	vec2 n_out9p0 = offset;
-
-
-// UVFunc:6
-	vec2 n_in6p1 = vec2(1.00000, 1.00000);
-	vec2 n_out6p0 = n_out9p0 * n_in6p1 + n_out11p0;
-
-
-// Texture2D:7
-	vec4 n_out7p0 = texture(tex_frg_7, n_out6p0);
-
-
-// Output:0
-	ALBEDO = vec3(n_out7p0.xyz);
-
-
-}
-"
 nodes/fragment/0/position = Vector2(1400, 160)
 nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_kk5gw")
 nodes/fragment/2/position = Vector2(-140, 140)

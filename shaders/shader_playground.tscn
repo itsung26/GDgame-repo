@@ -1,4 +1,4 @@
-[gd_scene load_steps=178 format=4 uid="uid://b0dmfplshi71"]
+[gd_scene format=4 uid="uid://b0dmfplshi71"]
 
 [ext_resource type="Texture2D" uid="uid://cvc4x57maytye" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_Color.jpg" id="2_7c073"]
 [ext_resource type="Texture2D" uid="uid://dj3mlg5qvgkj7" path="res://assets/2d assets/primary textures/photorealistic/Ground085_1K-JPG/Ground085_1K-JPG_NormalGL.jpg" id="3_j4xor"]
@@ -750,9 +750,20 @@ size = Vector2(100, 100)
 subdivide_width = 6
 subdivide_depth = 6
 
+[sub_resource type="Gradient" id="Gradient_erc2r"]
+offsets = PackedFloat32Array(0.2970297, 0.37755102)
+colors = PackedColorArray(1, 1, 1, 1, 0.46618086, 0.4661808, 0.4661808, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wi7ed"]
+gradient = SubResource("Gradient_erc2r")
+width = 368
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wi7ed"]
 render_priority = 0
 shader = ExtResource("40_erc2r")
+shader_parameter/uv_scale = 1.0
+shader_parameter/normal_strength = 1.0
+shader_parameter/falloff_texture = SubResource("GradientTexture1D_wi7ed")
 
 [sub_resource type="QuadMesh" id="QuadMesh_y3rpc"]
 material = SubResource("ShaderMaterial_wi7ed")
@@ -961,93 +972,93 @@ outer_radius = 10.576
 material = SubResource("ShaderMaterial_jxcp7")
 size = Vector2(25, 25)
 
-[node name="ShaderTest" type="Node3D"]
+[node name="ShaderTest" type="Node3D" unique_id=1169554201]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1693962068]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 directional_shadow_max_distance = 1.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1366063295]
 environment = SubResource("Environment_dhnnc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1847340527]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.92005, 0, -3.63887)
 mesh = SubResource("BoxMesh_aibkm")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2034660285]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.63139, 0, 0)
 layers = 16385
 mesh = SubResource("QuadMesh_im7wb")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=688785906]
 transform = Transform3D(1.12314, 0, 0, 0, 1.12314, 0, 0, 0, 1.12314, 1.67125, 0, 0)
 mesh = SubResource("SphereMesh_sju7m")
 surface_material_override/0 = SubResource("StandardMaterial3D_fthar")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=576699192]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 3.01299)
 mesh = SubResource("PlaneMesh_bmi5q")
 surface_material_override/0 = SubResource("ShaderMaterial_bmi5q")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2035100459]
 position = Vector2(577, 349)
 texture = ExtResource("10_wvfjj")
 
-[node name="holographic" type="MeshInstance3D" parent="."]
+[node name="holographic" type="MeshInstance3D" parent="." unique_id=1679876392]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5325, 6.13281, -0.0185127)
 mesh = SubResource("BoxMesh_1u33o")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="holographic"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="holographic" unique_id=1679429442]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.992633)
 visible = false
 mesh = SubResource("QuadMesh_dflox")
 
-[node name="MeshInstance3D12" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="." unique_id=316298329]
 transform = Transform3D(10.4065, 0, 0, 0, 10.4065, 0, 0, 0, 10.4065, -12, -5.051336, -142.00415)
 layers = 3
 mesh = SubResource("PlaneMesh_t34ei")
 skeleton = NodePath("../BlackHoleV2")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=949362071]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -142.00415)
 
-[node name="BlackHoleV2" type="MeshInstance3D" parent="."]
+[node name="BlackHoleV2" type="MeshInstance3D" parent="." unique_id=1495692420]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10720348, 16.913872, -143.2934)
 mesh = SubResource("SphereMesh_a0f2g")
 
-[node name="BackQuad" type="MeshInstance3D" parent="BlackHoleV2"]
+[node name="BackQuad" type="MeshInstance3D" parent="BlackHoleV2" unique_id=1251439762]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9522953, 0, 0)
 visible = false
 mesh = SubResource("QuadMesh_1cyw6")
 
-[node name="BackQuad2" type="MeshInstance3D" parent="BlackHoleV2"]
+[node name="BackQuad2" type="MeshInstance3D" parent="BlackHoleV2" unique_id=150043419]
 transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("QuadMesh_myvun")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="BlackHoleV2"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="BlackHoleV2" unique_id=206636941]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2817354, 0, 5.3312836)
 lifetime = 3.0
 local_coords = true
 process_material = SubResource("ShaderMaterial_2uiyl")
 draw_pass_1 = SubResource("QuadMesh_2uiyl")
 
-[node name="particles look at" type="Marker3D" parent="BlackHoleV2/GPUParticles3D"]
+[node name="particles look at" type="Marker3D" parent="BlackHoleV2/GPUParticles3D" unique_id=389577114]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.504347, 4.9466896, 6.2547607)
 
-[node name="FresnelEarthGlobe" parent="." instance=ExtResource("15_e62h8")]
+[node name="FresnelEarthGlobe" parent="." unique_id=1445256137 instance=ExtResource("15_e62h8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10720348, 16.913872, -122.49389)
 
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=810155463]
 transform = Transform3D(2.95705, 0, 0, 0, 2.95705, 0, 0, 0, 2.95705, -5.1, -2.87028, 5.7)
 visible = false
 mesh = SubResource("BoxMesh_mso3s")
 
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="." unique_id=117145748]
 transform = Transform3D(2.95705, 0, 0, 0, 2.95705, 0, 0, 0, 2.95705, -34.0518, -2.87028, 5.7)
 mesh = SubResource("BoxMesh_pgckd")
 
-[node name="NoiseBg" type="TextureRect" parent="."]
+[node name="NoiseBg" type="TextureRect" parent="." unique_id=1777877273]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1055,7 +1066,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("NoiseTexture2D_qrdqw")
 
-[node name="DistortionShader" type="ColorRect" parent="."]
+[node name="DistortionShader" type="ColorRect" parent="." unique_id=2058965278]
 material = SubResource("ShaderMaterial_dhnnc")
 anchors_preset = 15
 anchor_right = 1.0
@@ -1064,7 +1075,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Smoke" type="GPUParticles3D" parent="."]
+[node name="Smoke" type="GPUParticles3D" parent="." unique_id=1275810403]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.1289, -4.41542, 8.97112)
 cast_shadow = 0
 amount = 16
@@ -1072,7 +1083,7 @@ lifetime = 2.0
 trail_lifetime = 0.2
 draw_pass_1 = ExtResource("16_7b3fo")
 
-[node name="Smoke2" type="GPUParticles3D" parent="."]
+[node name="Smoke2" type="GPUParticles3D" parent="." unique_id=873086070]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.1289, -4.41542, 8.97112)
 material_override = SubResource("ShaderMaterial_o40ls")
 cast_shadow = 0
@@ -1081,7 +1092,7 @@ trail_lifetime = 0.2
 process_material = SubResource("ParticleProcessMaterial_myasn")
 draw_pass_1 = ExtResource("16_7b3fo")
 
-[node name="Smoke3" type="GPUParticles3D" parent="."]
+[node name="Smoke3" type="GPUParticles3D" parent="." unique_id=1046450094]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1289, -4.41542, 8.97112)
 material_override = SubResource("ShaderMaterial_m3148")
 cast_shadow = 0
@@ -1090,39 +1101,37 @@ lifetime = 2.0
 trail_lifetime = 0.2
 draw_pass_1 = ExtResource("16_7b3fo")
 
-[node name="Circle" type="MeshInstance3D" parent="."]
+[node name="Circle" type="MeshInstance3D" parent="." unique_id=1655472675]
 transform = Transform3D(1.00365, 0, 0, 0, 1.00365, 0, 0, 0, 1.00365, 0, 3.95333, 21.4223)
 visible = false
 mesh = SubResource("ArrayMesh_qm3in")
 skeleton = NodePath("")
 
-[node name="sign" type="Node3D" parent="."]
+[node name="sign" type="Node3D" parent="." unique_id=197773109]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.486, -2.278, -9.621)
 
-[node name="Plane" type="MeshInstance3D" parent="sign"]
+[node name="Plane" type="MeshInstance3D" parent="sign" unique_id=201106776]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 2.94037, 0)
 mesh = SubResource("ArrayMesh_0ghi7")
 skeleton = NodePath("")
 
-[node name="pole" type="MeshInstance3D" parent="sign"]
+[node name="pole" type="MeshInstance3D" parent="sign" unique_id=1080428831]
 mesh = SubResource("ArrayMesh_wfbmn")
 skeleton = NodePath("")
 
-[node name="base" type="MeshInstance3D" parent="sign"]
+[node name="base" type="MeshInstance3D" parent="sign" unique_id=1364014000]
 transform = Transform3D(0.148007, 0, 0, 0, 0.148007, 0, 0, 0, 0.148007, 0, -2.65385, -0.0687633)
 mesh = SubResource("ArrayMesh_75iuj")
 skeleton = NodePath("")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="sign"]
-libraries = {
-&"": SubResource("AnimationLibrary_03nm1")
-}
-autoplay = "arrow_flash"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="sign" unique_id=1524233115]
+libraries/ = SubResource("AnimationLibrary_03nm1")
+autoplay = &"arrow_flash"
 
-[node name="stim" parent="." instance=ExtResource("27_8yxek")]
+[node name="stim" parent="." unique_id=1069671815 instance=ExtResource("27_8yxek")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.13039, 0, -1.58034)
 
-[node name="flyingRocks" type="GPUParticles3D" parent="." groups=["particles"]]
+[node name="flyingRocks" type="GPUParticles3D" parent="." unique_id=1199867997 groups=["particles"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.2227, 35.9059, 156.762)
 amount = 32
 lifetime = 15.0
@@ -1131,89 +1140,89 @@ visibility_aabb = AABB(-358.36, -720.562, -85.9622, 825.983, 736.398, 399.359)
 process_material = SubResource("ParticleProcessMaterial_lps8w")
 draw_pass_1 = SubResource("ArrayMesh_rahya")
 
-[node name="MeshInstance3D8" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="." unique_id=175216986]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.1897, 31.0814, 63.4631)
 mesh = SubResource("BoxMesh_a8yav")
 
-[node name="GPUParticlesCollisionSDF3D" type="GPUParticlesCollisionSDF3D" parent="."]
+[node name="GPUParticlesCollisionSDF3D" type="GPUParticlesCollisionSDF3D" parent="." unique_id=264294293]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98.164, 57.0052, 158.29)
 size = Vector3(355.352, 161.851, 218.563)
 thickness = 2.0
 texture = ExtResource("29_pbs2u")
 
-[node name="MeshInstance3D9" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="." unique_id=752567585]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83966, 0, -15.2557)
 material_override = ExtResource("30_pbs2u")
 mesh = SubResource("SphereMesh_m3148")
 
-[node name="world space fragcoord" type="MeshInstance3D" parent="."]
+[node name="world space fragcoord" type="MeshInstance3D" parent="." unique_id=870917329]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.567543, 0, -0.22607613)
 visible = false
 material_override = SubResource("ShaderMaterial_rahya")
 mesh = SubResource("BoxMesh_1yu5o")
 
-[node name="fade sphere" type="MeshInstance3D" parent="."]
+[node name="fade sphere" type="MeshInstance3D" parent="." unique_id=884481773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34.325)
 mesh = SubResource("SphereMesh_lps8w")
 
-[node name="MeshInstance3D10" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="." unique_id=1891759722]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 visible = false
 material_override = SubResource("ShaderMaterial_myvun")
 mesh = SubResource("PlaneMesh_1cyw6")
 
-[node name="MeshInstance3D11" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="." unique_id=1462001843]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.925613, 1.9073486e-06, 2.9363475)
 
-[node name="CellTest" type="MeshInstance3D" parent="."]
+[node name="CellTest" type="MeshInstance3D" parent="." unique_id=1380732964]
 transform = Transform3D(1, 0, 0, 0, 0, 0.99999994, 0, -0.99999994, 0, 102.13266, 18.371521, -58.79418)
 mesh = SubResource("QuadMesh_wljk0")
 
-[node name="BarycentricWireframeShader" type="MeshInstance3D" parent="."]
+[node name="BarycentricWireframeShader" type="MeshInstance3D" parent="." unique_id=463178358]
 transform = Transform3D(1, 0, 0, 0, -0.48980847, 0.8718298, 0, -0.8718298, -0.48980847, -114.80286, 47.17779, -45.80301)
 mesh = SubResource("QuadMesh_ftuxs")
 
-[node name="Plane_001" type="MeshInstance3D" parent="BarycentricWireframeShader"]
+[node name="Plane_001" type="MeshInstance3D" parent="BarycentricWireframeShader" unique_id=346128029]
 transform = Transform3D(5000, 0, 0, 0, -0.00024414063, 4999.9995, 0, -4999.9995, -0.00024414063, -136.65541, 0, 0)
 mesh = SubResource("ArrayMesh_e62h8")
 skeleton = NodePath("")
 
-[node name="NormalReconstructionShader" type="MeshInstance3D" parent="."]
+[node name="NormalReconstructionShader" type="MeshInstance3D" parent="." unique_id=1540009034]
 transform = Transform3D(0.029997714, -4.2380464e-08, 0.9995498, -0.9995501, -4.500295e-08, 0.029997705, 4.3711392e-08, -0.99999976, -4.3711385e-08, -114.80286, 223.7969, -203.43787)
 mesh = SubResource("QuadMesh_qrdqw")
 
-[node name="NormalReconstructionShader2" type="MeshInstance3D" parent="."]
+[node name="NormalReconstructionShader2" type="MeshInstance3D" parent="." unique_id=32786554]
 transform = Transform3D(1.0000002, 0, 0, 0, -0.8157942, 0.57834166, 0, -0.57834154, -0.8157944, -114.80286, 223.7969, -324.74475)
 mesh = SubResource("QuadMesh_2d6gy")
 skeleton = NodePath("../NormalReconstructionShader")
 
-[node name="NormalReconstructionShader3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.0000002, 0, 0, 0, -0.8157942, 0.57834166, 0, -0.57834154, -0.8157944, 21.607468, 223.7969, -324.74475)
+[node name="NormalReconstructionShader3" type="MeshInstance3D" parent="." unique_id=1968437232]
+transform = Transform3D(1.0000002, 0, 0, 0, 0.7312824, 0.68207467, 0, -0.68207455, 0.7312826, 21.607468, 223.7969, -324.74475)
 mesh = SubResource("QuadMesh_y3rpc")
 skeleton = NodePath("../NormalReconstructionShader")
 
-[node name="AbsorptionShader" type="MeshInstance3D" parent="."]
+[node name="AbsorptionShader" type="MeshInstance3D" parent="." unique_id=1862343118]
 transform = Transform3D(-4.371139e-08, -4.3711378e-08, 0.9999999, -1, 1.9106853e-15, -4.3711385e-08, 0, -0.9999999, -4.3711378e-08, -0.1210525, 0.51752853, -22.376408)
 material_override = SubResource("ShaderMaterial_3rsen")
 mesh = SubResource("BoxMesh_3rsen")
 skeleton = NodePath("../NormalReconstructionShader")
 
-[node name="BufferTester" type="MeshInstance3D" parent="."]
+[node name="BufferTester" type="MeshInstance3D" parent="." unique_id=1749772092]
 transform = Transform3D(-4.371139e-08, -4.3711378e-08, 0.9999999, -1, 1.9106853e-15, -4.3711385e-08, 0, -0.9999999, -4.3711378e-08, -0.1210525, 13.0523405, -56.9706)
 material_override = SubResource("ShaderMaterial_ay20q")
 mesh = SubResource("BoxMesh_wqawo")
 skeleton = NodePath("../NormalReconstructionShader")
 
-[node name="radianceTest" type="MeshInstance3D" parent="."]
+[node name="radianceTest" type="MeshInstance3D" parent="." unique_id=1216837221]
 transform = Transform3D(-4.371139e-08, -4.3711378e-08, 0.9999999, -1, 1.9106853e-15, -4.3711385e-08, 0, -0.9999999, -4.3711378e-08, -0.121054396, 9.404484, -85.55814)
 material_overlay = ExtResource("42_8fnxg")
 mesh = SubResource("SphereMesh_erc2r")
 skeleton = NodePath("../BufferTester")
 
-[node name="filth" type="Node3D" parent="."]
+[node name="filth" type="Node3D" parent="." unique_id=1361199398]
 transform = Transform3D(-4.3711378e-08, -4.3711378e-08, 0.9999999, 4.371139e-08, 1, 4.3711392e-08, -0.9999999, 4.3711385e-08, -4.371138e-08, -0.121054396, 7.980138, -80.73747)
 
-[node name="Skeleton3D" type="Skeleton3D" parent="filth"]
+[node name="Skeleton3D" type="Skeleton3D" parent="filth" unique_id=1705314821]
 bones/0/name = "Filth"
 bones/0/parent = -1
 bones/0/rest = Transform3D(0.01, 0, 0, 0, 3.44932e-06, 0.009999997, 0, -0.009999997, 3.44932e-06, 0, 0, 0)
@@ -1375,7 +1384,7 @@ metadata/extras = {
 "DM": {}
 }
 
-[node name="Filth_mesh" type="MeshInstance3D" parent="filth/Skeleton3D"]
+[node name="Filth_mesh" type="MeshInstance3D" parent="filth/Skeleton3D" unique_id=1926910588]
 material_overlay = ExtResource("42_8fnxg")
 mesh = ExtResource("43_erc2r")
 skin = SubResource("Skin_g1nvm")
@@ -1383,23 +1392,23 @@ metadata/extras = {
 "DM": {}
 }
 
-[node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="filth/Skeleton3D"]
+[node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="filth/Skeleton3D" unique_id=689828792]
 
-[node name="Physical Bone Hip_Left_01" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.23949319, -0.002266283, -0.9708955, 0.23934618, 0.9689972, -0.061301954, 0.940934, -0.24706152, -0.23152578, 0.054023743, 1.0304685, 0.03223531)
+[node name="Physical Bone Hip_Left_01" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1982921257]
+transform = Transform3D(-0.23949319, -0.002266282, -0.9708955, 0.23934618, 0.9689972, -0.06130195, 0.940934, -0.24706152, -0.23152578, 0.054023743, 1.0304685, 0.03223531)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1483767e-05, 5.0430408e-05, 0.055629857)
-body_offset = Transform3D(0.0001112856, 100.00007, 0.00041109324, 4.5776367e-05, 0.00041879714, -100.000046, -100.00008, 0.00010687113, -3.6239624e-05, -0.005065918, 5.5629883, 0.0041503906)
+body_offset = Transform3D(0.0001112856, 100.00007, 0.00041109324, 4.5776367e-05, 0.00041888654, -100.000046, -100.00008, 0.00010689348, -3.6239624e-05, -0.005065918, 5.5629883, 0.0041503906)
 bone_name = "Hip_Left_01"
 joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Hip_Left_01"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Hip_Left_01" unique_id=730148965]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_kjmc8")
 
-[node name="Physical Bone Thigh_Left_02" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Thigh_Left_02" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=2068609904]
 transform = Transform3D(-0.05856424, 0.99743396, -0.04118285, 0.34601036, 0.058977775, 0.93637514, 0.93640125, 0.040588405, -0.34857646, 0.11999512, 0.76101923, 0.14669588)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.073098e-05, -9.925415e-06, 0.29144907)
@@ -1409,11 +1418,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Thigh_Left_02"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Thigh_Left_02" unique_id=1789170450]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_iwyco")
 
-[node name="Physical Bone Leg_Left_03" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Leg_Left_03" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=824103149]
 transform = Transform3D(0.042808626, 0.9978757, -0.0491096, -0.7287898, 0.06481238, 0.6816633, 0.6833981, 0.006609501, 0.73001605, 0.14839935, 0.26225138, 0.0061564893)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00013748204, -0.00013582694, 0.3315707)
@@ -1423,11 +1432,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Leg_Left_03"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Leg_Left_03" unique_id=479078798]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_ggo01")
 
-[node name="Physical Bone Foot_Left_04" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Foot_Left_04" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1285093162]
 transform = Transform3D(-0.96764886, -0.0978792, -0.23254171, -0.13827947, 0.97666717, 0.16431709, 0.21103263, 0.19115698, -0.9586055, 0.19029236, 0.019068718, -0.12885568)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.371519e-05, 4.851097e-05, 0.11077507)
@@ -1437,11 +1446,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Foot_Left_04"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Foot_Left_04" unique_id=1737486148]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_c6n4m")
 
-[node name="Physical Bone Hip_Right_06" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Hip_Right_06" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1986402955]
 transform = Transform3D(0.23949502, -0.0022687826, 0.9708951, 0.23934533, -0.9689972, -0.061304726, 0.9409337, 0.24706139, -0.23152697, -0.053970337, 1.0305715, 0.03226179)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9483554e-05, 4.281072e-05, 0.055595692)
@@ -1451,11 +1460,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Hip_Right_06"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Hip_Right_06" unique_id=930468922]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_klbc7")
 
-[node name="Physical Bone Thigh_Right_07" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Thigh_Right_07" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1857112234]
 transform = Transform3D(0.04378961, 0.997434, 0.056641135, 0.7339778, -0.070582576, 0.67549604, 0.67776054, 0.011993627, -0.73518515, -0.12439728, 0.83817244, 0.25845304)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00017627845, 5.9198686e-07, 0.2899973)
@@ -1465,11 +1474,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Thigh_Right_07"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Thigh_Right_07" unique_id=203044397]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_jx7k0")
 
-[node name="Physical Bone Leg_Right_08" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Leg_Right_08" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=684983448]
 transform = Transform3D(-0.0018741693, 0.9971672, 0.07519558, -0.3303659, -0.07159109, 0.941134, 0.94385123, -0.023078213, 0.32956418, -0.16584015, 0.32879496, 0.36458123)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.273662e-06, -4.3123942e-05, 0.33088115)
@@ -1479,11 +1488,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Leg_Right_08"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Leg_Right_08" unique_id=1018699848]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_273je")
 
-[node name="Physical Bone Foot_Right_09" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Foot_Right_09" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=99564995]
 transform = Transform3D(0.9780879, 0.027287597, 0.20639686, 0.0068014287, -0.99503213, 0.09932148, 0.20808175, -0.09574134, -0.97341454, -0.21359253, 0.006419182, 0.36336842)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4955031e-05, 2.3041108e-05, 0.11078118)
@@ -1493,11 +1502,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Foot_Right_09"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Foot_Right_09" unique_id=287140887]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_3p0tr")
 
-[node name="Physical Bone Spine_01_011" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Spine_01_011" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=932641548]
 transform = Transform3D(-0.9900998, -0.043974448, 0.13330017, -0.14036621, 0.31061643, -0.94011426, -6.421023e-05, -0.9495178, -0.31371382, -0.012573242, 1.1152921, 0.049077615)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9299484e-05, 2.1520093e-06, 0.09468012)
@@ -1507,11 +1516,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Spine_01_011"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Spine_01_011" unique_id=1483987437]
 transform = Transform3D(0.009999998, -1.6062387e-09, 7.191261e-10, 5.416041e-10, -4.656613e-10, 0.010000006, 1.1760051e-09, -0.0100000035, -1.8626451e-09, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_ktpam")
 
-[node name="Physical Bone Spine_02_012" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Spine_02_012" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1967762393]
 transform = Transform3D(-0.99585354, 0.03686146, -0.08317086, 0.09097339, 0.40382048, -0.9103038, 3.0968495e-05, -0.91409546, -0.40549946, -0.012077332, 1.3486791, 0.1430739)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0684867e-05, -9.077092e-06, 0.15853871)
@@ -1521,11 +1530,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Spine_02_012"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Spine_02_012" unique_id=119095455]
 transform = Transform3D(0.009999959, 6.890559e-10, 9.359837e-10, 9.971188e-10, 1.8626451e-09, 0.010000018, -3.068692e-10, -0.0100000175, -2.3283064e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_omiye")
 
-[node name="Physical Bone Clavicle_Left_013" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Clavicle_Left_013" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1533279801]
 transform = Transform3D(-0.10274827, 0.40852642, -0.90694505, -0.42655912, 0.80558455, 0.41119447, 0.8986047, 0.42911518, 0.09148824, 0.09334564, 1.4511313, 0.19805945)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3749469e-05, 3.6248737e-05, 0.10170408)
@@ -1535,11 +1544,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Clavicle_Left_013"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Clavicle_Left_013" unique_id=2141025534]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_gt4hh")
 
-[node name="Physical Bone Clavicle_Right_015" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Clavicle_Right_015" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1325022553]
 transform = Transform3D(0.023817865, 0.25577715, 0.96644247, -0.43812644, -0.8662653, 0.24006198, 0.89859796, -0.42914176, 0.09143014, -0.097099304, 1.4685521, 0.19812012)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.7682773e-05, -1.262972e-05, 0.101635724)
@@ -1549,11 +1558,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Clavicle_Right_015"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Clavicle_Right_015" unique_id=1911865216]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_sqc6s")
 
-[node name="Physical Bone Neck_017" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Neck_017" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=757620045]
 transform = Transform3D(-0.9958589, 0.06771058, -0.060668796, 0.0909128, 0.7456127, -0.6601489, 0.00053636084, -0.66293067, -0.7486807, 0.003768921, 1.5226436, 0.2420387)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.909546e-05, 0.00065172045, 0.045786172)
@@ -1563,11 +1572,11 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Neck_017"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Neck_017" unique_id=765192611]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_1fynb")
 
-[node name="Physical Bone Head_018" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D"]
+[node name="Physical Bone Head_018" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1196542332]
 transform = Transform3D(-0.99585354, 0.029117927, -0.08618668, 0.09097248, 0.31900322, -0.9433775, 2.4629346e-05, -0.94730645, -0.32032937, 0.014892578, 1.6429658, 0.30554613)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.329163e-05, 3.7776852e-06, 0.0960119)
@@ -1577,33 +1586,31 @@ joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
 joint_constraints/impulse_clamp = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Head_018"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Head_018" unique_id=1039333232]
 transform = Transform3D(0.01, 0, 0, 0, -4.3711387e-10, 0.01, 0, -0.01, -4.3711387e-10, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_bkwxv")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="filth"]
-libraries = {
-&"": SubResource("AnimationLibrary_rdlcj")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="filth" unique_id=1378571392]
+libraries/ = SubResource("AnimationLibrary_rdlcj")
 
-[node name="Parallax_test" type="MeshInstance3D" parent="."]
+[node name="Parallax_test" type="MeshInstance3D" parent="." unique_id=784964498]
 transform = Transform3D(1.0000001, 0, 0, 0, 0.99999976, 0, 0, 0, 0.9999998, 69.59741, 0, -315.281)
 mesh = SubResource("QuadMesh_jxcp7")
 
-[node name="TriplanarTest" type="MeshInstance3D" parent="."]
+[node name="TriplanarTest" type="MeshInstance3D" parent="." unique_id=256003559]
 transform = Transform3D(0.81480414, 0.57973635, 0, -0.57973635, 0.81480414, 0, 0, 0, 1, -2.4504704, 29.018301, -172.75009)
 material_override = SubResource("ShaderMaterial_wljk0")
 mesh = SubResource("BoxMesh_e62h8")
 
-[node name="TriplanarTest2" type="MeshInstance3D" parent="."]
+[node name="TriplanarTest2" type="MeshInstance3D" parent="." unique_id=1790884875]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.695755, 28.862497, -172.83125)
 material_override = SubResource("ShaderMaterial_wljk0")
 mesh = SubResource("TorusMesh_e62h8")
 
-[node name="NormalReconstruction" type="MeshInstance3D" parent="."]
+[node name="NormalReconstruction" type="MeshInstance3D" parent="." unique_id=135470607]
 transform = Transform3D(0.014717224, 0.41366026, -0.91031224, -0.006634601, 0.9104314, 0.41360706, 0.9998692, -4.7594902e-05, 0.016143462, -85.90288, 169.61774, -174.60892)
 mesh = SubResource("QuadMesh_e62h8")
 
-[node name="BloodDecal" parent="." instance=ExtResource("44_qrdqw")]
+[node name="BloodDecal" parent="." unique_id=1554306148 instance=ExtResource("44_qrdqw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4562235, -4.6649165, -5.5997086)
 size = Vector3(2, 1.8811767, 2)

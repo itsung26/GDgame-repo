@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dkvspuecmcvw3"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dkvspuecmcvw3"]
 
 [ext_resource type="Shader" uid="uid://120ukitlck88" path="res://assets/meshes/player weapons/player pistol/_barrel cap heat shader.tres" id="1_wtq6k"]
 

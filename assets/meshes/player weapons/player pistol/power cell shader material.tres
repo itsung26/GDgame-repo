@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cyk62iasrpppl"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cyk62iasrpppl"]
 
 [ext_resource type="Shader" uid="uid://dtg0dp7tve25u" path="res://assets/meshes/player weapons/player pistol/power cell shader.tres" id="1_51xt2"]
 

@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://ccd2vvln3oxrd"]
+[gd_resource type="VisualShader" format=3 uid="uid://ccd2vvln3oxrd"]
 
 [sub_resource type="Gradient" id="Gradient_kr7ec"]
 
@@ -18,34 +18,6 @@ operator = 2
 parameter_name = "ColorParameter"
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform sampler2D tex_frg_2;
-uniform vec4 ColorParameter : source_color;
-
-
-
-void fragment() {
-// Texture2D:2
-	vec4 n_out2p0 = texture(tex_frg_2, UV);
-
-
-// ColorParameter:4
-	vec4 n_out4p0 = ColorParameter;
-
-
-// VectorOp:3
-	vec3 n_out3p0 = vec3(n_out2p0.xyz) * vec3(n_out4p0.xyz);
-
-
-// Output:0
-	ALBEDO = n_out3p0;
-	ALPHA = n_out2p0.x;
-
-
-}
-"
 modes/cull = 2
 flags/unshaded = true
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_yybj1")

@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=29 format=3 uid="uid://bc8elyc8c7dbs"]
+[gd_resource type="VisualShader" format=3 uid="uid://bc8elyc8c7dbs"]
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_cpkaf"]
 linked_parent_graph_frame = 12
@@ -125,46 +125,6 @@ op_type = 0
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_6a6m4"]
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-uniform float FloatParameter;
-
-
-
-void fragment() {
-// FloatParameter:30
-	float n_out30p0 = FloatParameter;
-
-
-// Input:31
-	mat4 n_out31p0 = INV_VIEW_MATRIX;
-
-
-// Input:32
-	vec3 n_out32p0 = VERTEX;
-
-
-// TransformVectorMult:33
-	vec3 n_out33p0 = (n_out31p0 * vec4(n_out32p0, 1.0)).xyz;
-
-
-	vec3 n_out26p0;
-// Expression:26
-	n_out26p0 = vec3(0.0, 0.0, 0.0);
-	{
-		n_out26p0 = n_out33p0;
-		n_out26p0 = clamp(
-	}
-
-
-// Output:0
-	ALBEDO = vec3(n_out30p0);
-	EMISSION = n_out26p0;
-
-
-}
-"
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_6a6m4")
 nodes/vertex/2/position = Vector2(-240, 240)
 nodes/fragment/0/position = Vector2(1760, 100)

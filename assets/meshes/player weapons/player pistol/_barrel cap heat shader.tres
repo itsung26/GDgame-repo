@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://120ukitlck88"]
+[gd_resource type="VisualShader" format=3 uid="uid://120ukitlck88"]
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_djj2q"]
 parameter_name = "heat_gradient"
@@ -24,45 +24,6 @@ default_value_enabled = true
 default_value = 1.0
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-uniform sampler2D heat_gradient : filter_nearest;
-uniform vec4 color_of_heat : source_color = vec4(1.000000, 0.513726, 0.000000, 1.000000);
-uniform float emission_strength = 1.0;
-
-
-
-void fragment() {
-	vec4 n_out3p0;
-// Texture2D:3
-	n_out3p0 = texture(heat_gradient, UV);
-
-
-// ColorParameter:4
-	vec4 n_out4p0 = color_of_heat;
-
-
-// VectorOp:5
-	vec3 n_out5p0 = vec3(n_out3p0.xyz) * vec3(n_out4p0.xyz);
-
-
-// FloatParameter:7
-	float n_out7p0 = emission_strength;
-
-
-// VectorOp:6
-	vec3 n_out6p0 = n_out5p0 * vec3(n_out7p0);
-
-
-// Output:0
-	ALBEDO = n_out5p0;
-	ALPHA = n_out3p0.x;
-	EMISSION = n_out6p0;
-
-
-}
-"
 preview_params/heat_gradient = "Object(GradientTexture2D,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"gradient\":Object(Gradient,\"resource_local_to_scene\":false,\"resource_name\":\"\",\"interpolation_mode\":0,\"interpolation_color_space\":0,\"offsets\":PackedFloat32Array(0, 1),\"colors\":PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1),\"script\":null)
 ,\"width\":64,\"height\":64,\"use_hdr\":false,\"fill\":0,\"fill_from\":Vector2(1, 0),\"fill_to\":Vector2(0, 0),\"repeat\":0,\"script\":null)
 "
