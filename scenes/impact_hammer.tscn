@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://ma36frjuchu4"]
+
+[ext_resource type="Script" uid="uid://37816elj2vrh" path="res://scripts/impact_hammer.gd" id="1_k1sns"]
+[ext_resource type="PackedScene" uid="uid://cmhug6yc1sfho" path="res://assets/meshes/player weapons/impact hammer/impact_hammer.blend" id="2_b7vse"]
+
+[node name="ImpactHammer" type="Node3D" unique_id=1292819902]
+script = ExtResource("1_k1sns")
+
+[node name="impact_hammer" parent="." unique_id=537098302 instance=ExtResource("2_b7vse")]
+
+[editable path="impact_hammer"]

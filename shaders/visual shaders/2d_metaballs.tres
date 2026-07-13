@@ -1,0 +1,60 @@
+[gd_resource type="VisualShader" format=3 uid="uid://biy2sp1i5najt"]
+
+[sub_resource type="VisualShaderNodeVectorDistance" id="VisualShaderNodeVectorDistance_h0ofa"]
+
+[sub_resource type="VisualShaderNodeVaryingGetter" id="VisualShaderNodeVaryingGetter_mlk02"]
+varying_name = "global_pos"
+varying_type = 4
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_1q4kp"]
+
+[sub_resource type="VisualShaderNodeVaryingSetter" id="VisualShaderNodeVaryingSetter_85vi8"]
+varying_name = "global_pos"
+varying_type = 4
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_2tpdr"]
+input_name = "modelview_matrix"
+
+[sub_resource type="VisualShaderNodeTransformVecMult" id="VisualShaderNodeTransformVecMult_pefhk"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_sqn0c"]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_cdmpv"]
+default_input_values = [0, 0.0, 1, 0.0, 2, 0.0, 3, 1.0]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_f7nas"]
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_kd766"]
+size = Vector2(740, 420)
+expression = "WORLDVERTEX = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;"
+
+[resource]
+varyings/global_pos = "0,4"
+nodes/vertex/2/node = SubResource("VisualShaderNodeVaryingSetter_85vi8")
+nodes/vertex/2/position = Vector2(100, 360)
+nodes/vertex/3/node = SubResource("VisualShaderNodeInput_2tpdr")
+nodes/vertex/3/position = Vector2(-800, 180)
+nodes/vertex/4/node = SubResource("VisualShaderNodeTransformVecMult_pefhk")
+nodes/vertex/4/position = Vector2(-380, 140)
+nodes/vertex/5/node = SubResource("VisualShaderNodeInput_sqn0c")
+nodes/vertex/5/position = Vector2(-1240, 360)
+nodes/vertex/6/node = SubResource("VisualShaderNodeVectorCompose_cdmpv")
+nodes/vertex/6/position = Vector2(-640, 340)
+nodes/vertex/7/node = SubResource("VisualShaderNodeVectorDecompose_f7nas")
+nodes/vertex/7/position = Vector2(-880, 340)
+nodes/vertex/8/node = SubResource("VisualShaderNodeExpression_kd766")
+nodes/vertex/8/position = Vector2(-900, 600)
+nodes/vertex/8/size = Vector2(740, 420)
+nodes/vertex/8/input_ports = ""
+nodes/vertex/8/output_ports = "0,4,WORLDVERTEX;"
+nodes/vertex/8/expression = "WORLDVERTEX = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;"
+nodes/vertex/connections = PackedInt32Array(3, 0, 4, 0, 5, 0, 7, 0, 7, 0, 6, 0, 7, 1, 6, 1, 7, 2, 6, 2, 6, 0, 4, 1, 8, 0, 2, 0)
+nodes/fragment/2/node = SubResource("VisualShaderNodeVectorDistance_h0ofa")
+nodes/fragment/2/position = Vector2(-60, 480)
+nodes/fragment/5/node = SubResource("VisualShaderNodeVaryingGetter_mlk02")
+nodes/fragment/5/position = Vector2(-280, 260)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorDecompose_1q4kp")
+nodes/fragment/6/position = Vector2(20, 260)
+nodes/fragment/connections = PackedInt32Array(5, 0, 6, 0, 6, 0, 0, 0)

@@ -53,6 +53,7 @@
 [ext_resource type="Animation" uid="uid://h5rctf8jx2lt" path="res://assets/meshes/filth/animations/Falling_4_002.res" id="46_il588"]
 [ext_resource type="Animation" uid="uid://dyl4tkw5hrd3f" path="res://assets/meshes/filth/animations/Idle_8_002.res" id="47_jgdyj"]
 [ext_resource type="Animation" uid="uid://bjfg5kkvo0p8b" path="res://assets/meshes/filth/animations/Run_11_002.res" id="48_xgr8l"]
+[ext_resource type="Shader" uid="uid://cy4th7kjr7dkb" path="res://shaders/GDSL shaders/2d_metaballs.gdshader" id="54_wi7ed"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jxcp7"]
 sky_top_color = Color(0.38431373, 0.45490196, 0.54901963, 1)
@@ -972,6 +973,13 @@ outer_radius = 10.576
 material = SubResource("ShaderMaterial_jxcp7")
 size = Vector2(25, 25)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_58cwd"]
+render_priority = 0
+shader = ExtResource("54_wi7ed")
+shader_parameter/points = PackedVector2Array(0, 0, 0, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dehhp"]
+
 [node name="ShaderTest" type="Node3D" unique_id=1169554201]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1693962068]
@@ -1077,6 +1085,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="Smoke" type="GPUParticles3D" parent="." unique_id=1275810403]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.1289, -4.41542, 8.97112)
+visible = false
 cast_shadow = 0
 amount = 16
 lifetime = 2.0
@@ -1395,10 +1404,10 @@ metadata/extras = {
 [node name="PhysicalBoneSimulator3D" type="PhysicalBoneSimulator3D" parent="filth/Skeleton3D" unique_id=689828792]
 
 [node name="Physical Bone Hip_Left_01" type="PhysicalBone3D" parent="filth/Skeleton3D/PhysicalBoneSimulator3D" unique_id=1982921257]
-transform = Transform3D(-0.23949319, -0.002266282, -0.9708955, 0.23934618, 0.9689972, -0.06130195, 0.940934, -0.24706152, -0.23152578, 0.054023743, 1.0304685, 0.03223531)
+transform = Transform3D(-0.23949319, -0.0022662838, -0.9708955, 0.23934618, 0.9689972, -0.061301954, 0.940934, -0.24706152, -0.23152578, 0.054023743, 1.0304685, 0.03223531)
 joint_type = 1
 joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1483767e-05, 5.0430408e-05, 0.055629857)
-body_offset = Transform3D(0.0001112856, 100.00007, 0.00041109324, 4.5776367e-05, 0.00041888654, -100.000046, -100.00008, 0.00010689348, -3.6239624e-05, -0.005065918, 5.5629883, 0.0041503906)
+body_offset = Transform3D(0.0001112856, 100.00007, 0.00041109324, 4.5776367e-05, 0.00041906536, -100.000046, -100.00008, 0.00010693818, -3.6239624e-05, -0.005065918, 5.5629883, 0.0041503906)
 bone_name = "Hip_Left_01"
 joint_constraints/bias = 0.3
 joint_constraints/damping = 1.0
@@ -1614,3 +1623,9 @@ mesh = SubResource("QuadMesh_e62h8")
 [node name="BloodDecal" parent="." unique_id=1554306148 instance=ExtResource("44_qrdqw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4562235, -4.6649165, -5.5997086)
 size = Vector3(2, 1.8811767, 2)
+
+[node name="vfx" type="AnimationPlayer" parent="." unique_id=2102635590]
+
+[node name="metaballs expiriment" type="MeshInstance3D" parent="." unique_id=1211264975]
+material_override = SubResource("ShaderMaterial_58cwd")
+mesh = SubResource("PlaneMesh_dehhp")
