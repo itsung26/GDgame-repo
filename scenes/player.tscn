@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=4 uid="uid://ch37b3vrtbtsd"]
+[gd_scene format=4 uid="uid://ch37b3vrtbtsd"]
 
 [ext_resource type="Script" uid="uid://3rccyd28dt24" path="res://scripts/player.gd" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://bcsxapsamvmvq" path="res://scripts/hide_show_on_ready.gd" id="2_a38lo"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" uid="uid://d06qyp8sfm13t" path="res://scripts/hitscan_bullet_config.gd" id="23_wqfne"]
 [ext_resource type="PackedScene" uid="uid://sb8irsvfcfed" path="res://scenes/wall_slide_particles.tscn" id="24_l71n6"]
 [ext_resource type="PackedScene" uid="uid://dso2uc8cxmgub" path="res://scenes/bullet_trail.tscn" id="24_wnwbv"]
+[ext_resource type="PackedScene" uid="uid://ma36frjuchu4" path="res://scenes/impact_hammer.tscn" id="28_wnwbv"]
 [ext_resource type="PackedScene" uid="uid://c7v24ad6gqchr" path="res://scenes/grapple_rope_line.tscn" id="31_wnwbv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a38lo"]
@@ -53,41 +54,41 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="Theme" id="Theme_f1ej7"]
+[sub_resource type="Theme" id="Theme_gl8cc"]
 resource_local_to_scene = true
 ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ni07"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_487ah"]
 resource_local_to_scene = true
 bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_detail = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l71n6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_md1ol"]
 resource_local_to_scene = true
 bg_color = Color(0, 0.737, 1, 1)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_detail = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ke2ow"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bj30b"]
 resource_local_to_scene = true
 bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujl30"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jc3p3"]
 resource_local_to_scene = true
 bg_color = Color(0, 0.737, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_31cv2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hax0n"]
 resource_local_to_scene = true
 bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf23h"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4otl"]
 resource_local_to_scene = true
 bg_color = Color(0, 0.737, 1, 1)
 corner_radius_bottom_right = 6
@@ -331,7 +332,7 @@ billboard_mode = 1
 material = SubResource("StandardMaterial3D_4r5pv")
 size = Vector2(1.473, 1.528)
 
-[sub_resource type="Resource" id="Resource_gl8cc"]
+[sub_resource type="Resource" id="Resource_j2b1d"]
 resource_local_to_scene = true
 script = ExtResource("23_wqfne")
 damage_min = 1.0
@@ -344,7 +345,7 @@ can_reflect = true
 max_reflections = 10
 reflection_damage_falloff = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ke2ow"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cs1tg"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
@@ -352,9 +353,9 @@ shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(1, 1, 0.156863, 0.298039)
 
-[sub_resource type="QuadMesh" id="QuadMesh_ujl30"]
+[sub_resource type="QuadMesh" id="QuadMesh_2dvfe"]
 resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_ke2ow")
+material = SubResource("StandardMaterial3D_cs1tg")
 size = Vector2(0.053, 0.154)
 
 [sub_resource type="Gradient" id="Gradient_lucca"]
@@ -364,7 +365,7 @@ colors = PackedColorArray(0.14902, 0.14902, 0.14902, 1, 1, 1, 1, 1, 0.589096, 0.
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_y3rj0"]
 gradient = SubResource("Gradient_lucca")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dt7fs"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_giy8y"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("22_31cv2")
@@ -374,77 +375,48 @@ shader_parameter/time_speed = 0.1
 shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_y3rj0")
 shader_parameter/emission_intensity = 13.297
 
-[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_4w7x2"]
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_fdfoy"]
 parameter_name = "screen_texture"
 
-[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_kvtwg"]
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_hhpqf"]
 source = 5
 
-[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_4w7x2"]
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_g5jhy"]
 operator = 2
 
-[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_kvtwg"]
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_holxr"]
 parameter_name = "emission"
 hint = 1
 max = 16.0
 
-[sub_resource type="VisualShader" id="VisualShader_wqfne"]
+[sub_resource type="VisualShader" id="VisualShader_mx1m4"]
 resource_local_to_scene = true
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform sampler2D screen_texture;
-uniform float emission : hint_range(0.0, 16.0);
-
-
-
-void fragment() {
-	vec4 n_out3p0;
-// Texture2D:3
-	n_out3p0 = texture(screen_texture, UV);
-
-
-// FloatParameter:5
-	float n_out5p0 = emission;
-
-
-// VectorOp:4
-	vec3 n_out4p0 = vec3(n_out3p0.xyz) * vec3(n_out5p0);
-
-
-// Output:0
-	ALBEDO = vec3(n_out3p0.xyz);
-	EMISSION = n_out4p0;
-
-
-}
-"
 flags/unshaded = true
 preview_params/screen_texture = "Object(ViewportTexture,\"resource_local_to_scene\":true,\"resource_name\":\"\",\"viewport_path\":NodePath(\"SubViewport\"),\"script\":null)
 "
 preview_params/emission = "1.0"
 nodes/fragment/0/position = Vector2(600, 100)
-nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_4w7x2")
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_fdfoy")
 nodes/fragment/2/position = Vector2(-320, 60)
-nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_kvtwg")
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_hhpqf")
 nodes/fragment/3/position = Vector2(40, 80)
-nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_4w7x2")
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_g5jhy")
 nodes/fragment/4/position = Vector2(383.88, 301.16)
-nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_kvtwg")
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_holxr")
 nodes/fragment/5/position = Vector2(-240, 480)
 nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 3, 0, 0, 0, 3, 0, 4, 0, 4, 0, 0, 5, 5, 0, 4, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_wnwbv"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_4gjji"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gl8cc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2ulf"]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("VisualShader_wqfne")
-shader_parameter/screen_texture = SubResource("ViewportTexture_wnwbv")
+shader = SubResource("VisualShader_mx1m4")
+shader_parameter/screen_texture = SubResource("ViewportTexture_4gjji")
 shader_parameter/emission = 0.0
 
-[sub_resource type="Resource" id="Resource_pf23h"]
+[sub_resource type="Resource" id="Resource_6e8lb"]
 resource_local_to_scene = true
 script = ExtResource("23_wqfne")
 damage_min = 1.0
@@ -458,7 +430,7 @@ max_reflections = 15
 use_damage_falloff = false
 metadata/_custom_type_script = "uid://d06qyp8sfm13t"
 
-[sub_resource type="Resource" id="Resource_dt7fs"]
+[sub_resource type="Resource" id="Resource_2gdjj"]
 resource_local_to_scene = true
 script = ExtResource("23_wqfne")
 damage_min = 3.0
@@ -530,7 +502,7 @@ material = SubResource("StandardMaterial3D_ur7pv")
 inner_radius = 0.645
 outer_radius = 0.715
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("initial_weapon", "weapon_states") groups=["players"]]
+[node name="Player" type="CharacterBody3D" unique_id=1116131463 node_paths=PackedStringArray("initial_weapon", "weapon_states") groups=["players"]]
 collision_mask = 30
 script = ExtResource("1_qhqgy")
 inital_arm = 1
@@ -540,14 +512,14 @@ wall_jump_applied_velocity = 16.0
 death_camera_spin_magnitude = 2.0
 death_time_slow_speed = 2.5
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
-weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/Melee"), null]
+weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/ImpactHammer"), NodePath("Pivot/Camera3D/Guns/Melee")]
 
-[node name="HideShowOnReady" type="Node" parent="." node_paths=PackedStringArray("nodes_to_hide_on_ready")]
+[node name="HideShowOnReady" type="Node" parent="." unique_id=1891443010 node_paths=PackedStringArray("nodes_to_hide_on_ready")]
 script = ExtResource("2_a38lo")
 nodes_to_hide_on_ready = [NodePath("../Pivot/Camera3D/ParryArm/ParryHitbox/CollisionShape3D"), NodePath("../Pivot/Camera3D/PunchRaycast"), NodePath("../player body"), NodePath("../CollisionShapeMain"), NodePath("../GrappleCeaseArea/CollisionShape3D"), NodePath("../PlayerFloorCast")]
 metadata/_custom_type_script = "uid://bcsxapsamvmvq"
 
-[node name="player body" parent="." instance=ExtResource("2_i4ail")]
+[node name="player body" parent="." unique_id=939278436 instance=ExtResource("2_i4ail")]
 transform = Transform3D(0.145265, 0, 0, 0, 0.145265, 0, 0, 0, 0.145265, 0, 1.597, 0.001)
 
 [node name="eye" parent="player body/head" index="0"]
@@ -556,11 +528,11 @@ material_override = SubResource("StandardMaterial3D_a38lo")
 [node name="legs" parent="player body" index="4"]
 visible = false
 
-[node name="timeControllerAgent" type="Node" parent="."]
+[node name="timeControllerAgent" type="Node" parent="." unique_id=757385209]
 
-[node name="huds" type="Node" parent="."]
+[node name="huds" type="Node" parent="." unique_id=1312863491]
 
-[node name="HUD" parent="huds" node_paths=PackedStringArray("player") instance=ExtResource("10_d2wvv")]
+[node name="HUD" parent="huds" unique_id=2022040872 node_paths=PackedStringArray("player") instance=ExtResource("10_d2wvv")]
 unique_name_in_owner = true
 player = NodePath("../..")
 crosshair_spread = 8.03
@@ -578,72 +550,72 @@ points = PackedVector2Array(0, -8.03, 0, -16.715)
 points = PackedVector2Array(0, 8.03, 0, 16.715)
 
 [node name="HealthBar" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
-theme = SubResource("Theme_f1ej7")
+theme = SubResource("Theme_gl8cc")
 
 [node name="StaminaBar1" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="0"]
-theme_override_styles/background = SubResource("StyleBoxFlat_4ni07")
-theme_override_styles/fill = SubResource("StyleBoxFlat_l71n6")
+theme_override_styles/background = SubResource("StyleBoxFlat_487ah")
+theme_override_styles/fill = SubResource("StyleBoxFlat_md1ol")
 
 [node name="StaminaBar2" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="1"]
-theme_override_styles/background = SubResource("StyleBoxFlat_ke2ow")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ujl30")
+theme_override_styles/background = SubResource("StyleBoxFlat_bj30b")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jc3p3")
 
 [node name="StaminaBar3" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="2"]
-theme_override_styles/background = SubResource("StyleBoxFlat_31cv2")
-theme_override_styles/fill = SubResource("StyleBoxFlat_pf23h")
+theme_override_styles/background = SubResource("StyleBoxFlat_hax0n")
+theme_override_styles/fill = SubResource("StyleBoxFlat_t4otl")
 
-[node name="PauseMenu" parent="huds" instance=ExtResource("11_3v2ag")]
+[node name="PauseMenu" parent="huds" unique_id=1127215938 instance=ExtResource("11_3v2ag")]
 unique_name_in_owner = true
 visible = false
 
-[node name="DevConsole" parent="huds" instance=ExtResource("6_dt7fs")]
+[node name="DevConsole" parent="huds" unique_id=930447501 instance=ExtResource("6_dt7fs")]
 visible = false
 
-[node name="CollisionShapeMain" type="CollisionShape3D" parent="."]
+[node name="CollisionShapeMain" type="CollisionShape3D" parent="." unique_id=1742928165]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.847, 0)
 shape = SubResource("CapsuleShape3D_b2mh8")
 
-[node name="Predicted Position Debug" type="MeshInstance3D" parent="."]
+[node name="Predicted Position Debug" type="MeshInstance3D" parent="." unique_id=909917500]
 visible = false
 mesh = SubResource("BoxMesh_i4ail")
 script = SubResource("GDScript_i4ail")
 
-[node name="PlayerFloorCast" type="RayCast3D" parent="."]
+[node name="PlayerFloorCast" type="RayCast3D" parent="." unique_id=1439877413]
 editor_description = "Contains an API that can be used to get information about what the player is directly above. Only processes information on enemies and world."
 visible = false
 target_position = Vector3(0, -5000, 0)
 collision_mask = 6
 script = ExtResource("6_4ni07")
 
-[node name="GrappleCeaseArea" type="Area3D" parent="."]
+[node name="GrappleCeaseArea" type="Area3D" parent="." unique_id=1399402764]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.941914, 0)
 collision_layer = 512
 collision_mask = 512
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleCeaseArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GrappleCeaseArea" unique_id=1514800019]
 shape = SubResource("SphereShape3D_y4r1p")
 debug_color = Color(0, 1, 0, 0.41960785)
 
-[node name="WallSlideRaycast" type="RayCast3D" parent="."]
+[node name="WallSlideRaycast" type="RayCast3D" parent="." unique_id=513061718]
 visible = false
 target_position = Vector3(0, 0, -1)
 collision_mask = 4
 
-[node name="WallSlideParticles" parent="WallSlideRaycast" instance=ExtResource("24_l71n6")]
+[node name="WallSlideParticles" parent="WallSlideRaycast" unique_id=1685854319 instance=ExtResource("24_l71n6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93968403, -0.23939048)
 
-[node name="GroundImpact" type="GPUParticles3D" parent="."]
+[node name="GroundImpact" type="GPUParticles3D" parent="." unique_id=469017613]
 visible = false
 amount = 1
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_ur7pv")
 draw_pass_1 = SubResource("TorusMesh_d2wvv")
 
-[node name="Pivot" type="Node3D" parent="."]
+[node name="Pivot" type="Node3D" parent="." unique_id=1808929000]
 editor_description = "Change the position of this node for shake and fx, not the camera itself"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Pivot"]
+[node name="Camera3D" type="Camera3D" parent="Pivot" unique_id=205543484]
 unique_name_in_owner = true
 process_mode = 1
 current = true
@@ -655,33 +627,33 @@ dash_pitch_amount = 3.0
 dash_pitch_lerp_speed = 25.0
 camera_fov_lerp_speed = 10.0
 
-[node name="LongPointGetter" type="RayCast3D" parent="Pivot/Camera3D"]
+[node name="LongPointGetter" type="RayCast3D" parent="Pivot/Camera3D" unique_id=1734058044]
 editor_description = "see getFacingPoint()"
 visible = false
 target_position = Vector3(0, 0, -5000)
 collision_mask = 4
 
-[node name="GrappleDirectionGetter" type="RayCast3D" parent="Pivot/Camera3D"]
+[node name="GrappleDirectionGetter" type="RayCast3D" parent="Pivot/Camera3D" unique_id=740198212]
 visible = false
 target_position = Vector3(0, 0, -1)
 
-[node name="ArmPivotBLL" type="Node3D" parent="Pivot/Camera3D"]
+[node name="ArmPivotBLL" type="Node3D" parent="Pivot/Camera3D" unique_id=1238476180]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 visible = false
 
-[node name="ArmR" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotBLL"]
+[node name="ArmR" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotBLL" unique_id=76679666]
 transform = Transform3D(0.921616, 0.376129, 0.0956483, 0.148142, -0.113148, -0.982472, -0.358713, 0.919632, -0.16, 0.546436, 1.34883, -0.0393332)
 mesh = SubResource("CapsuleMesh_y4r1p")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
-[node name="ArmL" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotBLL"]
+[node name="ArmL" type="MeshInstance3D" parent="Pivot/Camera3D/ArmPivotBLL" unique_id=1202063372]
 transform = Transform3D(0.764391, -0.63847, 0.0897785, -0.331688, -0.50881, -0.794415, 0.552891, 0.577464, -0.600704, 0.0818599, 1.21195, -0.397836)
 mesh = SubResource("CapsuleMesh_d2wvv")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_b2mh8")
 
-[node name="GrappleArm" type="Node3D" parent="Pivot/Camera3D" groups=["arms"]]
+[node name="GrappleArm" type="Node3D" parent="Pivot/Camera3D" unique_id=2054732146 groups=["arms"]]
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, -0.154, -0.5, 0.0226591)
 script = ExtResource("9_l71n6")
 logging_debug = true
@@ -689,16 +661,16 @@ grapple_speed = 19.5
 force_applied_on_grapple = Vector3(0, 5, 0)
 force_applied_on_ungrapple = Vector3(0, 5, 0)
 
-[node name="grappleArm" type="Node3D" parent="Pivot/Camera3D/GrappleArm"]
+[node name="grappleArm" type="Node3D" parent="Pivot/Camera3D/GrappleArm" unique_id=1790976893]
 
-[node name="whiplash_ARM" type="Node3D" parent="Pivot/Camera3D/GrappleArm/grappleArm"]
+[node name="whiplash_ARM" type="Node3D" parent="Pivot/Camera3D/GrappleArm/grappleArm" unique_id=2025084233]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM"]
+[node name="Skeleton3D" type="Skeleton3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM" unique_id=1064291121]
 bones/0/name = "bip_collar_L"
 bones/0/parent = -1
 bones/0/rest = Transform3D(0.0351161, 0.999381, 0.00215055, 0.000219792, -0.0021596, 0.999998, 0.999383, -0.0351155, -0.000295493, -0.645405, 2.76579, -0.520804)
 bones/0/enabled = true
-bones/0/position = Vector3(-0.345549, 2.76579, -0.40007)
+bones/0/position = Vector3(-0.645405, 2.76579, -0.520804)
 bones/0/rotation = Quaternion(-0.5093059, -0.4906679, -0.4916169, 0.50809985)
 bones/0/scale = Vector3(0.9999997, 1, 1.0000004)
 bones/1/name = "bip_upperarm_L"
@@ -829,18 +801,18 @@ bones/18/position = Vector3(-3.241e-07, 0.161602, -5.88596e-07)
 bones/18/rotation = Quaternion(-0.0077779074, -0.023011195, 0.10496997, 0.9941787)
 bones/18/scale = Vector3(1.0000004, 1.0000004, 1)
 
-[node name="whiplash_smd" type="MeshInstance3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
+[node name="whiplash_smd" type="MeshInstance3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" unique_id=1040888607]
 mesh = SubResource("ArrayMesh_cpoai")
 skin = SubResource("Skin_e7q3g")
 
-[node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D"]
-transform = Transform3D(0.98527426, 0.091284975, 0.14456815, 0.1445683, -0.8962309, -0.41936687, 0.09128457, 0.434092, -0.89623034, 0.29647398, 0.18137646, -0.027123272)
+[node name="rope_origin" type="BoneAttachment3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D" unique_id=824164708]
+transform = Transform3D(0.98527426, 0.091284975, 0.14456815, 0.1445683, -0.8962309, -0.41936687, 0.09128457, 0.434092, -0.89623034, -0.0033820868, 0.18137646, -0.14785723)
 bone_name = "bip_hand_L"
 bone_idx = 3
 use_external_skeleton = true
 external_skeleton = NodePath("..")
 
-[node name="GrappleHook" type="RigidBody3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin"]
+[node name="GrappleHook" type="RigidBody3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin" unique_id=1306695037]
 unique_name_in_owner = true
 transform = Transform3D(0.9865021, 0.055529784, 0.15404563, 0.15326251, 0.018121233, -0.98801935, -0.057656005, 0.9982926, 0.009365999, -0.0688093, 0.252083, 0.0429795)
 collision_layer = 512
@@ -852,53 +824,49 @@ continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
 
-[node name="hook_smd" type="MeshInstance3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook"]
+[node name="hook_smd" type="MeshInstance3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook" unique_id=1083451085]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_a04ym")
 
-[node name="grapple hook smaller collider" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook"]
+[node name="grapple hook smaller collider" type="CollisionShape3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook" unique_id=639939664]
 editor_description = "This is the collision shape for the grapple hook's collider. It is super long because the engine physics are terrible and this is the only workaround other than increasing physics FPS (reducing performance)."
 transform = Transform3D(1.0000099, -1.3411045e-07, -1.5646219e-07, -1.9967556e-06, 1.00001, 1.5497208e-06, 5.8859587e-07, -1.6093254e-06, 1.0000101, 0.00508976, 0.009017944, -0.14773035)
 shape = SubResource("BoxShape3D_ur7pv")
 
-[node name="GrappleHookSweepingCast" type="ShapeCast3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook"]
+[node name="GrappleHookSweepingCast" type="ShapeCast3D" parent="Pivot/Camera3D/GrappleArm/grappleArm/whiplash_ARM/Skeleton3D/rope_origin/GrappleHook" unique_id=569423828]
 transform = Transform3D(-0.16091408, -0.03303235, -0.01035968, 0.0048452653, -0.070260085, 0.14876775, -0.03427803, 0.145135, 0.06966088, -0.14709465, 0.97420347, 0.036358558)
 top_level = true
 shape = SubResource("BoxShape3D_ur7pv")
 target_position = Vector3(0, 0, -1)
 collision_mask = 4
 
-[node name="grapple_arm_animator" type="AnimationPlayer" parent="Pivot/Camera3D/GrappleArm/grappleArm"]
-libraries = {
-&"": ExtResource("4_ur7pv")
-}
+[node name="grapple_arm_animator" type="AnimationPlayer" parent="Pivot/Camera3D/GrappleArm/grappleArm" unique_id=1707007564]
+libraries/ = ExtResource("4_ur7pv")
 
-[node name="ParryArm" type="Node3D" parent="Pivot/Camera3D" groups=["arms"]]
+[node name="ParryArm" type="Node3D" parent="Pivot/Camera3D" unique_id=1830950234 groups=["arms"]]
 
-[node name="ParryHitbox" type="Area3D" parent="Pivot/Camera3D/ParryArm"]
+[node name="ParryHitbox" type="Area3D" parent="Pivot/Camera3D/ParryArm" unique_id=591494844]
 collision_mask = 14
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/ParryArm/ParryHitbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Camera3D/ParryArm/ParryHitbox" unique_id=682064532]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022134, -0.272965, -1.53758)
 shape = SubResource("BoxShape3D_qfm1y")
 debug_color = Color(1, 1, 0, 0)
 
-[node name="parry arm" parent="Pivot/Camera3D/ParryArm" instance=ExtResource("12_qfm1y")]
+[node name="parry arm" parent="Pivot/Camera3D/ParryArm" unique_id=2145270861 instance=ExtResource("12_qfm1y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115876, -0.0787442, 0.106673)
 
 [node name="AnimationPlayer" parent="Pivot/Camera3D/ParryArm/parry arm" index="1"]
 callback_mode_method = 1
-libraries = {
-&"": SubResource("AnimationLibrary_a38lo")
-}
+libraries/ = SubResource("AnimationLibrary_a38lo")
 
-[node name="ParryFlash" type="MeshInstance3D" parent="Pivot/Camera3D/ParryArm" groups=["parry visuals"]]
+[node name="ParryFlash" type="MeshInstance3D" parent="Pivot/Camera3D/ParryArm" unique_id=1985191196 groups=["parry visuals"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.190507, -0.297261)
 visible = false
 mesh = SubResource("QuadMesh_60mlk")
 skeleton = NodePath("../../../..")
 
-[node name="ParryFlashColorRect" type="ColorRect" parent="Pivot/Camera3D/ParryArm" groups=["parry visuals"]]
+[node name="ParryFlashColorRect" type="ColorRect" parent="Pivot/Camera3D/ParryArm" unique_id=19841231 groups=["parry visuals"]]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -907,22 +875,22 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.317647)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Pivot/Camera3D/ParryArm" groups=["parry visuals"]]
+[node name="OmniLight3D" type="OmniLight3D" parent="Pivot/Camera3D/ParryArm" unique_id=2099756989 groups=["parry visuals"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.354004, -0.432234)
 visible = false
 light_energy = 16.0
 omni_range = 1.53652
 omni_attenuation = 2.0
 
-[node name="Guns" type="Node3D" parent="Pivot/Camera3D"]
+[node name="Guns" type="Node3D" parent="Pivot/Camera3D" unique_id=907679530]
 unique_name_in_owner = true
 
-[node name="Melee" parent="Pivot/Camera3D/Guns" instance=ExtResource("19_a38lo")]
+[node name="Melee" parent="Pivot/Camera3D/Guns" unique_id=890088007 instance=ExtResource("19_a38lo")]
 visible = false
 
-[node name="Pistol" parent="Pivot/Camera3D/Guns" instance=ExtResource("4_dqkch")]
+[node name="Pistol" parent="Pivot/Camera3D/Guns" unique_id=610448644 instance=ExtResource("4_dqkch")]
 visible = false
-bullet_config = SubResource("Resource_gl8cc")
+bullet_config = SubResource("Resource_j2b1d")
 
 [node name="pistolRayCast" parent="Pivot/Camera3D/Guns/Pistol" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -931,31 +899,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 transform = Transform3D(0.999701, 0, -0.0244322, 0, 1, 0, 0.0244322, 0, 0.999701, -0.009, 0.004, 0.06)
 
 [node name="muzzle charge particles" parent="Pivot/Camera3D/Guns/Pistol/player pistol/barrel very end upper" index="1"]
-draw_pass_1 = SubResource("QuadMesh_ujl30")
+draw_pass_1 = SubResource("QuadMesh_2dvfe")
 
-[node name="back small part" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="17"]
-surface_material_override/1 = SubResource("ShaderMaterial_dt7fs")
+[node name="muzzle charge animator 3" parent="Pivot/Camera3D/Guns/Pistol/player pistol/barrel very end upper" index="10"]
+autoplay = &"face quad actions on charge"
 
-[node name="back" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="18"]
-surface_material_override/2 = SubResource("ShaderMaterial_dt7fs")
+[node name="back small part" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="17" unique_id=1445863743]
+surface_material_override/1 = SubResource("ShaderMaterial_giy8y")
 
-[node name="back screen SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="20"]
-material_override = SubResource("ShaderMaterial_gl8cc")
+[node name="back" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="18" unique_id=78901147]
+surface_material_override/2 = SubResource("ShaderMaterial_giy8y")
 
-[node name="powercell SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="23"]
-material_override = SubResource("ShaderMaterial_dt7fs")
+[node name="back screen SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="20" unique_id=238923301]
+material_override = SubResource("ShaderMaterial_u2ulf")
 
-[node name="Dissipator" parent="Pivot/Camera3D/Guns" groups=["weapons"] instance=ExtResource("20_a38lo")]
+[node name="powercell SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="23" unique_id=1540433596]
+material_override = SubResource("ShaderMaterial_giy8y")
+
+[node name="Dissipator" parent="Pivot/Camera3D/Guns" unique_id=1639613409 groups=["weapons"] instance=ExtResource("20_a38lo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, -0.103, -0.462)
-bullet_config = SubResource("Resource_pf23h")
-reflection_bullet_config = SubResource("Resource_dt7fs")
+bullet_config = SubResource("Resource_6e8lb")
+reflection_bullet_config = SubResource("Resource_2gdjj")
 camera_shake_strength = 0.22
 firing_hitstop_duration = 0.1
 
-[node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0"]
-transform = Transform3D(-0.0467854, -0.99866134, 0.022041397, -0.00173266, -0.021984423, -0.9997552, 0.9989014, -0.046812296, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
+[node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0" unique_id=1616589678]
+transform = Transform3D(-0.0467854, -0.9986613, 0.022041397, -0.0017326599, -0.02198442, -0.9997552, 0.99890137, -0.046812292, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
 
-[node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D"]
+[node name="ImpactHammer" parent="Pivot/Camera3D/Guns" unique_id=1292819902 instance=ExtResource("28_wnwbv")]
+
+[node name="WindParticles" type="GPUParticles3D" parent="Pivot/Camera3D" unique_id=1484607521]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.284131)
 visible = false
 amount = 12
@@ -966,7 +939,7 @@ process_material = SubResource("ParticleProcessMaterial_tuyoq")
 draw_pass_1 = SubResource("RibbonTrailMesh_smehm")
 script = ExtResource("7_fjrip")
 
-[node name="WindParticlesRotated" type="GPUParticles3D" parent="Pivot/Camera3D"]
+[node name="WindParticlesRotated" type="GPUParticles3D" parent="Pivot/Camera3D" unique_id=1743451190]
 transform = Transform3D(1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0, 1, 0, 0, -0.284131)
 visible = false
 amount = 12
@@ -977,7 +950,7 @@ process_material = SubResource("ParticleProcessMaterial_d2wvv")
 draw_pass_1 = SubResource("RibbonTrailMesh_jej6c")
 script = ExtResource("7_fjrip")
 
-[node name="WindRings" type="GPUParticles3D" parent="Pivot/Camera3D"]
+[node name="WindRings" type="GPUParticles3D" parent="Pivot/Camera3D" unique_id=1287340600]
 transform = Transform3D(0.356363, 0, 0, 0, -1.55771e-08, -0.356363, 0, 0.356363, -1.55771e-08, 0, 0, -0.464598)
 emitting = false
 amount = 1
@@ -987,48 +960,48 @@ local_coords = true
 process_material = SubResource("ParticleProcessMaterial_y4r1p")
 draw_pass_1 = SubResource("TorusMesh_3v2ag")
 
-[node name="distantMarker" type="Marker3D" parent="Pivot/Camera3D"]
+[node name="distantMarker" type="Marker3D" parent="Pivot/Camera3D" unique_id=2012387466]
 transform = Transform3D(0.0880493, 0, 0, 0, 0.0880492, 0, 0, 0, 0.0880492, 0, 0, -5000)
 
-[node name="parryFlashGoBackMarker" type="Marker3D" parent="Pivot/Camera3D"]
+[node name="parryFlashGoBackMarker" type="Marker3D" parent="Pivot/Camera3D" unique_id=1994041038]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.190507, -0.297261)
 
-[node name="PunchRaycast" type="RayCast3D" parent="Pivot/Camera3D"]
+[node name="PunchRaycast" type="RayCast3D" parent="Pivot/Camera3D" unique_id=1087690296]
 editor_description = "DOES NOT function as the hitbox for punching. Gets the point that it collides with and saves it as the point that the parried projectile will fly towards."
 visible = false
 target_position = Vector3(0, 0, -5000)
 collision_mask = 6
 
-[node name="SlideParticles" parent="." instance=ExtResource("8_smehm")]
+[node name="SlideParticles" parent="." unique_id=296594794 instance=ExtResource("8_smehm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4093326)
 
-[node name="CameraMarkerPositions" type="Node3D" parent="."]
+[node name="CameraMarkerPositions" type="Node3D" parent="." unique_id=1332413068]
 
-[node name="SlidingMarker" type="Marker3D" parent="CameraMarkerPositions"]
+[node name="SlidingMarker" type="Marker3D" parent="CameraMarkerPositions" unique_id=1697002140]
 editor_description = "Where the camera goes when sliding"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7159977, 0)
 
-[node name="HeadMarker" type="Marker3D" parent="CameraMarkerPositions"]
+[node name="HeadMarker" type="Marker3D" parent="CameraMarkerPositions" unique_id=723303574]
 editor_description = "Where the camera goes when not sliding"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 
-[node name="GrappleRopeLine" parent="." instance=ExtResource("31_wnwbv")]
+[node name="GrappleRopeLine" parent="." unique_id=1444115899 instance=ExtResource("31_wnwbv")]
 editor_description = "the rope attatched to the hook from the hand"
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, 0, 0, 0)
 top_level = true
-point_a = Vector3(1.2320981, 6.172652, -0.16478829)
-point_b = Vector3(1.1935269, 5.918755, -0.10016185)
+point_a = Vector3(0.93224204, 6.172652, -0.28552225)
+point_b = Vector3(0.8936708, 5.918755, -0.22089581)
 
-[node name="SlamTimer" type="Timer" parent="."]
+[node name="SlamTimer" type="Timer" parent="." unique_id=1429371993]
 process_callback = 0
 wait_time = 0.5
 one_shot = true
 ignore_time_scale = true
 
-[node name="DashLengthTimer" type="Timer" parent="."]
+[node name="DashLengthTimer" type="Timer" parent="." unique_id=1837688038]
 one_shot = true
 
-[node name="StaminaChargeDelayTimer" type="Timer" parent="."]
+[node name="StaminaChargeDelayTimer" type="Timer" parent="." unique_id=614011215]
 one_shot = true
 
 [connection signal="entered_arm_state" from="." to="huds/HUD" method="_on_player_entered_arm_state"]

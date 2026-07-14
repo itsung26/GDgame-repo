@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://byw0841i08sg7"]
+[gd_resource type="VisualShader" format=3 uid="uid://byw0841i08sg7"]
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_ts3ea"]
 default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
@@ -35,64 +35,6 @@ op_type = 0
 input_name = "time"
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
-
-uniform vec4 ColorParameter : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
-uniform vec2 scale = vec2(1.000000, 1.000000);
-uniform float panning;
-uniform sampler2D Texture2DParameter;
-
-
-
-void fragment() {
-// ColorParameter:7
-	vec4 n_out7p0 = ColorParameter;
-
-
-// Vector2Parameter:5
-	vec2 n_out5p0 = scale;
-
-
-// UVFunc:4
-	vec2 n_in4p2 = vec2(0.00000, 0.00000);
-	vec2 n_out4p0 = (UV - n_in4p2) * n_out5p0 + n_in4p2;
-
-
-// FloatParameter:11
-	float n_out11p0 = panning;
-
-
-// Input:9
-	float n_out9p0 = TIME;
-
-
-// VectorOp:10
-	vec2 n_out10p0 = vec2(n_out11p0) * vec2(n_out9p0);
-
-
-// VectorCompose:8
-	float n_in8p1 = 0.00000;
-	vec2 n_out8p0 = vec2(n_out10p0.x, n_in8p1);
-
-
-// UVFunc:6
-	vec2 n_in6p1 = vec2(1.00000, 1.00000);
-	vec2 n_out6p0 = n_out8p0 * n_in6p1 + n_out4p0;
-
-
-	vec4 n_out3p0;
-// Texture2D:3
-	n_out3p0 = texture(Texture2DParameter, n_out6p0);
-
-
-// Output:0
-	ALBEDO = vec3(n_out7p0.xyz);
-	ALPHA = n_out3p0.x;
-
-
-}
-"
 modes/cull = 2
 flags/unshaded = true
 preview_params/ColorParameter = "Color(0.321728, 0.321728, 0.321728, 1)"

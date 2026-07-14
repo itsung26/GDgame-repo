@@ -1,9 +1,11 @@
-class_name BlastHammer
+class_name ImpactHammer
 extends PlayerWeapon
+## One-handed boom hammer. The faster the player is traveling, the more damage it does.
+## Above a certain speed, impact will cause an explosion chain.
 
 
 func _onEquipImpl() -> void:
-	pass
+	Debug.log("impact hammer equipped")
 
 
 func _fireImpl() -> void:
@@ -20,3 +22,7 @@ func _specialReleaseImpl() -> void:
 
 func _reloadImpl() -> void:
 	pass
+
+
+func _process(delta: float) -> void:
+	pass # replace with main behavior

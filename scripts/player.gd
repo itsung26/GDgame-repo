@@ -812,6 +812,10 @@ func _continuous_input() -> void:
 			if weapon_states[2]:
 				set_weapon_state(weapon_states[2]) # slot 3
 		
+		if Input.is_action_just_pressed("slot4"):
+			if weapon_states[3]:
+				set_weapon_state(weapon_states[3])
+		
 		
 		# automatic fire block===================================================================================
 		if Input.is_action_pressed("fire") and player_fire_input_enabled and weapon_state.automatic and weapon_state.can_fire:
