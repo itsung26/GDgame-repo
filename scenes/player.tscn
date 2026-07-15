@@ -54,41 +54,41 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="Theme" id="Theme_gl8cc"]
+[sub_resource type="Theme" id="Theme_wnwbv"]
 resource_local_to_scene = true
 ProgressBar/styles/background = SubResource("StyleBoxFlat_0m4u7")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_apjy4")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_487ah"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gl8cc"]
 resource_local_to_scene = true
 bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_487ah"]
+resource_local_to_scene = true
+bg_color = Color(0, 0.737, 1, 1)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_md1ol"]
 resource_local_to_scene = true
-bg_color = Color(0, 0.737, 1, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_detail = 1
+bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bj30b"]
 resource_local_to_scene = true
-bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jc3p3"]
-resource_local_to_scene = true
 bg_color = Color(0, 0.737, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hax0n"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jc3p3"]
 resource_local_to_scene = true
 bg_color = Color(0.2784314, 0.2784314, 0.2784314, 1)
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t4otl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hax0n"]
 resource_local_to_scene = true
 bg_color = Color(0, 0.737, 1, 1)
 corner_radius_bottom_right = 6
@@ -332,7 +332,7 @@ billboard_mode = 1
 material = SubResource("StandardMaterial3D_4r5pv")
 size = Vector2(1.473, 1.528)
 
-[sub_resource type="Resource" id="Resource_j2b1d"]
+[sub_resource type="Resource" id="Resource_t4otl"]
 resource_local_to_scene = true
 script = ExtResource("23_wqfne")
 damage_min = 1.0
@@ -345,7 +345,7 @@ can_reflect = true
 max_reflections = 10
 reflection_damage_falloff = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cs1tg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2b1d"]
 resource_local_to_scene = true
 transparency = 1
 cull_mode = 2
@@ -353,9 +353,9 @@ shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(1, 1, 0.156863, 0.298039)
 
-[sub_resource type="QuadMesh" id="QuadMesh_2dvfe"]
+[sub_resource type="QuadMesh" id="QuadMesh_cs1tg"]
 resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_cs1tg")
+material = SubResource("StandardMaterial3D_j2b1d")
 size = Vector2(0.053, 0.154)
 
 [sub_resource type="Gradient" id="Gradient_lucca"]
@@ -365,7 +365,7 @@ colors = PackedColorArray(0.14902, 0.14902, 0.14902, 1, 1, 1, 1, 1, 0.589096, 0.
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_y3rj0"]
 gradient = SubResource("Gradient_lucca")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_giy8y"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2dvfe"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("22_31cv2")
@@ -375,48 +375,48 @@ shader_parameter/time_speed = 0.1
 shader_parameter/Texture2DParameter = SubResource("GradientTexture2D_y3rj0")
 shader_parameter/emission_intensity = 13.297
 
-[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_fdfoy"]
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_giy8y"]
 parameter_name = "screen_texture"
 
-[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_hhpqf"]
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_fdfoy"]
 source = 5
 
-[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_g5jhy"]
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_hhpqf"]
 operator = 2
 
-[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_holxr"]
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_g5jhy"]
 parameter_name = "emission"
 hint = 1
 max = 16.0
 
-[sub_resource type="VisualShader" id="VisualShader_mx1m4"]
+[sub_resource type="VisualShader" id="VisualShader_holxr"]
 resource_local_to_scene = true
 flags/unshaded = true
 preview_params/screen_texture = "Object(ViewportTexture,\"resource_local_to_scene\":true,\"resource_name\":\"\",\"viewport_path\":NodePath(\"SubViewport\"),\"script\":null)
 "
 preview_params/emission = "1.0"
 nodes/fragment/0/position = Vector2(600, 100)
-nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_fdfoy")
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_giy8y")
 nodes/fragment/2/position = Vector2(-320, 60)
-nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_hhpqf")
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_fdfoy")
 nodes/fragment/3/position = Vector2(40, 80)
-nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_g5jhy")
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_hhpqf")
 nodes/fragment/4/position = Vector2(383.88, 301.16)
-nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_holxr")
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_g5jhy")
 nodes/fragment/5/position = Vector2(-240, 480)
 nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 3, 0, 0, 0, 3, 0, 4, 0, 4, 0, 0, 5, 5, 0, 4, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_4gjji"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_mx1m4"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2ulf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4gjji"]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("VisualShader_mx1m4")
-shader_parameter/screen_texture = SubResource("ViewportTexture_4gjji")
+shader = SubResource("VisualShader_holxr")
+shader_parameter/screen_texture = SubResource("ViewportTexture_mx1m4")
 shader_parameter/emission = 0.0
 
-[sub_resource type="Resource" id="Resource_6e8lb"]
+[sub_resource type="Resource" id="Resource_u2ulf"]
 resource_local_to_scene = true
 script = ExtResource("23_wqfne")
 damage_min = 1.0
@@ -430,7 +430,7 @@ max_reflections = 15
 use_damage_falloff = false
 metadata/_custom_type_script = "uid://d06qyp8sfm13t"
 
-[sub_resource type="Resource" id="Resource_2gdjj"]
+[sub_resource type="Resource" id="Resource_6e8lb"]
 resource_local_to_scene = true
 script = ExtResource("23_wqfne")
 damage_min = 3.0
@@ -512,7 +512,7 @@ wall_jump_applied_velocity = 16.0
 death_camera_spin_magnitude = 2.0
 death_time_slow_speed = 2.5
 initial_weapon = NodePath("Pivot/Camera3D/Guns/Melee")
-weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath("Pivot/Camera3D/Guns/ImpactHammer"), NodePath("Pivot/Camera3D/Guns/Melee")]
+weapon_states = [NodePath("Pivot/Camera3D/Guns/Dissipator"), NodePath("Pivot/Camera3D/Guns/Pistol"), NodePath(""), NodePath("Pivot/Camera3D/Guns/Melee")]
 
 [node name="HideShowOnReady" type="Node" parent="." unique_id=1891443010 node_paths=PackedStringArray("nodes_to_hide_on_ready")]
 script = ExtResource("2_a38lo")
@@ -550,19 +550,19 @@ points = PackedVector2Array(0, -8.03, 0, -16.715)
 points = PackedVector2Array(0, 8.03, 0, 16.715)
 
 [node name="HealthBar" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel" index="0"]
-theme = SubResource("Theme_gl8cc")
+theme = SubResource("Theme_wnwbv")
 
 [node name="StaminaBar1" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="0"]
-theme_override_styles/background = SubResource("StyleBoxFlat_487ah")
-theme_override_styles/fill = SubResource("StyleBoxFlat_md1ol")
+theme_override_styles/background = SubResource("StyleBoxFlat_gl8cc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_487ah")
 
 [node name="StaminaBar2" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="1"]
-theme_override_styles/background = SubResource("StyleBoxFlat_bj30b")
-theme_override_styles/fill = SubResource("StyleBoxFlat_jc3p3")
+theme_override_styles/background = SubResource("StyleBoxFlat_md1ol")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bj30b")
 
 [node name="StaminaBar3" parent="huds/HUD/BottomLeftArea/AmmoPanel/SubViewport/BGpanel/StaminaBar" index="2"]
-theme_override_styles/background = SubResource("StyleBoxFlat_hax0n")
-theme_override_styles/fill = SubResource("StyleBoxFlat_t4otl")
+theme_override_styles/background = SubResource("StyleBoxFlat_jc3p3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hax0n")
 
 [node name="PauseMenu" parent="huds" unique_id=1127215938 instance=ExtResource("11_3v2ag")]
 unique_name_in_owner = true
@@ -890,7 +890,7 @@ visible = false
 
 [node name="Pistol" parent="Pivot/Camera3D/Guns" unique_id=610448644 instance=ExtResource("4_dqkch")]
 visible = false
-bullet_config = SubResource("Resource_j2b1d")
+bullet_config = SubResource("Resource_t4otl")
 
 [node name="pistolRayCast" parent="Pivot/Camera3D/Guns/Pistol" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -899,32 +899,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 transform = Transform3D(0.999701, 0, -0.0244322, 0, 1, 0, 0.0244322, 0, 0.999701, -0.009, 0.004, 0.06)
 
 [node name="muzzle charge particles" parent="Pivot/Camera3D/Guns/Pistol/player pistol/barrel very end upper" index="1"]
-draw_pass_1 = SubResource("QuadMesh_2dvfe")
+draw_pass_1 = SubResource("QuadMesh_cs1tg")
 
 [node name="muzzle charge animator 3" parent="Pivot/Camera3D/Guns/Pistol/player pistol/barrel very end upper" index="10"]
 autoplay = &"face quad actions on charge"
 
-[node name="back small part" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="17" unique_id=1445863743]
-surface_material_override/1 = SubResource("ShaderMaterial_giy8y")
+[node name="back small part" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="17" unique_id=1569273156]
+surface_material_override/1 = SubResource("ShaderMaterial_2dvfe")
 
-[node name="back" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="18" unique_id=78901147]
-surface_material_override/2 = SubResource("ShaderMaterial_giy8y")
+[node name="back" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="18" unique_id=618789899]
+surface_material_override/2 = SubResource("ShaderMaterial_2dvfe")
 
-[node name="back screen SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="20" unique_id=238923301]
-material_override = SubResource("ShaderMaterial_u2ulf")
+[node name="back screen SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="20" unique_id=2052632653]
+material_override = SubResource("ShaderMaterial_4gjji")
 
-[node name="powercell SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="23" unique_id=1540433596]
-material_override = SubResource("ShaderMaterial_giy8y")
+[node name="powercell SHADER" parent="Pivot/Camera3D/Guns/Pistol/player pistol" index="23" unique_id=1972737587]
+material_override = SubResource("ShaderMaterial_2dvfe")
 
 [node name="Dissipator" parent="Pivot/Camera3D/Guns" unique_id=1639613409 groups=["weapons"] instance=ExtResource("20_a38lo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, -0.103, -0.462)
-bullet_config = SubResource("Resource_6e8lb")
-reflection_bullet_config = SubResource("Resource_2gdjj")
+visible = false
+bullet_config = SubResource("Resource_u2ulf")
+reflection_bullet_config = SubResource("Resource_6e8lb")
 camera_shake_strength = 0.22
 firing_hitstop_duration = 0.1
 
-[node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0" unique_id=1616589678]
-transform = Transform3D(-0.0467854, -0.9986613, 0.022041397, -0.0017326599, -0.02198442, -0.9997552, 0.99890137, -0.046812292, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
+[node name="Dissipator" parent="Pivot/Camera3D/Guns/Dissipator/Dissipator2/feedbacker/Skeleton3D/Hand" index="0" unique_id=869345101]
+transform = Transform3D(-0.046785396, -0.9986612, 0.022041397, -0.0017326598, -0.021984419, -0.9997552, 0.9989013, -0.04681229, -0.00070179097, -0.06657806, 0.15875001, -0.036490835)
 
 [node name="ImpactHammer" parent="Pivot/Camera3D/Guns" unique_id=1292819902 instance=ExtResource("28_wnwbv")]
 
@@ -989,8 +990,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48614, 0)
 editor_description = "the rope attatched to the hook from the hand"
 transform = Transform3D(-0.164596, 0, 1.43895e-08, 0, 0.164596, 0, -1.43895e-08, 0, -0.164596, 0, 0, 0)
 top_level = true
-point_a = Vector3(0.93224204, 6.172652, -0.28552225)
-point_b = Vector3(0.8936708, 5.918755, -0.22089581)
+point_a = Vector3(0.9322389, 6.172651, -0.2855211)
+point_b = Vector3(0.8936673, 5.9187546, -0.22089459)
 
 [node name="SlamTimer" type="Timer" parent="." unique_id=1429371993]
 process_callback = 0
