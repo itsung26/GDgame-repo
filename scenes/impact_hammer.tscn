@@ -2,10 +2,21 @@
 
 [ext_resource type="Script" uid="uid://37816elj2vrh" path="res://scripts/impact_hammer.gd" id="1_k1sns"]
 [ext_resource type="PackedScene" uid="uid://cmhug6yc1sfho" path="res://assets/meshes/player weapons/impact hammer/impact_hammer.blend" id="2_b7vse"]
+[ext_resource type="Shader" uid="uid://dxq2sywebsx8t" path="res://shaders/visual shaders/impact_hammer_frosted_glass.tres" id="3_bo4f4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cjvqi"]
+render_priority = 0
+shader = ExtResource("3_bo4f4")
+shader_parameter/color = Color(0.05899822, 0.48492807, 0.5810388, 1)
+shader_parameter/edge0 = 0.001
+shader_parameter/edge1 = 0.017
 
 [node name="ImpactHammer" type="Node3D" unique_id=1292819902]
 script = ExtResource("1_k1sns")
 
 [node name="impact_hammer" parent="." unique_id=537098302 instance=ExtResource("2_b7vse")]
+
+[node name="Speedometer_glass" parent="impact_hammer/Speedometer" parent_id_path=PackedInt32Array(537098302, 151719842) index="0" unique_id=1884817273]
+material_override = SubResource("ShaderMaterial_cjvqi")
 
 [editable path="impact_hammer"]
